@@ -1,0 +1,52 @@
+body .tz-Breadcrumb .tzOverlayBreadcrumb {
+	padding-top: 105px
+}
+body .tz-Breadcrumb .tzOverlayBreadcrumb {
+	padding-bottom: 120px
+}
+body .tz-Breadcrumb {
+	background-image: url("../images/breadcrumb.jpg")
+}
+body .tz-partner {
+	padding-top: 60px
+}
+body .tz-partner {
+	padding-top: 60px
+}
+body .tz-partner {
+	background-image: url("../images/partner-bk.jpg")
+}
+body .tz-footer {
+	background-image: url("../images/bk-footer.jpg")
+}
+body .tz-error {
+	background-image: url("../images/404-bk_2.jpg")
+}
+.tz-footer .widget.widget_newsletterwidget .tnp-widget form label {
+	display: none;
+}
+.tz-footer .widget.widget_newsletterwidget .tnp-widget form .newsletter-submit, .tz-footer .widget.widget_newsletterwidget .tnp-widget form .tnp-submit {
+	background: transparent;
+	height: 40px;
+	padding: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 50px;
+	text-indent: -9999px;
+	z-index: 111;
+	border: none;
+}
+.vc_custom_1465615755275 {
+	padding-top: 60px !important;
+	padding-bottom: 90px !important;
+}
+.vc_custom_1467714198081 {
+	padding-right: 45px !important;
+}
+.vc_custom_1463383763338 {
+	margin-bottom: 20px !important;
+}
+.wpb_animate_when_almost_visible {
+	opacity: 1;
+}

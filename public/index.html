@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head><meta http-equiv="Content-Type" content="text/html; charset=euc-jp">
+
+    <script type="text/javascript" src="assets 21/tiny/plugin/tinymce/tinymce.min.js"></script>
+<script type="text/javascript" src="assets 21/tiny/plugin/tinymce/init-tinymce.js"></script>
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="" />
+<title>Assets Watch</title>
+<link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link rel='stylesheet' href='/css/main.css' type='text/css' media='all' />
+<link rel='stylesheet' href='/css/fonts.css' media='all' />
+<link rel='stylesheet' href='/css/comp-main.css' type='text/css' media='all' />
+<link rel='stylesheet' href='/custom-main.css' type='text/css' media='all' />
+<link rel='stylesheet' href='/css/custom-style.css' type='text/css' media='all' /> 
+<link href="/assets/css/icons.css" rel="stylesheet" type="text/css" />
+<link href="/assets/css/style.css" rel="stylesheet" type="text/css" />
+<link href="/assets/css/custom-style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link href="assets 21/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="assets 21/css/style.css" rel="stylesheet" type="text/css" />
+<script src="assets 21/js/jquery.min.js"></script> 
+<script src="assets 21/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script> 
+	<script>
+	jQuery('.datepicker-autoclose').datepicker({
+        autoclose: true,
+        todayHighlight: true
+    });
+	</script>
+</head>
+  <body class="home page-template page-template-template-vc page-template-template-vc-php page vc_responsive">
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="root" class="tz-real-estate"></div>
+    <script type='text/javascript' src='/js/jquery.js'></script>
+    <script type='text/javascript' src='/assets/js/bootstrap.min.js'></script>
+    <script type='text/javascript' src='/src/js/jquery/jquery-migrate.min.js'></script>
+    <script type='text/javascript' src='/js/main.min.js'></script>
+    <script type='text/javascript' src='/js/custom.js'></script>
+    <!-- commented to work datepicker -->
+    <script type='text/javascript' src="assets 21/jqnew.js"></script>
+    <script type='text/javascript' src='/js/validate.js'></script>
+    <script type='text/javascript' src='/js/cubeportfolio.min.js'></script>
+   
+    
+    <!-- <script src="assets/js/jquery.min.js"></script> 
+    <script src="assets/js/tether.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script> 
+    <script src="assets/js/waves.js"></script> 
+    <script src="assets/js/jquery.slimscroll.js"></script> 
+    <script src="assets/js/jquery.scrollTo.min.js"></script> 
+
+    <! Counter js  --> 
+    <!-- <script src="../plugins/waypoints/jquery.waypoints.min.js"></script> 
+    <script src="../plugins/counterup/jquery.counterup.min.js"></script>  -->
+
+    <!-- App js --> 
+    <!-- <script src="assets/js/jquery.core.js"></script> 
+    <script src="assets/js/jquery.app.js"></script>  -->
+
+    <script type="text/javascript">
+      //for header
+    //   jQuery(document).ready(function() {
+    //       var pro_grid_w_win = jQuery(window).width();
+    //       var gapHorizontal, gapVertical;
+    //       if (pro_grid_w_win > 768) {
+    //           gapHorizontal = 0;
+    //           gapVertical = 28;
+    //       } else {
+    //           gapHorizontal = 0;
+    //           gapVertical = 20;
+    //       }
+    //       jQuery('#tz-pro-slider-5ac1cdf22e330').cubeportfolio({
+    //           layoutMode: 'slider',
+    //           drag: true,
+    //           auto: true,
+    //           autoTimeout: 5000,
+    //           autoPauseOnHover: true,
+    //           showNavigation: true,
+    //           showPagination: false,
+    //           rewindNav: false,
+    //           scrollByPage: false,
+    //           gridAdjustment: 'responsive',
+    //           mediaQueries: [{
+    //               width: 1200,
+    //               cols: 4
+    //           }, {
+    //               width: 992,
+    //               cols: 4
+    //           }, {
+    //               width: 768,
+    //               cols: 3
+    //           }, {
+    //               width: 460,
+    //               cols: 2
+    //           }, {
+    //               width: 0,
+    //               cols: 1
+    //           }],
+    //           caption: 'overlayBottomPush',
+    //           gapHorizontal: gapHorizontal,
+    //           gapVertical: gapVertical,
+    //           displayType: 'fadeIn',
+    //           displayTypeSpeed: 100,
+
+    //           // lightbox
+    //           lightboxDelegate: '.cbp-lightbox',
+    //           lightboxGallery: true,
+    //           lightboxTitleSrc: 'data-title',
+    //           lightboxCounter: '<div class="cbp-popup-lightbox-counter">{{current}} of {{total}}</div>',
+
+    //           // singlePage popup
+    //           singlePageDelegate: '.cbp-singlePage',
+    //           singlePageDeeplinking: true,
+    //           singlePageStickyNavigation: true,
+    //           singlePageCounter: '<div class="cbp-popup-singlePage-counter">{{current}} of {{total}}</div>',
+    //           singlePageAnimation: 'fade',
+    //           singlePageCallback: function(url, element) {
+    //               // to update singlePage content use the following method: this.updateSinglePage(yourContent)
+    //               var indexElement = $(element).parents('.cbp-item').index(),
+    //                   item = singlePage.eq(indexElement);
+
+    //               this.updateSinglePage(item.html());
+    //           }
+    //       });
+    //       tz_realestate_ResizeImage(jQuery('#tz-pro-slider-5ac1cdf22e330 .tz-caption'));
+    //   });
+
+    //   jQuery(document).ready(function() {
+    //       var pro_grid_w_win = jQuery(window).width();
+    //       var gapHorizontal, gapVertical;
+    //       if (pro_grid_w_win > 768) {
+    //           gapHorizontal = 0;
+    //           gapVertical = 28;
+    //       } else {
+    //           gapHorizontal = 0;
+    //           gapVertical = 20;
+    //       }
+    //       jQuery('#tz-pro-slider-5ac1cdf22e331').cubeportfolio({
+    //           layoutMode: 'slider',
+    //           drag: true,
+    //           auto: true,
+    //           autoTimeout: 5000,
+    //           autoPauseOnHover: true,
+    //           showNavigation: true,
+    //           showPagination: false,
+    //           rewindNav: false,
+    //           scrollByPage: false,
+    //           gridAdjustment: 'responsive',
+    //           mediaQueries: [{
+    //               width: 1200,
+    //               cols: 4
+    //           }, {
+    //               width: 992,
+    //               cols: 4
+    //           }, {
+    //               width: 768,
+    //               cols: 3
+    //           }, {
+    //               width: 460,
+    //               cols: 2
+    //           }, {
+    //               width: 0,
+    //               cols: 1
+    //           }],
+    //           caption: 'overlayBottomPush',
+    //           gapHorizontal: gapHorizontal,
+    //           gapVertical: gapVertical,
+    //           displayType: 'fadeIn',
+    //           displayTypeSpeed: 100,
+
+    //           // lightbox
+    //           lightboxDelegate: '.cbp-lightbox',
+    //           lightboxGallery: true,
+    //           lightboxTitleSrc: 'data-title',
+    //           lightboxCounter: '<div class="cbp-popup-lightbox-counter">{{current}} of {{total}}</div>',
+
+    //           // singlePage popup
+    //           singlePageDelegate: '.cbp-singlePage',
+    //           singlePageDeeplinking: true,
+    //           singlePageStickyNavigation: true,
+    //           singlePageCounter: '<div class="cbp-popup-singlePage-counter">{{current}} of {{total}}</div>',
+    //           singlePageAnimation: 'fade',
+    //           singlePageCallback: function(url, element) {
+    //               // to update singlePage content use the following method: this.updateSinglePage(yourContent)
+    //               var indexElement = $(element).parents('.cbp-item').index(),
+    //                   item = singlePage.eq(indexElement);
+
+    //               this.updateSinglePage(item.html());
+    //           }
+    //       });
+    //       tz_realestate_ResizeImage(jQuery('#tz-pro-slider-5ac1cdf22e331 .tz-caption'));
+    //   });
+
+      //Home
+       jQuery(document).ready(function() {
+        // var slider_images = jQuery(".tz-slider-images"),
+        //     h_window = jQuery(window).height();
+        // slider_images.slick({
+        //     autoplay: true,
+        //     autoplaySpeed: 5000,
+        //     arrows: false,
+        //     dots: false,
+        //     infinite: true,
+        //     pauseOnHover: false,
+        //     speed: 1000,
+        //     fade: true,
+        //     cssEase: 'linear',
+        //     mobileFirst: true,
+        //     adaptiveHeight: false
+        // });
+        // tz_realestate_ResizeImage(jQuery(".tz-slider-item"));
+
+    });
+  jQuery(window).on('load resize', function() {
+      // var w_window = jQuery(window).outerWidth();
+      // var w_pro_container = jQuery('.tz-form-search').outerWidth();
+      // if (w_window > 1439) {
+      //     jQuery('.tz-search-right,.tz-search-left').css('width', (w_window - w_pro_container) / 2);
+      // }
+  });
+
+  //footer
+  document.onreadystatechange=function(){
+    if(document.readyState=="complete")
+    {
+      document.getElementById('footerForm').setAttribute('onsubmit','return newsletter_check(this)');
+    }
+  }
+
+  //aboutus
+   jQuery(document).ready(function(){
+                jQuery('.agent-slider').cubeportfolio({
+                    layoutMode: 'slider',
+                    drag: true,
+                    auto: true,
+                    autoTimeout: 3000,
+                    autoPauseOnHover: true,
+                    showNavigation: true,
+                    showPagination: false,
+                    rewindNav: false,
+                    scrollByPage: false,
+                    gridAdjustment: 'responsive',
+                    mediaQueries: [{
+                        width: 1200,
+                        cols: 5
+                    }, {
+                        width: 992,
+                        cols: 3
+                    }, {
+                        width: 768,
+                        cols: 3
+                    }, {
+                        width: 460,
+                        cols: 2
+                    }, {
+                        width: 0,
+                        cols: 1
+                    }],
+                    gapHorizontal: 0,
+                    gapVertical: 30,
+                    displayType: 'fadeIn',
+                    displayTypeSpeed: 100
+
+                });
+                jQuery('.tz-life-content-5ac27a2c04a2d').cubeportfolio({
+            layoutMode: 'slider',
+            drag: true,
+            auto: true,
+            autoTimeout: 5000,
+            autoPauseOnHover: true,
+            showNavigation: false,
+            showPagination: true,
+            rewindNav: false,
+            scrollByPage: false,
+            gridAdjustment: 'responsive',
+            mediaQueries: [{
+                width: 1200,
+                cols: 2            }, {
+                width: 992,
+                cols: 2            }, {
+                width: 768,
+                cols: 2            }, {
+                width: 320,
+                cols: 1            }],
+            caption: 'fadeIn',
+            gapHorizontal: 0,
+            gapVertical: 28,
+            displayType: 'fadeIn',
+            displayTypeSpeed: 100,
+
+            // lightbox
+            lightboxDelegate: '.cbp-lightbox',
+            lightboxGallery: true,
+            lightboxTitleSrc: 'data-title',
+            lightboxCounter: '<div className="cbp-popup-lightbox-counter">{{current}} of {{total}}</div>',
+
+            // singlePage popup
+            singlePageDelegate: '.cbp-singlePage',
+            singlePageDeeplinking: true,
+            singlePageStickyNavigation: true,
+            singlePageCounter: '<div className="cbp-popup-singlePage-counter">{{current}} of {{total}}</div>',
+            singlePageAnimation: 'fade',
+            singlePageCallback: function(url, element) {
+                // to update singlePage content use the following method: this.updateSinglePage(yourContent)
+                var indexElement = $(element).parents('.cbp-item').index(),
+                    item = singlePage.eq(indexElement);
+
+                this.updateSinglePage(item.html());
+            }
+        });
+            });
+
+    // jQuery(window).ready(function(){
+    //         /* Method for Partner slider */
+    //         if(jQuery(window).width() > 521){
+    //             var owl = jQuery("#tz-partner-5ac27a2c058ed");
+    //             owl.realestate_owlCarousel({
+    //                 autoplay:true,
+    //                 autoplayTimeout:3000,
+    //                 autoplayHoverPause:true,
+    //                 loop: true,
+    //                 responsiveClass:true,
+    //                 responsive:{
+    //                     0:{
+    //                         items:1
+    //                     },
+    //                     479:{
+    //                         items:2
+    //                     },
+    //                     768:{
+    //                         items:3
+    //                     },
+    //                     979:{
+    //                         items:3
+    //                     },
+    //                     1199:{
+    //                         items:5                        }
+    //                 }
+    //             });
+    //         }
+    //     });
+
+
+
+  //propertyDetails
+  jQuery(function () {
+  jQuery('#deal_client_email').on('keyup', function() {
+        var ajaxurl = 'http://wordpress.templaza.net/real-estate/wp-admin/admin-ajax.php';
+    var notify_url=  ajaxurl +'?&action=iv_property_paypal_notify_url&dir_id=654&client_email=';
+
+    var deal_email = jQuery('#deal_client_email').val();
+    notify_url = notify_url+deal_email;
+    jQuery('#notify_url').val(notify_url);
+    });
+
+});
+jQuery("#deal_paypa_form").submit(function(){
+    var isFormValid = true;
+  if ($.trim(jQuery('#deal_client_email').val()).length == 0){
+    jQuery('#deal_client_email').addClass("error");
+    isFormValid = false;
+  }
+  else{
+    var email_valid= isValidEmailAddress(jQuery('#deal_client_email').val());
+
+    if(email_valid==false){
+        isFormValid = false;
+    }else{
+        jQuery('#deal_client_email').removeClass("error");
+    }
+  }
+
+
+    if (!isFormValid){
+    jQuery('#deal_email_message').html('Please enter your email address');
+  }
+
+
+
+    return isFormValid;
+});
+function send_message_iv(){
+    var formc = jQuery("#message-pop");
+    if( jQuery("#myCheck").prop('checked') == false || jQuery.trim(jQuery("#message-content",formc).val()) == "" ){
+      if (jQuery.trim(jQuery("#message-content",formc).val()) == "" ) {
+        alert("Please put your message");
+      }else{
+        alert("Please select 'I'm not a robot'");
+      }
+    }else {
+      var ajaxurl = 'http://wordpress.templaza.net/real-estate/wp-admin/admin-ajax.php';
+      var loader_image = '<img src="http://wordpress.templaza.net/real-estate/wp-content/themes/real-estate/images/loading_blue_32x32.gif" />';
+        jQuery('#update_message_popup').html(loader_image);
+        var search_params={
+          "action"  :   "iv_property_message_send",
+          "form_data":  jQuery("#message-pop").serialize(),
+        };
+        jQuery.ajax({
+          url : ajaxurl,
+          dataType : "json",
+          type : "post",
+          data : search_params,
+          success : function(response){
+            jQuery('#update_message_popup').html(response.msg );
+            jQuery("#message-pop").trigger('reset');
+          }
+        });
+    }
+  }
+function save_favorite(id) {
+
+      var isLogged ="0";
+
+                if (isLogged=="0") {
+                     alert("Please login to add favorite");
+                } else {
+
+            var ajaxurl = 'http://wordpress.templaza.net/real-estate/wp-admin/admin-ajax.php';
+            var search_params={
+              "action"  :   "iv_property_save_favorite",
+              "data": "id=" + id,
+            };
+
+            jQuery.ajax({
+              url : ajaxurl,
+              dataType : "json",
+              type : "post",
+              data : search_params,
+              success : function(response){
+                jQuery("#fav_dir"+id).html('<a class="added" data-toggle="tooltip" data-placement="bottom" title="Added to Favorites" href="#" onclick="save_unfavorite('+id+')" ><i class="icon-heart"></i></a>');
+
+
+              }
+            });
+
+        }
+
+    }
+  function save_unfavorite(id) {
+      var isLogged ="0";
+
+                if (isLogged=="0") {
+                     alert("Please login to remove favorite");
+                } else {
+
+            var ajaxurl = 'http://wordpress.templaza.net/real-estate/wp-admin/admin-ajax.php';
+            var search_params={
+              "action"  :   "iv_property_save_un_favorite",
+              "data": "id=" + id,
+            };
+
+            jQuery.ajax({
+              url : ajaxurl,
+              dataType : "json",
+              type : "post",
+              data : search_params,
+              success : function(response){
+                jQuery("#fav_dir"+id).html('<a data-toggle="tooltip" data-placement="bottom" title="Add to Favorites" href="#" onclick="save_favorite('+id+')" ><i class="icon-heart"></i></a>');
+
+
+              }
+            });
+
+        }
+
+    }
+
+    //Plans
+       jQuery(window).ready(function(){
+            if(jQuery(window).width() > 521){
+                var owl = jQuery("#tz-partner-5ac379276307c");
+                owl.realestate_owlCarousel({
+                    autoplay:true,
+                    autoplayTimeout:3000,
+                    autoplayHoverPause:true,
+                    loop: true,
+                    responsiveClass:true,
+                    responsive:{
+                        0:{
+                            items:1
+                        },
+                        479:{
+                            items:2
+                        },
+                        768:{
+                            items:3
+                        },
+                        979:{
+                            items:3
+                        },
+                        1199:{
+                            items:5                        }
+                    }
+                });
+            }
+        });
+
+  </script>
+
+
+<link rel='stylesheet' href='css/theme.css' type='text/css' media='all' />
+
+
+<!-- <script type='text/javascript' src='js/validate.js'></script>
+<script type='text/javascript' src='js/propr.js'></script>
+<script type='text/javascript' src='js/realestatecookie.js'></script>
+<script type='text/javascript' src='js/custom.js'></script>
+<script type='text/javascript' src='js/validatejq.js'></script>
+<script type='text/javascript' src='js/embed.min.js'></script>
+<script type='text/javascript' src='js/markerclusterer.js'></script>
+<script type='text/javascript' src='js/property-list.js'></script>  -->
+
+
+
+			
+			
+
+<!-- <script src="assets/plugins/ckeditor/ckeditor.js"></script>  -->
+<script src="assets 21/pages/jquery.scrollbar.js" type="text/javascript"></script> 
+<!--Form Wizard-->  
+<script src="assets 21/plugins/jquery.stepy/jquery.stepy.min.js" type="text/javascript"></script> 
+<!--wizard initiali 21zation--> 
+<script src="assets 21/pages/jquery.wizard-init.js" type="text/javascript"></script> 
+<link href="assets 21/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="assets 21/css/icons.css" rel="stylesheet" type="text/css" />
+<!-- <link href="assets 21/css/style.css" rel="stylesheet" type="text/css" /> -->
+<link href="assets 21/css/custom-style.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  </body>
+</html>
