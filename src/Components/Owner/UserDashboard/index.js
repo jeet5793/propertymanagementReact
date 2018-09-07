@@ -77,7 +77,7 @@ class UserDashboard extends React.Component {
       return (
         <div>
           {/* <link rel='stylesheet' href='../css/theme.css' type='text/css' media='all' /> */}
-          <Header logoutLink={this.logoutLink} name={this.state.url} first_name={'jomin'} last_name={'john'} />
+          <Header logoutLink={this.logoutLink} name={this.state.url} first_name={''} last_name={''} />
 
           <Switch>
             <Route exact path='/user' component={Profile} />

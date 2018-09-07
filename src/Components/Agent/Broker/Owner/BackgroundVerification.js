@@ -249,9 +249,9 @@ render(){
 									onChange={this.onChangeBGVHandler}
 									name="packageid"
 									id="ownerid"
-									value="12"
+									value="14"
 								  />
-								  <label HTMLFor="ownerid"> Criminal Record </label>
+								  <label HTMLFor="ownerid"> Bronze Package </label>
 								</div>
 							  </div>
 
@@ -264,7 +264,7 @@ render(){
 									id="agentid"
 									value="13"
 								  />
-								  <label HTMLFor="agentid"> Criminal Record, Eviction History </label>
+								  <label HTMLFor="agentid"> Gold Package </label>
 								</div>
 							  </div>
 
@@ -274,10 +274,10 @@ render(){
 									type="radio"
 									name="packageid"
 									id="tenantid"
-									value="14"
+									value="12"
 									onChange={this.onChangeBGVHandler}
 								  />
-								  <label HTMLFor="tenantid"> Criminal Record, Eviction History, Credit Score </label>
+								  <label HTMLFor="tenantid"> Silver Package </label>
 								</div>
 							  </div>
 						</div>

@@ -51,6 +51,8 @@ const loadScript=function(url, callback){
   script.src = url;
   document.getElementsByTagName("head")[0].appendChild(script);
 }
+
+
 // const options = [
   // { value: '1', label: 'Chocolate' },
   // { value: '2', label: 'Strawberry' },
@@ -128,7 +130,11 @@ class Agent extends React.Component{
 		this.setState({ selectedOption });
      console.log(`Option selected:`, selectedOption);
   }
-  
+  hideModel()
+{
+	var $=window.$;
+	$(".modal-backdrop").hide();
+}
   onKeyUp(e)
   {
 	  console.log('fsgfd');
@@ -645,7 +651,7 @@ class Agent extends React.Component{
   <div className="modal-dialog">
     <div className="modal-content"  id="hidemodal">
       <div className="modal-header">
-        <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <button type="button" onClick={this.hideModel} className="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h4 className="modal-title">Send Invite</h4>
       </div>
       <div className="modal-body">
@@ -710,18 +716,21 @@ class Agent extends React.Component{
 				</div>
 			  </div>
 			  <div className="modal-footer">
-				<button type="button" className="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+				<button type="button" className="btn btn-secondary waves-effect" onClick={this.hideModel} data-dismiss="modal">Close</button>
 				<button type="submit" className="btn btn-success waves-effect waves-light" onClick={this.sendRequest}>Send</button>
 			  </div>
 			</div>
 		  </div>
 		</div>
               
-            <div id="send-msg" className="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{display: 'none'}}>
+           
+
+
+		   <div id="send-msg" className="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{display: 'none'}}>
                 <div className="modal-dialog">
                     <div className="modal-content" id="hidemodal2">
                     <div className="modal-header">
-                        <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <button type="button" onClick={this.hideModel} className="close" data-dismiss="modal" aria-hidden="true">×</button>
                         <h4 className="modal-title">Send </h4>
                     </div>
                     <div className="modal-body">
@@ -744,7 +753,7 @@ class Agent extends React.Component{
                         </div>
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                        <button type="button" className="btn btn-secondary waves-effect" data-dismiss="modal" onClick={this.hideModel}>Close</button>
                         <button type="button" className="btn btn-success waves-effect waves-light" onClick={this.sendMessage}>Send</button>
                     </div>
                     </div>

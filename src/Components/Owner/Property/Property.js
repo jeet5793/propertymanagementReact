@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom'
 import API_URL from '../../../app-config';
 import Cookies from 'js-cookie';
 import { connect } from 'react-redux';
+import swal from 'sweetalert';
 class Property extends React.Component{
     constructor(props){
         super(props)
@@ -93,6 +94,8 @@ class Property extends React.Component{
             .then(data =>{ 
                 if(data.msg==="Property deleted successfully !!!")  
                 {
+					swal("Assets Watch", data.msg);
+        
                     properties.forEach(propr=>{
                         if(propr.id!==id)
                         tempProperty.push(propr)                    

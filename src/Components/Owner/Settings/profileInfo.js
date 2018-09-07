@@ -253,7 +253,7 @@ Countries() {
     render(){
 		//console.log(this.state.profile);
         return(
-
+				(this.state.profile)?
 					  <div className="tab-pane fade show active" id="profile-info">
 						<fieldset title="1">
 						  <h4>Basic Information</h4>
@@ -434,7 +434,7 @@ Countries() {
 						  <button type="submit" className="btn btn-primary stepy-finish text-right" onClick={this.profileSubmit}>Submit </button>
 						</div>
 						</div>
-					  </div>
+					  </div>:<div className="container"  style={{marginTop:'10%',marginLeft:'50%'}}><img src="http://wordpress.templaza.net/real-estate/wp-content/themes/real-estate/images/loading_blue_64x64.gif"/></div>
 					  
 						
 						

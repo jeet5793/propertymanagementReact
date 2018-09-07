@@ -252,6 +252,11 @@ class Service extends React.Component{
 		  )       
           
 	}
+	hideModel()
+	{
+		var $=window.$;
+		$(".modal-backdrop").hide();
+	}
     render(){
         // if(this.props.owner===undefined)
         // window.location.href='http://'+window.location.host
@@ -446,7 +451,7 @@ class Service extends React.Component{
                             <div className="modal-dialog">
                                 <div className="modal-content" id="hidemodal">
                                 <div className="modal-header">
-                                    <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <button type="button" onClick={this.hideModel} className="close" data-dismiss="modal" aria-hidden="true">×</button>
                                     <h4 className="modal-title">Send Request</h4>
                                 </div>
                                 <div className="modal-body">
@@ -491,7 +496,7 @@ class Service extends React.Component{
                                     </div>
                                 </div>
                                 <div className="modal-footer">
-                                    <button type="button" className="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                                    <button type="button" className="btn btn-secondary waves-effect" data-dismiss="modal" onClick={this.hideModel}>Close</button>
                                     <button type="button" className="btn btn-success waves-effect waves-light" onClick={this.sendRequest}>Save changes</button>
                                 </div>
                                 </div>

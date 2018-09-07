@@ -13,6 +13,7 @@ import Cookies from 'js-cookie';
 import {Link} from 'react-router-dom'
 import Pagination from 'react-js-pagination';
 import swal from 'sweetalert';
+ import BackgroundVerification from './BackgroundVerification';
 const loadScript=function(url, callback){
 
   var script = document.createElement("script")
@@ -79,7 +80,8 @@ class Tenants extends React.Component{
 		activePageReq: 1,
         activePageJoined: 1,
         itemsCountPerPageReq: 1,
-        itemsCountPerPageJoined: 1
+        itemsCountPerPageJoined: 1,
+		profileData:[]
     };
 	this.onChangeHandler=this.onChangeHandler.bind(this)
 	this.acceptRequest=this.acceptRequest.bind(this)
@@ -87,8 +89,14 @@ class Tenants extends React.Component{
 	this.onChangeSMHandler = this.onChangeSMHandler.bind(this)
 	 this.handlePageChangeRequestedList = this.handlePageChangeRequestedList.bind(this);
     this.handlePageChangeJoinedList = this.handlePageChangeJoinedList.bind(this)
-  }
 
+		this.onClickProfile = this.onClickProfile.bind(this);
+  }
+	 hideModel()
+		{
+			var $=window.$;
+			$(".modal-backdrop").hide();
+		}
   componentDidMount(){  
     loadScript('assets/js/bootstrap.min.js',function(){
       var $=window.$;
@@ -157,6 +165,28 @@ class Tenants extends React.Component{
           this.handlePageChangeJoinedList(this.state.activePageJoined);
       }
   }
+  onClickProfile(id)
+	 {
+		
+		 fetch(`${API_URL}assetsapi/profile/`+id+`/${JSON.parse(this.state.userData).session_id}`, {
+        method: 'get'
+      })
+    .then(res => res.json())
+		.then(
+		  (result) => {
+			//console.log("data 2: "+JSON.stringify(result.profile))
+			if (result.success) {
+			  this.setState({profileData:result.profile})
+			  
+			} 
+			console.log("set user data"+JSON.stringify(this.state.profileData))
+		  },
+			(error) => {
+			  console.log('error')
+			}
+		)
+	
+	 }
   inviteDropdowns(){
 	   
 		fetch(`${API_URL}assetsapi/invite_request/${JSON.parse(this.state.userData).assets_id}/3/${JSON.parse(this.state.userData).session_id}/`, {
@@ -407,7 +437,7 @@ class Tenants extends React.Component{
                       <p className="text-muted m-b-3 "><i className="icon-envelope"></i>{item.email}</p>
                       <p className="text-muted m-b-3 text-overflow"><i className="icon-location-pin"></i>&nbsp; {item.country}</p>
                       <ul className="list-inline m-t-10 m-b-0 text-right">
-					  {/*  <li className="list-inline-item"> <a className="mesg-icon" id="msg1"  data-toggle="modal" data-target="#send-msg" title="" data-placement="top" data-toggle="tooltip" className="tooltips" href="" data-original-title="Message"><i className="icon-bubble"></i></a> </li> */}
+					  <li className="list-inline-item"> <a className="bgv-icon" data-toggle="modal" data-target="#background-verifi" title="background Verification" href="" onClick={this.onClickProfile.bind(this,item.profile_id)}><i className="icon-magnifier"></i></a> </li>
 					   <li className="list-inline-item"> <a className="mesg-icon" data-toggle="modal" data-target="#send-msg" title="Message" href="#" onClick={this.messagerec.bind(this,item.profile_id,item.name)}><i className="icon-bubble" /></a> </li>
                         <li className="list-inline-item"> <Link to={{"pathname":"/profile-details",state:{profileid:item.profile_id,session:JSON.parse(this.state.userData).session_id}}} className="view-icon"><i className="icon-eye"></i></Link></li>
                       </ul>
@@ -507,13 +537,14 @@ class Tenants extends React.Component{
   {/* <!-- end container -->  */}
 </div>
 
-
+{/* ========== BG Verification =====================*/}
+			  <BackgroundVerification profileData={this.state.profileData}/>
 {/* <!-- Modal --> */}
 <div id="send-invite" className="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{display:'none'}}>
   <div className="modal-dialog">
     <div className="modal-content"  id="hidemodal">
       <div className="modal-header">
-        <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <button type="button" onClick={this.hideModel} className="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h4 className="modal-title">Send Invite</h4>
       </div>
       <div className="modal-body">
@@ -578,7 +609,7 @@ class Tenants extends React.Component{
         </div>
       </div>
       <div className="modal-footer">
-        <button type="button" className="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+        <button type="button" className="btn btn-secondary waves-effect" data-dismiss="modal" onClick={this.hideModel}>Close</button>
         <button type="submit" className="btn btn-success waves-effect waves-light" onClick={this.sendRequest}>Send</button>
       </div>
     </div>
@@ -589,7 +620,7 @@ class Tenants extends React.Component{
                 <div className="modal-dialog">
                     <div className="modal-content" id="hidemodal2">
                     <div className="modal-header">
-                        <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <button type="button" onClick={this.hideModel} className="close" data-dismiss="modal" aria-hidden="true">×</button>
                         <h4 className="modal-title">Send </h4>
                     </div>
                     <div className="modal-body">
@@ -612,7 +643,7 @@ class Tenants extends React.Component{
                         </div>
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                        <button type="button" className="btn btn-secondary waves-effect" onClick={this.hideModel} data-dismiss="modal">Close</button>
                         <button type="button" className="btn btn-success waves-effect waves-light" onClick={this.sendMessage}>Send</button>
                     </div>
                     </div>
