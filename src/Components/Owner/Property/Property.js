@@ -7,10 +7,11 @@ import API_URL from '../../../app-config';
 import Cookies from 'js-cookie';
 import { connect } from 'react-redux';
 import swal from 'sweetalert';
+import img_not_available from '../../../images/img_not_available.png'
 class Property extends React.Component{
     constructor(props){
         super(props)
-        this.imgServer=API_URL+'assetsadmin/',
+        this.imgServer=API_URL,
         this.state = {
             propertiesLoading:false,
             flag:true,
@@ -151,7 +152,7 @@ class Property extends React.Component{
                            { this.state.property.map(element=>(
                                     <tr>
                                         <td>
-                                            <img src={(element.img_path && element.img_path.length>0)?imgSer+element.img_path[0].img_path:img_1} alt="contact-img" title="contact-img" className="rounded-circle property-img" />
+                                            <img src={(element.img_path && element.img_path.length>0)?imgSer+element.img_path[0].img_path:img_not_available} alt="contact-img" title="contact-img" className="rounded-circle property-img" />
                                         </td>
                                         <td><h5 className="m-b-0 m-t-0 font-600">{element.title}</h5></td>
                                         {/* <td><i className="mdi mdi-map-marker text-primary"></i> #0,22ndFloor,27th Main NewYork </td> */}

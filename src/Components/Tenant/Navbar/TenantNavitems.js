@@ -29,6 +29,11 @@ export default class TenantNavitems extends Component{
                             <i className="fi-tag "></i>Services                
                         </Link>
                     </li>
+					<li>
+                        <Link to={{pathname:'/tenant-report'}}>
+                            <i className="fi-cog "></i>Reports
+                        </Link>
+                    </li>  
                     <li>
                         <Link to={{pathname:'/tenant-owner'}}>
                             <i className="fi-head "></i>Owner
@@ -74,6 +79,11 @@ export default class TenantNavitems extends Component{
                             <i className="fi-tag "></i>Services                
                         </Link>
                     </li>
+					<li>
+                        <Link to={{pathname:'/tenant-report'}}>
+                            <i className="fi-cog "></i>Reports
+                        </Link>
+                    </li>  
                     <li>
                         <Link to={{pathname:'/tenant-owner'}}>
                             <i className="fi-head "></i>Owner
@@ -118,6 +128,11 @@ export default class TenantNavitems extends Component{
                             <i className="fi-tag "></i>Services                
                         </Link>
                     </li>
+					<li>
+                        <Link to={{pathname:'/tenant-report'}}>
+                            <i className="fi-cog "></i>Reports
+                        </Link>
+                    </li>  
                     <li>
                         <Link to={{pathname:'/tenant-owner'}}>
                             <i className="fi-head "></i>Owner
@@ -162,6 +177,11 @@ export default class TenantNavitems extends Component{
                             <i className="fi-tag "></i>Services                
                         </Link>
                     </li>
+					<li>
+                        <Link to={{pathname:'/tenant-report'}}>
+                            <i className="fi-cog "></i>Reports
+                        </Link>
+                    </li>  
                     <li>
                         <Link to={{pathname:'/tenant-owner'}}>
                             <i className="fi-head "></i>Owner
@@ -207,6 +227,11 @@ export default class TenantNavitems extends Component{
                             <i className="fi-tag "></i>Services                
                         </Link>
                     </li>
+					<li>
+                        <Link to={{pathname:'/tenant-report'}}>
+                            <i className="fi-cog "></i>Reports
+                        </Link>
+                    </li>  
                     <li>
                         <Link to={{pathname:'/tenant-owner'}}>
                             <i className="fi-head "></i>Owner
@@ -251,12 +276,66 @@ export default class TenantNavitems extends Component{
                             <i className="fi-tag "></i>Services                
                         </Link>
                     </li>
+					<li>
+                        <Link to={{pathname:'/tenant-report'}}>
+                            <i className="fi-cog "></i>Reports
+                        </Link>
+                    </li>  
                     <li  className="has-submenu active">
                         <Link to={{pathname:'/tenant-owner'}}>
                             <i className="fi-head "></i>Owner
                         </Link>
                     </li>
                     <li>
+                        <Link to={{pathname:'/tenant-agent'}}>
+                            <i className="fi-head "></i>Agent
+                        </Link>
+                    </li>
+                   
+                    <li>
+                        <Link to={{pathname:'/tenant-settings'}}>
+                            <i className="fi-cog "></i>Settings
+                        </Link>
+                    </li>  
+                </ul>
+                );
+            }
+			else if(this.props.name==="tenant-report")
+            {
+            return( 
+                <ul className="navigation-menu">
+              
+                <li>
+                        <Link to={{pathname:'/tenant-profile'}}>
+                            <i className="fi-air-play"></i>Profile
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={{pathname:'/tenant-agreement'}}>
+                            <i className="fi-paper"></i>Agreement
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={{pathname:'/tenant-myproperty'}}>
+                            <i className="fi-box"></i>My Property
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={{pathname:'/tenant-service'}}>
+                            <i className="fi-tag "></i>Services                
+                        </Link>
+                    </li>
+					<li className="has-submenu active">
+                        <Link to={{pathname:'/tenant-report'}}>
+                            <i className="fi-cog "></i>Reports
+                        </Link>
+                    </li>  
+                    <li>
+                        <Link to={{pathname:'/tenant-owner'}}>
+                            <i className="fi-head "></i>Owner
+                        </Link>
+                    </li>
+                    <li >
                         <Link to={{pathname:'/tenant-agent'}}>
                             <i className="fi-head "></i>Agent
                         </Link>
@@ -295,6 +374,11 @@ export default class TenantNavitems extends Component{
                             <i className="fi-tag "></i>Services                
                         </Link>
                     </li>
+					<li>
+                        <Link to={{pathname:'/tenant-report'}}>
+                            <i className="fi-cog "></i>Reports
+                        </Link>
+                    </li>  
                     <li>
                         <Link to={{pathname:'/tenant-owner'}}>
                             <i className="fi-head "></i>Owner
@@ -339,6 +423,11 @@ export default class TenantNavitems extends Component{
                             <i className="fi-tag "></i>Services                
                         </Link>
                     </li>
+					<li>
+                        <Link to={{pathname:'/tenant-report'}}>
+                            <i className="fi-cog "></i>Reports
+                        </Link>
+                    </li>  
                     <li>
                         <Link to={{pathname:'/tenant-owner'}}>
                             <i className="fi-head "></i>Owner
@@ -383,6 +472,11 @@ export default class TenantNavitems extends Component{
                             <i className="fi-tag "></i>Services                
                         </Link>
                     </li>
+					<li>
+                        <Link to={{pathname:'/tenant-report'}}>
+                            <i className="fi-cog "></i>Reports
+                        </Link>
+                    </li>  
                     <li>
                         <Link to={{pathname:'/tenant-owner'}}>
                             <i className="fi-head "></i>Owner

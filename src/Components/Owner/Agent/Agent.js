@@ -122,7 +122,7 @@ class Agent extends React.Component{
         // this.renderItem = this.renderItem.bind(this);
          // this.retrieveDataAsynchronously = this.retrieveDataAsynchronously.bind(this);
 		this.handleChange = this.handleChange.bind(this);
-		this.onKeyUp = this.onKeyUp.bind(this);
+
 		this.onClickProfile = this.onClickProfile.bind(this);
   }
   handleChange = (selectedOption) => {
@@ -135,10 +135,7 @@ class Agent extends React.Component{
 	var $=window.$;
 	$(".modal-backdrop").hide();
 }
-  onKeyUp(e)
-  {
-	  console.log('fsgfd');
-  }
+ 
   componentDidMount(){
 		const session = JSON.parse(this.state.userData).session_id;  
     loadScript('assets/js/bootstrap.min.js',function(){
@@ -158,11 +155,14 @@ class Agent extends React.Component{
     }
 	var $=window.$;
 	 $('#react-select-2-input').keyup(function(e){
+
 		 const selVal = $('#react-select-2-input').val();
+		 
 		 // retrieveDataAsynchronously(selVal);
 		 let _this = this;
 
        const opts ={assets_type:2,keyword:selVal,session_id:session}
+	   console.log(opts);
 		fetch(`${API_URL}assetsapi/user_search`, {
 			  method: 'POST',
 			body: JSON.stringify(opts)
@@ -173,8 +173,9 @@ class Agent extends React.Component{
 				//console.log("data 2: "+JSON.stringify(profile))
 				//alert("data 2: "+JSON.stringify(result));
 				if (result.success) {
-				   
+				  
 					    this.setState({autocompleteData:result.search_userlist})
+						
 						
 				} 
 				 console.log("autocompleteData"+JSON.stringify(this.state.autocompleteData))
@@ -352,12 +353,13 @@ class Agent extends React.Component{
 	}
 	sendRequest(){
 		const opts = this.state.sendReq
+		opts.invite_id = document.getElementsByName("invite_id")[0].value
 		if(!opts.property_id){
         alert('Property should not be blank');
         return;
       }
 	  if(!opts.invite_id){
-        alert('Tenant should not be blank');
+        alert('Agent should not be blank');
         return;
       }
 	  if(!opts.message){
@@ -478,7 +480,7 @@ class Agent extends React.Component{
 	const joinedUserList= this.state.joinedList;
 	const pagedRequestedUserList= this.state.pagedRequestedList || this.state.requestedList;
 	const pagedJoinedUserList= this.state.pagedJoinedList || this.state.joinedList;
-	console.log(this.state.autocompleteData);
+	// console.log(this.state.autocompleteData);
         return(
 		
             <div>
@@ -495,36 +497,6 @@ class Agent extends React.Component{
                       </ol>
                     </div>
 					
-		
-          
-         
-					
-					  {/* <Autocomplete
-							inputProps={{ id: 'states-autocomplete',className:"form-control" }}
-							wrapperStyle={{ position: 'relative', display: 'inline-block' }}
-							getItemValue={this.getItemValue}
-							items={this.state.autocompleteData?this.state.autocompleteData:''}
-							renderItem={this.renderItem}
-							value={this.state.value}
-							onChange={this.onChange}
-							onSelect={this.onSelect}
-							
-							
-							
-						/>
-						<Select
-						  className="basic-single"
-						  classNamePrefix="select"
-						  // defaultValue={colourOptions[0]}
-						  // isDisabled={isDisabled}
-						  // isLoading={isLoading}
-						  // isClearable={isClearable}
-						  // isRtl={isRtl}
-						  // isSearchable={isSearchable}
-						  name="color"
-						  onChange={this.onChange}
-						options={this.state.autocompleteData}
-				/> */}
                     <h4 className="page-title">Agents</h4>
                   </div>
                   {/* <!-- end page title end breadcrumb -->  */}
@@ -675,17 +647,7 @@ class Agent extends React.Component{
             <div className="form-group">
               <label for="field-1" className="control-label">Agent</label>
               <div className="">
-					{ /*<Autocomplete
-							getItemValue={this.getItemValue}
-							items={this.state.autocompleteData}
-							renderItem={this.renderItem}
-							value={this.state.value}
-							onChange={this.onChange}
-							onSelect={this.onSelect}
-							inputProps={{className:"form-control", placeholder: ''}} 
-							
-							
-						/>*/}
+					
 						<Select
 							className="basic-single"
 							classNamePrefix="select"

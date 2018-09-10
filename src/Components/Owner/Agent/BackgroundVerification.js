@@ -99,9 +99,9 @@ export default class Agent extends React.Component{
       }
 	 
 	 componentDidMount(){
-		 if(this.props.profileData.DOB)
+		 if(this.props.profileData.dob)
 		 {
-			 var dobDate = new Date(this.props.profileData.DOB.replace( /(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3"))
+			 var dobDate = new Date(this.props.profileData.dob.replace( /(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3"))
 						var d = new Date(dobDate);
 						var DOB=getFormattedString(d).slice(0,9);
 						function getFormattedString(d){
@@ -242,7 +242,7 @@ render(){
 					  <div className="col-md-12">
 						<div className="form-group no-margin">
 						 <h3>Packages</h3>
-						  <div className="col-md-3">
+						  <div className="col-md-8">
 								<div className="radio radio-custom">
 								  <input
 									type="radio"
@@ -253,9 +253,9 @@ render(){
 								  />
 								  <label HTMLFor="ownerid"> Criminal Record </label>
 								</div>
-							  </div>
+							  </div><br/>
 
-							  <div className="col-md-3">
+							  <div className="col-md-8">
 								<div className="radio radio-custom">
 								  <input
 									type="radio"
@@ -266,9 +266,9 @@ render(){
 								  />
 								  <label HTMLFor="agentid"> Criminal Record, Eviction History </label>
 								</div>
-							  </div>
+							  </div><br/>
 
-							  <div className="col-md-3">
+							  <div className="col-md-8">
 								<div className="radio radio-custom">
 								  <input
 									type="radio"

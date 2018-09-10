@@ -93,27 +93,53 @@ class Headernav extends React.Component {
 										
 									}
 									
+									if(this.value!='' && localStorage.getItem('agenttype')!='')
+									{
+										var optsValue= data.userdata;
+										optsValue.agent_type = localStorage.getItem('agenttype');
+										
+										fetch(`${API_URL}assetsapi/register/`, {
+											method: "post",
+											body: JSON.stringify(optsValue)
+										  })
+											.then(response => {
+											  return response.json();
+											})
+											.then((res) => {
+											  console.log('dataaaa:  ', res);
+											  if(res){
+												var userid = res.user.assets_id
+												localStorage.setItem('userid',userid)
+											  }
+											  if(res.msg.indexOf("Registered Successfully")!=-1)
+											  {
+												// let userType = 'owner';
+												// if (this.state.RegType==='2') {
+												  // userType = 'agent'
+												// } else if (this.state.RegType==='3') {
+												  // userType = 'tenant'
+												// }
+												if(res.user.agentType!='' && res.user.agentType=='Service Provider')
+												{
+													this.props.history.replace(`/`);
+												}else{
+													const assetsType= data.assetsType;
+													 window.location.href=`/register-plans?Datatype=${assetsType}`;
+												}
+											   
+											  }
+											else alert(res.msg)
+											}).catch((error) => {
+											  console.log('error: ', error);
+											}); 
+									}
+									
 								});
 								
-							}
-							
-							// console.log(localStorage.getItem('agenttype'));
-							
-							if(localStorage.getItem('agenttype')!='')
-							{
-								var optsValue= data.userdata;
-								optsValue.agent_type = localStorage.getItem('agenttype');
-								
 							}else{
-								var optsValue= data.userData;
-							}
-							// const optionJson = data.userData;
-									// optionJson.agent_type = agenttype;
-						
-						// console.log(optsValue);
-						 if(optsValue!='')
-						{
-							fetch(`${API_URL}assetsapi/register/`, {
+								var optsValue= data.userdata;
+								console.log(optsValue)
+								fetch(`${API_URL}assetsapi/register/`, {
 								method: "post",
 								body: JSON.stringify(optsValue)
 							  })
@@ -147,9 +173,8 @@ class Headernav extends React.Component {
 								}).catch((error) => {
 								  console.log('error: ', error);
 								}); 
-						}else{
-							window.location.href='/';
-						}
+							}
+							
 					}else{
 							window.location.href='/';
 						}

@@ -221,7 +221,8 @@ LoggedIn(userId){
 		<Route exact path='/broker-plan' component={AgentBrokerDashboard} />
         <Route exact path='/broker-upgrade' component={AgentBrokerDashboard} />
 		<Route exact path='/broker-notifications' component={AgentBrokerDashboard} />
-		
+		 <Route  path='/broker-report' component={AgentBrokerDashboard} />
+		<Route  path='/broker-report-table' component={AgentBrokerDashboard} />
 
         {/* Service Provider Dashboard */}
         <Route  path='/agent-serviceprovider' component={AgentServiceProviderDashboard} />
@@ -242,6 +243,8 @@ LoggedIn(userId){
 		 <Route  path='/tenant-plan' component={TenantDashboard} />
         <Route  path='/tenant-upgrade' component={TenantDashboard} />
 		<Route exact path='/tenant-notifications' component={TenantDashboard} />
+		 <Route  path='/tenant-report' component={TenantDashboard} />
+		<Route  path='/tenant-report-table' component={TenantDashboard} />
 
         <Route  path='/' component={DashBoardIndex} />
         <Route exact path='/plans' render={props=><Plans {...props} login={this.LoggedIn} />} />

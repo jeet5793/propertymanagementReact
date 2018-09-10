@@ -191,7 +191,7 @@ class ProfileDetails extends React.Component{
                     <h4 className="page-title">Agent Profile</h4>
                     </div>
                     {/* <!-- end page title end breadcrumb --> */}
-                    
+                   {this.state.profileData?
                     <div className="row">
                     <div className="col-md-12 col-lg-12 second-profiles-details">
                         <div className="card-box"> 
@@ -411,7 +411,7 @@ class ProfileDetails extends React.Component{
                         </div>
                     </div>
                     {/* <!-- end col --> */}
-                    </div>
+				   </div>:<div className="container"  style={{marginTop:'10%',marginLeft:'50%'}}><img src="http://wordpress.templaza.net/real-estate/wp-content/themes/real-estate/images/loading_blue_64x64.gif"/></div>}
                     {/* <!-- end row --> */}
                     
                 </div>

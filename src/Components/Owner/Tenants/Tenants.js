@@ -13,6 +13,7 @@ import Cookies from 'js-cookie';
 import {Link} from 'react-router-dom'
 import Pagination from 'react-js-pagination';
 import swal from 'sweetalert';
+ import Select from 'react-select';
  import BackgroundVerification from './BackgroundVerification';
 const loadScript=function(url, callback){
 
@@ -81,6 +82,8 @@ class Tenants extends React.Component{
         activePageJoined: 1,
         itemsCountPerPageReq: 1,
         itemsCountPerPageJoined: 1,
+		autocompleteData: [],
+		selectedOption: null,
 		profileData:[]
     };
 	this.onChangeHandler=this.onChangeHandler.bind(this)
@@ -91,6 +94,12 @@ class Tenants extends React.Component{
     this.handlePageChangeJoinedList = this.handlePageChangeJoinedList.bind(this)
 
 		this.onClickProfile = this.onClickProfile.bind(this);
+		this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange = (selectedOption) => {
+
+		this.setState({ selectedOption });
+     console.log(`Option selected:`, selectedOption);
   }
 	 hideModel()
 		{
@@ -98,6 +107,7 @@ class Tenants extends React.Component{
 			$(".modal-backdrop").hide();
 		}
   componentDidMount(){  
+  const session = JSON.parse(this.state.userData).session_id; 
     loadScript('assets/js/bootstrap.min.js',function(){
       var $=window.$;
     $('[data-toggle="tooltip"]').tooltip();  
@@ -164,6 +174,40 @@ class Tenants extends React.Component{
       if (this.state.joinedList) {
           this.handlePageChangeJoinedList(this.state.activePageJoined);
       }
+	  
+	  var $=window.$;
+	 $('#react-select-2-input').keyup(function(e){
+
+		 const selVal = $('#react-select-2-input').val();
+		 
+		 // retrieveDataAsynchronously(selVal);
+		 let _this = this;
+
+       const opts ={assets_type:3,keyword:selVal,session_id:session}
+	   console.log(opts);
+		fetch(`${API_URL}assetsapi/user_search`, {
+			  method: 'POST',
+			body: JSON.stringify(opts)
+			})
+			.then(res => res.json())
+			.then(
+			  (result) => {
+				//console.log("data 2: "+JSON.stringify(profile))
+				//alert("data 2: "+JSON.stringify(result));
+				if (result.success) {
+				  
+					    this.setState({autocompleteData:result.search_userlist})
+						
+						
+				} 
+				 console.log("autocompleteData"+JSON.stringify(this.state.autocompleteData))
+				// console.log("user_list"+JSON.stringify(this.state.user_list))
+			  },
+			(error) => {
+			  console.log('error')
+			}
+		  ) 
+	 }.bind(this));
   }
   onClickProfile(id)
 	 {
@@ -268,7 +312,10 @@ class Tenants extends React.Component{
 		this.setState({sendReq:requestForm})
 	}
 	sendRequest(){
-		const opts = this.state.sendReq
+		const opts = this.state.sendReq;
+		opts.invite_id = document.getElementsByName("invite_id")[0].value
+		// console.log(document.getElementsByName("invite_id")[0].value);
+		// console.log(opts);
 		if(!opts.property_id){
         alert('Property should not be blank');
         return;
@@ -386,6 +433,7 @@ class Tenants extends React.Component{
 	)
 	}
     render(){
+		const { selectedOption } = this.state;
       // if(this.props.owner===undefined)
       //   window.location.href='http://'+window.location.host
 	const propertyList = this.state.property_list;
@@ -568,33 +616,25 @@ class Tenants extends React.Component{
             <div className="form-group">
               <label for="field-1" className="control-label">Tenant</label>
               <div className="">
-            {/*// <Autosuggest
-						// suggestions={suggestions}
-						// onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-						// onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-						// getSuggestionValue={getSuggestionValue}
-						// renderSuggestion={renderSuggestion}
-						// inputProps={inputProps}
-	// />
-					   // <Select
-						// name="form-field-name"
-						 // onBlurResetsInput={false}
-						// onSelectResetsInput={false}
-						// autoFocus
-						// value={selectedOption}
-						// onChange={this.handleChange}
-						// options={[
-						  // { value: 'one', label: 'One' },
-						  // { value: 'two', label: 'Two' },
-						// ]}
-					  // /> 
-					
-               */}
-			   <select className="form-control" name="invite_id" onChange={this.onChangeHandler}>
+            
+						<Select
+							className="basic-single"
+							classNamePrefix="select"
+							value={selectedOption}
+							onChange={this.handleChange}
+							
+							 // loadOptions={this.handleChange}
+							 // onKeyUp={this.onKeyUp}
+							
+							name="invite_id"
+							id="invite_id"
+							options={this.state.autocompleteData}
+							/>
+							{/* <select className="form-control" name="invite_id" onChange={this.onChangeHandler}>
 				   <option>Please Select</option>
 						{userList.map((option,key)=> (<option key={key.assets_id} value={option.assets_id}>{option.first_name+" "+option.last_name}</option>))}
 											   
-				  </select>	
+					</select>	 */}
                </div>
             </div>
           </div>

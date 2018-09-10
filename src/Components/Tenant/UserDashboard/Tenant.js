@@ -17,6 +17,8 @@ import Upgrade from '../UpgradePlan/Payment';
 import Notification from '../Notificaitons/TenantNotification';
 import { Switch, Route } from 'react-router';
 import Cookies from 'js-cookie';
+import Report from '../Reports/Report'
+import ReportTable from '../Reports/ReporTable'
 
 class TenantDashboard extends React.Component {
 
@@ -74,6 +76,8 @@ class TenantDashboard extends React.Component {
             <Route exact path='/tenant-agreement' component={Agreement} />
             <Route exact path='/tenant-myproperty' component={Property} />
             <Route exact path='/tenant-settings' component={Settings} />
+			<Route exact path='/tenant-report' component={Report} />
+            <Route exact path='/tenant-report-table' component={ReportTable} />
             <Route exact path='/tenant-service' component={Services} />
             <Route exact path='/tenant-agent' component={Agent} />
             <Route exact path='/tenant-owner' component={Owner} />

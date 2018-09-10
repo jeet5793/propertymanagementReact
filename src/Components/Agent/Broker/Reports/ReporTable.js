@@ -1,8 +1,8 @@
 import React from 'react'
-import Header from '../Header/Header'
+import Header from '../Header/BrokerHeader'
 import './style.css'
-import {loadFile,removejscssfile} from '../../js/external'
-import API_URL from '../../../app-config';
+import {loadFile,removejscssfile} from '../../../js/external'
+import API_URL from '../../../../app-config';
 import Cookies from 'js-cookie';
 
 const TableReprt=(props)=>{
@@ -285,7 +285,7 @@ export default class ReportTable extends React.Component{
 
 <div>
     <Header logoutLink={this.logoutLink} 
-    name="report" 
+    name="broker-report" 
     first_name={window.localStorage.getItem('firstName')} 
     last_name={window.localStorage.getItem('firstName')} />
     <div class="wrapper" style={{marginTop:'5%'}}>

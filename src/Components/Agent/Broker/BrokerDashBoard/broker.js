@@ -18,6 +18,8 @@ import BTProfile from '../Tenant/ProfileDetails';
 import BrokerPlan from '../UpgradePlan/Plan'
 import Upgrade from '../UpgradePlan/Payment'
 import Notifications from '../Notifications/BrokerNotifications'
+import Report from '../Reports/Report'
+import ReportTable from '../Reports/ReporTable'
 
 class AgentBrokerDashboard extends React.Component {
 
@@ -74,6 +76,8 @@ class AgentBrokerDashboard extends React.Component {
             <Route exact path='/broker-property' component={Property} />
             <Route exact path='/broker-settings' component={Settings} />
             <Route exact path='/broker-payment' component={Payment} />
+			<Route exact path='/broker-report' component={Report} />
+            <Route exact path='/broker-report-table' component={ReportTable} />
             <Route exact path='/broker-service' component={Services} />
             <Route exact path='/broker-owner' component={Owner} />
             <Route exact path='/broker-tenant' component={Tenant} />

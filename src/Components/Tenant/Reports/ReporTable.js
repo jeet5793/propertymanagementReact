@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from '../Header/Header'
+import Header from '../Header/TenantHeader'
 import './style.css'
 import {loadFile,removejscssfile} from '../../js/external'
 import API_URL from '../../../app-config';
@@ -285,7 +285,7 @@ export default class ReportTable extends React.Component{
 
 <div>
     <Header logoutLink={this.logoutLink} 
-    name="report" 
+    name="tenant-report" 
     first_name={window.localStorage.getItem('firstName')} 
     last_name={window.localStorage.getItem('firstName')} />
     <div class="wrapper" style={{marginTop:'5%'}}>

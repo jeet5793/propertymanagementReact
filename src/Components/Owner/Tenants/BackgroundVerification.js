@@ -242,7 +242,7 @@ render(){
 					  <div className="col-md-12">
 						<div className="form-group no-margin">
 						 <h3>Packages</h3>
-						  <div className="col-md-3">
+						  <div className="col-md-8">
 								<div className="radio radio-custom">
 								  <input
 									type="radio"
@@ -253,9 +253,9 @@ render(){
 								  />
 								  <label HTMLFor="ownerid"> Criminal Record </label>
 								</div>
-							  </div>
+							  </div><br/>
 
-							  <div className="col-md-3">
+							  <div className="col-md-8">
 								<div className="radio radio-custom">
 								  <input
 									type="radio"
@@ -266,9 +266,9 @@ render(){
 								  />
 								  <label HTMLFor="agentid"> Criminal Record, Eviction History </label>
 								</div>
-							  </div>
+							  </div><br/>
 
-							  <div className="col-md-3">
+							  <div className="col-md-8">
 								<div className="radio radio-custom">
 								  <input
 									type="radio"
