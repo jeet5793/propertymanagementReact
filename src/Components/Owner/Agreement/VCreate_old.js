@@ -1,13 +1,18 @@
 import React from 'react'
 import API_URL from '../../../app-config'
 import {loadFile} from '../../js/external'
-import './style.css'
+// import './style.css'
 import Cookies from 'js-cookie';
+import $ from 'jquery'
+//import Customwithmodal from "./CustomWithModal";
+import swal from 'sweetalert';
+//var i
+var i =1;
 
-var i
 export default class VCreate extends React.Component{
   constructor(props){
     super(props)
+    console.log('props ', props);
     this.state={
       userData : Cookies.get('profile_data'),
       createForm:{
@@ -23,11 +28,33 @@ export default class VCreate extends React.Component{
     this.waterMarkImage = React.createRef();
   }
   componentWillMount(){
-    loadFile("assets 21/plugins/jquery.stepy/jquery.stepy.min.js","js")
+    window.$.getScript("assets 21/plugins/jquery.stepy/jquery.stepy.min.js", function () {
+        console.log("assets 21/plugins/jquery.stepy/jquery.stepy.min.js");
+    });
+    window.$('<link/>',{rel: 'stylesheet', href: 'assets/css/style.css'})
+    // loadFile("assets 21/plugins/jquery.stepy/jquery.stepy.min.js","js")
   }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('nextProps ', nextProps)
+      if (nextProps.editAgreement) {
+		  var tinymce=window.tinyMCE;
+      let agreement = nextProps.editAgreement;
+          $('input[name="agreement_title"]').val(agreement.agreement_title);
+          $('input[name="headerContent"]').val(agreement.header_content);
+		  tinymce.get("editor").setContent(agreement.agreement_doc_content);
+		  
+      }
+  }
+  componentDidMount() {
+      $(document).on('click', '.stepy-navigator',function () {
+          this.updatePage();
+      }.bind(this));
+  }
+
   onChangeHandler(e){
-    debugger;
-      const agreementForm=this.state.createForm
+    // debugger;
+      const agreementForm=this.state.createForm;
       if(e.target.name==="agreement_title")
       {
         agreementForm.agreement_title=e.target.value;
@@ -70,7 +97,7 @@ export default class VCreate extends React.Component{
       // this.setState({[e.target.name]:e.target.value})    
   }
 createAgreement(){
-  debugger;
+  // debugger;
   var tinymce=window.tinyMCE,$=window.$
   var content = tinymce.get("editor").getContent();
   const agreementForm=this.state.createForm
@@ -94,7 +121,8 @@ createAgreement(){
         if(data){
           // var userid = data.user.assets_id
           // localStorage.setItem('userid',userid)
-          alert('CREATED')
+		  swal("Assets Watch", data.msg);
+          window.location.reload()
         }
       //   if(data.msg.indexOf("Registered Successfully")!=-1)
       //   {
@@ -116,44 +144,56 @@ createAgreement(){
   }
 }
     demoTemplate()
+	  {
+			debugger;
+			var tinymce=window.tinyMCE,$=window.$
+		  var agreeTemplate = $("#agreeTemplate").html();		                                                
+		tinymce.get("editor").setContent(agreeTemplate);
+		}
+    
+	
+	insertComponent(e)
       {
-            debugger;
-            var tinymce=window.tinyMCE,$=window.$
-          var agreeTemplate = $("#agreeTemplate").html();		                                                
-        tinymce.get("editor").setContent(agreeTemplate);
-        }
-    insertComponent(e)
-      {
-        i = i+1;
-        var compName=e.target.values,tinymce=window.tinyMCE;
+        //i = parseInt(i, 10) ? i+1 : 0;
+		
+		i = i+1;
+		
+        var compName=e.target.value,tinymce=window.tinyMCE;
         var ed = tinymce.get('editor');     
         
+		//alert(i);
+		
         var content = tinymce.get("editor").getContent();
           
           if(compName=='Insert Signature Block')
             {
-            tinymce.activeEditor.execCommand('mceInsertContent', false, "<p><div contenteditable='false' class='sigDiv' id='sigId"+i+"' style='width:300px;height:100px;border:1px solid #eee; border-top:0' data-toggle='modal' data-target='#custom-width-modal' onclick='addplaceId(this.id)'>"+compName+"</div></p>");				
+            tinymce.activeEditor.execCommand('mceInsertContent', false, "<p><div contenteditable='false' class='sigDiv' id='sigId"+i+"' style='width:300px;height:100px;border:1px solid #eee; border-top:0' data-toggle='modal' data-target='#custom-width-modal' onclick='addplaceId(this.id)'>"+compName+"</div></p>");
+                // tinymce.get("editor").setContent( content + " " + "<p><div contenteditable='false' class='sigDiv' id='sigId"+i+"' style='width:300px;height:100px;border:1px solid #eee; border-top:0' data-toggle='modal' data-target='#custom-width-modal' onclick='addplaceId(this.id)'>"+compName+"</div></p>");
           }
           else if(compName=='Insert Text Box')
             {
-            tinymce.activeEditor.execCommand('mceInsertContent', false, "<p><input class='inner' type='text' id='textId"+i+"'  style='width:300px;height:20px;border:1px solid #eee;' placeholder='Enter text value' /></p>");
+            tinymce.activeEditor.execCommand('mceInsertContent', false, "<p id='textDivId"+i+"'><input class='inner' type='text' id='textId"+i+"'  style='width:300px;height:20px;border:1px solid #eee;' placeholder='Enter text value' /></p>");
           }
           else if(compName=='Insert Date Box')
             {
-            tinymce.activeEditor.execCommand('mceInsertContent', false, "<p><input class='datepickerWithoutTime' type='text' id='dateId"+i+"'  style='width:120px;height:20px;border:1px solid #eee;' placeholder='dd/mm/yyyy' /></p>");
+            tinymce.activeEditor.execCommand('mceInsertContent', false, "<p id='dateDivId"+i+"'><input class='datepickerWithoutTime' type='text' id='dateId"+i+"'  style='width:120px;height:20px;border:1px solid #eee;' placeholder='dd/mm/yyyy' /></p>");
           }
           else if(compName=='Insert Check Box')
             {
-            tinymce.activeEditor.execCommand('mceInsertContent', false, "<p><input class='inner' type='checkbox' id='dateId"+i+"' /></p>");
+            tinymce.activeEditor.execCommand('mceInsertContent', false, "<p id='checkDivId"+i+"'><input class='inner' type='checkbox' id='dateId"+i+"' /></p>");
           }
           else
           {
             tinymce.activeEditor.execCommand('mceInsertContent', false, "<p><span class='inner' style='background:#57bb57;padding:2px 10px;border-radius:2px;font-size: 14px;color: #fff;float: left;margin-right: 5px;'>"+compName+"</span></p>");
             
             tinymce.get("editor").setContent(content+" "+"<span class='inner' style='background:#57bb57;padding:2px 10px;border-radius:2px;font-size: 14px;color: #fff;float: left;margin-right: 5px;'>"+compName+"</span>"); 
-          }			
+          }
+          this.updatePage();
+
       }
-	
+	updatePage() {
+        this.setState({dumy: true});
+    }
 
     showSideOption()
       {
@@ -332,6 +372,7 @@ createAgreement(){
         <button type="button" onClick={this.createAgreement} class="btn btn-primary stepy-finish">Submit</button></p></fieldset>        
       </form>
     </div>
+     
   </div>
   );}
   }

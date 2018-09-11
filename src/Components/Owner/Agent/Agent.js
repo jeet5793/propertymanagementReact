@@ -52,14 +52,6 @@ const loadScript=function(url, callback){
   document.getElementsByTagName("head")[0].appendChild(script);
 }
 
-
-// const options = [
-  // { value: '1', label: 'Chocolate' },
-  // { value: '2', label: 'Strawberry' },
-  // { value: '3', label: 'Vanilla' }
-// ];
-
-
 class Agent extends React.Component{
 	constructor(props) {
     super(props);

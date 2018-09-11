@@ -15,12 +15,16 @@ export default class VCreate extends React.Component{
     console.log('props ', props);
     this.state={
       userData : Cookies.get('profile_data'),
+      sectionOpenId:"",
+      collapseStatus:false,
       createForm:{
         user_id:"3",
         agreement_title:"",
         agreement_doc_content:"",
-        session_id:""
-      }      
+        session_id:"",
+      },
+		templateList:[],
+		templateDetails:[]
     }
     this.onChangeHandler=this.onChangeHandler.bind(this)
     this.createAgreement=this.createAgreement.bind(this)
@@ -31,12 +35,13 @@ export default class VCreate extends React.Component{
     window.$.getScript("assets 21/plugins/jquery.stepy/jquery.stepy.min.js", function () {
         console.log("assets 21/plugins/jquery.stepy/jquery.stepy.min.js");
     });
+    window.$('<link/>',{rel: 'stylesheet', href: 'assets/css/bootstrap.min.css'})
     window.$('<link/>',{rel: 'stylesheet', href: 'assets/css/style.css'})
     // loadFile("assets 21/plugins/jquery.stepy/jquery.stepy.min.js","js")
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('nextProps ', nextProps)
+    // console.log('nextProps ', nextProps)
       if (nextProps.editAgreement) {
 		  var tinymce=window.tinyMCE;
       let agreement = nextProps.editAgreement;
@@ -50,8 +55,30 @@ export default class VCreate extends React.Component{
       $(document).on('click', '.stepy-navigator',function () {
           this.updatePage();
       }.bind(this));
+      $("#default-wizard-step-1").on('click', '.button-next',function () {
+        this.saveAgreementRemainder()
+    }.bind(this));
+	this.getTemplatesName();
   }
-
+	getTemplatesName(){
+	fetch(`${API_URL}assetsapi/agreement_template_name/${JSON.parse(this.state.userData).session_id}`, {
+        method: 'get'
+      })
+    .then(res => res.json())
+		.then(
+		  (result) => {
+			//console.log("data 2: "+JSON.stringify(result.profile))
+			if (result.success) {
+			  this.setState({templateList:result.template_list})
+			  
+			} 
+			// console.log("templateList"+JSON.stringify(this.state.templateList))
+		  },
+			(error) => {
+			  console.log('error')
+			}
+		)
+	}
   onChangeHandler(e){
     // debugger;
       const agreementForm=this.state.createForm;
@@ -116,8 +143,8 @@ createAgreement(){
         return response.json();
       })
       .then((data) => {
-        debugger;
-        console.log('dataaaa:  ', data);
+        //debugger;
+        //console.log('dataaaa:  ', data);
         if(data){
           // var userid = data.user.assets_id
           // localStorage.setItem('userid',userid)
@@ -143,14 +170,13 @@ createAgreement(){
     alert('Please add title and content to create agreement')
   }
 }
-    demoTemplate()
+    demoTemplate(templateDescription)
 	  {
-			debugger;
-			var tinymce=window.tinyMCE,$=window.$
-		  var agreeTemplate = $("#agreeTemplate").html();		                                                
-		tinymce.get("editor").setContent(agreeTemplate);
-		}
-    
+		  // console.log(templateDescription);
+		  var tinymce=window.tinyMCE,$=window.$
+		 tinymce.get("editor").setContent(templateDescription);
+	}
+  
 	
 	insertComponent(e)
       {
@@ -167,26 +193,26 @@ createAgreement(){
           
           if(compName=='Insert Signature Block')
             {
-            tinymce.activeEditor.execCommand('mceInsertContent', false, "<p><div contenteditable='false' class='sigDiv' id='sigId"+i+"' style='width:300px;height:100px;border:1px solid #eee; border-top:0' data-toggle='modal' data-target='#custom-width-modal' onclick='addplaceId(this.id)'>"+compName+"</div></p>");
+            tinymce.activeEditor.execCommand('mceInsertContent', false, "<p><div contenteditable='false' class='sigDiv' id='sigId"+i+"' style='width:300px;height:85px;padding-top:5px;padding-left:10px;margin-right:10px;border:1px solid #eee;' data-toggle='modal' data-target='#custom-width-modal' onclick='addplaceId(this.id)'>"+compName+"</div></p><br>");
                 // tinymce.get("editor").setContent( content + " " + "<p><div contenteditable='false' class='sigDiv' id='sigId"+i+"' style='width:300px;height:100px;border:1px solid #eee; border-top:0' data-toggle='modal' data-target='#custom-width-modal' onclick='addplaceId(this.id)'>"+compName+"</div></p>");
           }
           else if(compName=='Insert Text Box')
             {
-            tinymce.activeEditor.execCommand('mceInsertContent', false, "<p id='textDivId"+i+"'><input class='inner' type='text' id='textId"+i+"'  style='width:300px;height:20px;border:1px solid #eee;' placeholder='Enter text value' /></p>");
+            tinymce.activeEditor.execCommand('mceInsertContent', false, "<p id='textDivId"+i+"'><input class='inner' type='text' id='textId"+i+"'  style='width:300px;padding-left:10px;height:30px;margin-right:10px;border:1px solid #eee;' placeholder='Enter text value' /></p>");
           }
           else if(compName=='Insert Date Box')
             {
-            tinymce.activeEditor.execCommand('mceInsertContent', false, "<p id='dateDivId"+i+"'><input class='datepickerWithoutTime' type='text' id='dateId"+i+"'  style='width:120px;height:20px;border:1px solid #eee;' placeholder='dd/mm/yyyy' /></p>");
+            tinymce.activeEditor.execCommand('mceInsertContent', false, "<p id='dateDivId"+i+"'><input class='datepickerWithoutTime' type='text' id='dateId"+i+"'  style='width:120px;height:30px;padding-left:10px;margin-right:10px;border:1px solid #eee;' placeholder='dd/mm/yyyy' /></p>");
           }
           else if(compName=='Insert Check Box')
             {
-            tinymce.activeEditor.execCommand('mceInsertContent', false, "<p id='checkDivId"+i+"'><input class='inner' type='checkbox' id='dateId"+i+"' /></p>");
+            tinymce.activeEditor.execCommand('mceInsertContent', false, "<p id='checkDivId"+i+"'><input style='width:120px;height:30px;padding-left:10px;margin-right:10px;class='inner' type='checkbox' id='dateId"+i+"' /></p>");
           }
           else
           {
-            tinymce.activeEditor.execCommand('mceInsertContent', false, "<p><span class='inner' style='background:#57bb57;padding:2px 10px;border-radius:2px;font-size: 14px;color: #fff;float: left;margin-right: 5px;'>"+compName+"</span></p>");
+            tinymce.activeEditor.execCommand('mceInsertContent', false, "<p><span class='inner' style='background:#57bb57;padding:2px 10px;border-radius:2px;font-size: 14px;color: #fff;float: left;margin-right: 10px;'>"+compName+"</span></p>");
             
-            tinymce.get("editor").setContent(content+" "+"<span class='inner' style='background:#57bb57;padding:2px 10px;border-radius:2px;font-size: 14px;color: #fff;float: left;margin-right: 5px;'>"+compName+"</span>"); 
+            tinymce.get("editor").setContent(content+" "+"<span class='inner' style='background:#57bb57;padding:2px 10px;border-radius:2px;font-size: 14px;color: #fff;float: left;margin-right: 10px;'>"+compName+"</span>"); 
           }
           this.updatePage();
 
@@ -194,11 +220,45 @@ createAgreement(){
 	updatePage() {
         this.setState({dumy: true});
     }
-
+    handleSectionOpen(id){
+      //alert(id+"===="+this.state.sectionOpenId+"==="+this.state.collapseStatus)
+      if(this.state.sectionOpenId==id){
+        if(this.state.collapseStatus){
+        //   $('#'+id).removeClass('collapse');
+       //   alert("no show")
+        //   $('#'+id).addClass("collapse in show");
+        //   $('#'+id).hide();
+          $('#'+id).attr("style", "display: none !important");
+        //  $('#'+id).css('display,') == 'none'
+          this.setState({collapseStatus:false})
+        }else{
+        // alert("yes show")
+        //  $('#'+id).removeClass("collapse in show");
+        //   $('#'+id).addClass('collapse');
+        //   $('#'+id).css('display') == 'block'
+        $('#'+id).attr("style", "display: block !important");
+         
+         //$('#' +id).show();
+          this.setState({collapseStatus:true})
+        }
+      }
+      else{
+       // alert("yes there is not equal")
+        if(this.state.sectionOpenId){
+          $('#' + this.state.sectionOpenId).hide()
+          $('#'+id).show();
+          this.setState({sectionOpenId:id,collapseStatus:true})
+        }
+        else{
+          $('#'+id).show();
+          this.setState({sectionOpenId:id,collapseStatus:true})
+        }
+      }
+    }
     showSideOption()
       {
           var $=window.$
-          debugger;
+          // debugger;
       if($('#sideTogle').css('display') == 'none')
       {
         $('#sideTogle').show();
@@ -208,101 +268,105 @@ createAgreement(){
         $('#sideTogle').hide();
       }		
       }
+      saveAgreementRemainder(){
+        swal("Assets Watch","Please submit to save the agreement");
+      }
     render(){
     {window.tinyMCE.get("editor") && window.$('#previewDiv').html(window.tinyMCE.get("editor").getContent())}
     return (
     <div className="tab-pane" id="v-create">
       <div className="bdr">      
       <form id="default-wizard">
-        <fieldset title="1" id="default-wizard-step-0" class="stepy-step">
+        <fieldset title="1" id="default-wizard-step-0" className="stepy-step">
           <legend style={{display: 'none'}}>Create</legend>
-          <div class="form-group">
-            <div class="col-md-12">
-              <div class="row m-t-20">
-                <div class=" col-sm-2">
+          <div className="form-group">
+            <div className="col-md-12">
+              <div className="row m-t-20">
+                <div className=" col-sm-2">
                  <label><b>Agreement Title:</b></label>
                 </div>
-                <div class="col-sm-10">
-                  <input type="text" onChange={this.onChangeHandler} name="agreement_title" class="form-control" />
+                <div className="col-sm-10">
+                  <input type="text" onChange={this.onChangeHandler} name="agreement_title" className="form-control" />
                 </div>
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-12">                               
+          <div className="row" >
+            <div className="col-md-12">                               
               {/* <!-- sample modal content -->                             */}
-              <div class="fixed-action-btn hide-on-large-only">
-              <a class="btn-floating btn-large teal" onClick={this.showSideOption}>
-                <i class="large fi-menu"></i> </a>               
+              <div className="fixed-action-btn hide-on-large-only">
+              <a className="btn-floating btn-large teal" onClick={this.showSideOption}>
+                <i className="large fi-menu"></i> </a>               
               </div>
-              <div class="custome-temp" id="sideTogle" style={{display: 'none'}}>                              
-                <div class="slimScrollDiv" style={{position: 'relative', overflow: 'hidden', width: 'auto', height:' 282px'}}>
-                  <div class="autohide1-scroll" style={{height: '282px', overflow: 'hidden', width: 'auto'}}>
-                    <div id="accordion" class="m-b-10">
-                      <div class="card m-b-5">
-                        <div class="card-header  btn btn-success waves-effect w-md waves-light" role="tab" id="headingOne">
-                          <h5 class="mb-0 mt-0"> <a class="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"> Header Section </a> </h5>
+              <div className="custome-temp" id="sideTogle" style={{display: 'none'}}>                              
+                <div className="slimScrollDiv" style={{position: 'relative', overflow: 'hidden', width: 'auto', height:' 282px'}}>
+                  <div className="autohide1-scroll" style={{height: '282px', overflow: 'hidden', width: 'auto'}}>
+                    <div id="accordion" className="m-b-10">
+                      <div className="card m-b-5">
+                        <div onClick={this.handleSectionOpen.bind(this,"collapseOne")} className="card-header  btn btn-success" role="tab" id="headingOne">
+                          <h5 className="mb-0 mt-0"> <a className="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"> Header Section </a> </h5>
                         </div>
-                        <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
-                          <div class="card-block">
-                            <div class="row">
-                              <div class="col-sm-12">
+                        <div id="collapseOne" className="collapse" role="tabpanel" aria-labelledby="headingOne">
+                          <div className="card-block">
+                            <div className="row">
+                              <div className="col-sm-12">
                                 <label><b>Header Content</b></label>
-                                <input type="text" name="headerContent" onChange={this.onChangeHandler} class="form-control" maxlength="15" />
+                                <input type="text" name="headerContent" onChange={this.onChangeHandler} className="form-control" maxlength="15" />
                               </div>
                             </div>
-                            <div class="row">
-                              <div class="col-sm-12">
+                            <div className="row">
+                              <div className="col-sm-12">
                                 <label><b>Header Image</b></label>
-                                <input type="file" name="headerImage" onChange={this.onChangeHandler} ref={this.headerImage} class="form-control" />
+                                <input type="file" name="headerImage" onChange={this.onChangeHandler} ref={this.headerImage} className="form-control" />
                               </div>
                             </div>
-                            <div class="row">
-                              <div class="col-sm-12">
+                            <div className="row">
+                              <div className="col-sm-12">
                                 <label><b>Water Mark Image</b></label>
-                                <input type="file" name="waterMarkImage" onChange={this.onChangeHandler} ref={this.waterMarkImage} class="form-control" />
+                                <input type="file" name="waterMarkImage" onChange={this.onChangeHandler} ref={this.waterMarkImage} className="form-control" />
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div class="card m-b-5">
-                        <div class="card-header  btn btn-success waves-effect w-md waves-light" role="tab" id="headingTwo">
-                          <h5 class="mb-0 mt-0"> <a class="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"> Footer Section </a> </h5>
+                      <div className="card m-b-5">
+                        <div onClick={this.handleSectionOpen.bind(this,"collapseTwo")} className="card-header  btn btn-success waves-effect w-md waves-light" role="tab" id="headingTwo">
+                          <h5 className="mb-0 mt-0"> <a className="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"> Footer Section </a> </h5>
                         </div>
-                        <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
-                          <div class="card-block">
-                            <div class="row">
-                              <div class="col-sm-12">
+                        <div id="collapseTwo" className="collapse" role="tabpanel" aria-labelledby="headingTwo">
+                          <div className="card-block">
+                            <div className="row">
+                              <div className="col-sm-12">
                                 <label><b>Footer Content</b></label>
-                                <textarea class="form-control" name="footerContent" onChange={this.onChangeHandler} maxlength="30"></textarea>
+                                <textarea className="form-control" name="footerContent" onChange={this.onChangeHandler} maxlength="30"></textarea>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div class="card m-b-5">
-                        <div class="card-header  btn btn-success waves-effect w-md waves-light" role="tab" id="headingThree">
-                          <h5 class="mb-0 mt-0">
-                            <a class="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree"> Agreement Template </a> </h5>
+                      <div className="card m-b-5">
+                        <div onClick={this.handleSectionOpen.bind(this,"collapseThree")} className="card-header  btn btn-success waves-effect w-md waves-light" role="tab" id="headingThree">
+                          <h5 className="mb-0 mt-0">
+                            <a className="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree"> Agreement Template </a> </h5>
                         </div>
-                        <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
-                          <div class="card-block">
-                            <div class="add-name">
-                              <a href="#" onClick={this.demoTemplate}>Template 1</a><br />
-                              <a href="#" onClick={this.demoTemplate}>Template 2</a><br />
-                              <a href="#" onClick={this.demoTemplate}>Template 3</a>                    
-                            </div>
+                        <div id="collapseThree" className="collapse" role="tabpanel" aria-labelledby="headingThree">
+                          <div className="card-block">
+						  {this.state.templateList?this.state.templateList.map((item)=>( 
+                            <div className="add-name">
+							<a href="#" onClick={this.demoTemplate.bind(this,item.templateDescription)} key={item.templateId}>{item.templateTitle}</a>
+								{/* <a href="#" onClick={this.demoTemplate}>Template 2</a><br />
+								<a href="#" onClick={this.demoTemplate}>Template 3</a>  */ }                  
+                            </div>)):''}
                           </div>
                         </div>
                       </div>  
-                      <div class="card m-b-5">
-                        <div class="card-header btn btn-success waves-effect w-md waves-light" role="tab" id="headingFour">
-                          <h5 class="mb-0 mt-0"> <a class="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour"> Insert Dynamic Value </a> </h5>
+                      <div className="card m-b-5">
+                        <div  onClick={this.handleSectionOpen.bind(this,"collapseFour")}className="card-header btn btn-success waves-effect w-md waves-light" role="tab" id="headingFour">
+                          <h5 className="mb-0 mt-0"> <a className="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour"> Insert Dynamic Value </a> </h5>
                         </div>
-                        <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour">
-                          <div class="card-block">
-                            <div class="add-name">
+                        <div id="collapseFour" className="collapse" role="tabpanel" aria-labelledby="headingFour">
+                          <div className="card-block">
+                            <div className="add-name">
                                   <input type="button" value="Rent Amount" onClick={this.insertComponent.bind(this)} />
                                 <input type="button" value="Selling Amount" onClick={this.insertComponent.bind(this)} />
                                 <input type="button" value="Deposit Amount" onClick={this.insertComponent.bind(this)} />
@@ -317,13 +381,13 @@ createAgreement(){
                           </div>
                         </div>
                       </div>
-                      <div class="card">
-                        <div class="card-header btn btn-success waves-effect w-md waves-light" role="tab" id="headingFive">
-                          <h5 class="mb-0 mt-0"> <a class="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive"> Insert Components </a> </h5>
+                      <div className="card">
+                        <div  onClick={this.handleSectionOpen.bind(this,"collapseFive")} className="card-header btn btn-success waves-effect w-md waves-light" role="tab" id="headingFive">
+                          <h5 className="mb-0 mt-0"> <a className="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive"> Insert Components </a> </h5>
                         </div>
-                        <div id="collapseFive" class="collapse" role="tabpanel" aria-labelledby="headingFive">
-                          <div class="card-block">
-                            <div class="add-name">
+                        <div id="collapseFive" className="collapse" role="tabpanel" aria-labelledby="headingFive">
+                          <div className="card-block">
+                            <div className="add-name">
                               <input type="button" value="Insert Signature Block" onClick={this.insertComponent.bind(this)} />
                                       <input type="button" value="Insert Text Box" onClick={this.insertComponent.bind(this)} />
                                       <input type="button" value="Insert Date Box" onClick={this.insertComponent.bind(this)} />
@@ -334,42 +398,43 @@ createAgreement(){
                       </div>
                     </div>      
                   </div>
-                  <div class="slimScrollBar" style={{background: 'rgb(158, 165, 171)', width:' 5px', position: 'absolute', top: '0px', opacity: '1', display: 'block', borderRadius: '7px', zIndex: '99', right: '1px'}}></div>
-                  <div class="slimScrollRail" style={{width: '5px', height: '100%', position: 'absolute', top: '0px', display: 'none', borderRadius: '7px', background: 'rgb(51, 51, 51)', opacity: '0.2', zIndex: '90', right: '1px'}}>
+                  <div className="slimScrollBar" style={{background: 'rgb(158, 165, 171)', width:' 5px', position: 'absolute', top: '0px', opacity: '1', display: 'block', borderRadius: '7px', zIndex: '99', right: '1px'}}></div>
+                  <div className="slimScrollRail" style={{width: '5px', height: '100%', position: 'absolute', top: '0px', display: 'none', borderRadius: '7px', background: 'rgb(51, 51, 51)', opacity: '0.2', zIndex: '90', right: '1px'}}>
                 </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="row " style={{float:'left'}}>
-          <div class="col-sm-12">
-          <textarea name="agreement_doc_content" onChange={this.onChangeHandler} id="editor" style={{position:'absolute',left:'0'}} class="tinymce"></textarea>            
+          <div className="row " style={{float:'left',marginBottom:15}}>
+          <div className="col-sm-12">
+          <textarea name="agreement_doc_content" onChange={this.onChangeHandler} id="editor" style={{position:'absolute',left:'0'}} className="tinymce"></textarea>            
           </div>
           </div>
           
         </fieldset>
-        <fieldset title="2" id="default-wizard-step-1" class="stepy-step" style={{display: 'none'}}>
+        <fieldset title="2"  id="default-wizard-step-1" className="stepy-step" style={{display: 'none'}}>
           <legend style={{display: 'none'}}>Preview</legend>
-          <div class="row m-t-20">
-            <div class="row">
-              <div class="col-sm-12">
-                <div class="slimScrollDiv" style={{position: 'relative', overflow: 'hidden', width: 'auto', height: '780px'}}>
-                <div id="previewDiv" class="row m-t-20 signature  autohide-scroll" style={{height: '780px', width: 'auto', padding: '12px', overflow: 'hidden'}}>
-                </div><div class="slimScrollBar" style={{background: 'rgb(158, 165, 171)', width:' 5px', position:' absolute', top: '0px', opacity: '0.4', display: 'block', borderRadius: '7px', zIndex: '99', right: '1px'}}>
-                </div><div class="slimScrollRail" style={{width:' 5px', height: '100%', position: 'absolute', top:' 0px', display: 'none', borderRadius: '7px', background: 'rgb(51, 51, 51)', opacity: '0.2', zIndex: '90', right:' 1px'}}>
+          <div className="row m-t-20">
+            <div className="row">
+              <div className="col-sm-12">
+                <div className="slimScrollDiv" style={{position: 'relative', overflow: 'hidden', width: '330px', height: '780px'}}>
+                <div id="previewDiv" className="row m-t-20 signature  autohide-scroll" style={{height: '300px', width: '100%', padding: '12px',marginLeft:15,marginRight:15}}>
+                </div>
+                <div className="slimScrollBar" style={{background: 'rgb(158, 165, 171)', width:' 5px', position:' absolute', top: '0px', opacity: '0.4', display: 'block', borderRadius: '7px', zIndex: '99', right: '1px'}}>
+                </div>
+                <div className="slimScrollRail" style={{width:' 5px', height: '100%', position: 'absolute', top:' 0px', display: 'none', borderRadius: '7px', background: 'rgb(51, 51, 51)', opacity: '0.2', zIndex: '90', right:' 1px'}}>
                 </div></div>
               </div>
             </div>
           </div>
         
         </fieldset>
-        <fieldset title="3" id="default-wizard-step-2" class="stepy-step" style={{display:' none'}}>
+        <fieldset   title="3" id="default-wizard-step-2" className="stepy-step" style={{display:' none'}}>
           <legend style={{display: 'none'}}>Save</legend>
-          <div class="row m-t-20 signature"> </div>
-        <p class="stepy-navigator">
-        <a class="button-back btn btn-default waves-effect pull-left">
-        <i class="mdi mdi-arrow-left-bold"></i> Back</a>
-        <button type="button" onClick={this.createAgreement} class="btn btn-primary stepy-finish">Submit</button></p></fieldset>        
+          <div className="row m-t-20 signature"> </div>
+        <p className="stepy-navigator">
+        
+        <button type="button" onClick={this.createAgreement} className="btn btn-primary stepy-finish">Submit</button></p></fieldset>        
       </form>
     </div>
      

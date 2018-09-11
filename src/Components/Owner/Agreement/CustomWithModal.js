@@ -107,7 +107,9 @@ export default class Customwithmodal extends React.Component{
             newImg.style="width:297px;height:97px;";            
             $("#"+placeId).html(newImg);            
             document.getElementById("closeButtonId").click();
-        }	    
+        }
+	$(".modal-backdrop").hide();		
+	
     }
     readURL(input) {          
         var placeId = $("#placeId").val();
@@ -121,13 +123,18 @@ export default class Customwithmodal extends React.Component{
             document.getElementById("closeButtonId").click();
         }
     }
+	hideModel()
+	{
+		var $=window.$;
+		$(".modal-backdrop").hide();
+	}
     render(){
         return(
             <div id="custom-width-modal" className="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel" aria-hidden="true" style={{display: 'none'}}>
             <div className="modal-dialog" style={{width:'55%'}}>			
             <div className="modal-content">				
               <div className="modal-header">
-                <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <button type="button" onClick={this.hideModel} className="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 className="modal-title" id="custom-width-modalLabel">Make Signature</h4>
               </div>		
                 <div className="modal-body">          
@@ -165,7 +172,7 @@ export default class Customwithmodal extends React.Component{
                   </form>        
                 </div>		
                 <div className="modal-footer">
-                  <button type="button" id="closeButtonId" lass="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                  <button type="button" id="closeButtonId" lass="btn btn-secondary waves-effect" data-dismiss="modal" onClick={this.hideModel}>Close</button>
                   <button type="button" className="btn btn-primary waves-effect waves-light" onClick={this.canvasToImg.bind(this)}>Import</button>
                 </div>										
                     </div>

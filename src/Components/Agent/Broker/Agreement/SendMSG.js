@@ -157,6 +157,11 @@ export default class SendMSG extends React.Component{
             );
 
     }
+	hideModel()
+	{
+		var $=window.$;
+		$(".modal-backdrop").hide();
+	}
     render(){
       // console.log("propertyByUser render..."+JSON.stringify(this.state.propertyByUser));
         console.log('props'+JSON.stringify(this.props))
@@ -165,7 +170,7 @@ export default class SendMSG extends React.Component{
             <div className="modal-dialog">
               <div className="modal-content">      
                 <div className="modal-header">        
-                  <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <button type="button" className="close" data-dismiss="modal" onClick={this.hideModel} aria-hidden="true">×</button>
                   <h4 className="modal-title">Agreement Title </h4>      
                 </div>      
                 <div className="modal-body">        
@@ -214,7 +219,7 @@ export default class SendMSG extends React.Component{
               </div>		
               </div>     
               <div className="modal-footer">
-                <button type="button" className="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                <button type="button" className="btn btn-secondary waves-effect" onClick={this.hideModel} data-dismiss="modal">Close</button>
                 <button type="button" className="btn btn-success waves-effect waves-light" onClick={this.props.UpdAgreement?this.sendForwardedAgreement:this.sendAgreement}>Send</button>
               </div>  
               </div>

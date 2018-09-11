@@ -110,6 +110,11 @@ userlist(assets_type){
             );
 
     }
+	hideModel()
+	{
+		var $=window.$;
+		$(".modal-backdrop").hide();
+	}
     render(){
       console.log("propertyByUser render..."+JSON.stringify(this.state.propertyByUser));
       console
@@ -118,7 +123,7 @@ userlist(assets_type){
             <div className="modal-dialog">
               <div className="modal-content">      
                 <div className="modal-header">        
-                  <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <button type="button" className="close" onClick={this.hideModel} data-dismiss="modal" aria-hidden="true">×</button>
                   <h4 className="modal-title">Agreement Title </h4>      
                 </div>      
                 <div className="modal-body">        
@@ -167,7 +172,7 @@ userlist(assets_type){
               </div>		
               </div>     
               <div className="modal-footer">
-                <button type="button" className="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                <button type="button" className="btn btn-secondary waves-effect" data-dismiss="modal" onClick={this.hideModel}>Close</button>
                 <button type="button" className="btn btn-success waves-effect waves-light" onClick={this.sendAgreement}>Send</button>
               </div>  
               </div>

@@ -15,6 +15,7 @@ import { connect } from 'react-redux';
 import API_URL from "../../../../app-config";
 import Cookies from 'js-cookie';
 import Pagination from 'react-js-pagination';
+ import Select from 'react-select';
 const loadScript=function(url, callback){
 
   var script = document.createElement("script")
@@ -81,11 +82,9 @@ class BrokerOwner extends React.Component{
         activePageJoined: 1,
         itemsCountPerPageReq: 1,
         itemsCountPerPageJoined: 1,
-		// Current value of the select field
-            value: "",
-            // Data that will be rendered in the autocomplete
-            // As it is asynchronous, it is initially empty
-            autocompleteData: []
+		autocompleteData: [],
+		selectedOption: null,
+		profileData:[]
 		
     };
 	this.onChangeHandler=this.onChangeHandler.bind(this)
@@ -96,188 +95,19 @@ class BrokerOwner extends React.Component{
 	 this.handlePageChangeRequestedList = this.handlePageChangeRequestedList.bind(this);
     this.handlePageChangeJoinedList = this.handlePageChangeJoinedList.bind(this);
 	// Bind `this` context to functions of the class
-        this.onChange = this.onChange.bind(this);
-        this.onSelect = this.onSelect.bind(this);
-        this.getItemValue = this.getItemValue.bind(this);
-        this.renderItem = this.renderItem.bind(this);
-        this.retrieveDataAsynchronously = this.retrieveDataAsynchronously.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+
+		this.onClickProfile = this.onClickProfile.bind(this);
 
   }
  
- /**
-     * Updates the state of the autocomplete data with the remote data obtained via AJAX.
-     * 
-     * @param {String} searchText content of the input that will filter the autocomplete data.
-     * @return {Nothing} The state is updated but no value is returned
-     */
-    retrieveDataAsynchronously(searchText){
-        let _this = this;
-
-        const opts = {
-					string:searchText,
-					assets_type:1,
-					userid:JSON.parse(this.state.userData).assets_id,
-					session_id:JSON.parse(this.state.userData).session_id};
-					
-		fetch(`${API_URL}assetsapi/userSearch/`, {
-        method: 'post',          
-        body: JSON.stringify(opts)
-        }).then((response) => {
-          return response.json();
-        }).then((data) => {
-				_this.setState({
-                    autocompleteData: data.users
-                });
-				console.log(this.state.autocompleteData);
-				}).catch((error) => {
-				  console.log('error: ', error);
-				});
-		  }
-       
-        /**
-     * Callback triggered when the user types in the autocomplete field
-     * 
-     * @param {Event} e JavaScript Event
-     * @return {Event} Event of JavaScript can be used as usual.
-     */
-    onChange(e){
-        this.setState({
-            value: e.target.value
-        });
-
-        /**
-         * Handle the remote request with the current text !
-         */
-        this.retrieveDataAsynchronously(e.target.value);
-
-        console.log("The Input Text has changed to ", e.target.value);
-    }
-
-    /**
-     * Callback triggered when the autocomplete input changes.
-     * 
-     * @param {Object} val Value returned by the getItemValue function.
-     * @return {Nothing} No value is returned
-     */
-    onSelect(val){
-        this.setState({
-            value: val
-        });
-
-        console.log("Option from 'database' selected : ", val);
-    }
-
-    /**
-     * Define the markup of every rendered item of the autocomplete.
-     * 
-     * @param {Object} item Single object from the data that can be shown inside the autocomplete
-     * @param {Boolean} isHighlighted declares wheter the item has been highlighted or not.
-     * @return {Markup} Component
-     */
-    renderItem(item, isHighlighted){
-        return (
-            <div style={{ background: isHighlighted ? 'lightgray' : 'white' }}>
-                {item.name}
-            </div>   
-        ); 
-    }
-
-    /**
-     * Define which property of the autocomplete source will be show to the user.
-     * 
-     * @param {Object} item Single object from the data that can be shown inside the autocomplete
-     * @return {String} val
-     */
-    getItemValue(item){
-        // You can obviously only return the Label or the component you need to show
-        // In this case we are going to show the value and the label that shows in the input
-        // something like "1 - Microsoft"
-        return `${item.value} - ${item.label}`;
-    }
-
-
-  
-  /* onSuggestionsFetchRequested = ({ value }) => {
-	  // alert(value);
-    // this.setState({
-      // suggestions: getSuggestions(value)
-    // });
-	const opts = {
-					string:value,
-					assets_type:1,
-					userid:JSON.parse(this.state.userData).assets_id,
-					session_id:JSON.parse(this.state.userData).session_id};
-	fetch(`${API_URL}assetsapi/userSearch/`, {
-        method: 'post',          
-        body: JSON.stringify(opts)
-        }).then((response) => {
-          return response.json();
-        }).then((data) => {
-          // console.log('dataaaa:  ', data.property_list);
-         
-          
-            //alert(data.msg);
-			this.setState({
-				  suggestions: data.users.map((item) =>item.name)
-				});
-            
-        
-        }).catch((error) => {
-          console.log('error: ', error);
-        });
-  }; */
-  
   componentDidMount(){  
+  const session = JSON.parse(this.state.userData).session_id; 
     loadScript('assets/js/bootstrap.min.js',function(){
       var $=window.$;
     $('[data-toggle="tooltip"]').tooltip();  
     })
     
-    // var msgicon1=document.getElementById('msg1icon');
-    // msgicon1.setAttribute('class','mesg-icon')
-    // msgicon1.setAttribute('style','color:white')
-    // msgicon1.setAttribute('data-toggle','modal')
-    // var veiw1=document.getElementById('view1')
-    // veiw1.setAttribute('class','view-icon')
-
-    // var msgicon1=document.getElementById('msg2');
-    // msgicon1.setAttribute('class','mesg-icon')
-    // msgicon1.setAttribute('style','color:white')
-    // msgicon1.setAttribute('data-toggle','modal')
-    // var veiw1=document.getElementById('view2')
-    // veiw1.setAttribute('class','view-icon')
-
-    // var msgicon1=document.getElementById('msg3');
-    // msgicon1.setAttribute('class','mesg-icon')
-    // msgicon1.setAttribute('style','color:white')
-    // msgicon1.setAttribute('data-toggle','modal')
-    // var veiw1=document.getElementById('view3')
-    // veiw1.setAttribute('class','view-icon')
-
-    // var msgicon1=document.getElementById('msg4');
-    // msgicon1.setAttribute('class','mesg-icon')
-    // msgicon1.setAttribute('style','color:white')
-    // msgicon1.setAttribute('data-toggle','modal')
-    // var veiw1=document.getElementById('view4')
-    // veiw1.setAttribute('class','view-icon')
-
-    // var msgicon1=document.getElementById('msg5');
-    // msgicon1.setAttribute('class','mesg-icon')
-    // msgicon1.setAttribute('style','color:white')
-    // msgicon1.setAttribute('data-toggle','modal')
-    // var veiw1=document.getElementById('view5')
-    // veiw1.setAttribute('class','view-icon')
-
-    // var msgicon1=document.getElementById('msg6');
-    // msgicon1.setAttribute('class','mesg-icon')
-    // msgicon1.setAttribute('style','color:white')
-    // msgicon1.setAttribute('data-toggle','modal')
-    // var veiw1=document.getElementById('view6')
-    // veiw1.setAttribute('class','view-icon')
-
-    // document.getElementById('act1').setAttribute('class','accept-icon')
-    // document.getElementById('act2').setAttribute('class','accept-icon')
-    // document.getElementById('act3').setAttribute('class','accept-icon')
 	this.inviteDropdowns();
 	this.joinedList();
 	this.requestedList();
@@ -287,7 +117,73 @@ class BrokerOwner extends React.Component{
       if (this.state.joinedList) {
           this.handlePageChangeJoinedList(this.state.activePageJoined);
       }
+	  
+	  var $=window.$;
+	 $('#react-select-2-input').keyup(function(e){
+
+		 const selVal = $('#react-select-2-input').val();
+		 
+		 // retrieveDataAsynchronously(selVal);
+		 let _this = this;
+
+       const opts ={assets_type:2,keyword:selVal,session_id:session}
+	   console.log(opts);
+		fetch(`${API_URL}assetsapi/user_search`, {
+			  method: 'POST',
+			body: JSON.stringify(opts)
+			})
+			.then(res => res.json())
+			.then(
+			  (result) => {
+				//console.log("data 2: "+JSON.stringify(profile))
+				//alert("data 2: "+JSON.stringify(result));
+				if (result.success) {
+				  
+					    this.setState({autocompleteData:result.search_userlist})
+						
+						
+				} 
+				 console.log("autocompleteData"+JSON.stringify(this.state.autocompleteData))
+				// console.log("user_list"+JSON.stringify(this.state.user_list))
+			  },
+			(error) => {
+			  console.log('error')
+			}
+		  ) 
+	 }.bind(this));
   }
+  onClickProfile(id)
+	 {
+		
+		 fetch(`${API_URL}assetsapi/profile/`+id+`/${JSON.parse(this.state.userData).session_id}`, {
+        method: 'get'
+      })
+    .then(res => res.json())
+		.then(
+		  (result) => {
+			//console.log("data 2: "+JSON.stringify(result.profile))
+			if (result.success) {
+			  this.setState({profileData:result.profile})
+			  
+			} 
+			console.log("set user data"+JSON.stringify(this.state.profileData))
+		  },
+			(error) => {
+			  console.log('error')
+			}
+		)
+	
+	 }
+  handleChange = (selectedOption) => {
+
+		this.setState({ selectedOption });
+     console.log(`Option selected:`, selectedOption);
+  }
+  hideModel()
+	{
+		var $=window.$;
+		$(".modal-backdrop").hide();
+	}
   inviteDropdowns(){
 	   
 		fetch(`${API_URL}assetsapi/invite_request/1/${JSON.parse(this.state.userData).session_id}/`, {
@@ -354,7 +250,11 @@ class BrokerOwner extends React.Component{
 		(error)=>{console.log('error')}
 		)
 	}
-	
+	hideModel()
+	{
+		var $=window.$;
+		$(".modal-backdrop").hide();
+	}
 	onChangeHandler(e){
 		const requestForm = this.state.sendReq;
 		if(e.target.name=="property_id")
@@ -486,7 +386,7 @@ class BrokerOwner extends React.Component{
 		alert(e.target.value);
 	}
     render(){
-		
+		const { selectedOption } = this.state;
 
       // if(this.props.owner===undefined)
       //   window.location.href='http://'+window.location.host
@@ -545,6 +445,7 @@ class BrokerOwner extends React.Component{
 									  <p className="text-muted m-b-3 "><i className="icon-envelope"></i>{item.email}</p>
 									  <p className="text-muted m-b-3 text-overflow"><i className="icon-location-pin"></i>&nbsp; {item.country}</p>
 									  <ul className="list-inline m-t-10 m-b-0 text-right">
+									  <li className="list-inline-item"> <a className="bgv-icon" data-toggle="modal" data-target="#background-verifi" title="background Verification" href="" onClick={this.onClickProfile.bind(this,item.profile_id)}><i className="icon-magnifier"></i></a> </li>
 										<li className="list-inline-item"> <a className="mesg-icon" data-toggle="modal" data-target="#send-msg" title="Message" href="#" onClick={this.messagerec.bind(this,item.profile_id,item.name)}><i className="icon-bubble" /></a> </li>
 										<li className="list-inline-item"> <Link to={{"pathname":"/broker-owner-profile",state:{profileid:item.profile_id,session:JSON.parse(this.state.userData).session_id}}} className="view-icon"><i className="icon-eye"></i></Link></li>
 									  </ul>
@@ -619,7 +520,7 @@ class BrokerOwner extends React.Component{
   <div className="modal-dialog">
     <div className="modal-content"  id="hidemodal">
       <div className="modal-header">
-        <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <button type="button" onClick={this.hideModel} className="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h4 className="modal-title">Send Invite</h4>
       </div>
       <div className="modal-body">
@@ -644,16 +545,17 @@ class BrokerOwner extends React.Component{
             <div className="form-group">
               <label for="field-1" className="control-label">Owner</label>
               <div className="">
-            <Autocomplete
-					
-                    getItemValue={this.getItemValue}
-                    items={this.state.autocompleteData}
-                    renderItem={this.renderItem}
-                    value={this.state.value}
-                    onChange={this.onChange}
-                    onSelect={this.onSelect}
-					
-                />
+					<Select
+							className="basic-single"
+							classNamePrefix="select"
+							value={selectedOption}
+							onChange={this.handleChange}
+							 // loadOptions={this.handleChange}
+							 // onKeyUp={this.onKeyUp}
+							
+							name="invite_id"
+							options={this.state.autocompleteData}
+							/>
 				{/* <select className="form-control" name="invite_id" onChange={this.onChangeHandler}>
 				   <option>Please Select</option>
 						{userList.map((option,key)=> (<option key={key.assets_id} value={option.assets_id}>{option.first_name+" "+option.last_name}</option>))}
@@ -673,7 +575,7 @@ class BrokerOwner extends React.Component{
         </div>
       </div>
       <div className="modal-footer">
-        <button type="button" className="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+        <button type="button" className="btn btn-secondary waves-effect" onClick={this.hideModel} data-dismiss="modal">Close</button>
         <button type="submit" className="btn btn-success waves-effect waves-light" onClick={this.sendRequest}>Send</button>
       </div>
     </div>
@@ -684,7 +586,7 @@ class BrokerOwner extends React.Component{
                 <div className="modal-dialog">
                     <div className="modal-content" id="hidemodal2">
                     <div className="modal-header">
-                        <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <button type="button" className="close" onClick={this.hideModel} data-dismiss="modal" aria-hidden="true">×</button>
                         <h4 className="modal-title">Send </h4>
                     </div>
                     <div className="modal-body">
@@ -707,7 +609,7 @@ class BrokerOwner extends React.Component{
                         </div>
                     </div>
                    <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                        <button type="button" className="btn btn-secondary waves-effect" data-dismiss="modal" onClick={this.hideModel}>Close</button>
                         <button type="button" className="btn btn-success waves-effect waves-light" onClick={this.sendMessage}>Send</button>
                     </div>
                   </div>

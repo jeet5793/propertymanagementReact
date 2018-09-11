@@ -6028,3 +6028,61 @@ div#datatable-buttons_info {
 li.list-inline-item .dropdown .notification-list .show{
 	display:inline-block !important;
 }
+
+/* agreement raju maik */
+.jFiler-input-dragDrop {
+
+ width: 100%;
+
+ background-color: #fafafa;
+
+ margin-left: 30px;
+
+}
+
+
+.button-next{
+
+background-color: #57bb57 !important;
+
+border: 1px solid #32c861 !important;
+
+color: white !important;
+
+font-size: 14px;
+
+padding: 7px 13px;
+
+text-decoration: none !important;
+
+}
+
+.button-next:hover{
+
+    background-color: #2e7be1 !important;
+
+ border-color: #2e7be1 !important;
+
+    color: white !important;
+
+}
+
+.button-back{
+
+    float: left !important;
+
+    color: #2e7be1 !important;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    text-decoration: none !important;
+
+}
+
+.button-back .btn .btn-default .waves-effect .pull-left{
+
+    display: none !important;
+
+}

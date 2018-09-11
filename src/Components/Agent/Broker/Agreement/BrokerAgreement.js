@@ -8,6 +8,8 @@ import VCreate from '../../../Owner/Agreement/VCreate'
 import {loadFile} from '../../../js/external'
 import SendMsg from './SendMSG'
 import swal from 'sweetalert';
+import '../../../Owner/Agreement/style.css'
+import './icons.css'
 // import SendMsgExecute from './SendMsgExecute';
 const Saved=(props)=>{
   return(                                            
@@ -22,13 +24,13 @@ const Saved=(props)=>{
           </tr>
         </thead>
         <tbody>
-          {props.agreement.map(element=>(
+          {(props.agreement!=undefined)? props.agreement.map(element=>(
             <tr>
               <td>{element.agreement_title}</td>
               <td>{element.created_date}</td>
               <td><a title="Edit" href="#" onClick={() => props.editAgreement(element)} className="table-action-btn view-rqu"><i className="mdi mdi-border-color"></i></a><a title="Delete" href="#" className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a><a title="Send" href="#" className="table-action-btn view-rqu" data-toggle="modal" data-target="#send-msg"><i className="mdi mdi-redo-variant" onClick={() => props.selectedAgreement(element)}></i></a></td>
             </tr>
-          ))}        
+          )):<div>No data </div>}         
         </tbody>
       </table>
     </div>
@@ -52,7 +54,7 @@ const VRequested=(props)=>{
                     <tr>
               <td>{element.agreement_title}</td>
               <td>{element.initiated_date}</td>
-              <td><a title="Edit" href="#preview" onClick={() => props.previewAgreement(element)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-border-color"></i></a><a title="Delete" href="#" className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a><a title="Send" href="#" className="table-action-btn view-rqu" data-toggle="modal" data-target="#send-msg"><i className="mdi mdi-redo-variant"></i></a></td>
+              <td><a title="Edit" href="#preview" onClick={() => props.previewAgreement(element)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Delete" href="#" className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a><a title="Send" href="#" className="table-action-btn view-rqu" data-toggle="modal" data-target="#send-msg"><i className="mdi mdi-redo-variant"></i></a></td>
             </tr>
           )):<div>No data </div>}
 
@@ -178,6 +180,47 @@ export default class BrokerAgreement extends React.Component{
     this.submitAgreement=this.submitAgreement.bind(this);
 	this.onClickChangeStatus =this.onClickChangeStatus.bind(this);
 	
+  }
+  componentWillMount(){
+    $.getScript('assets/js/jquery.min.js', ()=> {
+      console.log('assets/pages/jquery.wizard-init.js');
+   });
+   $.getScript('"assets/js/tether.min.js', ()=> {
+    console.log('"assets/js/tether.min.js');
+    });
+   $.getScript('assets/js/bootstrap.min.js', ()=> {
+    console.log('assets/js/bootstrap.min.js');
+    });
+    $.getScript('assets/js/waves.js', function () {
+      console.log('assets/js/waves.js');
+   });
+    $.getScript('assets 21/js/jquery.slimscroll.js', function () {
+      console.log('assets 21/js/jquery.slimscroll.js');
+   });
+    $.getScript('assets/js/jquery.scrollTo.min.jss', ()=> {
+      console.log('assets/js/jquery.scrollTo.min.js');
+      });
+      $.getScript('assets/plugins/ckeditor/ckeditor.js', ()=> {
+        console.log('assets/plugins/ckeditor/ckeditor.js');
+        });
+        $.getScript('assets/pages/jquery.scrollbar.js', ()=> {
+          console.log('assets/pages/jquery.scrollbar.js');
+          });
+         
+    $.getScript('assets/plugins/jquery.stepy/jquery.stepy.min.js', ()=> {
+      console.log('assets/plugins/jquery.stepy/jquery.stepy.min.js');
+    });
+    $.getScript('assets/pages/jquery.wizard-init.js', ()=> {
+      console.log('assets/pages/jquery.wizard-init.js');
+    });
+    $.getScript('assets/js/jquery.core.js', ()=> {
+      console.log('assets/js/jquery.core.js');
+      });
+      $.getScript('assets/js/jquery.app.js', ()=> {
+        console.log('assets/js/jquery.app.js');
+        });
+        
+
   }
   componentDidMount() {
 	  loadFile("assets 21/tiny/plugin/tinymce/tinymce.min.js","js")
@@ -438,39 +481,39 @@ getPropertyList() {
                 }
             )
     }
-    verticalNavbar(e)
-    {
-        var activeclassName="nav-link agreement-fa active";
-      var normalclassName="nav-link agreement-fa";
-      if(e.target.id==="saved")
-      {
-          document.getElementById(e.target.id).setAttribute('class',activeclassName)
-          document.getElementById("create").setAttribute('class',normalclassName)
-          document.getElementById("request").setAttribute('class',normalclassName)
-          document.getElementById("execute").setAttribute('class',normalclassName)
-      }
-      else if(e.target.id==="create")
-      {
-          document.getElementById(e.target.id).setAttribute('class',activeclassName)
-          document.getElementById("saved").setAttribute('class',normalclassName)
-          document.getElementById("request").setAttribute('class',normalclassName)
-          document.getElementById("execute").setAttribute('class',normalclassName)
-      }
-      else if(e.target.id==="request")
-      {
-          document.getElementById(e.target.id).setAttribute('class',activeclassName)
-          document.getElementById("saved").setAttribute('class',normalclassName)
-          document.getElementById("create").setAttribute('class',normalclassName)
-          document.getElementById("execute").setAttribute('class',normalclassName)
-      }
-      else if(e.target.id==="execute")
-      {
-          document.getElementById(e.target.id).setAttribute('class',activeclassName)
-          document.getElementById("saved").setAttribute('class',normalclassName)
-          document.getElementById("create").setAttribute('class',normalclassName)
-          document.getElementById("request").setAttribute('class',normalclassName)   
-      }
-    }
+    verticalNavbar(value,e)
+	  {
+		  var activeclassName="nav-link agreement-fa active";
+		  var normalclassName="nav-link agreement-fa";
+		  if(e.target.id==="saved")
+		  {
+			  document.getElementById(e.target.id).setAttribute('class',activeclassName)
+			  document.getElementById("create").setAttribute('class',normalclassName)
+			  document.getElementById("request").setAttribute('class',normalclassName)
+			  document.getElementById("execute").setAttribute('class',normalclassName)
+		  }
+		  else if(e.target.id==="create")
+		  {
+			  document.getElementById(e.target.id).setAttribute('class',activeclassName)
+			  document.getElementById("saved").setAttribute('class',normalclassName)
+			  document.getElementById("request").setAttribute('class',normalclassName)
+			  document.getElementById("execute").setAttribute('class',normalclassName)
+		  }
+		  else if(e.target.id==="request")
+		  {
+			  document.getElementById(e.target.id).setAttribute('class',activeclassName)
+			  document.getElementById("saved").setAttribute('class',normalclassName)
+			  document.getElementById("create").setAttribute('class',normalclassName)
+			  document.getElementById("execute").setAttribute('class',normalclassName)
+		  }
+		  else if(e.target.id==="execute")
+		  {
+			  document.getElementById(e.target.id).setAttribute('class',activeclassName)
+			  document.getElementById("saved").setAttribute('class',normalclassName)
+			  document.getElementById("create").setAttribute('class',normalclassName)
+			  document.getElementById("request").setAttribute('class',normalclassName)   
+		  }
+	  }
 
     previewAgreement(agreement) {
         let data = {deal_id: agreement.deal_id};
@@ -553,17 +596,17 @@ getPropertyList() {
                       <div className="col-md-2">
                         <ul className="nav tabs-vertical">
                          <li className="nav-item">
-                                    <a id="saved" onClick={this.verticalNavbar.bind(this)} href="#v-saved" className="nav-link agreement-fa active" data-toggle={"tab"} aria-expanded={false}>
+                                    <a id="saved" onClick={this.verticalNavbar.bind(this,"saved")} href="#v-saved" className="nav-link agreement-fa active" data-toggle={"tab"} aria-expanded={false}>
                                         <i className="icon-folder-alt"></i>&nbsp;&nbsp;Saved
                                     </a> 
                                 </li>
                                 <li className="nav-item">
-                                    <a id="create" href="#v-create" onClick={this.verticalNavbar.bind(this)} className="nav-link agreement-fa" data-toggle={"tab"} aria-expanded={true}>
+                                    <a id="create" href="#v-create" onClick={this.verticalNavbar.bind(this,"create")} className="nav-link agreement-fa" data-toggle={"tab"} aria-expanded={true}>
                                         <i className="icon-plus"></i>&nbsp;&nbsp;Create
                                     </a> 
                                 </li>
-                          <li className="nav-item"> <a href="#v-requested" id="request" onClick={this.verticalNavbar} className="nav-link agreement-fa" data-toggle="tab" aria-expanded="true"><i className="icon-note" />&nbsp;&nbsp;Requested</a> </li>
-                          <li className="nav-item"> <a href="#v-execute" id="execute" onClick={this.verticalNavbar} className="nav-link agreement-fa" data-toggle="tab" aria-expanded="true"><i className="icon-compass" />&nbsp;&nbsp;Execute</a> </li>
+                          <li className="nav-item"> <a href="#v-requested" id="request" onClick={this.verticalNavbar.bind(this,"request")} className="nav-link agreement-fa" data-toggle="tab" aria-expanded="true"><i className="icon-note" />&nbsp;&nbsp;Requested</a> </li>
+                          <li className="nav-item"> <a href="#v-execute" id="execute" onClick={this.verticalNavbar.bind(this,"execute")} className="nav-link agreement-fa" data-toggle="tab" aria-expanded="true"><i className="icon-compass" />&nbsp;&nbsp;Execute</a> </li>
                         </ul>
                       </div>
                       <div className="col-md-10">
@@ -581,7 +624,7 @@ getPropertyList() {
                             <div id="contentPreview"></div>
                             <div id="commentBox"></div>
                             <div id="signature"></div>
-                            <button type="button" onClick={this.submitAgreement} class="btn btn-primary stepy-finish">Accept</button>
+                            <button type="button" onClick={this.submitAgreement} className="btn btn-primary stepy-finish">Accept</button>
                           </div>
                         </div>
                       </div>
@@ -593,29 +636,29 @@ getPropertyList() {
               {/* end Col */} 
             </div>
               {$('#preview').hasClass('active') &&
-              <div class="row">
-                <div class="col-md-12">
+              <div className="row">
+                <div className="col-md-12">
                     {/* <!-- sample modal content -->                             */}
 						{/* <div class="fixed-action-btn hide-on-large-only">
                     <a class="btn-floating btn-large teal" onClick={this.showSideOption}>
                       <i class="large fi-menu"></i> </a>
 						</div> */}
-                  <div class="custome-temp" id="sideTogle" style={{display: 'none'}}>
-                    <div class="slimScrollDiv"
+                  <div className="custome-temp" id="sideTogle" style={{display: 'none'}}>
+                    <div className="slimScrollDiv"
                          style={{position: 'relative', overflow: 'hidden', width: 'auto', height: ' 282px'}}>
-                      <div class="autohide1-scroll" style={{height: '282px', overflow: 'hidden', width: 'auto'}}>
-                        <div id="accordion" class="m-b-10">
+                      <div className="autohide1-scroll" style={{height: '282px', overflow: 'hidden', width: 'auto'}}>
+                        <div id="accordion" className="m-b-10">
 
-                          <div class="card">
-                            <div class="card-header btn btn-success waves-effect w-md waves-light" role="tab"
+                          <div className="card">
+                            <div className="card-header btn btn-success waves-effect w-md waves-light" role="tab"
                                  id="headingFive">
-                              <h5 class="mb-0 mt-0"><a class="font-blk" data-toggle="collapse" data-parent="#accordion"
+                              <h5 className="mb-0 mt-0"><a className="font-blk" data-toggle="collapse" data-parent="#accordion"
                                                        href="#collapseFive" aria-expanded="false"
                                                        aria-controls="collapseFive"> Insert Components </a></h5>
                             </div>
-                            <div id="collapseFive" class="collapse" role="tabpanel" aria-labelledby="headingFive">
-                              <div class="card-block">
-                                <div class="add-name">
+                            <div id="collapseFive" className="collapse" role="tabpanel" aria-labelledby="headingFive">
+                              <div className="card-block">
+                                <div className="add-name">
                                   <input type="button" value="Insert Signature Block"
                                          onClick={this.insertComponent.bind(this)}/>
                                   <input type="button" value="Insert Text Box"
@@ -630,7 +673,7 @@ getPropertyList() {
                           </div>
                         </div>
                       </div>
-                      <div class="slimScrollBar" style={{
+                      <div className="slimScrollBar" style={{
                           background: 'rgb(158, 165, 171)',
                           width: ' 5px',
                           position: 'absolute',
@@ -641,7 +684,7 @@ getPropertyList() {
                           zIndex: '99',
                           right: '1px'
                       }}></div>
-                      <div class="slimScrollRail" style={{
+                      <div className="slimScrollRail" style={{
                           width: '5px',
                           height: '100%',
                           position: 'absolute',

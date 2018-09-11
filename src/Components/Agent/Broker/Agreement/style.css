@@ -219,8 +219,8 @@ File: Components
 	-webkit-transition: all .5s ease;
 	transition: all .5s ease;
 	line-height: 20px;
-	padding-left: 25px;
-	padding-right: 25px;
+	padding-left: 15px;
+	padding-right: 15px;
 }
 #topnav .navigation-menu > li > a:hover {
 	color: #57bb57;

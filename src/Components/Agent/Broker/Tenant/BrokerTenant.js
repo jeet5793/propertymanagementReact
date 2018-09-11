@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import API_URL from "../../../../app-config";
 import Cookies from 'js-cookie';
 import Pagination from 'react-js-pagination';
+ import Select from 'react-select';
 const loadScript=function(url, callback){
 
   var script = document.createElement("script")
@@ -77,7 +78,9 @@ class BrokerTenant extends React.Component{
 			activePageReq: 1,
         activePageJoined: 1,
         itemsCountPerPageReq: 1,
-        itemsCountPerPageJoined: 1
+        itemsCountPerPageJoined: 1,
+		autocompleteData: [],
+		selectedOption: null
     };
 	this.onChangeHandler=this.onChangeHandler.bind(this)
 	this.acceptRequest=this.acceptRequest.bind(this)
@@ -85,58 +88,15 @@ class BrokerTenant extends React.Component{
 	this.onChangeSMHandler = this.onChangeSMHandler.bind(this)
 	this.handlePageChangeRequestedList = this.handlePageChangeRequestedList.bind(this);
     this.handlePageChangeJoinedList = this.handlePageChangeJoinedList.bind(this)
+	this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount(){  
+  const session = JSON.parse(this.state.userData).session_id;  
     loadScript('assets/js/bootstrap.min.js',function(){
       var $=window.$;
     $('[data-toggle="tooltip"]').tooltip();  
     })
     
-    // var msgicon1=document.getElementById('msg1icon');
-    // msgicon1.setAttribute('class','mesg-icon')
-    // msgicon1.setAttribute('style','color:white')
-    // msgicon1.setAttribute('data-toggle','modal')
-    // var veiw1=document.getElementById('view1')
-    // veiw1.setAttribute('class','view-icon')
-
-    // var msgicon1=document.getElementById('msg2');
-    // msgicon1.setAttribute('class','mesg-icon')
-    // msgicon1.setAttribute('style','color:white')
-    // msgicon1.setAttribute('data-toggle','modal')
-    // var veiw1=document.getElementById('view2')
-    // veiw1.setAttribute('class','view-icon')
-
-    // var msgicon1=document.getElementById('msg3');
-    // msgicon1.setAttribute('class','mesg-icon')
-    // msgicon1.setAttribute('style','color:white')
-    // msgicon1.setAttribute('data-toggle','modal')
-    // var veiw1=document.getElementById('view3')
-    // veiw1.setAttribute('class','view-icon')
-
-    // var msgicon1=document.getElementById('msg4');
-    // msgicon1.setAttribute('class','mesg-icon')
-    // msgicon1.setAttribute('style','color:white')
-    // msgicon1.setAttribute('data-toggle','modal')
-    // var veiw1=document.getElementById('view4')
-    // veiw1.setAttribute('class','view-icon')
-
-    // var msgicon1=document.getElementById('msg5');
-    // msgicon1.setAttribute('class','mesg-icon')
-    // msgicon1.setAttribute('style','color:white')
-    // msgicon1.setAttribute('data-toggle','modal')
-    // var veiw1=document.getElementById('view5')
-    // veiw1.setAttribute('class','view-icon')
-
-    // var msgicon1=document.getElementById('msg6');
-    // msgicon1.setAttribute('class','mesg-icon')
-    // msgicon1.setAttribute('style','color:white')
-    // msgicon1.setAttribute('data-toggle','modal')
-    // var veiw1=document.getElementById('view6')
-    // veiw1.setAttribute('class','view-icon')
-
-    // document.getElementById('act1').setAttribute('class','accept-icon')
-    // document.getElementById('act2').setAttribute('class','accept-icon')
-    // document.getElementById('act3').setAttribute('class','accept-icon')
 	this.inviteDropdowns();
 	this.joinedList();
 	this.requestedList();
@@ -146,7 +106,52 @@ class BrokerTenant extends React.Component{
       if (this.state.joinedList) {
           this.handlePageChangeJoinedList(this.state.activePageJoined);
       }
+	  
+	  var $=window.$;
+	 $('#react-select-2-input').keyup(function(e){
+
+		 const selVal = $('#react-select-2-input').val();
+		 
+		 // retrieveDataAsynchronously(selVal);
+		 let _this = this;
+
+       const opts ={assets_type:3,keyword:selVal,session_id:session}
+	   console.log(opts);
+		fetch(`${API_URL}assetsapi/user_search`, {
+			  method: 'POST',
+			body: JSON.stringify(opts)
+			})
+			.then(res => res.json())
+			.then(
+			  (result) => {
+				//console.log("data 2: "+JSON.stringify(profile))
+				//alert("data 2: "+JSON.stringify(result));
+				if (result.success) {
+				  
+					    this.setState({autocompleteData:result.search_userlist})
+						
+						
+				} 
+				 console.log("autocompleteData"+JSON.stringify(this.state.autocompleteData))
+				// console.log("user_list"+JSON.stringify(this.state.user_list))
+			  },
+			(error) => {
+			  console.log('error')
+			}
+		  ) 
+	 }.bind(this));
+	 
   }
+  handleChange = (selectedOption) => {
+
+		this.setState({ selectedOption });
+     console.log(`Option selected:`, selectedOption);
+  }
+  hideModel()
+	{
+		var $=window.$;
+		$(".modal-backdrop").hide();
+	}
   inviteDropdowns(){
 	   
 		fetch(`${API_URL}assetsapi/invite_request/3/${JSON.parse(this.state.userData).session_id}/`, {
@@ -341,6 +346,7 @@ class BrokerTenant extends React.Component{
 	)
 	}
     render(){
+		const { selectedOption } = this.state;
       // if(this.props.owner===undefined)
       //   window.location.href='http://'+window.location.host
 			const propertyList = this.state.property_list;
@@ -353,7 +359,7 @@ class BrokerTenant extends React.Component{
 
 			 <div>
        
-        <div className="wrapper">
+       <div  style={{marginTop:'3%',marginBottom:'3%'}} className="wrapper">
           <div className="container agentdis"> 
             <div className="page-title-box">
               <div className="btn-group pull-right">
@@ -477,7 +483,7 @@ class BrokerTenant extends React.Component{
           <div className="modal-dialog">
             <div className="modal-content"  id="hidemodal">
 			  <div className="modal-header">
-				<button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<button type="button" onClick={this.hideModel} className="close" data-dismiss="modal" aria-hidden="true">×</button>
 				<h4 className="modal-title">Send Invite</h4>
 			  </div>
 			  <div className="modal-body">
@@ -499,35 +505,24 @@ class BrokerTenant extends React.Component{
 				<div className="row">
 				  <div className="col-md-12">
 					<div className="form-group">
-					  <label for="field-1" className="control-label">Owner</label>
+					  <label for="field-1" className="control-label">Tenant</label>
 					  <div className="">
-					{/*// <Autosuggest
-								// suggestions={suggestions}
-								// onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-								// onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-								// getSuggestionValue={getSuggestionValue}
-								// renderSuggestion={renderSuggestion}
-								// inputProps={inputProps}
-			// />
-							   // <Select
-								// name="form-field-name"
-								 // onBlurResetsInput={false}
-								// onSelectResetsInput={false}
-								// autoFocus
-								// value={selectedOption}
-								// onChange={this.handleChange}
-								// options={[
-								  // { value: 'one', label: 'One' },
-								  // { value: 'two', label: 'Two' },
-								// ]}
-							  // /> 
+						<Select
+							className="basic-single"
+							classNamePrefix="select"
+							value={selectedOption}
+							onChange={this.handleChange}
+							 // loadOptions={this.handleChange}
+							 // onKeyUp={this.onKeyUp}
 							
-					   */}
-					   <select className="form-control" name="invite_id" onChange={this.onChangeHandler}>
+							name="invite_id"
+							options={this.state.autocompleteData}
+							/>
+							{ /*  <select className="form-control" name="invite_id" onChange={this.onChangeHandler}>
 						   <option>Please Select</option>
 								{userList.map((option,key)=> (<option key={key.assets_id} value={option.assets_id}>{option.first_name+" "+option.last_name}</option>))}
 													   
-						  </select>	
+						</select>	 */}
 					   </div>
 					</div>
 				  </div>
@@ -542,7 +537,7 @@ class BrokerTenant extends React.Component{
 				</div>
 			  </div>
 			  <div className="modal-footer">
-				<button type="button" className="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+				<button type="button" className="btn btn-secondary waves-effect" data-dismiss="modal" onClick={this.hideModel}>Close</button>
 				<button type="submit" className="btn btn-success waves-effect waves-light" onClick={this.sendRequest}>Send</button>
 			  </div>
 			</div>
@@ -552,7 +547,7 @@ class BrokerTenant extends React.Component{
                 <div className="modal-dialog">
                     <div className="modal-content" id="hidemodal2">
                     <div className="modal-header">
-                        <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <button type="button" onClick={this.hideModel} className="close" data-dismiss="modal" aria-hidden="true">×</button>
                         <h4 className="modal-title">Send </h4>
                     </div>
                     <div className="modal-body">
@@ -575,7 +570,7 @@ class BrokerTenant extends React.Component{
                         </div>
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                        <button type="button" className="btn btn-secondary waves-effect" onClick={this.hideModel} data-dismiss="modal">Close</button>
                         <button type="button" className="btn btn-success waves-effect waves-light" onClick={this.sendMessage}>Send</button>
                     </div>
                     </div>

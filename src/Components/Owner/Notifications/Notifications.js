@@ -26,6 +26,11 @@ class Notifications extends React.Component{
 		this.onChangeHandle = this.onChangeHandle.bind(this)
 		// this.getDropdowns = this.getDropdowns.bind(this)
 	}
+	hideModel()
+	{
+		var $=window.$;
+		$(".modal-backdrop").hide();
+	}
 	onChangeUserType(e)
 	{
 		const assets_type = e.target.value; 
@@ -219,7 +224,7 @@ class Notifications extends React.Component{
 					  <div className="modal-dialog">
 						<div className="modal-content" id="hidemoda">
 						  <div className="modal-header">
-							<button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
+							<button type="button" onClick={this.hideModel} className="close" data-dismiss="modal" aria-hidden="true">×</button>
 							<h4 className="modal-title">Send Notification</h4>
 						  </div>
 						  <div className="modal-body">
@@ -260,7 +265,7 @@ class Notifications extends React.Component{
 							</div>
 						  </div>
 						  <div className="modal-footer">
-							<button type="button" className="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+							<button type="button" onClick={this.hideModel} className="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
 							<button type="button" className="btn btn-success waves-effect waves-light" onClick = {this.onClickHandle} >Save changes</button>
 						  </div>
 						</div>
