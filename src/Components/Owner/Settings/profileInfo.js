@@ -254,7 +254,7 @@ Countries() {
 		//console.log(this.state.profile);
         return(
 				(this.state.profile)?
-					  <div className="tab-pane fade show active" id="profile-info">
+					  <div className="tab-pane fade show active" style={{width:"100%"}} id="profile-info">
 						<fieldset title="1">
 						  <h4>Basic Information</h4>
 						  <div className="form-group">

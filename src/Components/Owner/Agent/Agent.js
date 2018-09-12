@@ -17,6 +17,7 @@ import Pagination from 'react-js-pagination';
  // import Autocomplete from 'react-autocomplete';
  import Select from 'react-select';
  import BackgroundVerification from './BackgroundVerification';
+  import SendEmail from './SendEmail';
  // const colourOptions = [
   // { value: '1', label: 'Ocean', color: '#00B8D9', isFixed: true },
   // { value: '2', label: 'Blue', color: '#0052CC', disabled: true },
@@ -485,6 +486,7 @@ class Agent extends React.Component{
                   <div className="page-title-box">
                     <div className="btn-group pull-right">
                       <ol className="breadcrumb hide-phone p-0 m-0">
+					  <li><a href="#" data-toggle="modal" data-target="#send-email" className="btn waves-light waves-effect w-md btn-custom"><i className="fi-open"></i>&nbsp;&nbsp;Send Email</a></li>
                         <li><a href="#" data-toggle="modal" data-target="#send-invite" className="btn waves-light waves-effect w-md btn-custom"><i className="fi-open"></i>&nbsp;&nbsp;Send Invite</a></li>
                       </ol>
                     </div>
@@ -612,54 +614,54 @@ class Agent extends React.Component{
 			  <BackgroundVerification profileData={this.state.profileData}/>
 			{/*<!-- Modal --> */}
               <div id="send-invite" className="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{display:'none'}}>
-  <div className="modal-dialog">
-    <div className="modal-content"  id="hidemodal">
-      <div className="modal-header">
-        <button type="button" onClick={this.hideModel} className="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 className="modal-title">Send Invite</h4>
-      </div>
-      <div className="modal-body">
-          <div className="row">
-          <div className="col-md-12">
-            <div className="form-group">
-              <label for="field-1" className="control-label">Property</label>
-              <div className="input-group">
-			   <select className="form-control" name="property_id" onChange={this.onChangeHandler}>
-				   <option>Please Select</option>
-						{propertyList.map((option,key)=> (<option key={key.id} value={option.id}>{option.title}</option>))}
-											   
-				  </select>	  
-               <span className="input-group-addon bg-custom b-0"><i className="mdi mdi-magnify text-white"></i></span>
-               </div>
-            </div>
-          </div>
-        </div>
-		<div className="row">
-          <div className="col-md-12">
-            <div className="form-group">
-              <label for="field-1" className="control-label">Agent</label>
-              <div className="">
-					
-						<Select
-							className="basic-single"
-							classNamePrefix="select"
-							value={selectedOption}
-							onChange={this.handleChange}
-							 // loadOptions={this.handleChange}
-							 // onKeyUp={this.onKeyUp}
-							
-							name="invite_id"
-							options={this.state.autocompleteData}
-							/>
-							{/* <select className="form-control" name="invite_id" onChange={this.onChangeHandler}>
-						   <option>Please Select</option>
-								{userList.map((option,key)=> (<option key={key.assets_id} value={option.assets_id}>{option.first_name+" "+option.last_name}</option>))}
-													   
-							</select> */}	 
-					   </div>
+			  <div className="modal-dialog">
+				<div className="modal-content"  id="hidemodal">
+				  <div className="modal-header">
+					<button type="button" onClick={this.hideModel} className="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 className="modal-title">Send Invite</h4>
+				  </div>
+				  <div className="modal-body">
+					  <div className="row">
+					  <div className="col-md-12">
+						<div className="form-group">
+						  <label for="field-1" className="control-label">Property</label>
+						  <div className="input-group">
+						   <select className="form-control" name="property_id" onChange={this.onChangeHandler}>
+							   <option>Please Select</option>
+									{propertyList.map((option,key)=> (<option key={key.id} value={option.id}>{option.title}</option>))}
+														   
+							  </select>	  
+						   <span className="input-group-addon bg-custom b-0"><i className="mdi mdi-magnify text-white"></i></span>
+								</div>
 					</div>
 				  </div>
 				</div>
+				<div className="row">
+				  <div className="col-md-12">
+					<div className="form-group">
+					  <label for="field-1" className="control-label">Agent</label>
+					  <div className="">
+							
+								<Select
+									className="basic-single"
+									classNamePrefix="select"
+									value={selectedOption}
+									onChange={this.handleChange}
+									 // loadOptions={this.handleChange}
+									 // onKeyUp={this.onKeyUp}
+									
+									name="invite_id"
+									options={this.state.autocompleteData}
+									/>
+									{/* <select className="form-control" name="invite_id" onChange={this.onChangeHandler}>
+								   <option>Please Select</option>
+										{userList.map((option,key)=> (<option key={key.assets_id} value={option.assets_id}>{option.first_name+" "+option.last_name}</option>))}
+															   
+									</select> */}	 
+							   </div>
+							</div>
+						  </div>
+						</div>
 				<div className="row">
 				  <div className="col-md-12">
 					<div className="form-group no-margin">
@@ -714,6 +716,7 @@ class Agent extends React.Component{
                 </div>
                 </div>
             </div>
+			<SendEmail/>
             </div>
         );
     }

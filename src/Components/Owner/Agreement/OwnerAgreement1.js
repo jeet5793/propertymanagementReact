@@ -145,6 +145,7 @@ export default class container extends React.Component{
     $.getScript('assets/js/waves.js', function () {
       console.log('assets/js/waves.js');
    });
+   
     $.getScript('assets 21/js/jquery.slimscroll.js', function () {
       console.log('assets 21/js/jquery.slimscroll.js');
    });
@@ -176,6 +177,8 @@ export default class container extends React.Component{
   componentDidMount(){
     loadFile("assets 21/tiny/plugin/tinymce/tinymce.min.js","js")
     loadFile("assets 21/tiny/plugin/tinymce/init-tinymce.js","js")
+	  loadFile("ssets/js/jquery.scrollTo.min.js","js")
+    loadFile("assets 21/js/jquery.slimscroll.js","js")
     // $.getScript('assets 21/tiny/plugin/tinymce/tinymce.min.js', ()=> {
     //   console.log('assets 21/tiny/plugin/tinymce/tinymce.min.js');
     //   });

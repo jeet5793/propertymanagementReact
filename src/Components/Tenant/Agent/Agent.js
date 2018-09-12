@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import API_URL from "../../../app-config";
 import Cookies from 'js-cookie';
 import Pagination from 'react-js-pagination';
+import SendEmail from './SendEmail';
 const loadScript=function(url, callback){
 
   var script = document.createElement("script")
@@ -363,6 +364,7 @@ constructor(props) {
             <div className="page-title-box">
               <div className="btn-group pull-right">
                 <ol className="breadcrumb hide-phone p-0 m-0">
+				<li><a href="#" data-toggle="modal" data-target="#send-email" className="btn waves-light waves-effect w-md btn-custom"><i className="fi-open"></i>&nbsp;&nbsp;Send Email</a></li>
                   <li><a href="#" data-toggle="modal" data-target="#send-invite" className="btn waves-light waves-effect w-md btn-custom"><i className="fi-open" />&nbsp;&nbsp;Send Invite</a></li>
                 </ol>
               </div>

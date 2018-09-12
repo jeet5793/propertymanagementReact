@@ -91,7 +91,7 @@ export default class Customwithmodal extends React.Component{
         var name = $("#name").val();        
         if(name!="")
         {
-          $("#"+placeId).html("<div class='typed' style='display: block; font-size: 36.25px;'>"+name+"</div>");
+          $("#"+placeId).html("<div class='typed' style='display: block; font-size: 36.25px; height: 150px;'>"+name+"</div>");
           
           $("#name").val("");
           $("#typedPadId").html("");          

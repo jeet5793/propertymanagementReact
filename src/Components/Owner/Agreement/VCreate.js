@@ -49,15 +49,64 @@ export default class VCreate extends React.Component{
           $('input[name="headerContent"]').val(agreement.header_content);
 		  tinymce.get("editor").setContent(agreement.agreement_doc_content);
 		  
+		  $.getScript('assets/js/jquery.min.js', ()=> {
+        console.log('assets/pages/jquery.wizard-init.js');
+     });
+     $.getScript('"assets/js/tether.min.js', ()=> {
+      console.log('"assets/js/tether.min.js');
+      });
+     $.getScript('assets/js/bootstrap.min.js', ()=> {
+      console.log('assets/js/bootstrap.min.js');
+      });
+      $.getScript('assets/js/waves.js', function () {
+        console.log('assets/js/waves.js');
+     });
+        $.getScript('assets/plugins/ckeditor/ckeditor.js', ()=> {
+          console.log('assets/plugins/ckeditor/ckeditor.js');
+          });
+          $.getScript('assets/pages/jquery.scrollbar.js', ()=> {
+            console.log('assets/pages/jquery.scrollbar.js');
+            });
+           
+      $.getScript('assets/plugins/jquery.stepy/jquery.stepy.min.js', ()=> {
+        console.log('assets/plugins/jquery.stepy/jquery.stepy.min.js');
+      });
+      $.getScript('assets/pages/jquery.wizard-init.js', ()=> {
+        console.log('assets/pages/jquery.wizard-init.js');
+      });
+      $.getScript("assets/js/jquery.slimscroll.js", function () {
+        console.log('assets/js/jquery.slimscroll.js');
+     });
+      $.getScript('js/jquery.scrollTo.min.jss', ()=> {
+        console.log('assets/js/jquery.scrollTo.min.js');
+        });
+      $.getScript('assets/js/jquery.core.js', ()=> {
+        console.log('assets/js/jquery.core.js');
+        });
+        $.getScript('assets/js/jquery.app.js', ()=> {
+          console.log('assets/js/jquery.app.js');
+          });
       }
   }
   componentDidMount() {
+	   // $.getScript('assets 21/tiny/plugin/tinymce/tinymce.min.js', ()=> {
+      // console.log('assets 21/tiny/plugin/tinymce/tinymce.min.js');
+      // });
+      // $.getScript('assets 21/tiny/plugin/tinymce/init-tinymce.js', ()=> {
+        // console.log('assets 21/tiny/plugin/tinymce/tinymce.min.js');
+        // });
+    // $.getScript('assets 21/js/jquery.slimscroll.js', function () {
+      // console.log('assets 21/js/jquery.slimscroll.js');
+   // });
+    // $.getScript('assets/js/jquery.scrollTo.min.jss', ()=> {
+      // console.log('assets/js/jquery.scrollTo.min.js');
+      // });
       $(document).on('click', '.stepy-navigator',function () {
           this.updatePage();
       }.bind(this));
-      $("#default-wizard-step-1").on('click', '.button-next',function () {
-        this.saveAgreementRemainder()
-    }.bind(this));
+      // $("#default-wizard-step-1").on('click', '.button-next',function () {
+        // this.saveAgreementRemainder()
+    // }.bind(this));
 	this.getTemplatesName();
   }
 	getTemplatesName(){
@@ -193,7 +242,7 @@ createAgreement(){
           
           if(compName=='Insert Signature Block')
             {
-            tinymce.activeEditor.execCommand('mceInsertContent', false, "<p><div contenteditable='false' class='sigDiv' id='sigId"+i+"' style='width:300px;height:85px;padding-top:5px;padding-left:10px;margin-right:10px;border:1px solid #eee;' data-toggle='modal' data-target='#custom-width-modal' onclick='addplaceId(this.id)'>"+compName+"</div></p><br>");
+            tinymce.activeEditor.execCommand('mceInsertContent', false, "<p><div contenteditable='false' class='sigDiv' id='sigId"+i+"' style='width:300px;height:85px;padding-top:5px;padding-left:10px;margin-right:10px;border:1px solid #eee;' data-toggle='modal' data-target='#custom-width-modal' onclick='addplaceId(this.id)'>"+compName+"</div></p>");
                 // tinymce.get("editor").setContent( content + " " + "<p><div contenteditable='false' class='sigDiv' id='sigId"+i+"' style='width:300px;height:100px;border:1px solid #eee; border-top:0' data-toggle='modal' data-target='#custom-width-modal' onclick='addplaceId(this.id)'>"+compName+"</div></p>");
           }
           else if(compName=='Insert Text Box')

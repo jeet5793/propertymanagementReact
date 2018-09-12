@@ -5,6 +5,7 @@ import img_not_available from '../../../images/img_not_available.png'
 import Cookies from 'js-cookie';
 import {Redirect,Link} from 'react-router-dom'
 import Pagination from 'react-js-pagination';
+import SendEmail from './SendEmail';
 class TenantOwner extends React.Component {
 	constructor(props) {
     super(props);
@@ -289,6 +290,7 @@ class TenantOwner extends React.Component {
         <div className="page-title-box">
             <div className="btn-group pull-right">
             <ol className="breadcrumb hide-phone p-0 m-0">
+				<li><a href="#" data-toggle="modal" data-target="#send-email" className="btn waves-light waves-effect w-md btn-custom"><i className="fi-open"></i>&nbsp;&nbsp;Send Email</a></li>
                 <li><a href="#" data-toggle="modal" data-target="#send-invite" className="btn waves-light waves-effect w-md btn-custom"><i className="fi-open" />&nbsp;&nbsp;Send Invite</a></li>
             </ol>
             </div>

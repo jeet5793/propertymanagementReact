@@ -6,7 +6,7 @@ export default class Report extends React.Component{
 
   }
   componentDidMount(){
-    debugger;
+    // debugger;
     removejscssfile('http:\\'+window.location.hostname+':'+window.location.port+'\assets 21\jqnew.js','js')
   }
     render(){

@@ -6,7 +6,7 @@ import API_URL from '../../../app-config';
 import Cookies from 'js-cookie';
 
 const TableReprt=(props)=>{
-    debugger;
+    // debugger;
     var expens=0;
    for(var i=0;i<props.report.length;i++){
        expens=Number(expens)+Number(props.report[i].transactionamount)
@@ -207,9 +207,10 @@ export default class ReportTable extends React.Component{
         var head = document.getElementsByTagName('head')[0];
         var script = document.createElement('script');
         script.type = 'text/javascript';
-        // script.onload = function() {
+		
+        script.onload = function() {
              // $('.test').datepicker();
-        // }
+        }
         script.src = 'assets 21/js/jquery.min.js';
         head.appendChild(script);
         // $('.datepicker-autoclose').datepicker({

@@ -90,7 +90,7 @@ import swal from 'sweetalert';
     // console.log(this.props);
         return(
 		
-            <div className="tab-pane fade" id="password-settings">
+            <div className="tab-pane fade" style={{width:"100%"}} id="password-settings">
 						<div className="form-group">
 						  <div className="row">
 							<div className="col-md-2">
