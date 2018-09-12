@@ -42,7 +42,8 @@ export default class Property extends React.Component{
       "state":"Karnataka"
     }
     ],
-    isPropertySearchEmpty:false,propertySearchMsg:''
+    isPropertySearchEmpty:false,propertySearchMsg:'',
+	agentList:[]
     }    
     this.updateProps=this.updateProps.bind(this)
   }
@@ -213,7 +214,16 @@ updateProps(props){
       })      
 		});
 
-  this.handleSript         
+  this.handleSript  
+	this.TopAgentList();
+  }
+  TopAgentList(){
+	  fetch(`${API_URL}assetsapi/top_rating_agents`)
+		.then((response)=> {
+			response.json().then((data)=>{
+				this.setState({ agentList: data.agent_list })
+			})
+		});
   }
   componentWillReceiveProps(nextProps){
     var $=window.$;
@@ -371,7 +381,7 @@ updateProps(props){
 
               <div id="js-grid-meet-the-team" className="cbp cbp-l-grid-team grid" >
               {this.state.properties.map(property=>(
-                <PropertItem updatePropertyGrid={this.updatePropertyGrid} ownerDetails={this.state.owners} property={property} total_amount={property.total_amount}  Title={property.title} description={property.description} square_feet={property.square_feet} src={(property.img_path!=undefined&&property.img_path.length>0&&property.img_path[0].img_path!=undefined)?API_URL+"/assetsadmin/"+property.img_path[0].img_path:''} PropertyStatus={property.property_status} />
+                <PropertItem updatePropertyGrid={this.updatePropertyGrid} ownerDetails={this.state.owners} property={property} total_amount={property.total_amount}  Title={property.title} description={property.description} square_feet={property.square_feet} src={(property.img_path!=undefined&&property.img_path.length>0&&property.img_path[0].img_path!=undefined)?API_URL+property.img_path[0].img_path:''} PropertyStatus={property.property_status} />
               ))}            
                   {/* <div className="tz-property-content cbp-item  for-rent "> 
                     <a href="property-detail.html" className="tz-property-thum cbp-caption" rel="nofollow">
@@ -641,7 +651,7 @@ updateProps(props){
           </div>
           {/*<!--END .navigation-links-->*/} 
         </div>
-        <ProppertSearchForm updatePropertyGrid={this.updatePropertyGrid}  ownerDetails={this.state.owners}/>
+        <ProppertSearchForm updatePropertyGrid={this.updatePropertyGrid}  ownerDetails={this.state.owners} AgentList={this.state.agentList}/>
 
 
 

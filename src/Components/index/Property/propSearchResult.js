@@ -246,7 +246,7 @@ export default class Search extends React.Component{
         return(
             <div id="js-grid-meet-the-team" className="cbp cbp-l-grid-team grid">
                 {this.state.properties.map(property=>(
-                <PropertItem updatePropertyGrid={this.updatePropertyGrid} ownerDetails={this.state.owners} property={property} total_amount={property.total_amount}  Title={property.title} description={property.description} square_feet={property.square_feet} src={(property.img_path!=undefined&&property.img_path.length>0&&property.img_path[0].img_path!=undefined)?API_URL+"/assetsadmin/"+property.img_path[0].img_path:''} PropertyStatus={property.property_status} />
+                <PropertItem updatePropertyGrid={this.updatePropertyGrid} ownerDetails={this.state.owners} property={property} total_amount={property.total_amount}  Title={property.title} description={property.description} square_feet={property.square_feet} src={(property.img_path!=undefined&&property.img_path.length>0&&property.img_path[0].img_path!=undefined)?API_URL+property.img_path[0].img_path:''} PropertyStatus={property.property_status} />
                 ))}
             </div>
         );

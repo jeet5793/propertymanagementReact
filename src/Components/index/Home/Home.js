@@ -275,9 +275,9 @@ class Home extends React.Component{
 				              <div className="tabbable-panel">
 				                <div className="tabbable-line">
 				                  <ul className="nav nav-tabs ">
-				                    <li className="active"> <a href="#tab_default_1" data-toggle="tab"> Popular </a> </li>
-				                    <li> <a href="#tab_default_1" data-toggle="tab"> Recent </a> </li>
-				                    <li> <a href="#tab_default_3" data-toggle="tab"> Feature </a> </li>
+				                    <li className="active"> <a href="#tab_default_1" data-toggle="tab"> Properties </a> </li>
+				                    {/* <li> <a href="#tab_default_1" data-toggle="tab"> Recent </a> </li>
+								<li> <a href="#tab_default_3" data-toggle="tab"> Feature </a> </li> */}
 				                  </ul>
 				                  <div className="tab-content">
 				                    <div className="tab-pane active" id="tab_default_1">
@@ -286,14 +286,14 @@ class Home extends React.Component{
 				                          <div id="tz-pro-slider-5ac1cdf22e330" className="cbp cbp-l-grid-team tz-property-slider false">
 				          					{
 				          						this.state.properties.length>0?this.state.properties.map((property, index) => (
-				          							<HomeProperty key={index} description={property.description}  Title={property.title} src={property.img_path.length>0?API_URL+'/assetsadmin/'+property.img_path[0].img_path:''} Status={property.property_status} total_amount={property.total_amount} />
+				          							<HomeProperty key={index} description={property.description}  Title={property.title} src={property.img_path.length>0?API_URL+property.img_path[0].img_path:''} Status={property.property_status} total_amount={property.total_amount} />
 				          						)):<div></div>
 				          					}
 				                          </div>
 				                        </div>
 				                      </div>
 				                    </div>
-				                    <div className="tab-pane" id="tab_default_2">
+				                    {/* <div className="tab-pane" id="tab_default_2">
 				                      <div className="wpb_wrapper">
 				                        <div className="tz-property-home vc_custom_1466569792560 tz-slider">
 				                          <div id="tz-pro-slider-5ac1cdf22e331" className="cbp cbp-l-grid-team tz-property-slider false">
@@ -426,13 +426,13 @@ class Home extends React.Component{
 				                          </div>
 				                        </div>
 				                      </div>
-				                    </div>
-				                    <div className="tab-pane" id="tab_default_3">
+							</div> */}
+							{/* <div className="tab-pane" id="tab_default_3">
 				                      <p> Howdy, I'm in Tab 3. </p>
 				                      <p> Duis autem vel eum iriure dolor in hendrerit in vulputate. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat </p>
 				                      <p> <a className="btn btn-info" href="#" target="_blank"> Learn more... </a> </p>
 				                    </div>
-				            <div style={{marginLeft:'43%'}} className="button-holder center-block"> <a href="property.html" className="TzReadmore blog-read-more-btn"> <span>Read More</span> <span> </span> </a> </div>
+						<div style={{marginLeft:'43%'}} className="button-holder center-block"> <a href="property.html" className="TzReadmore blog-read-more-btn"> <span>Read More</span> <span> </span> </a> </div> */}
 				      </div>
 				                </div>
 				              

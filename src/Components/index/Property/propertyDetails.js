@@ -74,8 +74,10 @@ export default class PropertyDetails extends React.Component{
       "property_id":"1",
       "state":"Karnataka"
     }
-    ]
+    ],
+	agentList:[]
     }
+	
   }
   getPropertyDetails(id){
     fetch(`${API_URL}assetsapi/property_details/`+id)
@@ -104,8 +106,16 @@ export default class PropertyDetails extends React.Component{
       scrpt.src="js/propr.js";
       document.body.appendChild(scrpt)
       $('#tzloadding').remove(); }, 2000)    
-		
+		this.TopAgentList();
 	}
+	TopAgentList(){
+	  fetch(`${API_URL}assetsapi/top_rating_agents`)
+		.then((response)=> {
+			response.json().then((data)=>{
+				this.setState({ agentList: data.agent_list })
+			})
+		});
+  }
 	render (){
     const { proppertydetails } = this.state;
     if(this.props.location.state!==undefined)
@@ -145,7 +155,7 @@ export default class PropertyDetails extends React.Component{
               <div id="tz-img-single"  class="flexslider">
                 <ul class="slides">
                 {proppertydetails.img_path.map(imgs=>(
-                  <li class="tz-slider-for-item"> <img src={`${API_URL}assetsadmin/`+imgs.img_path} alt="" /> </li>
+                  <li class="tz-slider-for-item"> <img src={`${API_URL}`+imgs.img_path} alt="" /> </li>
                   ))}
                 {/*}  <li class="tz-slider-for-item"> <img src={img1} alt="" /> </li>
                   <li class="tz-slider-for-item"> <img src={img2} alt="" /> </li>
@@ -300,7 +310,7 @@ export default class PropertyDetails extends React.Component{
             ))}
           </div>
         </div>
-        <PropretySearchForm ownerDetails={this.state.owners} />
+        <PropretySearchForm ownerDetails={this.state.owners} AgentList={this.state.agentList}/>
       </div>
     </div>
   </div>

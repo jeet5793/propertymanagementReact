@@ -5,6 +5,7 @@ import '../../../css/propertdetails.css'
 // import $ from 'jquery'
 // import { Redirect } from 'react-router'
 import API_URL from '../../../app-config';
+import img_not_available from '../../../images/img_not_available.png'
 
 export default class PropertySearch extends React.Component{
   constructor(props){
@@ -109,19 +110,19 @@ export default class PropertySearch extends React.Component{
             </div>
           </div>
            <aside id="tzour_agent-2" className="widget_tzour_agent widget">
-            <h3 className="module-title title-widget"><span>Our Agent</span></h3>
+            <h3 className="module-title title-widget"><span>Top Agents</span></h3>
             <div className="tzwidget-agent">
               <div className="tz-property-author agent-list">
-              {this.props.ownerDetails.map(owner=>(                  
+              {this.props.AgentList.map(owner=>(                  
 
                       <div className="tz-author-item">
                     <div className="tz-thumbnail"> <a> 
-                    <img src={API_URL+'assetsadmin/'+owner.img_path} className="home-img wide tall" alt="" width="260" height="420" /> </a> </div>
+                    <img src={owner.profile_photo?API_URL+owner.profile_photo:img_not_available} className="home-img wide tall" alt="" width="260" height="420" /> </a> </div>
                     <div className="tz-author-content">
                       <div className="tz-property-author-title">
                         <div className="tz-width-60 text-left pull-left">
-                          <h4><a>{owner.owner_name}</a></h4>
-                          <p>7&nbsp;Properties</p>
+                          <h4><a>{owner.name}</a></h4>
+                          <p>Rating : {parseFloat(owner.rating).toFixed(1)} </p>
                         </div>
                         <div className="tz-width-40 text-right pull-right">
                           <div className="TzSocialLink"> 
@@ -131,7 +132,7 @@ export default class PropertySearch extends React.Component{
                            <a> <i className="fa fa-facebook"></i> </a> </div>
                         </div>
                       </div>
-                      <div className="tz-property-author-info"> <span> <i className="icon-smartphone"></i> 0123-456-789 </span> <span> <i className="icon-envelope-open"></i> info@agent.com </span> </div>
+                      <div className="tz-property-author-info"> <span> <i className="icon-smartphone"></i> {owner.mobile_no} </span> <span> <i className="icon-envelope-open"></i> {owner.email} </span> </div>
                     </div>
                   </div>
                   

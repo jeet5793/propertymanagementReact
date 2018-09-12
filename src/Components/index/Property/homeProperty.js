@@ -18,7 +18,7 @@ export default class Homeproperty extends React.Component{
                     	<div className="cbp-l-caption-alignCenter">
                             <div className="cbp-l-caption-body"> 
 	                            <a href="" className="cbp-l-caption-buttonLeft" rel="nofollow"><i className="icon-link"></i> </a> 
-	                            <a href={img4} className="cbp-lightbox cbp-l-caption-buttonRight" data-title="Stylish Apartment"> <i className="icon-plus-circle"></i> </a> 
+	                            <a href={this.props.src?this.props.src:img_not_available} className="cbp-lightbox cbp-l-caption-buttonRight" data-title="Stylish Apartment"> <i className="icon-plus-circle"></i> </a> 
                         	</div>
                     	</div>
                 	</div>
