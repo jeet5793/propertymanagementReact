@@ -7,6 +7,8 @@ import Cookies from 'js-cookie';
 import API_URL from "../../../app-config";
 import {Link} from 'react-router-dom'
 import img_not_available from '../../../images/img_not_available.png'
+import $ from 'jquery'
+
 export default class Header extends React.Component{
     constructor(props){
         super(props)
@@ -27,6 +29,18 @@ logout(){
     localStorage.clear();
     window.location.href='/'
 }
+/* onHover()
+{
+	// alert("hover");
+	var $=window.$;
+	$(".profile-dropdown").toggle();
+}
+onHoverNoti()
+{
+	 // alert("hover");
+	var $=window.$;
+	$(".dropdown-lg").toggle();
+} */
  componentDidMount(){
 		this.getNotification();
 		
@@ -168,7 +182,7 @@ logout(){
                             {/*<!-- End mobile menu toggle--> */}
                          </li>
                          <li className="list-inline-item"> <button type="button" className="btn btn-warning  w-md waves-light"> <Link to = {{pathname:'/owner-plan'}} style={{color:'#fff'}}>Upgrade Plan</Link></button></li>
-                         <li className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle arrow-none waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false" onClick={this.getNotification}> <i className="dripicons-bell noti-icon" /> <span className="badge badge-pink noti-icon-badge">{this.state.notification.length}</span> </a>
+                         <li className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle arrow-none waves-light"  data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false" onClick={this.getNotification}> <i className="dripicons-bell noti-icon" /> <span className="badge badge-pink noti-icon-badge">{this.state.notification.length}</span> </a>
                             <div className="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-lg" aria-labelledby="Preview"> 
                             {/* item*/}
                             <div className="dropdown-item noti-title">
@@ -187,7 +201,7 @@ logout(){
                             {/* All*/} 
                              <a href="#" className="dropdown-item notify-item notify-all"> <Link to = {{pathname:'/owner-notifications'}}>View All</Link> </a> </div>
                         </li>
-                        <li className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle  waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img src={JSON.parse(this.state.userData).profile_photo!=''?API_URL+JSON.parse(this.state.userData).profile_photo:img_not_available} alt="user" className="rounded-circle" /><span className="profile-name">{this.state.first_name.replace(/["']/g, "")+" "+this.state.last_name.replace(/["']/g, "")}</span> </a>
+                        <li className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle  waves-light nav-user"  data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img src={JSON.parse(this.state.userData).profile_photo!=''?API_URL+JSON.parse(this.state.userData).profile_photo:img_not_available} alt="user" className="rounded-circle" /><span className="profile-name">{this.state.first_name.replace(/["']/g, "")+" "+this.state.last_name.replace(/["']/g, "")}</span> </a>
                             <div className="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview"> 
                             {/* item*/}
                             <div className="dropdown-item noti-title">

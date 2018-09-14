@@ -127,7 +127,7 @@ class Property extends React.Component{
                     <li><Link to={{pathname:'/add-property'}} className="btn btn-custom waves-light waves-effect w-md"><i className="fi fi-circle-plus"></i>&nbsp;&nbsp;Add Property</Link></li>
                     </ol>
                 </div>
-                <h4 className="page-title">My Propertys</h4>
+                <h4 className="page-title">My Properties</h4>
                 </div>
                 {this.state.property.length>0?
                                   
@@ -161,14 +161,15 @@ class Property extends React.Component{
                                         <td>{element.property_type}</td>
                                         {/* <td><i className="mdi mdi-currency-usd text-warning"></i> 366 </td> */}
                                         <td><i></i> {element.property_status}</td>
-                                        <td><i></i> 28/02/2018 </td>
+                                        <td><i></i>  </td>
                                         <td>
                                             <a  className="table-action-btn">
                                                 <i className="mdi mdi-pencil"></i>
                                             </a> 
-                                            <a  className="table-action-btn">
+											
+                                           <Link to={{pathname:'/property-detail',state:{id:element.id}}}  className="table-action-btn">
                                                 <i className="mdi mdi-eye"></i>
-                                            </a>
+                                            </Link>
                                             <a onClick={this.deleteProperty(element.id)} id={element.id} className="table-action-btn">
                                                 <i style={{cursor:'pointer'}} className="mdi mdi-close"></i>
                                             </a>

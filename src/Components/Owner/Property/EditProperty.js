@@ -9,7 +9,7 @@ import swal from 'sweetalert';
 import Dropzone from 'react-dropzone'
 
 
-class AddProperty extends React.Component {
+class EditProperty extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -30,7 +30,6 @@ class AddProperty extends React.Component {
         //"owner_id":"",
         "title": "",
         "address": "",
-		"address2": "",
         "city": '',
         "state": "",
         "country": [],
@@ -52,7 +51,6 @@ class AddProperty extends React.Component {
       shareholders: [{
         owner_name: "",
         address: "",
-		address2: "",
         city: "",
         state: "",
         country: "",
@@ -78,14 +76,13 @@ class AddProperty extends React.Component {
       shareholders: this.state.shareholders.concat([{
         owner_name: "",
         address: "",
-		address2: "",
         city: "",
         state: "",
         country: "",
         zip_code: ""
       }])
     }, () => {
-      // console.log("shareholdersList" + JSON.stringify(this.state.shareholders))
+      console.log("shareholdersList" + JSON.stringify(this.state.shareholders))
     });
   }
 
@@ -134,8 +131,6 @@ class AddProperty extends React.Component {
         formData.title = e.target.value
       else if (e.target.name == "address")
         formData.address = e.target.value
-	else if (e.target.name == "address2")
-        formData.address2 = e.target.value
       else if (e.target.name == "country") {
         formData.country = e.target.value
         var SelectCountry = formData.country;
@@ -179,9 +174,6 @@ class AddProperty extends React.Component {
       }
       else if (e.target.name === 'address' + count) {
         this.state.shareholders[count].address = e.target.value
-      }
-	  else if (e.target.name === 'address2' + count) {
-        this.state.shareholders[count].address2 = e.target.value
       }
 
       else if (e.target.name === 'city' + count) {
@@ -235,7 +227,7 @@ class AddProperty extends React.Component {
         const fileAsBinaryString = reader.result;
         this.state.images.push(fileAsBinaryString)
         this.setState({ files: [file, ...this.state.files], images: this.state.images }, () => {
-          // console.log("helllllllllllllllo " + JSON.stringify(this.state.images))
+          console.log("helllllllllllllllo " + JSON.stringify(this.state.images))
         })
       };
       reader.onerror = function (error) {
@@ -291,15 +283,9 @@ class AddProperty extends React.Component {
                         </div>
                       </div>
                       <div className="form-group row">
-                        <label className="col-2 col-form-label">Address1</label>
+                        <label className="col-2 col-form-label">Address</label>
                         <div className="col-10">
-						<input name="address" onChange={this.onChangeHandler} placeholder='Property address1' type="text" className="form-control" />
-                        </div>
-                      </div>
-					  <div className="form-group row">
-                        <label className="col-2 col-form-label">Address2</label>
-                        <div className="col-10">
-						<input name="address2" onChange={this.onChangeHandler} placeholder='Property address2' type="text" className="form-control" />
+                          <textarea name='address' placeholder='Property address' onChange={this.onChangeHandler} className="form-control"></textarea>
                         </div>
                       </div>
                       <div className="form-group row">
@@ -346,17 +332,10 @@ class AddProperty extends React.Component {
                           </div>
                           {/*add second owner*/}
                           <div className="form-group row">
-                            <label className="col-2 col-form-label">Address1</label>
+                            <label className="col-2 col-form-label">Address</label>
                             <div className="col-10">
-                             <input type="text" name={'address' + (idx)} placeholder={`Owner #${idx + 1} address1`} onChange={(e) => { this.onChangeHandler(e, idx) }} className="form-control"/>
+                              <textarea name={'address' + (idx)} placeholder={`Owner #${idx + 1} address`} onChange={(e) => { this.onChangeHandler(e, idx) }} className="form-control"></textarea>
 
-
-                            </div>
-                          </div>
-						  <div className="form-group row">
-                            <label className="col-2 col-form-label">Address2</label>
-                            <div className="col-10">
-                              <input type="text" name={'address2' + (idx)} placeholder={`Owner #${idx + 1} address2`} onChange={(e) => { this.onChangeHandler(e, idx) }} className="form-control"/>
 
                             </div>
                           </div>
@@ -538,4 +517,4 @@ class AddProperty extends React.Component {
     );
   }
 }
-export default withRouter(connect(state => ({ userData: state.userData, userProfile: state.userProfile }))(AddProperty))
+export default withRouter(connect(state => ({ userData: state.userData, userProfile: state.userProfile }))(EditProperty))

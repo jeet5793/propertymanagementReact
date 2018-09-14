@@ -242,18 +242,30 @@ render(){
 					  <div className="col-md-12">
 						<div className="form-group no-margin">
 						 <h3>Packages</h3>
-						  <div className="col-md-8">
-								<div className="radio radio-custom">
-								  <input
-									type="radio"
-									onChange={this.onChangeBGVHandler}
-									name="packageid"
-									id="ownerid"
-									value="12"
-								  />
-								  <label HTMLFor="ownerid"> Criminal Record </label>
-								</div>
-							  </div><br/>
+							 <div className="col-md-8">
+									<div className="radio radio-custom">
+									  <input
+										type="radio"
+										name="packageid"
+										id="packageid"
+										value="14"
+										onChange={this.onChangeBGVHandler}
+									  />
+									  <label HTMLFor="packageid"> Bronze Package : 1 Credit Report </label>
+									</div>
+								  </div><br/>
+								  <div className="col-md-8">
+										<div className="radio radio-custom">
+										  <input
+											type="radio"
+											onChange={this.onChangeBGVHandler}
+											name="packageid"
+											id="ownerid"
+											value="12"
+										  />
+										  <label HTMLFor="packageid">Silver Package : 1 Credit Report + 1 Eviction Report </label>
+										</div>
+									  </div><br/>
 
 							  <div className="col-md-8">
 								<div className="radio radio-custom">
@@ -261,25 +273,14 @@ render(){
 									type="radio"
 									name="packageid"
 									onChange={this.onChangeBGVHandler}
-									id="agentid"
+									id="packageid"
 									value="13"
 								  />
-								  <label HTMLFor="agentid"> Criminal Record, Eviction History </label>
-								</div>
-							  </div><br/>
-
-							  <div className="col-md-8">
-								<div className="radio radio-custom">
-								  <input
-									type="radio"
-									name="packageid"
-									id="tenantid"
-									value="14"
-									onChange={this.onChangeBGVHandler}
-								  />
-								  <label HTMLFor="tenantid"> Criminal Record, Eviction History, Credit Score </label>
+								  <label HTMLFor="packageid">Gold Package : 1 County Criminal + 1 Credit Report + 1 Eviction Report </label>
 								</div>
 							  </div>
+
+							  
 						</div>
 					  </div>
 					</div>

@@ -22,9 +22,7 @@ export default class VCreate extends React.Component{
         agreement_title:"",
         agreement_doc_content:"",
         session_id:"",
-      },
-		templateList:[],
-		templateDetails:[]
+      }      
     }
     this.onChangeHandler=this.onChangeHandler.bind(this)
     this.createAgreement=this.createAgreement.bind(this)
@@ -41,93 +39,73 @@ export default class VCreate extends React.Component{
   }
 
   componentWillReceiveProps(nextProps) {
-    // console.log('nextProps ', nextProps)
+    console.log('nextProps ', nextProps)
       if (nextProps.editAgreement) {
 		  var tinymce=window.tinyMCE;
       let agreement = nextProps.editAgreement;
           $('input[name="agreement_title"]').val(agreement.agreement_title);
           $('input[name="headerContent"]').val(agreement.header_content);
 		  tinymce.get("editor").setContent(agreement.agreement_doc_content);
-		  
-		  // $.getScript('assets/js/jquery.min.js', ()=> {
-        // console.log('assets/pages/jquery.wizard-init.js');
-     // });
-     // $.getScript('"assets/js/tether.min.js', ()=> {
-      // console.log('"assets/js/tether.min.js');
-      // });
-     // $.getScript('assets/js/bootstrap.min.js', ()=> {
-      // console.log('assets/js/bootstrap.min.js');
-      // });
-      // $.getScript('assets/js/waves.js', function () {
-        // console.log('assets/js/waves.js');
-     // });
-        // $.getScript('assets/plugins/ckeditor/ckeditor.js', ()=> {
-          // console.log('assets/plugins/ckeditor/ckeditor.js');
-          // });
-          // $.getScript('assets/pages/jquery.scrollbar.js', ()=> {
-            // console.log('assets/pages/jquery.scrollbar.js');
-            // });
+      $.getScript('assets/js/jquery.min.js', ()=> {
+        console.log('assets/pages/jquery.wizard-init.js');
+     });
+     $.getScript('"assets/js/tether.min.js', ()=> {
+      console.log('"assets/js/tether.min.js');
+      });
+     $.getScript('assets/js/bootstrap.min.js', ()=> {
+      console.log('assets/js/bootstrap.min.js');
+      });
+      $.getScript('assets/js/waves.js', function () {
+        console.log('assets/js/waves.js');
+     });
+        $.getScript('assets/plugins/ckeditor/ckeditor.js', ()=> {
+          console.log('assets/plugins/ckeditor/ckeditor.js');
+          });
+          $.getScript('assets/pages/jquery.scrollbar.js', ()=> {
+            console.log('assets/pages/jquery.scrollbar.js');
+            });
            
-      // $.getScript('assets/plugins/jquery.stepy/jquery.stepy.min.js', ()=> {
-        // console.log('assets/plugins/jquery.stepy/jquery.stepy.min.js');
-      // });
-      // $.getScript('assets/pages/jquery.wizard-init.js', ()=> {
-        // console.log('assets/pages/jquery.wizard-init.js');
-      // });
-      // $.getScript("assets/js/jquery.slimscroll.js", function () {
-        // console.log('assets/js/jquery.slimscroll.js');
-     // });
-      // $.getScript('js/jquery.scrollTo.min.jss', ()=> {
-        // console.log('assets/js/jquery.scrollTo.min.js');
-        // });
-      // $.getScript('assets/js/jquery.core.js', ()=> {
-        // console.log('assets/js/jquery.core.js');
-        // });
-        // $.getScript('assets/js/jquery.app.js', ()=> {
-          // console.log('assets/js/jquery.app.js');
-          // });
+      $.getScript('assets/plugins/jquery.stepy/jquery.stepy.min.js', ()=> {
+        console.log('assets/plugins/jquery.stepy/jquery.stepy.min.js');
+      });
+      $.getScript('assets/pages/jquery.wizard-init.js', ()=> {
+        console.log('assets/pages/jquery.wizard-init.js');
+      });
+      $.getScript("assets/js/jquery.slimscroll.js", function () {
+        console.log('assets/js/jquery.slimscroll.js');
+     });
+      $.getScript('js/jquery.scrollTo.min.jss', ()=> {
+        console.log('assets/js/jquery.scrollTo.min.js');
+        });
+      $.getScript('assets/js/jquery.core.js', ()=> {
+        console.log('assets/js/jquery.core.js');
+        });
+        $.getScript('assets/js/jquery.app.js', ()=> {
+          console.log('assets/js/jquery.app.js');
+          });
       }
   }
   componentDidMount() {
-	   // $.getScript('assets 21/tiny/plugin/tinymce/tinymce.min.js', ()=> {
-      // console.log('assets 21/tiny/plugin/tinymce/tinymce.min.js');
-      // });
-      // $.getScript('assets 21/tiny/plugin/tinymce/init-tinymce.js', ()=> {
-        // console.log('assets 21/tiny/plugin/tinymce/tinymce.min.js');
-        // });
-    // $.getScript('assets 21/js/jquery.slimscroll.js', function () {
-      // console.log('assets 21/js/jquery.slimscroll.js');
-   // });
-    // $.getScript('assets/js/jquery.scrollTo.min.jss', ()=> {
-      // console.log('assets/js/jquery.scrollTo.min.js');
-      // });
+    $.getScript('assets 21/tiny/plugin/tinymce/tinymce.min.js', ()=> {
+      console.log('assets 21/tiny/plugin/tinymce/tinymce.min.js');
+      });
+      $.getScript('assets 21/tiny/plugin/tinymce/init-tinymce.js', ()=> {
+        console.log('assets 21/tiny/plugin/tinymce/tinymce.min.js');
+        });
+    $.getScript('assets 21/js/jquery.slimscroll.js', function () {
+      console.log('assets 21/js/jquery.slimscroll.js');
+   });
+    $.getScript('assets/js/jquery.scrollTo.min.jss', ()=> {
+      console.log('assets/js/jquery.scrollTo.min.js');
+      });
       $(document).on('click', '.stepy-navigator',function () {
           this.updatePage();
       }.bind(this));
-      // $("#default-wizard-step-1").on('click', '.button-next',function () {
-        // this.saveAgreementRemainder()
+    //   $("#default-wizard-step-1").on('click', '.button-next',function () {
+    //     this.saveAgreementRemainder()
     // }.bind(this));
-	this.getTemplatesName();
   }
-	getTemplatesName(){
-	fetch(`${API_URL}assetsapi/agreement_template_name/${JSON.parse(this.state.userData).session_id}`, {
-        method: 'get'
-      })
-    .then(res => res.json())
-		.then(
-		  (result) => {
-			//console.log("data 2: "+JSON.stringify(result.profile))
-			if (result.success) {
-			  this.setState({templateList:result.template_list})
-			  
-			} 
-			// console.log("templateList"+JSON.stringify(this.state.templateList))
-		  },
-			(error) => {
-			  console.log('error')
-			}
-		)
-	}
+
   onChangeHandler(e){
     // debugger;
       const agreementForm=this.state.createForm;
@@ -192,8 +170,8 @@ createAgreement(){
         return response.json();
       })
       .then((data) => {
-        //debugger;
-        //console.log('dataaaa:  ', data);
+        debugger;
+        console.log('dataaaa:  ', data);
         if(data){
           // var userid = data.user.assets_id
           // localStorage.setItem('userid',userid)
@@ -219,13 +197,14 @@ createAgreement(){
     alert('Please add title and content to create agreement')
   }
 }
-    demoTemplate(templateDescription)
+    demoTemplate()
 	  {
-		  // console.log(templateDescription);
-		  var tinymce=window.tinyMCE,$=window.$
-		 tinymce.get("editor").setContent(templateDescription);
-	}
-  
+			debugger;
+			var tinymce=window.tinyMCE,$=window.$
+		  var agreeTemplate = $("#agreeTemplate").html();		                                                
+		tinymce.get("editor").setContent(agreeTemplate);
+		}
+    
 	
 	insertComponent(e)
       {
@@ -259,9 +238,7 @@ createAgreement(){
           }
           else
           {
-            tinymce.activeEditor.execCommand('mceInsertContent', false, "<p><span class='inner' style='background:#57bb57;padding:2px 10px;border-radius:2px;font-size: 14px;color: #fff;float: left;margin-right: 10px;'>"+compName+"</span></p>");
-            
-            tinymce.get("editor").setContent(content+" "+"<span class='inner' style='background:#57bb57;padding:2px 10px;border-radius:2px;font-size: 14px;color: #fff;float: left;margin-right: 10px;'>"+compName+"</span>"); 
+            tinymce.activeEditor.execCommand('mceInsertContent', false, "<div class='row col-12'><p><span class='inner' style='display:flex;width:200px;background:#57bb57;padding:2px 10px;border-radius:2px;font-size: 14px;color: #fff;margin-right: 10px;float:left'>"+compName+"</span></p></div>"); 
           }
           this.updatePage();
 
@@ -273,26 +250,14 @@ createAgreement(){
       //alert(id+"===="+this.state.sectionOpenId+"==="+this.state.collapseStatus)
       if(this.state.sectionOpenId==id){
         if(this.state.collapseStatus){
-        //   $('#'+id).removeClass('collapse');
-       //   alert("no show")
-        //   $('#'+id).addClass("collapse in show");
-        //   $('#'+id).hide();
           $('#'+id).attr("style", "display: none !important");
-        //  $('#'+id).css('display,') == 'none'
           this.setState({collapseStatus:false})
         }else{
-        // alert("yes show")
-        //  $('#'+id).removeClass("collapse in show");
-        //   $('#'+id).addClass('collapse');
-        //   $('#'+id).css('display') == 'block'
         $('#'+id).attr("style", "display: block !important");
-         
-         //$('#' +id).show();
           this.setState({collapseStatus:true})
         }
       }
       else{
-       // alert("yes there is not equal")
         if(this.state.sectionOpenId){
           $('#' + this.state.sectionOpenId).hide()
           $('#'+id).show();
@@ -326,96 +291,95 @@ createAgreement(){
     <div className="tab-pane" id="v-create">
       <div className="bdr">      
       <form id="default-wizard">
-        <fieldset title="1" id="default-wizard-step-0" className="stepy-step">
+        <fieldset title="1" id="default-wizard-step-0" class="stepy-step">
           <legend style={{display: 'none'}}>Create</legend>
-          <div className="form-group">
-            <div className="col-md-12">
-              <div className="row m-t-20">
-                <div className=" col-sm-2">
+          <div class="form-group">
+            <div class="col-md-12">
+              <div class="row m-t-20">
+                <div class=" col-sm-2">
                  <label><b>Agreement Title:</b></label>
                 </div>
-                <div className="col-sm-10">
-                  <input type="text" onChange={this.onChangeHandler} name="agreement_title" className="form-control" />
+                <div class="col-sm-10">
+                  <input type="text" onChange={this.onChangeHandler} name="agreement_title" class="form-control" />
                 </div>
               </div>
             </div>
           </div>
-          <div className="row" >
-            <div className="col-md-12">                               
+          <div class="row" >
+            <div class="col-md-12">                               
               {/* <!-- sample modal content -->                             */}
-              <div className="fixed-action-btn hide-on-large-only">
-              <a className="btn-floating btn-large teal" onClick={this.showSideOption}>
-                <i className="large fi-menu"></i> </a>               
+              <div class="fixed-action-btn hide-on-large-only">
+              <a class="btn-floating btn-large teal" onClick={this.showSideOption}>
+                <i class="large fi-menu"></i> </a>               
               </div>
-              <div className="custome-temp" id="sideTogle" style={{display: 'none'}}>                              
-                <div className="slimScrollDiv" style={{position: 'relative', overflow: 'hidden', width: 'auto', height:' 282px'}}>
-                  <div className="autohide1-scroll" style={{height: '282px', overflow: 'hidden', width: 'auto'}}>
-                    <div id="accordion" className="m-b-10">
-                      <div className="card m-b-5">
-                        <div onClick={this.handleSectionOpen.bind(this,"collapseOne")} className="card-header  btn btn-success" role="tab" id="headingOne">
-                          <h5 className="mb-0 mt-0"> <a className="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"> Header Section </a> </h5>
+              <div class="custome-temp" id="sideTogle" style={{display: 'none'}}>                              
+                <div class="slimScrollDiv" style={{position: 'relative', overflow: 'hidden', width: 'auto', height:' 282px'}}>
+                  <div class="autohide1-scroll" style={{height: '282px', overflow: 'hidden', width: 'auto'}}>
+                    <div id="accordion" class="m-b-10">
+                      <div class="card m-b-5">
+                        <div onClick={this.handleSectionOpen.bind(this,"collapseOne")} class="card-header  btn btn-success" role="tab" id="headingOne">
+                          <h5 class="mb-0 mt-0"> <a class="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"> Header Section </a> </h5>
                         </div>
-                        <div id="collapseOne" className="collapse" role="tabpanel" aria-labelledby="headingOne">
-                          <div className="card-block">
-                            <div className="row">
-                              <div className="col-sm-12">
+                        <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+                          <div class="card-block">
+                            <div class="row">
+                              <div class="col-sm-12">
                                 <label><b>Header Content</b></label>
-                                <input type="text" name="headerContent" onChange={this.onChangeHandler} className="form-control" maxlength="15" />
+                                <input type="text" name="headerContent" onChange={this.onChangeHandler} class="form-control" maxlength="15" />
                               </div>
                             </div>
-                            <div className="row">
-                              <div className="col-sm-12">
+                            <div class="row">
+                              <div class="col-sm-12">
                                 <label><b>Header Image</b></label>
-                                <input type="file" name="headerImage" onChange={this.onChangeHandler} ref={this.headerImage} className="form-control" />
+                                <input type="file" name="headerImage" onChange={this.onChangeHandler} ref={this.headerImage} class="form-control" />
                               </div>
                             </div>
-                            <div className="row">
-                              <div className="col-sm-12">
+                            <div class="row">
+                              <div class="col-sm-12">
                                 <label><b>Water Mark Image</b></label>
-                                <input type="file" name="waterMarkImage" onChange={this.onChangeHandler} ref={this.waterMarkImage} className="form-control" />
+                                <input type="file" name="waterMarkImage" onChange={this.onChangeHandler} ref={this.waterMarkImage} class="form-control" />
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div className="card m-b-5">
-                        <div onClick={this.handleSectionOpen.bind(this,"collapseTwo")} className="card-header  btn btn-success waves-effect w-md waves-light" role="tab" id="headingTwo">
-                          <h5 className="mb-0 mt-0"> <a className="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"> Footer Section </a> </h5>
+                      <div class="card m-b-5">
+                        <div onClick={this.handleSectionOpen.bind(this,"collapseTwo")} class="card-header  btn btn-success waves-effect w-md waves-light" role="tab" id="headingTwo">
+                          <h5 class="mb-0 mt-0"> <a class="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"> Footer Section </a> </h5>
                         </div>
-                        <div id="collapseTwo" className="collapse" role="tabpanel" aria-labelledby="headingTwo">
-                          <div className="card-block">
-                            <div className="row">
-                              <div className="col-sm-12">
+                        <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+                          <div class="card-block">
+                            <div class="row">
+                              <div class="col-sm-12">
                                 <label><b>Footer Content</b></label>
-                                <textarea className="form-control" name="footerContent" onChange={this.onChangeHandler} maxlength="30"></textarea>
+                                <textarea class="form-control" name="footerContent" onChange={this.onChangeHandler} maxlength="30"></textarea>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div className="card m-b-5">
-                        <div onClick={this.handleSectionOpen.bind(this,"collapseThree")} className="card-header  btn btn-success waves-effect w-md waves-light" role="tab" id="headingThree">
-                          <h5 className="mb-0 mt-0">
-                            <a className="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree"> Agreement Template </a> </h5>
+                      <div class="card m-b-5">
+                        <div onClick={this.handleSectionOpen.bind(this,"collapseThree")} class="card-header  btn btn-success waves-effect w-md waves-light" role="tab" id="headingThree">
+                          <h5 class="mb-0 mt-0">
+                            <a class="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree"> Agreement Template </a> </h5>
                         </div>
-                        <div id="collapseThree" className="collapse" role="tabpanel" aria-labelledby="headingThree">
-                          <div className="card-block">
-						  {this.state.templateList?this.state.templateList.map((item)=>( 
-                            <div className="add-name">
-							<a href="#" onClick={this.demoTemplate.bind(this,item.templateDescription)} key={item.templateId}>{item.templateTitle}</a>
-								{/* <a href="#" onClick={this.demoTemplate}>Template 2</a><br />
-								<a href="#" onClick={this.demoTemplate}>Template 3</a>  */ }                  
-                            </div>)):''}
+                        <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+                          <div class="card-block">
+                            <div class="add-name">
+                              <a href="#" onClick={this.demoTemplate}>Template 1</a><br />
+                              <a href="#" onClick={this.demoTemplate}>Template 2</a><br />
+                              <a href="#" onClick={this.demoTemplate}>Template 3</a>                    
+                            </div>
                           </div>
                         </div>
                       </div>  
-                      <div className="card m-b-5">
-                        <div  onClick={this.handleSectionOpen.bind(this,"collapseFour")}className="card-header btn btn-success waves-effect w-md waves-light" role="tab" id="headingFour">
-                          <h5 className="mb-0 mt-0"> <a className="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour"> Insert Dynamic Value </a> </h5>
+                      <div class="card m-b-5">
+                        <div  onClick={this.handleSectionOpen.bind(this,"collapseFour")}class="card-header btn btn-success waves-effect w-md waves-light" role="tab" id="headingFour">
+                          <h5 class="mb-0 mt-0"> <a class="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour"> Insert Dynamic Value </a> </h5>
                         </div>
-                        <div id="collapseFour" className="collapse" role="tabpanel" aria-labelledby="headingFour">
-                          <div className="card-block">
-                            <div className="add-name">
+                        <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour">
+                          <div class="card-block">
+                            <div class="add-name">
                                   <input type="button" value="Rent Amount" onClick={this.insertComponent.bind(this)} />
                                 <input type="button" value="Selling Amount" onClick={this.insertComponent.bind(this)} />
                                 <input type="button" value="Deposit Amount" onClick={this.insertComponent.bind(this)} />
@@ -430,13 +394,13 @@ createAgreement(){
                           </div>
                         </div>
                       </div>
-                      <div className="card">
-                        <div  onClick={this.handleSectionOpen.bind(this,"collapseFive")} className="card-header btn btn-success waves-effect w-md waves-light" role="tab" id="headingFive">
-                          <h5 className="mb-0 mt-0"> <a className="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive"> Insert Components </a> </h5>
+                      <div class="card">
+                        <div  onClick={this.handleSectionOpen.bind(this,"collapseFive")} class="card-header btn btn-success waves-effect w-md waves-light" role="tab" id="headingFive">
+                          <h5 class="mb-0 mt-0"> <a class="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive"> Insert Components </a> </h5>
                         </div>
-                        <div id="collapseFive" className="collapse" role="tabpanel" aria-labelledby="headingFive">
-                          <div className="card-block">
-                            <div className="add-name">
+                        <div id="collapseFive" class="collapse" role="tabpanel" aria-labelledby="headingFive">
+                          <div class="card-block">
+                            <div class="add-name">
                               <input type="button" value="Insert Signature Block" onClick={this.insertComponent.bind(this)} />
                                       <input type="button" value="Insert Text Box" onClick={this.insertComponent.bind(this)} />
                                       <input type="button" value="Insert Date Box" onClick={this.insertComponent.bind(this)} />
@@ -447,43 +411,44 @@ createAgreement(){
                       </div>
                     </div>      
                   </div>
-                  <div className="slimScrollBar" style={{background: 'rgb(158, 165, 171)', width:' 5px', position: 'absolute', top: '0px', opacity: '1', display: 'block', borderRadius: '7px', zIndex: '99', right: '1px'}}></div>
-                  <div className="slimScrollRail" style={{width: '5px', height: '100%', position: 'absolute', top: '0px', display: 'none', borderRadius: '7px', background: 'rgb(51, 51, 51)', opacity: '0.2', zIndex: '90', right: '1px'}}>
+                  <div class="slimScrollBar" style={{background: 'rgb(158, 165, 171)', width:' 5px', position: 'absolute', top: '0px', opacity: '1', display: 'block', borderRadius: '7px', zIndex: '99', right: '1px'}}></div>
+                  <div class="slimScrollRail" style={{width: '5px', height: '100%', position: 'absolute', top: '0px', display: 'none', borderRadius: '7px', background: 'rgb(51, 51, 51)', opacity: '0.2', zIndex: '90', right: '1px'}}>
                 </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className="row " style={{float:'left',marginBottom:15}}>
-          <div className="col-sm-12">
-          <textarea name="agreement_doc_content" onChange={this.onChangeHandler} id="editor" style={{position:'absolute',left:'0'}} className="tinymce"></textarea>            
+          <div class="row " style={{float:'left',marginBottom:15}}>
+          <div class="col-sm-12">
+          <textarea name="agreement_doc_content" onChange={this.onChangeHandler} id="editor" style={{position:'absolute',left:'0'}} class="tinymce"></textarea>            
           </div>
           </div>
           
         </fieldset>
-        <fieldset title="2"  id="default-wizard-step-1" className="stepy-step" style={{display: 'none'}}>
+        <fieldset title="2"  id="default-wizard-step-1" class="stepy-step" style={{display: 'none'}}>
           <legend style={{display: 'none'}}>Preview</legend>
-          <div className="row m-t-20">
-            <div className="row">
-              <div className="col-sm-12">
-                <div className="slimScrollDiv" style={{position: 'relative', overflow: 'hidden', width: '330px', height: '780px'}}>
-                <div id="previewDiv" className="row m-t-20 signature  autohide-scroll" style={{height: '300px', width: '100%', padding: '12px',marginLeft:15,marginRight:15}}>
+          <div class="row m-t-20">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="slimScrollDiv" style={{position: 'relative', overflow: 'hidden', width: '330px', height: '780px'}}>
+                <div id="previewDiv" class="row m-t-20 signature  autohide-scroll" style={{height: '300px', width: '100%', padding: '12px',marginLeft:15,marginRight:15}}>
+                </div><br/>
+                <div class="slimScrollBar" style={{background: 'rgb(158, 165, 171)', width:' 5px', position:' absolute', top: '0px', opacity: '0.4', display: 'block', borderRadius: '7px', zIndex: '99', right: '1px'}}>
                 </div>
-                <div className="slimScrollBar" style={{background: 'rgb(158, 165, 171)', width:' 5px', position:' absolute', top: '0px', opacity: '0.4', display: 'block', borderRadius: '7px', zIndex: '99', right: '1px'}}>
-                </div>
-                <div className="slimScrollRail" style={{width:' 5px', height: '100%', position: 'absolute', top:' 0px', display: 'none', borderRadius: '7px', background: 'rgb(51, 51, 51)', opacity: '0.2', zIndex: '90', right:' 1px'}}>
+                <div class="slimScrollRail" style={{width:' 5px', height: '100%', position: 'absolute', top:' 0px', display: 'none', borderRadius: '7px', background: 'rgb(51, 51, 51)', opacity: '0.2', zIndex: '90', right:' 1px'}}>
                 </div></div>
               </div>
             </div>
           </div>
         
         </fieldset>
-        <fieldset   title="3" id="default-wizard-step-2" className="stepy-step" style={{display:' none'}}>
+        <fieldset   title="3" id="default-wizard-step-2" class="stepy-step" style={{display:' none'}}>
+        <div  style={{fontSize:14,fontWeight:500,textAlign:"center"}}>Please submit to save the agreement</div> 
           <legend style={{display: 'none'}}>Save</legend>
-          <div className="row m-t-20 signature"> </div>
-        <p className="stepy-navigator">
+          <div class="row m-t-20 signature"> </div>
+        <p class="stepy-navigator">
         
-        <button type="button" onClick={this.createAgreement} className="btn btn-primary stepy-finish">Submit</button></p></fieldset>        
+        <button type="button" onClick={this.createAgreement} class="btn btn-primary stepy-finish">Submit</button></p></fieldset>        
       </form>
     </div>
      

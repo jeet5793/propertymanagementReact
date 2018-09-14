@@ -170,7 +170,7 @@ export default class PropertyDetails extends React.Component{
                 {proppertydetails.img_path.map(imgs=>(
                     <li class="tz-slider-item">
                     <div class="border"></div>
-                    <img src={`${API_URL}assetsadmin/`+imgs.img_path} alt="" /> </li>
+                    <img src={`${API_URL}`+imgs.img_path} alt="" /> </li>
                   ))}   
                 {/* 
                    <li class="tz-slider-item">
@@ -215,7 +215,7 @@ export default class PropertyDetails extends React.Component{
               {/*<!-- Tab features -->*/}
               <div role="tabpanel" class="tab-pane fade" id="features">
                 <div class="row tz-property-features">
-                  <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i class="icon-check"> </i>Air Conditioning</a></div>
+				{ /* <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i class="icon-check"> </i>Air Conditioning</a></div>
                   <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i class="icon-check"> </i>Backyard</a></div>
                   <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i class="icon-check"> </i>Balcony</a></div>
                   <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i class="icon-check"> </i>Dryer</a></div>
@@ -233,14 +233,14 @@ export default class PropertyDetails extends React.Component{
                   <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i class="icon-check"> </i>Storage</a></div>
                   <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i class="icon-check"> </i>Swimming Pool</a></div>
                   <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i class="icon-check"> </i>Washer</a></div>
-                  <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i class="icon-check"> </i>Wifi</a></div>
+				<div class="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i class="icon-check"> </i>Wifi</a></div> */}
                 </div>
               </div>
               
               {/*<!-- Tab details -->*/}
               <div role="tabpanel" class="tab-pane fade" id="details">
                 <div class="row">
-                  <div class="col-md-4 col-sm-4 cbp-l-project-details-list">
+				{/* <div class="col-md-4 col-sm-4 cbp-l-project-details-list">
                     <p class="tz-property-detail"> Price:&nbsp; <strong> $18,000 </strong> </p>
                     <p class="tz-property-detail"> Area:&nbsp; <strong> 2300ft&nbsp; </strong> </p>
                     <p class="tz-property-detail"> Type:&nbsp; <strong> For Rent </strong> </p>
@@ -262,7 +262,7 @@ export default class PropertyDetails extends React.Component{
                     <p class="tz-property-detail"> Year Built:&nbsp; <strong>2010</strong> </p>
                     <p class="tz-property-detail"> Legal Desc:&nbsp; <strong>Legal Desc</strong> </p>
                     <p class="tz-property-detail"> Dining Area:&nbsp; <strong>Dining Area</strong> </p>
-                  </div>
+				</div> */}
                 </div>
               </div>
               
@@ -270,7 +270,7 @@ export default class PropertyDetails extends React.Component{
               <div role="tabpanel" class="tab-pane fade" id="location">
                 <div class="cbp-2-project-desc">
                   <div class="cbp-l-project-desc-text">
-                    <iframe height="450" src={proppertydetails.geo_location} allowfullscreen></iframe>
+                    <iframe style={{width:'750px',height:'350px'}} src={proppertydetails.geo_location} allowfullscreen></iframe>
                     
                   </div>
                 </div>

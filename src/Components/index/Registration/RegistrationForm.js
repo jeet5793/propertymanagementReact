@@ -133,10 +133,10 @@ export default class RegistrationForm extends React.Component {
       alert("Mobile number should not be blank");
       return;
     }
-    if (!opts.landline_no) {
-      alert("Landline number should not be blank");
-      return;
-    }
+    // if (!opts.landline_no) {
+      // alert("Landline number should not be blank");
+      // return;
+    // }
     // if(!opts.chekbx){
     //   alert('Checkbox should be ticked');
     //   return;

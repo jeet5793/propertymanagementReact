@@ -15,7 +15,7 @@ import Pagination from 'react-js-pagination';
 import swal from 'sweetalert';
  import Select from 'react-select';
  import BackgroundVerification from './BackgroundVerification';
-import SendEmail from '../../Owner/Agent/SendEmail';
+import SendEmail from './SendEmail';
 
 const loadScript=function(url, callback){
 
