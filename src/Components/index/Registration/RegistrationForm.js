@@ -407,11 +407,11 @@ export default class RegistrationForm extends React.Component {
                     type="radio"
                     name="owner_type"
                     id="radioorg"
-                    val="orgnaize"
+                    val="Organization"
                     onChange={this.onChangeHandler}
                     value={0}
                   />
-                  <label HTMLFor="radioorg"> Organize </label>
+                  <label HTMLFor="radioorg"> Organization </label>
                 </div>
               </div>
             </div>

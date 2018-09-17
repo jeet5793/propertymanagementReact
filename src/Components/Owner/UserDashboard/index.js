@@ -29,6 +29,7 @@ import '../Agreement/style.css'
 import Cookies from 'js-cookie';
 import Report from '../Reports/Report'
 import ReportTable from '../Reports/ReporTable'
+import BGVPayment from '../Agent/PaymentGateway';
 
 class UserDashboard extends React.Component {
 
@@ -100,7 +101,7 @@ class UserDashboard extends React.Component {
 			<Route exact path='/owner-notifications' component={Notifications} />
 			<Route exact path='/owner-plan' component={OwnerPlan} />
 			<Route exact path='/owner-upgrade' component={Upgrade} />
-
+			<Route exact path='/bgvpayment' component={BGVPayment} />
       
           </Switch>
           <Footer />

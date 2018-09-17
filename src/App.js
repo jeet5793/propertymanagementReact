@@ -206,6 +206,7 @@ LoggedIn(userId){
 		 <Route exact path='/owner-plan' component={UserDashboard} />
         <Route exact path='/owner-upgrade' component={UserDashboard} />
         <Route exact path='/social-login' component={UserDashboard} />
+		<Route exact path='/bgvpayment' component={UserDashboard} />
         {/* Broker Dashboard */}
 		<Route  path='/broker-tenant' component={AgentBrokerDashboard} />
         <Route  path='/broker-profile' component={AgentBrokerDashboard} />

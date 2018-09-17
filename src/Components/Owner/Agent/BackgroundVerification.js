@@ -32,7 +32,7 @@ export default class Agent extends React.Component{
 	   this.handleDobChange = this.handleDobChange.bind(this);
 	}
 	handleDobChange(date) {
-		alert(date)
+		// alert(date)
 		console.log('DATE ', date);
 		 this.setState({
 			bgForm:{DOB:date}
@@ -70,11 +70,11 @@ export default class Agent extends React.Component{
 	
 			// bgFields.session_id=this.props.profileData.session_id;
 			this.setState({bgForm:bgFields});
-		 console.log(this.state.bgForm);
+		 // console.log(this.state.bgForm);
 	 }
 	 onClickBGVFormSubmit(){
 		 var opts = Object.assign(this.props.profileData,this.state.bgForm);
-		 console.log(opts);
+		 // console.log(opts);
 		 
 		fetch(`${API_URL}assetsapi/background_verification`, {
         method: 'post',        
@@ -86,8 +86,8 @@ export default class Agent extends React.Component{
           if(data.success)
           {
 				swal("Assets Watch", data.msg);
-						//window.location.href="/owner-agent"
-						console.log(JSON.stringify(data));
+					// window.location.href="/bgvpayment"
+						
           }
         else {
 					swal("Assets Watch", data.msg);
@@ -117,6 +117,7 @@ export default class Agent extends React.Component{
 							 });
 						}
 		 }
+
 	 }
 	  hideModel()
 		{
@@ -158,16 +159,17 @@ render(){
 							  <label className="control-label">D.O.B</label>
 							</div>
 							<div className="col-md-4">
-							
 							  <DatePicker id="dob" className="form-control" 
 								dateFormat="DD-MM-YYYY"
 									 selected={this.state.bgForm.DOB}
 									 onChange={this.handleDobChange}
+									 
 								/>
 							</div>
 							<div className="col-md-2">
 							  <label className="control-label">Gender</label>
 							</div>
+							
 							<div className="col-md-4">
 							  <select className="form-control" name="gender" onChange={this.onChangeBGVHandler}>
 								  <option>{this.state.bgForm.gender || this.props.profileData.gender}</option>

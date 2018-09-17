@@ -176,7 +176,7 @@ createAgreement(){
   // debugger;
   var tinymce=window.tinyMCE,$=window.$
   var content = tinymce.get("editor").getContent();
-  const agreementForm=this.state.createForm
+  const agreementForm=Object.assign(this.state.templateList,this.state.createForm)
   agreementForm.agreement_doc_content=content
   agreementForm.session_id=JSON.parse(this.state.userData).session_id
   agreementForm.user_id=JSON.parse(this.state.userData).assets_id
@@ -219,11 +219,18 @@ createAgreement(){
     alert('Please add title and content to create agreement')
   }
 }
-    demoTemplate(templateDescription)
+    demoTemplate(item)
 	  {
 		  // console.log(templateDescription);
 		  var tinymce=window.tinyMCE,$=window.$
-		 tinymce.get("editor").setContent(templateDescription);
+		 tinymce.get("editor").setContent(item.templateDescription);
+		 $('input[name="agreement_title"]').val(item.templateTitle)
+		  $('input[name="headerContent"]').val(item.header_content);
+		  $('textArea[name="footerContent"]').val(item.footer_content);
+		   // $('input[name="headerImage"]').val(item.header_image);
+		  // $('input[name="waterMarkImage"]').val(item.footer_image);
+		  
+		   
 	}
   
 	
@@ -332,7 +339,7 @@ createAgreement(){
             <div className="col-md-12">
               <div className="row m-t-20">
                 <div className=" col-sm-2">
-                 <label><b>Agreement Title:</b></label>
+                 <label><b>Title:</b></label>
                 </div>
                 <div className="col-sm-10">
                   <input type="text" onChange={this.onChangeHandler} name="agreement_title" className="form-control" />
@@ -402,7 +409,7 @@ createAgreement(){
                           <div className="card-block">
 						  {this.state.templateList?this.state.templateList.map((item)=>( 
                             <div className="add-name">
-							<a href="#" onClick={this.demoTemplate.bind(this,item.templateDescription)} key={item.templateId}>{item.templateTitle}</a>
+							<a href="#" onClick={this.demoTemplate.bind(this,item)} key={item.templateId}>{item.templateTitle}</a>
 								{/* <a href="#" onClick={this.demoTemplate}>Template 2</a><br />
 								<a href="#" onClick={this.demoTemplate}>Template 3</a>  */ }                  
                             </div>)):''}

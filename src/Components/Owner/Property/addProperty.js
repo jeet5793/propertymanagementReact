@@ -414,6 +414,10 @@ class AddProperty extends React.Component {
                             <option>Please Select</option>
                             <option value="Rent">Rent</option>
                             <option value="Sale">Sale</option>
+							<option value="Rented">Rented</option>
+                            <option value="Sold">Sold</option>
+							<option value="Private">Private</option>
+                           
                           </select>
                         </div>
                       </div>

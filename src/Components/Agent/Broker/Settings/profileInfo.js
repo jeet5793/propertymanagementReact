@@ -254,9 +254,10 @@ Countries() {
 		//console.log(this.state.profile);
         return(
 
+					 (this.state.profile)?
 					  <div className="tab-pane fade show active" style={{width:"100%"}} id="profile-info">
 						<fieldset title="1">
-						  <h4>Basic Information</h4>
+						 
 						  <div className="form-group">
 							<div className="row">
 							  <div className="col-md-1">
@@ -290,10 +291,10 @@ Countries() {
 								<label for="gender">Gender</label>
 							  </div>
 							  <div className="col-md-2">
-								<select className="form-control" name="gender" onChange={this.onChangeHandler}>
-								  <option>{this.state.profileSetting.gender || this.state.profile.gender}</option>
+								<select className="form-control" value = {this.state.profileSetting.gender || this.state.profile.gender} name="gender" onChange={this.onChangeHandler}>
 								  <option value="Male" >Male</option>
 								  <option value="Female" >Female</option>
+								  <option value="Other" >Other</option>
 								</select>
 							  </div>
 							  <div className="col-md-1">
@@ -316,8 +317,8 @@ Countries() {
 								<label for="owner_type">User Type</label>
 							  </div>
 							  <div className="col-md-5">
-								<select className="form-control" name="owner_type"  onChange={this.onChangeHandler} >
-								  <option>{this.state.profile.owner_type==2?"Organize":this.state.profile.owner_type==1?"Individual":""}</option>
+								<select className="form-control" name="owner_type"  value = {this.state.profileSetting.owner_type ||this.state.profile.owner_type} onChange={this.onChangeHandler} >
+								 
 								  <option value="1" >Individual</option>
 								  <option value="2" >Organization</option>
 								</select>
@@ -330,8 +331,7 @@ Countries() {
 								<label for="country">Country</label>
 							  </div>
 							  <div className="col-md-5">
-								<select className="form-control" name="country"  onChange={this.onChangeHandler} >
-								  <option>{this.state.profile.country}</option>
+								<select className="form-control" name="country" value={this.state.profileSetting.country || this.state.profile.country} onChange={this.onChangeHandler} >
 								  {this.state.countries.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>))}
 								 
 								</select>
@@ -434,8 +434,7 @@ Countries() {
 						  <button type="submit" className="btn btn-primary stepy-finish text-right" onClick={this.profileSubmit}>Submit </button>
 						</div>
 						</div>
-					  </div>
-					  
+					  </div>:<div className="container"  style={{marginTop:'10%',marginLeft:'50%'}}><img src="http://wordpress.templaza.net/real-estate/wp-content/themes/real-estate/images/loading_blue_64x64.gif"/></div>
 						
 						
 		

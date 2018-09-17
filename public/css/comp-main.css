@@ -7035,7 +7035,7 @@ body .tz-property-home.tz-property-grid .cbp-l-caption-text::after {
 
 .tz-login [type="checkbox"]:not(:checked) + label:after,
 .tz-login [type="checkbox"]:checked+label:after {
-    content: '✔';
+    content: '\f00c';
     position: absolute;
     top: 1px;
     left: 1px;
