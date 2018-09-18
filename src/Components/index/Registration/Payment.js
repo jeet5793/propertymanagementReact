@@ -123,7 +123,8 @@ export default class PlanPayment extends React.Component {
     "notifypayee": null,
     "profile": null,
     "profileid": null,
-    "orderid":this.state.userDetails.orderid
+    "orderid":this.state.userDetails.orderid,
+	"plan_id":this.state.userDetails.plan_id
   }
   console.log(payment_Object);
     fetch(`${API_URL}assetsapi/paymentgateway`,{
@@ -225,7 +226,7 @@ export default class PlanPayment extends React.Component {
                            </div> {/* form-group.// */}
                            <div className="form-group">
                              <label htmlFor="cardNumber">Card Number</label>
-                             <input type="text" ref="cardNumber" className="form-control" name="cardNumber" onChange={this.changeaccHandler} placeholder />
+                             <input type="password" ref="cardNumber" className="form-control" name="cardNumber" onChange={this.changeaccHandler} placeholder />
                            </div> {/* form-group.// */}
                            <div className="row">
                              <div className="col-sm-8">
@@ -270,7 +271,7 @@ export default class PlanPayment extends React.Component {
                              <div className="col-sm-4">
                                <div className="form-group">
                                  <label data-toggle="tooltip" title data-original-title="3 digits code on back side of the card">CVV <i className="fa fa-question-circle" /></label>
-                                 <input className="form-control" ref="cvv" name="cvv" onChange={this.changecvvHandler} required type="text" />
+                                 <input className="form-control" ref="cvv" name="cvv" onChange={this.changecvvHandler} required type="password" />
                                </div> {/* form-group.// */}
                              </div>
                            </div> {/* row.// */}

@@ -197,10 +197,10 @@ logout(){
                             {/* item*/} 
                             <a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-gear" /> <Link to = {{pathname:'/tenant-settings'}}><span>Settings</span></Link> </a> 
 							<hr/>							
-							<h3 className="dropdown-item notify-item"><small>Switch To</small></h3>
+							{this.state.userTypeList?<h3 className="dropdown-item notify-item"><small>Switch To</small></h3>:''}
 						{this.state.userTypeList?this.state.userTypeList.map((item)=>( 
 							<a href="javascript:void(0);" className="dropdown-item notify-item" onClick = {this.onClickSwitch.bind(this,item.assets_type)}> <i className="dripicons-user" />{item.assets_type=='2'?'Agent':item.assets_type=='3'?'Tenant':item.assets_type=='1'?'Owner':''}</a> )):''}
-							<hr/>
+								{this.state.userTypeList?<hr/>:''}
                             {/* item*/} 
                             <a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-power" /> <span onClick={this.logout}>Logout</span> </a> </div>
                         </li>

@@ -16,19 +16,23 @@ export default class Payment extends React.Component{
 			  "dba_name": "",
 			  "legal_name": "",
 			  "business_address_line_1": "",
-			  "business_city": "Plano",
-			  "business_state_province": "",
-			  "business_postal_code": "",
-			  "business_phone_number": "",
-			  "principal_first_name": "",
-			  "principal_last_name": "",
+			  "city": "",
+			  "state": "",
+			  "zip_code": "",
+			  "mobile_no": "",
+			  "first_name": "",
+			  "last_name": "",
 			  "fed_tax_id": "",
-			  "login_user":""
+			  "login_user":"",
+			  "country":""
 		},
 		singularFrame:[],
 		profileData:[],
 		userData:Cookies.get('profile_data'),
-		enrollInfo:[]
+		enrollInfo:[],
+		countries:[],
+		states: [],
+		cities: []
 	};
 
     this.userInfo = this.userInfo.bind(this);
@@ -75,9 +79,34 @@ export default class Payment extends React.Component{
 			)
 		}
 		
-		this.enrollInfo()
+		this.enrollInfo();
+		this.Countries();
     }
-
+	Countries() {
+    fetch(`${API_URL}assetsapi/country/`).then(response => {
+      response.json().then(data => {
+        this.setState({ countries: data.countries });
+        //console.log(this.state.countries)
+      });
+    });
+  }
+  stateLists(SelectCountry) {
+    fetch(`${API_URL}assetsapi/state/` + SelectCountry).then(response => {
+      response.json().then(data => {
+        this.setState({ states: data.states });
+        //alert("States"+JSON.stringify(this.state.states))
+      });
+    });
+  }
+  cityList(SelectState) {
+    //alert("Hello"+JSON.stringify(SelectState))
+    fetch(`${API_URL}assetsapi/city/` + SelectState).then(response => {
+      response.json().then(data => {
+        this.setState({ cities: data.cities });
+        //alert("Cities"+JSON.stringify(this.state.cities))
+      });
+    });
+  }
   // componentWillReceiveProps(nextProps) {
   //   if (nextProps.owner && this.props.owner) {
   //     console.og('yayayay22')
@@ -117,26 +146,39 @@ export default class Payment extends React.Component{
 		const singularForm = this.state.singularEnrollForm;
 		if(e.target.name==='email')
 			singularForm.email=e.target.value
-		if(e.target.name==='dba_name')
+		else if(e.target.name==='dba_name')
 			singularForm.dba_name=e.target.value
-		if(e.target.name==='legal_name')
+		else if(e.target.name==='legal_name')
 			singularForm.legal_name=e.target.value
-		if(e.target.name==='business_address_line_1')
-			singularForm.business_address_line_1=e.target.value
-		if(e.target.name==='business_city')
-			singularForm.business_city=e.target.value
-		if(e.target.name==='business_state_province')
-			singularForm.business_state_province=e.target.value
-		if(e.target.name==='business_postal_code')
-			singularForm.business_postal_code=e.target.value
-		if(e.target.name==='business_phone_number')
-			singularForm.business_phone_number=e.target.value
-		if(e.target.name==='principal_first_name')
-			singularForm.principal_first_name=e.target.value
-		if(e.target.name==='principal_last_name')
-			singularForm.principal_last_name=e.target.value
-		if(e.target.name==='fed_tax_id')
-			singularForm.fed_tax_id=e.target.value
+		else if(e.target.name==='business_address_line_1')
+			singularForm.business_address_line_1=e.target.value;
+		else if(e.target.name==='country')
+		{
+			singularForm.country=e.target.value;
+			var SelectCountry = singularForm.country;
+			this.stateLists(SelectCountry);
+		}
+		else if(e.target.name==='state')
+		{
+			singularForm.state=e.target.value
+			var SelectState = singularForm.state;
+			this.cityList(SelectState);
+		}
+		else if(e.target.name==='zip_code')
+			singularForm.zip_code=e.target.value
+		else if(e.target.name==='mobile_no')
+			singularForm.mobile_no=e.target.value
+		else if(e.target.name==='first_name')
+			singularForm.first_name=e.target.value
+		else if(e.target.name==='last_name')
+			singularForm.last_name=e.target.value
+		else if(e.target.name==='fed_tax_id')
+		{
+			singularForm.fed_tax_id=e.target.value;
+			var str = singularForm.fed_tax_id.replace(/.(?=.{4})/g, '*');
+			$('#fed_tax_id').val(str);
+			//alert(str);
+		}
 		singularForm.login_user = JSON.parse(this.state.userData).assets_id
 		this.setState({singularEnrollForm:singularForm});
 		
@@ -145,7 +187,8 @@ export default class Payment extends React.Component{
 	onSubmitSingular()
 	{
 		
-		var opts = this.state.singularEnrollForm;
+		var opts = Object.assign(this.state.singularEnrollForm,this.state.profileData);
+		console.log(opts);
 		if (!opts.dba_name) {
 		  alert("DBA Name should not be blank");
 		  return;
@@ -155,34 +198,34 @@ export default class Payment extends React.Component{
 		  return;
 		}
 		if (!opts.business_address_line_1) {
-		  alert("Business Address1 should not be blank");
+		  alert(" Address1 should not be blank");
 		  return;
 		}
-		if (!opts.business_city) {
-		  alert("Business City should not be blank");
+		if (!opts.city) {
+		  alert("City should not be blank");
 		  return;
 		}
-		if (!opts.business_state_province) {
-		  alert("Business State Province should not be blank");
+		if (!opts.state) {
+		  alert(" State should not be blank");
 		  return;
 		}
-		if (!opts.business_postal_code) {
-		  alert("Business Postal Code should not be blank");
+		if (!opts.zip_code) {
+		  alert(" Zip Code should not be blank");
 		  return;
 		}
-		if (!opts.business_phone_number) {
-		  alert("Business Phone No should not be blank");
+		if (!opts.mobile_no) {
+		  alert(" Phone Number should not be blank");
 		  return;
 		}
 		if (!opts.email) {
 		  alert("E-Mail  should not be blank");
 		  return;
 		}
-		if (!opts.principal_first_name) {
+		if (!opts.first_name) {
 		  alert("Principal First Name  should not be blank");
 		  return;
 		}
-		if (!opts.principal_last_name) {
+		if (!opts.last_name) {
 		  alert("Principal Last Name should not be blank");
 		  return;
 		}
@@ -191,7 +234,7 @@ export default class Payment extends React.Component{
 		  return;
 		}
 		
-		 fetch(`${API_URL}assetsapi/singularbill_enroll/`, {
+		 /* fetch(`${API_URL}assetsapi/singularbill_enroll/`, {
         method: "post",
         body: JSON.stringify(opts)
       })
@@ -205,14 +248,14 @@ export default class Payment extends React.Component{
 			
 			this.setState({singularFrame:data.enroll});
 			// console.log(this.state.singularFrame);
-			this.setState({showModal: true});
-			// window.location.reload();
+			// this.setState({showModal: true});
+			 window.location.reload();
 			
           }
         else alert(data.msg)
         }).catch((error) => {
           console.log('error: ', error);
-        });
+        }); */
 	}
 userInfo() {
 
@@ -260,7 +303,8 @@ enrollInfo()
 }
 render(){
   // if(this.props.owner)
-	   // console.log("profile"+JSON.stringify(this.state.enrollInfo));
+
+
     return(
     <div>
     {/* <Header logoutLink={this.logoutLink} 
@@ -360,17 +404,51 @@ render(){
 								  <div className="col-md-12">
 									<div className="row">
 									  <div  className="col-md-2">
-										<label for="business-address1">Business Address</label>
+										<label for="business-address1">Address</label>
 									  </div>
 									  <div className="col-md-4">
 										<input type="text" className="form-control" id="business-address1" name="business_address_line_1" onChange={this.SingularBillChange} placeholder=""/>
 									  </div>
 									  <div  className="col-md-2">
-										<label for="business city" >Business City</label>
+										<label for="business-state-province">Country</label>
 									  </div>
 									  <div className="col-md-4">
-										<input type="text" className="form-control" id="fed-tax-id"  name="business_city" placeholder="" onChange={this.SingularBillChange}/>
+										<select className="form-control" name="country" value={this.state.singularEnrollForm.country || this.state.profileData.country} onChange={this.SingularBillChange} >
+										  {this.state.countries.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>))}
+										 
+										</select>
+										
 									  </div>
+									  
+									</div>
+								  </div>
+								</div>
+								<div className="form-group">
+								  <div className="col-md-12">
+								  <div className="row">
+								   <div  className="col-md-2">
+										<label for="business-state-province">State</label>
+									  </div>
+									  <div className="col-md-4">
+										<select className="form-control"  value={this.state.singularEnrollForm.state || this.state.profileData.state} name="state"  onChange={this.SingularBillChange} >
+											<option>{this.state.profileData.state}</option>
+											{this.state.states?this.state.states.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>)):this.state.profileData.state}
+								 
+										</select>
+										
+									  </div>
+									
+									  <div  className="col-md-2">
+										<label for="business city" >City</label>
+									  </div>
+									  <div className="col-md-4">
+										<select className="form-control" name="city" onChange={this.SingularBillChange} >
+										  <option>{this.state.profileData.city}</option>
+										  {this.state.cities?this.state.cities.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>)):''}
+										 
+										</select>
+									  </div>
+									  
 									</div>
 								  </div>
 								</div>
@@ -378,34 +456,16 @@ render(){
 								  <div className="col-md-12">
 									<div className="row">
 									  <div  className="col-md-2">
-										<label for="business-state-province">Business State Province</label>
+										<label for="business-phone-number">Phone Number</label>
 									  </div>
 									  <div className="col-md-4">
-										<input type="text" className="form-control" name="business_state_province" id="business-state-province" onChange={this.SingularBillChange} placeholder=""/>
-									  </div>
-									  <div  className="col-md-2">
-										<label for="business-postal-code" >Business Postal Code</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" name="business_postal_code" id="business-postal-code" onChange={this.SingularBillChange} placeholder=""/>
-									  </div>
-									</div>
-								  </div>
-								</div>
-								<div className="form-group">
-								  <div className="col-md-12">
-									<div className="row">
-									  <div  className="col-md-2">
-										<label for="business-phone-number">Business Phone No</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" name="business_phone_number" id="business-phone-number"  onChange={this.SingularBillChange} placeholder=""/>
+										<input type="text" className="form-control" name="mobile_no" id="business-phone-number" value={this.state.singularEnrollForm.mobile_no || this.state.profileData.mobile_no} onChange={this.SingularBillChange} placeholder=""/>
 									  </div>
 									  <div  className="col-md-2">
 										<label for="email">E-Mail </label>
 									  </div>
 									  <div className="col-md-4">
-										<input type="email" className="form-control" id="email"  name="email"  onChange={this.SingularBillChange} placeholder=""/>
+										<input type="email" className="form-control" value={this.state.singularEnrollForm.email || this.state.profileData.email}id="email"  name="email"  onChange={this.SingularBillChange} placeholder=""/>
 									  </div>
 									</div>
 								  </div>
@@ -417,14 +477,14 @@ render(){
 										<label for="principal-first-name">Principal First Name </label>
 									  </div>
 									  <div className="col-md-4">
-										<input type="text" className="form-control" id="principal-first-name"  name="principal_first_name"   onChange={this.SingularBillChange} placeholder=""/>
+										<input type="text" className="form-control" id="principal-first-name"  name="first_name"  value={this.state.singularEnrollForm.first_name || this.state.profileData.first_name} onChange={this.SingularBillChange} placeholder=""/>
 										
 									  </div>
 									  <div  className="col-md-2">
 										<label for="principal-last-name">Principal Last Name</label>
 									  </div>
 									  <div className="col-md-4">
-									  <input type="text" className="form-control" id="principal-last-name"  name="principal_last_name"   onChange={this.SingularBillChange} placeholder=""/>
+									  <input type="text" className="form-control" id="principal-last-name"  name="last_name" value={this.state.singularEnrollForm.last_name || this.state.profileData.last_name}  onChange={this.SingularBillChange} placeholder=""/>
 									  </div>
 									</div>
 								  </div>
@@ -432,6 +492,12 @@ render(){
 								<div className="form-group">
 								  <div className="col-md-12">
 									<div className="row">
+									<div  className="col-md-2">
+										<label for="business-postal-code" >Zip Code</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" name="zip_code" id="business-postal-code" value={this.state.singularEnrollForm.zip_code || this.state.profileData.zip_code} onChange={this.SingularBillChange} placeholder=""/>
+									  </div>
 									  <div  className="col-md-2">
 										<label for="fed_tax_id">Fed Tax ID</label>
 									  </div>
@@ -449,7 +515,7 @@ render(){
 						</div>
 							  
 							
-								<div id="send-request" className="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{display: "none"}}>
+							{/* <div id="send-request" className="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{display: "none"}}>
 									
 								  <div className="modal-dialog modal-lg">
 									<div className="modal-content">
@@ -459,7 +525,7 @@ render(){
 									  </div>
 									</div>
 									</div>
-								</div>
+</div> */}
 							  
 					
 							  <div className=""  id="portion_two" style={{display: "none"}}>

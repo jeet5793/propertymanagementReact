@@ -9,7 +9,7 @@ export default class Blog extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			blog: [{ 'img_path': 'sdfsgdfgfgsdfgsdf' }]
+			blog: [{  }]
 		}
 	}
 	componentDidMount() {
@@ -43,14 +43,14 @@ export default class Blog extends React.Component {
 				<div className="tz-post tz-blog">
 					<div className="container">
 						<div className="row">
-							{this.state.blog.map((blog) => (
+							{this.state.blog?this.state.blog.map((blog) => (
 								<div className="col-md-6">
 									<div className="tz-property-single">
 										<div className="tz-project-details">
 											<div className="tz-property-box tz-property-author">
 												<div className="tz-property-author-left blog-img">
 													<a className="tz-property-thumbnail">
-														<img src={'https://devstg.assetswatch.com:444/assetsadmin/' + blog.img_path} alt="" />
+														<img src={API_URL+'assetsadmin/' + blog.img_path} alt="" />
 													</a>
 												</div>
 												<div className="tz-property-author-right">
@@ -79,7 +79,7 @@ export default class Blog extends React.Component {
 										</div>
 									</div>
 								</div>
-							))}
+							)):<h3 style={{textAlign:'center'}}>No blog Available</h3>}
 						</div>
 					</div>
 				</div>

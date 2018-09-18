@@ -67,7 +67,11 @@ class Headernav extends React.Component {
                   //  console.log(data.msg)
                     swal("Assets Watch", data.msg);
                     $(".login-open").fadeToggle();
-                } else if(data.msg.indexOf("Do you want to continue as")!=-1){
+                }else if(data.Success===0) {
+                  //  console.log(data.msg)
+                    swal("Assets Watch", data.msg);
+                    $(".login-open").fadeToggle();
+                }else if(data.Success===2){
 					const rslt = window.confirm(data.msg);
 						if(rslt==true)
 						{

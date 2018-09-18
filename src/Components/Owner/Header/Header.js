@@ -24,6 +24,8 @@ export default class Header extends React.Component{
 		 this.onClickSwitch = this.onClickSwitch.bind(this);
         //localStorage.setItem(MyData)
        // alert("I am working now")
+	   this.profileToggle = this.profileToggle.bind(this)
+	   this.profileNoti = this.profileNoti.bind(this)
     }
 logout(){
     localStorage.clear();
@@ -41,6 +43,7 @@ onHoverNoti()
 	var $=window.$;
 	$(".dropdown-lg").toggle();
 } */
+ 
  componentDidMount(){
 		this.getNotification();
 		
@@ -62,8 +65,50 @@ onHoverNoti()
 			(error) => {
 			  console.log('error')
 			}
-		  )    
+		  )  
+		/* $(document).on('click', '.dropdown-toggle', function () {
+						
+			if($('.dropdown-menu').css('display') == 'none')
+			{
+				$('.dropdown-menu').show();
+			}
+			else
+			{
+				$('.dropdown-menu').hide();
+			}
+		 }); */
+			  
 	}
+	
+		 
+	profileToggle(){
+		var $=window.$;
+		// $('.profile-dropdown').toggle();
+		if($('.profile-dropdown').css('display') == 'none')
+			{
+				
+				$('.profile-dropdown').show();
+			}
+			else
+			{
+				
+				 $('.profile-dropdown').hide();
+			}
+	} 
+	profileNoti(){
+		var $=window.$;
+		// $('.profile-dropdown').toggle();
+		if($('#notify').css('display') == 'none')
+			{
+				
+				$('#notify').show();
+			}
+			else
+			{
+				
+				 $('#notify').hide();
+			}
+	} 
 	getNotification()
 	{
 		fetch(`${API_URL}assetsapi/notification_alert/${JSON.parse(this.state.userData).assets_id}/${JSON.parse(this.state.userData).session_id}/`, {
@@ -182,8 +227,8 @@ onHoverNoti()
                             {/*<!-- End mobile menu toggle--> */}
                          </li>
                          <li className="list-inline-item"> <button type="button" className="btn btn-warning  w-md waves-light"> <Link to = {{pathname:'/owner-plan'}} style={{color:'#fff'}}>Upgrade Plan</Link></button></li>
-                         <li className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle arrow-none waves-light"  data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false" onClick={this.getNotification}> <i className="dripicons-bell noti-icon" /> <span className="badge badge-pink noti-icon-badge">{this.state.notification.length}</span> </a>
-                            <div className="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-lg" aria-labelledby="Preview"> 
+                         <li className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle arrow-none waves-light"  onClick = {this.ToggleNoti} data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false" onClick={this.getNotification}> <i className="dripicons-bell noti-icon" /> <span className="badge badge-pink noti-icon-badge">{this.state.notification.length}</span> </a>
+                            <div className="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-lg" aria-labelledby="Preview" id = "notify"> 
                             {/* item*/}
                             <div className="dropdown-item noti-title">
                                 <h5><span className="badge badge-danger float-right">{this.state.notification.length}</span>Notification</h5>
@@ -201,8 +246,8 @@ onHoverNoti()
                             {/* All*/} 
                              <a href="#" className="dropdown-item notify-item notify-all"> <Link to = {{pathname:'/owner-notifications'}}>View All</Link> </a> </div>
                         </li>
-                        <li className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle  waves-light nav-user"  data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img src={JSON.parse(this.state.userData).profile_photo!=''?API_URL+JSON.parse(this.state.userData).profile_photo:img_not_available} alt="user" className="rounded-circle" /><span className="profile-name">{this.state.first_name.replace(/["']/g, "")+" "+this.state.last_name.replace(/["']/g, "")}</span> </a>
-                            <div className="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview"> 
+                        <li className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle  waves-light nav-user" onClick = {this.profileToggle} data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img src={JSON.parse(this.state.userData).profile_photo!=''?API_URL+JSON.parse(this.state.userData).profile_photo:img_not_available} alt="user" className="rounded-circle" /><span className="profile-name">{this.state.first_name.replace(/["']/g, "")+" "+this.state.last_name.replace(/["']/g, "")}</span> </a>
+                            <div className="dropdown-menu dropdown-menu-right profile-dropdown" aria-labelledby="Preview"> 
                             {/* item*/}
                             <div className="dropdown-item noti-title">
                                 <h5 className="text-overflow"><small>Hi,{this.state.first_name.replace(/["']/g, "")}</small> </h5>
@@ -212,10 +257,10 @@ onHoverNoti()
                             {/* item*/} 
                             <a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-gear" /> <Link to = {{pathname:'/settings'}}><span>Settings</span></Link> </a>
 							<hr/>							
-							<h3 className="dropdown-item notify-item"><small>Switch To</small></h3>
+							{this.state.userTypeList?<h3 className="dropdown-item notify-item"><small>Switch To</small></h3>:''}
 						{this.state.userTypeList?this.state.userTypeList.map((item)=>( 
 							<a href="javascript:void(0);" className="dropdown-item notify-item" onClick = {this.onClickSwitch.bind(this,item.assets_type)}> <i className="dripicons-user" />{item.assets_type=='2'?'Agent':item.assets_type=='3'?'Tenant':item.assets_type=='1'?'Owner':''}</a> )):''}
-							<hr/>
+								{this.state.userTypeList?<hr/>:''}
                             {/* item*/} 
                             <a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-power" /> <span onClick={this.logout}>Logout</span> </a> </div>
                         </li>

@@ -20,28 +20,8 @@ export default class Property extends React.Component{
     super(props)
     this.updatePropertyGrid=this.updatePropertyGrid.bind(this)
     this.state={
-    properties:[{'property_status':'sold','img_path':[{'img_path':''}]},{'property_status':'ttt','img_path':[{'img_path':''}]}],
-    owners:[{
-      "address":"test",
-      "city":"Bangalore",
-      "country":"India",
-      "id":"1",
-      "owner_name":"jireh",
-      "pin_code":"560029",
-      "property_id":"1",
-      "state":"Karnataka"
-    },
-    {
-      "address":"test",
-      "city":"Bangalore",
-      "country":"India",
-      "id":"1",
-      "owner_name":"jireh",
-      "pin_code":"560029",
-      "property_id":"1",
-      "state":"Karnataka"
-    }
-    ],
+    properties:[{}],
+    owners:[{ }],
     isPropertySearchEmpty:false,propertySearchMsg:'',
 	agentList:[]
     }    
@@ -90,7 +70,8 @@ updateProps(props){
   .then((response)=> {        
     response.json().then((data)=>{
       var owners=[];
-      for(var i=0;i<data.property.length;i++) {
+	  if(data.property){
+		for(var i=0;i<data.property.length;i++) {
         for(var j=0;j<data.property[i].owner_details.length;j++) {
           owners.push(data.property[i].owner_details[j])
         }
@@ -211,8 +192,9 @@ updateProps(props){
           }
            }, 500);
         })
+	}
       })      
-		});
+	});
 
   this.handleSript  
 	this.TopAgentList();

@@ -63,6 +63,67 @@ export default class Customwithmodal extends React.Component{
             });
             loadFile("assets 21/signature/jquery.signaturepad.css", "css");
         });
+		
+		
+		
+		
+		 // TEXT BOX EDITOR SCRIPT -->
+
+		   $(document).on('change', '.inner', function () {
+				
+				var compId = this.id;
+				
+				if(compId.indexOf("textId") != -1)
+				{
+					var value = $("#"+compId).val();
+					var seqId = compId.replace('textId','');
+					
+					$("#textDivId"+seqId).html("<span class='textClass' id='"+seqId+"'><u><b>&nbsp; "+value+" &nbsp;</b></u></span>")
+				}
+				
+			});
+			
+			$(document).on('click', '.textClass', function () {
+				
+				var seqId = this.id;
+				
+				var text = $("#"+seqId).text();
+				
+				$("#textDivId"+seqId).html("<input class='inner' type='text' id='textId"+seqId+"' value='"+text+"' style='width:300px;height:20px;border:1px solid #eee;' placeholder='Enter text value'>");
+			});
+			
+	// END OF TEXT BOX EDITOR SCRIPT -->
+	 
+	
+	
+	// DATE BOX EDITOR SCRIPT -->
+
+		   $(document).on('change', '.datepickerWithoutTime', function () {
+				
+				var compId = this.id;
+				
+				if(compId.indexOf("dateId") != -1)
+				{
+					var value = $("#"+compId).val();
+					var seqId = compId.replace('dateId','');
+					
+					$("#dateDivId"+seqId).html("<span class='dateClass' id='"+seqId+"'><b>&nbsp; "+value+" &nbsp;</b></span>")
+				}
+				
+			});
+			
+			$(document).on('click', '.dateClass', function () {
+				
+				var seqId = this.id;
+				
+				var text = $("#"+seqId).text();
+				
+				$("#dateDivId"+seqId).html("<input class='datepickerWithoutTime' type='text' id='dateId"+seqId+"' value='"+text+"' style='width:120px;height:20px;border:1px solid #eee;' placeholder='dd/mm/yyyy' />");
+			});
+			
+	 // END OF DATE BOX EDITOR SCRIPT -->
+	 
+	  
     }
     onChangeHandler(e) {
         var placeId = $("#placeId").val();

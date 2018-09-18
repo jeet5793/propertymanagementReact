@@ -249,16 +249,16 @@ createAgreement(){
           
           if(compName=='Insert Signature Block')
             {
-            tinymce.activeEditor.execCommand('mceInsertContent', false, "<p><div contenteditable='false' class='sigDiv' id='sigId"+i+"' style='width:300px;height:85px;padding-top:5px;padding-left:10px;margin-right:10px;border:1px solid #eee;' data-toggle='modal' data-target='#custom-width-modal' onclick='addplaceId(this.id)'>"+compName+"</div></p>");
-                // tinymce.get("editor").setContent( content + " " + "<p><div contenteditable='false' class='sigDiv' id='sigId"+i+"' style='width:300px;height:100px;border:1px solid #eee; border-top:0' data-toggle='modal' data-target='#custom-width-modal' onclick='addplaceId(this.id)'>"+compName+"</div></p>");
+				tinymce.activeEditor.execCommand('mceInsertContent', false, "<p><div contenteditable='false' class='sigDiv' id='sigId"+i+"' style='width:300px;height:85px;padding-top:5px;padding-left:10px;margin-right:10px;border:1px solid #eee;' data-toggle='modal' data-target='#custom-width-modal' onclick='addplaceId(this.id)'>"+compName+"</div></p>");
+				 
           }
           else if(compName=='Insert Text Box')
             {
-            tinymce.activeEditor.execCommand('mceInsertContent', false, "<p id='textDivId"+i+"'><input class='inner' type='text' id='textId"+i+"'  style='width:300px;padding-left:10px;height:30px;margin-right:10px;border:1px solid #eee;' placeholder='Enter text value' /></p>");
+            tinymce.activeEditor.execCommand('mceInsertContent', false, "<p><div id='textDivId"+i+"' class='textDiv'><input class='inner' type='text' id='textId"+i+"'  style='width:300px;padding-left:10px;height:30px;margin-right:10px;border:1px solid #eee;' placeholder='Enter text value' /></div></p>");
           }
           else if(compName=='Insert Date Box')
             {
-            tinymce.activeEditor.execCommand('mceInsertContent', false, "<p id='dateDivId"+i+"'><input class='datepickerWithoutTime' type='text' id='dateId"+i+"'  style='width:120px;height:30px;padding-left:10px;margin-right:10px;border:1px solid #eee;' placeholder='dd/mm/yyyy' /></p>");
+            tinymce.activeEditor.execCommand('mceInsertContent', false, "<p><div id='dateDivId"+i+"' class='dateDiv'><input class='datepickerWithoutTime' type='text' id='dateId"+i+"'  style='width:120px;height:30px;padding-left:10px;margin-right:10px;border:1px solid #eee;' placeholder='dd/mm/yyyy' /></div></p>");
           }
           else if(compName=='Insert Check Box')
             {
@@ -273,6 +273,11 @@ createAgreement(){
           this.updatePage();
 
       }
+	  
+	  
+	 
+	  
+	  
 	updatePage() {
         this.setState({dumy: true});
     }
