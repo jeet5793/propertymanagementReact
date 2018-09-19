@@ -255,7 +255,7 @@ render(){
 									  />
 									  <label HTMLFor="packageid"> Bronze Package : 1 Credit Report </label>
 									</div>
-								  </div><br/>
+								  </div>
 								  <div className="col-md-8">
 										<div className="radio radio-custom">
 										  <input
@@ -267,7 +267,7 @@ render(){
 										  />
 										  <label HTMLFor="packageid">Silver Package : 1 Credit Report + 1 Eviction Report </label>
 										</div>
-									  </div><br/>
+									  </div>
 
 							  <div className="col-md-8">
 								<div className="radio radio-custom">

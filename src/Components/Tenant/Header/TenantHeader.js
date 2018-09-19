@@ -166,6 +166,7 @@ logout(){
                             </a> 
                             {/*<!-- End mobile menu toggle--> */}
                          </li>
+						 <li className="list-inline-item">{JSON.parse(this.state.userData).planName} plan expire on {JSON.parse(this.state.userData).expireDate} </li>
                          <li className="list-inline-item"> <button type="button" className="btn btn-warning  w-md waves-light"> <Link to = {{pathname:'/tenant-plan'}} style={{color:'#fff'}}>Upgrade Plan</Link></button></li>
                          <li className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle arrow-none waves-light waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false" onClick={this.getNotification}> <i className="dripicons-bell noti-icon" /> <span className="badge badge-pink noti-icon-badge">{this.state.notification.length}</span> </a>
                             <div className="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-lg" aria-labelledby="Preview"> 

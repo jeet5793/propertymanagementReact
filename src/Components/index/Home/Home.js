@@ -285,7 +285,7 @@ class Home extends React.Component{
 				                        <div className="tz-property-home vc_custom_1466569792560 tz-slider">
 				                          <div id="tz-pro-slider-5ac1cdf22e330" className="cbp cbp-l-grid-team tz-property-slider false">
 				          					{
-				          						this.state.properties>0?this.state.properties.map((property, index) => (
+				          						this.state.properties?this.state.properties.map((property, index) => (
 				          							<HomeProperty key={index} description={property.description}  Title={property.title} src={property.img_path.length>0?API_URL+property.img_path[0].img_path:''} Status={property.property_status} total_amount={property.total_amount} />
 				          						)):<h3 style={{textAlign:'center'}}>No Property Available</h3>}
 				          					}

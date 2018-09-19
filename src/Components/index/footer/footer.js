@@ -91,6 +91,13 @@ class Footer extends React.Component{
         </div>
       </div>
     </div>
+	
+	<div id="loaderDiv" className="preloader">
+
+		<div className="cssload-loader">Assets Watch</div>
+
+	</div>
+	
   </footer>);
 	}
 }

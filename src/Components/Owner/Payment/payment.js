@@ -175,20 +175,21 @@ export default class Payment extends React.Component{
 		else if(e.target.name==='fed_tax_id')
 		{
 			singularForm.fed_tax_id=e.target.value;
-			var str = singularForm.fed_tax_id.replace(/.(?=.{4})/g, '*');
-			$('#fed_tax_id').val(str);
+			
+			// var str = singularForm.fed_tax_id.replace(/.(?=.{4})/g, '*');
+			// $('#fed_tax_id').val(str);
 			//alert(str);
 		}
 		singularForm.login_user = JSON.parse(this.state.userData).assets_id
 		this.setState({singularEnrollForm:singularForm});
 		
-		 // console.log(this.state.singularEnrollForm);
+		   // console.log(this.state.singularEnrollForm);
 	}
 	onSubmitSingular()
 	{
 		
 		var opts = Object.assign(this.state.singularEnrollForm,this.state.profileData);
-		console.log(opts);
+		// console.log(opts);
 		if (!opts.dba_name) {
 		  alert("DBA Name should not be blank");
 		  return;
@@ -234,7 +235,7 @@ export default class Payment extends React.Component{
 		  return;
 		}
 		
-		 /* fetch(`${API_URL}assetsapi/singularbill_enroll/`, {
+		 fetch(`${API_URL}assetsapi/singularbill_enroll/`, {
         method: "post",
         body: JSON.stringify(opts)
       })
@@ -255,7 +256,7 @@ export default class Payment extends React.Component{
         else alert(data.msg)
         }).catch((error) => {
           console.log('error: ', error);
-        }); */
+        });
 	}
 userInfo() {
 

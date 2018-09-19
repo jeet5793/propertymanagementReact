@@ -184,7 +184,7 @@ class Profile extends React.Component {
                             <div id="dashboard-1" className="widget-box-four-chart"></div>
                             <div className="wigdet-four-content">
                               <h4 className="m-t-0 font-18 m-b-5" title="Property">Property</h4>
-                              <h3 className="m-b-0 m-t-35"><span>{this.state.statics.Property}</span> <span data-plugin="counterup" className="profile-icon"><i className="fi-box"></i></span></h3>
+                              <h3 className="m-b-0 m-t-35"><span>{this.state.statics.Property?this.state.statics.Property:'0'}</span> <span data-plugin="counterup" className="profile-icon"><i className="fi-box"></i></span></h3>
                             </div>
                             <div className="clearfix"></div>
                           </div>
@@ -195,7 +195,7 @@ class Profile extends React.Component {
                             <div id="dashboard-2" className="widget-box-four-chart"></div>
                             <div className="wigdet-four-content">
                               <h4 className="m-t-0 font-18 m-b-5" title="Agent">Agent</h4>
-                              <h3 className="m-b-0 m-t-35"><span>{this.state.statics.Agent}</span> <span data-plugin="counterup" className="profile-icon"><i className="fi-head "></i></span></h3>
+                              <h3 className="m-b-0 m-t-35"><span>{this.state.statics.Agent?this.state.statics.Agent:'0'}</span> <span data-plugin="counterup" className="profile-icon"><i className="fi-head "></i></span></h3>
                             </div>
                             <div className="clearfix"></div>
                           </div>
@@ -206,7 +206,7 @@ class Profile extends React.Component {
                             <div id="dashboard-3" className="widget-box-four-chart"></div>
                             <div className="wigdet-four-content">
                               <h4 className="m-t-0 font-18 m-b-5" title="Tenant">Tenant</h4>
-                              <h3 className="m-b-0 m-t-35"><span>{this.state.statics.Tenant}</span> <span data-plugin="counterup" className="profile-icon"><i className="fi-head "></i></span></h3>
+                              <h3 className="m-b-0 m-t-35"><span>{this.state.statics.Tenant?this.state.statics.Tenant:'0'}</span> <span data-plugin="counterup" className="profile-icon"><i className="fi-head "></i></span></h3>
                             </div>
                             <div className="clearfix"></div>
                           </div>
@@ -217,7 +217,7 @@ class Profile extends React.Component {
                             <div id="dashboard-3" className="widget-box-four-chart"></div>
                             <div className="wigdet-four-content">
                               <h4 className="m-t-0 font-18 m-b-5" title="Agreement">Agreement</h4>
-                              <h3 className="m-b-0 m-t-35"><span>{this.state.statics.Agreement}</span> <span data-plugin="counterup" className="profile-icon"><i className="fi-paper"></i></span></h3>
+                              <h3 className="m-b-0 m-t-35"><span>{this.state.statics.Agreement?this.state.statics.Agreement:'0'}</span> <span data-plugin="counterup" className="profile-icon"><i className="fi-paper"></i></span></h3>
                             </div>
                             <div className="clearfix"></div>
                           </div>

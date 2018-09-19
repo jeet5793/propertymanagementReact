@@ -108,6 +108,7 @@ export default class PlanPayment extends React.Component {
   paymentPage(event) {
   event.preventDefault();
   	console.log(this.state);
+	$("#loaderDiv").show();
   var payment_Object={
     "userid":this.state.userDetails.user_id,
     "tokenizedaccountnumber":this.state.tokenizedaccountnumber,
@@ -124,9 +125,11 @@ export default class PlanPayment extends React.Component {
     "profile": null,
     "profileid": null,
     "orderid":this.state.userDetails.orderid,
-	"plan_id":this.state.userDetails.plan_id
+	"plan_id":this.state.userDetails.plan_id,
+	"plan_type":this.state.userDetails.plan_month_year
   }
-  console.log(payment_Object);
+  // this.setState({ fetchInProgress: true });
+  // console.log(payment_Object);
     fetch(`${API_URL}assetsapi/paymentgateway`,{
       method: 'post',
       //headers: {'Content-Type':'application/json'},
@@ -142,8 +145,12 @@ export default class PlanPayment extends React.Component {
                   // userDetails:result.user_detail
                 // })
 			  //}
+			  // this.setState({
+                    // fetchInProgress: false
+                // });
+			
 			   if(result.msg.indexOf("Registered Successfully")!=-1)
-			   {
+			   {	$("#loaderDiv").hide();
 				   //
 				   swal("Assets Watch", result.msg);
 				   	//this.props.history.replace('/');
@@ -159,6 +166,7 @@ export default class PlanPayment extends React.Component {
             (error) => {
               this.setState({
                 isLoaded: true,
+				fetchInProgress: false,
                 error
               });
             }
@@ -172,16 +180,17 @@ export default class PlanPayment extends React.Component {
 	let tempDate = new Date();
 	  var date = tempDate.toLocaleDateString();
 		return(
+		
       <div>
-         {/* Logo container*/}
+	  
          <div className="logo text-center">
            {/* Text Logo */}
            {/*<a href="index.html" class="logo">*/}
            {/*Adminox*/}
            {/*</a>*/}
            {/* Image Logo */}
-           <a href="index.html" className="logo"> <img src="/assets/images/logo_dark.png" alt className="logo-lg" /></a></div>
-         <div className="payment-warp">
+           <a href="/" className="logo"> <img src="/assets/images/logo_dark.png" alt className="logo-lg" /></a></div>
+		   <div className="payment-warp">
            <div className="container">
              {/* end page title end breadcrumb */}
              <div className="row">
@@ -289,14 +298,13 @@ export default class PlanPayment extends React.Component {
                  <li className="list-inline-item"> <button type="button" className="btn btn-warning waves-effect w-md waves-light"><i className="dripicons-home" /> Back to Home</button></li>
                </div>
              </div>
-             {/* end row */}
+      
            </div>
-           {/* end container */}
+         
          </div>
-         {/* end wrapper */}
-         {/* Footer */}
 
-       </div>
+
+		</div>
 
 
     );
