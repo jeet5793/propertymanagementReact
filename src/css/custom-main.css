@@ -218,6 +218,7 @@ Licensed under MIT
 .advance-serch a {
 	color: #fff;
 	text-decoration: underline;
+	font-size: 13px;
 }
 /*login */
 .hidden {

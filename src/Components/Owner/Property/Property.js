@@ -1,6 +1,4 @@
 import React from 'react'
-// import property_1 from '../../../images/Owner/property/property-01.jpg'
-import img_1 from '../../../images/Owner/property/img.jpg'
 import Header from '../Header/Header'
 import {Link} from 'react-router-dom'
 import API_URL from '../../../app-config';
@@ -107,6 +105,14 @@ class Property extends React.Component{
              })
         }
     }
+	editProperty(property) {
+        this.setState({editProperty: property}, () => {
+            console.log('editProperty ', property)
+            Cookies.set("editProperty",property);
+            this.props.history.push("/edit-property")
+            
+        })
+     }
     render(){
         const imgSer=this.imgServer
         console.log("propertyloading..."+JSON.stringify(this.state.propertiesLoading))
@@ -163,10 +169,9 @@ class Property extends React.Component{
                                         <td><i></i> {element.property_status}</td>
                                         <td><i></i>  </td>
                                         <td>
-                                            <a  className="table-action-btn">
-                                                <i className="mdi mdi-pencil"></i>
-                                            </a> 
-											
+                                         <a onClick={this.editProperty.bind(this,element)} id={element.id} className="table-action-btn">
+                                                <i style={{cursor:'pointer'}} className="mdi mdi-pencil"></i>
+                                            </a> 	
                                            <Link to={{pathname:'/property-detail',state:{id:element.id}}}  className="table-action-btn">
                                                 <i className="mdi mdi-eye"></i>
                                             </Link>

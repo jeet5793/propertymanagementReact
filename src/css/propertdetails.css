@@ -53,5 +53,5 @@ body .tz-error {
 }
 .tz-sidebar-right .search-border input:hover, .tz-sidebar-right .search-border select:hover, .tz-sidebar-right .search-border input:active, .tz-sidebar-right .search-border select:active, .tz-sidebar-right .search-border input:focus, .tz-sidebar-right .search-border select:focus {
 	border-color: #27ae60;
-	color: #8d959a;
+	color: #8d959a !important;
 }

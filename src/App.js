@@ -193,6 +193,7 @@ LoggedIn(userId){
         <Route  path='/settings' component={UserDashboard} />
         <Route  path='/my-property' component={UserDashboard} />
 		<Route  path='/add-property' component={UserDashboard} />
+		<Route  path='/edit-property' component={UserDashboard} />
 		<Route  path='/profile-detail' component={UserDashboard} />
     <Route  path='/profile-details' component={UserDashboard} />
     <Route  path='/owner-report' component={UserDashboard} />

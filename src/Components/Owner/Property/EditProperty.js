@@ -13,6 +13,7 @@ class EditProperty extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      propertyInfo: Cookies.get('editProperty'),
       userInfo: props.userData,
       profileData: '',
       files: [],
@@ -27,7 +28,8 @@ class EditProperty extends React.Component {
       isLoaded: true,
       countrySelected: '',
       formData: {
-        //"owner_id":"",
+        "owner_id":"",
+        "property_id":"",
         "title": "",
         "address": "",
         "city": '',
@@ -57,11 +59,28 @@ class EditProperty extends React.Component {
         zip_code: ""
       }]
     }
-    this.createProperty = this.createProperty.bind(this)
+    this.editProperty = this.editProperty.bind(this)
     this.onChangeHandler = this.onChangeHandler.bind(this)
     this.onDrop = this.onDrop.bind(this);
     this.removeImage = this.removeImage.bind(this);
   }
+
+  componentWillMount(){
+    console.log("receeeeeived123456..."+ JSON.parse(this.state.propertyInfo))
+    if(this.state.propertyInfo){
+          const propertyDetails=JSON.parse(this.state.propertyInfo)
+          console.log("receeeeeived123456..."+ JSON.stringify(propertyDetails))
+          this.setState({
+            formData:{property_id:propertyDetails.id,title:propertyDetails.title,address:propertyDetails.address,country:propertyDetails.country,state:propertyDetails.state,city:propertyDetails.city,zip_code:propertyDetails.zip_code,property_type:propertyDetails.property_type,property_status:propertyDetails.property_status,geo_location:propertyDetails.geo_location,square_feet:propertyDetails.square_feet,description:propertyDetails.description,bedroom:propertyDetails.bedroom,bathroom:propertyDetails.bathroom,total_amount:propertyDetails.total_amount,advance:propertyDetails.advance,advance:propertyDetails.advance},images:propertyDetails.img_path,shareholders:propertyDetails.owner_details
+          },()=>{
+            this.stateLists(propertyDetails.country);
+            this.cityList(propertyDetails.state);
+          })
+         
+        }
+  }
+  
+
   handleShareholderNameChange = (idx) => (evt) => {
     const newShareholders = this.state.shareholders.map((shareholder, sidx) => {
       if (idx !== sidx) return shareholder;
@@ -190,6 +209,7 @@ class EditProperty extends React.Component {
       }
       formData.session_id = JSON.parse(this.state.userData).session_id;
       formData.owner_id = JSON.parse(this.state.userData).assets_id;
+      formData.property_id=JSON.parse(this.state.propertyInfo).id;
     }
     else {
       formData.img_path.push(e.target.value)
@@ -197,19 +217,23 @@ class EditProperty extends React.Component {
     this.setState({ formData: formData })
 
   }
-  createProperty() {
+  editProperty() {
     var opts = this.state.formData
     opts.owner_details = this.state.shareholders
     opts.img_path = this.state.images;
-    console.log("imgpathhh" + JSON.stringify(this.state.images))
-    fetch(`${API_URL}assetsapi/add_property/`, {
+    opts.session_id = JSON.parse(this.state.userData).session_id;
+    opts.owner_id = JSON.parse(this.state.userData).assets_id;
+    opts.property_id=JSON.parse(this.state.propertyInfo).id;
+     
+    console.log("imgpathhh" + JSON.stringify(opts))
+    fetch(`${API_URL}assetsapi/edit_property/`, {
       method: 'post',
       body: JSON.stringify(opts)
     }, { 'Content-type': 'multipart/form-data' }).then((response) => {
       return response.json();
     }).then((data) => {
       console.log("responseeeee" + JSON.stringify(data));
-      if (data.msg == "Property added successfully !!!") {
+      if (data.msg == "Property edited successfully !!!") {
         swal("Assets Watch", data.msg);
         window.location.href = '/my-property'
       }
@@ -245,6 +269,8 @@ class EditProperty extends React.Component {
   }
 
   render() {
+    const editPropertyInfo=this.state.formData
+    // console.log("renderrrr..."+JSON.stringify(this.state.images[0].img_path))
     const contries = this.state.countries
     var coptions = contries.map(function (item) {
       var selectValue = 'India'
@@ -279,19 +305,19 @@ class EditProperty extends React.Component {
                       <div className="form-group row">
                         <label className="col-2 col-form-label">Property Title</label>
                         <div className="col-10">
-                          <input name="title" onChange={this.onChangeHandler} type="text" className="form-control" />
+                          <input value={editPropertyInfo.title} name="title" onChange={this.onChangeHandler} type="text" className="form-control" />
                         </div>
                       </div>
                       <div className="form-group row">
                         <label className="col-2 col-form-label">Address</label>
                         <div className="col-10">
-                          <textarea name='address' placeholder='Property address' onChange={this.onChangeHandler} className="form-control"></textarea>
+                          <textarea value={editPropertyInfo.address} name='address' placeholder='Property address' onChange={this.onChangeHandler} className="form-control"></textarea>
                         </div>
                       </div>
                       <div className="form-group row">
                         <label className="col-2 col-form-label">Country</label>
                         <div className="col-4">
-                          <select className="form-control" name='country' onChange={this.onChangeHandler} >
+                          <select value={editPropertyInfo.country} className="form-control" name='country' onChange={this.onChangeHandler} >
                             <option>Please select a country</option>
                             {this.state.countries.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>))}
                           </select>
@@ -299,7 +325,7 @@ class EditProperty extends React.Component {
 
                         <label className="col-2 col-form-label">State</label>
                         <div className="col-4">
-                          <select className="form-control" name="state" onChange={this.onChangeHandler} >
+                          <select value={editPropertyInfo.state}  className="form-control" name="state" onChange={this.onChangeHandler} >
                             <option>Please select a state</option>
                             {this.state.states ? this.state.states.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>)) : ''}
                           </select>
@@ -308,33 +334,35 @@ class EditProperty extends React.Component {
                       <div className="form-group row">
                         <label className="col-2 col-form-label">City</label>
                         <div className="col-4">
-                          <select className="form-control" name="city" onChange={this.onChangeHandler} >
+                          <select value={editPropertyInfo.city} className="form-control" name="city" onChange={this.onChangeHandler} >
                             <option>Please select a city</option>
                             {this.state.cities ? this.state.cities.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>)) : ''}
                           </select>
                         </div>
                         <label className="col-2 col-form-label">PIN Code</label>
                         <div className="col-4">
-                          <input type="text" className="form-control" name="zip_code" onChange={this.onChangeHandler} />
+                          <input value={editPropertyInfo.zip_code} type="text" className="form-control" name="zip_code" onChange={this.onChangeHandler} />
                         </div>
                       </div>
                       <hr style={{ color: '#f0ad4e', backgroundColor: '#f0ad4e', height: 2 }} />
                       <a className="btn btn-custom waves-light waves-effect w-md add-owner" onClick={this.handleAddShareholder}>
                         Add Owner
                       </a>
-                      {this.state.shareholders.map((shareholder, idx) => (
-                        <div>
+                      {this.state.shareholders.map((shareholder, idx) => {
+                        // this.stateLists(shareholder.country)
+                        // this.cityList(shareholder.state)
+                         return <div>
                           <div className="form-group row">
                             <label className="col-2 col-form-label">Owner {idx + 1}</label>
                             <div className="col-10">
-                              <input type="text" name={'owner_name' + (idx)} placeholder={`Owner #${idx + 1} owner_name`} className="form-control" onChange={(e) => { this.onChangeHandler(e, idx) }} />
+                              <input type="text" value={this.state.shareholders[idx].owner_name} name={'owner_name' + (idx)} placeholder={`Owner #${idx + 1} owner_name`} className="form-control" onChange={(e) => { this.onChangeHandler(e, idx) }} />
                             </div>
                           </div>
                           {/*add second owner*/}
                           <div className="form-group row">
                             <label className="col-2 col-form-label">Address</label>
                             <div className="col-10">
-                              <textarea name={'address' + (idx)} placeholder={`Owner #${idx + 1} address`} onChange={(e) => { this.onChangeHandler(e, idx) }} className="form-control"></textarea>
+                              <textarea value={this.state.shareholders[idx].address} name={'address' + (idx)} placeholder={`Owner #${idx + 1} address`} onChange={(e) => { this.onChangeHandler(e, idx) }} className="form-control"></textarea>
 
 
                             </div>
@@ -342,15 +370,16 @@ class EditProperty extends React.Component {
                           <div className="form-group row">
                             <label className="col-2 col-form-label">Country</label>
                             <div className="col-4">
-                              <select className="form-control" name={'country' + (idx)} onChange={(e) => { this.onChangeHandler(e, idx) }} >
+                              <select value={this.state.shareholders[idx].country} className="form-control" name={'country' + (idx)} onChange={(e) => { this.onChangeHandler(e, idx) }} >
                                 <option>Please select a country</option>
                                 {this.state.countries.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>))}
                               </select>
                             </div>
+                            
 
                             <label className="col-2 col-form-label">State</label>
                             <div className="col-4">
-                              <select className="form-control" name={'state' + (idx)} onChange={(e) => { this.onChangeHandler(e, idx) }} >
+                              <select value={this.state.shareholders[idx].state} className="form-control" name={'state' + (idx)} onChange={(e) => { this.onChangeHandler(e, idx) }} >
                                 <option>Please select a state</option>
                                 {this.state.states ? this.state.states.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>)) : ''}
                               </select>
@@ -359,14 +388,14 @@ class EditProperty extends React.Component {
                           <div className="form-group row">
                             <label className="col-2 col-form-label">City</label>
                             <div className="col-4">
-                              <select className="form-control" name={'city' + (idx)} onChange={(e) => { this.onChangeHandler(e, idx) }} >
+                              <select value={this.state.shareholders[idx].city} className="form-control" name={'city' + (idx)} onChange={(e) => { this.onChangeHandler(e, idx) }} >
                                 <option>Please select a city</option>
                                 {this.state.cities ? this.state.cities.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>)) : ''}
                               </select>
                             </div>
                             <label className="col-2 col-form-label">PIN Code</label>
                             <div className="col-4">
-                              <input type="text" className="form-control" name={'zip_code' + (idx)} onChange={(e) => { this.onChangeHandler(e, idx) }} />
+                              <input value={this.state.shareholders[idx].pin_code} type="text" className="form-control" name={'zip_code' + (idx)} onChange={(e) => { this.onChangeHandler(e, idx) }} />
                             </div>
                           </div>
                           <div className="form-group row">
@@ -374,12 +403,12 @@ class EditProperty extends React.Component {
                             <div className="col-2"><button type="button" onClick={this.handleRemoveShareholder(idx)} className="small">Remove--</button></div>
                           </div>
                         </div>
-                      ))}
+                      })}
                       <hr style={{ color: '#f0ad4e', backgroundColor: '#f0ad4e', height: 2 }} />
                       <div className="form-group row">
                         <label className="col-2 col-form-label">Property Type</label>
                         <div className="col-4">
-                          <select className="form-control" name="property_type" onChange={this.onChangeHandler}>
+                          <select value={editPropertyInfo.property_type} className="form-control" name="property_type" onChange={this.onChangeHandler}>
                             <option selected>Please Select</option>
                             <option value="Private Apartment">Private Apartment</option>
                             <option value="Apartment">Apartment</option>
@@ -389,7 +418,7 @@ class EditProperty extends React.Component {
                         </div>
                         <label className="col-2 col-form-label">Property Status</label>
                         <div className="col-4">
-                          <select className="form-control" name="property_status" onChange={this.onChangeHandler}>
+                          <select value={editPropertyInfo.property_status} className="form-control" name="property_status" onChange={this.onChangeHandler}>
                             <option>Please Select</option>
                             <option value="Rent">Rent</option>
                             <option value="Sale">Sale</option>
@@ -399,7 +428,7 @@ class EditProperty extends React.Component {
                       <div className="form-group row">
                         <label className="col-2 col-form-label">Description</label>
                         <div className="col-10">
-                          <textarea id="elm1" className="w-100" name="description" onChange={this.onChangeHandler}></textarea>
+                          <textarea value={editPropertyInfo.description} id="elm1" className="w-100" name="description" onChange={this.onChangeHandler}></textarea>
                         </div>
                       </div>
 
@@ -415,27 +444,27 @@ class EditProperty extends React.Component {
                       <div className="form-group row">
                         <label className="col-2 col-form-label">Square Feet</label>
                         <div className="col-10">
-                          <input name="square_feet" onChange={this.onChangeHandler} type="text" className="form-control" />
+                          <input value={editPropertyInfo.square_feet} name="square_feet" onChange={this.onChangeHandler} type="text" className="form-control" />
                         </div>
                       </div>
                       <div className="form-group row">
-                        <label className="col-2 col-form-label">Bedrooms</label>
+                        <label value={editPropertyInfo.bedroom} className="col-2 col-form-label">Bedrooms</label>
                         <div className="col-4">
                           <input type="text" name="bedroom" onChange={this.onChangeHandler} className="form-control" />
                         </div>
                         <label className="col-2 col-form-label">Bathrooms</label>
                         <div className="col-4">
-                          <input type="text" name="bathroom" className="form-control" onChange={this.onChangeHandler} />
+                          <input value={editPropertyInfo.bathroom} type="text" name="bathroom" className="form-control" onChange={this.onChangeHandler} />
                         </div>
                       </div>
                       <div className="form-group row">
                         <label className="col-2 col-form-label">Total Amount</label>
                         <div className="col-4">
-                          <input type="text" className="form-control" name="total_amount" onChange={this.onChangeHandler} />
+                          <input value={editPropertyInfo.total_amount} type="text" className="form-control" name="total_amount" onChange={this.onChangeHandler} />
                         </div>
                         <label className="col-2 col-form-label">Advance</label>
                         <div className="col-4">
-                          <input type="text" className="form-control" name="advance" onChange={this.onChangeHandler} />
+                          <input value={editPropertyInfo.advance} type="text" className="form-control" name="advance" onChange={this.onChangeHandler} />
                         </div>
                       </div>
                     </div>
@@ -462,7 +491,7 @@ class EditProperty extends React.Component {
                               />
                               <ul class="jFiler-items-list jFiler-items-grid">
                                 {
-                                  this.state.images && this.state.images.length > 0 ? this.state.images.map(image => (
+                                  this.state.images && this.state.images.length > 0 ? this.state.images.map((image,key) => (
                                     <li class="jFiler-item">
                                       <div class="jFiler-item-container">
                                         <div class="jFiler-item-inner">
@@ -472,7 +501,7 @@ class EditProperty extends React.Component {
                                               <span class="jFiler-item-title"><b title="{{file.name}}"></b></span>
                                               <span class="jFiler-item-others"></span>
                                             </div>
-                                            <img src={image} />
+                                            <img src={API_URL+image.img_path} />
                                           </div>
                                           <div class="jFiler-item-assets jFiler-row">
                                             {/*<ul class="list-inline pull-left">*/}
@@ -498,7 +527,7 @@ class EditProperty extends React.Component {
                       <div className="row">
                         <div className="col-md-8"></div>
                         <div className="col-md-4 submit-btn">
-                          <button type="button" onClick={this.createProperty} className="btn btn-success waves-effect w-md waves-light">Submit</button>
+                          <button type="button" onClick={this.editProperty} className="btn btn-success waves-effect w-md waves-light">Submit</button>
                           <button type="button" className="btn btn-secondary waves-effect w-md">Cancel</button>
                         </div>
                       </div>

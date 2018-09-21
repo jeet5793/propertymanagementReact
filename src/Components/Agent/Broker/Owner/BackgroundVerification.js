@@ -9,6 +9,7 @@ export default class Agent extends React.Component{
 	constructor(props){
 		super(props);
 		this.state= {
+			userData:Cookies.get('profile_data'),
 			bgForm:{
 				first_name:'',
 				last_name:'',
@@ -22,7 +23,9 @@ export default class Agent extends React.Component{
 				email:'',
 				SSN_EIN:'',
 				packageid:'',
-				session_id:''
+				session_id:'',
+				user_id:'',
+				login_user_id:''
 				
 			}
 				
@@ -32,7 +35,7 @@ export default class Agent extends React.Component{
 	   this.handleDobChange = this.handleDobChange.bind(this);
 	}
 	handleDobChange(date) {
-		alert(date)
+		// alert(date)
 		console.log('DATE ', date);
 		 this.setState({
 			bgForm:{DOB:date}
@@ -67,7 +70,8 @@ export default class Agent extends React.Component{
 		 if(e.target.name=='packageid')
 			 bgFields.packageid=e.target.value;
 		
-	
+		bgFields.user_id=this.props.profileData.assets_id;
+		 bgFields.login_user_id = JSON.parse(this.state.userData).assets_id;
 			// bgFields.session_id=this.props.profileData.session_id;
 			this.setState({bgForm:bgFields});
 		 console.log(this.state.bgForm);
@@ -83,16 +87,13 @@ export default class Agent extends React.Component{
           return response.json();
         }).then((data) => {
           //console.log('dataaaa:  ', data);
-          if(data.success)
+          if(data.success===1)
           {
 				swal("Assets Watch", data.msg);
-						//window.location.href="/owner-agent"
-						console.log(JSON.stringify(data));
+						window.location.reload();
+						// console.log(JSON.stringify(data));
           }
-        else {
-					swal("Assets Watch", data.msg);
-					//window.location.href="/owner-agent"
-				}
+        
         }).catch((error) => {
           console.log('error: ', error);
         });

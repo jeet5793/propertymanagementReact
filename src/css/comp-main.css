@@ -5422,7 +5422,11 @@ body .cbp-l-caption-buttonRight:hover {
 }
 
 .tz-property-home .tz-property-slider .cbp-item-wrapper h5 {
-    padding-bottom: 3px
+    padding-bottom: 3px;
+	overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    white-space: nowrap;
 }
 
 .tz-property-home .tz-property-slider .cbp-item-wrapper h5 a {
@@ -8150,7 +8154,11 @@ ul.price-t-5:hover .submit-btn a {
 
 .tz-property-all .cbp-item-wrapper h5 {
     margin: 0;
-    padding-bottom: 3px
+    padding-bottom: 3px;
+	overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    white-space: nowrap;
 }
 
 .tz-property-all .cbp-item-wrapper h5 a {
@@ -8345,7 +8353,8 @@ ul.price-t-5:hover .submit-btn a {
     transition: all 0.3s linear 0s;
     padding: 0;
     display: inline-block;
-    text-align: center
+    text-align: center;
+	    margin-right: 3px;
 }
 
 .tz-property-all .cbp-item-wrapper .tz-property-des .tz-property-views div a i {
@@ -13898,7 +13907,7 @@ body .wp-pagenavi a:active:before {
     }
     .tz-property-home.search-border .tz-search-right {
         width: 25% !important;
-        padding: 30px 15px 0
+       /*  padding: 30px 15px 0 */
     }
     .tz-property-home.search-border .tz-search-right button {
         font-size: 12px;
@@ -41435,4 +41444,7 @@ body .wpb_gallery_slides ul li {
 
 .vc_grid-item-mini .added_to_cart.wc-forward {
     display: none
+}
+.tz-header.tz-header-type-1 .typeli {
+    cursor: pointer;
 }

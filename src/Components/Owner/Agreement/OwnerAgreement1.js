@@ -450,6 +450,7 @@ getPropertyList() {
       var normalclassName="nav-link agreement-fa";
       if(e.target.id==="saved")
       {
+		  window.location.reload();
           document.getElementById(e.target.id).setAttribute('class',activeclassName)
           document.getElementById("create").setAttribute('class',normalclassName)
           document.getElementById("request").setAttribute('class',normalclassName)
@@ -571,7 +572,7 @@ getPropertyList() {
                       </div>
                       <div className="col-md-10">
                         <div className="tab-content">
-						{this.state.agrLoaded?<Saved editAgreement={this.editAgreement} selectedAgreement={this.selectedAgreement} agreement={this.state.agreement}/>:<div></div>}
+						{this.state.agrLoaded?<Saved editAgreement={this.editAgreement} selectedAgreement={this.selectedAgreement} agreement={this.state.agreement}/>:<div className="container"  style={{marginTop:'10%',marginLeft:'50%'}}><img src="http://wordpress.templaza.net/real-estate/wp-content/themes/real-estate/images/loading_blue_64x64.gif"/></div>}
 						 <VCreate userData={this.state.userData} editAgreement={this.state.editAgreement} />
                          {<VRequested previewAgreement={this.previewAgreement} ragreement={this.state.requestedAgreement || []}/>}
                           <VExecute ragreement={this.state.executedAgreement} selectedExecutedAgreement={this.selectedExecutedAgreement} onClickDownload={this.onClickDownload}/>

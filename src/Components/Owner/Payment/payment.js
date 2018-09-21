@@ -250,7 +250,7 @@ export default class Payment extends React.Component{
 			this.setState({singularFrame:data.enroll});
 			// console.log(this.state.singularFrame);
 			// this.setState({showModal: true});
-			 window.location.reload();
+			 // window.location.reload();
 			
           }
         else alert(data.msg)

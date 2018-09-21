@@ -16,18 +16,23 @@ export default class VCreate extends React.Component{
     this.state={
       userData : Cookies.get('profile_data'),
       sectionOpenId:"",
+	  editAgreementStatus:false,
       collapseStatus:false,
+	  agreement_id:"",
       createForm:{
-        user_id:"3",
+        user_id:"",
+		agreement_id:"",
         agreement_title:"",
         agreement_doc_content:"",
         session_id:"",
+		
       },
 		templateList:[],
 		templateDetails:[]
     }
     this.onChangeHandler=this.onChangeHandler.bind(this)
     this.createAgreement=this.createAgreement.bind(this)
+	this.editAgreement=this.editAgreement.bind(this)
     this.headerImage = React.createRef();
     this.waterMarkImage = React.createRef();
   }
@@ -44,48 +49,15 @@ export default class VCreate extends React.Component{
     // console.log('nextProps ', nextProps)
       if (nextProps.editAgreement) {
 		  var tinymce=window.tinyMCE;
-      let agreement = nextProps.editAgreement;
+		  const agreementForm=this.state.createForm;
+		  let agreement = nextProps.editAgreement;
+		  this.setState({editAgreementStatus:true,agreement_id:agreement.agreement_id,createForm:{agreement_title:agreement.agreement_title,agreement_doc_content:agreement.agreement_doc_content,header_content:agreement.header_content}})
+		  
           $('input[name="agreement_title"]').val(agreement.agreement_title);
           $('input[name="headerContent"]').val(agreement.header_content);
 		  tinymce.get("editor").setContent(agreement.agreement_doc_content);
 		  
-		  // $.getScript('assets/js/jquery.min.js', ()=> {
-        // console.log('assets/pages/jquery.wizard-init.js');
-     // });
-     // $.getScript('"assets/js/tether.min.js', ()=> {
-      // console.log('"assets/js/tether.min.js');
-      // });
-     // $.getScript('assets/js/bootstrap.min.js', ()=> {
-      // console.log('assets/js/bootstrap.min.js');
-      // });
-      // $.getScript('assets/js/waves.js', function () {
-        // console.log('assets/js/waves.js');
-     // });
-        // $.getScript('assets/plugins/ckeditor/ckeditor.js', ()=> {
-          // console.log('assets/plugins/ckeditor/ckeditor.js');
-          // });
-          // $.getScript('assets/pages/jquery.scrollbar.js', ()=> {
-            // console.log('assets/pages/jquery.scrollbar.js');
-            // });
-           
-      // $.getScript('assets/plugins/jquery.stepy/jquery.stepy.min.js', ()=> {
-        // console.log('assets/plugins/jquery.stepy/jquery.stepy.min.js');
-      // });
-      // $.getScript('assets/pages/jquery.wizard-init.js', ()=> {
-        // console.log('assets/pages/jquery.wizard-init.js');
-      // });
-      // $.getScript("assets/js/jquery.slimscroll.js", function () {
-        // console.log('assets/js/jquery.slimscroll.js');
-     // });
-      // $.getScript('js/jquery.scrollTo.min.jss', ()=> {
-        // console.log('assets/js/jquery.scrollTo.min.js');
-        // });
-      // $.getScript('assets/js/jquery.core.js', ()=> {
-        // console.log('assets/js/jquery.core.js');
-        // });
-        // $.getScript('assets/js/jquery.app.js', ()=> {
-          // console.log('assets/js/jquery.app.js');
-          // });
+		  
       }
   }
   componentDidMount() {
@@ -219,6 +191,42 @@ createAgreement(){
     alert('Please add title and content to create agreement')
   }
 }
+editAgreement(){
+  // debugger;
+  var tinymce=window.tinyMCE,$=window.$
+  var content = tinymce.get("editor").getContent();
+  const agreementForm=this.state.createForm
+  agreementForm.agreement_doc_content=content
+  agreementForm.agreement_id=this.state.agreement_id
+  agreementForm.session_id=JSON.parse(this.state.userData).session_id
+  agreementForm.user_id=JSON.parse(this.state.userData).assets_id
+  //alert(JSON.stringify(agreementForm))
+  if(agreementForm.agreement_title!==''&&agreementForm.agreement_doc_content!=='')
+  {
+
+    fetch(`${API_URL}assetsapi/edit_agreement/`, {
+      method: "post",
+      body: JSON.stringify(agreementForm)
+    })
+    .then((response) => {
+      return response.json()
+  }).then((data) => {
+    console.log('EDDDDDIT'+JSON.stringify(data));
+        alert(data)
+        if(data){
+		  swal("Assets Watch", data.msg);
+         window.location.reload()
+        }
+      }
+    ).catch((error) => {
+      swal("Assets Watch", "Agreement Edited Successfully");
+      window.location.reload()
+      });
+  }
+  else{
+    alert('Please add title and content to create agreement')
+  }
+}
     demoTemplate(item)
 	  {
 		  // console.log(templateDescription);
@@ -249,7 +257,7 @@ createAgreement(){
           
           if(compName=='Insert Signature Block')
             {
-				tinymce.activeEditor.execCommand('mceInsertContent', false, "<p><div contenteditable='false' class='sigDiv' id='sigId"+i+"' style='width:300px;height:85px;padding-top:5px;padding-left:10px;margin-right:10px;border:1px solid #eee;' data-toggle='modal' data-target='#custom-width-modal' onclick='addplaceId(this.id)'>"+compName+"</div></p>");
+				tinymce.activeEditor.execCommand('mceInsertContent', false, "<p><div contenteditable='false' class='sigDiv' id='sigId"+i+"' style='width:300px;height:85px;padding-top:5px;marginTop:10,padding-left:10px;margin-right:10px;border:1px solid #eee;' data-toggle='modal' data-target='#custom-width-modal' onclick='addplaceId(this.id)'>"+compName+"</div></p>");
 				 
           }
           else if(compName=='Insert Text Box')
@@ -266,9 +274,10 @@ createAgreement(){
           }
           else
           {
-            tinymce.activeEditor.execCommand('mceInsertContent', false, "<p><span class='inner' style='background:#57bb57;padding:2px 10px;border-radius:2px;font-size: 14px;color: #fff;float: left;margin-right: 10px;'>"+compName+"</span></p>");
+           /*  tinymce.activeEditor.execCommand('mceInsertContent', false, "<p><span class='inner' style='background:#57bb57;padding:2px 10px;border-radius:2px;font-size: 14px;color: #fff;float: left;margin-right: 10px;'>"+compName+"</span></p>");
             
-            tinymce.get("editor").setContent(content+" "+"<span class='inner' style='background:#57bb57;padding:2px 10px;border-radius:2px;font-size: 14px;color: #fff;float: left;margin-right: 10px;'>"+compName+"</span>"); 
+            tinymce.get("editor").setContent(content+" "+"<span class='inner' style='background:#57bb57;padding:2px 10px;border-radius:2px;font-size: 14px;color: #fff;float: left;margin-right: 10px;'>"+compName+"</span>");  */
+			tinymce.activeEditor.execCommand('mceInsertContent', false, "<div class='row col-12'><p><span class='inner' style='background:#57bb57;padding:2px 10px;border-radius:2px;font-size: 14px;color: #fff;margin-right: 10px;'>"+compName+"</span></p></div>"); 
           }
           this.updatePage();
 
@@ -466,7 +475,7 @@ createAgreement(){
               </div>
             </div>
           </div>
-          <div className="row " style={{float:'left',marginBottom:15}}>
+          <div className="row " style={{float:'left',marginTop:10,marginBottom:15}}>
           <div className="col-sm-12">
           <textarea name="agreement_doc_content" onChange={this.onChangeHandler} id="editor" style={{position:'absolute',left:'0'}} className="tinymce"></textarea>            
           </div>
@@ -478,7 +487,7 @@ createAgreement(){
           <div className="row m-t-20">
             <div className="row">
               <div className="col-sm-12">
-                <div className="slimScrollDiv" style={{position: 'relative', overflow: 'hidden', width: '330px', height: '780px'}}>
+                <div className="slimScrollDiv" style={{position: 'relative', overflow: 'hidden', height: '780px'}}>
                 <div id="previewDiv" className="row m-t-20 signature  autohide-scroll" style={{height: '300px', width: '100%', padding: '12px',marginLeft:15,marginRight:15}}>
                 </div>
                 <div className="slimScrollBar" style={{background: 'rgb(158, 165, 171)', width:' 5px', position:' absolute', top: '0px', opacity: '0.4', display: 'block', borderRadius: '7px', zIndex: '99', right: '1px'}}>
@@ -491,11 +500,12 @@ createAgreement(){
         
         </fieldset>
         <fieldset   title="3" id="default-wizard-step-2" className="stepy-step" style={{display:' none'}}>
+        <div  style={{fontSize:14,fontWeight:500,textAlign:"center"}}>Please submit to save the agreement</div> 
           <legend style={{display: 'none'}}>Save</legend>
           <div className="row m-t-20 signature"> </div>
         <p className="stepy-navigator">
         
-        <button type="button" onClick={this.createAgreement} className="btn btn-primary stepy-finish">Submit</button></p></fieldset>        
+       <button type="button" onClick={this.state.editAgreementStatus?this.editAgreement:this.createAgreement} className="btn btn-primary stepy-finish">Submit</button></p></fieldset>       
       </form>
     </div>
      

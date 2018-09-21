@@ -13,6 +13,7 @@ import Agreement from '../Agreement/OwnerAgreement1';
 
 import Property from '../Property/Property';
 import AddProperty from '../Property/addProperty';
+import EditProperty from '../Property/EditProperty';
 import Settings from '../Settings/Settings';
 import Payment from '../Payment/payment';
 import Services from '../Service/Service';
@@ -86,6 +87,7 @@ class UserDashboard extends React.Component {
             <Route exact path='/agreement' component={Agreement} />
             <Route exact path='/my-property' component={Property} />
 			<Route exact path='/add-property' component={AddProperty} />
+			<Route exact path='/edit-property' component={EditProperty} />
             <Route exact path='/settings' component={Settings} />
             <Route exact path='/owner-payment' component={Payment} />
 

@@ -428,7 +428,7 @@ Countries() {
 							</div>
 						  </div>
 						</fieldset>
-						  <div style={{display: '-webkit-box'}}>
+						   <div > {/*style={{display: '-webkit-box'}} */}
 						<div className="col-md-12 text-right">
 						  <button type="submit" className="btn btn-primary stepy-finish text-right" onClick={this.profileSubmit}>Submit </button>
 						</div>

@@ -1,10 +1,8 @@
 import React from 'react'
-import Header from '../Header/Header'
 import ProfileInfo from './profileInfo'
 import PasswordSettings from './passwordSetting'
 import { connect } from 'react-redux';
-// import "../../../css/bootstrap-datepicker.min.css";
-// import "../../../js/bootstrap-datepicker.min.js";
+import $ from 'jquery'
  class Settings extends React.Component{
 	constructor(props){
     super(props)
@@ -12,19 +10,17 @@ import { connect } from 'react-redux';
 		userInfo:props.userData,
       }
  
-	}
+  }
+  changeTabs(id){
+    if(id=="profile-info"){
+      $("#passwordTab").removeClass("active")
+    }else{
+      $("#profileTab").removeClass("active")
+    }
+  }
     render(){
-      // if(this.props.owner===undefined)
-      //   window.location.href='http://'+window.location.host
-  // console.log(this.state);
-    // console.log(this.props);
         return(
             <div>
-                {/* <Header name="settings"
-                logoutLink={this.logoutLink} 
-                first_name={this.props.owner.first_name} 
-                last_name={this.props.owner.last_name}
-                /> */}
                 <div style={{marginTop:'3%',marginBottom:'3%',minHeight:600}} className="wrapper">
                   <div className="container"> 
                     <div className="row">
@@ -39,10 +35,10 @@ import { connect } from 'react-redux';
                       <div className="col-md-12">
                         <div className="card-box" enctype="multipart/form-data">
                           <form id="default-wizard" encType="multipart/form-data">
-                             <ul className="nav nav-pills navtab-bg "> {/*nav-justified */}
-                              <li className="nav-item"> <a href="#profile-info" data-toggle="tab" aria-expanded="false" className="nav-link active"> Profile Information </a> </li>
+                          <ul className="nav nav-pills navtab-bg "> {/*nav-justified */}
+                              <li className="nav-item"> <a id="profileTab" onClick={this.changeTabs.bind(this,"profile-info")} href="#profile-info" data-toggle="tab" aria-expanded="false" className="nav-link active"> Profile Information </a> </li>
                               
-                              <li className="nav-item"> <a href="#password-settings" data-toggle="tab" aria-expanded="false" className="nav-link"> Password Setting </a> </li>
+                              <li className="nav-item" id="passNavItem"> <a id="passwordTab" onClick={this.changeTabs.bind(this,"password-settings")} href="#password-settings" data-toggle="tab" aria-expanded="false" className="nav-link"> Password Setting </a> </li>
                             </ul>
                             <div className="tab-content">
                               <ProfileInfo />

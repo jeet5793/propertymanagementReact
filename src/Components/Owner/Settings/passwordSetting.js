@@ -121,7 +121,7 @@ import swal from 'sweetalert';
 							</div>--> */}
 						 </div>
 				</div>
-                <div style={{display: '-webkit-box'}}>
+                 <div> {/* style={{display: '-webkit-box'}}} */}
                     <div className="col-md-12 text-right">
 						  <button type="submit" className="btn btn-primary stepy-finish text-right" onClick={this.formSubmit}>Submit</button>
 				    </div>

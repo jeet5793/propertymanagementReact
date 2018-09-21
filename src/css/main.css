@@ -13898,7 +13898,7 @@ body .wp-pagenavi a:active:before {
     }
     .tz-property-home.search-border .tz-search-right {
         width: 25% !important;
-        padding: 30px 15px 0
+      /*   padding: 30px 15px 0 */
     }
     .tz-property-home.search-border .tz-search-right button {
         font-size: 12px;
