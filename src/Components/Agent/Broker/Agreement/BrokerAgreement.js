@@ -93,60 +93,7 @@ const VExecute=(props)=>{
         </div>
     );
 }
-const AgreementTemplate=(props)=>{
-  return(
-    <div id="agreeTemplate" style={{display:'none'}}>
-    <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style={{fontsize:'24px'}}>&nbsp;&nbsp;<u><strong>RENTAL AGREEMENT </strong></u></span></p>
-    <p contenteditable="false">The Tenant(s) known as ____________________________________, hereby agree to rent the dwelling located at _________ __________________________________________________________________________. The premises are to be occupied by the above named tenants only. Tenant may not sublet premises.</p>
-    <p><strong>TERM </strong>The term shall commence on ___________________________, at $____________ per month payable on the _________ of each month in full.</p>
-    <p><strong>LATE FEES</strong> In the event rent is not paid by the _______(_5th) day after due date, Tenant agrees to pay a late charge of $_________</p>
-    <p><strong>UTILITIES </strong>Tenant shall be responsible for the payment of the following utilities: water, electric, gas, heating fuel, Telephone. <strong>APPLIANCES</strong> Appliances provided in this rental are: stove, refrigerator, dishwasher, washing machine, dryer, ___air conditioner(s), ____________________________. Repairs will be born by said Tenants if damage is due to negligence of Tenants.</p>
-    <p><strong>SECURITY </strong>Amount of security deposit is $____________. Security shall be held by Landlord until the time said Tenants have vacated the premises and Landlord has inspected it for damages. Tenant shall not have the right to apply Security Deposit in payment of any rent. Security deposits must be raised proportionately with rent increases.</p>
-    <p><strong>INSURANCE </strong>Tenant is responsible for liability/fire insurance coverage on premises. Tenant agrees to obtain a &quot;Renter&#39;s Insurance&quot; policy and to provide Owner or agent with a copy of policy within seven (7) days of lease execution.</p>
-    <p><strong>NOTICES </strong>Should tenant decide to vacate the premises, a ________ day written notice to the landlord is required. Should landlord decide to have tenants vacated, a ________ day written notice is required. Tenant agrees to allow premises to be shown at any and all reasonable times for re-rental.</p>
-    <p><strong>REAL ESTATE COMMISSION</strong> (If applicable) In the event a commission was earned by a real estate broker, Tenant shall not take possession of the premises unless all fees due broker are paid in full as agreed. Commission is payable when this lease is signed by the Tenant(s). It is solely for locating the rental for the Tenant and is not refundable under any circumstances regardless of any disputes or conditions between the Landlord and Tenant before or after occupancy is taken.</p>
-    <p><strong>ACKNOWLEDGMENT </strong>Tenants hereby acknowledge that they have read, understand and agree to all parts of this document, and have received a copy.</p>
-    <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<strong> AMOUNT RECEIVED&nbsp; &nbsp; </strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong>BALANCE DUE </strong></p>
-    <p><strong>RENT </strong>:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ______________________&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; _________________</p>
-    <p><strong>SECURITY</strong>:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ______________________&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; __________________</p>
-    <p><strong>BROKER&#39;S FEE</strong>:&nbsp; ______________________&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;___________________</p>
-    <p>________________________________________________________________________________________________________ ________________________________________________________________________________________________________ ________________________________________________________________________________________________________</p>
-    <p>&nbsp;</p>
-    <p><strong>THE UNDERSIGNED TENANT(S) ACKNOWLEDGES RECEIPT OF A COPY HEREOF. </strong></p>
-    <p><strong>DATE: </strong>________________________________________________________</p>
-    <p><strong>OWNER/AGENT__________________&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TENANT_______________________________ ADDRESS________________________&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;TENANT ______________________________ PHONE__________________________&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;PHONE________________________________&nbsp;</strong>&nbsp;</p>
-    <p>&nbsp;</p>
-    <p><u><strong>Basic Rental Agreement Form Tips:</strong></u></p>
-    <p><strong>When filling out your LPA form, please take note of the following: </strong></p>
-    <ol>
-      <li>To avoid the shifting of lines when you type, don&rsquo;t forget to activate your &ldquo;Overtype&rdquo; feature on your word processing program. This can be done by hitting you &ldquo;Insert&rdquo; or &ldquo;Ins&rdquo; key on your keyboard. Most programs will show you an &ldquo;OVR&rdquo; indicator at the bottom of your window.</li>
-      <li>In MS Word, the document is best viewed in &ldquo;Print Layout View&rdquo;.</li>
-      <li>State Specific Lease Inserts: Please Note: Be familiar with state requirements before signing your lease or rental agreement. The LPA Lease is used successfully in all United States and also in many other countries. In the US, some states have limitations on certain lease items. Look up your state requirements on our easy to use State Specific Lease Inserts page (http://www.thelpa.com/lpa/forms/state-lease ) Each state link contains State Specific Lease - Rental Agreement clause inserts concerning notice periods for&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &bull; Notice to Terminate Tenancy,&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &bull; Notice to Pay Rent or Quit (cure default or lease violation),&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &bull; Maximum Security Deposit allowed by state,&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &bull; Late fee and screening fee limitations where applicable They are listed with the corresponding lease clause&nbsp;numbers to make any adjustments quick and easy.</li>
-      <li>Sample Filled in copy: If you&rsquo;re not sure what to write or type in any of the blanks of the lease, we&rsquo;ve prepared a sample copy below on the next page.</li>
-      <li>Paper size: The LPA Basic Rental Agreement is a short basic version of a rental agreement for very basic simple agreement. For a more detailed Lease Rental Agreement, please visit our Essential Landlord Forms page a http://www.thelpa.com/lpa/forms.html More helpful information concerning LPA forms is available at FAQ - Forms (http://www.thelpa.com/lpa/faq-forms.html ) Legal Disclaimer The Landlord Protection Agency recommends that you seek legal advice before using any of the material offered on this web site, and makes no guarantee on the effectiveness, compliance with local laws or success of any of the material offered on this web site.</li>
-    </ol>
-    <p>______________________________________________________<br />
-    Landlord&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Date&nbsp;&nbsp;</p>
-    <p>______________________________________________________<br />
-    Landlord&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Date</p>
-    <p>By:____________________________________________________<br />
-    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Date</p>
-    <p>____________________________________________________________________________<br />
-    Broker&#39;s Associate&#39;s Printed Name</p>
-    <p>____________________________________________________________________________<br />
-    Broker&#39;s Printed NameLicense No</p>
-    <p>_______________________________________________________<br />
-    Firm Name</p>
-    <p>________________________________________________________<br />
-    Tenant&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Date</p>
-    <p><div className="sig"></div><br />
-    Signature </p>
-    <p>____________________________________________________________________________<br />
-    TenantDate</p>
-    <p>__</p>
-  </div>
-  );
-}
+
 const AgreementHeader=(props)=>{
     return(
         <div className="row">
@@ -171,6 +118,7 @@ export default class BrokerAgreement extends React.Component{
 			  ragreement:[],
 			  rLoaded:false,
 			  executedAgreement:[],
+			  refreshState:false,
 			  user: JSON.parse(Cookies.get('profile_data'))
     };
     this.getRequestedAgreement=this.getRequestedAgreement.bind(this);
@@ -179,7 +127,6 @@ export default class BrokerAgreement extends React.Component{
     this.previewAgreement=this.previewAgreement.bind(this);
     this.submitAgreement=this.submitAgreement.bind(this);
 	this.onClickChangeStatus =this.onClickChangeStatus.bind(this);
-	
   }
   componentWillMount(){
     $.getScript('assets/js/jquery.min.js', ()=> {
@@ -223,12 +170,10 @@ export default class BrokerAgreement extends React.Component{
 
   }
   componentDidMount() {
-	  loadFile("assets 21/tiny/plugin/tinymce/tinymce.min.js","js")
+	 loadFile("assets 21/tiny/plugin/tinymce/tinymce.min.js","js")
     loadFile("assets 21/tiny/plugin/tinymce/init-tinymce.js","js")
-	
-    $.getScript('assets 21/js/jquery.slimscroll.js', function () {
-       console.log('assets 21/js/jquery.slimscroll.js');
-    });
+	  loadFile("ssets/js/jquery.scrollTo.min.js","js")
+    loadFile("assets 21/js/jquery.slimscroll.js","js")
 		
 	  this.getAgreement()
 	  this.getRequestedAgreement();
@@ -487,6 +432,7 @@ getPropertyList() {
 		  var normalclassName="nav-link agreement-fa";
 		  if(e.target.id==="saved")
 		  {
+			  window.location.reload();
 			  document.getElementById(e.target.id).setAttribute('class',activeclassName)
 			  document.getElementById("create").setAttribute('class',normalclassName)
 			  document.getElementById("request").setAttribute('class',normalclassName)
@@ -542,25 +488,25 @@ getPropertyList() {
        i = parseInt(i, 10) ? i+1 : 0;
        var target = $('#signature')
         if(compName=='Insert Signature Block') {
-          target.append("<p><div contenteditable='false' class='sigDiv' id='sigId"+i+"' style='width:300px;height:100px;border:1px solid #eee; border-top:0' data-toggle='modal' data-target='#custom-width-modal' onclick='addplaceId(this.id)'>"+compName+"</div></p>")
+          target.append("<p><div contenteditable='false' className='sigDiv' id='sigId"+i+"' style='width:300px;height:100px;border:1px solid #eee; border-top:0' data-toggle='modal' data-target='#custom-width-modal' onclick='addplaceId(this.id)'>"+compName+"</div></p>")
         }
         else if(compName=='Insert Text Box')
         {
-           target.append("<p><input class='inner' type='text' id='textId"+i+"'  style='width:300px;height:20px;border:1px solid #eee;' placeholder='Enter text value'/></p>");
+           target.append("<p><input className='inner' type='text' id='textId"+i+"'  style='width:300px;height:20px;border:1px solid #eee;' placeholder='Enter text value'/></p>");
         }
         else if(compName=='Insert Date Box')
         {
-            target.append("<p><input class='datepickerWithoutTime' type='text' id='dateId"+i+"'  style='width:120px;height:20px;border:1px solid #eee;' placeholder='dd/mm/yyyy' /></p>");
+            target.append("<p><input className='datepickerWithoutTime' type='text' id='dateId"+i+"'  style='width:120px;height:20px;border:1px solid #eee;' placeholder='dd/mm/yyyy' /></p>");
         }
         else if(compName=='Insert Check Box')
         {
-            target.append("<p><input class='inner' type='checkbox' id='dateId"+i+"' /></p>");
+            target.append("<p><input className='inner' type='checkbox' id='dateId"+i+"' /></p>");
         }
         else
         {
-            target.append("<p><span class='inner' style='background:#57bb57;padding:2px 10px;border-radius:2px;font-size: 14px;color: #fff;float: left;margin-right: 5px;'>"+compName+"</span></p>");
+            target.append("<p><span className='inner' style='background:#57bb57;padding:2px 10px;border-radius:2px;font-size: 14px;color: #fff;float: left;margin-right: 5px;'>"+compName+"</span></p>");
 
-            // tinymce.get("editor").setContent(content+" "+"<span class='inner' style='background:#57bb57;padding:2px 10px;border-radius:2px;font-size: 14px;color: #fff;float: left;margin-right: 5px;'>"+compName+"</span>");
+            // tinymce.get("editor").setContent(content+" "+"<span className='inner' style='background:#57bb57;padding:2px 10px;border-radius:2px;font-size: 14px;color: #fff;float: left;margin-right: 5px;'>"+compName+"</span>");
         }
     }
 
@@ -612,7 +558,7 @@ getPropertyList() {
                       <div className="col-md-10">
                         <div className="tab-content">
 						
-						{this.state.agrLoaded?<Saved editAgreement={this.editAgreement} selectedAgreement={this.selectedAgreement} agreement={this.state.agreement}/>:<div></div>}
+						{this.state.agrLoaded?<Saved editAgreement={this.editAgreement} selectedAgreement={this.selectedAgreement} agreement={this.state.agreement}/>:<div className="container"  style={{marginTop:'10%',marginLeft:'50%'}}><img src="http://wordpress.templaza.net/real-estate/wp-content/themes/real-estate/images/loading_blue_64x64.gif"/></div>}
 						 <VCreate userData={this.state.userData} editAgreement={this.state.editAgreement} />
                           {<VRequested previewAgreement={this.previewAgreement} ragreement={this.state.requestedAgreement || []}/>}
                           <VExecute ragreement={this.state.executedAgreement} selectedExecutedAgreement={this.selectedExecutedAgreement} onClickDownload={this.onClickDownload}/>
@@ -734,7 +680,7 @@ getPropertyList() {
 				 UpdAgreement={this.state.updatedAgreement}
                  session_id={JSON.parse(this.state.userData).session_id}
         />
-        <AgreementTemplate />
+        
         <Customwithmodal />
       </div>
 

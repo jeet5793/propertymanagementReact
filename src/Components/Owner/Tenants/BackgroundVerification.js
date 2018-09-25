@@ -26,7 +26,6 @@ export default class Agent extends React.Component{
 				session_id:'',
 				user_id:'',
 				login_user_id:''
-				
 			}
 				
 		};
@@ -70,15 +69,15 @@ export default class Agent extends React.Component{
 		 if(e.target.name=='packageid')
 			 bgFields.packageid=e.target.value;
 		
-		bgFields.user_id=this.props.profileData.assets_id;
+	     bgFields.user_id=this.props.profileData.assets_id;
 		 bgFields.login_user_id = JSON.parse(this.state.userData).assets_id;
 			// bgFields.session_id=this.props.profileData.session_id;
 			this.setState({bgForm:bgFields});
-		 console.log(this.state.bgForm);
+		 // console.log(this.state.bgForm);
 	 }
 	 onClickBGVFormSubmit(){
 		 var opts = Object.assign(this.props.profileData,this.state.bgForm);
-		 console.log(opts);
+		 // console.log(opts);
 		 
 		fetch(`${API_URL}assetsapi/background_verification`, {
         method: 'post',        
@@ -87,23 +86,23 @@ export default class Agent extends React.Component{
           return response.json();
         }).then((data) => {
           //console.log('dataaaa:  ', data);
-         if(data.success===1)
+          if(data.success===1)
           {
 				swal("Assets Watch", data.msg);
 				window.location.reload();
-						//window.location.href="/owner-agent"
-						// console.log(JSON.stringify(data));
+					// window.location.href="/bgvpayment"
+						
           }
-       
+        
         }).catch((error) => {
           console.log('error: ', error);
         });
       }
 	 
 	 componentDidMount(){
-		 if(this.props.profileData.DOB)
+		 if(this.props.profileData.dob)
 		 {
-			 var dobDate = new Date(this.props.profileData.DOB.replace( /(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3"))
+			 var dobDate = new Date(this.props.profileData.dob.replace( /(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3"))
 						var d = new Date(dobDate);
 						var DOB=getFormattedString(d).slice(0,9);
 						function getFormattedString(d){
@@ -119,6 +118,7 @@ export default class Agent extends React.Component{
 							 });
 						}
 		 }
+
 	 }
 	  hideModel()
 		{
@@ -160,16 +160,17 @@ render(){
 							  <label className="control-label">D.O.B</label>
 							</div>
 							<div className="col-md-4">
-							
 							  <DatePicker id="dob" className="form-control" 
 								dateFormat="DD-MM-YYYY"
 									 selected={this.state.bgForm.DOB}
 									 onChange={this.handleDobChange}
+									 
 								/>
 							</div>
 							<div className="col-md-2">
 							  <label className="control-label">Gender</label>
 							</div>
+							
 							<div className="col-md-4">
 							  <select className="form-control" name="gender" onChange={this.onChangeBGVHandler}>
 								  <option>{this.state.bgForm.gender || this.props.profileData.gender}</option>
@@ -244,7 +245,7 @@ render(){
 					  <div className="col-md-12">
 						<div className="form-group no-margin">
 						 <h3>Packages</h3>
-						   <div className="col-md-8">
+							 <div className="col-md-8">
 									<div className="radio radio-custom">
 									  <input
 										type="radio"
@@ -281,6 +282,8 @@ render(){
 								  <label HTMLFor="packageid">Gold Package : 1 County Criminal + 1 Credit Report + 1 Eviction Report </label>
 								</div>
 							  </div>
+
+							  
 						</div>
 					  </div>
 					</div>

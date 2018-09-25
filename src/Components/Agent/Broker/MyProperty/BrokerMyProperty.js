@@ -8,8 +8,9 @@ import img_not_available from '../../../../images/img_not_available.png'
 export default class BrokerMyProperty extends React.Component{
 	constructor(props){
     super(props)
-
+this.imgServer=API_URL,
 		this.state = {
+			 propertiesLoading:false,
           userInfo:props.userData,
           userData:Cookies.get('profile_data'),
           profileData:'',
@@ -25,9 +26,10 @@ export default class BrokerMyProperty extends React.Component{
         .then(res => res.json())
         .then(
           (result) => {
+			   this.setState({propertiesLoading:true})
             //console.log("data 2: "+JSON.stringify(result.profile))
             if (result.success) {
-              this.setState({property:result.service.property_list})
+              this.setState({property:result.service.property_list,propertiesLoading:true})
               
             } 
              console.log("set user data"+JSON.stringify(this.state.property))
@@ -38,107 +40,85 @@ export default class BrokerMyProperty extends React.Component{
       )
 	}
 	render(){
+		const imgSer=this.imgServer
 		return(
 
 			      <div>
         {/* Navigation Bar*/}
         {/* End Navigation Bar*/}
-        <div style={{marginTop:'3%',marginBottom:'5%'}} className="wrapper">
-          <div className="container">
-            <div className="page-title-box">
-              <div className="btn-group pull-right my-proprty">
-			  {/*  <li><a href="#" className="btn btn-custom waves-light waves-effect w-md m-r-10 search-btn"><i className="fi fi-search" />&nbsp;&nbsp;Search</a></li> */}
-                {/*<li><a href="add-property.html" class="btn btn-custom waves-light waves-effect w-md"><i class="fi fi-circle-plus"></i>&nbsp;&nbsp;Add Property</a></li>*/}
-              </div>
-              <h4 className="page-title">My Properties</h4>
-            </div>
-            <div className="row">
-              <div className="col-sm-12">
-                <div className="card-box">
-                  {/* <div className="form-group search-sec" style={{display: 'none'}}>
-					  <div className="row">
-                      <div className="col-md-1">
-                        <label><b>Search By:</b></label>
-                      </div>
-                      <div className="col-md-3">
-                        <select className="form-control" id="paymentmode">
-                          <option>Please Select</option>
-                          <option value="keyword">Keyword</option>
-                          <option value="city">City</option>
-                          <option value="property-type">Property Type</option>
-                          <option value="property-status">Property Status</option>
-                          <option value="area-sqft">Area (Sq Ft)</option>
-                          <option value="zip-code">ZIP Code</option>
-                        </select>
-                      </div>
-                      <div className="col-md-3 assignment" id="keyword" style={{display: 'none'}}>
-                        <input type="text" className="form-control" placeholder="Keyword" />
-                      </div>
-                      <div className="col-md-3 assignment" id="city" style={{display: 'none'}}>
-                        <input type="text" className="form-control" placeholder="City" />
-                      </div>
-                      <div className="col-md-3 assignment" id="property-type" style={{display: 'none'}}>
-                        <input type="text" className="form-control" placeholder="Property Type" />
-                      </div>
-                      <div className="col-md-3 assignment" id="property-status" style={{display: 'none'}}>
-                        <input type="text" className="form-control" placeholder="Property Status" />
-                      </div>
-                      <div className="col-md-3 assignment" id="area-sqft" style={{display: 'none'}}>
-                        <input type="text" className="form-control" placeholder="Area (Sq Ft)" />
-                      </div>
-                      <div className="col-md-3 assignment" id="zip-code" style={{display: 'none'}}>
-                        <input type="text" className="form-control" placeholder="ZIP Code" />
-                      </div>
-                      <div className="col-md-3">
-                        <button type="button" className="btn btn-icon waves-effect waves-light btn-success"> <i className="fi fi-search" /> </button>
-                      </div>
-                    </div>
-			</div> */}
-                  <div className="table-responsive">
-                    <table className="table table-hover m-0 table-actions-bar">
-                      <thead>
-                        <tr>
-                          <th> <i className="fi fi-image" /> </th>
-                          <th>Title</th>
-                          <th>Location</th>
-                          <th>Rent</th>
-                          <th>Advance</th>
-                          <th>Status</th>
-                          <th>Posted Date</th>
-                          <th>Action</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-					  {this.state.property.length>0?this.state.property.map((item)=>(
-                        <tr>
-                          <td><img src={item.img_path?API_URL+item.img_path:img_not_available} alt="contact-img" title="contact-img" className="rounded-circle property-img" /></td>
-                          <td><h5 className="m-b-0 m-t-0 font-600">{item.property_name}</h5></td>
-                          <td><i className="mdi mdi-map-marker text-primary" /> {item.address} </td>
-                          <td><i className="mdi mdi-currency-usd text-warning" /> {item.rent} </td>
-                          <td><i className="mdi mdi-currency-usd text-warning" /> {item.advance} </td>
-                          <td><i /> {item.status} </td>
-                          <td><i /> {item.initiated_date} </td>
-					  <td>{/* <a href="#" className="table-action-btn"><i className="mdi mdi-pencil" /></a>*/} <a href="#" className="table-action-btn"> <i className="mdi mdi-eye" /></a> {/* <a href="#" className="table-action-btn"><i className="mdi mdi-close" /></a> */}</td>
-                        </tr>
-                       )):<tr><td colSpan={10} style={{textAlign:'center'}}>No Property Available</td></tr>}
-                      </tbody>
-                    </table>
-                  </div>
+        <div  style={{marginTop:'3%',marginBottom:'3%',minHeight:500}} className="wrapper">
+                <div className="container">                     
+                <div className="page-title-box">
+                <div className="btn-group pull-right">
+                    <ol className="breadcrumb hide-phone p-0 m-0">
+                    <li><Link to={{pathname:'/add-property'}} className="btn btn-custom waves-light waves-effect w-md"><i className="fi fi-circle-plus"></i>&nbsp;&nbsp;Add Property</Link></li>
+                    </ol>
                 </div>
-              </div>
+                <h4 className="page-title">My Properties</h4>
+                </div>
+                {this.state.property.length>0?
+                                  
+                    <div className="row">
+                    <div className="col-sm-12">
+                        <div className="card-box">
+                        <div className="table-responsive">
+					
+                            <table className="table table-hover m-0 table-actions-bar">
+                            <thead>
+                                <tr>
+                                <th> <i className="fi fi-image"></i> </th>
+                                <th>Title</th>
+                                <th>Location</th>
+                                <th>Property Status</th>                                
+                                <th>Status</th>
+                                <th>Posted Date</th>
+                                <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                           { this.state.property.map(element=>(
+                                    <tr>
+                                        <td>
+                                            <img src={(element.img_path && element.img_path.length>0)?imgSer+element.img_path[0].img_path:img_not_available} alt="contact-img" title="contact-img" className="rounded-circle property-img" />
+                                        </td>
+                                        <td><h5 className="m-b-0 m-t-0 font-600">{element.title}</h5></td>
+                                        {/* <td><i className="mdi mdi-map-marker text-primary"></i> #0,22ndFloor,27th Main NewYork </td> */}
+                                        <td><i className="mdi mdi-map-marker text-primary"></i>{element.city+","+element.state+","+element.country}</td>
+                                        {/*<td><i className="mdi mdi-currency-usd text-warning"></i> 2333 </td>*/}
+                                        <td>{element.property_type}</td>
+                                        {/* <td><i className="mdi mdi-currency-usd text-warning"></i> 366 </td> */}
+                                        <td><i></i> {element.property_status}</td>
+                                        <td><i></i>  </td>
+                                        <td>
+                                         	
+                                           <Link to={{pathname:'/property-detail',state:{id:element.id}}}  className="table-action-btn">
+                                                <i className="mdi mdi-eye"></i>
+                                            </Link>
+                                            
+                                        </td>
+                                    </tr>
+                           ))}      
+                                
+                               
+                            </tbody>
+                            </table>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                    :(this.state.propertiesLoading)?<div className="container"><div style={{textAlign:'center'}} colSpan={7}>No Property Added</div></div>:<div className="container"  style={{marginTop:'10%',marginLeft:'50%'}}><img src="http://wordpress.templaza.net/real-estate/wp-content/themes/real-estate/images/loading_blue_64x64.gif"/></div>
+                }
+                    {/* <!-- end row --> */}
+                    
+                    <div className="row">
+                    <div className="col-sm-12"> </div>
+                    </div>
+                    {/* <!-- end Panel -->  */}
+                    
+                </div>
+                {/* <!-- end container -->  */}
+                </div>
             </div>
-            {/* end row */}
-            <div className="row">
-              <div className="col-sm-12"> </div>
-            </div>
-            {/* end Panel */} 
-          </div>
-          {/* end container */} 
-        </div>
-        {/* end wrapper */} 
-        {/* Footer */}
-      
-      </div>
 
 
 			)

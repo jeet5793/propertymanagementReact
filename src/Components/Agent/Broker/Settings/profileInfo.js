@@ -87,8 +87,8 @@ import swal from 'sweetalert';
 			profileForm.mobile_no=e.target.value
 		else if(e.target.name==='landline_no')
 			profileForm.landline_no=e.target.value
-		else if(e.target.name==='assets_type')
-			profileForm.assets_type=e.target.value
+		// else if(e.target.name==='assets_type')
+			// profileForm.assets_type=e.target.value
 		else if(e.target.name==='owner_type')
 			profileForm.owner_type=e.target.value
 		else if(e.target.name==='profile_photo')
@@ -128,7 +128,7 @@ import swal from 'sweetalert';
 	 //console.log(this.state.userInfo);
 		profileForm.assets_id = JSON.parse(this.state.userData).assets_id;
 		profileForm.session_id = JSON.parse(this.state.userData).session_id;
-		profileForm.assets_type = JSON.parse(this.state.userData).assetsTypeId;
+		// profileForm.assets_type = JSON.parse(this.state.userData).assetsTypeId;
       this.setState({profileSetting:profileForm})
       this.setState({formData:formData});
       // this.setState({[e.target.name]:e.target.value})
@@ -138,7 +138,7 @@ import swal from 'sweetalert';
 	{
 		var opts= Object.assign(this.state.profile, this.state.profileSetting);
 		opts.session_id = JSON.parse(this.state.userData).session_id
-		console.log('OPTS ', opts);
+		// console.log('OPTS ', opts);
         // let data = this.state.formData || new FormData();
         // for (var i in opts) {
 		 //    data.append(i,opts[i]);
@@ -429,7 +429,7 @@ Countries() {
 							</div>
 						  </div>
 						</fieldset>
-						  <div style={{display: '-webkit-box'}}>
+						  <div > {/*style={{display: '-webkit-box'}} */}
 						<div className="col-md-12 text-right">
 						  <button type="submit" className="btn btn-primary stepy-finish text-right" onClick={this.profileSubmit}>Submit </button>
 						</div>

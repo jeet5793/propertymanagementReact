@@ -75,7 +75,8 @@ import swal from 'sweetalert';
           if(data.msg.indexOf("Password changed successfully")!=-1)
           {
 				swal("Assets Watch", data.msg);
-            this.props.history.replace(`/settings`);
+            // this.props.history.replace(`/settings`);
+			window.location.reload();
           }
         else alert(data.msg)
         }).catch((error) => {

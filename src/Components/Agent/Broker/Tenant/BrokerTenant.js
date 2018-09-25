@@ -8,13 +8,15 @@ import avatar_6 from '../../../../images/Owner/users/avatar-6.jpg'
 import avatar_5 from '../../../../images/Owner/users/avatar-5.jpg'
 import img_not_available from '../../../../images/img_not_available.png'
 import {Link} from 'react-router-dom'
-
+import swal from 'sweetalert';
 import { connect } from 'react-redux';
 import API_URL from "../../../../app-config";
 import Cookies from 'js-cookie';
 import Pagination from 'react-js-pagination';
  import Select from 'react-select';
  import SendEmail from './SendEmail';
+ import $ from "jquery";
+   import Autosuggest from 'react-autosuggest';
 const loadScript=function(url, callback){
 
   var script = document.createElement("script")
@@ -46,7 +48,13 @@ class BrokerTenant extends React.Component{
       
 	  userInfo:props.userData,
 	   userData:Cookies.get('profile_data'),
-		 property_list:[],
+		  property_list:[],
+		 receive_user_id:"",
+		 propertyByUser:[],
+			 value: '',
+			 suggestions: [],
+			 searchValue:'',
+			 searchInputData:[],
 		 user_list:[],
 		 sendReq : {
 			 assets_id:'',
@@ -81,7 +89,8 @@ class BrokerTenant extends React.Component{
         itemsCountPerPageReq: 1,
         itemsCountPerPageJoined: 1,
 		autocompleteData: [],
-		selectedOption: null
+		selectedOption: null,
+		profileData:[]
     };
 	this.onChangeHandler=this.onChangeHandler.bind(this)
 	this.acceptRequest=this.acceptRequest.bind(this)
@@ -89,8 +98,104 @@ class BrokerTenant extends React.Component{
 	this.onChangeSMHandler = this.onChangeSMHandler.bind(this)
 	this.handlePageChangeRequestedList = this.handlePageChangeRequestedList.bind(this);
     this.handlePageChangeJoinedList = this.handlePageChangeJoinedList.bind(this)
-	this.handleChange = this.handleChange.bind(this);
+
+		this.searchUser=this.searchUser.bind(this)
   }
+  hideModel()
+{
+	var $=window.$;
+	$(".modal-backdrop").hide();
+}
+	 getSuggestions() {
+			 return this.state.propertyByUser.filter(lang =>
+				 lang.label
+			 );
+	 };
+
+	 getSuggestionValue(suggestion) {
+		console.log("onSuggestionSelected",suggestion)
+		 this.setState({
+			 searchValue: suggestion.label,
+			 receive_user_id: suggestion.value
+		 },()=>{
+			 this.onSuggestionSelected()
+		 })
+		 return suggestion.label!="No Results Found"?suggestion.label:""
+	 }
+	 renderSuggestion(suggestion) {
+		 return (
+			 <span>
+				 <i style={{marginRight:10}}  aria-hidden="true"></i>
+				 {suggestion.label!="No Results Found"?suggestion.label:"No records found.!!!"}
+			 </span>
+		 )
+	 }
+
+	 onChange = (event, { newValue }) => {
+	console.log("onChange ",newValue)
+		 this.setState({
+			 value: newValue
+		 },()=>{
+			this.searchUser()
+		 });
+	 };
+
+	 onSuggestionSelected = () => {
+		var searchValue = $('.react-autosuggest__input').val()
+		this.setState({
+			searchInputData:searchValue
+		})
+	};
+
+	onSuggestionsFetchRequested = () => {
+		this.searchUser()
+	};
+
+	onSuggestionsClearRequested = () => {
+		console.log("onSuggestionsClearRequested ")
+		this.setState({
+			suggestions: []
+		});
+	};
+	searchUser() {
+		var searchValue = $('.react-autosuggest__input').val()
+		const session = JSON.parse(this.state.userData).session_id;  
+		console.log("selVal"+searchValue);
+		const opts ={assets_type:3,keyword:searchValue,session_id:session}
+		console.log("optsssss1111"+JSON.stringify(opts));
+		fetch(`${API_URL}assetsapi/user_search`, {
+			method: 'POST',
+		body: JSON.stringify(opts)
+		})
+		.then(res => res.json())
+		.then(
+			(result) => {
+			console.log("data22222: "+JSON.stringify(result))
+			if (result.success) {
+			
+				console.log("ifffff: "+JSON.stringify(result))
+						this.setState({propertyByUser:result.search_userlist},()=>{
+							this.setState({
+								suggestions: this.getSuggestions()
+							});
+						})
+					
+			} else{
+				console.log("elseee"+JSON.stringify(result))
+				this.setState({propertyByUser:[{"value":"","label":"No Results Found"}]},()=>{
+					this.setState({
+						suggestions: this.getSuggestions()
+					});
+				})
+			}
+			// console.log("autocompleteData"+JSON.stringify(this.state.propertyByUser))
+			},
+		(error) => {
+			console.log('error',error)
+		}
+		) 
+
+	}
   componentDidMount(){  
   const session = JSON.parse(this.state.userData).session_id;  
     loadScript('assets/js/bootstrap.min.js',function(){
@@ -148,14 +253,10 @@ class BrokerTenant extends React.Component{
 		this.setState({ selectedOption });
      console.log(`Option selected:`, selectedOption);
   }
-  hideModel()
-	{
-		var $=window.$;
-		$(".modal-backdrop").hide();
-	}
+  
   inviteDropdowns(){
 	   
-		fetch(`${API_URL}assetsapi/invite_request/3/${JSON.parse(this.state.userData).session_id}/`, {
+		/* fetch(`${API_URL}assetsapi/invite_request/3/${JSON.parse(this.state.userData).session_id}/`, {
 			  method: 'get',
 			})
 			.then(res => res.json())
@@ -174,7 +275,13 @@ class BrokerTenant extends React.Component{
 			(error) => {
 			  console.log('error')
 			}
-		  )       
+		  )       */ 
+		  fetch(`${API_URL}assetsapi/property/`)
+		.then((response)=> {
+			response.json().then((data)=>{
+				this.setState({ property_list: data.property })
+			})
+		});
 	}
 	
 	joinedList(){
@@ -235,6 +342,7 @@ class BrokerTenant extends React.Component{
 	}
 	sendRequest(){
 		const opts = this.state.sendReq
+		opts.invite_id = this.state.receive_user_id
 		if(!opts.property_id){
         alert('Property should not be blank');
         return;
@@ -256,11 +364,12 @@ class BrokerTenant extends React.Component{
           console.log('dataaaa:  ', data);
           if(data.msg.indexOf("Invitation send successfully")!=-1 || data.msg.indexOf("Now you both are connected")!=-1)
           {
-            alert(data.msg);
+            swal("Assets Watch", data.msg);
             //document.getElementsById("hidemodal").style.display = "none";
-			const m = document.getElementById('hidemodal');
-			m.style.display='none';
+			// const m = document.getElementById('hidemodal');
+			// m.style.display='none';
 			//alert(m);
+			 window.location.reload();
           }
         else alert(data.msg)
         }).catch((error) => {
@@ -282,7 +391,7 @@ class BrokerTenant extends React.Component{
           console.log('dataaaa:  ', data);
           if(data.msg.indexOf("Invitation Accepted successfully")!=-1)
           {
-            alert(data.msg);
+            swal("Assets Watch", data.msg);
 			 window.location.reload();
             //document.getElementsById("hidemodal").style.display = "none";
 			// const m = document.getElementById('hidemodal');
@@ -347,10 +456,16 @@ class BrokerTenant extends React.Component{
 	)
 	}
     render(){
-		const { selectedOption } = this.state;
+		const { value, suggestions,selectedOption,property_list,autocompleteData } = this.state;
+			// Autosuggest will pass through all these props to the input.
+			const inputProps = {
+				placeholder: 'Search',
+				value,
+				onChange: this.onChange
+			};
       // if(this.props.owner===undefined)
       //   window.location.href='http://'+window.location.host
-			const propertyList = this.state.property_list;
+			// const propertyList = this.state.property_list;
 			const userList = this.state.user_list;
 			const requestedUserList= this.state.requestedList;
 			const joinedUserList= this.state.joinedList;
@@ -495,10 +610,10 @@ class BrokerTenant extends React.Component{
 					  <label for="field-1" className="control-label">Property</label>
 					  <div className="input-group">
 					   <select className="form-control" name="property_id" onChange={this.onChangeHandler}>
-						   <option>Please Select</option>
-								{propertyList.map((option,key)=> (<option key={key.id} value={option.id}>{option.title}</option>))}
-													   
-						  </select>	  
+							   <option>Please Select</option>
+									{property_list.map((option,key)=> (<option key={key.id} value={option.id}>{option.title}</option>))}
+														   
+							  </select>	   
 					   <span className="input-group-addon bg-custom b-0"><i className="mdi mdi-magnify text-white"></i></span>
 					   </div>
 					</div>
@@ -509,22 +624,16 @@ class BrokerTenant extends React.Component{
 					<div className="form-group">
 					  <label for="field-1" className="control-label">Tenant</label>
 					  <div className="">
-						<Select
-							className="basic-single"
-							classNamePrefix="select"
-							value={selectedOption}
-							onChange={this.handleChange}
-							 // loadOptions={this.handleChange}
-							 // onKeyUp={this.onKeyUp}
-							
-							name="invite_id"
-							options={this.state.autocompleteData}
-							/>
-							{ /*  <select className="form-control" name="invite_id" onChange={this.onChangeHandler}>
-						   <option>Please Select</option>
-								{userList.map((option,key)=> (<option key={key.assets_id} value={option.assets_id}>{option.first_name+" "+option.last_name}</option>))}
-													   
-						</select>	 */}
+						<Autosuggest className="form-control"
+									  suggestions={suggestions}
+									  onSuggestionsFetchRequested={this.onSuggestionsFetchRequested.bind(this)}
+									  onSuggestionsClearRequested={this.onSuggestionsClearRequested.bind(this)}
+									  getSuggestionValue={this.getSuggestionValue.bind(this)}
+									  renderSuggestion={this.renderSuggestion.bind(this)}
+									  onSuggestionSelected={this.onSuggestionSelected.bind(this)}
+									  inputProps={inputProps}
+									  alwaysRenderSuggestions={true}
+									/>	
 					   </div>
 					</div>
 				  </div>

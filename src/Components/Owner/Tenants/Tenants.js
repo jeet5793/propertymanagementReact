@@ -16,7 +16,8 @@ import swal from 'sweetalert';
  import Select from 'react-select';
  import BackgroundVerification from './BackgroundVerification';
 import SendEmail from './SendEmail';
-
+ import Autosuggest from 'react-autosuggest';
+ 	import $ from "jquery";
 const loadScript=function(url, callback){
 
   var script = document.createElement("script")
@@ -50,6 +51,12 @@ class Tenants extends React.Component{
 	  userInfo:props.userData,
 	  userData:Cookies.get('profile_data'),
 		 property_list:[],
+		 receive_user_id:"",
+		 propertyByUser:[],
+		value: '',
+		suggestions: [],
+		searchValue:'',
+		searchInputData:[],
 		 user_list:[],
 		 sendReq : {
 			 assets_id:'',
@@ -96,7 +103,8 @@ class Tenants extends React.Component{
     this.handlePageChangeJoinedList = this.handlePageChangeJoinedList.bind(this)
 
 		this.onClickProfile = this.onClickProfile.bind(this);
-		this.handleChange = this.handleChange.bind(this);
+		this.BgvDownload = this.BgvDownload.bind(this);
+		this.searchUser=this.searchUser.bind(this)
   }
   handleChange = (selectedOption) => {
 
@@ -108,65 +116,102 @@ class Tenants extends React.Component{
 			var $=window.$;
 			$(".modal-backdrop").hide();
 		}
+	getSuggestions() {
+			 return this.state.propertyByUser.filter(lang =>
+				 lang.label
+			 );
+	 };
+	 getSuggestionValue(suggestion) {
+		console.log("onSuggestionSelected",suggestion)
+		 this.setState({
+			 searchValue: suggestion.label,
+			 receive_user_id: suggestion.value
+		 },()=>{
+			 this.onSuggestionSelected()
+		 })
+		 return suggestion.label!="No Results Found"?suggestion.label:""
+	 }
+	 renderSuggestion(suggestion) {
+		 return (
+			 <span>
+				 <i style={{marginRight:10}}  aria-hidden="true"></i>
+				 {suggestion.label!="No Results Found"?suggestion.label:"No records found.!!!"}
+			 </span>
+		 )
+	 }
+
+	 onChange = (event, { newValue }) => {
+	console.log("onChange ",newValue)
+		 this.setState({
+			 value: newValue
+		 },()=>{
+			this.searchUser()
+		 });
+	 };
+
+	 onSuggestionSelected = () => {
+		var searchValue = $('.react-autosuggest__input').val()
+		this.setState({
+			searchInputData:searchValue
+		})
+	};
+
+	onSuggestionsFetchRequested = () => {
+		this.searchUser()
+	};
+
+	onSuggestionsClearRequested = () => {
+		console.log("onSuggestionsClearRequested ")
+		this.setState({
+			suggestions: []
+		});
+	};
+	searchUser() {
+		var searchValue = $('.react-autosuggest__input').val()
+		const session = JSON.parse(this.state.userData).session_id;  
+		console.log("selVal"+searchValue);
+		const opts ={assets_type:3,keyword:searchValue,session_id:session}
+		console.log("optsssss1111"+JSON.stringify(opts));
+		fetch(`${API_URL}assetsapi/user_search`, {
+			method: 'POST',
+		body: JSON.stringify(opts)
+		})
+		.then(res => res.json())
+		.then(
+			(result) => {
+			console.log("data22222: "+JSON.stringify(result))
+			if (result.success) {
+			
+				console.log("ifffff: "+JSON.stringify(result))
+						this.setState({propertyByUser:result.search_userlist},()=>{
+							this.setState({
+								suggestions: this.getSuggestions()
+							});
+						})
+					
+			} else{
+				console.log("elseee"+JSON.stringify(result))
+				this.setState({propertyByUser:[{"value":"","label":"No Results Found"}]},()=>{
+					this.setState({
+						suggestions: this.getSuggestions()
+					});
+				})
+			}
+			// console.log("autocompleteData"+JSON.stringify(this.state.propertyByUser))
+			},
+		(error) => {
+			console.log('error',error)
+		}
+		) 
+
+	}
   componentDidMount(){  
   const session = JSON.parse(this.state.userData).session_id; 
     loadScript('assets/js/bootstrap.min.js',function(){
       var $=window.$;
     $('[data-toggle="tooltip"]').tooltip();  
     })
-    // var $=window.$;
-    // $('[data-toggle="tooltip"]').tooltip();  
-    var msgicon
-    var veiw
-    for(var i=1;i<=6;i++)
-    {
-      // msgicon=document.getElementById('msg'+i);
-      // msgicon.setAttribute('class','mesg-icon')
-      // msgicon.setAttribute('style','color:white')
-      // msgicon.setAttribute('data-toggle','modal')
-      // veiw=document.getElementById('view'+1)
-      // veiw.setAttribute('class','view-icon')
-    }
     
-
-    // var msgicon2=document.getElementById('msg2');
-    // msgicon2.setAttribute('class','mesg-icon')
-    // msgicon2.setAttribute('style','color:white')
-    // msgicon2.setAttribute('data-toggle','modal')
-    // var veiw2=document.getElementById('view2')
-    // veiw2.setAttribute('class','view-icon')
-
-    // var msgicon3=document.getElementById('msg3');
-    // msgicon3.setAttribute('class','mesg-icon')
-    // msgicon3.setAttribute('style','color:white')
-    // msgicon3.setAttribute('data-toggle','modal')
-    // var veiw3=document.getElementById('view3')
-    // veiw3.setAttribute('class','view-icon')
-
-    // var msgicon4=document.getElementById('msg4');
-    // msgicon4.setAttribute('class','mesg-icon')
-    // msgicon4.setAttribute('style','color:white')
-    // msgicon4.setAttribute('data-toggle','modal')
-    // var veiw4=document.getElementById('view4')
-    // veiw4.setAttribute('class','view-icon')
-
-    // var msgicon5=document.getElementById('msg5');
-    // msgicon5.setAttribute('class','mesg-icon')
-    // msgicon5.setAttribute('style','color:white')
-    // msgicon5.setAttribute('data-toggle','modal')
-    // var veiw5=document.getElementById('view5')
-    // veiw5.setAttribute('class','view-icon')
-
-    // var msgicon1=document.getElementById('msg6');
-    // msgicon1.setAttribute('class','mesg-icon')
-    // msgicon1.setAttribute('style','color:white')
-    // msgicon1.setAttribute('data-toggle','modal')
-    // var veiw1=document.getElementById('view6')
-    // veiw1.setAttribute('class','view-icon')
-
-    // document.getElementById('act1').setAttribute('class','accept-icon')
-    // document.getElementById('act2').setAttribute('class','accept-icon')
-    // document.getElementById('act3').setAttribute('class','accept-icon')
 	this.inviteDropdowns();
 	this.joinedList();
 	this.requestedList();
@@ -315,7 +360,7 @@ class Tenants extends React.Component{
 	}
 	sendRequest(){
 		const opts = this.state.sendReq;
-		opts.invite_id = document.getElementsByName("invite_id")[0].value
+		opts.invite_id = this.state.receive_user_id
 		// console.log(document.getElementsByName("invite_id")[0].value);
 		// console.log(opts);
 		if(!opts.property_id){
@@ -342,8 +387,8 @@ class Tenants extends React.Component{
              swal("Assets Watch", data.msg);
 			 
             //document.getElementsById("hidemodal").style.display = "none";
-			const m = document.getElementById('hidemodal');
-			m.style.display='none';
+			// const m = document.getElementById('hidemodal');
+			// m.style.display='none';
 			window.location.reload();
 			//alert(m);
           }
@@ -434,10 +479,18 @@ class Tenants extends React.Component{
 		}
 	)
 	}
+	BgvDownload(reportId){
+		window.open(`${API_URL}assetsapi/bgv_report/`+reportId,"_blank")
+	
+	}
     render(){
-		const { selectedOption } = this.state;
-      // if(this.props.owner===undefined)
-      //   window.location.href='http://'+window.location.host
+		const { value, suggestions,selectedOption,property_list,autocompleteData } = this.state;
+			// Autosuggest will pass through all these props to the input.
+			const inputProps = {
+				placeholder: 'Search',
+				value,
+				onChange: this.onChange
+			};
 	const propertyList = this.state.property_list;
 	const userList = this.state.user_list;
 	const requestedUserList= this.state.requestedList;
@@ -488,6 +541,7 @@ class Tenants extends React.Component{
                       <p className="text-muted m-b-3 "><i className="icon-envelope"></i>{item.email}</p>
                       <p className="text-muted m-b-3 text-overflow"><i className="icon-location-pin"></i>&nbsp; {item.country}</p>
                       <ul className="list-inline m-t-10 m-b-0 text-right">
+					  {item.reportId>0?<li className="bgv-download"><a className="bgv-icon bgv-bg" title="Download" href="#" onClick = {this.BgvDownload.bind(this,item.reportId)}><i className="icon-cloud-download"></i></a> </li>:''}
 					  <li className="list-inline-item"> <a className="bgv-icon" data-toggle="modal" data-target="#background-verifi" title="background Verification" href="" onClick={this.onClickProfile.bind(this,item.profile_id)}><i className="icon-magnifier"></i></a> </li>
 					   <li className="list-inline-item"> <a className="mesg-icon" data-toggle="modal" data-target="#send-msg" title="Message" href="#" onClick={this.messagerec.bind(this,item.profile_id,item.name)}><i className="icon-bubble" /></a> </li>
                         <li className="list-inline-item"> <Link to={{"pathname":"/profile-details",state:{profileid:item.profile_id,session:JSON.parse(this.state.userData).session_id}}} className="view-icon"><i className="icon-eye"></i></Link></li>
@@ -620,24 +674,16 @@ class Tenants extends React.Component{
               <label for="field-1" className="control-label">Tenant</label>
               <div className="">
             
-						<Select
-							className="basic-single"
-							classNamePrefix="select"
-							value={selectedOption}
-							onChange={this.handleChange}
-							
-							 // loadOptions={this.handleChange}
-							 // onKeyUp={this.onKeyUp}
-							
-							name="invite_id"
-							id="invite_id"
-							options={this.state.autocompleteData}
-							/>
-							{/* <select className="form-control" name="invite_id" onChange={this.onChangeHandler}>
-				   <option>Please Select</option>
-						{userList.map((option,key)=> (<option key={key.assets_id} value={option.assets_id}>{option.first_name+" "+option.last_name}</option>))}
-											   
-					</select>	 */}
+						<Autosuggest className="form-control"
+						suggestions={suggestions}
+						onSuggestionsFetchRequested={this.onSuggestionsFetchRequested.bind(this)}
+						onSuggestionsClearRequested={this.onSuggestionsClearRequested.bind(this)}
+						getSuggestionValue={this.getSuggestionValue.bind(this)}
+						renderSuggestion={this.renderSuggestion.bind(this)}
+						onSuggestionSelected={this.onSuggestionSelected.bind(this)}
+						inputProps={inputProps}
+						alwaysRenderSuggestions={true}
+									/>	 
                </div>
             </div>
           </div>

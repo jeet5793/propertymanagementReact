@@ -58,7 +58,7 @@ class DashBoardIndex extends React.Component {
 		  <Route exact path='/privacy-policy' component={privacyPolicy} />
 		  <Route exact path='/terms-condition' component={TermsCondition} />
 		   <Route exact path='/reset-password' component={ResetPassword} />
-		    <Route exact path='/social-login' component={SocialLogin} /> 
+		     <Route exact path='/social' component={SocialLogin} />  
 		    {/*<Route exact path='/social-login' component={SocailExternal} />*/}
 		 
         </Switch>

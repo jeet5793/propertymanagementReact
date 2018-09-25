@@ -5,6 +5,7 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 import swal from 'sweetalert';
+import $ from 'jquery'
 export default class Agent extends React.Component{
 	constructor(props){
 		super(props);
@@ -78,7 +79,7 @@ export default class Agent extends React.Component{
 	 onClickBGVFormSubmit(){
 		 var opts = Object.assign(this.props.profileData,this.state.bgForm);
 		 // console.log(opts);
-		 
+		 // $("#loaderDiv").show();
 		fetch(`${API_URL}assetsapi/background_verification`, {
         method: 'post',        
         body: JSON.stringify(opts)
@@ -88,8 +89,9 @@ export default class Agent extends React.Component{
           //console.log('dataaaa:  ', data);
           if(data.success===1)
           {
+			   // $("#loaderDiv").hide();
 				swal("Assets Watch", data.msg);
-				window.location.reload();
+				 window.location.reload();
 					// window.location.href="/bgvpayment"
 						
           }

@@ -7,6 +7,7 @@ import avatar_3 from '../../../../images/Owner/users/avatar-3.jpg'
 import avatar_6 from '../../../../images/Owner/users/avatar-6.jpg'
 import avatar_5 from '../../../../images/Owner/users/avatar-5.jpg'
 import img_not_available from '../../../../images/img_not_available.png'
+import swal from 'sweetalert';
 import {Link} from 'react-router-dom'
 //import Autosuggest from 'react-autosuggest';
 import Autocomplete from 'react-autocomplete';
@@ -17,6 +18,9 @@ import Cookies from 'js-cookie';
 import Pagination from 'react-js-pagination';
  import Select from 'react-select';
  import SendEmail from './SendEmail';
+ import BackgroundVerification from './BackgroundVerification';
+  import Autosuggest from 'react-autosuggest';
+	import $ from "jquery";
 const loadScript=function(url, callback){
 
   var script = document.createElement("script")
@@ -50,6 +54,12 @@ class BrokerOwner extends React.Component{
 	  userInfo:props.userData,
 	   userData:Cookies.get('profile_data'),
 		 property_list:[],
+		 receive_user_id:"",
+		 propertyByUser:[],
+			 value: '',
+			 suggestions: [],
+			 searchValue:'',
+			 searchInputData:[],
 		 user_list:[],
 		 sendReq : {
 			 assets_id:'',
@@ -83,7 +93,7 @@ class BrokerOwner extends React.Component{
         activePageJoined: 1,
         itemsCountPerPageReq: 1,
         itemsCountPerPageJoined: 1,
-		autocompleteData: [],
+		 autocompleteData: [],
 		selectedOption: null,
 		profileData:[]
 		
@@ -92,16 +102,111 @@ class BrokerOwner extends React.Component{
 	this.acceptRequest=this.acceptRequest.bind(this)
 	this.messagerec=this.messagerec.bind(this)
 	this.onChangeSMHandler = this.onChangeSMHandler.bind(this)
-	this.onKeyUpProp = this.onKeyUpProp.bind(this)
-	 this.handlePageChangeRequestedList = this.handlePageChangeRequestedList.bind(this);
-    this.handlePageChangeJoinedList = this.handlePageChangeJoinedList.bind(this);
-	// Bind `this` context to functions of the class
-        this.handleChange = this.handleChange.bind(this);
+	this.handlePageChangeRequestedList = this.handlePageChangeRequestedList.bind(this);
+	this.handlePageChangeJoinedList = this.handlePageChangeJoinedList.bind(this);
+
+		// this.handleChange = this.handleChange.bind(this);
 
 		this.onClickProfile = this.onClickProfile.bind(this);
+		this.BgvDownload = this.BgvDownload.bind(this);
+		this.searchUser=this.searchUser.bind(this)
 
   }
- 
+ hideModel()
+{
+	var $=window.$;
+	$(".modal-backdrop").hide();
+}
+	 getSuggestions() {
+			 return this.state.propertyByUser.filter(lang =>
+				 lang.label
+			 );
+	 };
+
+	 getSuggestionValue(suggestion) {
+		console.log("onSuggestionSelected",suggestion)
+		 this.setState({
+			 searchValue: suggestion.label,
+			 receive_user_id: suggestion.value
+		 },()=>{
+			 this.onSuggestionSelected()
+		 })
+		 return suggestion.label!="No Results Found"?suggestion.label:""
+	 }
+	 renderSuggestion(suggestion) {
+		 return (
+			 <span>
+				 <i style={{marginRight:10}}  aria-hidden="true"></i>
+				 {suggestion.label!="No Results Found"?suggestion.label:"No records found.!!!"}
+			 </span>
+		 )
+	 }
+
+	 onChange = (event, { newValue }) => {
+	console.log("onChange ",newValue)
+		 this.setState({
+			 value: newValue
+		 },()=>{
+			this.searchUser()
+		 });
+	 };
+
+	 onSuggestionSelected = () => {
+		var searchValue = $('.react-autosuggest__input').val()
+		this.setState({
+			searchInputData:searchValue
+		})
+	};
+
+	onSuggestionsFetchRequested = () => {
+		this.searchUser()
+	};
+
+	onSuggestionsClearRequested = () => {
+		console.log("onSuggestionsClearRequested ")
+		this.setState({
+			suggestions: []
+		});
+	};
+	searchUser() {
+		var searchValue = $('.react-autosuggest__input').val()
+		const session = JSON.parse(this.state.userData).session_id;  
+		console.log("selVal"+searchValue);
+		const opts ={assets_type:1,keyword:searchValue,session_id:session}
+		console.log("optsssss1111"+JSON.stringify(opts));
+		fetch(`${API_URL}assetsapi/user_search`, {
+			method: 'POST',
+		body: JSON.stringify(opts)
+		})
+		.then(res => res.json())
+		.then(
+			(result) => {
+			console.log("data22222: "+JSON.stringify(result))
+			if (result.success) {
+			
+				console.log("ifffff: "+JSON.stringify(result))
+						this.setState({propertyByUser:result.search_userlist},()=>{
+							this.setState({
+								suggestions: this.getSuggestions()
+							});
+						})
+					
+			} else{
+				console.log("elseee"+JSON.stringify(result))
+				this.setState({propertyByUser:[{"value":"","label":"No Results Found"}]},()=>{
+					this.setState({
+						suggestions: this.getSuggestions()
+					});
+				})
+			}
+			// console.log("autocompleteData"+JSON.stringify(this.state.propertyByUser))
+			},
+		(error) => {
+			console.log('error',error)
+		}
+		) 
+
+	}
   componentDidMount(){  
   const session = JSON.parse(this.state.userData).session_id; 
     loadScript('assets/js/bootstrap.min.js',function(){
@@ -127,7 +232,7 @@ class BrokerOwner extends React.Component{
 		 // retrieveDataAsynchronously(selVal);
 		 let _this = this;
 
-       const opts ={assets_type:2,keyword:selVal,session_id:session}
+       const opts ={assets_type:1,keyword:selVal,session_id:session}
 	   console.log(opts);
 		fetch(`${API_URL}assetsapi/user_search`, {
 			  method: 'POST',
@@ -144,7 +249,7 @@ class BrokerOwner extends React.Component{
 						
 						
 				} 
-				 console.log("autocompleteData"+JSON.stringify(this.state.autocompleteData))
+				 // console.log("autocompleteData"+JSON.stringify(this.state.autocompleteData))
 				// console.log("user_list"+JSON.stringify(this.state.user_list))
 			  },
 			(error) => {
@@ -180,14 +285,10 @@ class BrokerOwner extends React.Component{
 		this.setState({ selectedOption });
      console.log(`Option selected:`, selectedOption);
   }
-  hideModel()
-	{
-		var $=window.$;
-		$(".modal-backdrop").hide();
-	}
+  
   inviteDropdowns(){
 	   
-		fetch(`${API_URL}assetsapi/invite_request/1/${JSON.parse(this.state.userData).session_id}/`, {
+		/* fetch(`${API_URL}assetsapi/invite_request/1/${JSON.parse(this.state.userData).session_id}/`, {
 			  method: 'get',
 			})
 			.then(res => res.json())
@@ -206,7 +307,13 @@ class BrokerOwner extends React.Component{
 			(error) => {
 			  console.log('error')
 			}
-		  )       
+		  )       */ 
+		  fetch(`${API_URL}assetsapi/property/`)
+		.then((response)=> {
+			response.json().then((data)=>{
+				this.setState({ property_list: data.property })
+			})
+		});
 	}
 	
 	joinedList(){
@@ -271,6 +378,7 @@ class BrokerOwner extends React.Component{
 	}
 	sendRequest(){
 		const opts = this.state.sendReq
+		opts.invite_id = this.state.receive_user_id
 		if(!opts.property_id){
         alert('Property should not be blank');
         return;
@@ -292,10 +400,11 @@ class BrokerOwner extends React.Component{
           // console.log('dataaaa:  ', data);
           if(data.msg.indexOf("Invitation send successfully")!=-1 || data.msg.indexOf("Now you both are connected")!=-1)
           {
-            alert(data.msg);
+            swal("Assets Watch", data.msg);
+			window.location.reload();
             //document.getElementsById("hidemodal").style.display = "none";
-			const m = document.getElementById('hidemodal');
-			m.style.display='none';
+			// const m = document.getElementById('hidemodal');
+			// m.style.display='none';
 			//alert(m);
           }
         else alert(data.msg)
@@ -318,7 +427,7 @@ class BrokerOwner extends React.Component{
           // console.log('dataaaa:  ', data);
           if(data.msg.indexOf("Invitation Accepted successfully")!=-1)
           {
-            alert(data.msg);
+            swal("Assets Watch", data.msg);
 			 window.location.reload();
             //document.getElementsById("hidemodal").style.display = "none";
 			// const m = document.getElementById('hidemodal');
@@ -386,12 +495,23 @@ class BrokerOwner extends React.Component{
 	{
 		alert(e.target.value);
 	}
+	BgvDownload(reportId){
+		window.open(`${API_URL}assetsapi/bgv_report/`+reportId,"_blank")
+		
+	
+	}
     render(){
-		const { selectedOption } = this.state;
+		const { value, suggestions,selectedOption,property_list,autocompleteData } = this.state;
+			// Autosuggest will pass through all these props to the input.
+			const inputProps = {
+				placeholder: 'Search',
+				value,
+				onChange: this.onChange
+			};
 
       // if(this.props.owner===undefined)
       //   window.location.href='http://'+window.location.host
-   const propertyList = this.state.property_list;
+   // const propertyList = this.state.property_list;
 	const userList = this.state.user_list;
 	const requestedUserList= this.state.requestedList;
 	const joinedUserList= this.state.joinedList;
@@ -447,6 +567,7 @@ class BrokerOwner extends React.Component{
 									  <p className="text-muted m-b-3 "><i className="icon-envelope"></i>{item.email}</p>
 									  <p className="text-muted m-b-3 text-overflow"><i className="icon-location-pin"></i>&nbsp; {item.country}</p>
 									  <ul className="list-inline m-t-10 m-b-0 text-right">
+									  {item.reportId>0?<li className="bgv-download"><a className="bgv-icon bgv-bg" title="Download" href="#" onClick = {this.BgvDownload.bind(this,item.reportId)}><i className="icon-cloud-download"></i></a> </li>:''}
 									  <li className="list-inline-item"> <a className="bgv-icon" data-toggle="modal" data-target="#background-verifi" title="background Verification" href="" onClick={this.onClickProfile.bind(this,item.profile_id)}><i className="icon-magnifier"></i></a> </li>
 										<li className="list-inline-item"> <a className="mesg-icon" data-toggle="modal" data-target="#send-msg" title="Message" href="#" onClick={this.messagerec.bind(this,item.profile_id,item.name)}><i className="icon-bubble" /></a> </li>
 										<li className="list-inline-item"> <Link to={{"pathname":"/broker-owner-profile",state:{profileid:item.profile_id,session:JSON.parse(this.state.userData).session_id}}} className="view-icon"><i className="icon-eye"></i></Link></li>
@@ -531,13 +652,12 @@ class BrokerOwner extends React.Component{
             <div className="form-group">
               <label for="field-1" className="control-label">Property</label>
               <div className="input-group">
-			  {/* // <select className="form-control" name="property_id" onChange={this.onChangeHandler}>
-				   // <option>Please Select</option>
-						// {propertyList.map((option,key)=> (<option key={key.id} value={option.id}>{option.title}</option>))}
-											   
-			  // </select>	*/}
-			<input type="text" className="form-control" placeholder="" name="property_id" id="property_id" onKeyUp={this.onKeyUpProp} />				  
-               <span className="input-group-addon bg-custom b-0"><i className="mdi mdi-magnify text-white"></i></span>
+			   <select className="form-control" name="property_id" onChange={this.onChangeHandler}>
+							   <option>Please Select</option>
+									{property_list.map((option,key)=> (<option key={key.id} value={option.id}>{option.title}</option>))}
+														   
+							  </select>	  
+			
                </div>
             </div>
           </div>
@@ -547,17 +667,16 @@ class BrokerOwner extends React.Component{
             <div className="form-group">
               <label for="field-1" className="control-label">Owner</label>
               <div className="">
-					<Select
-							className="basic-single"
-							classNamePrefix="select"
-							value={selectedOption}
-							onChange={this.handleChange}
-							 // loadOptions={this.handleChange}
-							 // onKeyUp={this.onKeyUp}
-							
-							name="invite_id"
-							options={this.state.autocompleteData}
-							/>
+					<Autosuggest className="form-control"
+									  suggestions={suggestions}
+									  onSuggestionsFetchRequested={this.onSuggestionsFetchRequested.bind(this)}
+									  onSuggestionsClearRequested={this.onSuggestionsClearRequested.bind(this)}
+									  getSuggestionValue={this.getSuggestionValue.bind(this)}
+									  renderSuggestion={this.renderSuggestion.bind(this)}
+									  onSuggestionSelected={this.onSuggestionSelected.bind(this)}
+									  inputProps={inputProps}
+									  alwaysRenderSuggestions={true}
+									/>	
 				{/* <select className="form-control" name="invite_id" onChange={this.onChangeHandler}>
 				   <option>Please Select</option>
 						{userList.map((option,key)=> (<option key={key.assets_id} value={option.assets_id}>{option.first_name+" "+option.last_name}</option>))}

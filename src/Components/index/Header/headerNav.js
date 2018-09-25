@@ -72,14 +72,18 @@ class Headernav extends React.Component {
                     swal("Assets Watch", data.msg);
                     $(".login-open").fadeToggle();
                 }else if(data.Success===2){
-					const rslt = window.confirm(data.msg);
-						if(rslt==true)
-						{
+					
 							if(data.assetsType=='agent')
 							{
-								$("#light").show();
-								$("#fade").show();
-								$(".regBtn").click(function(){
+								$(".confirm-body").html(data.msg);
+								$("#BlockUIConfirm").show();
+								// $(".row-dialog-btn").click(function(){
+								// const AgentType = this.value;
+								// alert(AgentType);
+								// });
+								/* $("#light").show();
+								$("#fade").show();*/
+								$(".row-dialog-btn").click(function(){
 									const AgentType = this.value;
 									
 									 // alert(AgentType);
@@ -94,7 +98,7 @@ class Headernav extends React.Component {
 										
 									}else{
 										localStorage.setItem('agenttype',"");
-										
+										window.location.reload();
 									}
 									
 									if(this.value!='' && localStorage.getItem('agenttype')!='')
@@ -138,7 +142,7 @@ class Headernav extends React.Component {
 											}); 
 									}
 									
-								});
+								}); 
 								
 							}else{
 								var optsValue= data.userdata;
@@ -179,9 +183,7 @@ class Headernav extends React.Component {
 								}); 
 							}
 							
-					}else{
-							window.location.href='/';
-						}
+					
 				}
 				else{
                     setTimeout(()=>{
@@ -507,7 +509,7 @@ class Headernav extends React.Component {
 			
 			
 			
-			<div id="light" className="white_content">
+			{/* <div id="light" className="white_content">
 				<p>Please select your Agent Type to register</p>
 				<br/>
 				
@@ -518,9 +520,31 @@ class Headernav extends React.Component {
 				
 					
 			</div>
-			<div id="fade" className="black_overlay"></div>
+	<div id="fade" className="black_overlay"></div> */}
 			
 			
+			
+			{/* ALERT DIV*/}
+			<div id="BlockUIConfirm" className="BlockUIConfirm" style={{display:"none"}}>
+				<div className="blockui-mask"></div>
+				<div className="RowDialogBody">
+					<div className="confirm-header row-dialog-hdr-success">
+						Response Message
+					</div>
+					<div className="confirm-body">
+						
+					</div>
+					<div className="confirm-btn-panel text-center">
+						<div className="btn-holder">
+							<input type="hidden" id="hiddenURL" />
+							<input type="hidden" id="actionType" />
+							<input type="button" className="row-dialog-btn btn btn-success" value="Broker" />
+							<input type="button" className="row-dialog-btn btn btn-default" value="Service Provider" />
+							<input type="button" className="row-dialog-btn btn btn-naked" value="Cancel"  />
+						</div>
+					</div>
+				</div>
+			</div>
 			
 			
     </div>

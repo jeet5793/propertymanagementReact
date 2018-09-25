@@ -20,6 +20,8 @@ export default class TenantHeader extends React.Component{
         this.logout=this.logout.bind(this)
 		 this.getNotification = this.getNotification.bind(this)
 		 this.onClickSwitch = this.onClickSwitch.bind(this);
+		  this.profileToggle = this.profileToggle.bind(this)
+		  this.profileNoti = this.profileNoti.bind(this)
         //localStorage.setItem(MyData)
        // alert("I am working now")
     }
@@ -49,6 +51,34 @@ logout(){
 			}
 		  )  
 	}
+	profileToggle(){
+		var $=window.$;
+		// $('.profile-dropdown').toggle();
+		if($('.profile-dropdown').css('display') == 'none')
+			{
+				
+				$('.profile-dropdown').show();
+			}
+			else
+			{
+				
+				 $('.profile-dropdown').hide();
+			}
+	} 
+	profileNoti(){
+		var $=window.$;
+		// $('.profile-dropdown').toggle();
+		if($('#notify').css('display') == 'none')
+			{
+				
+				$('#notify').show();
+			}
+			else
+			{
+				
+				 $('#notify').hide();
+			}
+	} 
 	getNotification()
 	{
 		fetch(`${API_URL}assetsapi/notification_alert/${JSON.parse(this.state.userData).assets_id}/${JSON.parse(this.state.userData).session_id}/`, {
@@ -66,7 +96,8 @@ logout(){
 			(error) => {
 			  console.log('error')
 			}
-		  )    
+		  ) 
+			  
 	}
 	onClickSwitch(assetstype)
 	{
@@ -168,8 +199,8 @@ logout(){
                          </li>
 						 <li className="list-inline-item">{JSON.parse(this.state.userData).planName} plan expire on {JSON.parse(this.state.userData).expireDate} </li>
                          <li className="list-inline-item"> <button type="button" className="btn btn-warning  w-md waves-light"> <Link to = {{pathname:'/tenant-plan'}} style={{color:'#fff'}}>Upgrade Plan</Link></button></li>
-                         <li className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle arrow-none waves-light waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false" onClick={this.getNotification}> <i className="dripicons-bell noti-icon" /> <span className="badge badge-pink noti-icon-badge">{this.state.notification.length}</span> </a>
-                            <div className="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-lg" aria-labelledby="Preview"> 
+                         <li className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle arrow-none waves-light waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false" onClick={this.profileNoti}> <i className="dripicons-bell noti-icon" /> <span className="badge badge-pink noti-icon-badge">{this.state.notification.length}</span> </a>
+                            <div className="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-lg" aria-labelledby="Preview" id = "notify"> 
                             {/* item*/}
 							<div className="dropdown-item noti-title">
                                 <h5><span className="badge badge-danger float-right">{this.state.notification.length}</span>Notification</h5>
@@ -187,7 +218,7 @@ logout(){
                             {/* All*/} 
                             <a href="#" className="dropdown-item notify-item notify-all"> <Link to = {{pathname:'/tenant-notifications'}}>View All</Link> </a> </div>
                         </li>
-                        <li className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img src={JSON.parse(this.state.userData).profile_photo!=''?API_URL+JSON.parse(this.state.userData).profile_photo:img_not_available} alt="user" className="rounded-circle" /><span className="profile-name">{this.state.first_name.replace(/["']/g, "")+" "+this.state.last_name.replace(/["']/g, "")}</span> </a>
+                        <li className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle waves-effect waves-light nav-user" onClick = {this.profileToggle} data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img src={JSON.parse(this.state.userData).profile_photo!=''?API_URL+JSON.parse(this.state.userData).profile_photo:img_not_available} alt="user" className="rounded-circle" /><span className="profile-name">{this.state.first_name.replace(/["']/g, "")+" "+this.state.last_name.replace(/["']/g, "")}</span> </a>
                             <div className="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview"> 
                             {/* item*/}
                             <div className="dropdown-item noti-title">

@@ -48,7 +48,7 @@ class Property extends React.Component{
 		  (data) => {
             console.log("data22: "+JSON.stringify(data))
             this.setState({propertiesLoading:true})
-            debugger;
+            // debugger;
 			if (data.success) {
 			  this.setState({property:data.property,propertiesLoading:true})
 			  //console.log(this.state.statics);

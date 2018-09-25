@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import API_URL from '../../../app-config'
 import Cookies from 'js-cookie';
 import swal from 'sweetalert';
+import $ from 'jquery';
+
 class Notifications extends React.Component{
 	constructor(props){
 		super(props)
@@ -24,7 +26,7 @@ class Notifications extends React.Component{
 		}
 		this.onChangeUserType = this.onChangeUserType.bind(this)
 		this.onChangeHandle = this.onChangeHandle.bind(this)
-		// this.getDropdowns = this.getDropdowns.bind(this)
+
 	}
 	hideModel()
 	{
@@ -71,27 +73,46 @@ class Notifications extends React.Component{
 	}
 	onClickHandle(){
 		const opts = this.state.notiFormField;
-		fetch(`${API_URL}assetsapi/send_notification/`, {
-        method: 'post',          
-        body: JSON.stringify(opts)
-        }).then((response) => {
-          return response.json();
-        }).then((data) => {
-          console.log('dataaaa:  ', data);
-          if(data.msg.indexOf("Notification send successfully")!=-1)
-          {
-            swal("Assets Watch", data.msg);
-				
-            //document.getElementsById("hidemodal").style.display = "none";
-			const m = document.getElementById('hidemoda');
-			m.style.display='none';
-			window.location.reload();
-			//alert(m);
-          }
-        else alert(data.msg)
-        }).catch((error) => {
-          console.log('error: ', error);
-        });
+		if (!opts.sender) {
+		  alert("User Name should not be blank");
+		  return;
+		}
+		if (opts.sender!==''){
+			document.getElementById("notifyFormCancel").click();
+			$("#loaderDiv").show();
+			
+			fetch(`${API_URL}assetsapi/send_notification/`, {
+			method: 'post',          
+			body: JSON.stringify(opts)
+			}).then((response) => {
+			  return response.json();
+			}).then((data) => {
+			  console.log('dataaaa:  ', data);
+			  if(data.msg.indexOf("Notification send successfully")!=-1)
+			  {
+					$("#loaderDiv").hide();
+					   
+					   $("#actionType").val("Yes");
+					   $("#hiddenURL").val("owner-notifications");
+					   $(".confirm-body").html(data.msg);
+					   $("#BlockUIConfirm").show();
+					   
+				/* swal("Assets Watch", data.msg);
+					
+				//document.getElementsById("hidemodal").style.display = "none";
+				const m = document.getElementById('hidemoda');
+				m.style.display='none';
+				window.location.reload(); */
+				//alert(m);
+			  }
+			else alert(data.msg)
+			}).catch((error) => {
+			  console.log('error: ', error);
+			});
+		}
+		
+		
+		
 	}
     componentDidMount(){
         
@@ -99,6 +120,7 @@ class Notifications extends React.Component{
     }
 	
 	getNotification(){
+		$("#loaderDiv").show();
 		fetch(`${API_URL}assetsapi/notification/${JSON.parse(this.state.userData).assets_id}/${JSON.parse(this.state.userData).session_id}/`, {
 			  method: 'get',
 			})
@@ -107,6 +129,7 @@ class Notifications extends React.Component{
 			  (result) => {
 				
 				if (result.success) {
+					$("#loaderDiv").hide();
 				   this.setState({notification:result.notification});
 
 				} 
@@ -135,6 +158,8 @@ class Notifications extends React.Component{
 		  // )       
 	// }
 	functDelete(notify_id){
+		
+		$("#loaderDiv").show();
 		fetch(`${API_URL}assetsapi/delete_notification/`+notify_id+`/${JSON.parse(this.state.userData).session_id}/`, {
 			  method: 'get',
 			})
@@ -142,8 +167,14 @@ class Notifications extends React.Component{
 			.then(
 			  (result) => {
 				 if(result.msg.indexOf("Notification deleted successfully")!=-1){
-				   alert(result.msg);
-					 window.location.reload();
+				   
+				   $("#loaderDiv").hide();
+				   
+				   $("#actionType").val("Yes");
+				   $("#hiddenURL").val("owner-notifications");
+				   $(".confirm-body").html(result.msg);
+				   $("#BlockUIConfirm").show();
+				   
 				} 
 			  },
 			(error) => {
@@ -151,6 +182,8 @@ class Notifications extends React.Component{
 			}
 		  )       
 	}
+	
+	
 	
     render(){
      
@@ -221,7 +254,7 @@ class Notifications extends React.Component{
 				{/*<!-- End Footer -->*/}
 				
 				<div id="con-close-modal" className="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{display: "none"}}>
-					  <div className="modal-dialog">
+					  <div className="modal-dialog notifyForm">
 						<div className="modal-content" id="hidemoda">
 						  <div className="modal-header">
 							<button type="button" onClick={this.hideModel} className="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -244,7 +277,7 @@ class Notifications extends React.Component{
 							<div className="row">
 							  <div className="col-md-12">
 								<div className="form-group">
-								  <label for="field-3" className="control-label">Find Name</label>
+								  <label for="field-3" className="control-label">User Name</label>
 								  {/*  <input type="text" className="form-control" id="field-3" placeholder=""/> */}
 								  <select className="form-control" name= "receiver" onChange = {this.onChangeHandle}>
 									<option>Please Select</option>
@@ -265,7 +298,7 @@ class Notifications extends React.Component{
 							</div>
 						  </div>
 						  <div className="modal-footer">
-							<button type="button" onClick={this.hideModel} className="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+							<button type="button" id="notifyFormCancel" onClick={this.hideModel} className="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
 							<button type="button" className="btn btn-success waves-effect waves-light" onClick = {this.onClickHandle} >Save changes</button>
 						  </div>
 						</div>

@@ -96,7 +96,7 @@ const ReportTableHeader=()=>{
         <div class="page-title-box">
                 <div class="btn-group pull-right">
             <ol class="breadcrumb hide-phone p-0 m-0">
-                <li><a href="report" class="btn btn-custom waves-light waves-effect w-md">
+                <li><a href="owner-report" class="btn btn-custom waves-light waves-effect w-md">
                     <i class="fi-outbox"></i>&nbsp;&nbsp;Back</a>
                 </li>
             </ol>
@@ -112,7 +112,7 @@ export default class ReportTable extends React.Component{
        
 
 
-        this.imgServer=API_URL+'assetsadmin/',
+        this.imgServer=API_URL,
         this.state = {
             flag:true,
 			userInfo:props.userData,
@@ -153,7 +153,7 @@ export default class ReportTable extends React.Component{
             body: JSON.stringify(formData)
         }).then(res=>res.json())
         .then((data)=>{
-            debugger;
+            // debugger;
             console.log(data)
             if(data.success){
                 this.setState({reports:data.report})
@@ -165,7 +165,7 @@ export default class ReportTable extends React.Component{
                 body: JSON.stringify(formData)
             }).then(res=>res.json())
             .then((data)=>{
-                debugger;
+                // debugger;
                 console.log(data)
                 if(data.success){
                     this.setState({reports:data.report})
@@ -178,7 +178,7 @@ export default class ReportTable extends React.Component{
                 body: JSON.stringify(formData)
             }).then(res=>res.json())
             .then((data)=>{
-                debugger;
+                // debugger;
                 console.log(data)
                 if(data.success){
                     this.setState({reports:data.report})
@@ -280,7 +280,7 @@ export default class ReportTable extends React.Component{
 	  console.log(this.state.createForm);
       }
     render(){
-        debugger;
+        // debugger;
         const report=this.state.reports
         return(
 

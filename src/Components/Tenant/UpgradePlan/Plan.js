@@ -113,7 +113,7 @@ unsubscribe()
 <div className="container seprate-plan">
     <div className="tz_page_content">
     <div className="post-1081 page type-page status-publish hentry">
-		<button name="unsubscribe" className="btn btn-success waves-effect waves-light" style={{float:"right"}} onClick={this.unsubscribe}>Unsubscribe</button>
+	{planData  ?<button name="unsubscribe" className="btn btn-success waves-effect waves-light" style={{float:"right"}} onClick={this.unsubscribe}>Unsubscribe</button>:''}
         <div className="bootstrap-wrapper">
         <div className="text-center">
               {

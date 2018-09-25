@@ -148,10 +148,15 @@ createAgreement(){
   // debugger;
   var tinymce=window.tinyMCE,$=window.$
   var content = tinymce.get("editor").getContent();
-  const agreementForm=Object.assign(this.state.templateList,this.state.createForm)
+  const agreementForm=this.state.createForm
   agreementForm.agreement_doc_content=content
   agreementForm.session_id=JSON.parse(this.state.userData).session_id
   agreementForm.user_id=JSON.parse(this.state.userData).assets_id
+  
+  agreementForm.agreement_title=	$('input[name="agreement_title"]').val()
+	agreementForm.header_content=	  $('input[name="headerContent"]').val();
+	agreementForm.footer_content=	  $('textArea[name="footerContent"]').val();
+	
   if(agreementForm.agreement_title!==''&&agreementForm.agreement_doc_content!==''&&
     agreementForm.header_content!==''&&agreementForm.footer_content!==''&&
     agreementForm.header_image!==''&&agreementForm.watermark_image!=='')
@@ -166,7 +171,7 @@ createAgreement(){
       .then((data) => {
         //debugger;
         //console.log('dataaaa:  ', data);
-        if(data){
+        if(data.success==1){
           // var userid = data.user.assets_id
           // localStorage.setItem('userid',userid)
 		  swal("Assets Watch", data.msg);

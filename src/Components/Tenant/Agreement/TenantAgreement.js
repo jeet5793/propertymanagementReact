@@ -3,7 +3,7 @@ import API_URL from '../../../app-config';
 import Cookies from 'js-cookie';
 import $ from 'jquery';
 import Customwithmodal from "../../Owner/Agreement/CustomWithModal";
-
+import swal from 'sweetalert';
 const VRequested=(props)=>{
     return(
         <div className="tab-pane active" id="v-requested">
@@ -42,7 +42,8 @@ const VExecute=(props)=>{
               <tr>
                 <th>Title</th>
                 <th>Date</th>
-                <th>Action1</th>
+				<th>Status</th>
+                <th>Action</th>
               </tr>
               </thead>
               <tbody>
@@ -50,7 +51,7 @@ const VExecute=(props)=>{
                   <tr>
                     <td>{element.agreement_title}</td>
                     <td>{element.created_date}</td>
-                    <td><a title="Edit" href="#" className="table-action-btn view-rqu"><i className="mdi mdi-border-color"></i></a><a title="Delete" href="#" className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a><a title="Send" href="#" className="table-action-btn view-rqu" data-toggle="modal" data-target="#send-msg"><i className="mdi mdi-redo-variant"></i></a></td>
+                    <td><a title="Edit" href="#executePreview" data-toggle="tab" onClick={() => props.selectedExecutedAgreement(element)} className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Send" href="#" className="table-action-btn view-rqu"><i className="mdi mdi-download" onClick={() => props.onClickDownload(element.deal_id)}></i></a><a title="Send" href="#" className="table-action-btn view-rqu" data-toggle="modal" onClick={() => props.selectedExecutedAgreement(element)} data-target="#send-msg"><i className="mdi mdi-redo-variant"></i></a></td>
                   </tr>
               )):<div>No data </div>}
               </tbody>
@@ -243,26 +244,26 @@ export default class TenantAgreement extends React.Component {
       let compName = e.target.value;
        i = parseInt(i, 10) ? i+1 : 0;
        var target = $('#signature')
-        if(compName=='Insert Signature Block') {
-          target.append("<p><div contenteditable='false' class='sigDiv' id='sigId"+i+"' style='width:300px;height:100px;border:1px solid #eee; border-top:0' data-toggle='modal' data-target='#custom-width-modal' onclick='addplaceId(this.id)'>"+compName+"</div></p>")
+         if(compName=='Insert Signature Block') {
+          target.append("<p><div contenteditable='false' className='sigDiv' id='sigId"+i+"' style='width:300px;height:100px;border:1px solid #eee; border-top:0' data-toggle='modal' data-target='#custom-width-modal' onclick='addplaceId(this.id)'>"+compName+"</div></p>")
         }
         else if(compName=='Insert Text Box')
         {
-           target.append("<p><input class='inner' type='text' id='textId"+i+"'  style='width:300px;height:20px;border:1px solid #eee;' placeholder='Enter text value'/></p>");
+           target.append("<p><input className='inner' type='text' id='textId"+i+"'  style='width:300px;height:20px;border:1px solid #eee;' placeholder='Enter text value'/></p>");
         }
         else if(compName=='Insert Date Box')
         {
-            target.append("<p><input class='datepickerWithoutTime' type='text' id='dateId"+i+"'  style='width:120px;height:20px;border:1px solid #eee;' placeholder='dd/mm/yyyy' /></p>");
+            target.append("<p><input className='datepickerWithoutTime' type='text' id='dateId"+i+"'  style='width:120px;height:20px;border:1px solid #eee;' placeholder='dd/mm/yyyy' /></p>");
         }
         else if(compName=='Insert Check Box')
         {
-            target.append("<p><input class='inner' type='checkbox' id='dateId"+i+"' /></p>");
+            target.append("<p><input className='inner' type='checkbox' id='dateId"+i+"' /></p>");
         }
         else
         {
-            target.append("<p><span class='inner' style='background:#57bb57;padding:2px 10px;border-radius:2px;font-size: 14px;color: #fff;float: left;margin-right: 5px;'>"+compName+"</span></p>");
+            target.append("<p><span className='inner' style='background:#57bb57;padding:2px 10px;border-radius:2px;font-size: 14px;color: #fff;float: left;margin-right: 5px;'>"+compName+"</span></p>");
 
-            // tinymce.get("editor").setContent(content+" "+"<span class='inner' style='background:#57bb57;padding:2px 10px;border-radius:2px;font-size: 14px;color: #fff;float: left;margin-right: 5px;'>"+compName+"</span>");
+            // tinymce.get("editor").setContent(content+" "+"<span className='inner' style='background:#57bb57;padding:2px 10px;border-radius:2px;font-size: 14px;color: #fff;float: left;margin-right: 5px;'>"+compName+"</span>");
         }
     }
 	 showSideOption()

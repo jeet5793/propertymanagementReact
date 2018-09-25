@@ -74,8 +74,8 @@ import swal from 'sweetalert';
           // console.log('dataaaa:  ', data);
           if(data.msg.indexOf("Password changed successfully")!=-1)
           {
-				alert(data.msg);
-            this.props.history.replace(`/settings`);
+				swal("Assets Watch", data.msg);
+            window.location.reload();
           }
         else alert(data.msg)
         }).catch((error) => {
@@ -121,7 +121,7 @@ import swal from 'sweetalert';
 							</div>--> */}
 						 </div>
 				</div>
-                <div style={{display: '-webkit-box'}}>
+                <div> {/* style={{display: '-webkit-box'}}} */}
                     <div className="col-md-12 text-right">
 						  <button type="submit" className="btn btn-primary stepy-finish text-right" onClick={this.formSubmit}>Submit</button>
 				    </div>

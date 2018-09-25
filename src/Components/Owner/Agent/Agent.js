@@ -215,7 +215,7 @@ class Agent extends React.Component{
 					});
 				})
 			}
-			console.log("autocompleteData"+JSON.stringify(this.state.propertyByUser))
+			// console.log("autocompleteData"+JSON.stringify(this.state.propertyByUser))
 			},
 		(error) => {
 			console.log('error',error)
@@ -265,7 +265,7 @@ class Agent extends React.Component{
 						
 						
 				} 
-				 console.log("autocompleteData"+JSON.stringify(this.state.autocompleteData))
+				 //console.log("autocompleteData"+JSON.stringify(this.state.autocompleteData))
 				// console.log("user_list"+JSON.stringify(this.state.user_list))
 			  },
 			(error) => {
@@ -472,6 +472,7 @@ class Agent extends React.Component{
 		console.log(this.state.sendForm);
 	}
 	sendMessage(){
+		// $("#loaderDiv").show();
 		const opts = this.state.sendForm
 		fetch(`${API_URL}assetsapi/send_message`, {
         method: 'post',
@@ -483,6 +484,7 @@ class Agent extends React.Component{
         //console.log("data 2: "+JSON.stringify(result.profile))
         if (result.success) {
           //this.setState({sendForm:result.notification})
+		  // $("#loaderDiv").hide();
 			alert(result.msg)
 			const m = document.getElementById('hidemodal2');
 			m.style.display='none';

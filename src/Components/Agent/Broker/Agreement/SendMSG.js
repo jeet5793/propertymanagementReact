@@ -2,17 +2,24 @@ import React from 'react'
 import API_URL from '../../../../app-config';
 import Cookies from 'js-cookie';
 import swal from 'sweetalert';
+import Autosuggest from 'react-autosuggest';
+	import $ from "jquery";
 export default class SendMSG extends React.Component{
   constructor(props){
     super(props);
     this.state={
     propertyByUser:[],
     userData : Cookies.get('profile_data'),
-		user_list:[]
+		user_list:[],
+		value: '',
+	suggestions: [],
+	searchValue:'',
+	searchInputData:[],
     };
     this.sendAgreement = this.sendAgreement.bind(this);
     this.onChangeHandler = this.onChangeHandler.bind(this);
 	this.sendForwardedAgreement = this.sendForwardedAgreement.bind(this);
+	this.searchUser=this.searchUser.bind(this)
   }
     onChangeHandler(e) {
         if (e.target.name === 'property_id') {
@@ -79,13 +86,13 @@ export default class SendMSG extends React.Component{
 		
       const profile=JSON.parse(this.state.userData)
       
-      let { property_id, sender_id, user_id, description } = this.state;
-      if (!property_id || !sender_id || !user_id || !description) {
+      let { property_id, sender_id, receive_user_id, description } = this.state;
+      if (!property_id || !sender_id || !receive_user_id || !description) {
         return;
       }
       let data = {
           sender_id: profile.assets_id,
-          receiver_id: user_id, // agent_id
+          receiver_id: receive_user_id, // agent_id
           agreement_id: this.props.agreement.agreement_id,
           property_id: property_id,
           description: description,
@@ -119,13 +126,13 @@ export default class SendMSG extends React.Component{
 	sendForwardedAgreement() {
       const profile= JSON.parse(this.state.userData);
     //  console.log("user id"+JSON.stringify(profile))
-      let { property_id, sender_id, user_id, description } = this.state;
-      if (!property_id || !sender_id || !user_id || !description) {
+      let { property_id, sender_id, receive_user_id, description } = this.state;
+      if (!property_id || !sender_id || !receive_user_id || !description) {
         return;
       }
       let data = {
           sender_id: profile.assets_id,
-          receiver_id: user_id, // agent_id
+          receiver_id: receive_user_id, // agent_id
           agreement_id: this.props.UpdAgreement.agreement_id,
           property_id: property_id,
           description: description,
@@ -162,9 +169,107 @@ export default class SendMSG extends React.Component{
 		var $=window.$;
 		$(".modal-backdrop").hide();
 	}
+	getSuggestions() {
+			 return this.state.propertyByUser.filter(lang =>
+				 lang.label
+			 );
+	 };
+
+	 getSuggestionValue(suggestion) {
+		console.log("onSuggestionSelected",suggestion)
+		 this.setState({
+			 searchValue: suggestion.label,
+			 receive_user_id: suggestion.value
+		 },()=>{
+			 this.onSuggestionSelected()
+		 })
+		 return suggestion.label!="No Results Found"?suggestion.label:""
+	 }
+	 renderSuggestion(suggestion) {
+		 return (
+			 <span>
+				 <i style={{marginRight:10}}  aria-hidden="true"></i>
+				 {suggestion.label!="No Results Found"?suggestion.label:"No records found.!!!"}
+			 </span>
+		 )
+	 }
+
+	 onChange = (event, { newValue }) => {
+	console.log("onChange ",newValue)
+		 this.setState({
+			 value: newValue
+		 },()=>{
+			this.searchUser()
+		 });
+	 };
+
+	 onSuggestionSelected = () => {
+		var searchValue = $('.react-autosuggest__input').val()
+		this.setState({
+			searchInputData:searchValue
+		})
+	};
+
+	onSuggestionsFetchRequested = () => {
+		this.searchUser()
+	};
+
+	onSuggestionsClearRequested = () => {
+		console.log("onSuggestionsClearRequested ")
+		this.setState({
+			suggestions: []
+		});
+	};
+	searchUser() {
+		var searchValue = $('.react-autosuggest__input').val();
+		var assetsType = $('#assets_type').val();
+		const session = JSON.parse(this.state.userData).session_id;  
+		console.log("selVal"+searchValue);
+		const opts ={assets_type:assetsType,string:searchValue,session_id:session,userid:JSON.parse(this.state.userData).assets_id}
+		console.log("optsssss1111"+JSON.stringify(opts));
+		fetch(`${API_URL}assetsapi/userSearch`, {
+			method: 'POST',
+		body: JSON.stringify(opts)
+		})
+		.then(res => res.json())
+		.then(
+			(result) => {
+			console.log("data22222: "+JSON.stringify(result))
+			if (result.success) {
+			
+				console.log("ifffff: "+JSON.stringify(result))
+						this.setState({propertyByUser:result.users},()=>{
+							this.setState({
+								suggestions: this.getSuggestions()
+							});
+						})
+					
+			} else{
+				console.log("elseee"+JSON.stringify(result))
+				this.setState({propertyByUser:[{"value":"","label":"No Results Found"}]},()=>{
+					this.setState({
+						suggestions: this.getSuggestions()
+					});
+				})
+			}
+			// console.log("autocompleteData"+JSON.stringify(this.state.propertyByUser))
+			},
+		(error) => {
+			console.log('error',error)
+		}
+		) 
+
+	}
     render(){
+		const { value, suggestions,selectedOption,property_list,autocompleteData } = this.state;
+			// Autosuggest will pass through all these props to the input.
+			const inputProps = {
+				placeholder: 'Search',
+				value,
+				onChange: this.onChange
+			};
       // console.log("propertyByUser render..."+JSON.stringify(this.state.propertyByUser));
-        console.log('props'+JSON.stringify(this.props))
+        // console.log('props'+JSON.stringify(this.props))
         return(
             <div id="send-msg" className="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{display: 'none'}}>
             <div className="modal-dialog">
@@ -189,7 +294,7 @@ export default class SendMSG extends React.Component{
                     <div className="col-md-12">
                   <div className="form-group">
                     <label for="nme" className="control-label">Send To</label>
-                    <select  className="form-control" name="sender_id" onChange={this.onChangeHandler}>
+                    <select  className="form-control" name="sender_id" id = "assets_type" onChange={this.onChangeHandler}>
                       <option>Please Select</option>
                       <option value="1">Owner</option>
                       <option value="3">Tenant</option>
@@ -199,13 +304,16 @@ export default class SendMSG extends React.Component{
                 <div className="col-md-12">
                   <div className="form-group">
                     <label for="nme" className="control-label">User List</label>
-                    <select  className="form-control" name="user_id" onChange={this.onChangeHandler}>
-                      <option>Please Select</option>
-                        {
-                            this.state.user_list && this.state.user_list.length > 0 &&
-                            this.state.user_list.map(user => <option value={user.profile_id}>{user.name}</option>)
-                        }
-                    </select>
+                    <Autosuggest className="form-control"
+									  suggestions={suggestions}
+									  onSuggestionsFetchRequested={this.onSuggestionsFetchRequested.bind(this)}
+									  onSuggestionsClearRequested={this.onSuggestionsClearRequested.bind(this)}
+									  getSuggestionValue={this.getSuggestionValue.bind(this)}
+									  renderSuggestion={this.renderSuggestion.bind(this)}
+									  onSuggestionSelected={this.onSuggestionSelected.bind(this)}
+									  inputProps={inputProps}
+									  alwaysRenderSuggestions={true}
+									/>	
                   </div>
                 </div>		  
               </div>        

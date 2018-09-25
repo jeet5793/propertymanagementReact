@@ -1,5 +1,5 @@
 import React from 'react'
-import API_URL from "../../../app-config";
+import API_URL from "../../../../app-config";
 import Cookies from 'js-cookie';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';

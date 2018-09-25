@@ -6,6 +6,33 @@ import Cookies from 'js-cookie';
 import {Redirect,Link} from 'react-router-dom'
 import Pagination from 'react-js-pagination';
 import SendEmail from './SendEmail';
+import swal from 'sweetalert';
+ import Select from 'react-select';
+  import Autosuggest from 'react-autosuggest';
+	import $ from "jquery";
+	
+	const loadScript=function(url, callback){
+
+  var script = document.createElement("script")
+  script.type = "text/javascript";
+
+  if (script.readyState){  //IE
+      script.onreadystatechange = function(){
+          if (script.readyState == "loaded" ||
+                  script.readyState == "complete"){
+              script.onreadystatechange = null;
+              callback();
+          }
+      };
+  } else {  //Others
+      script.onload = function(){
+          callback();
+      };
+  }
+
+  script.src = url;
+  document.getElementsByTagName("head")[0].appendChild(script);
+}
 class TenantOwner extends React.Component {
 	constructor(props) {
     super(props);
@@ -14,8 +41,14 @@ class TenantOwner extends React.Component {
     this.state = {
       
 	  userInfo:props.userData,
-	  userData:Cookies.get('profile_data'),
+	   userData:Cookies.get('profile_data'),
 		 property_list:[],
+		 receive_user_id:"",
+		 propertyByUser:[],
+			 value: '',
+			 suggestions: [],
+			 searchValue:'',
+			 searchInputData:[],
 		 user_list:[],
 		 sendReq : {
 			 assets_id:'',
@@ -38,44 +71,184 @@ class TenantOwner extends React.Component {
 			 assets_type:'',
 			 session_id:''
 		 },
-		  
 		 requestedList:[],
+		  requestedListConst: 5,
 		 sendForm:{
 				sender:'',
 				receiver:'',
 				message:'',
 				session_id:''
 			},
-			activePageReq: 1,
+		activePageReq: 1,
         activePageJoined: 1,
-        itemsCountPerPageReq: 1,
-        itemsCountPerPageJoined: 1
+        itemsCountPerPageReq: 3,
+        itemsCountPerPageJoined: 1,
+		// value: "",
+         autocompleteData: [],
+		selectedOption: null,
+		profileData:[]
     };
 	this.onChangeHandler=this.onChangeHandler.bind(this)
 	this.acceptRequest=this.acceptRequest.bind(this)
 	this.messagerec=this.messagerec.bind(this)
 	this.onChangeSMHandler = this.onChangeSMHandler.bind(this)
 	this.handlePageChangeRequestedList = this.handlePageChangeRequestedList.bind(this);
-    this.handlePageChangeJoinedList = this.handlePageChangeJoinedList.bind(this)
+	this.handlePageChangeJoinedList = this.handlePageChangeJoinedList.bind(this);
+
+		// this.handleChange = this.handleChange.bind(this);
+		this.searchUser=this.searchUser.bind(this)
   }
-   
+   hideModel()
+{
+	var $=window.$;
+	$(".modal-backdrop").hide();
+}
+	 getSuggestions() {
+			 return this.state.propertyByUser.filter(lang =>
+				 lang.label
+			 );
+	 };
+
+	 getSuggestionValue(suggestion) {
+		console.log("onSuggestionSelected",suggestion)
+		 this.setState({
+			 searchValue: suggestion.label,
+			 receive_user_id: suggestion.value
+		 },()=>{
+			 this.onSuggestionSelected()
+		 })
+		 return suggestion.label!="No Results Found"?suggestion.label:""
+	 }
+	 renderSuggestion(suggestion) {
+		 return (
+			 <span>
+				 <i style={{marginRight:10}}  aria-hidden="true"></i>
+				 {suggestion.label!="No Results Found"?suggestion.label:"No records found.!!!"}
+			 </span>
+		 )
+	 }
+
+	 onChange = (event, { newValue }) => {
+	console.log("onChange ",newValue)
+		 this.setState({
+			 value: newValue
+		 },()=>{
+			this.searchUser()
+		 });
+	 };
+
+	 onSuggestionSelected = () => {
+		var searchValue = $('.react-autosuggest__input').val()
+		this.setState({
+			searchInputData:searchValue
+		})
+	};
+
+	onSuggestionsFetchRequested = () => {
+		this.searchUser()
+	};
+
+	onSuggestionsClearRequested = () => {
+		console.log("onSuggestionsClearRequested ")
+		this.setState({
+			suggestions: []
+		});
+	};
+	searchUser() {
+		var searchValue = $('.react-autosuggest__input').val()
+		const session = JSON.parse(this.state.userData).session_id;  
+		console.log("selVal"+searchValue);
+		const opts ={assets_type:1,keyword:searchValue,session_id:session}
+		console.log("optsssss1111"+JSON.stringify(opts));
+		fetch(`${API_URL}assetsapi/user_search`, {
+			method: 'POST',
+		body: JSON.stringify(opts)
+		})
+		.then(res => res.json())
+		.then(
+			(result) => {
+			console.log("data22222: "+JSON.stringify(result))
+			if (result.success) {
+			
+				console.log("ifffff: "+JSON.stringify(result))
+						this.setState({propertyByUser:result.search_userlist},()=>{
+							this.setState({
+								suggestions: this.getSuggestions()
+							});
+						})
+					
+			} else{
+				console.log("elseee"+JSON.stringify(result))
+				this.setState({propertyByUser:[{"value":"","label":"No Results Found"}]},()=>{
+					this.setState({
+						suggestions: this.getSuggestions()
+					});
+				})
+			}
+			// console.log("autocompleteData"+JSON.stringify(this.state.propertyByUser))
+			},
+		(error) => {
+			console.log('error',error)
+		}
+		) 
+
+	}
   componentDidMount(){  
-   
+   const session = JSON.parse(this.state.userData).session_id;  
+    loadScript('assets/js/bootstrap.min.js',function(){
+      var $=window.$;
+    $('[data-toggle="tooltip"]').tooltip();  
+    })
+    
+    
 	this.inviteDropdowns();
 	this.joinedList();
 	this.requestedList();
 	if (this.state.requestedList) {
-          this.handlePageChangeRequestedList(this.state.activePageReq);
-      }
-      if (this.state.joinedList) {
-          this.handlePageChangeJoinedList(this.state.activePageJoined);
-      }
-	
+	    this.handlePageChangeRequestedList(this.state.activePageReq);
+    }
+    if (this.state.joinedList) {
+	    this.handlePageChangeJoinedList(this.state.activePageJoined);
+    }
+	var $=window.$;
+	 $('#react-select-2-input').keyup(function(e){
+
+		 const selVal = $('#react-select-2-input').val();
+		 
+		 // retrieveDataAsynchronously(selVal);
+		 let _this = this;
+
+       const opts ={assets_type:1,keyword:selVal,session_id:session}
+	   console.log(opts);
+		fetch(`${API_URL}assetsapi/user_search`, {
+			  method: 'POST',
+			body: JSON.stringify(opts)
+			})
+			.then(res => res.json())
+			.then(
+			  (result) => {
+				//console.log("data 2: "+JSON.stringify(profile))
+				//alert("data 2: "+JSON.stringify(result));
+				if (result.success) {
+				  
+					    this.setState({autocompleteData:result.search_userlist})
+						
+						
+				} 
+				 //console.log("autocompleteData"+JSON.stringify(this.state.autocompleteData))
+				// console.log("user_list"+JSON.stringify(this.state.user_list))
+			  },
+			(error) => {
+			  console.log('error')
+			}
+		  ) 
+	 }.bind(this));
+	 
   }
 
   inviteDropdowns(){
 	   
-		fetch(`${API_URL}assetsapi/invite_request/1/${JSON.parse(this.state.userData).session_id}/`, {
+		/* fetch(`${API_URL}assetsapi/invite_request/1/${JSON.parse(this.state.userData).session_id}/`, {
 			  method: 'get',
 			})
 			.then(res => res.json())
@@ -94,7 +267,13 @@ class TenantOwner extends React.Component {
 			(error) => {
 			  console.log('error')
 			}
-		  )       
+		  )      */  
+		  fetch(`${API_URL}assetsapi/property/`)
+		.then((response)=> {
+			response.json().then((data)=>{
+				this.setState({ property_list: data.property })
+			})
+		});
 	}
 	
 	joinedList(){
@@ -158,6 +337,7 @@ class TenantOwner extends React.Component {
 	
 	sendRequest(){
 		const opts = this.state.sendReq
+		opts.invite_id = this.state.receive_user_id
 		if(!opts.property_id){
         alert('Property should not be blank');
         return;
@@ -179,10 +359,11 @@ class TenantOwner extends React.Component {
           console.log('dataaaa:  ', data);
           if(data.msg.indexOf("Invitation send successfully")!=-1 || data.msg.indexOf("Now you both are connected")!=-1)
           {
-            alert(data.msg);
+            swal("Assets Watch", data.msg);
+			 window.location.reload();
             //document.getElementsById("hidemodal").style.display = "none";
-			const m = document.getElementById('hidemodal');
-			m.style.display='none';
+			// const m = document.getElementById('hidemodal');
+			// m.style.display='none';
 			//alert(m);
           }
         else alert(data.msg)
@@ -207,7 +388,7 @@ class TenantOwner extends React.Component {
           console.log('dataaaa:  ', data);
           if(data.msg.indexOf("Invitation Accepted successfully")!=-1)
           {
-            alert(data.msg);
+           swal("Assets Watch", data.msg);
 			 window.location.reload();
             //document.getElementsById("hidemodal").style.display = "none";
 			// const m = document.getElementById('hidemodal');
@@ -275,7 +456,14 @@ class TenantOwner extends React.Component {
 	)
 	}
     render() {
-		const propertyList = this.state.property_list;
+		const { value, suggestions,selectedOption,property_list,autocompleteData } = this.state;
+			// Autosuggest will pass through all these props to the input.
+			const inputProps = {
+				placeholder: 'Search',
+				value,
+				onChange: this.onChange
+			};
+		// const propertyList = this.state.property_list;
 	const userList = this.state.user_list;
 	const requestedUserList= this.state.requestedList;
 	const joinedUserList= this.state.joinedList;
@@ -551,8 +739,8 @@ class TenantOwner extends React.Component {
               <label for="field-1" className="control-label">Property</label>
               <div className="input-group">
 			   <select className="form-control" name="property_id" onChange={this.onChangeHandler}>
-				   <option>Please Select</option>
-						{propertyList.map((option,key)=> (<option key={key.id} value={option.id}>{option.title}</option>))}
+				    <option>Please Select</option>
+									{property_list.map((option,key)=> (<option key={key.id} value={option.id}>{option.title}</option>))}
 											   
 				  </select>	  
                <span className="input-group-addon bg-custom b-0"><i className="mdi mdi-magnify text-white"></i></span>
@@ -565,33 +753,16 @@ class TenantOwner extends React.Component {
             <div className="form-group">
               <label for="field-1" className="control-label">Owner</label>
               <div className="">
-            {/*// <Autosuggest
-						// suggestions={suggestions}
-						// onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-						// onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-						// getSuggestionValue={getSuggestionValue}
-						// renderSuggestion={renderSuggestion}
-						// inputProps={inputProps}
-	// />
-					   // <Select
-						// name="form-field-name"
-						 // onBlurResetsInput={false}
-						// onSelectResetsInput={false}
-						// autoFocus
-						// value={selectedOption}
-						// onChange={this.handleChange}
-						// options={[
-						  // { value: 'one', label: 'One' },
-						  // { value: 'two', label: 'Two' },
-						// ]}
-					  // /> 
-					
-               */}
-			   <select className="form-control" name="invite_id" onChange={this.onChangeHandler}>
-				   <option>Please Select</option>
-						{userList.map((option,key)=> (<option key={key.assets_id} value={option.assets_id}>{option.first_name+" "+option.last_name}</option>))}
-											   
-				  </select>	
+            <Autosuggest className="form-control"
+									  suggestions={suggestions}
+									  onSuggestionsFetchRequested={this.onSuggestionsFetchRequested.bind(this)}
+									  onSuggestionsClearRequested={this.onSuggestionsClearRequested.bind(this)}
+									  getSuggestionValue={this.getSuggestionValue.bind(this)}
+									  renderSuggestion={this.renderSuggestion.bind(this)}
+									  onSuggestionSelected={this.onSuggestionSelected.bind(this)}
+									  inputProps={inputProps}
+									  alwaysRenderSuggestions={true}
+									/>	
                </div>
             </div>
           </div>

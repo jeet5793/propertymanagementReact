@@ -2,12 +2,23 @@ import React from 'react'
 import img1 from '../../../images/logo-white.png'
 import img2 from '../../../images/bk-footer.jpg'
 import { Link } from 'react-router-dom'
-
+import $ from 'jquery'
 class Footer extends React.Component{
-	componentDidMount()
-	{
-		
-  }
+	/* submitAlert()
+	{		
+		var actionType = $("#actionType").val();
+		if(actionType=="No")
+		{
+			$("#BlockUIConfirm").hide();
+		}
+		else
+		{
+			var url = $("#hiddenURL").val();
+			window.location.href= url;
+			// HIT URL 
+		}
+	}
+	 */
   openExternal(e,url){
     window.open(url)
   }
@@ -97,6 +108,8 @@ class Footer extends React.Component{
 		<div className="cssload-loader">Assets Watch</div>
 
 	</div>
+	
+	
 	
   </footer>);
 	}

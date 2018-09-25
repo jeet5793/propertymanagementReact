@@ -75,15 +75,17 @@ const VExecute=(props)=>{
         <thead>
           <tr>
             <th>Title</th>
-            <th>Date</th>
-            <th>Action1</th>
+                <th>Date</th>
+				<th>Status</th>
+                <th>Action</th>
           </tr>
         </thead>
         <tbody>                          
         {props.ragreement.length>0?props.ragreement.map(element=>(
             <tr>
               <td>{element.agreement_title}</td>
-              <td>{element.created_date}</td>
+              <td>{element.initiated_date}</td>
+			  <td>{element.status}</td>
               <td><a title="Edit" href="#executePreview" data-toggle="tab" onClick={() => props.selectedExecutedAgreement(element)} className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Send" href="#" className="table-action-btn view-rqu"><i className="mdi mdi-download" onClick={() => props.onClickDownload(element.deal_id)}></i></a><a title="Send" href="#" className="table-action-btn view-rqu" data-toggle="modal" onClick={() => props.selectedExecutedAgreement(element)} data-target="#send-msg"><i className="mdi mdi-redo-variant"></i></a></td>
             </tr>
           )):<div>No data </div>}
@@ -246,11 +248,11 @@ export default class container extends React.Component{
     .then(res => res.json())
     .then(
       (data) => {
-        debugger;
+        // debugger;
       //console.log("data 2: "+JSON.stringify(result.profile))
       if (data.success) {
         this.setState({agreement:data.saved_agreement,agrLoaded:true})
-        console.log(this.state.agreement);
+        // console.log(this.state.agreement);
       } 
       //console.log("set user data"+JSON.stringify(this.state.profileData))
       },
