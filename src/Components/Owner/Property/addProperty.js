@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router'
 import swal from 'sweetalert';
 import Dropzone from 'react-dropzone'
-
+import $ from 'jquery'
 
 class AddProperty extends React.Component {
   constructor(props) {
@@ -209,7 +209,8 @@ class AddProperty extends React.Component {
     var opts = this.state.formData
     opts.owner_details = this.state.shareholders
     opts.img_path = this.state.images;
-    console.log("imgpathhh" + JSON.stringify(this.state.images))
+	$("#loaderDiv").show();
+    // console.log("imgpathhh" + JSON.stringify(this.state.images))
     fetch(`${API_URL}assetsapi/add_property/`, {
       method: 'post',
       body: JSON.stringify(opts)
@@ -218,8 +219,14 @@ class AddProperty extends React.Component {
     }).then((data) => {
       console.log("responseeeee" + JSON.stringify(data));
       if (data.msg == "Property added successfully !!!") {
-        swal("Assets Watch", data.msg);
-        window.location.href = '/my-property'
+        // swal("Assets Watch", data.msg);
+        // window.location.href = '/my-property'
+					$("#loaderDiv").hide();
+					   
+					   $("#actionType").val("Yes");
+					   $("#hiddenURL").val("my-property");
+					   $(".confirm-body").html(data.msg);
+					   $("#BlockUIConfirm").show();
       }
     }).catch((error) => {
       console.log('error: ', error);

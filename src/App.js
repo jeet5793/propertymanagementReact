@@ -81,10 +81,10 @@ componentDidMount(){
 }
 
 removeMain(){
-  loadFile('css/main.css','css')
-  loadFile('css/fonts.css','css')
-  loadFile('css/comp-main.css','css')
-  loadFile('css/custom-main.css','css')
+  // loadFile('css/main.css','css')
+  // loadFile('css/fonts.css','css')
+  // loadFile('css/comp-main.css','css')
+  // loadFile('css/custom-main.css','css')
   loadFile('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css','css')
 
   loadFile('js/jquery.js','js')

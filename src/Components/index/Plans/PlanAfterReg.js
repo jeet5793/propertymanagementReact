@@ -13,6 +13,7 @@ export default class Plans extends React.Component{
     }
 
 	componentDidMount(){
+		$("#loaderDiv").show();
         var search=window.location.search;
         var type=search.replace('?Datatype=','')
         var panelType='';
@@ -21,6 +22,7 @@ export default class Plans extends React.Component{
         fetch(`${API_URL}assetsapi/plan`)
         .then(response=>{
             response.json().then(plans=>{
+				$("#loaderDiv").hide();
                 if(type==='owner') {
                     this.setState({planData:plans.plan.Owner})
                 }

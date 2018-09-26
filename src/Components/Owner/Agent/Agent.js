@@ -324,6 +324,7 @@ class Agent extends React.Component{
 	}
 	
 	joinedList(){
+		$("#loaderDiv").show();
 		const joinedData = this.state.joinedPost;
 		joinedData.session_id=JSON.parse(this.state.userData).session_id;
 		joinedData.user_id=JSON.parse(this.state.userData).assets_id;
@@ -337,6 +338,7 @@ class Agent extends React.Component{
           return response.json();
         }).then((result) => {
 			if(result.success){
+				$("#loaderDiv").hide();
 				this.setState({joinedList:result.joined})
 			}
 			//console.log(this.state.joinedTenant)
@@ -345,6 +347,7 @@ class Agent extends React.Component{
 		)
 	}
 	requestedList(){
+		$("#loaderDiv").show();
 		const requestData = this.state.requestedPost;
 		requestData.session_id=JSON.parse(this.state.userData).session_id;
 		requestData.user_id=JSON.parse(this.state.userData).assets_id;
@@ -358,6 +361,7 @@ class Agent extends React.Component{
           return response.json();
         }).then((result) => {
 			if(result.success){
+				$("#loaderDiv").hide();
 				this.setState({requestedList:result.requested})
 			}
 			//console.log(this.state.requestedTenant)
@@ -394,7 +398,12 @@ class Agent extends React.Component{
         alert('Message should not be blank');
         return;
       }
-		fetch(`${API_URL}assetsapi/invite/`, {
+	  if(!opts.property_id && !opts.invite_id && !opts.message){
+		  return;
+	  }else{
+		  document.getElementById("notifyFormCancel").click();
+		  $("#loaderDiv").show();
+		  fetch(`${API_URL}assetsapi/invite/`, {
         method: 'post',          
         body: JSON.stringify(opts)
         }).then((response) => {
@@ -403,22 +412,29 @@ class Agent extends React.Component{
           console.log('dataaaa:  ', data);
           if(data.msg.indexOf("Invitation send successfully")!=-1 || data.msg.indexOf("Now you both are connected")!=-1)
           {
-             swal("Assets Watch", data.msg);
+			 $("#loaderDiv").hide();
+			 $("#actionType").val("Yes");
+			 $("#hiddenURL").val("owner-agent");
+			 $(".confirm-body").html(data.msg);
+			 $("#BlockUIConfirm").show();
+             /* swal("Assets Watch", data.msg);
             //document.getElementsById("hidemodal").style.display = "none";
 			const m = document.getElementById('hidemodal');
 			m.style.display='none';
-			window.location.reload();
+			window.location.reload(); */
 			//alert(m);
           }
         else alert(data.msg)
         }).catch((error) => {
           console.log('error: ', error);
         });
+	  }
+		
 	}
 	acceptRequest(id)
 	{
 		const invite_id = id;
-		
+		$("#loaderDiv").show();
 		//const sess =this.state.userInfo.session_id;
 		//alert(invite_id);
 		//console.log(sess);
@@ -430,8 +446,13 @@ class Agent extends React.Component{
           console.log('dataaaa:  ', data);
           if(data.msg.indexOf("Invitation Accepted successfully")!=-1)
           {
-				 swal("Assets Watch", data.msg);
-			 window.location.reload();
+			  $("#loaderDiv").hide();
+			 $("#actionType").val("Yes");
+			 $("#hiddenURL").val("owner-agent");
+			 $(".confirm-body").html(data.msg);
+			 $("#BlockUIConfirm").show();
+				 // swal("Assets Watch", data.msg);
+			 // window.location.reload();
             //document.getElementsById("hidemodal").style.display = "none";
 			// const m = document.getElementById('hidemodal');
 			// m.style.display='none';
@@ -474,32 +495,45 @@ class Agent extends React.Component{
 	sendMessage(){
 		// $("#loaderDiv").show();
 		const opts = this.state.sendForm
-		fetch(`${API_URL}assetsapi/send_message`, {
+		if(!opts.receiver && !opts.message){
+			return;
+		}else{
+			document.getElementById("msgFormCancel").click();
+			$("#loaderDiv").show();
+			fetch(`${API_URL}assetsapi/send_message`, {
         method: 'post',
 		body:JSON.stringify(opts)
-      })
-    .then(res => res.json())
-    .then(
-      (result) => {
-        //console.log("data 2: "+JSON.stringify(result.profile))
-        if (result.success) {
-          //this.setState({sendForm:result.notification})
-		  // $("#loaderDiv").hide();
-			alert(result.msg)
-			const m = document.getElementById('hidemodal2');
-			m.style.display='none';
-          
-        } 
-        console.log("notification"+JSON.stringify(this.state.sendForm))
-      },
-		(error) => {
-		  console.log('error')
+			  })
+			.then(res => res.json())
+			.then(
+			  (result) => {
+				//console.log("data 2: "+JSON.stringify(result.profile))
+				if (result.success) {
+				  //this.setState({sendForm:result.notification})
+				  // $("#loaderDiv").hide();
+					// alert(result.msg)
+					// const m = document.getElementById('hidemodal2');
+					// m.style.display='none';
+					$("#loaderDiv").hide();
+					   
+					   $("#actionType").val("Yes");
+					   $("#hiddenURL").val("owner-agent");
+					   $(".confirm-body").html(result.msg);
+					   $("#BlockUIConfirm").show();
+				  
+				} 
+				console.log("notification"+JSON.stringify(this.state.sendForm))
+			  },
+				(error) => {
+				  console.log('error')
+				}
+			)
 		}
-	)
+		
 	}
 	
 	BgvDownload(reportId){
-		window.open(`${API_URL}assetsapi/bgv_report/`+reportId,"_blank")
+		window.open(`${API_URL}assetsapi/bgv_report/`+reportId,"_self")
 		/* fetch(`${API_URL}assetsapi/bgv_report/`+reportId, {
         method: 'get'
 		  })
@@ -744,7 +778,7 @@ class Agent extends React.Component{
 				</div>
 			  </div>
 			  <div className="modal-footer">
-				<button type="button" className="btn btn-secondary waves-effect" onClick={this.hideModel} data-dismiss="modal">Close</button>
+				<button type="button" id="notifyFormCancel" className="btn btn-secondary waves-effect" onClick={this.hideModel} data-dismiss="modal">Close</button>
 				<button type="submit" className="btn btn-success waves-effect waves-light" onClick={this.sendRequest}>Send</button>
 			  </div>
 			</div>
@@ -781,7 +815,7 @@ class Agent extends React.Component{
                         </div>
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary waves-effect" data-dismiss="modal" onClick={this.hideModel}>Close</button>
+                        <button type="button" id="msgFormCancel" className="btn btn-secondary waves-effect" data-dismiss="modal" onClick={this.hideModel}>Close</button>
                         <button type="button" className="btn btn-success waves-effect waves-light" onClick={this.sendMessage}>Send</button>
                     </div>
                     </div>

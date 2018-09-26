@@ -3,6 +3,7 @@ import API_URL from "../../../app-config";
 import { connect } from 'react-redux';
 import Cookies from 'js-cookie';
 import swal from 'sweetalert';
+import $ from 'jquery';
  class PasswordSettings extends React.Component{
 	constructor(props){
     super(props)
@@ -65,7 +66,11 @@ import swal from 'sweetalert';
 		   alert ('Confirm password is not matched.')
 	  }
 	  
-      fetch(`${API_URL}assetsapi/setting_password/`, {
+	  if(!opts.old_password && !opts.new_password && !opts.confirm_password && (opts.confirm_password !== opts.new_password)){
+		  return;
+	  }else{
+		  $("#loaderDiv").show();
+		 fetch(`${API_URL}assetsapi/setting_password/`, {
         method: 'post',        
         body: JSON.stringify(opts)
         }).then((response) => {
@@ -74,14 +79,22 @@ import swal from 'sweetalert';
           console.log('dataaaa:  ', data);
           if(data.msg.indexOf("Password changed successfully")!=-1)
           {
-				swal("Assets Watch", data.msg);
+				// swal("Assets Watch", data.msg);
             // this.props.history.replace(`/settings`);
-			window.location.reload();
+			// window.location.reload();
+			$("#loaderDiv").hide();
+					   
+					   $("#actionType").val("Yes");
+					   $("#hiddenURL").val("owner-notifications");
+					   $(".confirm-body").html(data.msg);
+					   $("#BlockUIConfirm").show();
           }
         else alert(data.msg)
         }).catch((error) => {
           console.log('error: ', error);
-        });
+        }); 
+	  }
+      
       }
   
   

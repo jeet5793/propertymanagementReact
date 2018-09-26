@@ -31,7 +31,8 @@ class EditProperty extends React.Component {
         "owner_id":"",
         "property_id":"",
         "title": "",
-        "address": "",
+         "address": "",
+		"address2": "",
         "city": '',
         "state": "",
         "country": [],
@@ -53,6 +54,7 @@ class EditProperty extends React.Component {
       shareholders: [{
         owner_name: "",
         address: "",
+		address2: "",
         city: "",
         state: "",
         country: "",
@@ -71,7 +73,7 @@ class EditProperty extends React.Component {
           const propertyDetails=JSON.parse(this.state.propertyInfo)
           console.log("receeeeeived123456..."+ JSON.stringify(propertyDetails))
           this.setState({
-            formData:{property_id:propertyDetails.id,title:propertyDetails.title,address:propertyDetails.address,country:propertyDetails.country,state:propertyDetails.state,city:propertyDetails.city,zip_code:propertyDetails.zip_code,property_type:propertyDetails.property_type,property_status:propertyDetails.property_status,geo_location:propertyDetails.geo_location,square_feet:propertyDetails.square_feet,description:propertyDetails.description,bedroom:propertyDetails.bedroom,bathroom:propertyDetails.bathroom,total_amount:propertyDetails.total_amount,advance:propertyDetails.advance,advance:propertyDetails.advance},images:propertyDetails.img_path,shareholders:propertyDetails.owner_details
+            formData:{property_id:propertyDetails.id,title:propertyDetails.title,address:propertyDetails.address,address2:propertyDetails.address2,country:propertyDetails.country,state:propertyDetails.state,city:propertyDetails.city,zip_code:propertyDetails.zip_code,property_type:propertyDetails.property_type,property_status:propertyDetails.property_status,geo_location:propertyDetails.geo_location,square_feet:propertyDetails.square_feet,description:propertyDetails.description,bedroom:propertyDetails.bedroom,bathroom:propertyDetails.bathroom,total_amount:propertyDetails.total_amount,advance:propertyDetails.advance,advance:propertyDetails.advance},images:propertyDetails.img_path,shareholders:propertyDetails.owner_details
           },()=>{
             this.stateLists(propertyDetails.country);
             this.cityList(propertyDetails.state);
@@ -94,7 +96,8 @@ class EditProperty extends React.Component {
     this.setState({
       shareholders: this.state.shareholders.concat([{
         owner_name: "",
-        address: "",
+       address: "",
+		address2: "",
         city: "",
         state: "",
         country: "",
@@ -309,9 +312,15 @@ class EditProperty extends React.Component {
                         </div>
                       </div>
                       <div className="form-group row">
-                        <label className="col-2 col-form-label">Address</label>
+                        <label className="col-2 col-form-label">Address1</label>
                         <div className="col-10">
-                          <textarea value={editPropertyInfo.address} name='address' placeholder='Property address' onChange={this.onChangeHandler} className="form-control"></textarea>
+						<input name="address" value={editPropertyInfo.address} onChange={this.onChangeHandler} placeholder='Property address1' type="text" className="form-control" />
+                        </div>
+                      </div>
+					  <div className="form-group row">
+                        <label className="col-2 col-form-label">Address2</label>
+                        <div className="col-10">
+						<input name="address2" value={editPropertyInfo.address2} onChange={this.onChangeHandler} placeholder='Property address2' type="text" className="form-control" />
                         </div>
                       </div>
                       <div className="form-group row">
@@ -360,10 +369,17 @@ class EditProperty extends React.Component {
                           </div>
                           {/*add second owner*/}
                           <div className="form-group row">
-                            <label className="col-2 col-form-label">Address</label>
+                            <label className="col-2 col-form-label">Address1</label>
                             <div className="col-10">
-                              <textarea value={this.state.shareholders[idx].address} name={'address' + (idx)} placeholder={`Owner #${idx + 1} address`} onChange={(e) => { this.onChangeHandler(e, idx) }} className="form-control"></textarea>
+                             <input type="text" value={this.state.shareholders[idx].address} name={'address' + (idx)} placeholder={`Owner #${idx + 1} address1`} onChange={(e) => { this.onChangeHandler(e, idx) }} className="form-control"/>
 
+
+                            </div>
+                          </div>
+						  <div className="form-group row">
+                            <label className="col-2 col-form-label">Address2</label>
+                            <div className="col-10">
+                              <input type="text" value={this.state.shareholders[idx].address2} name={'address2' + (idx)} placeholder={`Owner #${idx + 1} address2`} onChange={(e) => { this.onChangeHandler(e, idx) }} className="form-control"/>
 
                             </div>
                           </div>

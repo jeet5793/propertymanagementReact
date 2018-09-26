@@ -4,7 +4,7 @@ import img2 from '../../../images/bk-footer.jpg'
 import { Link } from 'react-router-dom'
 import $ from 'jquery'
 class Footer extends React.Component{
-	/* submitAlert()
+	submitAlert()
 	{		
 		var actionType = $("#actionType").val();
 		if(actionType=="No")
@@ -18,7 +18,7 @@ class Footer extends React.Component{
 			// HIT URL 
 		}
 	}
-	 */
+	
   openExternal(e,url){
     window.open(url)
   }
@@ -109,7 +109,28 @@ class Footer extends React.Component{
 
 	</div>
 	
-	
+
+			{/* ALERT DIV*/}
+			<div id="SBlockUIConfirm" className="BlockUIConfirm" style={{display:"none"}}>
+				<div className="blockui-mask"></div>
+				<div className="RowDialogBody">
+					<div className="confirm-header row-dialog-hdr-success">
+						Response Message
+					</div>
+					<div className="confirm-body">
+						
+					</div>
+					<div className="confirm-btn-panel text-center">
+						<div className="btn-holder">
+							<input type="hidden" id="hiddenURL" />
+							<input type="hidden" id="actionType" />
+							<input type="button" className="row-dialog-btn btn btn-success" value="Ok" onClick={this.submitAlert} />
+							{/*<!-- <input type="button" className="row-dialog-btn btn btn-naked" value="No, Cancel" onclick="$('#BlockUIConfirm').hide();" /> -->*/}
+						</div>
+					</div>
+				</div>
+			</div>
+			
 	
   </footer>);
 	}

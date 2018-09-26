@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom'
 import { connect } from 'react-redux';
 import API_URL from "../../../app-config";
 import swal from 'sweetalert';
-
+import $ from 'jquery';
 class Service extends React.Component{
 	constructor(props){
     super(props);
@@ -86,7 +86,9 @@ class Service extends React.Component{
       }
 		
 		
-
+		document.getElementById("FormCancel").click();
+		$("#loaderDiv").show();
+		
 		fetch(`${API_URL}assetsapi/service_request_send/`, {
         method: 'post', 
 		body: JSON.stringify(opts)
@@ -96,11 +98,16 @@ class Service extends React.Component{
           // console.log('dataaaa:  ', data);
           if(data.msg.indexOf("Service request send successfully")!=-1)
           {
-            swal("Assets Watch", data.msg);
+           /*  swal("Assets Watch", data.msg);
             //document.getElementsById("hidemodal").style.display = "none";
 			const m = document.getElementById('hidemodal');
 			m.style.display='none';
-			window.location.reload();
+			window.location.reload(); */
+						$("#loaderDiv").hide();
+						$("#actionType").val("Yes");
+					   $("#hiddenURL").val("service");
+					   $(".confirm-body").html(data.msg);
+					   $("#BlockUIConfirm").show();
 			//alert(m);
           }
         else alert(data.msg)
@@ -496,7 +503,7 @@ class Service extends React.Component{
                                     </div>
                                 </div>
                                 <div className="modal-footer">
-                                    <button type="button" className="btn btn-secondary waves-effect" data-dismiss="modal" onClick={this.hideModel}>Close</button>
+                                    <button type="button"  id ="FormCancel" className="btn btn-secondary waves-effect" data-dismiss="modal" onClick={this.hideModel}>Close</button>
                                     <button type="button" className="btn btn-success waves-effect waves-light" onClick={this.sendRequest}>Save changes</button>
                                 </div>
                                 </div>

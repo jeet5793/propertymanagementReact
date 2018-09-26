@@ -108,7 +108,7 @@ export default class PlanPayment extends React.Component {
   paymentPage(event) {
   event.preventDefault();
   	console.log(this.state);
-	$("#loaderDiv").show();
+
   var payment_Object={
     "userid":this.state.userDetails.user_id,
     "tokenizedaccountnumber":this.state.tokenizedaccountnumber,
@@ -130,6 +130,7 @@ export default class PlanPayment extends React.Component {
   }
   // this.setState({ fetchInProgress: true });
   // console.log(payment_Object);
+  $("#loaderDiv").show();
     fetch(`${API_URL}assetsapi/paymentgateway`,{
       method: 'post',
       //headers: {'Content-Type':'application/json'},
@@ -148,13 +149,18 @@ export default class PlanPayment extends React.Component {
 			  // this.setState({
                     // fetchInProgress: false
                 // });
-			
+			$("#loaderDiv").hide();
 			   if(result.msg.indexOf("Registered Successfully")!=-1)
-			   {	$("#loaderDiv").hide();
+			   {	
 				   //
-				   swal("Assets Watch", result.msg);
+				   // swal("Assets Watch", result.msg);
 				   	//this.props.history.replace('/');
-					 window.location.href='/';
+					 // window.location.href='/';
+					   
+					   $("#actionType").val("Yes");
+					    $("#hiddenURL").val("/");
+					   $(".confirm-body").html(result.msg);
+					   $("#SBlockUIConfirm").show();
 			   }
 				
              

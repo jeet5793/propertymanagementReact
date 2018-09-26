@@ -94,7 +94,9 @@ userlist(assets_type){
           description: description,
           session_id: this.props.session_id,
       };
-console.log("hello"+data);
+// console.log("hello"+data);
+		document.getElementById("FormCancel").click();
+			$("#loaderDiv").show();
         fetch(`${API_URL}assetsapi/send_agreement`, {
             method: 'POST',
             body: JSON.stringify(data)
@@ -104,11 +106,17 @@ console.log("hello"+data);
                 (data) => {
                     //console.log("data 2: "+JSON.stringify(result.profile))
                     if (data.success) {
-                        swal("Assets Watch", data.msg);
+						$("#loaderDiv").hide();
+					   
+					   $("#actionType").val("Yes");
+					   $("#hiddenURL").val("agreement");
+					   $(".confirm-body").html(data.msg);
+					   $("#BlockUIConfirm").show();
+                        // swal("Assets Watch", data.msg);
 						
                         // console.log(this.state.propertyByUser);
-                        window.$('.close').click();
-						window.location.reload();
+                        // window.$('.close').click();
+						// window.location.reload();
                     }
                     //console.log("set user data"+JSON.stringify(this.state.profileData))
                 },
@@ -135,7 +143,8 @@ console.log("hello"+data);
           session_id: this.props.session_id,
 		  updatedTemplate: this.props.UpdAgreement.replaced_template,
       };
-
+	  document.getElementById("FormCancel").click();
+		$("#loaderDiv").show();
         fetch(`${API_URL}assetsapi/send_forwarded_agreement`, {
             method: 'POST',
             body: JSON.stringify(data)
@@ -145,11 +154,17 @@ console.log("hello"+data);
                 (data) => {
                     //console.log("data 2: "+JSON.stringify(result.profile))
                     if (data.success) {
-                        // alert('send_agreement ', JSON.stringify(data));
+                        /* // alert('send_agreement ', JSON.stringify(data));
 						 swal("Assets Watch", data.msg);
                         // console.log(this.state.propertyByUser);
                         window.$('.close').click()
-						window.location.reload();
+						window.location.reload(); */
+						$("#loaderDiv").hide();
+					   
+					   $("#actionType").val("Yes");
+					   $("#hiddenURL").val("agreement");
+					   $(".confirm-body").html(data.msg);
+					   $("#BlockUIConfirm").show();
                     }
                     //console.log("set user data"+JSON.stringify(this.state.profileData))
                 },
@@ -329,7 +344,7 @@ console.log("hello"+data);
               </div>		
               </div>     
               <div className="modal-footer">
-                <button type="button" className="btn btn-secondary waves-effect" data-dismiss="modal" onClick={this.hideModel}>Close</button>
+                <button type="button" id = "FormCancel" className="btn btn-secondary waves-effect" data-dismiss="modal" onClick={this.hideModel}>Close</button>
                 <button type="button" className="btn btn-success waves-effect waves-light" onClick={this.props.UpdAgreement?this.sendForwardedAgreement:this.sendAgreement}>Send</button>
               </div>  
               </div>

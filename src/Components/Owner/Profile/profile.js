@@ -10,7 +10,7 @@ import img1 from '../../../images/Owner/small/img-1.jpg'
 import img_not_available from '../../../images/img_not_available.png'
 import Cookies from 'js-cookie';
 import {Link} from 'react-router-dom'
-
+import $ from 'jquery';
 import API_URL from "../../../app-config";
 class Profile extends React.Component {
   constructor(props){
@@ -36,6 +36,7 @@ class Profile extends React.Component {
     const profile=JSON.parse(this.state.userData)
     if(profile)
     {
+		$("#loaderDiv").show();
       fetch(`${API_URL}assetsapi/profile/${profile.assets_id}/${profile.session_id}`, {
         method: 'get'
       })
@@ -44,6 +45,7 @@ class Profile extends React.Component {
         (result) => {
           //console.log("data 2: "+JSON.stringify(result.profile))
           if (result.success) {
+			  $("#loaderDiv").hide();
             this.setState({profileData:result.profile})
             
           } 
@@ -153,7 +155,7 @@ class Profile extends React.Component {
 	 
         // this.updateProf(this.props.user.assets_id)          
       return(
-	  (profileInfo)?
+
         <div>
           {/* <link rel='stylesheet' href='../../../css/style.css' type='text/css' media='all' /> */}
           <div  style={{marginTop:'3%',marginBottom:'5%'}} className="wrapper">
@@ -339,7 +341,7 @@ class Profile extends React.Component {
             </div>
             {/*<!-- end container --> */}
           </div>
-        </div>:<div className="container"  style={{marginTop:'20%',marginLeft:'45%',marginBottom:'25%'}}><img src="http://wordpress.templaza.net/real-estate/wp-content/themes/real-estate/images/loading_blue_64x64.gif"/></div>
+        </div>
       );
     }
 }

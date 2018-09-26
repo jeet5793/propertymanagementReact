@@ -206,7 +206,7 @@ export default class container extends React.Component{
 	onClickDownload(deal_id){
 		 // alert("dsahfh");
 		 // <a href={`${API_URL}assetsapi/download_agreement/`+deal_id}/>
-		  window.open(`${API_URL}assetsapi/download_agreement/`+deal_id)
+		  window.open(`${API_URL}assetsapi/download_agreement/`+deal_id,'_self')
 		//console.log("deal_id"+JSON.stringify(deal_id));
 		 
 			
@@ -241,6 +241,7 @@ export default class container extends React.Component{
        })
     }
   getAgreement(){
+	  $("#loaderDiv").show();
     const { user } = this.state;
     fetch(`${API_URL}assetsapi/saved_agreement/${user.assets_id}/${user.session_id}`, {
       method: 'get'
@@ -248,9 +249,11 @@ export default class container extends React.Component{
     .then(res => res.json())
     .then(
       (data) => {
+		   $("#loaderDiv").hide();
         // debugger;
       //console.log("data 2: "+JSON.stringify(result.profile))
       if (data.success) {
+		  $("#loaderDiv").hide();
         this.setState({agreement:data.saved_agreement,agrLoaded:true})
         // console.log(this.state.agreement);
       } 
@@ -574,7 +577,7 @@ getPropertyList() {
                       </div>
                       <div className="col-md-10">
                         <div className="tab-content">
-						{this.state.agrLoaded?<Saved editAgreement={this.editAgreement} selectedAgreement={this.selectedAgreement} agreement={this.state.agreement}/>:<div className="container"  style={{marginTop:'10%',marginLeft:'50%'}}><img src="http://wordpress.templaza.net/real-estate/wp-content/themes/real-estate/images/loading_blue_64x64.gif"/></div>}
+						<Saved editAgreement={this.editAgreement} selectedAgreement={this.selectedAgreement} agreement={this.state.agreement}/>
 						 <VCreate userData={this.state.userData} editAgreement={this.state.editAgreement} />
                          {<VRequested previewAgreement={this.previewAgreement} ragreement={this.state.requestedAgreement || []}/>}
                           <VExecute ragreement={this.state.executedAgreement} selectedExecutedAgreement={this.selectedExecutedAgreement} onClickDownload={this.onClickDownload}/>

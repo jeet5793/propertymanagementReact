@@ -235,6 +235,8 @@ export default class Payment extends React.Component{
 		  return;
 		}
 		
+		
+		$("#loaderDiv").show();
 		 fetch(`${API_URL}assetsapi/singularbill_enroll/`, {
         method: "post",
         body: JSON.stringify(opts)
@@ -243,9 +245,14 @@ export default class Payment extends React.Component{
           return response.json();
         })
         .then((data) => {
-          if(data.msg.indexOf("Account Created Successfully")!=-1)
+          if(data.success)
           {
-			swal("Assets Watch", data.msg);
+			// swal("Assets Watch", data.msg);
+						$("#loaderDiv").hide();
+					   $("#actionType").val("Yes");
+					   $("#hiddenURL").val("owner-payment");
+					   $(".confirm-body").html(data.msg);
+					   $("#BlockUIConfirm").show();
 			
 			this.setState({singularFrame:data.enroll});
 			// console.log(this.state.singularFrame);

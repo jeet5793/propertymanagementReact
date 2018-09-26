@@ -19,10 +19,11 @@ export default class Plans extends React.Component {
 		setTimeout(function () { $('#tzloadding').remove(); }, 2000);
 
 		$('html, body').animate({ scrollTop: 0 }, 800);
-
+$("#loaderDiv").show();
 		fetch(`${API_URL}assetsapi/plan`)
 			.then((response) => {
 				response.json().then((data) => {
+					$("#loaderDiv").hide();
 					console.log('planData:  ', data);
 					this.setState({ planData: data.plan });
 				})

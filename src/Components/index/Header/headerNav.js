@@ -378,6 +378,7 @@ class Headernav extends React.Component {
 		 this.setState({fgtemail:e.target.value});
 	 }
 	sendForgetPassword = (assetsType)=>{
+		$("#loaderDiv").show();
 		const opts = {email:this.state.fgtemail,assets_type:assetsType}
 		// console.log('this is:', opts);
 		fetch(`${API_URL}assetsapi/forgot_password`, {
@@ -389,8 +390,14 @@ class Headernav extends React.Component {
 				  (result) => {
 					
 					if (result.success) {
-					   swal("Assets watch","Password reset link sended to your email.");
-							window.location.reload();
+					   // swal("Assets watch","Password reset link sended to your email.");
+							// window.location.reload();
+							$("#loaderDiv").hide();
+					   
+					   $("#actionType").val("Yes");
+					   // $("#hiddenURL").val("/");
+					   $(".confirm-body").html(result.msg);
+					   $("#SBlockUIConfirm").show();
 							
 					} 
 					

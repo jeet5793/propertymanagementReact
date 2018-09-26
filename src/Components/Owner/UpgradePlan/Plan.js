@@ -24,6 +24,7 @@ class Plan extends React.Component{
     }
 
 	componentDidMount(){
+		$("#loaderDiv").show();
         // var search=window.location.search;
         // var type=search.replace('?Datatype=','')
         // var panelType='';
@@ -32,6 +33,7 @@ class Plan extends React.Component{
 	fetch(`${API_URL}assetsapi/plan_by_assetstype/${JSON.parse(this.state.userData).assetsTypeId}`)
         .then(response=>{
             response.json().then(plans=>{
+				$("#loaderDiv").hide();
                 this.setState({planData:plans.plan.Owner})
                 
 				
@@ -65,6 +67,7 @@ class Plan extends React.Component{
 	)}
 unsubscribe()
 	{
+		$("#loaderDiv").show();
 			 fetch(`${API_URL}assetsapi/unsubscribe_plan/${JSON.parse(this.state.userData).assets_id}/${JSON.parse(this.state.userData).assetsTypeId}/${JSON.parse(this.state.userData).session_id}`, {
 			method: 'get'
 		  })
@@ -72,10 +75,15 @@ unsubscribe()
 		  .then(
 			(result) => {
 			  //console.log("data 2: "+JSON.stringify(result.profile))
-			  if (result.success) {
-				swal("Assets Watch", result.msg);
-				window.location.reload();
-			  }else(swal("Assets Watch", result.msg)) 
+			  if (result) {
+				// swal("Assets Watch", result.msg);
+				// window.location.reload();
+				$("#loaderDiv").hide();
+				$("#actionType").val("Yes");
+				$("#hiddenURL").val("owner-plan");
+				$(".confirm-body").html(result.msg);
+				$("#BlockUIConfirm").show();
+			  }
 			  //console.log("set user data"+JSON.stringify(this.state.profileData))
 			},
 		  (error) => {

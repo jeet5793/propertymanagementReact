@@ -6,6 +6,7 @@ import img_not_available from '../../../images/img_not_available.png'
 import { connect } from 'react-redux';
 import Cookies from 'js-cookie';
 import swal from 'sweetalert';
+import $ from 'jquery';
 class ProfileDetails extends React.Component{
 	constructor(props){
     super(props);
@@ -56,30 +57,43 @@ class ProfileDetails extends React.Component{
 		console.log(this.state.ratingForm);
 	}
 	sendMessage(){
-		const opts = this.state.sendForm
-		fetch(`${API_URL}assetsapi/send_message`, {
-        method: 'post',
-		body:JSON.stringify(opts)
-      })
-    .then(res => res.json())
-    .then(
-      (result) => {
-        //console.log("data 2: "+JSON.stringify(result.profile))
-        if (result.success) {
-          //this.setState({sendForm:result.notification})
-			swal("Assets Watch", result.msg);
-			const m = document.getElementById('hidemodal');
-			m.style.display='none';
-          
-        } 
-        console.log("notification"+JSON.stringify(this.state.sendForm))
-      },
-		(error) => {
-		  console.log('error')
+		const opts = this.state.sendForm;
+		if(!opts.receiver && !opts.message){
+			return;
+		}else{
+			document.getElementById("msgFormCancel").click();
+			$("#loaderDiv").show();
+			fetch(`${API_URL}assetsapi/send_message`, {
+				method: 'post',
+				body:JSON.stringify(opts)
+			  })
+			.then(res => res.json())
+			.then(
+			  (result) => {
+				//console.log("data 2: "+JSON.stringify(result.profile))
+				if (result.success) {
+				  //this.setState({sendForm:result.notification})
+					// swal("Assets Watch", result.msg);
+					// const m = document.getElementById('hidemodal');
+					// m.style.display='none';
+						$("#loaderDiv").hide();
+					   
+					   $("#actionType").val("Yes");
+					   $("#hiddenURL").val("owner-agent-profile");
+					   $(".confirm-body").html(result.msg);
+					   $("#BlockUIConfirm").show();
+				  
+				} 
+				console.log("notification"+JSON.stringify(this.state.sendForm))
+			  },
+				(error) => {
+				  console.log('error')
+				}
+			)
 		}
-	)
 	}
     componentDidMount(){
+		$("#loaderDiv").show();
         // var $=window.$;
         // $('[data-toggle="tooltip"]').tooltip();  
 			//console.log(this.props.location.state.profileid)
@@ -91,6 +105,7 @@ class ProfileDetails extends React.Component{
       (result) => {
         //console.log("data 2: "+JSON.stringify(result.profile))
         if (result.success) {
+			$("#loaderDiv").hide();
           this.setState({profileData:result.profile})
           
         } 
@@ -140,26 +155,38 @@ class ProfileDetails extends React.Component{
 	}
 	sendRating(){
 		const opts = this.state.ratingForm
-		fetch(`${API_URL}assetsapi/rating`, {
-        method: 'post',
-		body:JSON.stringify(opts)
-      })
-    .then(res => res.json())
-    .then(
-      (result) => {
-        if (result.success) {
-			swal("Assets Watch", result.msg);
-			// const m = document.getElementById('add-review');
-			// m.style.display='none';
-			window.location.reload();
-          
-        } 
-        
-      },
-		(error) => {
-		  console.log('error')
+		if(!opts.rating && !opts.feedback){
+			return;
+		}else{
+			document.getElementById("ratingFormCancel").click();
+			$("#loaderDiv").show();
+			fetch(`${API_URL}assetsapi/rating`, {
+				method: 'post',
+				body:JSON.stringify(opts)
+			  })
+			.then(res => res.json())
+			.then(
+			  (result) => {
+				if (result.success) {
+					// swal("Assets Watch", result.msg);
+					// const m = document.getElementById('add-review');
+					// m.style.display='none';
+					// window.location.reload();
+					$("#loaderDiv").hide();
+					   
+					   $("#actionType").val("Yes");
+					   $("#hiddenURL").val("owner-agent-profile");
+					   $(".confirm-body").html(result.msg);
+					   $("#BlockUIConfirm").show();
+				  
+				} 
+				
+			  },
+				(error) => {
+				  console.log('error')
+				}
+			)
 		}
-	)
 	}
 	
     render(){
@@ -191,7 +218,7 @@ class ProfileDetails extends React.Component{
                     <h4 className="page-title">Agent Profile</h4>
                     </div>
                     {/* <!-- end page title end breadcrumb --> */}
-                   {this.state.profileData?
+                   
                     <div className="row">
                     <div className="col-md-12 col-lg-12 second-profiles-details">
                         <div className="card-box"> 
@@ -411,7 +438,7 @@ class ProfileDetails extends React.Component{
                         </div>
                     </div>
                     {/* <!-- end col --> */}
-				   </div>:<div className="container"  style={{marginTop:'10%',marginLeft:'50%'}}><img src="http://wordpress.templaza.net/real-estate/wp-content/themes/real-estate/images/loading_blue_64x64.gif"/></div>}
+				   </div>
                     {/* <!-- end row --> */}
                     
                 </div>
@@ -445,7 +472,7 @@ class ProfileDetails extends React.Component{
                         </div>
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                        <button type="button" id = "msgFormCancel" className="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
                         <button type="button" className="btn btn-success waves-effect waves-light" onClick={this.sendMessage}>Send</button>
                     </div>
                     </div>
@@ -495,7 +522,7 @@ class ProfileDetails extends React.Component{
 						</div>
 					  </div>
 					  <div className="modal-footer">
-						<button type="button" className="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+						<button type="button" id = "ratingFormCancel" className="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
 						<button type="button" className="btn btn-success waves-effect waves-light" onClick = {this.sendRating}>Send</button>
 					  </div>
 					</div>

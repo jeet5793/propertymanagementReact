@@ -6,6 +6,7 @@ import Cookies from 'js-cookie';
 import { connect } from 'react-redux';
 import swal from 'sweetalert';
 import img_not_available from '../../../images/img_not_available.png'
+import $ from 'jquery';
 class Property extends React.Component{
     constructor(props){
         super(props)
@@ -40,6 +41,7 @@ class Property extends React.Component{
 		// 	})
         // });
         // debugger;
+		$("#loaderDiv").show();
 		fetch(`${API_URL}assetsapi/property_by/${JSON.parse(this.state.userData).assets_id}/${JSON.parse(this.state.userData).session_id}`, {
 		  method: 'get'
 		})
@@ -50,6 +52,7 @@ class Property extends React.Component{
             this.setState({propertiesLoading:true})
             // debugger;
 			if (data.success) {
+				$("#loaderDiv").hide();
 			  this.setState({property:data.property,propertiesLoading:true})
 			  //console.log(this.state.statics);
 			} 

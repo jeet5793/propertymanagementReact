@@ -17,25 +17,31 @@ export default class ResetPassword extends React.Component{
 	  }
 	  this.resetPassword = this.resetPassword.bind(this)
 	  this.onChangeHandler = this.onChangeHandler.bind(this)
-	  
+	  this.checkExpired = this.checkExpired.bind(this)
   }
   componentDidMount(){
 	  this.checkExpired();
   }
    checkExpired = ()=>{
+	   $("#loaderDiv").show();
   fetch(`${API_URL}assetsapi/forget_pass_data/${window.location.search.substring(4)}`, {
 				  method: 'GET'
 				})
 				.then(res => res.json())
 				.then(
 				  (result) => {
-					
-					if (result.success) {
-					   swal("Assets watch",result.msg);
-							// this.props.history.replace(`/`);
-							this.setState({expired:result.data});
+					console.log('safd'+JSON.stringify(result));
+					if (result.success==0) {
+					   $("#loaderDiv").hide();
+					   
+					   $("#actionType").val("Yes");
+					   $("#hiddenURL").val("/");
+					   $(".confirm-body").html(result.msg);
+					   $("#SBlockUIConfirm").show();
 							
-					}				
+					}else if (result.success==1) {	
+					  $("#loaderDiv").hide();
+					}					
 					
 				  },
 				(error) => {
@@ -71,7 +77,7 @@ export default class ResetPassword extends React.Component{
 			alert("Confirm password is not matched.");
 		}else
 		{
-		
+			$("#loaderDiv").show();
 			fetch(`${API_URL}assetsapi/change_password`, {
 				  method: 'POST',
 				body: JSON.stringify(opts)
@@ -81,8 +87,14 @@ export default class ResetPassword extends React.Component{
 				  (result) => {
 					
 					if (result.success) {
-					   swal("Assets watch",result.msg);
-							this.props.history.replace(`/`);
+					   // swal("Assets watch",result.msg);
+							// this.props.history.replace(`/`);
+						$("#loaderDiv").hide();
+					   
+					   $("#actionType").val("Yes");
+					   $("#hiddenURL").val("/");
+					   $(".confirm-body").html(result.msg);
+					   $("#SBlockUIConfirm").show();
 							
 					}				
 					

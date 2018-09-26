@@ -77,28 +77,97 @@ export default class Agent extends React.Component{
 		 // console.log(this.state.bgForm);
 	 }
 	 onClickBGVFormSubmit(){
+		 
 		 var opts = Object.assign(this.props.profileData,this.state.bgForm);
-		 // console.log(opts);
-		 // $("#loaderDiv").show();
-		fetch(`${API_URL}assetsapi/background_verification`, {
-        method: 'post',        
-        body: JSON.stringify(opts)
-        }).then((response) => {
-          return response.json();
-        }).then((data) => {
-          //console.log('dataaaa:  ', data);
-          if(data.success===1)
-          {
-			   // $("#loaderDiv").hide();
-				swal("Assets Watch", data.msg);
-				 window.location.reload();
-					// window.location.href="/bgvpayment"
+		 console.log('opts'+JSON.stringify(opts))
+		 if(!opts.first_name)
+		 {
+			 alert('First Name should not be blank');
+			 return;
+		 }
+		 if(!opts.last_name)
+		 {
+			 alert('Last Name should not be blank');
+			 return;
+		 }
+		  if(!opts.DOB)
+		 {
+			 alert('D.O.B should not be blank');
+			 return;
+		 }
+		 
+		  if(!opts.address)
+		 {
+			 alert('Address should not be blank');
+			 return;
+		 }
+		  if(!opts.city)
+		 {
+			 alert('City should not be blank');
+			 return;
+		 }
+		  if(!opts.state)
+		 {
+			 alert('State should not be blank');
+			 return;
+		 }
+		  if(!opts.zip_code)
+		 {
+			 alert('Zip Code should not be blank');
+			 return;
+		 }
+		  if(!opts.mobile_no)
+		 {
+			 alert('Phone should not be blank');
+			 return;
+		 }
+		  if(!opts.email)
+		 {
+			 alert('Email should not be blank');
+			 return;
+		 }
+		 
+		  if(!opts.SSN_EIN)
+		 {
+			 alert('SSN should not be blank');
+			 return;
+		 }
+		  if(!opts.packageid)
+		 {
+			 alert('Package must be selected');
+			 return;
+		 }
+		
+			 // console.log(opts);
+			 document.getElementById("bgvFormCancel").click();
+				 $("#loaderDiv").show();
+				fetch(`${API_URL}assetsapi/background_verification`, {
+				method: 'post',        
+				body: JSON.stringify(opts)
+				}).then((response) => {
+				  return response.json();
+				}).then((data) => {
+				  //console.log('dataaaa:  ', data);
+				  if(data.success)
+				  {
+					    $("#loaderDiv").hide();
 						
-          }
-        
-        }).catch((error) => {
-          console.log('error: ', error);
-        });
+					   
+					   $("#actionType").val("Yes");
+					   $("#hiddenURL").val("owner-agent");
+					   $(".confirm-body").html(data.msg);
+					   $("#BlockUIConfirm").show();
+						// swal("Assets Watch", data.msg);
+						 // window.location.reload();
+							// window.location.href="/bgvpayment"
+								
+				  }
+				
+				}).catch((error) => {
+				  console.log('error: ', error);
+				});
+		 
+		 
       }
 	 
 	 componentDidMount(){
@@ -174,8 +243,8 @@ render(){
 							</div>
 							
 							<div className="col-md-4">
-							  <select className="form-control" name="gender" onChange={this.onChangeBGVHandler}>
-								  <option>{this.state.bgForm.gender || this.props.profileData.gender}</option>
+							  <select className="form-control" value={this.state.bgForm.gender || this.props.profileData.gender} name="gender" onChange={this.onChangeBGVHandler}>
+								  
 								  <option value="Male" >Male</option>
 								  <option value="Female" >Female</option>
 								</select>
@@ -188,7 +257,7 @@ render(){
 							  <label className="control-label">Address</label>
 							</div>
 							<div className="col-md-4">
-							  <input type="text" name="address" onChange = {this.onChangeBGVHandler} className="form-control"  />
+							  <input type="text" name="address" value={this.state.bgForm.gender} onChange = {this.onChangeBGVHandler} className="form-control"  />
 							</div>
 							<div className="col-md-2">
 							  <label className="control-label">City</label>
@@ -291,7 +360,7 @@ render(){
 					</div>
 				  </div>
 				  <div className="modal-footer">
-					<button type="button" className="btn btn-secondary waves-effect" onClick={this.hideModel} data-dismiss="modal">Close</button>
+					<button type="button" id = "bgvFormCancel"  className="btn btn-secondary waves-effect" onClick={this.hideModel} data-dismiss="modal">Close</button>
 					<button type="button" className="btn btn-success waves-effect waves-light" onClick={this.onClickBGVFormSubmit}>Submit</button>
 				  </div>
 				</div>

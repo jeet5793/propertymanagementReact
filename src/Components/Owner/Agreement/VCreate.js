@@ -156,11 +156,13 @@ createAgreement(){
   agreementForm.agreement_title=	$('input[name="agreement_title"]').val()
 	agreementForm.header_content=	  $('input[name="headerContent"]').val();
 	agreementForm.footer_content=	  $('textArea[name="footerContent"]').val();
-	
+	console.log('agreementForm'+JSON.stringify(agreementForm))
   if(agreementForm.agreement_title!==''&&agreementForm.agreement_doc_content!==''&&
     agreementForm.header_content!==''&&agreementForm.footer_content!==''&&
     agreementForm.header_image!==''&&agreementForm.watermark_image!=='')
   {
+	 
+	  $("#loaderDiv").show();
     fetch(`${API_URL}assetsapi/add_agreement/`, {
       method: "post",
       body: JSON.stringify(agreementForm)
@@ -171,11 +173,14 @@ createAgreement(){
       .then((data) => {
         //debugger;
         //console.log('dataaaa:  ', data);
-        if(data.success==1){
+        if(data.success){
           // var userid = data.user.assets_id
           // localStorage.setItem('userid',userid)
-		  swal("Assets Watch", data.msg);
-          window.location.reload()
+		  $("#loaderDiv").hide();
+			$("#actionType").val("Yes");
+					   $("#hiddenURL").val("agreement");
+					   $(".confirm-body").html(data.msg);
+					   $("#BlockUIConfirm").show();
         }
       //   if(data.msg.indexOf("Registered Successfully")!=-1)
       //   {
@@ -208,7 +213,7 @@ editAgreement(){
   //alert(JSON.stringify(agreementForm))
   if(agreementForm.agreement_title!==''&&agreementForm.agreement_doc_content!=='')
   {
-
+	$("#loaderDiv").show();
     fetch(`${API_URL}assetsapi/edit_agreement/`, {
       method: "post",
       body: JSON.stringify(agreementForm)
@@ -216,16 +221,21 @@ editAgreement(){
     .then((response) => {
       return response.json()
   }).then((data) => {
-    console.log('EDDDDDIT'+JSON.stringify(data));
-        alert(data)
+    // console.log('EDDDDDIT'+JSON.stringify(data));
+        // alert(data)
         if(data){
-		  swal("Assets Watch", data.msg);
-         window.location.reload()
+		  // swal("Assets Watch", data.msg);
+         // window.location.reload()
+		 $("#loaderDiv").hide();
+			$("#actionType").val("Yes");
+					   $("#hiddenURL").val("agreement");
+					   $(".confirm-body").html(data.msg);
+					   $("#BlockUIConfirm").show();
         }
       }
     ).catch((error) => {
-      swal("Assets Watch", "Agreement Edited Successfully");
-      window.location.reload()
+      // swal("Assets Watch", "Agreement Edited Successfully");
+      // window.location.reload()
       });
   }
   else{

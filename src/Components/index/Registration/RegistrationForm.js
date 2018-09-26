@@ -145,6 +145,7 @@ export default class RegistrationForm extends React.Component {
       alert("Confirm password is not matched.");
     } else if (this.state.Registeration.assets_type) {
       //{'email':'testnow1@yopmail.com','password':'test123'}
+	  $("#loaderDiv").show();
       fetch(`${API_URL}assetsapi/register/`, {
         method: "post",
         body: JSON.stringify(opts)
@@ -160,6 +161,7 @@ export default class RegistrationForm extends React.Component {
           }
           if(data.msg.indexOf("Registered Successfully")!=-1)
           {
+			  $("#loaderDiv").hide();
             let userType = 'owner';
             if (this.state.RegType==='2') {
               userType = 'agent'

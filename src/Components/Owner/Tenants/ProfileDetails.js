@@ -5,6 +5,7 @@ import API_URL from "../../../app-config";
 import img_not_available from '../../../images/img_not_available.png'
 import { connect } from 'react-redux';
 import Cookies from 'js-cookie';
+import $ from 'jquery';
 class ProfileDetails extends React.Component{
 	constructor(props){
     super(props);
@@ -33,30 +34,43 @@ class ProfileDetails extends React.Component{
 		console.log(this.state.sendForm);
 	}
 	sendMessage(){
-		const opts = this.state.sendForm
-		fetch(`${API_URL}assetsapi/send_message`, {
-        method: 'post',
-		body:JSON.stringify(opts)
-      })
-    .then(res => res.json())
-    .then(
-      (result) => {
-        //console.log("data 2: "+JSON.stringify(result.profile))
-        if (result.success) {
-          //this.setState({sendForm:result.notification})
-			alert(result.msg)
-			const m = document.getElementById('hidemodal');
-			m.style.display='none';
-          
-        } 
-        console.log("notification"+JSON.stringify(this.state.sendForm))
-      },
-		(error) => {
-		  console.log('error')
+		const opts = this.state.sendForm;
+		if(!opts.receiver && !opts.message){
+			return;
+		}else{
+			document.getElementById("msgFormCancel").click();
+			$("#loaderDiv").show();
+			fetch(`${API_URL}assetsapi/send_message`, {
+				method: 'post',
+				body:JSON.stringify(opts)
+			  })
+			.then(res => res.json())
+			.then(
+			  (result) => {
+				//console.log("data 2: "+JSON.stringify(result.profile))
+				if (result.success) {
+				  //this.setState({sendForm:result.notification})
+					// swal("Assets Watch", result.msg);
+					// const m = document.getElementById('hidemodal');
+					// m.style.display='none';
+						$("#loaderDiv").hide();
+					   
+					   $("#actionType").val("Yes");
+					   $("#hiddenURL").val("profile-details");
+					   $(".confirm-body").html(result.msg);
+					   $("#BlockUIConfirm").show();
+				  
+				} 
+				console.log("notification"+JSON.stringify(this.state.sendForm))
+			  },
+				(error) => {
+				  console.log('error')
+				}
+			)
 		}
-	)
 	}
     componentDidMount(){
+		$("#loaderDiv").show();
         // var $=window.$;
         // $('[data-toggle="tooltip"]').tooltip();  
 			//console.log(this.props.location.state.profileid)
@@ -68,6 +82,7 @@ class ProfileDetails extends React.Component{
       (result) => {
         //console.log("data 2: "+JSON.stringify(result.profile))
         if (result.success) {
+			$("#loaderDiv").hide();
           this.setState({profileData:result.profile})
           
         } 
@@ -204,7 +219,7 @@ class ProfileDetails extends React.Component{
                         </div>
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                        <button type="button" id = "msgFormCancel" className="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
                         <button type="button" className="btn btn-success waves-effect waves-light" onClick={this.sendMessage}>Send</button>
                     </div>
                     </div>

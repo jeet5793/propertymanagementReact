@@ -16,10 +16,11 @@ export default class Blog extends React.Component {
 		setTimeout(function () { $('#tzloadding').remove(); }, 800);
 		document.body.scrollTop = 0;
 		document.documentElement.scrollTop = 0;
-
+$("#loaderDiv").show();
 		fetch(`${API_URL}assetsapi/blog/`)
 			.then((response) => {
 				response.json().then((data) => {
+					$("#loaderDiv").hide();
 					this.setState({ blog: data.blog });
 				})
 			});

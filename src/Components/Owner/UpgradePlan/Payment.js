@@ -127,9 +127,12 @@ class Payment extends React.Component {
     "notifypayee": null,
     "profile": null,
     "profileid": null,
-    "orderid":this.state.userDetails.orderid
+    "orderid":this.state.userDetails.orderid,
+	"plan_id":this.state.userDetails.plan_id,
+	"plan_type":this.state.userDetails.plan_month_year
   }
-  console.log(payment_Object);
+  $("#loaderDiv").show();
+  // console.log(payment_Object);
     fetch(`${API_URL}assetsapi/upgpaymentgateway`,{
       method: 'post',
       //headers: {'Content-Type':'application/json'},
@@ -145,13 +148,18 @@ class Payment extends React.Component {
                   // userDetails:result.user_detail
                 // })
 			  //}
-			   if(result.msg.indexOf("Plan Upgraded Successfully")!=-1)
+			   /* if(result.msg.indexOf("Plan Upgraded Successfully")!=-1)
 			   {
 				   //window.location.href='https://'+window.location.hostname+':'+window.location.port+'/';
 				   swal("Assets Watch", result.msg);
 				   	this.props.history.replace('/owner-plan');
-			   }
-				
+			   } */
+				$("#loaderDiv").hide();
+					   
+					   $("#actionType").val("Yes");
+					   $("#hiddenURL").val("owner-plan");
+					   $(".confirm-body").html(result.msg);
+					   $("#BlockUIConfirm").show();
              
               //this.props.updateInfo(result.profile);
             },
