@@ -68,10 +68,10 @@ class EditProperty extends React.Component {
   }
 
   componentWillMount(){
-    console.log("receeeeeived123456..."+ JSON.parse(this.state.propertyInfo))
+    // console.log("receeeeeived123456..."+ JSON.parse(this.state.propertyInfo))
     if(this.state.propertyInfo){
           const propertyDetails=JSON.parse(this.state.propertyInfo)
-          console.log("receeeeeived123456..."+ JSON.stringify(propertyDetails))
+          // console.log("receeeeeived123456..."+ JSON.stringify(propertyDetails))
           this.setState({
             formData:{property_id:propertyDetails.id,title:propertyDetails.title,address:propertyDetails.address,address2:propertyDetails.address2,country:propertyDetails.country,state:propertyDetails.state,city:propertyDetails.city,zip_code:propertyDetails.zip_code,property_type:propertyDetails.property_type,property_status:propertyDetails.property_status,geo_location:propertyDetails.geo_location,square_feet:propertyDetails.square_feet,description:propertyDetails.description,bedroom:propertyDetails.bedroom,bathroom:propertyDetails.bathroom,total_amount:propertyDetails.total_amount,advance:propertyDetails.advance,advance:propertyDetails.advance},images:propertyDetails.img_path,shareholders:propertyDetails.owner_details
           },()=>{
@@ -104,7 +104,7 @@ class EditProperty extends React.Component {
         zip_code: ""
       }])
     }, () => {
-      console.log("shareholdersList" + JSON.stringify(this.state.shareholders))
+      // console.log("shareholdersList" + JSON.stringify(this.state.shareholders))
     });
   }
 
@@ -236,7 +236,7 @@ class EditProperty extends React.Component {
     }, { 'Content-type': 'multipart/form-data' }).then((response) => {
       return response.json();
     }).then((data) => {
-      console.log("responseeeee" + JSON.stringify(data));
+      // console.log("responseeeee" + JSON.stringify(data));
       if (data) {
 		$("#loaderDiv").hide();
 					   
@@ -255,7 +255,7 @@ class EditProperty extends React.Component {
       var reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
-        console.log("base64base64" + reader.result);
+        // console.log("base64base64" + reader.result);
         const fileAsBinaryString = reader.result;
         this.state.images.push(fileAsBinaryString)
         this.setState({ files: [file, ...this.state.files], images: this.state.images }, () => {
@@ -278,7 +278,7 @@ class EditProperty extends React.Component {
 
   render() {
     const editPropertyInfo=this.state.formData
-    // console.log("renderrrr..."+JSON.stringify(this.state.images[0].img_path))
+     // console.log("renderrrr..."+JSON.stringify(editPropertyInfo));
     const contries = this.state.countries
     var coptions = contries.map(function (item) {
       var selectValue = 'India'
@@ -472,9 +472,9 @@ class EditProperty extends React.Component {
                         </div>
                       </div>
                       <div className="form-group row">
-                        <label value={editPropertyInfo.bedroom} className="col-2 col-form-label">Bedrooms</label>
+                        <label  className="col-2 col-form-label">Bedrooms</label>
                         <div className="col-4">
-                          <input type="text" name="bedroom" onChange={this.onChangeHandler} className="form-control" />
+                          <input type="text" value={editPropertyInfo.bedroom} name="bedroom" onChange={this.onChangeHandler} className="form-control" />
                         </div>
                         <label className="col-2 col-form-label">Bathrooms</label>
                         <div className="col-4">
@@ -513,25 +513,25 @@ class EditProperty extends React.Component {
                                 style={{ borderStyle: 'none' }}
                                 onDrop={this.onDrop}
                               />
-                              <ul class="jFiler-items-list jFiler-items-grid">
+                              <ul className="jFiler-items-list jFiler-items-grid">
                                 {
                                   this.state.images && this.state.images.length > 0 ? this.state.images.map((image,key) => (
-                                    <li class="jFiler-item">
-                                      <div class="jFiler-item-container">
-                                        <div class="jFiler-item-inner">
-                                          <div class="jFiler-item-thumb">
-                                            <div class="jFiler-item-status"></div>
-                                            <div class="jFiler-item-info">
-                                              <span class="jFiler-item-title"><b title="{{file.name}}"></b></span>
-                                              <span class="jFiler-item-others"></span>
+                                    <li className="jFiler-item">
+                                      <div className="jFiler-item-container">
+                                        <div className="jFiler-item-inner">
+                                          <div className="jFiler-item-thumb">
+                                            <div className="jFiler-item-status"></div>
+                                            <div className="jFiler-item-info">
+                                              <span className="jFiler-item-title"><b title="{{file.name}}"></b></span>
+                                              <span className="jFiler-item-others"></span>
                                             </div>
                                             <img src={API_URL+image.img_path} />
                                           </div>
-                                          <div class="jFiler-item-assets jFiler-row">
+                                          <div className="jFiler-item-assets jFiler-row">
                                             {/*<ul class="list-inline pull-left">*/}
                                             {/*<li>fi-progressBar</li>*/}
                                             {/*</ul>*/}
-                                            <ul class="list-inline pull-right">
+                                            <ul className="list-inline pull-right">
                                               <li><a onClick={() => this.removeImage(image)} className="icon-jfi-trash jFiler-item-trash-action"></a>
                                               </li>
                                             </ul>

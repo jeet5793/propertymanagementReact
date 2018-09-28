@@ -1,7 +1,7 @@
 import React from 'react'
 import API_URL from "../../../app-config";
 import swal from 'sweetalert';
-
+import $ from 'jquery';
 export default class SendEmail extends React.Component{
 	constructor(props){
 		super(props);
@@ -23,7 +23,12 @@ export default class SendEmail extends React.Component{
 	sendEmailToNonUser()
 	{
 		const opts = this.state;
-		console.log(opts);
+		// console.log(opts);
+		if(!opts.email){
+			return;
+		}else{	
+		document.getElementById("msgFormCancel").click();
+			$("#loaderDiv").show();
 		fetch(`${API_URL}assetsapi/send_emailto_non_register`, {
 			  method: 'post',
 			  body:JSON.stringify(opts)
@@ -31,15 +36,20 @@ export default class SendEmail extends React.Component{
 			.then(res => res.json())
 			.then(
 			  (result) => {
-				if (result.success) {
-					swal("Assets Watch", result.msg);
-					window.location.reload();
+				   
+				if (result) {
+					$("#actionType").val("Yes");
+				    $("#hiddenURL").val("tenant-owner");
+					   $(".confirm-body").html(result.msg);
+					   $("#BlockUIConfirm").show();
+					  
 				} 
 			  },
 			(error) => {
 			  console.log('error')
 			}
-		  )    
+		  )
+		}		 
 	}
 	render(){
 		return(
@@ -62,7 +72,7 @@ export default class SendEmail extends React.Component{
                         </div>
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary waves-effect" data-dismiss="modal" onClick={this.hideModel}>Close</button>
+                        <button type="button" id = "msgFormCancel" className="btn btn-secondary waves-effect" data-dismiss="modal" onClick={this.hideModel}>Close</button>
                         <button type="button" className="btn btn-success waves-effect waves-light" onClick={this.sendEmailToNonUser}>Send</button>
                     </div>
                     </div>

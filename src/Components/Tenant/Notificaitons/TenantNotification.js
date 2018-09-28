@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import API_URL from '../../../app-config'
 import Cookies from 'js-cookie';
 import swal from 'sweetalert';
+import $ from 'jquery';
 class TenantNotification extends React.Component {
    constructor(props){
 		super(props)
@@ -66,27 +67,43 @@ class TenantNotification extends React.Component {
 	}
 	onClickHandle(){
 		const opts = this.state.notiFormField;
-		fetch(`${API_URL}assetsapi/send_notification/`, {
-        method: 'post',          
-        body: JSON.stringify(opts)
-        }).then((response) => {
-          return response.json();
-        }).then((data) => {
-          console.log('dataaaa:  ', data);
-          if(data.msg.indexOf("Notification send successfully")!=-1)
-          {
-            swal("Assets Watch", data.msg);
-				
-            //document.getElementsById("hidemodal").style.display = "none";
-			const m = document.getElementById('hidemoda');
-			m.style.display='none';
-			window.location.reload();
-			//alert(m);
-          }
-        else alert(data.msg)
-        }).catch((error) => {
-          console.log('error: ', error);
-        });
+		if (!opts.sender) {
+		  alert("User Name should not be blank");
+		  return;
+		}
+		if (opts.sender!==''){
+			document.getElementById("notifyFormCancel").click();
+			$("#loaderDiv").show();
+			
+			fetch(`${API_URL}assetsapi/send_notification/`, {
+			method: 'post',          
+			body: JSON.stringify(opts)
+			}).then((response) => {
+			  return response.json();
+			}).then((data) => {
+			  console.log('dataaaa:  ', data);
+			  if(data)
+			  {
+					$("#loaderDiv").hide();
+					   
+					   $("#actionType").val("Yes");
+					   $("#hiddenURL").val("tenant-notifications");
+					   $(".confirm-body").html(data.msg);
+					   $("#BlockUIConfirm").show();
+					   
+				/* swal("Assets Watch", data.msg);
+					
+				//document.getElementsById("hidemodal").style.display = "none";
+				const m = document.getElementById('hidemoda');
+				m.style.display='none';
+				window.location.reload(); */
+				//alert(m);
+			  }
+			
+			}).catch((error) => {
+			  console.log('error: ', error);
+			});
+		}
 	}
 	
     componentDidMount(){
@@ -95,14 +112,16 @@ class TenantNotification extends React.Component {
     }
 	
 	getNotification(){
+		$("#loaderDiv").show();
 		fetch(`${API_URL}assetsapi/notification/${JSON.parse(this.state.userData).assets_id}/${JSON.parse(this.state.userData).session_id}/`, {
 			  method: 'get',
 			})
 			.then(res => res.json())
 			.then(
 			  (result) => {
-				
+				$("#loaderDiv").hide();
 				if (result.success) {
+					
 				   this.setState({notification:result.notification});
 
 				} 
@@ -111,7 +130,7 @@ class TenantNotification extends React.Component {
 			(error) => {
 			  console.log('error')
 			}
-		  )       
+		  )   
 	}
 	// getDropdowns(){
 		// fetch(`${API_URL}assetsapi/userSearch/`+notify_id+`/${JSON.parse(this.state.userData).session_id}/`, {
@@ -131,21 +150,29 @@ class TenantNotification extends React.Component {
 		  // )       
 	// }
 	functDelete(notify_id){
+		$("#loaderDiv").show();
 		fetch(`${API_URL}assetsapi/delete_notification/`+notify_id+`/${JSON.parse(this.state.userData).session_id}/`, {
 			  method: 'get',
 			})
 			.then(res => res.json())
 			.then(
 			  (result) => {
-				 if(result.msg.indexOf("Notification deleted successfully")!=-1){
-				   alert(result.msg);
-					 window.location.reload();
+				   $("#loaderDiv").hide();
+				 if(result){
+				   
+				  
+				   
+				   $("#actionType").val("Yes");
+				   $("#hiddenURL").val("tenant-notifications");
+				   $(".confirm-body").html(result.msg);
+				   $("#BlockUIConfirm").show();
+				   
 				} 
 			  },
 			(error) => {
 			  console.log('error')
 			}
-		  )       
+		  )           
 	}
 	
     render(){

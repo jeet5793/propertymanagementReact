@@ -5,6 +5,7 @@ import API_URL from "../../../app-config";
 import img_not_available from '../../../images/img_not_available.png'
 import { connect } from 'react-redux';
 import Cookies from 'js-cookie';
+import $ from 'jquery';
 class ProfileDetails extends React.Component{
 	constructor(props){
     super(props);
@@ -33,30 +34,43 @@ class ProfileDetails extends React.Component{
 		console.log(this.state.sendForm);
 	}
 	sendMessage(){
-		const opts = this.state.sendForm
-		fetch(`${API_URL}assetsapi/send_message`, {
-        method: 'post',
-		body:JSON.stringify(opts)
-      })
-    .then(res => res.json())
-    .then(
-      (result) => {
-        //console.log("data 2: "+JSON.stringify(result.profile))
-        if (result.success) {
-          //this.setState({sendForm:result.notification})
-			alert(result.msg)
-			const m = document.getElementById('hidemodal');
-			m.style.display='none';
-          
-        } 
-        console.log("notification"+JSON.stringify(this.state.sendForm))
-      },
-		(error) => {
-		  console.log('error')
+		const opts = this.state.sendForm;
+		if(!opts.receiver && !opts.message){
+			return;
+		}else{
+			document.getElementById("msgFormCancel").click();
+			$("#loaderDiv").show();
+			fetch(`${API_URL}assetsapi/send_message`, {
+				method: 'post',
+				body:JSON.stringify(opts)
+			  })
+			.then(res => res.json())
+			.then(
+			  (result) => {
+				//console.log("data 2: "+JSON.stringify(result.profile))
+				if (result) {
+				  //this.setState({sendForm:result.notification})
+					// swal("Assets Watch", result.msg);
+					// const m = document.getElementById('hidemodal');
+					// m.style.display='none';
+						$("#loaderDiv").hide();
+					   
+					   $("#actionType").val("Yes");
+					   $("#hiddenURL").val("tenant-owner-profile");
+					   $(".confirm-body").html(result.msg);
+					   $("#BlockUIConfirm").show();
+				  
+				} 
+				console.log("notification"+JSON.stringify(this.state.sendForm))
+			  },
+				(error) => {
+				  console.log('error')
+				}
+			)
 		}
-	)
 	}
     componentDidMount(){
+		$("#loaderDiv").show();
         // var $=window.$;
         // $('[data-toggle="tooltip"]').tooltip();  
 			//console.log(this.props.location.state.profileid)
@@ -66,6 +80,7 @@ class ProfileDetails extends React.Component{
     .then(res => res.json())
     .then(
       (result) => {
+		  $("#loaderDiv").hide();
         //console.log("data 2: "+JSON.stringify(result.profile))
         if (result.success) {
           this.setState({profileData:result.profile})
@@ -112,7 +127,7 @@ class ProfileDetails extends React.Component{
                     <div className="page-title-box">
                     <div className="btn-group pull-right">
                         <ol className="breadcrumb hide-phone p-0 m-0">
-                        <li><a href="tenant.html" className="btn waves-light waves-effect w-md btn-custom"><i className="fi-reply"></i>&nbsp;&nbsp;Back</a></li>
+                        <li><a href="tenant-owner" className="btn waves-light waves-effect w-md btn-custom"><i className="fi-reply"></i>&nbsp;&nbsp;Back</a></li>
                         </ol>
                     </div>
                     <h4 className="page-title">Owner Profile</h4>

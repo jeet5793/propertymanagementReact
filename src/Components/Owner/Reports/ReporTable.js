@@ -4,16 +4,21 @@ import './style.css'
 import {loadFile,removejscssfile} from '../../js/external'
 import API_URL from '../../../app-config';
 import Cookies from 'js-cookie';
-
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+ 
+import 'react-datepicker/dist/react-datepicker.css';
 const TableReprt=(props)=>{
     // debugger;
     var expens=0;
    for(var i=0;i<props.report.length;i++){
        expens=Number(expens)+Number(props.report[i].transactionamount)
    }
+   console.log(props);
     return(
-        <div class=" table-responsive">
-                    <table id="" class="table">
+        <div className=" table-responsive">
+		{props.formType==='?property'?
+                    <table id="" className="table">
                       <thead>
                         <tr>
 						<th>Sl.No</th>
@@ -26,8 +31,8 @@ const TableReprt=(props)=>{
 					{ props.report?
                       <tbody>
 						{props.report.map(element=><tr>
-						  <td>01</td>
-                          <td class="tbl-text-overflow">{element.title}</td>
+						  <td></td>
+                          <td className="tbl-text-overflow">{element.title}</td>
                           <td>{element.transactiondate}</td>
                           <td></td>
                           <td>{element.transactionamount} </td>
@@ -35,13 +40,44 @@ const TableReprt=(props)=>{
 					</tbody>:'No Contact Available'}
 						<tfoot>
 						<tr>
-							<td colspan="3" class="text-right"><b>Total :</b></td>
-							<td><b>566</b></td>
+							<td colspan="3" className="text-right"><b>Total :</b></td>
+							<td><b></b></td>
 							<td><b>{expens}</b></td>
 							</tr>
 						</tfoot>
                     </table>
-                  </div>
+		:''}
+		{(props.formType==='?Transaction')?
+					<table id="" className="table">
+                      <thead>
+                        <tr>
+						<th>Sl.No</th>
+                          <th>Transaction For</th>
+                          <th>Date</th>
+                          <th>Transaction Amount</th>
+                          <th>Invoice Number</th>
+                        </tr>
+                      </thead>
+					{ props.report?
+                      <tbody>
+						{props.report.map((element,index)=><tr>
+						  <td>{index + 1}</td>
+                          <td className="tbl-text-overflow">{element.trans_for}</td>
+                          <td>{element.transactiondate}</td>
+                          
+                          <td>{element.transactionamount} </td>
+						  <td><button className="btn-success" onClick={props.incoiceDownload.bind(this,element.invoice_number)}>{element.invoice_number}</button></td>
+                        </tr>)}
+					</tbody>: <tbody><td colSpan={5}>'No transaction Available'</td> </tbody>}
+						<tfoot>
+						<tr>
+							<td colspan="3" className="text-right"><b>Total :</b></td>
+							<td><b>{expens}</b></td>
+							<td><b></b></td>
+							</tr>
+						</tfoot>
+                    </table>:''}
+				</div>
     );
 }
 const FilterCriteria=(props)=>{
@@ -50,58 +86,63 @@ const FilterCriteria=(props)=>{
     // if(window.location.search=='?property')
     // flag=true;
     return(
-        <div class="row">
-              <div class="col-md-1">
-                <label><b>Filter By:</b></label>
-              </div>
-          <div class="col-md-3">
-                <select name="prop_name" class="form-control" id="paymentmode" onChange={props.change}>
-                  <option>All</option>
-                  {props.property.map(element=>(
-                      <option value={element.id}>{element.title}</option>
-                  ))}
-                </select>
-              </div>
-				<div class="col-md-1">
+        <div className="row">
+		 
+		 {props.formType==='?property'?
+				  <div className="col-md-1">
+					<label><b>Filter By:</b></label>
+				  </div>:''}
+				 {props.formType==='?property'?
+				  <div className="col-md-3">
+					<select name="property_id" className="form-control" id="paymentmode" onChange={props.change}>
+					  <option>All</option>
+					  {props.property.map(element=>(
+						  <option value={element.id}>{element.title}</option>
+					  ))}
+					</select>
+				  </div>
+			  :''}
+				<div className="col-md-1">
                 <label><b>Date:</b></label>
               </div>
-              <div class="col-md-2" id="">
-			  <input type="text" name="from_date" onChange={props.change} class="form-control test datepicker-autoclose" placeholder="From Date" /> 
+              <div className="col-md-2" id="">
+			  
 				
-				{/* <DatePicker id="fromDate" name="from_date" className="form-control" placeholder="From Date"
-								dateFormat="DD-MM-YYYY"
-
-									onChange={props.change}
-				/> */}
+				<DatePicker
+					name='from_date'
+					dateFormat="DD-MM-YYYY"
+					selected={props.startDate}
+					onChange={props.handleStChange}
+				/>
               </div>
-              <div class="col-md-2" id="">
-			  <input type="text" name="to_date" onChange={props.change} class="form-control test datepicker-autoclose" placeholder="To Date"  id="" /> 
-				
-				{/* <DatePicker id="dobdate" name="to_date" className="form-control" placeholder="To Date"
-								dateFormat="DD-MM-YYYY"
-									onChange={props.change}
-								/>*/}
+              <div className="col-md-2" id="">
+			  <DatePicker
+					name='to_date'
+					dateFormat="DD-MM-YYYY"
+					selected={props.endDate}
+					onChange={props.handleEdChange}
+				/>
               </div>
-              <div class="col-md-1">
-                <button type="button" onClick={props.submit} class="btn btn-icon waves-effect waves-light btn-success"> Go </button>
+              <div className="col-md-1">
+                <button type="button" onClick={props.submit} className="btn btn-icon waves-effect waves-light btn-success"> Go </button>
               </div>
-				<div class="col-md-2 text-right">
-				{/*  <button type="button" class="btn btn-icon waves-effect waves-light btn-success"><i class="fi-download "></i> Download </button> */}
+				<div className="col-md-2 text-right">
+				{/*  <button type="button" className="btn btn-icon waves-effect waves-light btn-success"><i className="fi-download "></i> Download </button> */}
               </div>
             </div>
     );
 }
-const ReportTableHeader=()=>{
+const ReportTableHeader=(props)=>{
     return(
-        <div class="page-title-box">
-                <div class="btn-group pull-right">
-            <ol class="breadcrumb hide-phone p-0 m-0">
-                <li><a href="owner-report" class="btn btn-custom waves-light waves-effect w-md">
-                    <i class="fi-outbox"></i>&nbsp;&nbsp;Back</a>
+        <div className="page-title-box">
+                <div className="btn-group pull-right">
+            <ol className="breadcrumb hide-phone p-0 m-0">
+                <li><a href="owner-report" className="btn btn-custom waves-light waves-effect w-md">
+                    <i className="fi-outbox"></i>&nbsp;&nbsp;Back</a>
                 </li>
             </ol>
             </div>
-            <h4 class="page-title">Property Report</h4>
+            <h4 className="page-title"> {props.formType==='?property'?"Property Report":(props.formType==='?Transaction')?"Transaction Report":''} </h4>
             </div>
     );
 }
@@ -133,20 +174,27 @@ export default class ReportTable extends React.Component{
                 // from_date:"",
                 // to_date:""                
             // },
-            reports:{report:[{"title":"","transactiondate":"","transactionamount":""}]},
-            formType:''
+            reports:[],
+            formType:'',
+			startDate: moment(),
+			endDate: moment()
             }
+			 this.handleChange = this.handleChange.bind(this);
+			 this.handleEdChange =this.handleEdChange.bind(this);
             this.onChangeHandler=this.onChangeHandler.bind(this)
-            this.submit=this.submit.bind(this)
+            this.submit=this.submit.bind(this);
+			this.incoiceDownload = this.incoiceDownload.bind(this)
     }
     submit(){
 		
         // debugger;
-        var formData={}
-        if(this.state.formType=='?property')
-        formData=this.state.createForm
-        else
-        formData=this.state.createForm
+		
+        var formData=this.state.createForm;
+		 formData.user_id = JSON.parse(this.state.userData).assets_id;
+		 formData.session_id = JSON.parse(this.state.userData).session_id;
+		  formData.from_date = this.state.startDate;
+		 formData.to_date = this.state.endDate;
+        
         if(this.state.formType==='?property'){
         fetch(`${API_URL}assetsapi/property_report`,{
             method:'post',
@@ -160,6 +208,7 @@ export default class ReportTable extends React.Component{
             }
         })}        
         else if(this.state.formType==='?Transaction'){
+			console.log('Transaction'+JSON.stringify(formData))
             fetch(`${API_URL}assetsapi/transaction_report`,{
                 method:'post',
                 body: JSON.stringify(formData)
@@ -240,6 +289,7 @@ export default class ReportTable extends React.Component{
 	  )
     }
     onChangeHandler(e){
+		// var temp = e.target.name+"::"+e.target.value;
         var ReportTable={}
         // if(this.state.formType=='?property')
         // ReportTable=this.state.createForm
@@ -248,7 +298,7 @@ export default class ReportTable extends React.Component{
         // debugger;
         //   const ReportTable=this.state.createForm
           var tmp=e.value;
-          if(e.target.name==="prop_name")
+          if(e.target.name==="property_id")
           {
             // agreementForm.agreement_title=e.target.value;
             // alert(e.target.value)
@@ -259,7 +309,7 @@ export default class ReportTable extends React.Component{
                 // ReportTable.property_id=element.id
             // })
             // ReportTable.property_id=e.target.value
-			ReportTable.prop_name=e.target.value
+			ReportTable.property_id=e.target.value
           }
           else if(e.target.name==="from_date")
           {
@@ -279,9 +329,22 @@ export default class ReportTable extends React.Component{
           // this.setState({createForm1:ReportTable})
 	  console.log(this.state.createForm);
       }
+	  handleChange(date) {
+    this.setState({
+      startDate: date
+    });
+	  }
+	  handleEdChange(date){
+	this.setState({
+      endDate: date
+    });
+  }
+  incoiceDownload(invoiceNumber){
+	 window.open(`${API_URL}assetsapi/download_trans_invoice_report/`+invoiceNumber,'_self');
+  }
     render(){
         // debugger;
-        const report=this.state.reports
+        const Report=this.state.reports
         return(
 
 <div>
@@ -289,14 +352,14 @@ export default class ReportTable extends React.Component{
     name="report" 
     first_name={window.localStorage.getItem('firstName')} 
     last_name={window.localStorage.getItem('firstName')} />
-    <div class="wrapper" style={{marginTop:'5%'}}>
-        <div class="container agentdis">
-            <ReportTableHeader />
-            <div class="card-box">
-                <div class="form-group search-sec">
-                    <FilterCriteria property={this.state.property} submit={this.submit} change={this.onChangeHandler} />
+    <div className="wrapper" style={{marginTop:'5%'}}>
+        <div className="container agentdis">
+            <ReportTableHeader formType = {this.state.formType}/>
+            <div className="card-box">
+                <div className="form-group search-sec">
+                    <FilterCriteria property={this.state.property} submit={this.submit} formType = {this.state.formType} change={this.onChangeHandler} startDate = {this.state.startDate} endDate = {this.state.endDate} handleStChange={this.handleChange} handleEdChange={this.handleEdChange}/>
                 </div>
-                <TableReprt report={report.report} />
+                <TableReprt report={Report}  incoiceDownload = {this.incoiceDownload} formType = {this.state.formType}/>
             </div>
         </div>
     </div>

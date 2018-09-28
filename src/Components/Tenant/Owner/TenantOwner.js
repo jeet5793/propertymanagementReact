@@ -792,7 +792,7 @@ class TenantOwner extends React.Component {
         </div>
       </div>
       <div className="modal-footer">
-        <button type="button" className="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+        <button type="button" id="notifyFormCancel" className="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
         <button type="submit" className="btn btn-success waves-effect waves-light" onClick={this.sendRequest}>Send</button>
             </div>
         </div>
@@ -825,7 +825,7 @@ class TenantOwner extends React.Component {
                         </div>
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                        <button type="button" id="msgFormCancel" className="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
                         <button type="button" className="btn btn-success waves-effect waves-light" onClick={this.sendMessage}>Send</button>
                     </div>
                     </div>

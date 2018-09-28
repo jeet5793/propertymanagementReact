@@ -805,8 +805,8 @@ constructor(props) {
 						</div>
 					  </div>
 					  <div className="modal-footer">
-						<button type="button" className="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
-						<button type="submit" id="notifyFormCancel" className="btn btn-success waves-effect waves-light" onClick={this.sendRequest}>Send</button>
+						<button type="button" id="notifyFormCancel" className="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+						<button type="submit"  className="btn btn-success waves-effect waves-light" onClick={this.sendRequest}>Send</button>
 					  </div>
 					</div>
 				  </div>
