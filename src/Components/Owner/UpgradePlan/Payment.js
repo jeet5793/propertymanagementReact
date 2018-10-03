@@ -27,7 +27,8 @@ class Payment extends React.Component {
       this.handleMonthChange=this.handleMonthChange.bind(this);
       this.handleYearChange=this.handleYearChange.bind(this);
 	  this.changeaccHandler=this.changeaccHandler.bind(this);
-      this.changecvvHandler=this.changecvvHandler.bind(this)
+      this.changecvvHandler=this.changecvvHandler.bind(this);
+	   this.onClickReturn = this.onClickReturn.bind(this);
   }
  componentDidMount() {
     // setTimeout(function(){ $('#tzloadding').remove(); }, 2000)
@@ -174,6 +175,11 @@ class Payment extends React.Component {
             }
           )
   }
+  onClickReturn()
+  {
+	  window.location.href='/owner-plan';
+	  // this.props.history.replace('/owner-plan');
+  }
 	render(){  
 	console.log(this.props.history);
     if(this.state.userDetails){
@@ -192,7 +198,7 @@ class Payment extends React.Component {
            {/*Adminox*/}
            {/*</a>*/}
            {/* Image Logo */}
-           <a href="index.html" className="logo"> <img src="/assets/images/logo_dark.png" alt className="logo-lg" /></a></div>
+           <a href="/" className="logo"> <img src="/assets/images/logo_dark.png" alt className="logo-lg" /></a></div>
          <div className="payment-warp">
            <div className="container">
              {/* end page title end breadcrumb */}
@@ -298,7 +304,7 @@ class Payment extends React.Component {
                  </div>
                </div>
                <div className="col-md-12 text-center">
-                 <li className="list-inline-item"> <button type="button" className="btn btn-warning waves-effect w-md waves-light"><i className="dripicons-home" /> Back to Home</button></li>
+                 <li className="list-inline-item"> <button type="button" onClick = {this.onClickReturn} className="btn btn-warning waves-effect w-md waves-light"><i className="dripicons-home" /> Back to Home</button></li>
                </div>
              </div>
              {/* end row */}

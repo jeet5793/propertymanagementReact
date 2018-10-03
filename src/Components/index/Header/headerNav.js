@@ -34,7 +34,7 @@ class Headernav extends React.Component {
 
         this.onChangeHandler=this.onChangeHandler.bind(this);
         this.activeSignIn=this.activeSignIn.bind(this);
-        this.Login=this.Login.bind(this);
+        // this.Login=this.Login.bind(this);
 		this.socialLogin = this.socialLogin.bind(this);
 		 this.sendForgetPassword = this.sendForgetPassword.bind(this);
 		 this.onChangeEmail = this.onChangeEmail.bind(this);
@@ -54,7 +54,7 @@ class Headernav extends React.Component {
 		// console.log(assetstype)
 		this.state.assets_type= assetstype;
 		var opts = this.state;
-		console.log(opts)
+		// console.log(opts)
         var $=window.$;
         var Data;
         fetch(`${API_URL}assetsapi/login/`, {
@@ -72,17 +72,301 @@ class Headernav extends React.Component {
                     swal("Assets Watch", data.msg);
                     $(".login-open").fadeToggle();
                 }else if(data.Success===2){
+					$("#FirstBlockUIConfirm").show();
+					$(".confirm-body").html(data.msg);
 					
-							if(data.assetsType=='agent')
+					for(var i=0;i<data.assetsType.length;i++)
+					{
+						if(data.assetsType[i]==="Owner")
+						{
+							$("#OwnUserAction").val("SignIn")
+							$("#ownAction").html("SignIn");
+						}
+						else if(data.assetsType[i]==="Agent")
+						{
+							$("#AgnUserAction").val("SignIn")
+							$("#AgnAction").html("SignIn");
+						}
+						else
+						{
+							$("#TenUserAction").val("SignIn")
+							$("#TenAction").html("SignIn");
+						}
+					}
+					$(".user-btn").click(function(){
+						const userType = this.value;
+							// console.log(userType);
+							var UserAction = '';
+							if(userType==="Owner")
+								{
+									UserAction = $("#OwnUserAction").val();
+									if(UserAction==='SignIn')
+									{
+										//Login("1");
+									}
+									else if(UserAction==='Register'){
+										
+										var optsValue= data.userdata;
+										console.log(optsValue)
+										fetch(`${API_URL}assetsapi/register/`, {
+										method: "post",
+										body: JSON.stringify(optsValue)
+									  })
+										.then(response => {
+										  return response.json();
+										})
+										.then((res) => {
+										  console.log('dataaaa:  ', res);
+										  if(res){
+											var userid = res.user.assets_id
+											localStorage.setItem('userid',userid)
+										  }
+										  if(res.msg.indexOf("Registered Successfully")!=-1)
+										  {
+											// let userType = 'owner';
+											// if (this.state.RegType==='2') {
+											  // userType = 'agent'
+											// } else if (this.state.RegType==='3') {
+											  // userType = 'tenant'
+											// }
+											if(res.user.agentType!='' && res.user.agentType=='Service Provider')
+											{
+												this.props.history.replace(`/`);
+											}else{
+												// const assetsType= data.assetsType;
+												 window.location.href=`/register-plans?Datatype=${userType.toLowerCase()}`;
+											}
+										   
+										  }
+										else alert(res.msg)
+										}).catch((error) => {
+										  console.log('error: ', error);
+										}); 
+									}
+									
+								}
+								else if(userType==="Agent")
+								{
+									UserAction = $("#AgnUserAction").val();
+									if(UserAction==='SignIn')
+									{
+										setTimeout(()=>{
+
+										fetch(`${API_URL}assetsapi/profile/${data.userdata.assets_id}/${data.userdata.session_id}`, {
+											method: 'get'
+										})
+										.then(res => res.json())
+										.then(
+										  (result) => {
+											//console.log("data 2: "+JSON.stringify(result))
+											if (result.success) {
+											   // alert('profile:'+JSON.stringify(result.profile)+""+JSON.stringify(data.userdata.agentType));
+												localStorage.setItem('firstName',JSON.stringify(result.profile.first_name))
+												localStorage.setItem('lastName',JSON.stringify(result.profile.last_name))
+												localStorage.setItem('userType',JSON.stringify(result.profile.assets_type))
+												this.props.setUser(data.userdata, result.profile);
+												Cookies.set("profile_data", data.userdata);
+
+												if(result.profile.assets_type==="1"){
+												 this.props.history.push('/user')
+												}else if(result.profile.assets_type==="2"){
+													if(data.userdata.agentType==="Broker")
+													{
+														this.props.history.push('/agent-broker')
+													}
+													else{
+														this.props.history.push('/agent-serviceprovider')
+													}
+												   
+												}else{
+													
+													this.props.history.push('/tenant')
+												}
+											} else {
+												this.props.setUser(data.userdata, result.profile);
+												// console.log(result.msg);
+											}
+											// this.props.updateInfo(result.profile)
+										  },
+										  // Note: it's important to handle errors here
+										  // instead of a catch() block so that we don't swallow
+										  // exceptions from actual bugs in components.
+										  (error) => {
+											console.log('error')
+										  }
+										)
+									}, 1000)
+									}else if(UserAction==='Register'){
+										$("#FirstBlockUIConfirm").hide();
+										$(".confirm-body").html(data.msg);
+											$("#BlockUIConfirm").show();
+											
+											$(".row-dialog-btn").click(function(){
+												const AgentType = this.value;
+												
+												 // alert(AgentType);
+												if(AgentType=="Broker")
+												{
+													
+													// $.session.set("agenttype", "2");
+													localStorage.setItem('agenttype',"2");
+													
+												}else if(AgentType=="Service Provider"){
+													localStorage.setItem('agenttype',"1");
+													
+												}else{
+													localStorage.setItem('agenttype',"");
+													window.location.reload();
+												}
+												
+												if(this.value!='' && localStorage.getItem('agenttype')!='')
+												{
+													var optsValue= data.userdata;
+													optsValue.agent_type = localStorage.getItem('agenttype');
+													
+													fetch(`${API_URL}assetsapi/register/`, {
+														method: "post",
+														body: JSON.stringify(optsValue)
+													  })
+														.then(response => {
+														  return response.json();
+														})
+														.then((res) => {
+														  console.log('dataaaa:  ', res);
+														  if(res){
+															var userid = res.user.assets_id
+															localStorage.setItem('userid',userid)
+														  }
+														  if(res.msg.indexOf("Registered Successfully")!=-1)
+														  {
+															// let userType = 'owner';
+															// if (this.state.RegType==='2') {
+															  // userType = 'agent'
+															// } else if (this.state.RegType==='3') {
+															  // userType = 'tenant'
+															// }
+															if(res.user.agentType!='' && res.user.agentType=='Service Provider')
+															{
+																this.props.history.replace(`/`);
+															}else{
+																// const assetsType= data.assetsType;
+																 window.location.href=`/register-plans?Datatype=${userType.toLowerCase()}`;
+															}
+														   
+														  }
+														else alert(res.msg)
+														}).catch((error) => {
+														  console.log('error: ', error);
+														}); 
+												}
+												
+											}); 
+									}
+									
+								}
+								else if(userType==="Tenant")
+								{
+									UserAction = $("#TenUserAction").val();
+									if(UserAction==='SignIn')
+									{
+										setTimeout(()=>{
+
+										fetch(`${API_URL}assetsapi/profile/${data.userdata.assets_id}/${data.userdata.session_id}`, {
+											method: 'get'
+										})
+										.then(res => res.json())
+										.then(
+										  (result) => {
+											//console.log("data 2: "+JSON.stringify(result))
+											if (result.success) {
+											   // alert('profile:'+JSON.stringify(result.profile)+""+JSON.stringify(data.userdata.agentType));
+												localStorage.setItem('firstName',JSON.stringify(result.profile.first_name))
+												localStorage.setItem('lastName',JSON.stringify(result.profile.last_name))
+												localStorage.setItem('userType',JSON.stringify(result.profile.assets_type))
+												this.props.setUser(data.userdata, result.profile);
+												Cookies.set("profile_data", data.userdata);
+
+												if(result.profile.assets_type==="1"){
+												 this.props.history.push('/user')
+												}else if(result.profile.assets_type==="2"){
+													if(data.userdata.agentType==="Broker")
+													{
+														this.props.history.push('/agent-broker')
+													}
+													else{
+														this.props.history.push('/agent-serviceprovider')
+													}
+												   
+												}else{
+													
+													this.props.history.push('/tenant')
+												}
+											} else {
+												this.props.setUser(data.userdata, result.profile);
+												// console.log(result.msg);
+											}
+											// this.props.updateInfo(result.profile)
+										  },
+										  // Note: it's important to handle errors here
+										  // instead of a catch() block so that we don't swallow
+										  // exceptions from actual bugs in components.
+										  (error) => {
+											console.log('error')
+										  }
+										)
+									}, 1000)
+									}else if(UserAction==='Register'){
+										
+										var optsValue= data.userdata;
+										console.log(optsValue)
+										fetch(`${API_URL}assetsapi/register/`, {
+										method: "post",
+										body: JSON.stringify(optsValue)
+									  })
+										.then(response => {
+										  return response.json();
+										})
+										.then((res) => {
+										  console.log('dataaaa:  ', res);
+										  if(res){
+											var userid = res.user.assets_id
+											localStorage.setItem('userid',userid)
+										  }
+										  if(res.msg.indexOf("Registered Successfully")!=-1)
+										  {
+											// let userType = 'owner';
+											// if (this.state.RegType==='2') {
+											  // userType = 'agent'
+											// } else if (this.state.RegType==='3') {
+											  // userType = 'tenant'
+											// }
+											if(res.user.agentType!='' && res.user.agentType=='Service Provider')
+											{
+												this.props.history.replace(`/`);
+											}else{
+												// const assetsType= data.assetsType;
+												 window.location.href=`/register-plans?Datatype=${userType.toLowerCase()}`;
+											}
+										   
+										  }
+										else alert(res.msg)
+										}).catch((error) => {
+										  console.log('error: ', error);
+										}); 
+									}
+									
+								}	
+							
+					});
+					
+					
+					
+					// this.setState({hiddenassets:data.assetsType});
+							/* if(data.assetsType=='agent')
 							{
 								$(".confirm-body").html(data.msg);
 								$("#BlockUIConfirm").show();
-								// $(".row-dialog-btn").click(function(){
-								// const AgentType = this.value;
-								// alert(AgentType);
-								// });
-								/* $("#light").show();
-								$("#fade").show();*/
+								
 								$(".row-dialog-btn").click(function(){
 									const AgentType = this.value;
 									
@@ -181,7 +465,7 @@ class Headernav extends React.Component {
 								}).catch((error) => {
 								  console.log('error: ', error);
 								}); 
-							}
+							} */
 							
 					
 				}
@@ -233,6 +517,7 @@ class Headernav extends React.Component {
                     )
                 }, 1000)
                 }
+				
             })
         })
       }
@@ -553,6 +838,43 @@ class Headernav extends React.Component {
 				</div>
 			</div>
 			
+			<div id="FirstBlockUIConfirm" className="BlockUIConfirm" style={{display:"none"}}>
+				<div className="blockui-mask"></div>
+				<div className="RowDialogBody">
+					<div className="confirm-header row-dialog-hdr-success">
+						Response Message
+					</div>
+					<div className="confirm-body">
+						
+					</div>
+					
+					<div className="confirm-btn-panel text-center">
+						
+						<div className="btn-holder">
+							
+							<input type="hidden" id="hiddenURL" />
+							<input type="hidden" id="actionType" />
+							
+							
+							
+							<input type="button" className="user-btn btn btn-success" value="Owner" />
+							<input type="hidden" id="OwnUserAction"  value="Register"/>
+							<p id="ownAction">Register</p>
+							
+							<input type="button" className="user-btn btn btn-success" value="Agent" />
+							<input type="hidden" id="AgnUserAction" value="Register"/>
+							<p id="AgnAction">Register</p>
+							
+							<input type="button" className="user-btn btn btn-success" value="Tenant"  />
+							<input type="hidden" id="TenUserAction"  value="Register"/>
+							<p id="TenAction">Register</p>
+							
+						</div>
+						
+					</div>
+					
+				</div>
+			</div>
 			
     </div>
     );

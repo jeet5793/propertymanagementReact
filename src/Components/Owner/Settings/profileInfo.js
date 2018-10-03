@@ -16,6 +16,7 @@ import $ from 'jquery';
 		userInfo:props.userData,
 		 profile:[],
       profileSetting:{
+				testDate:"",
 			assets_id:"",
 			session_id:"",
 			first_name:"",
@@ -48,16 +49,17 @@ import $ from 'jquery';
 	}
 	
 	 handleDobChange(date) {
-		console.log('DATE ', date);
+		alert('DATE '+JSON.stringify(date));
 		 this.setState({
 			profileSetting:{dob:date}
 		 });
 	 }
 	onChangeHandler(e){
+	
+		
         // console.log(this.fileInput.current.files[0]);
-		const profileForm=this.state.profileSetting;
+				const profileForm=this.state.profileSetting;
         let formData = new FormData();
-
       if(e.target.name==='first_name')
 	  {
         profileForm.first_name=e.target.value;
@@ -126,9 +128,17 @@ import $ from 'jquery';
 			profileForm.gender=e.target.value
 	
 	 //console.log(this.state.userInfo);
+	  
+		// alert(dateOfBirth)
+		// this.setState({
+		// 	profileSetting:{dob:dateOfBirth}
+		//  },()=>{
+		// 	 alert("KKKK"+JSON.stringify(this.state.profileSetting))
+		//  });
 		profileForm.assets_id = JSON.parse(this.state.userData).assets_id;
 		profileForm.session_id = JSON.parse(this.state.userData).session_id;
 		//profileForm.assets_type = JSON.parse(this.state.userData).assetsTypeId;
+	
       this.setState({profileSetting:profileForm})
       this.setState({formData:formData});
       // this.setState({[e.target.name]:e.target.value})
@@ -137,6 +147,10 @@ import $ from 'jquery';
 	profileSubmit(e)
 	{
 		e.preventDefault();
+		const profileForm=this.state.profileSetting;
+		var dobDate= $('#dobDate').val();
+		var dateOfBirth = moment(dobDate).format();
+		profileForm.dob=dateOfBirth
 		var opts= Object.assign(this.state.profile, this.state.profileSetting);
 		opts.session_id = JSON.parse(this.state.userData).session_id
 		// console.log('OPTS ', opts);
@@ -184,6 +198,9 @@ import $ from 'jquery';
         });
       }
 	   componentDidMount(){
+			// $("#date").change(function() 
+			// { $('#datepicker').datepicker('option', {dateFormat: $(this).val()}); })
+		
 			const profile=JSON.parse(this.state.userData)
 			if(profile)
 			{
@@ -198,17 +215,20 @@ import $ from 'jquery';
 				  this.setState({profile:result.profile})
 					var dobDate = new Date(this.state.profile.dob.replace( /(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3"))
 					var d = new Date(dobDate);
-					var dob=getFormattedString(d).slice(0,9);
+					var dob=getFormattedString(d).slice(0,10);
 					function getFormattedString(d){
 						return d.getFullYear() + "-"+(d.getMonth()+1) +"-"+d.getDate() + ' '+d.toString().split(' ')[4];
 					}
+				
 					if(dob){
+						
 						this.setState({
-							profileSetting:{dob:moment(dob) }
+							profileSetting:{dob:dob}
 						 });
 					}else{
+					
 						this.setState({
-							profileSetting:{dob:moment() }
+							profileSetting:{dob:dob}
 						 });
 					}
 				} 
@@ -275,12 +295,7 @@ Countries() {
 								<label for="dob">D.O.B</label>
 							  </div>
 							  <div className="col-md-2">
-							  {/*<input type="text" className="form-control"  name="dob"  id="datepicker-autoclose"  onChange={this.onChangeHandler} placeholder=""  />*/}
-							  <DatePicker id="dobdate" className="form-control" 
-								dateFormat="DD-MM-YYYY"
-									selected={this.state.profileSetting.dob}
-									onChange={this.handleDobChange}
-								/>
+								<input value={this.state.profileSetting.dob.slice(0,10)} className="form-control" id="dobDate" name="date" placeholder="YYYY-MM-DD" type="text"/>
 							  </div>
 							  <div className="col-md-1">
 								<label for="gender">Gender</label>
@@ -430,10 +445,7 @@ Countries() {
 						</div>
 						</div>
 					  </div>:<div className="container"  style={{marginTop:'10%',marginLeft:'50%'}}><img src="http://wordpress.templaza.net/real-estate/wp-content/themes/real-estate/images/loading_blue_64x64.gif"/></div>
-					  
-						
-						
-		
+	
         );
     }
 }

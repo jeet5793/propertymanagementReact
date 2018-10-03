@@ -77,9 +77,11 @@ export default class Agent extends React.Component{
 		 // console.log(this.state.bgForm);
 	 }
 	 onClickBGVFormSubmit(){
-		 
+		 console.log('opts'+JSON.stringify(this.state.bgForm))
 		 var opts = Object.assign(this.props.profileData,this.state.bgForm);
-		 console.log('opts'+JSON.stringify(opts))
+		
+		 // this.props.history.push('/')
+		 // console.log('opts'+JSON.stringify(opts))
 		 if(!opts.first_name)
 		 {
 			 alert('First Name should not be blank');
@@ -137,9 +139,10 @@ export default class Agent extends React.Component{
 			 alert('Package must be selected');
 			 return;
 		 }
-		
+		localStorage.setItem("opts", JSON.stringify(opts));
+		 window.location.href="/bgvpayment";
 			 // console.log(opts);
-			 document.getElementById("bgvFormCancel").click();
+			 /* document.getElementById("bgvFormCancel").click();
 				 $("#loaderDiv").show();
 				fetch(`${API_URL}assetsapi/background_verification`, {
 				method: 'post',        
@@ -165,7 +168,7 @@ export default class Agent extends React.Component{
 				
 				}).catch((error) => {
 				  console.log('error: ', error);
-				});
+				}); */
 		 
 		 
       }

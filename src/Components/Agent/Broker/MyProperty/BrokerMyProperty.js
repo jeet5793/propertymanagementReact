@@ -78,18 +78,18 @@ this.imgServer=API_URL,
                            { this.state.property.map(element=>(
                                     <tr>
                                         <td>
-                                            <img src={(element.img_path && element.img_path.length>0)?imgSer+element.img_path[0].img_path:img_not_available} alt="contact-img" title="contact-img" className="rounded-circle property-img" />
+                                            <img src={(element.img_path && element.img_path.length>0)?imgSer+element.img_path:img_not_available} alt="contact-img" title="contact-img" className="rounded-circle property-img" />
                                         </td>
-                                        <td><h5 className="m-b-0 m-t-0 font-600">{element.title}</h5></td>
+                                        <td><h5 className="m-b-0 m-t-0 font-600">{element.property_name}</h5></td>
                                         {/* <td><i className="mdi mdi-map-marker text-primary"></i> #0,22ndFloor,27th Main NewYork </td> */}
-                                        <td><i className="mdi mdi-map-marker text-primary"></i>{element.city+","+element.state+","+element.country}</td>
+                                        <td><i className="mdi mdi-map-marker text-primary"></i>{element.address}</td>
                                         {/*<td><i className="mdi mdi-currency-usd text-warning"></i> 2333 </td>*/}
                                         <td>{element.property_type}</td>
                                         {/* <td><i className="mdi mdi-currency-usd text-warning"></i> 366 </td> */}
                                         <td><i></i> {element.property_status}</td>
                                         <td><i></i>  </td>
                                         <td>
-                                         	
+                                          	
                                            <Link to={{pathname:'/property-detail',state:{id:element.id}}}  className="table-action-btn">
                                                 <i className="mdi mdi-eye"></i>
                                             </Link>

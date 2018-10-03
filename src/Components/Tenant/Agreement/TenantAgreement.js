@@ -139,7 +139,7 @@ export default class TenantAgreement extends React.Component {
                 (data) => {
                     // debugger;
                     //console.log("data 2: "+JSON.stringify(result.profile))
-					$("#loaderDiv").show();
+					$("#loaderDiv").hide();
                     if (data.success) {
                         this.setState({executedAgreement:data.agreement_detail,agrLoaded:true})
                         console.log(this.state.executedAgreement);

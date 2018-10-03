@@ -22,7 +22,8 @@ export default class RegistrationForm extends React.Component {
         landline_no: "",
         assets_type: "",
         owner_type: "",
-		agent_type: ""
+		agent_type: "",
+		chekbx:''
       },
       RegType: "",
       countries: [{ name: "Afghanistan" }],
@@ -67,6 +68,8 @@ export default class RegistrationForm extends React.Component {
         registrationForm.landline_no = isNaN(e.target.value)
           ? registrationForm.landline_no
           : e.target.value;
+	 else if (e.target.name === "chekbx")
+        registrationForm.chekbx = e.target.value;
       else if (e.target.name === "owner_type")
         registrationForm.owner_type = e.target.value;
       else if (e.target.name === "agent_type") {
@@ -137,10 +140,10 @@ export default class RegistrationForm extends React.Component {
       // alert("Landline number should not be blank");
       // return;
     // }
-    // if(!opts.chekbx){
-    //   alert('Checkbox should be ticked');
-    //   return;
-    // }
+    if(!opts.chekbx){
+      alert('Checkbox should be ticked');
+      return;
+    }
     if (opts.cnfPass !== opts.password) {
       alert("Confirm password is not matched.");
     } else if (this.state.Registeration.assets_type) {

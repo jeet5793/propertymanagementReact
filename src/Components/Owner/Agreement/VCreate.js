@@ -36,14 +36,6 @@ export default class VCreate extends React.Component{
     this.headerImage = React.createRef();
     this.waterMarkImage = React.createRef();
   }
-  componentWillMount(){
-    window.$.getScript("assets/plugins/jquery.stepy/jquery.stepy.min.js", function () {
-        console.log("assets/plugins/jquery.stepy/jquery.stepy.min.js");
-    });
-    window.$('<link/>',{rel: 'stylesheet', href: 'assets/css/bootstrap.min.css'})
-    window.$('<link/>',{rel: 'stylesheet', href: 'assets/css/style.css'})
-    // loadFile("assets/plugins/jquery.stepy/jquery.stepy.min.js","js")
-  }
 
   componentWillReceiveProps(nextProps) {
     // console.log('nextProps ', nextProps)
@@ -61,24 +53,11 @@ export default class VCreate extends React.Component{
       }
   }
   componentDidMount() {
-	   // $.getScript('assets/tiny/plugin/tinymce/tinymce.min.js', ()=> {
-      // console.log('assets/tiny/plugin/tinymce/tinymce.min.js');
-      // });
-      // $.getScript('assets/tiny/plugin/tinymce/init-tinymce.js', ()=> {
-        // console.log('assets/tiny/plugin/tinymce/tinymce.min.js');
-        // });
-    // $.getScript('assets/js/jquery.slimscroll.js', function () {
-      // console.log('assets/js/jquery.slimscroll.js');
-   // });
-    // $.getScript('assets/js/jquery.scrollTo.min.jss', ()=> {
-      // console.log('assets/js/jquery.scrollTo.min.js');
-      // });
-      $(document).on('click', '.stepy-navigator',function () {
+
+      $(document).on('click', '#stepy-navigator',function () {
           this.updatePage();
       }.bind(this));
-      // $("#default-wizard-step-1").on('click', '.button-next',function () {
-        // this.saveAgreementRemainder()
-    // }.bind(this));
+     
 	this.getTemplatesName();
   }
 	getTemplatesName(){
@@ -157,9 +136,7 @@ createAgreement(){
 	agreementForm.header_content=	  $('input[name="headerContent"]').val();
 	agreementForm.footer_content=	  $('textArea[name="footerContent"]').val();
 	console.log('agreementForm'+JSON.stringify(agreementForm))
-  if(agreementForm.agreement_title!==''&&agreementForm.agreement_doc_content!==''&&
-    agreementForm.header_content!==''&&agreementForm.footer_content!==''&&
-    agreementForm.header_image!==''&&agreementForm.watermark_image!=='')
+  if(agreementForm.agreement_title!==''&&agreementForm.agreement_doc_content!=='')
   {
 	 
 	  $("#loaderDiv").show();
@@ -385,7 +362,7 @@ editAgreement(){
               </div>
               <div className="custome-temp" id="sideTogle" style={{display: 'none'}}>                              
                 <div className="slimScrollDiv" style={{position: 'relative', overflow: 'hidden', width: 'auto', height:' 282px'}}>
-                  <div className="autohide1-scroll" style={{height: '282px', overflow: 'hidden', width: 'auto'}}>
+                  <div className="autohide1-scroll" style={{height: '282px',"overflow-x": 'none',"overflow-y": 'scroll', width: 'auto'}}>
                     <div id="accordion" className="m-b-10">
                       <div className="card m-b-5">
                         <div onClick={this.handleSectionOpen.bind(this,"collapseOne")} className="card-header  btn btn-success" role="tab" id="headingOne">
@@ -500,16 +477,16 @@ editAgreement(){
         <fieldset title="2"  id="default-wizard-step-1" className="stepy-step" style={{display: 'none'}}>
           <legend style={{display: 'none'}}>Preview</legend>
           <div className="row m-t-20">
-            <div className="row">
-              <div className="col-sm-12">
-                <div className="slimScrollDiv" style={{position: 'relative', overflow: 'hidden', height: '780px'}}>
-                <div id="previewDiv" className="row m-t-20 signature  autohide-scroll" style={{height: '300px', width: '100%', padding: '12px',marginLeft:15,marginRight:15}}>
+            {/* <div className="row">*/}
+              <div className="col-sm-12"> 
+                <div className="slimScrollDiv" style={{position: 'relative', "overflow-x": 'hidden',"overflow-y": 'scroll', height: '780px'}}>
+                <div id="previewDiv" className="row m-t-20 signature  autohide-scroll" style={{height: '300px', width: '100%', padding: '12px'}}>
                 </div>
                 <div className="slimScrollBar" style={{background: 'rgb(158, 165, 171)', width:' 5px', position:' absolute', top: '0px', opacity: '0.4', display: 'block', borderRadius: '7px', zIndex: '99', right: '1px'}}>
                 </div>
                 <div className="slimScrollRail" style={{width:' 5px', height: '100%', position: 'absolute', top:' 0px', display: 'none', borderRadius: '7px', background: 'rgb(51, 51, 51)', opacity: '0.2', zIndex: '90', right:' 1px'}}>
                 </div></div>
-              </div>
+              {/* </div> */}
             </div>
           </div>
         
@@ -518,9 +495,9 @@ editAgreement(){
         <div  style={{fontSize:14,fontWeight:500,textAlign:"center"}}>Please submit to save the agreement</div> 
           <legend style={{display: 'none'}}>Save</legend>
           <div className="row m-t-20 signature"> </div>
-        <p className="stepy-navigator">
+        {/* <div className="stepy-navigator"> */}
         
-       <button type="button" onClick={this.state.editAgreementStatus?this.editAgreement:this.createAgreement} className="btn btn-primary stepy-finish">Submit</button></p></fieldset>       
+       <button style={{float:"right",marginTop:10}} id="stepy-navigator" type="button" onClick={this.state.editAgreementStatus?this.editAgreement:this.createAgreement} className="btn btn-primary stepy-finish">Submit</button></fieldset>       
       </form>
     </div>
      

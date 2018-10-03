@@ -136,7 +136,9 @@ export default class Agent extends React.Component{
 			 alert('Package must be selected');
 			 return;
 		 }
-		 document.getElementById("bgvFormCancel").click();
+		 localStorage.setItem("opts", JSON.stringify(opts));
+		 window.location.href="/bgvpayment";
+		 /* document.getElementById("bgvFormCancel").click();
 				 $("#loaderDiv").show();
 		fetch(`${API_URL}assetsapi/background_verification`, {
         method: 'post',        
@@ -160,7 +162,7 @@ export default class Agent extends React.Component{
         
         }).catch((error) => {
           console.log('error: ', error);
-        });
+        }); */
       }
 	 
 	 componentDidMount(){

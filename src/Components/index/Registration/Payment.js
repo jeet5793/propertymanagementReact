@@ -24,7 +24,8 @@ export default class PlanPayment extends React.Component {
       this.handleMonthChange=this.handleMonthChange.bind(this);
       this.handleYearChange=this.handleYearChange.bind(this);
 	  this.changeaccHandler=this.changeaccHandler.bind(this);
-      this.changecvvHandler=this.changecvvHandler.bind(this)
+      this.changecvvHandler=this.changecvvHandler.bind(this);
+	  this.onClickReturn = this.onClickReturn.bind(this);
   }
  componentDidMount() {
     // setTimeout(function(){ $('#tzloadding').remove(); }, 2000)
@@ -178,6 +179,10 @@ export default class PlanPayment extends React.Component {
             }
           )
   }
+  onClickReturn()
+  {
+	  window.location.href='/';
+  }
 	render(){  
 
     if(this.state.userDetails){
@@ -301,7 +306,7 @@ export default class PlanPayment extends React.Component {
                  </div>
                </div>
                <div className="col-md-12 text-center">
-                 <li className="list-inline-item"> <button type="button" className="btn btn-warning waves-effect w-md waves-light"><i className="dripicons-home" /> Back to Home</button></li>
+                 <li className="list-inline-item"> <button type="button" className="btn btn-warning waves-effect w-md waves-light" onClick = {this.onClickReturn}><i className="dripicons-home" /> Back to Home</button></li>
                </div>
              </div>
       

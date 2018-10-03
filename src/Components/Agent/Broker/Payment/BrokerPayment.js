@@ -36,6 +36,7 @@ export default class BrokerPayment extends React.Component{
     this.userInfo = this.userInfo.bind(this);
 	this.singularFormDiv = this.singularFormDiv.bind(this);
 	this.SingularBillChange = this.SingularBillChange.bind(this);
+	this.ActiveDeactive = this.ActiveDeactive.bind(this);
   }
   componentDidMount(){
       this.userInfo();
@@ -303,6 +304,32 @@ enrollInfo()
           }
         )
 }
+ActiveDeactive(id,status){
+	$("#loaderDiv").show();
+	const profile = JSON.parse(this.state.userData);
+	fetch(`${API_URL}assetsapi/change_merchant_status/`+id+`/`+status+`/${profile.session_id}`)
+        .then(res => res.json())
+        .then(
+          (result) => {
+			  //alert(result)
+			// this.setState({profileData:result.profile});
+			//console.log(result);
+			// this.setState({enrollInfo:result.enroll_info});
+				$("#loaderDiv").hide();
+			 $(".confirm-body").html(result.msg);
+			 $("#actionType").val("Yes");
+			$("#hiddenURL").val("owner-payment");
+			 $("#BlockUIConfirm").show();
+		   
+          },
+          (error) => {
+            this.setState({
+              isLoaded: true,
+              error
+            });
+          }
+        )
+}
 	render(){
 		return(
 
@@ -370,8 +397,9 @@ enrollInfo()
 									  <div className="dayandtime-clp-batch col-lg-2 col-md-6 col-sm-6 col-xs-12 no-padding">
 										<div className="days-time-table no-padding day "> 
 							
-							{/* <i className=" mdi mdi-lead-pencil edit-card"></i> */}
-										<i className="mdi mdi-delete delete-card"></i>
+							{/* <i className=" mdi mdi-lead-pencil edit-card"></i> 
+										<i className="mdi mdi-delete delete-card"></i>*/}
+										{this.state.enrollInfo.map((item)=>(<div className="col-md-12 text-right"> <a type="" className="btn btn-primary stepy-finish text-right" data-toggle="modal" data-target="#send-request" onClick={this.ActiveDeactive.bind(this,item.id,item.status)} >{item.status}</a> </div>))}
 									   </div>
 										
 									  </div>

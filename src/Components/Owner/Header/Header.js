@@ -199,7 +199,7 @@ onHoverNoti()
 		  )   
 	}
     render(){
-  
+  console.log(JSON.stringify(this.state.userData))
         return(
             <header id="topnav">
             

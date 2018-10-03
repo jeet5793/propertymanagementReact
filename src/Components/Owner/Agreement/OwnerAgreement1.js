@@ -29,7 +29,7 @@ const Saved=(props)=>{
             <tr>
               <td>{element.agreement_title}</td>
               <td>{element.created_date}</td>
-              <td><a title="Edit" href="#" onClick={() => props.editAgreement(element)} className="table-action-btn view-rqu"><i className="mdi mdi-border-color"></i></a><a title="Delete" href="#" className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a><a title="Send" href="#" className="table-action-btn view-rqu" data-toggle="modal" data-target="#send-msg"><i className="mdi mdi-redo-variant" onClick={() => props.selectedAgreement(element)}></i></a></td>
+              <td><a title="Edit"  onClick={() => props.editAgreement(element)} className="table-action-btn view-rqu"><i className="mdi mdi-border-color"></i></a><a title="Delete"  className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a><a title="Send"  className="table-action-btn view-rqu" data-toggle="modal" data-target="#send-msg"><i className="mdi mdi-redo-variant" onClick={() => props.selectedAgreement(element)}></i></a></td>
             </tr>
           )):<div>No data </div>}        
         </tbody>
@@ -56,7 +56,7 @@ const VRequested=(props)=>{
             <tr>
               <td>{element.agreement_title}</td>
               <td>{element.initiated_date}</td>
-              <td><a title="Edit" href="#preview" onClick={() => props.previewAgreement(element)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Delete" href="#" className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a><a title="Send" href="#" className="table-action-btn view-rqu" data-toggle="modal" data-target="#send-msg"><i className="mdi mdi-redo-variant"></i></a></td>
+              <td><a title="Edit" href="#preview" onClick={() => props.previewAgreement(element)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Delete"  className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a><a title="Send"  className="table-action-btn view-rqu" data-toggle="modal" data-target="#send-msg"><i className="mdi mdi-redo-variant"></i></a></td>
             </tr>
           )):<div>No data </div>}
         
@@ -86,7 +86,7 @@ const VExecute=(props)=>{
               <td>{element.agreement_title}</td>
               <td>{element.initiated_date}</td>
 			  <td>{element.status}</td>
-              <td><a title="Edit" href="#executePreview" data-toggle="tab" onClick={() => props.selectedExecutedAgreement(element)} className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Send" href="#" className="table-action-btn view-rqu"><i className="mdi mdi-download" onClick={() => props.onClickDownload(element.deal_id)}></i></a><a title="Send" href="#" className="table-action-btn view-rqu" data-toggle="modal" onClick={() => props.selectedExecutedAgreement(element)} data-target="#send-msg"><i className="mdi mdi-redo-variant"></i></a></td>
+              <td><a title="Edit" href="#executePreview" data-toggle="tab" onClick={() => props.selectedExecutedAgreement(element)} className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Send"  className="table-action-btn view-rqu"><i className="mdi mdi-download" onClick={() => props.onClickDownload(element.deal_id)}></i></a><a title="Send"  className="table-action-btn view-rqu" data-toggle="modal" onClick={() => props.selectedExecutedAgreement(element)} data-target="#send-msg"><i className="mdi mdi-redo-variant"></i></a></td>
             </tr>
           )):<div>No data </div>}
       </tbody>
@@ -135,52 +135,47 @@ export default class container extends React.Component{
 	this.onClickChangeStatus =this.onClickChangeStatus.bind(this);
   }
   componentWillMount(){
-    $.getScript('assets/js/jquery.min.js', ()=> {
-      console.log('assets/pages/jquery.wizard-init.js');
-   });
-   $.getScript('"assets/js/tether.min.js', ()=> {
-    console.log('"assets/js/tether.min.js');
-    });
-   $.getScript('assets/js/bootstrap.min.js', ()=> {
-    console.log('assets/js/bootstrap.min.js');
-    });
-    $.getScript('assets/js/waves.js', function () {
-      console.log('assets/js/waves.js');
-   });
    
-    $.getScript('assets/js/jquery.slimscroll.js', function () {
-      console.log('assets/js/jquery.slimscroll.js');
-   });
-    $.getScript('assets/js/jquery.scrollTo.min.jss', ()=> {
-      console.log('assets/js/jquery.scrollTo.min.js');
-      });
-      $.getScript('assets/plugins/ckeditor/ckeditor.js', ()=> {
-        console.log('assets/plugins/ckeditor/ckeditor.js');
-        });
-        $.getScript('assets/pages/jquery.scrollbar.js', ()=> {
-          console.log('assets/pages/jquery.scrollbar.js');
-          });
-         
-    $.getScript('assets/plugins/jquery.stepy/jquery.stepy.min.js', ()=> {
-      console.log('assets/plugins/jquery.stepy/jquery.stepy.min.js');
-    });
-    $.getScript('assets/pages/jquery.wizard-init.js', ()=> {
-      console.log('assets/pages/jquery.wizard-init.js');
-    });
-    $.getScript('assets/js/jquery.core.js', ()=> {
-      console.log('assets/js/jquery.core.js');
-      });
-      $.getScript('assets/js/jquery.app.js', ()=> {
-        console.log('assets/js/jquery.app.js');
-        });
+  //   $.getScript('assets/js/jquery.min.js', ()=> {
+  //     console.log('assets/pages/jquery.wizard-init.js');
+  //  });
+  //  $.getScript('"assets/js/tether.min.js', ()=> {
+  //   console.log('"assets/js/tether.min.js');
+  //   });
+  //  $.getScript('assets/js/bootstrap.min.js', ()=> {
+  //   console.log('assets/js/bootstrap.min.js');
+  //   });
+  //   $.getScript('assets/js/waves.js', function () {
+  //     console.log('assets/js/waves.js');
+  //  });
+   
+  //   $.getScript('assets/js/jquery.slimscroll.js', function () {
+  //     console.log('assets/js/jquery.slimscroll.js');
+  //  });
+  //   $.getScript('assets/js/jquery.scrollTo.min.jss', ()=> {
+  //     console.log('assets/js/jquery.scrollTo.min.js');
+  //     });
+  //     $.getScript('assets/plugins/ckeditor/ckeditor.js', ()=> {
+  //       console.log('assets/plugins/ckeditor/ckeditor.js');
+  //       });
+  //       $.getScript('assets/pages/jquery.scrollbar.js', ()=> {
+  //         console.log('assets/pages/jquery.scrollbar.js');
+  //         });
+    
+  //   $.getScript('assets/js/jquery.core.js', ()=> {
+  //     console.log('assets/js/jquery.core.js');
+  //     });
+  //     $.getScript('assets/js/jquery.app.js', ()=> {
+  //       console.log('assets/js/jquery.app.js');
+  //       });
         
 
   }
   componentDidMount(){
-    loadFile("assets/tiny/plugin/tinymce/tinymce.min.js","js")
-    loadFile("assets/tiny/plugin/tinymce/init-tinymce.js","js")
-	  loadFile("ssets/js/jquery.scrollTo.min.js","js")
-    loadFile("assets/js/jquery.slimscroll.js","js")
+    // loadFile("assets/tiny/plugin/tinymce/tinymce.min.js","js")
+    // loadFile("assets/tiny/plugin/tinymce/init-tinymce.js","js")
+	  // loadFile("ssets/js/jquery.scrollTo.min.js","js")
+    // loadFile("assets/js/jquery.slimscroll.js","js")
     // $.getScript('assets/tiny/plugin/tinymce/tinymce.min.js', ()=> {
     //   console.log('assets/tiny/plugin/tinymce/tinymce.min.js');
     //   });
@@ -447,7 +442,7 @@ getPropertyList() {
                 (data) => {
                     //console.log("data 2: "+JSON.stringify(result.profile))
                     if (data.success) {
-                        debugger;
+                        // debugger;
                         this.setState({propertyByUser: data.service.property_list})
                         console.log('pp'+JSON.stringify(this.state.propertyByUser));
                     }
@@ -568,7 +563,7 @@ getPropertyList() {
                 <div className="card-box">
                   <div className="tabs-vertical-env">
                     <div className="row">
-                      <div className="col-md-2">
+                      <div style={{marginTop:-10}} className="col-md-2">
                         <ul className="nav tabs-vertical">
                           <li className="nav-item">
                                     <a id="saved" onClick={this.verticalNavbar.bind(this,"saved")} href="#v-saved" className="nav-link agreement-fa active" data-toggle={"tab"} aria-expanded={false}>

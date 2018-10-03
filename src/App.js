@@ -71,35 +71,21 @@ logOut(){
 updateProfileInfo(profile){
 this.setState({profile:profile})
 }
-componentDidMount(){
+
+componentWillMount(){
   if(this.homePaths.indexOf(window.location.pathname) ===-1)
     {
-      this.addOwnerHeaderFiles();
-        this.removeMain();
+      this.addUserDashboardFiles()
+        // this.removeMain();
         this.setState({couter:1})
+    }else{
+      this.addIndexHeaderFiles();
     }
 }
-
-removeMain(){
-  // loadFile('css/main.css','css')
-  // loadFile('css/fonts.css','css')
-  // loadFile('css/comp-main.css','css')
-  // loadFile('css/custom-main.css','css')
-  // loadFile('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css','css')
-
-  // // loadFile('js/jquery.js','js')
-  // loadFile('js/main.min.js','js')
-  // loadFile('js/custom.js','js')
-  // loadFile('js/validate.js','js')
-  // loadFile('js/cubeportfolio.min.js','js')
-  // loadFile('assets/js/bootstrap.min.js','js')
-  // loadFile('assets/js/waves.js','js')
-  // loadFile('src/js/jquery/jquery-migrate.min.js','js')
+addIndexHeaderFiles(){
   
 }
-
-addOwnerHeaderFiles(){
-  loadFile('assets/css/bootstrap.min.css','css')
+addUserDashboardFiles(){
   loadFile('assets/plugins/custombox/css/custombox.min.css','css')
   loadFile('assets/plugins/jquery.filer/css/jquery.filer.css','css')
   loadFile('assets/plugins/jquery.filer/css/themes/jquery.filer-dragdropbox-theme.css','css')
@@ -109,40 +95,8 @@ addOwnerHeaderFiles(){
   loadFile('assets/css/icons.css','css')
   loadFile('assets/css/style.css','css')
   loadFile('assets/css/custom-style.css','css')
-
-  // loadFile('assets/js/jquery.core.js','js')
-  // loadFile('assets/js/jquery.app.js','js')
-  // loadFile('assets/js/jquery.min.js','js')
-  // loadFile('assets/js/tether.min.js','js')
-  // loadFile('assets/js/bootstrap.min.js','js')
-  // loadFile('assets/js/waves.js','js')
-  // loadFile('assets/js/jquery.slimscroll.js','js')
-  // loadFile('assets/js/jquery.scrollTo.min.js','js')
-  // loadFile('https://maps.google.com/maps/api/js?key=AIzaSyDAHZxs8NRsHDfR2Zse_9P0mdZFs3rvASQ','js')
-  // loadFile('assets/plugins/gmaps/gmaps.min.js','js')
-  // loadFile('assets/plugins/jquery.filer/js/jquery.filer.min.js','js')
-  // loadFile('assets/plugins/bootstrap-fileupload/bootstrap-fileupload.js','js')
-  // loadFile('assets/pages/jquery.fileuploads.init.js','js')
-  // loadFile('assets/plugins/tinymce/tinymce.min.js','js')
-  // loadFile('assets/pages/jquery.scrollbar.js','js')
-  // loadFile('assets/plugins/datatables/jquery.dataTables.min.js','js')
-
-  // loadFile('assets/plugins/datatables/dataTables.bootstrap4.min.js','js')
-  // loadFile('assets/plugins/datatables/dataTables.responsive.min.js','js')
-  // loadFile('assets/pages/jquery.wizard-init','js')
-  // loadFile('assets/plugins/datatables/responsive.bootstrap4.min.js','js')
-  // loadFile('assets/js/modernizr.min.js','js')
-  // loadFile('assets/pages/jquery.gmaps.js','js')
-
-
-
-  // loadFile('assets/js/jquery.core.js','js')
-  // loadFile('assets/js/jquery.app.js','js')
-
-  
 }
 FtrCheck(){
-
       return <FooterOwner />
 }
 

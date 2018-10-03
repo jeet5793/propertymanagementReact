@@ -1,19 +1,18 @@
 import React from 'react'
-import Header from '../Header/TenantHeader'
-import {Link} from 'react-router-dom'
-import API_URL from '../../../app-config';
+import API_URL from "../../../../app-config";
 import Cookies from 'js-cookie';
-import { connect } from 'react-redux';
-import '../../../css/theme.css'
-import '../../../css/plans.css'
-import $ from 'jquery';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+import 'react-datepicker/dist/react-datepicker.css';
 import swal from 'sweetalert';
-
-class Payment extends React.Component {
+import Header from '../Header/BrokerHeader'
+import $ from 'jquery';
+export default class PaymentGateway extends React.Component {
   constructor(props){
     super(props)
 
     this.state={
+	 userData:Cookies.get('profile_data'),
         userDetails:{},
         month:'',
         year:'',
@@ -21,9 +20,10 @@ class Payment extends React.Component {
 		cvv:''
 		
     }
-      this.userInfo = this.userInfo.bind(this);
-      this.userDetails = this.userDetails.bind(this);
-      this.paymentPage = this.paymentPage.bind(this);
+	
+      // this.userInfo = this.userInfo.bind(this);
+      // this.userDetails = this.userDetails.bind(this);
+       this.paymentPage = this.paymentPage.bind(this);
       this.handleMonthChange=this.handleMonthChange.bind(this);
       this.handleYearChange=this.handleYearChange.bind(this);
 	  this.changeaccHandler=this.changeaccHandler.bind(this);
@@ -31,16 +31,17 @@ class Payment extends React.Component {
 	  this.onClickReturn = this.onClickReturn.bind(this);
   }
  componentDidMount() {
+	 
     // setTimeout(function(){ $('#tzloadding').remove(); }, 2000)
     // $('html, body').animate({scrollTop: 0}, 1500);
-    this.userInfo();
-    this.userDetails();
+    // this.userInfo();
+    // this.userDetails();
 
   }
   componentDidUpdate() {
 
-    //setTimeout(function(){ $('#tzloadding').remove(); }, 2000)
-    //$('html, body').animate({scrollTop: 0}, 1500);
+    // setTimeout(function(){ $('#tzloadding').remove(); }, 2000)
+    // $('html, body').animate({scrollTop: 0}, 1500);
   }
 
   handleMonthChange(e){
@@ -59,32 +60,28 @@ class Payment extends React.Component {
     e.preventDefault()
     this.setState({cvv:e.target.value});
   }
-  userInfo() {
-	  const path = this.props.history.location.state;
-    // var id=this.props.location.search.replace('?Id=','');
-    fetch(`${API_URL}assetsapi/profile/${path.userId}`)
-          .then(res => res.json())
-          .then(
-            (result) => {
-              // debugger;
-              this.props.updateInfo(result.profile);
-            },
-            // Note: it's important to handle errors here
-            // instead of a catch() block so that we don't swallow
-            // exceptions from actual bugs in components.//assetsapi/paymentgateway/`+54+`/`+2+`/per_annum`
-            (error) => {
-              this.setState({
-                isLoaded: true,
-                error
-              });
-            }
-          )
-  }
-  userDetails() {
+  // userInfo() {
+    // var id=${JSON.parse(this.state.userData).assets_id;
+    // fetch(`${API_URL}assetsapi/profile/`+id)
+          // .then(res => res.json())
+          // .then(
+            // (result) => {
+             
+              // this.props.updateInfo(result.profile);
+            // },
+            // (error) => {
+              // this.setState({
+                // isLoaded: true,
+                // error
+              // });
+            // }
+          // )
+  // }
+ /*  userDetails() {
 	  
-	  const path = this.props.history.location.state;
+	  const path = this.props.history.location.pathname;
 	  //const exactpath =path.substring(1);
-    fetch(`${API_URL}assetsapi/payment/${path.userId}/${path.PlanId}/${path.Pay}`)
+    fetch(`${API_URL}`+'assetsapi'+path)
           .then(res => res.json())
           .then(
             (result) => {
@@ -94,7 +91,7 @@ class Payment extends React.Component {
                 this.setState({
                   userDetails:result.user_detail
                 })
-				// console.log(this.state.userDetails);
+				console.log(this.state.userDetails);
               }
               //this.props.updateInfo(result.profile);
             },
@@ -109,88 +106,116 @@ class Payment extends React.Component {
             }
           )
   }
-
-  paymentPage(event) {
+ */
+   paymentPage(event) {
   event.preventDefault();
-  	console.log(this.state);
+  	// console.log(this.state);
   var payment_Object={
-    "userid":this.state.userDetails.user_id,
+    "userid":'',
     "tokenizedaccountnumber":this.state.tokenizedaccountnumber,
     "paymentmode": "card",
     "expirymmyy": this.state.month+this.state.year,
     "cvv": this.state.cvv,
     "routingnumber": null,
     "surchargeamount": null,
-    "transactionamount":this.state.userDetails.planPrice,
+    "transactionamount":'',
     "currency": "USD",
     "transactionreference": null,
     "payeeid": null,
     "notifypayee": null,
     "profile": null,
     "profileid": null,
-    "orderid":this.state.userDetails.orderid
-  }
-  console.log(payment_Object);
-    fetch(`${API_URL}assetsapi/upgpaymentgateway`,{
+    "orderid":'',
+	"amount":''
+  } 
+  // console.log(payment_Object);
+		var retrievedData = localStorage.getItem("opts");
+		var opts = JSON.parse(retrievedData);
+		// console.log(JSON.stringify(opts));
+		var Amount = (opts.packageid==14)?8.16:(opts.packageid==12)?18.14:(opts.packageid==14)?26.78:'';
+		payment_Object.amount = Amount;
+		
+		 var dataToPost = Object.assign(payment_Object,opts);
+		  // console.log(JSON.stringify(dataToPost));
+		  // alert(dataToPost);
+		  $("#loaderDiv").show();
+		fetch(`${API_URL}assetsapi/background_verification`, {
+				method: 'post',        
+				body: JSON.stringify(dataToPost)
+				}).then((response) => {
+				  return response.json();
+				}).then((data) => {
+				  //console.log('dataaaa:  ', data);
+				  if(data)
+				  {
+					     $("#loaderDiv").hide();
+						
+					   // console.log(JSON.stringify(data));
+					    var removeOpts = localStorage.removeItem("opts");
+					    // console.log(JSON.stringify(check));
+					    $("#actionType").val("Yes");
+					    $("#hiddenURL").val("broker-owner");
+					    $(".confirm-body").html(data.msg);
+					    $("#BlockUIConfirm").show();
+						// swal("Assets Watch", data.msg);
+						 // window.location.reload();
+							// window.location.href="/bgvpayment"
+								
+				  }
+				
+				}).catch((error) => {
+				  console.log('error: ', error);
+				}); 
+    /* fetch(`${API_URL}assetsapi/paymentgateway`,{
       method: 'post',
-      //headers: {'Content-Type':'application/json'},
+      headers: {'Content-Type':'application/json'},
       body: JSON.stringify(payment_Object)
     })
           .then(res => res.json())
           .then(
             (result) => {
-              // debugger;
-              //alert("PaymentRes:"+JSON.stringify(result))
-              //if(result){
-                // this.setState({
-                  // userDetails:result.user_detail
-                // })
-			  //}
-			   if(result.msg.indexOf("Plan Upgraded Successfully")!=-1)
+			   if(result.msg.indexOf("Registered Successfully")!=-1)
 			   {
-				   //window.location.href='https://'+window.location.hostname+':'+window.location.port+'/';
+				   
 				   swal("Assets Watch", result.msg);
-				   	this.props.history.replace('/tenant-plan');
+				   	this.props.history.replace('/');
+					window.location.reload();
 			   }
 				
              
-              //this.props.updateInfo(result.profile);
+              this.props.updateInfo(result.profile);
             },
-            // Note: it's important to handle errors here
-            // instead of a catch() block so that we don't swallow
-            // exceptions from actual bugs in components.
             (error) => {
               this.setState({
                 isLoaded: true,
                 error
               });
             }
-          )
+          ) */
   }
-  onClickReturn()
+   onClickReturn()
   {
-	  window.location.href='/owner-plan';
+	  window.location.href='/broker-owner';
 	  // this.props.history.replace('/owner-plan');
   }
 	render(){  
-	console.log(this.props.history);
-    if(this.state.userDetails){
-      var user = this.state.userDetails
-    }
+		var retrievedData = localStorage.getItem("opts");
+		var opts = JSON.parse(retrievedData);
+		console.log(JSON.stringify(opts));
+		var Amount = (opts.packageid==14)?8.16:(opts.packageid==12)?18.14:(opts.packageid==14)?26.78:'';
+		// var check = localStorage.removeItem("opts");
+		// console.log(JSON.stringify(check));
+    // if(this.state.userDetails){
+      // var user = this.state.userDetails
+    // }
 	let tempDate = new Date();
 	  var date = tempDate.toLocaleDateString();
 		return(
       <div>
-	  <Header name="tenant-upgrade"  first_name={window.localStorage.getItem('firstName')} 
-                last_name={window.localStorage.getItem('firstName')} />
          {/* Logo container*/}
-         <div className="logo text-center">
-           {/* Text Logo */}
-           {/*<a href="index.html" class="logo">*/}
-           {/*Adminox*/}
-           {/*</a>*/}
-           {/* Image Logo */}
-           <a href="index.html" className="logo"> <img src="/assets/images/logo_dark.png" alt className="logo-lg" /></a></div>
+         <Header name="broker-owner"  first_name={window.localStorage.getItem('firstName')} 
+                last_name={window.localStorage.getItem('firstName')} />
+	 <div  style={{marginTop:'3%',marginBottom:'3%'}} className="wrapper">
          <div className="payment-warp">
            <div className="container">
              {/* end page title end breadcrumb */}
@@ -205,11 +230,11 @@ class Payment extends React.Component {
                            <div className="row">
                              <div className="col-md-7">
                                <h5>Pay Now</h5>
-                               <p className="p-white">Upgrade Plan</p>
+                               <p className="p-white">Register</p>
                              </div>
                              <div className="col-md-5 text-right">
                                <h5>Total Amount</h5>
-                               <h5>$ {user.planPrice}</h5>
+                               <h5>${Amount}</h5>
                              </div>
                            </div>
                          </div>
@@ -219,7 +244,7 @@ class Payment extends React.Component {
                                <label>Name :</label>
                              </div>
                              <div className="col-md-5">
-                               <label>{user.first_name+' '+user.last_name}</label>
+                               <label>{opts.first_name+' '+opts.last_name}</label>
                              </div>
                              <div className="col-md-2">
                                <label>Date :</label>
@@ -305,11 +330,10 @@ class Payment extends React.Component {
          </div>
          {/* end wrapper */}
          {/* Footer */}
-
+		</div>
        </div>
 
 
     );
 	}
 }
-export default connect(state=>({ userData: state.userData, userProfile: state.userProfile }))(Payment)
