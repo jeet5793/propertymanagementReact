@@ -18,13 +18,7 @@ export default class TenantFooter extends Component{
 	}
     render(){
         return(
-            <footer className="footer" style={
-              {
-                position: 'fixed',
-                left: '0',
-                bottom: '0',
-                width: '100%',
-          }}>
+            <footer className="footer">
             <div className="container">
               <div className="row">
                 <div className="col-12 text-center"> © 2018 Assets Watch. All Rights Reserved </div>

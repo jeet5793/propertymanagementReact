@@ -288,7 +288,7 @@ export default class ReportTable extends React.Component{
     name="broker-report" 
     first_name={window.localStorage.getItem('firstName')} 
     last_name={window.localStorage.getItem('firstName')} />
-    <div class="wrapper" style={{marginTop:'5%'}}>
+    <div class="wrapper">
         <div class="container agentdis">
             <ReportTableHeader />
             <div class="card-box">

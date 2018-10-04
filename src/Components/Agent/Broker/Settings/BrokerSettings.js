@@ -22,7 +22,7 @@ class BrokerSettings extends React.Component{
 	render(){
 		return(
 		<div>
-			<div style={{marginTop:'3%',marginBottom:'3%',minHeight:600}} className="wrapper">
+			<div className="wrapper">
                   <div className="container"> 
                     <div className="row">
                       <div className="col-sm-12">

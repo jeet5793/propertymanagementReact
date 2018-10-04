@@ -19,7 +19,7 @@ import { Switch, Route } from 'react-router';
 import Cookies from 'js-cookie';
 import Report from '../Reports/Report'
 import ReportTable from '../Reports/ReporTable'
-
+import DealPayment from '../Property/DealPayment'
 class TenantDashboard extends React.Component {
 
   constructor(props) {
@@ -86,6 +86,7 @@ class TenantDashboard extends React.Component {
 			<Route  path='/tenant-plan' component={TenantPlan} />
 			<Route  path='/tenant-upgrade' component={Upgrade} />
 			<Route  path='/tenant-notifications' component={Notification} />
+      <Route  path='/tenant-deal-payment' component={DealPayment} />
           </Switch>
 
           <Footer />

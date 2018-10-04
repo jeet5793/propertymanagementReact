@@ -131,7 +131,7 @@ class Property extends React.Component{
                 name="property" 
                 first_name={window.localStorage.getItem('firstName')} 
                 last_name={window.localStorage.getItem('lastName')} />
-                <div  style={{marginTop:'3%',marginBottom:'3%',minHeight:500}} className="wrapper">
+                <div className="wrapper">
                 <div className="container">                     
                 <div className="page-title-box">
                 <div className="btn-group pull-right">

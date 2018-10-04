@@ -213,8 +213,8 @@ class ProfileDetails extends React.Component{
                     <div className="row">
                     <div className="col-md-12 col-lg-12 second-profiles-details">
                         <div className="card-box"> 
-                        <div className="col-md-12"> 
                         <div className="row"> 
+                        <div className="col-md-12"> 
                         <div className="col-md-8">
                         <span className="pull-left m-r-15">
                         <img src={this.state.profileData.profile_photo!=''?API_URL+this.state.profileData.profile_photo:img_not_available} alt="" className="second-profiles rounded-circle" /></span>
@@ -251,12 +251,14 @@ class ProfileDetails extends React.Component{
                             </div>	
                             </div>	
                             <hr />
-                            <div className="col-md-12">
                                 <div className="row">
+                            <div className="col-md-12">
                                     <div className="col-md-8">
                                         <h4>About:</h4>
                                         <p>{this.state.profileData.about_us}</p>
                                     </div>
+                            <div className="col-md-4"></div>
+                            <div className="col-md-12">
 									<div className="search-result-box">
 					
                                     <div className="search-item">
@@ -416,6 +418,7 @@ class ProfileDetails extends React.Component{
                                     </div>
 									
 									<div className="clearfix"></div>
+								</div>
 								</div>
 								
                                 </div>

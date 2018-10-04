@@ -30,13 +30,13 @@ this.imgServer=API_URL,
         .then(
           (result) => {
 			   this.setState({propertiesLoading:true})
-            //console.log("data 2: "+JSON.stringify(result.profile))
+            console.log("data 2: "+JSON.stringify(result.service))
 			$("#loaderDiv").hide();
             if (result.success) {
               this.setState({property:result.service.property_list,propertiesLoading:true})
               
             } 
-             console.log("set user data"+JSON.stringify(this.state.property))
+             console.log("property"+JSON.stringify(this.state.property))
           },
         (error) => {
           console.log('error')
@@ -44,11 +44,12 @@ this.imgServer=API_URL,
       )
 	}
     render() {
-		 const imgSer=this.imgServer
+		 const imgSer=this.imgServer;
+		 console.log('this.state.userData'+JSON.stringify(this.state.userData));
         return (
             <div>
           
-            <div  style={{marginTop:'3%',minHeight:500}} className="wrapper">
+            <div className="wrapper">
                 <div className="container">                     
                 <div className="page-title-box">
                 
@@ -92,8 +93,8 @@ this.imgServer=API_URL,
                                            <Link to={{pathname:'/property-detail',state:{id:element.id}}}  className="table-action-btn">
                                                 <i className="mdi mdi-eye"></i>
                                             </Link>
-											<Link to={{pathname:'/deal-payment',state:{id:element.id}}}  className="table-action-btn">
-                                                <i className="mdi mdi-redo-variant"></i>
+											<Link to={{pathname:'/tenant-deal-payment',state:{rent:element.rent,deal_id:element.deal_id,userId:JSON.parse(this.state.userData).assets_id,paidFor:element.property_status}}}  className="table-action-btn">
+                                                <button className="btn btn-success">{element.property_status}</button>
                                             </Link>
                                             
                                         </td>

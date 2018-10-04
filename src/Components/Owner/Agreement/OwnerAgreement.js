@@ -14,7 +14,7 @@ export default class OwnerAgreement extends React.Component {
         // if (this.props.owner) {
             return (
                 <div>
-                    <div style={{ marginTop: '3%', marginBottom: '3%' }} className="wrapper">
+                    <div className="wrapper">
                         <div className="container">
 
                             {/* <!-- Page-Title --> */}

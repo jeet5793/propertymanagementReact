@@ -230,7 +230,7 @@ export default class PaymentGateway extends React.Component {
                            <div className="row">
                              <div className="col-md-7">
                                <h5>Pay Now</h5>
-                               <p className="p-white">Register</p>
+                               <p className="p-white">BGV Payment</p>
                              </div>
                              <div className="col-md-5 text-right">
                                <h5>Total Amount</h5>

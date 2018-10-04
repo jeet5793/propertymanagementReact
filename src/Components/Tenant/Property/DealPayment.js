@@ -1,18 +1,19 @@
 import React from 'react'
-import API_URL from "../../../app-config";
+import Header from '../Header/TenantHeader'
+import {Link} from 'react-router-dom'
+import API_URL from '../../../app-config';
 import Cookies from 'js-cookie';
-import DatePicker from 'react-datepicker';
-import moment from 'moment';
-import 'react-datepicker/dist/react-datepicker.css';
-import swal from 'sweetalert';
-import Header from '../Header/Header'
+import { connect } from 'react-redux';
+import '../../../css/theme.css'
+import '../../../css/plans.css'
 import $ from 'jquery';
-export default class PaymentGateway extends React.Component {
+import swal from 'sweetalert';
+
+class Payment extends React.Component {
   constructor(props){
     super(props)
 
     this.state={
-	 userData:Cookies.get('profile_data'),
         userDetails:{},
         month:'',
         year:'',
@@ -20,18 +21,16 @@ export default class PaymentGateway extends React.Component {
 		cvv:''
 		
     }
-	
       // this.userInfo = this.userInfo.bind(this);
       // this.userDetails = this.userDetails.bind(this);
-       this.paymentPage = this.paymentPage.bind(this);
+      this.paymentPage = this.paymentPage.bind(this);
       this.handleMonthChange=this.handleMonthChange.bind(this);
       this.handleYearChange=this.handleYearChange.bind(this);
 	  this.changeaccHandler=this.changeaccHandler.bind(this);
       this.changecvvHandler=this.changecvvHandler.bind(this);
-	  this.onClickReturn = this.onClickReturn.bind(this);
+	   this.onClickReturn = this.onClickReturn.bind(this);
   }
  componentDidMount() {
-	 
     // setTimeout(function(){ $('#tzloadding').remove(); }, 2000)
     // $('html, body').animate({scrollTop: 0}, 1500);
     // this.userInfo();
@@ -40,8 +39,8 @@ export default class PaymentGateway extends React.Component {
   }
   componentDidUpdate() {
 
-    // setTimeout(function(){ $('#tzloadding').remove(); }, 2000)
-    // $('html, body').animate({scrollTop: 0}, 1500);
+    //setTimeout(function(){ $('#tzloadding').remove(); }, 2000)
+    //$('html, body').animate({scrollTop: 0}, 1500);
   }
 
   handleMonthChange(e){
@@ -60,28 +59,32 @@ export default class PaymentGateway extends React.Component {
     e.preventDefault()
     this.setState({cvv:e.target.value});
   }
-  // userInfo() {
-    // var id=${JSON.parse(this.state.userData).assets_id;
-    // fetch(`${API_URL}assetsapi/profile/`+id)
-          // .then(res => res.json())
-          // .then(
-            // (result) => {
-             
-              // this.props.updateInfo(result.profile);
-            // },
-            // (error) => {
-              // this.setState({
-                // isLoaded: true,
-                // error
-              // });
-            // }
-          // )
-  // }
- /*  userDetails() {
+  /* userInfo() {
+	  const path = this.props.history.location.state;
+    // var id=this.props.location.search.replace('?Id=','');
+    fetch(`${API_URL}assetsapi/profile/${path.userId}`)
+          .then(res => res.json())
+          .then(
+            (result) => {
+              // debugger;
+              this.props.updateInfo(result.profile);
+            },
+            // Note: it's important to handle errors here
+            // instead of a catch() block so that we don't swallow
+            // exceptions from actual bugs in components.//assetsapi/paymentgateway/`+54+`/`+2+`/per_annum`
+            (error) => {
+              this.setState({
+                isLoaded: true,
+                error
+              });
+            }
+          )
+  }
+  userDetails() {
 	  
-	  const path = this.props.history.location.pathname;
+	  const path = this.props.history.location.state;
 	  //const exactpath =path.substring(1);
-    fetch(`${API_URL}`+'assetsapi'+path)
+    fetch(`${API_URL}assetsapi/payment/${path.userId}/${path.PlanId}/${path.Pay}`)
           .then(res => res.json())
           .then(
             (result) => {
@@ -91,7 +94,7 @@ export default class PaymentGateway extends React.Component {
                 this.setState({
                   userDetails:result.user_detail
                 })
-				console.log(this.state.userDetails);
+				// console.log(this.state.userDetails);
               }
               //this.props.updateInfo(result.profile);
             },
@@ -107,115 +110,83 @@ export default class PaymentGateway extends React.Component {
           )
   }
  */
-   paymentPage(event) {
+  paymentPage(event) {
   event.preventDefault();
-  	// console.log(this.state);
+  	console.log(this.state);
+	var dealData = this.props.location.state;
   var payment_Object={
-    "userid":'',
     "tokenizedaccountnumber":this.state.tokenizedaccountnumber,
     "paymentmode": "card",
     "expirymmyy": this.state.month+this.state.year,
     "cvv": this.state.cvv,
     "routingnumber": null,
     "surchargeamount": null,
-    "transactionamount":'',
+    "transactionamount":dealData.rent,
     "currency": "USD",
     "transactionreference": null,
-    "payeeid": null,
+    "payeeid": dealData.userId,
     "notifypayee": null,
     "profile": null,
     "profileid": null,
     "orderid":'',
-	"amount":''
-  } 
+	"deal_id":dealData.deal_id,
+	"paid_for":dealData.paidFor,
+  }
+  $("#loaderDiv").show();
   // console.log(payment_Object);
-		var retrievedData = localStorage.getItem("opts");
-		var opts = JSON.parse(retrievedData);
-		// console.log(JSON.stringify(opts));
-		var Amount = (opts.packageid==14)?8.16:(opts.packageid==12)?18.14:(opts.packageid==14)?26.78:'';
-		payment_Object.amount = Amount;
-		
-		 var dataToPost = Object.assign(payment_Object,opts);
-		  // console.log(JSON.stringify(dataToPost));
-		  // alert(dataToPost);
-		  $("#loaderDiv").show();
-		fetch(`${API_URL}assetsapi/background_verification`, {
-				method: 'post',        
-				body: JSON.stringify(dataToPost)
-				}).then((response) => {
-				  return response.json();
-				}).then((data) => {
-				  //console.log('dataaaa:  ', data);
-				  if(data)
-				  {
-					     $("#loaderDiv").hide();
-						
-					   // console.log(JSON.stringify(data));
-					    var removeOpts = localStorage.removeItem("opts");
-					    // console.log(JSON.stringify(check));
-					    $("#actionType").val("Yes");
-					    $("#hiddenURL").val("owner-agent");
-					    $(".confirm-body").html(data.msg);
-					    $("#BlockUIConfirm").show();
-						// swal("Assets Watch", data.msg);
-						 // window.location.reload();
-							// window.location.href="/bgvpayment"
-								
-				  }
-				
-				}).catch((error) => {
-				  console.log('error: ', error);
-				}); 
-    /* fetch(`${API_URL}assetsapi/paymentgateway`,{
+    fetch(`${API_URL}assetsapi/property_payment`,{
       method: 'post',
-      headers: {'Content-Type':'application/json'},
       body: JSON.stringify(payment_Object)
     })
           .then(res => res.json())
           .then(
             (result) => {
-			   if(result.msg.indexOf("Registered Successfully")!=-1)
-			   {
-				   
-				   swal("Assets Watch", result.msg);
-				   	this.props.history.replace('/');
-					window.location.reload();
-			   }
-				
+				$("#loaderDiv").hide();
+					   
+					   $("#actionType").val("Yes");
+					   $("#hiddenURL").val("tenant-myproperty");
+					   $(".confirm-body").html(result.msg);
+					   $("#BlockUIConfirm").show();
              
-              this.props.updateInfo(result.profile);
+              //this.props.updateInfo(result.profile);
             },
+            // Note: it's important to handle errors here
+            // instead of a catch() block so that we don't swallow
+            // exceptions from actual bugs in components.
             (error) => {
               this.setState({
                 isLoaded: true,
                 error
               });
             }
-          ) */
+          )
   }
-   onClickReturn()
+  onClickReturn()
   {
-	  window.location.href='/owner-agent';
+	  window.location.href='/tenant-myproperty';
 	  // this.props.history.replace('/owner-plan');
   }
 	render(){  
-		var retrievedData = localStorage.getItem("opts");
-		var opts = JSON.parse(retrievedData);
-		console.log(JSON.stringify(opts));
-		var Amount = (opts.packageid==14)?8.16:(opts.packageid==12)?18.14:(opts.packageid==14)?26.78:'';
-		// var check = localStorage.removeItem("opts");
-		// console.log(JSON.stringify(check));
-    // if(this.state.userDetails){
-      // var user = this.state.userDetails
-    // }
+	console.log(this.props.history);
+    if(this.state.userDetails){
+      var user = this.state.userDetails
+    }
 	let tempDate = new Date();
 	  var date = tempDate.toLocaleDateString();
+	  
+	  var dealData = this.props.location.state;
 		return(
       <div>
+	  <Header name="tenant-myproperty"  first_name={window.localStorage.getItem('firstName')} 
+                last_name={window.localStorage.getItem('lastName')} />
          {/* Logo container*/}
-         <Header name="owner-agent"  first_name={window.localStorage.getItem('firstName')} 
-                last_name={window.localStorage.getItem('firstName')} />
-	 <div  style={{marginTop:'3%',marginBottom:'3%'}} className="wrapper">
+         <div className="logo text-center">
+           {/* Text Logo */}
+           {/*<a href="index.html" class="logo">*/}
+           {/*Adminox*/}
+           {/*</a>*/}
+           {/* Image Logo */}
+           <a href="/" className="logo"> <img src="/assets/images/logo_dark.png" alt className="logo-lg" /></a></div>
          <div className="payment-warp">
            <div className="container">
              {/* end page title end breadcrumb */}
@@ -230,11 +201,11 @@ export default class PaymentGateway extends React.Component {
                            <div className="row">
                              <div className="col-md-7">
                                <h5>Pay Now</h5>
-                               <p className="p-white">BGV Payment</p>
+                               <p className="p-white">Property Payment</p>
                              </div>
                              <div className="col-md-5 text-right">
                                <h5>Total Amount</h5>
-                               <h5>${Amount}</h5>
+                               <h5>$ {dealData.rent}</h5>
                              </div>
                            </div>
                          </div>
@@ -244,7 +215,7 @@ export default class PaymentGateway extends React.Component {
                                <label>Name :</label>
                              </div>
                              <div className="col-md-5">
-                               <label>{opts.first_name+' '+opts.last_name}</label>
+                               <label>{window.localStorage.getItem('firstName').replace(/["']/g, "")+''+window.localStorage.getItem('lastName').replace(/["']/g, "")}</label>
                              </div>
                              <div className="col-md-2">
                                <label>Date :</label>
@@ -330,10 +301,11 @@ export default class PaymentGateway extends React.Component {
          </div>
          {/* end wrapper */}
          {/* Footer */}
-		</div>
+
        </div>
 
 
     );
 	}
 }
+export default connect(state=>({ userData: state.userData, userProfile: state.userProfile }))(Payment)

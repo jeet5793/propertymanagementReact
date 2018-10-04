@@ -49,7 +49,7 @@ this.imgServer=API_URL,
 			      <div>
         {/* Navigation Bar*/}
         {/* End Navigation Bar*/}
-        <div  style={{marginTop:'3%',marginBottom:'3%',minHeight:500}} className="wrapper">
+        <div className="wrapper">
                 <div className="container">                     
                 <div className="page-title-box">
               

@@ -26,7 +26,7 @@ import { connect } from 'react-redux';
                 first_name={this.props.owner.first_name} 
                 last_name={this.props.owner.last_name}
                 /> */}
-                <div style={{marginTop:'3%',marginBottom:'3%',minHeight:600}} className="wrapper">
+                <div className="wrapper">
                   <div className="container"> 
                     <div className="row">
                       <div className="col-sm-12">

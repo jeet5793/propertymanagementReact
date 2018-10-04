@@ -112,7 +112,7 @@ unsubscribe()
 {this.plansStyle}
 <Header name="broker-plan"  first_name={window.localStorage.getItem('firstName')} 
                 last_name={window.localStorage.getItem('firstName')} />
-            <div style={{marginTop:'3%',marginBottom:'6%'}} className="wrapper">
+            <div className="wrapper">
               <div className="container">                     
                 <div className="page-title-box">
                     

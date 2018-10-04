@@ -42,6 +42,7 @@ class EditProperty extends React.Component {
         "description": " ",
         "geo_location": "",
         "square_feet": "",
+		"agent_perc":"",
         "bedroom": "",
         "bathroom": "",
         "total_amount": "",
@@ -178,6 +179,8 @@ class EditProperty extends React.Component {
         formData.geo_location = e.target.value
       else if (e.target.name == "square_feet")
         formData.square_feet = e.target.value
+	  else if (e.target.name == "agent_perc")
+        formData.agent_perc = e.target.value
       else if (e.target.name == "bedroom")
         formData.bedroom = e.target.value
       else if (e.target.name == "bathroom")
@@ -294,7 +297,7 @@ class EditProperty extends React.Component {
       <div>
         <Header name="property" first_name={window.localStorage.getItem('firstName')}
           last_name={window.localStorage.getItem('firstName')} />
-        <div style={{ marginTop: '3%', marginBottom: '6%' }} className="wrapper">
+        <div className="wrapper">
           <div className="container">
             <div className="page-title-box">
               <div className="btn-group pull-right">
@@ -467,8 +470,12 @@ class EditProperty extends React.Component {
 
                       <div className="form-group row">
                         <label className="col-2 col-form-label">Square Feet</label>
-                        <div className="col-10">
+                        <div className="col-4">
                           <input value={editPropertyInfo.square_feet} name="square_feet" onChange={this.onChangeHandler} type="text" className="form-control" />
+                        </div>
+						<label className="col-2 col-form-label">Agent (%)</label>
+                        <div className="col-4">
+                          <input name="square_feet" onChange={this.onChangeHandler} type="text" className="form-control" />
                         </div>
                       </div>
                       <div className="form-group row">

@@ -23,7 +23,7 @@ class TenantSetting extends React.Component {
         return (
             <div>
     
-     <div style={{marginTop:'3%',marginBottom:'3%',minHeight:600}} className="wrapper">
+     <div className="wrapper">
         <div className="container"> 
         {/* Page-Title */}
         <div className="row">

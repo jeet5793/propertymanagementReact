@@ -348,7 +348,7 @@ render(){
     name="payment" 
     first_name={this.props.owner.first_name} 
     last_name={this.props.owner.last_name} /> */}
-        <div style={{marginTop:'3%',marginBottom:'3%'}} className="wrapper">
+        <div className="wrapper">
 			
 				<div className="container">
 				  <div className="page-title-box"> 

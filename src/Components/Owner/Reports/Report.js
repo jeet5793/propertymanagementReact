@@ -17,7 +17,7 @@ export default class Report extends React.Component{
   name="report" 
   first_name={window.localStorage.getItem('firstName')} 
   last_name={window.localStorage.getItem('firstName')} />
-  <div className="wrapper" style={{marginTop:'5%'}}>
+  <div className="wrapper">
   <div className="container agentdis">
     <div className="page-title-box">
       <h4 className="page-title">Reports</h4>

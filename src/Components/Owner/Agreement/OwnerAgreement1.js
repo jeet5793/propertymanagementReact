@@ -552,7 +552,7 @@ getPropertyList() {
   render(){
       return(
     <div>
-     <div className="wrapper" style={{marginTop:'3%',marginBottom:'5%'}}>
+     <div className="wrapper">
           <div className="container"> 
             {/* Page-Title */}
             <AgreementHeader/>

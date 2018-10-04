@@ -478,7 +478,7 @@ class BrokerTenant extends React.Component{
 
 			 <div>
        
-       <div  style={{marginTop:'3%',marginBottom:'3%'}} className="wrapper">
+       <div className="wrapper">
           <div className="container agentdis"> 
             <div className="page-title-box">
               <div className="btn-group pull-right">

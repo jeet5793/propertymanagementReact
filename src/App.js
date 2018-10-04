@@ -200,6 +200,7 @@ LoggedIn(userId){
 		<Route exact path='/tenant-notifications' component={TenantDashboard} />
 		 <Route  path='/tenant-report' component={TenantDashboard} />
 		<Route  path='/tenant-report-table' component={TenantDashboard} />
+    <Route  path='/tenant-deal-payment' component={TenantDashboard} />
 
         <Route  path='/' component={DashBoardIndex} />
         <Route exact path='/plans' render={props=><Plans {...props} login={this.LoggedIn} />} />

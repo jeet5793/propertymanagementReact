@@ -569,7 +569,7 @@ class Agent extends React.Component{
             name="agent" 
             first_name={this.props.owner.first_name} 
             last_name={this.props.owner.last_name} /> */}
-                <div  style={{marginTop:'3%',marginBottom:'3%'}} className="wrapper">
+                <div className="wrapper">
                 <div className="container agentdis">
                   <div className="page-title-box">
                     <div className="btn-group pull-right">

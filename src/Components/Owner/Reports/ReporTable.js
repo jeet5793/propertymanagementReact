@@ -109,6 +109,7 @@ const FilterCriteria=(props)=>{
 			  
 				
 				<DatePicker
+					className='form-control'
 					name='from_date'
 					dateFormat="DD-MM-YYYY"
 					selected={props.startDate}
@@ -117,6 +118,7 @@ const FilterCriteria=(props)=>{
               </div>
               <div className="col-md-2" id="">
 			  <DatePicker
+					className='form-control'
 					name='to_date'
 					dateFormat="DD-MM-YYYY"
 					selected={props.endDate}
@@ -352,7 +354,7 @@ export default class ReportTable extends React.Component{
     name="report" 
     first_name={window.localStorage.getItem('firstName')} 
     last_name={window.localStorage.getItem('firstName')} />
-    <div className="wrapper" style={{marginTop:'5%'}}>
+    <div className="wrapper">
         <div className="container agentdis">
             <ReportTableHeader formType = {this.state.formType}/>
             <div className="card-box">
