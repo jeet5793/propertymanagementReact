@@ -855,19 +855,24 @@ class Headernav extends React.Component {
 							<input type="hidden" id="hiddenURL" />
 							<input type="hidden" id="actionType" />
 							
-							
-							
+							<ul className="al-regother">
+							<li>
 							<input type="button" className="user-btn btn btn-success" value="Owner" />
 							<input type="hidden" id="OwnUserAction"  value="Register"/>
 							<p id="ownAction">Register</p>
-							
+							</li>
+							<li>
 							<input type="button" className="user-btn btn btn-success" value="Agent" />
 							<input type="hidden" id="AgnUserAction" value="Register"/>
 							<p id="AgnAction">Register</p>
-							
+							</li>
+							<li>
 							<input type="button" className="user-btn btn btn-success" value="Tenant"  />
 							<input type="hidden" id="TenUserAction"  value="Register"/>
 							<p id="TenAction">Register</p>
+							</li>
+							</ul>
+							
 							
 						</div>
 						

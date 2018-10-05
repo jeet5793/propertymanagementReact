@@ -37,6 +37,7 @@ const Saved=(props)=>{
   </div>);
 }
 const VRequested=(props)=>{
+	console.log(JSON.stringify(props.ragreement))
     return(
         <div className="tab-pane" id="v-requested">
           <div className=" table-responsive">

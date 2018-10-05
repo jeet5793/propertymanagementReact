@@ -589,7 +589,7 @@ class BrokerOwner extends React.Component{
 									<div className="member-card-alt-info">
 									  <h4 className="m-b-5 m-t-0 font-18">{item.name}</h4>
 									  <p className="text-muted m-b-3"><i className="icon-phone"></i>&nbsp; {item.mobile_no}</p>
-									  <p className="text-muted m-b-3 "><i className="icon-envelope"></i>{item.email}</p>
+									  <p className="text-muted m-b-3 "><i className="icon-envelope"></i>&nbsp; {item.email}</p>
 									  <p className="text-muted m-b-3 text-overflow"><i className="icon-location-pin"></i>&nbsp; {item.country}</p>
 									  <ul className="list-inline m-t-10 m-b-0 text-right">
 									  {item.reportId>0?<li className="bgv-download"><a className="bgv-icon bgv-bg" title="Download" href="#" onClick = {this.BgvDownload.bind(this,item.reportId)}><i className="icon-cloud-download"></i></a> </li>:''}

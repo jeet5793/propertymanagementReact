@@ -275,8 +275,8 @@ class Home extends React.Component{
 				              <div className="tabbable-panel">
 				                <div className="tabbable-line">
 				                  <ul className="nav nav-tabs ">
-				                    <li className="active"> <a href="#tab_default_1" data-toggle="tab"> Properties </a> </li>
-				                    {/* <li> <a href="#tab_default_1" data-toggle="tab"> Recent </a> </li>
+				                    {/*<li className="active"> <a href="#tab_default_1" data-toggle="tab"> Properties </a> </li>
+				                     <li> <a href="#tab_default_1" data-toggle="tab"> Recent </a> </li>
 								<li> <a href="#tab_default_3" data-toggle="tab"> Feature </a> </li> */}
 				                  </ul>
 				                  <div className="tab-content">

@@ -2146,7 +2146,8 @@ a img.aligncenter {
     -o-transition: all 0.3s linear 0s;
     transition: all 0.3s linear 0s;
     letter-spacing: 0.1px;
-    background: transparent
+    background: transparent;
+	    font-size: 13px;
 }
 
 .tz-header .tz-header-bottom .navbar-nav > li > a:hover,
@@ -6109,7 +6110,7 @@ body .cbp-l-caption-buttonRight:hover {
     position: absolute;
     right: 0;
     top: 0;
-    z-index: 111
+    z-index: 9
 }
 
 .tz-homeslide-image .tz-center-content .tz-overlay {
@@ -45849,4 +45850,13 @@ body .wpb_gallery_slides ul li {
 
 .icon-copyright:before {
     content: "\a9"
+}
+.al-regother {
+	padding: 0;
+    margin: 0;
+    display: inline-block;
+}
+.al-regother li {
+	float: left;
+    margin-right: 15px;
 }

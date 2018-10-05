@@ -103,17 +103,23 @@ unsubscribe()
 {this.plansStyle}
 <Header name="tenant-plan"  first_name={window.localStorage.getItem('firstName')} 
                 last_name={window.localStorage.getItem('firstName')} />
-            <div className="wrapper">
+         <div className="wrapper">
               <div className="container">                     
                 <div className="page-title-box">
-                    
+                    <div className="btn-group pull-right">
+					<ol className="breadcrumb hide-phone p-0 m-0">
+					<li>
+					{planData  ?<button name="unsubscribe" className="btn btn-success waves-effect waves-light" style={{float:"right"}} onClick={this.unsubscribe}>Unsubscribe</button>:''}
+					</li>
+					</ol>
+					</div>
                     <h4 className="page-title">Upgrade Plan</h4>
                 </div>  
 				
 <div className="container seprate-plan">
     <div className="tz_page_content">
     <div className="post-1081 page type-page status-publish hentry">
-	{planData  ?<button name="unsubscribe" className="btn btn-success waves-effect waves-light" style={{float:"right"}} onClick={this.unsubscribe}>Unsubscribe</button>:''}
+	
         <div className="bootstrap-wrapper">
         <div className="text-center">
               {
@@ -125,7 +131,7 @@ unsubscribe()
                                             <div className="col-md-3">
                                                 <ul id="price-t-5" className="">
                                                     <li>
-                                                        <h2>Basic {(this.state.profileData.planName=='') || planData['Basic'].plan_details.planName===this.state.profileData.planName?<i className="fa fa-check-circle" style={{fontSize:"48px",color:"red"}}></i>:''}</h2>
+                                                        <h2>Basic {(this.state.profileData.planName=='') || planData['Basic'].plan_details.planName===this.state.profileData.planName?<i className="fa fa-check-circle" style={{fontSize:"20px",color:"#ffa91c", paddingLeft:"10px"}}></i>:''}</h2>
                                                         <h3>$ {planData['Basic'].plan_details.per_month}/{planData['Basic'].plan_details.per_annum} <br /><span> {Number(planData['Basic'].plan_details.per_annum) === 0 ? 'Free' : 'per month/Annum'}  </span></h3>
                                                         <ul>
 															{ planData['Basic'].features.manage_properties_upto ? <li className=" first even">{planData['Basic'].features.manage_properties_upto.feature_name} - {planData['Basic'].features.manage_properties_upto.feature_unit=='Limit'?(planData['Basic'].features.manage_properties_upto.limit_upto!=0?planData['Basic'].features.manage_properties_upto.limit_upto:'Free'):planData['Basic'].features.manage_properties_upto.confirmation}</li> : null }
@@ -160,7 +166,7 @@ unsubscribe()
                                             <div className="col-md-3">
                                                 <ul id="price-t-5" className="">
                                                     <li>
-                                                        <h2>Silver{planData['Silver'].plan_details.planName===this.state.profileData.planName?<i className="fa fa-check-circle" style={{fontSize:"48px",color:"red"}}></i>:''}</h2>
+                                                        <h2>Silver{planData['Silver'].plan_details.planName===this.state.profileData.planName?<i className="fa fa-check-circle" style={{fontSize:"20px",color:"#ffa91c", paddingLeft:"10px"}}></i>:''}</h2>
                                                         <h3>$ {planData['Silver'].plan_details.per_month}/{planData['Silver'].plan_details.per_annum} <br /><span> {Number(planData['Silver'].plan_details.per_annum) === 0 ? 'Free' : 'per month/Annum'}  </span></h3>
                                                         <ul>
 															{ planData['Silver'].features.manage_properties_upto ? <li className=" first even">{planData['Silver'].features.manage_properties_upto.feature_name} - {planData['Silver'].features.manage_properties_upto.feature_unit=='Limit'?(planData['Silver'].features.manage_properties_upto.limit_upto!=0?planData['Silver'].features.manage_properties_upto.limit_upto:'Free'):planData['Silver'].features.manage_properties_upto.confirmation}</li> : null }
@@ -228,7 +234,7 @@ unsubscribe()
                                             <div className="col-md-3">
                                                 <ul id="price-t-5" className="">
                                                     <li>
-                                                        <h2>Gold{planData['Gold'].plan_details.planName===this.state.profileData.planName?<i className="fa fa-check-circle" style={{fontSize:"48px",color:"red"}}></i>:''}</h2>
+                                                        <h2>Gold{planData['Gold'].plan_details.planName===this.state.profileData.planName?<i className="fa fa-check-circle" style={{fontSize:"20px",color:"#ffa91c", paddingLeft:"10px"}}></i>:''}</h2>
                                                         <h3>$ {planData['Gold'].plan_details.per_month}/{planData['Gold'].plan_details.per_annum} <br /><span> {Number(planData['Gold'].plan_details.per_annum) === 0 ? 'Free' : 'per month/Annum'}  </span></h3>
                                                         <ul>
 															{ planData['Gold'].features.manage_properties_upto ? <li className=" first even">{planData['Gold'].features.manage_properties_upto.feature_name} - {planData['Gold'].features.manage_properties_upto.feature_unit=='Limit'?(planData['Gold'].features.manage_properties_upto.limit_upto!=0?planData['Gold'].features.manage_properties_upto.limit_upto:'Free'):planData['Gold'].features.manage_properties_upto.confirmation}</li> : null }
@@ -295,7 +301,7 @@ unsubscribe()
                                             <div className="col-md-3">
                                                 <ul id="price-t-5" className="">
                                                     <li>
-                                                        <h2>Platinum{planData['Platinum'].plan_details.planName===this.state.profileData.planName?<i className="fa fa-check-circle" style={{fontSize:"48px",color:"red"}}></i>:''}</h2>
+                                                        <h2>Platinum{planData['Platinum'].plan_details.planName===this.state.profileData.planName?<i className="fa fa-check-circle" style={{fontSize:"20px",color:"#ffa91c", paddingLeft:"10px"}}></i>:''}</h2>
                                                         <h3>$ {planData['Platinum'].plan_details.per_month}/{planData['Platinum'].plan_details.per_annum} <br /><span> {Number(planData['Platinum'].plan_details.per_annum) === 0 ? 'Free' : 'per month/Annum'}  </span></h3>
                                                         <ul>
                                                             { planData['Platinum'].features.manage_properties_upto ? <li className=" first even">{planData['Platinum'].features.manage_properties_upto.feature_name} - {planData['Platinum'].features.manage_properties_upto.feature_unit=='Limit'?(planData['Platinum'].features.manage_properties_upto.limit_upto!=0?planData['Platinum'].features.manage_properties_upto.limit_upto:'Free'):planData['Platinum'].features.manage_properties_upto.confirmation}</li> : null }

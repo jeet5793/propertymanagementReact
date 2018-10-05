@@ -17,7 +17,8 @@ export default class Header extends React.Component{
             last_name:localStorage.getItem('lastName'),
 			userData:Cookies.get('profile_data'),
 			notification:[],
-			userTypeList:[]
+			userTypeList:[],
+			profileData:[]
         }
         this.logout=this.logout.bind(this)
 		 this.getNotification = this.getNotification.bind(this)
@@ -25,7 +26,8 @@ export default class Header extends React.Component{
         //localStorage.setItem(MyData)
        // alert("I am working now")
 	   this.profileToggle = this.profileToggle.bind(this)
-	   this.profileNoti = this.profileNoti.bind(this)
+	   this.profileNoti = this.profileNoti.bind(this);
+	   this.profile = this.profile.bind(this)
     }
 logout(){
     localStorage.clear();
@@ -77,10 +79,32 @@ onHoverNoti()
 				$('.dropdown-menu').hide();
 			}
 		 }); */
+		 this.profile();
 			  
 	}
 	
-		 
+		profile()
+		{ $("#loaderDiv").show();
+			 fetch(`${API_URL}assetsapi/profile/${JSON.parse(this.state.userData).assets_id}/${JSON.parse(this.state.userData).session_id}`, {
+			method: 'get'
+		  })
+		  .then(res => res.json())
+		  .then(
+			(result) => {
+			  //console.log("data 2: "+JSON.stringify(result.profile))
+			  $("#loaderDiv").hide();
+			  if (result.success) {
+				  
+				this.setState({profileData:result.profile})
+				
+			  } 
+			  console.log("profileData"+JSON.stringify(this.state.profileData))
+			},
+		  (error) => {
+			console.log('error')
+			}
+			)
+		}
 	profileToggle(){
 		var $=window.$;
 		// $('.profile-dropdown').toggle();
@@ -247,18 +271,18 @@ onHoverNoti()
                             {/* All*/} 
                              <a href="#" className="dropdown-item notify-item notify-all"> <Link to = {{pathname:'/owner-notifications'}}>View All</Link> </a> </div>
                         </li>
-                        <li className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle  waves-light nav-user" onClick = {this.profileToggle} data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img src={JSON.parse(this.state.userData).profile_photo!=''?API_URL+JSON.parse(this.state.userData).profile_photo:img_not_available} alt="user" className="rounded-circle" /><span className="profile-name">{this.state.first_name.replace(/["']/g, "")+" "+this.state.last_name.replace(/["']/g, "")}</span> </a>
+                         <li className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle  waves-light nav-user" onClick = {this.profileToggle} data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img src={this.state.profileData.profile_photo!=''?API_URL+this.state.profileData.profile_photo:img_not_available} alt="user" className="rounded-circle" /><span className="profile-name">{this.state.profileData.first_name+" "+this.state.profileData.last_name}</span> </a>
                             <div className="dropdown-menu dropdown-menu-right profile-dropdown" aria-labelledby="Preview"> 
                             {/* item*/}
                             <div className="dropdown-item noti-title">
-                                <h5 className="text-overflow"><small>Hi,{this.state.first_name.replace(/["']/g, "")}</small> </h5>
+                                <h5 className="text-overflow"><small>Hi,{this.state.profileData.first_name}</small> </h5>
                             </div>
                             {/* item*/} 
                             <a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-user" /> <Link to = {{pathname:'/profile'}}> <span>Profile</span></Link> </a> 
                             {/* item*/} 
                             <a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-gear" /> <Link to = {{pathname:'/settings'}}><span>Settings</span></Link> </a>
 							<hr/>							
-							{this.state.userTypeList?<h3 className="dropdown-item notify-item"><small>Switch To</small></h3>:''}
+							{this.state.userTypeList?<span className="dropdown-item notify-item">Switch To</span>:''}
 						{this.state.userTypeList?this.state.userTypeList.map((item)=>( 
 							<a href="javascript:void(0);" className="dropdown-item notify-item" onClick = {this.onClickSwitch.bind(this,item.assets_type)}> <i className="dripicons-user" />{item.assets_type=='2'?'Agent':item.assets_type=='3'?'Tenant':item.assets_type=='1'?'Owner':''}</a> )):''}
 								{this.state.userTypeList?<hr/>:''}

@@ -648,12 +648,12 @@ ActiveDeactive(id,status){
 									<button type="submit" className="btn btn-primary stepy-finish text-right" >Submit</button>
 								  </div>
 							</div> */}
-								<div className="form-group">
+								<div className="form-group text-center">
 								  <div className="alert alert-warning alert-dismissible fade show text-center" role="alert"> Integration not available ! Will comming soon.  </div>
 								</div>
 							  </div>
 							  <div className=""  id="portion_three" style={{display: "none"}}>
-								<div className="form-group">
+								<div className="form-group text-center">
 								  <div className="alert alert-warning alert-dismissible fade show text-center" role="alert"> Integration not available ! Will comming soon. </div>
 								</div>
 							  </div>

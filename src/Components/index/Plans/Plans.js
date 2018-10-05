@@ -46,9 +46,9 @@ $("#loaderDiv").show();
 				</div>
 
 				<div className="container">
-					<div className="row" style={{ marginTop: '5%' }}>
-						<div className="col-md-offset-4 col-md-6">
-							<div className="event-start navAlign">
+					<div className="row">
+						<div className="col-md-offset-3 col-md-6">
+							<div className="event-start"> {/* navAlign */}
 								<ul className="nav nav-pills">
 									<li className="active"><a data-toggle="pill" href="#owner" onClick={() => {
 										this.setState({ userPlan: 'Owner' });
@@ -67,7 +67,7 @@ $("#loaderDiv").show();
 				{planData?
 				<div className="container plans">
 					<div className="tab-content">
-						<div id="owner" className="tab-pane fade in active">
+						<div id="owner" className="col-md-12 tab-pane fade in active">
 							<div className="tz_page_content">
 								<div className="post-1081 page type-page status-publish hentry">
 									<div className="bootstrap-wrapper">

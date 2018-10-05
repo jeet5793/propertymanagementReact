@@ -94,12 +94,33 @@ export default class Plans extends React.Component{
 															
                                                             
                                                         </ul>
-                                                        <div className="submit-btn"> <a href="#" onClick={() => {
+														
+                                                        <div className="submit-btn"> <a href="#">Free</a>
+														<div className="radio radio-custom">
+																	<input type="radio" name="plan_month_year" id="radioind" val="per_month"  value={'per_month'} 
+																	onClick={() => {
                                                           let setPlanID = planData['Basic'].plan_details.plan_id
-                                                          let getPlanId = setPlanID.toString()
-                                                          //let user_Id = planData['Basic'].plan_details.
-                                                            this.props.history.push('payment/'+userid+"/"+getPlanId+'/per_annum')
-                                                        }}>Buy Now</a> </div>
+                                                          let getPlanId = setPlanID.toString();
+														    $("#loaderDiv").show();
+															 fetch(`${API_URL}assetsapi/basic_plan_update/`+userid+'/'+getPlanId)
+																  .then(res => res.json())
+																  .then(
+																	(result) => {
+																	    $("#loaderDiv").hide();
+																		$("#actionType").val("Yes");
+																		$("#hiddenURL").val("/");
+																	   $(".confirm-body").html(result.msg);
+																	   $("#SBlockUIConfirm").show();
+																	},
+																	
+																	(error) => {
+																		error
+																	  });
+																	}
+																  
+                                                        } />
+																	<label HTMLFor="radioind"> Free </label>
+																</div> </div>
                                                     </li>
                                                 </ul>
                                             </div>
