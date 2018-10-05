@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from '../Header/Header'
-import './style.css'
+//import './style.css'
 import {loadFile,removejscssfile} from '../../js/external'
 import API_URL from '../../../app-config';
 import Cookies from 'js-cookie';
