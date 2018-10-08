@@ -423,13 +423,13 @@ render(){
 								<div className="form-group">
 								  <div className="col-md-12">
 									<div className="row">
-									  <div  className="col-md-2">
+									  <div  className="col-md-2 required">
 										<label for="dba-name">DBA Name</label>
 									  </div>
 									  <div className="col-md-4">
 										<input type="text" className="form-control" id="dba-name" name="dba_name" onChange={this.SingularBillChange} placeholder=""/>
 									  </div>
-									  <div  className="col-md-2">
+									  <div  className="col-md-2 required">
 										<label for="legal-name">Legal Name</label>
 									  </div>
 									  <div className="col-md-4">
@@ -441,13 +441,13 @@ render(){
 								<div className="form-group">
 								  <div className="col-md-12">
 									<div className="row">
-									  <div  className="col-md-2">
+									  <div  className="col-md-2 required">
 										<label for="business-address1">Address</label>
 									  </div>
 									  <div className="col-md-4">
 										<input type="text" className="form-control" id="business-address1" name="business_address_line_1" onChange={this.SingularBillChange} placeholder=""/>
 									  </div>
-									  <div  className="col-md-2">
+									  <div  className="col-md-2 required">
 										<label for="business-state-province">Country</label>
 									  </div>
 									  <div className="col-md-4">
@@ -464,7 +464,7 @@ render(){
 								<div className="form-group">
 								  <div className="col-md-12">
 								  <div className="row">
-								   <div  className="col-md-2">
+								   <div  className="col-md-2 required">
 										<label for="business-state-province">State</label>
 									  </div>
 									  <div className="col-md-4">
@@ -476,7 +476,7 @@ render(){
 										
 									  </div>
 									
-									  <div  className="col-md-2">
+									  <div  className="col-md-2 required">
 										<label for="business city" >City</label>
 									  </div>
 									  <div className="col-md-4">
@@ -493,13 +493,13 @@ render(){
 								<div className="form-group">
 								  <div className="col-md-12">
 									<div className="row">
-									  <div  className="col-md-2">
+									  <div  className="col-md-2 required">
 										<label for="business-phone-number">Phone Number</label>
 									  </div>
 									  <div className="col-md-4">
 										<input type="text" className="form-control" name="mobile_no" id="business-phone-number" value={this.state.singularEnrollForm.mobile_no || this.state.profileData.mobile_no} onChange={this.SingularBillChange} placeholder=""/>
 									  </div>
-									  <div  className="col-md-2">
+									  <div  className="col-md-2 required">
 										<label for="email">E-Mail </label>
 									  </div>
 									  <div className="col-md-4">
@@ -511,14 +511,14 @@ render(){
 								<div className="form-group">
 								  <div className="col-md-12">
 									<div className="row">
-									  <div  className="col-md-2">
+									  <div  className="col-md-2 required">
 										<label for="principal-first-name">Principal First Name </label>
 									  </div>
 									  <div className="col-md-4">
 										<input type="text" className="form-control" id="principal-first-name"  name="first_name"  value={this.state.singularEnrollForm.first_name || this.state.profileData.first_name} onChange={this.SingularBillChange} placeholder=""/>
 										
 									  </div>
-									  <div  className="col-md-2">
+									  <div  className="col-md-2 required">
 										<label for="principal-last-name">Principal Last Name</label>
 									  </div>
 									  <div className="col-md-4">
@@ -530,13 +530,13 @@ render(){
 								<div className="form-group">
 								  <div className="col-md-12">
 									<div className="row">
-									<div  className="col-md-2">
+									<div  className="col-md-2 required">
 										<label for="business-postal-code" >Zip Code</label>
 									  </div>
 									  <div className="col-md-4">
 										<input type="text" className="form-control" name="zip_code" id="business-postal-code" value={this.state.singularEnrollForm.zip_code || this.state.profileData.zip_code} onChange={this.SingularBillChange} placeholder=""/>
 									  </div>
-									  <div  className="col-md-2">
+									  <div  className="col-md-2 required">
 										<label for="fed_tax_id">Fed Tax ID</label>
 									  </div>
 									  <div className="col-md-4">

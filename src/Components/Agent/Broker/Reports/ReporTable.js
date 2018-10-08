@@ -89,7 +89,7 @@ const FilterCriteria=(props)=>{
         <div className="row">
 		 
 		 {props.formType==='?property'?
-				  <div className="col-md-1">
+				  <div className="col-md-1 required">
 					<label><b>Filter By:</b></label>
 				  </div>:''}
 				 {props.formType==='?property'?
@@ -102,7 +102,7 @@ const FilterCriteria=(props)=>{
 					</select>
 				  </div>
 			  :''}
-				<div className="col-md-1">
+				<div className="col-md-1 required">
                 <label><b>Date:</b></label>
               </div>
               <div className="col-md-2" id="">
@@ -351,7 +351,7 @@ export default class ReportTable extends React.Component{
 
 <div>
     <Header logoutLink={this.logoutLink} 
-    name="report" 
+    name="broker-report" 
     first_name={window.localStorage.getItem('firstName')} 
     last_name={window.localStorage.getItem('firstName')} />
     <div className="wrapper">

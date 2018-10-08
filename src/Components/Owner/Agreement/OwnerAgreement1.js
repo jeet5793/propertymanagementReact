@@ -29,7 +29,7 @@ const Saved=(props)=>{
             <tr>
               <td>{element.agreement_title}</td>
               <td>{element.created_date}</td>
-              <td><a title="Edit"  onClick={() => props.editAgreement(element)} className="table-action-btn view-rqu"><i className="mdi mdi-border-color"></i></a><a title="Delete"  className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a><a title="Send"  className="table-action-btn view-rqu" data-toggle="modal" data-target="#send-msg"><i className="mdi mdi-redo-variant" onClick={() => props.selectedAgreement(element)}></i></a></td>
+              <td><a title="Edit"  onClick={() => props.editAgreement(element)} href="#" className="table-action-btn view-rqu"><i className="mdi mdi-border-color"></i></a><a title="Delete" href="#" className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a><a title="Send"  href="#" className="table-action-btn view-rqu" data-toggle="modal" data-target="#send-msg"><i className="mdi mdi-redo-variant" onClick={() => props.selectedAgreement(element)}></i></a></td>
             </tr>
           )):<div>No data </div>}        
         </tbody>
@@ -56,7 +56,7 @@ const VRequested=(props)=>{
             <tr>
               <td>{element.agreement_title}</td>
               <td>{element.initiated_date}</td>
-              <td><a title="Edit" href="#preview" onClick={() => props.previewAgreement(element)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Delete"  className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a><a title="Send"  className="table-action-btn view-rqu" data-toggle="modal" data-target="#send-msg"><i className="mdi mdi-redo-variant"></i></a></td>
+              <td><a title="Edit" href="#preview" onClick={() => props.previewAgreement(element)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Delete"  href="#" className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a><a title="Send" href="#" className="table-action-btn view-rqu" data-toggle="modal" data-target="#send-msg"><i className="mdi mdi-redo-variant"></i></a></td>
             </tr>
           )):<div>No data </div>}
         
@@ -86,7 +86,7 @@ const VExecute=(props)=>{
               <td>{element.agreement_title}</td>
               <td>{element.initiated_date}</td>
 			  <td>{element.status}</td>
-              <td><a title="Edit" href="#executePreview" data-toggle="tab" onClick={() => props.selectedExecutedAgreement(element)} className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Send"  className="table-action-btn view-rqu"><i className="mdi mdi-download" onClick={() => props.onClickDownload(element.deal_id)}></i></a><a title="Send"  className="table-action-btn view-rqu" data-toggle="modal" onClick={() => props.selectedExecutedAgreement(element)} data-target="#send-msg"><i className="mdi mdi-redo-variant"></i></a></td>
+              <td><a title="Edit" href="#executePreview" data-toggle="tab" onClick={() => props.selectedExecutedAgreement(element)} className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Download"  href="#" className="table-action-btn view-rqu"><i className="mdi mdi-download" onClick={() => props.onClickDownload(element.deal_id)}></i></a><a title="Send"  href="#" className="table-action-btn view-rqu" data-toggle="modal" onClick={() => props.selectedExecutedAgreement(element)} data-target="#send-msg"><i className="mdi mdi-redo-variant"></i></a></td>
             </tr>
           )):<div>No data </div>}
       </tbody>

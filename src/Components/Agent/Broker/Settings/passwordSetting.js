@@ -107,13 +107,13 @@ import $ from 'jquery';
             <div className="tab-pane fade" style={{width:"100%"}} id="password-settings">
 						<div className="form-group">
 						  <div className="row">
-							<div className="col-md-2">
+							<div className="col-md-2 required">
 							  <label for="old-password">Old Password</label>
 							</div>
 							<div className="col-md-4">
 							  <input type="password" name="old_password" className="form-control" id="old-password" onChange={this.onChangeHandler} placeholder="" required />
 							</div>
-							<div className="col-md-2">
+							<div className="col-md-2 required">
 							  <label for="new-password">New Password</label>
 							</div>
 							<div className="col-md-4">
@@ -123,7 +123,7 @@ import $ from 'jquery';
 				</div>
                 <div className="form-group">
 						 <div className="row">
-							<div className="col-md-2">
+							<div className="col-md-2 required">
 							  <label for="confirm-password">Confirm Password</label>
 							</div>
 							<div className="col-md-4">

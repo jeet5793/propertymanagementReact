@@ -465,7 +465,7 @@ class Service extends React.Component{
                                     <div className="row">
                                     <div className="col-md-12">
                                         <div className="form-group">
-                                        <label for="property_id" className="control-label">Property </label>
+                                        <label for="property_id" className="control-label">Property<span className="required"/> </label>
                                         <select className="form-control" name="property_id" onChange={this.onChangeHandler}>
 										   <option>Please Select</option>
 												{propertyList.map((option,key)=> (<option key={key.property_id} value={option.property_id}>{option.property_name}</option>))}
@@ -477,7 +477,7 @@ class Service extends React.Component{
 									<div className="row">
 										<div className="col-md-12">
 											<div className="form-group no-margin">
-												<label for="service_provider" className="control-label">Name</label>
+												<label for="service_provider" className="control-label">Name<span className="required"/></label>
 													<select className="form-control" name="service_provider" onChange={this.onChangeHandler}>
 													   <option>Please Select</option>
 															{userList.map((option,key)=> (<option key={key.assets_id} value={option.profile_id}>{option.name}</option>))}
@@ -489,7 +489,7 @@ class Service extends React.Component{
                                     <div className="row">
                                     <div className="col-md-12">
                                         <div className="form-group no-margin">
-                                        <label for="service_msg" className="control-label">Description</label>
+                                        <label for="service_msg" className="control-label">Description<span className="required"/></label>
                                         <textarea className="form-control" id="field-7" placeholder="" name="service_msg" onChange={this.onChangeHandler}></textarea>
                                         </div>
                                     </div>

@@ -203,7 +203,7 @@ class ProfileDetails extends React.Component{
                         <div className="row">
                         <div className="col-md-12">
                             <div className="form-group">
-                            <label for="receiver" className="control-label">Name</label>
+                            <label for="receiver" className="control-label">Name<span className="required"/></label>
                             <input type="hidden" className="form-control" placeholder="" value={this.state.profileData.assets_id} name="receiver" id="receiver" onChange={this.onChangeHandler}/>
 							<input type="text" className="form-control" placeholder="" name="receiver_name" value={this.state.profileData.first_name+''+this.state.profileData.last_name} id="receiver" />
                             </div>
@@ -212,7 +212,7 @@ class ProfileDetails extends React.Component{
                         <div className="row">
                         <div className="col-md-12">
                             <div className="form-group no-margin">
-                            <label for="field-7" className="control-label">Message</label>
+                            <label for="field-7" className="control-label">Message<span className="required"/></label>
                             <textarea className="form-control" id="field-7" placeholder="" name="message" onChange={this.onChangeHandler}></textarea>
                             </div>
                         </div>

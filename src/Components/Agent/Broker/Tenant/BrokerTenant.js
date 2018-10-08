@@ -610,7 +610,7 @@ class BrokerTenant extends React.Component{
 				  <div className="row">
 				  <div className="col-md-12">
 					<div className="form-group">
-					  <label for="field-1" className="control-label">Property</label>
+					  <label for="field-1" className="control-label">Property<span className="required"/></label>
 					  <div className="input-group">
 					   <select className="form-control" name="property_id" onChange={this.onChangeHandler}>
 							   <option>Please Select</option>
@@ -625,7 +625,7 @@ class BrokerTenant extends React.Component{
 				<div className="row">
 				  <div className="col-md-12">
 					<div className="form-group">
-					  <label for="field-1" className="control-label">Tenant</label>
+					  <label for="field-1" className="control-label">Tenant<span className="required"/></label>
 					  <div className="">
 						<Autosuggest className="form-control"
 									  suggestions={suggestions}
@@ -644,7 +644,7 @@ class BrokerTenant extends React.Component{
 				<div className="row">
 				  <div className="col-md-12">
 					<div className="form-group no-margin">
-					  <label for="field-7" className="control-label" >Message</label>
+					  <label for="field-7" className="control-label" >Message<span className="required"/></label>
 					  <textarea className="form-control" id="field-7" placeholder="" name="message" onChange={this.onChangeHandler}></textarea>
 					</div>
 				  </div>
@@ -668,7 +668,7 @@ class BrokerTenant extends React.Component{
                         <div className="row">
                         <div className="col-md-12">
                             <div className="form-group">
-                            <label for="receiver" className="control-label">Name</label>
+                            <label for="receiver" className="control-label">Name<span className="required"/></label>
                             <input type="hidden" className="form-control" placeholder=""  name="receiver" id="receiver" onChange={this.onChangeSMHandler}/>
 							<input type="text" className="form-control" placeholder="" name="receiver_name" id="receiver_name" />
                             </div>
@@ -677,7 +677,7 @@ class BrokerTenant extends React.Component{
                         <div className="row">
                         <div className="col-md-12">
                             <div className="form-group no-margin">
-                            <label for="field-7" className="control-label">Message</label>
+                            <label for="field-7" className="control-label">Message<span className="required"/></label>
                             <textarea className="form-control" id="field-7" placeholder="" name="message" onChange={this.onChangeSMHandler}></textarea>
                             </div>
                         </div>
@@ -690,6 +690,7 @@ class BrokerTenant extends React.Component{
                     </div>
                 </div>
                 </div>
+				<SendEmail/>
             </div>
 
 

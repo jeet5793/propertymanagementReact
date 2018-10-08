@@ -644,13 +644,13 @@ constructor(props) {
                   <div className="col-md-12">
                     <div className="form-group">
                       <div className="row">
-                        <div className="col-md-2">
+                        <div className="col-md-2 required ">
                           <label className="control-label">First Name</label>
                         </div>
                         <div className="col-md-4">
                           <input type="text" className="form-control" defaultValue="Vishnu" required />
                         </div>
-                        <div className="col-md-2">
+                        <div className="col-md-2 required ">
                           <label className="control-label">Last Name</label>
                         </div>
                         <div className="col-md-4">
@@ -660,13 +660,13 @@ constructor(props) {
                     </div>
                     <div className="form-group">
                       <div className="row">
-                        <div className="col-md-2">
+                        <div className="col-md-2 required ">
                           <label className="control-label">D.O.B</label>
                         </div>
                         <div className="col-md-4">
                           <input type="text" className="form-control" defaultValue="03/04/1995" id="datepicker-autoclose" />
                         </div>
-                        <div className="col-md-2">
+                        <div className="col-md-2 required ">
                           <label className="control-label">Gender</label>
                         </div>
                         <div className="col-md-4">
@@ -679,13 +679,13 @@ constructor(props) {
                     </div>
                     <div className="form-group">
                       <div className="row">
-                        <div className="col-md-2">
+                        <div className="col-md-2 required ">
                           <label className="control-label">Address</label>
                         </div>
                         <div className="col-md-4">
                           <input type="text" className="form-control" defaultValue="113 State Hwy 121 " required />
                         </div>
-                        <div className="col-md-2">
+                        <div className="col-md-2 required ">
                           <label className="control-label">City</label>
                         </div>
                         <div className="col-md-4">
@@ -695,13 +695,13 @@ constructor(props) {
                     </div>
                     <div className="form-group">
                       <div className="row">
-                        <div className="col-md-2">
+                        <div className="col-md-2 required ">
                           <label className="control-label">State</label>
                         </div>
                         <div className="col-md-4">
                           <input type="text" className="form-control" defaultValue="Karnataka" required />
                         </div>
-                        <div className="col-md-2">
+                        <div className="col-md-2 required ">
                           <label className="control-label">ZIP Code</label>
                         </div>
                         <div className="col-md-4">
@@ -711,13 +711,13 @@ constructor(props) {
                     </div>
                     <div className="form-group">
                       <div className="row">
-                        <div className="col-md-2">
+                        <div className="col-md-2 required ">
                           <label className="control-label">Phone</label>
                         </div>
                         <div className="col-md-4">
                           <input type="text" className="form-control" defaultValue={9999999999} required />
                         </div>
-                        <div className="col-md-2">
+                        <div className="col-md-2 required ">
                           <label className="control-label">Email</label>
                         </div>
                         <div className="col-md-4">
@@ -727,7 +727,7 @@ constructor(props) {
                     </div>
                     <div className="form-group">
                       <div className="row">
-                        <div className="col-md-2">
+                        <div className="col-md-2 required ">
                           <label className="control-label">SSN</label>
                         </div>
                         <div className="col-md-4">
@@ -765,7 +765,7 @@ constructor(props) {
                 <div className="row">
                   <div className="col-md-12">
                     <div className="form-group">
-                      <label for="field-1" className="control-label">Property</label>
+                      <label for="field-1" className="control-label">Property<span className="required"/></label>
 					  <div className="input-group">
 					   <select className="form-control" name="property_id" onChange={this.onChangeHandler}>
 						   <option>Please Select</option>
@@ -779,7 +779,7 @@ constructor(props) {
 				<div className="row">
 				  <div className="col-md-12">
 					<div className="form-group">
-					  <label for="field-1" className="control-label">Agent</label>
+					  <label for="field-1" className="control-label">Agent<span className="required"/></label>
 					  <div className="">
 					<Autosuggest className="form-control"
 									  suggestions={suggestions}
@@ -798,7 +798,7 @@ constructor(props) {
 						<div className="row">
 						  <div className="col-md-12">
 							<div className="form-group no-margin">
-							  <label for="field-7" className="control-label" >Message</label>
+							  <label for="field-7" className="control-label" >Message<span className="required"/></label>
 							  <textarea className="form-control" id="field-7" placeholder="" name="message" onChange={this.onChangeHandler}></textarea>
 							</div>
 						  </div>
@@ -823,7 +823,7 @@ constructor(props) {
                         <div className="row">
                         <div className="col-md-12">
                             <div className="form-group">
-                            <label for="receiver" className="control-label">Name</label>
+                            <label for="receiver" className="control-label">Name<span className="required"/></label>
                             <input type="hidden" className="form-control" placeholder=""  name="receiver" id="receiver" onChange={this.onChangeSMHandler}/>
 							<input type="text" className="form-control" placeholder="" name="receiver_name" id="receiver_name" />
                             </div>
@@ -832,7 +832,7 @@ constructor(props) {
                         <div className="row">
                         <div className="col-md-12">
                             <div className="form-group no-margin">
-                            <label for="field-7" className="control-label">Message</label>
+                            <label for="field-7" className="control-label">Message<span className="required"/></label>
                             <textarea className="form-control" id="field-7" placeholder="" name="message" onChange={this.onChangeSMHandler}></textarea>
                             </div>
                         </div>
@@ -845,6 +845,7 @@ constructor(props) {
                     </div>
                 </div>
                 </div>
+				<SendEmail/>
             </div>
     )
 } 

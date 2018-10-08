@@ -223,7 +223,8 @@ this.profile();
                             </a> 
                             {/*<!-- End mobile menu toggle--> */}
                          </li>
-						 <li className="list-inline-item">{JSON.parse(this.state.userData).planName?`  ${JSON.parse(this.state.userData).planName} plan`:''} {JSON.parse(this.state.userData).planName && JSON.parse(this.state.userData).planName!='Basic'?`expire on  ${JSON.parse(this.state.userData).expireDate}`:''}</li>
+						 <li className="list-inline-item">{this.state.profileData.planName?`${this.state.profileData.planName} plan`:''} 
+						  {this.state.profileData.planName && this.state.profileData.planName!='Basic'?` expire on ${this.state.profileData.expireDate}`:''}</li>
                          <li className="list-inline-item"> <button type="button" className="btn btn-warning  w-md waves-light"> <Link to = {{pathname:'/tenant-plan'}} style={{color:'#fff'}}>Upgrade Plan</Link></button></li>
                          <li className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle arrow-none waves-light waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false" onClick={this.profileNoti}> <i className="dripicons-bell noti-icon" /> <span className="badge badge-pink noti-icon-badge">{this.state.notification.length}</span> </a>
                             <div className="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-lg" aria-labelledby="Preview" id = "notify"> 
@@ -254,11 +255,11 @@ this.profile();
                            <a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-user" /> <Link to = {{pathname:'/tenant-profile'}}> <span>Profile</span></Link> </a> 
                             {/* item*/} 
                             <a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-gear" /> <Link to = {{pathname:'/tenant-settings'}}><span>Settings</span></Link> </a> 
-							<hr/>							
-							{this.state.userTypeList?<span className="dropdown-item notify-item">Switch To</span>:''}
+							{(this.state.userTypeList).length>0?<hr/>:''}							
+							{(this.state.userTypeList).length>0?<span className="dropdown-item notify-item">Switch To</span>:''}
 						{this.state.userTypeList?this.state.userTypeList.map((item)=>( 
 							<a href="javascript:void(0);" className="dropdown-item notify-item" onClick = {this.onClickSwitch.bind(this,item.assets_type)}> <i className="dripicons-user" />{item.assets_type=='2'?'Agent':item.assets_type=='3'?'Tenant':item.assets_type=='1'?'Owner':''}</a> )):''}
-								{this.state.userTypeList?<hr/>:''}
+							{(this.state.userTypeList).length>0?<hr/>:''}
                             {/* item*/} 
                             <a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-power" /> <span onClick={this.logout}>Logout</span> </a> </div>
                         </li>

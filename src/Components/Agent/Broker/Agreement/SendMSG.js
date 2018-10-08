@@ -287,7 +287,7 @@ document.getElementById("FormCancel").click();
                       { this.props.userProperty && this.props.userProperty.length > 0 &&
                         <div className="col-md-12">
                           <div className="form-group">
-                            <label for="nme" className="control-label">Property</label>
+                            <label for="nme" className="control-label">Property<span className="required"/></label>
                             <select  className="form-control" name="property_id" onChange={this.onChangeHandler}>
                               <option>Please Select</option>
                                 {this.props.userProperty.map(prp => <option value={prp.property_id}>{prp.property_name}</option>)}
@@ -297,7 +297,7 @@ document.getElementById("FormCancel").click();
                       }
                     <div className="col-md-12">
                   <div className="form-group">
-                    <label for="nme" className="control-label">Send To</label>
+                    <label for="nme" className="control-label">Send To<span className="required"/></label>
                     <select  className="form-control" name="sender_id" id = "assets_type" onChange={this.onChangeHandler}>
                       <option>Please Select</option>
                       <option value="1">Owner</option>
@@ -307,7 +307,7 @@ document.getElementById("FormCancel").click();
                 </div>          
                 <div className="col-md-12">
                   <div className="form-group">
-                    <label for="nme" className="control-label">User List</label>
+                    <label for="nme" className="control-label">User List<span className="required"/></label>
                     <Autosuggest className="form-control"
 									  suggestions={suggestions}
 									  onSuggestionsFetchRequested={this.onSuggestionsFetchRequested.bind(this)}
@@ -324,7 +324,7 @@ document.getElementById("FormCancel").click();
                   <div className="row">
                 <div className="col-md-12">
                   <div className="form-group no-margin">
-                    <label for="field-7" className="control-label">Description</label>
+                    <label for="field-7" className="control-label">Description<span className="required"/></label>
                     <textarea className="form-control" name="description" onChange={this.onChangeHandler} id="field-7" placeholder=""></textarea>
                   </div>
                 </div>

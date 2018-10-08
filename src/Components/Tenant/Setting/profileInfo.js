@@ -196,12 +196,13 @@ import $ from 'jquery';
 				//console.log("data 2: "+JSON.stringify(profile))
 				if (result.success) {
 				  this.setState({profile:result.profile})
-					var dobDate = new Date(this.state.profile.dob.replace( /(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3"))
-					var d = new Date(dobDate);
-					var dob=getFormattedString(d).slice(0,9);
-					function getFormattedString(d){
-						return d.getFullYear() + "-"+(d.getMonth()+1) +"-"+d.getDate() + ' '+d.toString().split(' ')[4];
-					}
+					// var dobDate = new Date(this.state.profile.dob.replace( /(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3"))
+					// var d = new Date(dobDate);
+					// var dob=getFormattedString(d).slice(0,9);
+					var dob  = this.state.profile.dob;
+					// function getFormattedString(d){
+						// return  (d.getMonth()+1)+ "-"+d.getDate()+"-"+d.getFullYear()+ ' '+d.toString().split(' ')[4];
+					// }
 					if(dob){
 						this.setState({
 							profileSetting:{dob:moment(dob) }
@@ -256,13 +257,13 @@ Countries() {
 						 
 						  <div className="form-group">
 							<div className="row">
-							  <div className="col-md-1">
+							  <div className="col-md-1 required">
 								<label for="first_name">First Name</label>
 							  </div>
 							  <div className="col-md-5">
 								<input type="text" className="form-control" id="first_name" name="first_name"  value={this.state.profileSetting.first_name || this.state.profile.first_name} onChange={this.onChangeHandler} placeholder="" />
 							  </div>
-							  <div className="col-md-1">
+							  <div className="col-md-1 required">
 								<label for="last_name">Last Name</label>
 							  </div>
 							  <div className="col-md-5">
@@ -272,18 +273,18 @@ Countries() {
 						  </div>
 						  <div className="form-group">
 							<div className="row">
-							  <div className="col-md-1">
+							  <div className="col-md-1 required">
 								<label for="dob">D.O.B</label>
 							  </div>
 							  <div className="col-md-2">
 							  {/*<input type="text" className="form-control"  name="dob"  id="datepicker-autoclose"  onChange={this.onChangeHandler} placeholder=""  />*/}
 							  <DatePicker id="dobdate" className="form-control" 
-								dateFormat="DD-MM-YYYY"
+								dateFormat="MM/DD/YYYY"
 									selected={this.state.profileSetting.dob}
 									onChange={this.handleDobChange}
 								/>
 							  </div>
-							  <div className="col-md-1">
+							  <div className="col-md-1 required">
 								<label for="gender">Gender</label>
 							  </div>
 							  <div className="col-md-2">
@@ -293,7 +294,7 @@ Countries() {
 								  <option value="Other" >Other</option>
 								</select>
 							  </div>
-							  <div className="col-md-1">
+							  <div className="col-md-1 required">
 								<label for="SSN_EIN">SSN/EIN</label>
 							  </div>
 							  <div className="col-md-5">
@@ -303,13 +304,13 @@ Countries() {
 						  </div>
 						  <div className="form-group">
 							<div className="row">
-							  <div className="col-md-1">
+							  <div className="col-md-1 required">
 								<label for="email">Email</label>
 							  </div>
 							  <div className="col-md-5">
 								<input type="email" className="form-control" name="email"  id="email"  value={this.state.profileSetting.email || this.state.profile.email} onChange={this.onChangeHandler} placeholder="" required />
 							  </div>
-							  <div className="col-md-1">
+							  <div className="col-md-1 required">
 								<label for="owner_type">User Type</label>
 							  </div>
 							  <div className="col-md-5">
@@ -323,7 +324,7 @@ Countries() {
 						  </div>
 						  <div className="form-group">
 							<div className="row">
-							  <div className="col-md-1">
+							  <div className="col-md-1 required">
 								<label for="country">Country</label>
 							  </div>
 							  <div className="col-md-5">
@@ -332,7 +333,7 @@ Countries() {
 								 
 								</select>
 							  </div>
-							  <div className="col-md-1">
+							  <div className="col-md-1 required">
 								<label for="state" >State</label>
 							  </div>
 							  <div className="col-md-5">
@@ -347,7 +348,7 @@ Countries() {
 						  </div>
 						  <div className="form-group">
 							<div className="row">
-							  <div className="col-md-1">
+							  <div className="col-md-1 required">
 								<label for="city">City</label>
 							  </div>
 							  <div className="col-md-5">
@@ -357,7 +358,7 @@ Countries() {
 								 
 								</select>
 							  </div>
-							  <div className="col-md-1">
+							  <div className="col-md-1 required">
 								<label for="zip-code">ZIP Code</label>
 							  </div>
 							  <div className="col-md-5">
@@ -368,13 +369,13 @@ Countries() {
 						  
 						  <div className="form-group">
 							<div className="row">
-							  <div className="col-md-1">
+							  <div className="col-md-1 required">
 								<label for="mobile-no">Mobile No</label>
 							  </div>
 							  <div className="col-md-5">
 								<input type="text" className="form-control" name="mobile_no"  id="mobile-no" placeholder="" value={this.state.profileSetting.mobile_no || this.state.profile.mobile_no}  onChange={this.onChangeHandler} />
 							  </div>
-							  <div className="col-md-1">
+							  <div className="col-md-1 required">
 								<label for="landline_no">Landline</label>
 							  </div>
 							  <div className="col-md-5">
@@ -384,13 +385,13 @@ Countries() {
 						  </div>
 						  <div className="form-group">
 							<div className="row">
-							  <div className="col-md-1">
+							  <div className="col-md-1 required">
 								<label for="profile_photo">Profile Img</label>
 							  </div>
 							  <div className="col-md-5">
 								<input type="file" className="form-control" name="profile_photo"  id="u"  placeholder="" onChange={this.onChangeHandler} ref={this.fileInput} />
 							  </div>
-							  <div className="col-md-1">
+							  <div className="col-md-1 required">
 								<label for="about_us">About Me</label>
 							  </div>
 							  <div className="col-md-5">

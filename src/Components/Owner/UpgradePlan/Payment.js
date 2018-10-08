@@ -239,17 +239,17 @@ class Payment extends React.Component {
                          </div>
                          <form role="form" className="card-dtl" method ="post" onSubmit={this.paymentPage.bind(this)}>
                            <div className="form-group">
-                             <label htmlFor="name">Full Name (Card)</label>
+                             <label htmlFor="name">Full Name (Card)<span className="required"/></label>
                              <input type="text" ref="name" className="form-control" name="name" placeholder required />
                            </div> {/* form-group.// */}
                            <div className="form-group">
-                             <label htmlFor="cardNumber">Card Number</label>
+                             <label htmlFor="cardNumber">Card Number<span className="required"/></label>
                              <input type="text" ref="cardNumber" className="form-control" name="cardNumber" onChange={this.changeaccHandler} placeholder />
                            </div> {/* form-group.// */}
                            <div className="row">
                              <div className="col-sm-8">
                                <div className="form-group">
-                                 <label><span className="hidden-xs">Exp</span> </label>
+                                 <label><span className="hidden-xs">Exp<span className="required"/></span> </label>
                                  <div className="form-inline">
                                    <select className="form-control" style={{width: '45%'}} value={this.state.month} onChange={this.handleMonthChange}>
                                      <option value="">MM</option>
@@ -288,7 +288,7 @@ class Payment extends React.Component {
                              </div>
                              <div className="col-sm-4">
                                <div className="form-group">
-                                 <label data-toggle="tooltip" title data-original-title="3 digits code on back side of the card">CVV <i className="fa fa-question-circle" /></label>
+                                 <label data-toggle="tooltip" title data-original-title="3 digits code on back side of the card">CVV<span className="required"/> <i className="fa fa-question-circle" /></label>
                                  <input className="form-control" ref="cvv" name="cvv" onChange={this.changecvvHandler} required type="text" />
                                </div> {/* form-group.// */}
                              </div>

@@ -32,13 +32,13 @@ import OwnerPayment1 from './Components/Owner/Payment/payment'
 import OwnerHeader from './Components/Owner/Header/Header'
 // import Footer from './Components/Owner/Footer/Footer'
 
-import OwnerAgreement from './Components/Owner/Agreement/OwnerAgreement'
+// import OwnerAgreement from './Components/Owner/Agreement/OwnerAgreement'
 import OwnerProperty from './Components/Owner/Property/Property'
 import OwnerService from './Components/Owner/Service/Service'
 import OwnerSettings from './Components/Owner/Settings/Settings'
 import OwnerAgent from './Components/Owner/Agent/Agent'
 import OwnerTenant from './Components/Owner/Tenants/Tenants'
-import OwnerTenanprofilet from './Components/Owner/Tenants/tenantProfile'
+// import OwnerTenanprofilet from './Components/Owner/Tenants/tenantProfile'
 // './Components/Owner/Tenants/tanetProfile'
 import OwnerAddproperty from './Components/Owner/Property/addProperty'
 import OwnerTenantProfileDetails from './Components/Owner/Tenants/ProfileDetails'
@@ -178,6 +178,7 @@ LoggedIn(userId){
 		<Route exact path='/broker-notifications' component={AgentBrokerDashboard} />
 		 <Route  path='/broker-report' component={AgentBrokerDashboard} />
 		<Route  path='/broker-report-table' component={AgentBrokerDashboard} />
+		<Route  path='/broker-owner-bgvpayment' component={AgentBrokerDashboard} />
 
         {/* Service Provider Dashboard */}
         <Route  path='/agent-serviceprovider' component={AgentServiceProviderDashboard} />
@@ -258,10 +259,10 @@ LoggedIn(userId){
             this.state.user.isLoggedIn?
             (<OwnerTenant owner_id={this.state.owner_id} {...props} logoutLink={this.logoutLink} owner={this.state.profile} />)
             :(<Redirect to="/" />))} />
-          <Route exact path="/tenant-profile" render={(props)=>(
+			{/* <Route exact path="/tenant-profile" render={(props)=>(
             this.state.user.isLoggedIn?
             (<OwnerTenanprofilet owner_id={this.state.owner_id} {...props} logoutLink={this.logoutLink} owner={this.state.profile} />)
-            :(<Redirect to="/" />))} />
+  :(<Redirect to="/" />))} /> */}
           <Route exact path="/agent" render={(props)=>(
             this.state.user.isLoggedIn?
             (<OwnerAgent owner_id={this.state.owner_id} {...props} logoutLink={this.logoutLink} owner={this.state.profile} />)

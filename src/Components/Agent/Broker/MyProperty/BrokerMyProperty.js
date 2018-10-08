@@ -18,6 +18,7 @@ this.imgServer=API_URL,
           property:[],
 			
 		}
+		this.onClickDownload = this.onClickDownload.bind(this)
 	}
 	componentDidMount(){
 		const profile=JSON.parse(this.state.userData)
@@ -42,6 +43,14 @@ this.imgServer=API_URL,
         }
       )
 	}
+	onClickDownload(deal_id){
+		 // alert("dsahfh");
+		 // <a href={`${API_URL}assetsapi/download_agreement/`+deal_id}/>
+		  window.open(`${API_URL}assetsapi/download_agreement/`+deal_id,'_self')
+		//console.log("deal_id"+JSON.stringify(deal_id));
+		 
+			
+	 }
 	render(){
 		const imgSer=this.imgServer
 		return(
@@ -93,7 +102,10 @@ this.imgServer=API_URL,
                                            <Link to={{pathname:'/property-detail',state:{id:element.id}}}  className="table-action-btn">
                                                 <i className="mdi mdi-eye"></i>
                                             </Link>
-                                            
+                                            <a title="Download"  href="#" className="table-action-btn view-rqu"><i className="mdi mdi-download" onClick={() => this.onClickDownload(element.deal_id)}></i></a>
+											<Link to={{pathname:'/broker-deal-payment',state:{rent:element.rent,deal_id:element.deal_id,userId:JSON.parse(this.state.userData).assets_id,paidFor:element.property_status}}}  className="table-action-btn">
+                                                <button className="btn btn-success">{element.property_status}</button>
+                                            </Link>
                                         </td>
                                     </tr>
                            ))}      

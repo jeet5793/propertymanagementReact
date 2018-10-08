@@ -345,7 +345,7 @@ editAgreement(){
             <div className="col-md-12">
               <div className="row m-t-20">
                 <div className=" col-sm-2">
-                 <label><b>Title:</b></label>
+                 <label><b>Title<span className="required"/> :</b></label>
                 </div>
                 <div className="col-sm-10">
                   <input type="text" onChange={this.onChangeHandler} name="agreement_title" className="form-control" />

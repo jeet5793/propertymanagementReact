@@ -701,7 +701,7 @@ class Headernav extends React.Component {
         <a className= "typeli login" id="owner"   onMouseEnter={()=>this.activeSignIn("owner")} onMouseLeave={this.leaveButton}>Owners<span></span></a>
             <div ref={this.loginDiv} id="loginDiv" className="login-1 text-left  login-open">
             <form className="form-signin">
-                <div className="form-group">
+                <div className="form-group ">
                 <label>Username</label>
                 <input type="text" className="form-control" onChange={this.onChangeHandler} name="email" placeholder="Email Address"/>
                 </div>

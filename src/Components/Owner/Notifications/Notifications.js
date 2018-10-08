@@ -265,7 +265,7 @@ class Notifications extends React.Component{
 							<div className="row">
 							  <div className="col-md-12">
 								<div className="form-group">
-								  <label for="field-1" className="control-label">Select To</label>
+								  <label for="field-1" className="control-label">Select To<span className="required"/></label>
 								  <select className="form-control"  name= "assets_type"  onChange = {this.onChangeUserType} >
 									<option>Please Select</option>
 									
@@ -278,7 +278,7 @@ class Notifications extends React.Component{
 							<div className="row">
 							  <div className="col-md-12">
 								<div className="form-group">
-								  <label for="field-3" className="control-label">User Name</label>
+								  <label for="field-3" className="control-label">User Name<span className="required"/></label>
 								  {/*  <input type="text" className="form-control" id="field-3" placeholder=""/> */}
 								  <select className="form-control" name= "receiver" onChange = {this.onChangeHandle}>
 									<option>Please Select</option>
@@ -292,7 +292,7 @@ class Notifications extends React.Component{
 							<div className="row">
 							  <div className="col-md-12">
 								<div className="form-group no-margin">
-								  <label for="field-7" className="control-label">Message</label>
+								  <label for="field-7" className="control-label">Message<span className="required"/></label>
 								  <textarea className="form-control" id="field-7"  name= "message" placeholder="" onChange = {this.onChangeHandle}></textarea>
 								</div>
 							  </div>

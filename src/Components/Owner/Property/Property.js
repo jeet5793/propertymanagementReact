@@ -173,7 +173,7 @@ class Property extends React.Component{
                                         <td>{element.property_type}</td>
                                         {/* <td><i className="mdi mdi-currency-usd text-warning"></i> 366 </td> */}
                                         <td><i></i> {element.property_status}</td>
-                                        <td><i></i>  </td>
+                                        <td><i></i> {element.entry_date} </td>
                                         <td>
                                          <a onClick={this.editProperty.bind(this,element)} id={element.id} className="table-action-btn">
                                                 <i style={{cursor:'pointer'}} className="mdi mdi-pencil"></i>

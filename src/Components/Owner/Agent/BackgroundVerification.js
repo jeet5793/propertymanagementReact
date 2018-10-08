@@ -202,7 +202,7 @@ export default class Agent extends React.Component{
 render(){
 
 	return(
-			<div id="background-verifi" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{display: "none"}}>
+			<div id="background-verifi" className="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{display: "none"}}>
 				<div className="modal-dialog modal-lg">
 				<div className="modal-content">
 				  <div className="modal-header">
@@ -214,13 +214,13 @@ render(){
 					  <div className="col-md-12">
 						<div className="form-group">
 						  <div className="row">
-							<div className="col-md-2">
+							<div className="col-md-2 required">
 							  <label className="control-label">First Name</label>
 							</div>
 							<div className="col-md-4">
 							  <input type="text" name="first_name" className="form-control" onChange={this.onChangeBGVHandler} value={this.state.bgForm.first_name || this.props.profileData.first_name} />
 							</div>
-							<div className="col-md-2">
+							<div className="col-md-2 required">
 							  <label className="control-label" >Last Name</label>
 							</div>
 							<div className="col-md-4">
@@ -230,18 +230,18 @@ render(){
 						</div>
 						<div className="form-group">
 						  <div className="row">
-							<div className="col-md-2">
+							<div className="col-md-2 required">
 							  <label className="control-label">D.O.B</label>
 							</div>
 							<div className="col-md-4">
 							  <DatePicker id="dob" className="form-control" 
-								dateFormat="DD-MM-YYYY"
+								dateFormat="MM-DD-YYYY"
 									 selected={this.state.bgForm.DOB}
 									 onChange={this.handleDobChange}
 									 
 								/>
 							</div>
-							<div className="col-md-2">
+							<div className="col-md-2 required">
 							  <label className="control-label">Gender</label>
 							</div>
 							
@@ -256,13 +256,13 @@ render(){
 						</div>
 						<div className="form-group">
 						  <div className="row">
-							<div className="col-md-2">
+							<div className="col-md-2 required">
 							  <label className="control-label">Address</label>
 							</div>
 							<div className="col-md-4">
 							  <input type="text" name="address" value={this.state.bgForm.gender} onChange = {this.onChangeBGVHandler} className="form-control"  />
 							</div>
-							<div className="col-md-2">
+							<div className="col-md-2 required">
 							  <label className="control-label">City</label>
 							</div>
 							<div className="col-md-4">
@@ -272,13 +272,13 @@ render(){
 						</div>
 						<div className="form-group">
 						  <div className="row">
-							<div className="col-md-2">
+							<div className="col-md-2 required">
 							  <label className="control-label">State</label>
 							</div>
 							<div className="col-md-4">
 							  <input type="text" name="state" className="form-control" onChange={this.onChangeBGVHandler} value={this.state.bgForm.state || this.props.profileData.state} />
 							</div>
-							<div className="col-md-2">
+							<div className="col-md-2 required">
 							  <label className="control-label">ZIP Code</label>
 							</div>
 							<div className="col-md-4">
@@ -288,13 +288,13 @@ render(){
 						</div>
 						<div className="form-group">
 						  <div className="row">
-							<div className="col-md-2">
+							<div className="col-md-2 required">
 							  <label className="control-label">Phone</label>
 							</div>
 							<div className="col-md-4">
 							  <input type="text" className="form-control" name="mobile_no"  id="mobile-no" placeholder="" value={this.state.bgForm.mobile_no || this.props.profileData.mobile_no}  onChange={this.onChangeBGVHandler} />
 							</div>
-							<div className="col-md-2">
+							<div className="col-md-2 required">
 							  <label className="control-label">Email</label>
 							</div>
 							<div className="col-md-4">
@@ -305,7 +305,7 @@ render(){
 						</div>
 						<div className="form-group">
 						  <div className="row">
-							<div className="col-md-2">
+							<div className="col-md-2 required">
 							  <label className="control-label">SSN</label>
 							</div>
 							<div className="col-md-4">
@@ -318,7 +318,7 @@ render(){
 					<div className="row">
 					  <div className="col-md-12">
 						<div className="form-group no-margin">
-						 <h3>Packages</h3>
+						 <h5>Packages<span className="required"/></h5>
 							 <div className="col-md-8">
 									<div className="radio radio-custom">
 									  <input
@@ -328,7 +328,7 @@ render(){
 										value="14"
 										onChange={this.onChangeBGVHandler}
 									  />
-									  <label HTMLFor="packageid"> Bronze Package : 1 Credit Report </label>
+									  <label HTMLFor="packageid"> Bronze Package - $8.16 : 1 Credit Report </label>
 									</div>
 								  </div>
 								  <div className="col-md-8">
@@ -340,7 +340,7 @@ render(){
 											id="ownerid"
 											value="12"
 										  />
-										  <label HTMLFor="packageid">Silver Package : 1 Credit Report + 1 Eviction Report </label>
+										  <label HTMLFor="packageid">Silver Package - $18.14 : 1 Credit Report + 1 Eviction Report </label>
 										</div>
 									  </div>
 
@@ -353,7 +353,7 @@ render(){
 									id="packageid"
 									value="13"
 								  />
-								  <label HTMLFor="packageid">Gold Package : 1 County Criminal + 1 Credit Report + 1 Eviction Report </label>
+								  <label HTMLFor="packageid">Gold Package - $26.78 : 1 County Criminal + 1 Credit Report + 1 Eviction Report </label>
 								</div>
 							  </div>
 

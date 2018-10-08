@@ -862,3 +862,4 @@ Licensed under MIT
 .btn-naked {
     background-color: transparent;
 }
+.required:after { content:"*"; color: red; }

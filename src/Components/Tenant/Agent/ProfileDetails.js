@@ -279,7 +279,7 @@ class ProfileDetails extends React.Component{
 														</div>
 														<div className="col-md-4">
 															<h5 className="media-heading text-right">
-																<a href="#" className="text-dark">date 04/04/18{item.created_date}</a>
+																<a href="#" className="text-dark">Date : {item.created_date}</a>
 															</h5>
 														</div>
 													</div>
@@ -444,7 +444,7 @@ class ProfileDetails extends React.Component{
                         <div className="row">
                         <div className="col-md-12">
                             <div className="form-group">
-                            <label for="receiver" className="control-label">Name</label>
+                            <label for="receiver" className="control-label">Name<span className="required"/></label>
                             <input type="hidden" className="form-control" placeholder="" value={this.state.profileData.assets_id} name="receiver" id="receiver" onChange={this.onChangeHandler}/>
 							<input type="text" className="form-control" placeholder="" name="receiver_name" value={this.state.profileData.first_name+''+this.state.profileData.last_name} id="receiver" />
                             </div>
@@ -453,7 +453,7 @@ class ProfileDetails extends React.Component{
                         <div className="row">
                         <div className="col-md-12">
                             <div className="form-group no-margin">
-                            <label for="field-7" className="control-label">Message</label>
+                            <label for="field-7" className="control-label">Message<span className="required"/></label>
                             <textarea className="form-control" id="field-7" placeholder="" name="message" onChange={this.onChangeHandler}></textarea>
                             </div>
                         </div>
@@ -479,7 +479,7 @@ class ProfileDetails extends React.Component{
 							<div className="form-group">
 							<div className="row">
 							<div className="col-md-2">
-							<label for="nme" className="control-label">Rating :</label>
+							<label for="nme" className="control-label">Rating<span className="required"/> :</label>
 							</div>
 								<div className="col-md-10">
 									<fieldset className="rating">
@@ -502,7 +502,7 @@ class ProfileDetails extends React.Component{
 						<div className="row">
 						  <div className="col-md-12">
 							<div className="form-group no-margin">
-							  <label for="field-7" className="control-label">Comment</label>
+							  <label for="field-7" className="control-label">Comment<span className="required"/></label>
 							  
 							  <textarea className="form-control" id="field-7" onChange={this.onChangeRating} name = "feedback" placeholder=""></textarea>
 							</div>

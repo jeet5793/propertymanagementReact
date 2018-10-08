@@ -19,7 +19,7 @@ import Payment from '../Payment/payment';
 import Services from '../Service/Service';
 import Agent from '../Agent/Agent';
 import Tenant from '../Tenants/Tenants';
-import TenantProfile from '../Tenants/tenantProfile'
+// import TenantProfile from '../Tenants/tenantProfile'
 import ProfileDetails from '../Tenants/ProfileDetails'
 import AgentProfileDetails from '../Agent/ProfileDetails'
 import Notifications from '../Notifications/Notifications'
@@ -97,7 +97,7 @@ class UserDashboard extends React.Component {
             <Route exact path='/service' component={Services} />
             <Route exact path='/owner-agent' component={Agent} />
             <Route exact path='/owner-tenant' component={Tenant} />
-			<Route exact path='/tenant-profile' component={TenantProfile} />
+				{/* <Route exact path='/tenant-profile' component={TenantProfile} /> */}
 			<Route exact path='/profile-details' component={ProfileDetails} />
 			<Route exact path='/owner-agent-profile' component={AgentProfileDetails} />
 			<Route exact path='/owner-notifications' component={Notifications} />

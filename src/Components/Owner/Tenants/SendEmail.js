@@ -61,7 +61,7 @@ export default class SendEmail extends React.Component{
                         <div className="row">
                         <div className="col-md-12">
                             <div className="form-group no-margin">
-                            <label for="field-7" className="control-label">Emails</label>
+                            <label for="field-7" className="control-label">Emails<span className="required"/></label>
                             <textarea className="form-control" id="field-7" placeholder="" name="email" onChange={this.onChangeEmail}></textarea>
                             </div>
 							<span style={{color: "red"}}>Note: Use comma(,) for sending the notification to multiple email id/User.</span>

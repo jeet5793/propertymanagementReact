@@ -89,7 +89,7 @@ const FilterCriteria=(props)=>{
         <div className="row">
 		 
 		 {props.formType==='?property'?
-				  <div className="col-md-1">
+				  <div className="col-md-1 required">
 					<label><b>Filter By:</b></label>
 				  </div>:''}
 				 {props.formType==='?property'?
@@ -102,7 +102,7 @@ const FilterCriteria=(props)=>{
 					</select>
 				  </div>
 			  :''}
-				<div className="col-md-1">
+				<div className="col-md-1 required">
                 <label><b>Date:</b></label>
               </div>
               <div className="col-md-2" id="">
@@ -111,7 +111,7 @@ const FilterCriteria=(props)=>{
 				<DatePicker
 					className='form-control'
 					name='from_date'
-					dateFormat="DD-MM-YYYY"
+					dateFormat="MM-DD-YYYY"
 					selected={props.startDate}
 					onChange={props.handleStChange}
 				/>
@@ -120,7 +120,7 @@ const FilterCriteria=(props)=>{
 			  <DatePicker
 					className='form-control'
 					name='to_date'
-					dateFormat="DD-MM-YYYY"
+					dateFormat="MM-DD-YYYY"
 					selected={props.endDate}
 					onChange={props.handleEdChange}
 				/>
