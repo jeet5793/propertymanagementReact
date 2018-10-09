@@ -562,76 +562,76 @@ catch(error){
                   <div className="tz-author-content">
                     <h4> Michael Rutter </h4>
                     <span>Selling AgentSelling agent</span>
-                    <div className="TzSocialLink"> <a href="https://www.facebook.com/templaza"> <i className="fa fa-facebook"></i> </a> <a href="https://twitter.com/templazavn"> <i className="fa fa-twitter"></i> </a> <a href="https://plus.google.com/+Templaza/posts"> <i className="fa fa-google-plus"></i> </a> <a > <i className="fa fa-linkedin"></i> </a> </div>
+                    <div className="TzSocialLink"> <a href="#"> <i className="fa fa-facebook"></i> </a> <a href="#"> <i className="fa fa-twitter"></i> </a> <a href="#"> <i className="fa fa-google-plus"></i> </a> <a > <i className="fa fa-linkedin"></i> </a> </div>
                   </div>
                 </div>
                 <div className="tz-author-item cbp-item">
-                  <div className="tz-thumbnail"> <a href="http://wordpress.templaza.net/real-estate/agent-public/?&id=demo10"> <img src={img1} className="home-img wide tall" alt="Real Estate WordPress Theme" width="260" height="420" /> 
+                  <div className="tz-thumbnail"> <a href="#"> <img src={img1} className="home-img wide tall" alt="Real Estate WordPress Theme" width="260" height="420" /> 
                   <img src={img1} className="tz-img-overlay home-img wide tall" alt="Real Estate WordPress Theme" width="260px" height="420px" /> </a> </div>
                   <div className="tz-author-content">
                     <h4> Loan Lininger </h4>
                     <span>Selling AgentSelling agent</span>
-                    <div className="TzSocialLink"> <a href="https://www.facebook.com/templaza"> <i className="fa fa-facebook"></i> </a> <a href="https://twitter.com/templazavn"> <i className="fa fa-twitter"></i> </a> <a href="https://plus.google.com/+Templaza/posts"> <i className="fa fa-google-plus"></i> </a> <a > <i className="fa fa-linkedin"></i> </a> </div>
+                    <div className="TzSocialLink"> <a href="#"> <i className="fa fa-facebook"></i> </a> <a href="#"> <i className="fa fa-twitter"></i> </a> <a href="#"> <i className="fa fa-google-plus"></i> </a> <a > <i className="fa fa-linkedin"></i> </a> </div>
                   </div>
                 </div>
                 <div className="tz-author-item cbp-item">
-                  <div className="tz-thumbnail"> <a href="http://wordpress.templaza.net/real-estate/agent-public/?&id=demo9"> 
+                  <div className="tz-thumbnail"> <a href="#"> 
                   <img src={img2} className="home-img wide tall" alt="Real Estate WordPress Theme" width="259" height="418" /> 
                   <img src={img2} className="tz-img-overlay home-img wide tall" alt="Real Estate WordPress Theme" width="259px" height="418px" /> </a> </div>
                   <div className="tz-author-content">
                     <h4> Tommy Wiltshire </h4>
                     <span>Renting AgentSelling agent</span>
-                    <div className="TzSocialLink"> <a href="https://www.facebook.com/templaza"> <i className="fa fa-facebook"></i> </a> <a href="https://twitter.com/templazavn"> <i className="fa fa-twitter"></i> </a> <a href="https://plus.google.com/+Templaza/posts"> <i className="fa fa-google-plus"></i> </a> <a > <i className="fa fa-linkedin"></i> </a> </div>
+                    <div className="TzSocialLink"> <a href="#"> <i className="fa fa-facebook"></i> </a> <a href="#"> <i className="fa fa-twitter"></i> </a> <a href="#"> <i className="fa fa-google-plus"></i> </a> <a > <i className="fa fa-linkedin"></i> </a> </div>
                   </div>
                 </div>
                 <div className="tz-author-item cbp-item">
-                  <div className="tz-thumbnail"> <a href="http://wordpress.templaza.net/real-estate/agent-public/?&id=demo8"> 
+                  <div className="tz-thumbnail"> <a href="#"> 
                   <img src={img3} className="home-img wide tall" alt="Real Estate WordPress Theme" width="260" height="420" /> 
                   <img src={img3} className="tz-img-overlay home-img wide tall" alt="Real Estate WordPress Theme" width="260px" height="420px" /> </a> </div>
                   <div className="tz-author-content">
                     <h4> Christine Swim </h4>
                     <span>Selling AgentSelling agent</span>
-                    <div className="TzSocialLink"> <a href="https://www.facebook.com/templaza"> <i className="fa fa-facebook"></i> </a> <a href="https://twitter.com/templazavn"> <i className="fa fa-twitter"></i> </a> <a href="https://plus.google.com/+Templaza/posts"> <i className="fa fa-google-plus"></i> </a> <a > <i className="fa fa-linkedin"></i> </a> </div>
+                    <div className="TzSocialLink"> <a href="#"> <i className="fa fa-facebook"></i> </a> <a href="#"> <i className="fa fa-twitter"></i> </a> <a href="#"> <i className="fa fa-google-plus"></i> </a> <a > <i className="fa fa-linkedin"></i> </a> </div>
                   </div>
                 </div>
                 <div className="tz-author-item cbp-item">
-                  <div className="tz-thumbnail"> <a href="http://wordpress.templaza.net/real-estate/agent-public/?&id=demo7"> 
+                  <div className="tz-thumbnail"> <a href="#"> 
                   <img src={img4} className="home-img wide tall" alt="Real Estate WordPress Theme" width="260" height="420" />
                    <img src={img4} className="tz-img-overlay home-img wide tall" alt="Real Estate WordPress Theme" width="260px" height="420px" /> </a> </div>
                   <div className="tz-author-content">
                     <h4> Jonas Demar </h4>
                     <span>Selling AgentSelling agent</span>
-                    <div className="TzSocialLink"> <a href="https://www.facebook.com/templaza"> <i className="fa fa-facebook"></i> </a> <a href="https://twitter.com/templazavn"> <i className="fa fa-twitter"></i> </a> <a href="https://plus.google.com/+Templaza/posts"> <i className="fa fa-google-plus"></i> </a> <a > <i className="fa fa-linkedin"></i> </a> </div>
+                    <div className="TzSocialLink"> <a href="#"> <i className="fa fa-facebook"></i> </a> <a href="#"> <i className="fa fa-twitter"></i> </a> <a href="#"> <i className="fa fa-google-plus"></i> </a> <a > <i className="fa fa-linkedin"></i> </a> </div>
                   </div>
                 </div>
                 <div className="tz-author-item cbp-item">
-                  <div className="tz-thumbnail"> <a href="http://wordpress.templaza.net/real-estate/agent-public/?&id=demo6"> 
+                  <div className="tz-thumbnail"> <a href="#"> 
                   <img src={img5} className="home-img wide tall" alt="Real Estate WordPress Theme" width="260" height="420" />
                   <img src={img5} className="tz-img-overlay home-img wide tall" alt="Real Estate WordPress Theme" width="260px" height="420px" /> </a> </div>
                   <div className="tz-author-content">
                     <h4> Rodrick Weisner </h4>
                     <span>Renting AgentSelling agent</span>
-                    <div className="TzSocialLink"> <a href="https://www.facebook.com/templaza"> <i className="fa fa-facebook"></i> </a> <a href="https://twitter.com/templazavn"> <i className="fa fa-twitter"></i> </a> <a href="https://plus.google.com/+Templaza/posts"> <i className="fa fa-google-plus"></i> </a> <a > <i className="fa fa-linkedin"></i> </a> </div>
+                    <div className="TzSocialLink"> <a href="#"> <i className="fa fa-facebook"></i> </a> <a href="#"> <i className="fa fa-twitter"></i> </a> <a href="#"> <i className="fa fa-google-plus"></i> </a> <a > <i className="fa fa-linkedin"></i> </a> </div>
                   </div>
                 </div>
                 <div className="tz-author-item cbp-item">
-                  <div className="tz-thumbnail"> <a href="http://wordpress.templaza.net/real-estate/agent-public/?&id=demo5"> 
+                  <div className="tz-thumbnail"> <a href="#"> 
                   <img src={img6} className="home-img wide tall" alt="Real Estate WordPress Theme" width="260" height="421" /> 
                   <img src={img6} className="tz-img-overlay home-img wide tall" alt="Real Estate WordPress Theme" width="260px" height="421px" /> </a> </div>
                   <div className="tz-author-content">
                     <h4> Josh Spitzer </h4>
                     <span>Selling AgentSelling agent</span>
-                    <div className="TzSocialLink"> <a href="https://www.facebook.com/templaza"> <i className="fa fa-facebook"></i> </a> <a href="https://twitter.com/templazavn"> <i className="fa fa-twitter"></i> </a> <a href="https://plus.google.com/+Templaza/posts"> <i className="fa fa-google-plus"></i> </a> <a > <i className="fa fa-linkedin"></i> </a> </div>
+                    <div className="TzSocialLink"> <a href="#"> <i className="fa fa-facebook"></i> </a> <a href="#"> <i className="fa fa-twitter"></i> </a> <a href="#"> <i className="fa fa-google-plus"></i> </a> <a > <i className="fa fa-linkedin"></i> </a> </div>
                   </div>
                 </div>
                 <div className="tz-author-item cbp-item">
-                  <div className="tz-thumbnail"> <a href="http://wordpress.templaza.net/real-estate/agent-public/?&id=demo4"> 
+                  <div className="tz-thumbnail"> <a href="#"> 
                   <img src={img7} className="home-img wide tall" alt="Real Estate WordPress Theme" width="260" height="420" /> 
                   <img src={img7} className="tz-img-overlay home-img wide tall" alt="Real Estate WordPress Theme" width="260px" height="420px" /> </a> </div>
                   <div className="tz-author-content">
                     <h4> Dennis Vassar </h4>
                     <span>Selling AgentSelling agent</span>
-                    <div className="TzSocialLink"> <a > <i className="fa fa-facebook"></i> </a> <a href="https://twitter.com/templazavn"> <i className="fa fa-twitter"></i> </a> <a href="https://plus.google.com/+Templaza/posts"> <i className="fa fa-google-plus"></i> </a> <a > <i className="fa fa-linkedin"></i> </a> </div>
+                    <div className="TzSocialLink"> <a > <i className="fa fa-facebook"></i> </a> <a href="#"> <i className="fa fa-twitter"></i> </a> <a href="#"> <i className="fa fa-google-plus"></i> </a> <a > <i className="fa fa-linkedin"></i> </a> </div>
                   </div>
                 </div>
               </div>

@@ -28,10 +28,12 @@ class ProfileDetails extends React.Component{
 				rating  :'',
 				feedback :'' 
 			},
-			ratingDetail:[]
+			ratingDetail:[],
+			bgvInfo:[]
 		}
 		this.onChangeHandler=this.onChangeHandler.bind(this)
 		this.onChangeRating = this.onChangeRating.bind(this);
+		this.BgvDownload = this.BgvDownload.bind(this);
     }
 	onChangeHandler(e)
 	{
@@ -152,7 +154,30 @@ class ProfileDetails extends React.Component{
 		  console.log('error')
 		}
 	)
+	//===============================bgv==================================================
+	fetch(`${API_URL}assetsapi/bgv_information/${JSON.parse(this.state.userData).assets_id}/${this.props.location.state.profileid}`, {
+        method: 'get'
+      })
+    .then(res => res.json())
+    .then(
+      (result) => {
+        //console.log("data 2: "+JSON.stringify(result.profile))
+		$("#loaderDiv").hide();
+        if (result.success) {
+			
+          this.setState({bgvInfo:result.bgvInfo})
+          
+        } 
+        console.log("bgvInfo"+JSON.stringify(this.state.bgvInfo))
+      },
+		(error) => {
+		  console.log('error')
+		}
+	)
 	
+	
+	
+	//=======================================================================================
 	}
 	sendRating(){
 		const opts = this.state.ratingForm
@@ -189,7 +214,10 @@ class ProfileDetails extends React.Component{
 			)
 		}
 	}
-	
+	BgvDownload(reportId){
+		window.open(`${API_URL}assetsapi/bgv_report/`+reportId,"_self")
+		
+	}
     render(){
         // if(this.props.owner===undefined)
         // window.location.href='http://'+window.location.host
@@ -268,6 +296,13 @@ class ProfileDetails extends React.Component{
                                         <p>{this.state.profileData.about_us}</p>
                                     </div>
 									<div className="col-md-4"></div>
+							{this.state.bgvInfo?
+								<div className="col-md-8">
+									<h5>BGV Reports Download</h5>
+									{this.state.bgvInfo.map((item)=>( <a href="#" onClick={this.BgvDownload.bind(this,item.reportId)}><li>{(item.selected_package==14)?"Bronze Package - $8.16 : 1 Credit Report":(item.selected_package==12)?"Silver Package - $18.14 : 1 Credit Report + 1 Eviction Report":(item.selected_package==13)?"Gold Package - $26.78 : 1 County Criminal + 1 Credit Report + 1 Eviction Report":''}</li></a>))}
+								</div>
+							:''}
+									
 									    {/*<!---Start Review Section--->*/}
 					<div className="col-md-12">
 							<div className="search-result-box">

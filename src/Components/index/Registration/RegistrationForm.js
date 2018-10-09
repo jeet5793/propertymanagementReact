@@ -412,7 +412,7 @@ export default class RegistrationForm extends React.Component {
                     type="radio"
                     name="owner_type"
                     id="radioorg"
-                    val="Organization"
+                    val="orgnaize"
                     onChange={this.onChangeHandler}
                     value={0}
                   />

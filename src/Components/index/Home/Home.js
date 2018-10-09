@@ -37,7 +37,7 @@ import StaticCount from './staticCount'
 import { Redirect } from 'react-router-dom';
 import Slider from './Slider'
 import API_URL from '../../../app-config';
-
+import $ from 'jquery';
 
 class Home extends React.Component{
 	constructor(props){
@@ -176,9 +176,11 @@ class Home extends React.Component{
 	}
 
 	properties(){
+		$("#loaderDiv").show();
 		fetch(`${API_URL}assetsapi/property/`)
 		.then((response)=> {
 			response.json().then((data)=>{
+				$("#loaderDiv").hide();
 				this.setState({ properties: data.property },this.handleScriptLoad)
 			})
 		});
@@ -196,7 +198,7 @@ class Home extends React.Component{
 	}
 
 	render(){
-		debugger;
+		// debugger;
 		return(
 			<div>
 				<div className="vc_row wpb_row vc_row-fluid">
@@ -240,6 +242,7 @@ class Home extends React.Component{
                                             owners.push(data[i].owner_details[j])
                                     propState = {owners: owners, properties: data, isPropertySearchEmpty: false};
 								}
+								// console.log('propState'+JSON.stringify(propState));
 								  this.props.history.replace('/properties', {state: propState});
 							  }} />
 				              </div>				       
@@ -286,7 +289,7 @@ class Home extends React.Component{
 				                          <div id="tz-pro-slider-5ac1cdf22e330" className="cbp cbp-l-grid-team tz-property-slider false">
 				          					{
 				          						this.state.properties?this.state.properties.map((property, index) => (
-				          							<HomeProperty key={index} description={property.description}  Title={property.title} src={property.img_path.length>0?API_URL+property.img_path[0].img_path:''} Status={property.property_status} total_amount={property.total_amount} />
+				          							<HomeProperty key={index} description={property.description}  Title={property.title} src={property.img_path.length>0?API_URL+property.img_path[0].img_path:''} Status={property.property_status} total_amount={property.total_amount} id = {property.id} />
 				          						)):<h3 style={{textAlign:'center'}}>No Property Available</h3>}
 				          					}
 				                          </div>

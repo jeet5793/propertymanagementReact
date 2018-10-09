@@ -1,6 +1,7 @@
 import React from 'react'
 // import img1 from '../../../images/properties-3.jpg'
 import { Link } from 'react-router-dom'
+import img_not_available from '../../../images/img_not_available.png'
 export default class PropertyItems extends React.Component{
     render(){
       var classs=""
@@ -18,7 +19,7 @@ export default class PropertyItems extends React.Component{
             <a className="tz-property-thum cbp-caption" rel="nofollow">
               <div className="cbp-caption-defaultWrap">
                 <figure>
-                <img className="property-imggg" src={this.props.src} alt="" style={{width: '100%'}}/>
+                <img className="property-imggg" src={this.props.src?this.props.src:img_not_available} alt="" style={{width: '100%'}}/>
                   <figcaption className="for-sale"> {this.props.PropertyStatus} </figcaption>
                 </figure>
               </div>

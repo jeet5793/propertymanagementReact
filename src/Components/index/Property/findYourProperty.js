@@ -60,7 +60,7 @@ export default class FindYourProperty extends React.Component{
         </div>
         <div className="col-md-3 col-sm-3 col-xs-12 type tz-select">
           <label style={{border:'none'}}>PROPERTY TYPE</label>
-          <select onChange={this.onChangeHandler} name="property_status" className="cbp-search-select">
+          <select onChange={this.onChangeHandler} name="property_type" className="cbp-search-select">
             <option selected="" value="">Type</option>
             <option value="priApartment">Private Apartment</option>
             <option value="Apartment">Apartment</option>
@@ -70,7 +70,7 @@ export default class FindYourProperty extends React.Component{
         </div>
         <div className="col-md-3 col-sm-3 col-xs-12 status tz-select">
           <label style={{width:"100%",border:'none'}}>PROPERTY STATUS</label>
-          <select onChange={this.onChangeHandler} name="property_type" className="cbp-search-select">
+          <select onChange={this.onChangeHandler} name="property_status" className="cbp-search-select">
             <option value="">Status</option>
             <option value="Rent">For Rent</option>
             <option value="Sale">For Sale</option>

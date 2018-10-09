@@ -13,66 +13,66 @@ export default class PropertyDetails extends React.Component{
     this.state={
       apiCalled:true,
       proppertydetails:{
-        "address":"BTM",
-        "city":"Bangalore",
-        "country":"India",
-        "description":"This owner built home was created to cater for every possible family need without quality compromise. Every living space has been ",
-        "geo_location":"https://maps.google.com/maps?q=8600%20Blair%20St,%20Leeds,%20AL%2035094,%20USA&ie=UTF8&&output=embed",
-        "id":"2",
+        "address":"",
+        "city":"",
+        "country":"",
+        "description":" ",
+        "geo_location":"",
+        "id":"",
         "img_path":[{
-            "id":"9",
-            "img_path":"/uploads/Tulips.jpg",
-            "property_id":"2"
+            "id":"",
+            "img_path":"",
+            "property_id":""
             },
               {
-            "id":"10",
-            "img_path":"/uploads/Tulips1.jpg",
-            "property_id":"2",
+            "id":"",
+            "img_path":"",
+            "property_id":"",
             }
             ],
         "owner_details":[{
-          "address":"test",
-          "city":"Delhi",
-          "country":"India",
-          "id":"10",
-          "owner_name":"jireh123 prop2",
-          "pin_code":"560029",
-          "property_id":"2",
-          "state":"Karnataka"}, {
-          "address":"test",
-          "city":"Bangalore",
-          "country":"India",
-          "id":"10",
-          "owner_name":"jireh prop2",
-          "pin_code":"560029",
-          "property_id":"2",
-          "state":"Karnataka"}],
-          "owner_id":"2",
-          "property_status":"Sale",
-          "property_type":"Flat",
-          "state":"Karnataka",
-          "title":"prop2",
-          "zip_code":"560068"
+          "address":"",
+          "city":"",
+          "country":"",
+          "id":"",
+          "owner_name":"",
+          "pin_code":"",
+          "property_id":"",
+          "state":""}, {
+          "address":"",
+          "city":"",
+          "country":"",
+          "id":"",
+          "owner_name":"",
+          "pin_code":"",
+          "property_id":"",
+          "state":""}],
+          "owner_id":"",
+          "property_status":"",
+          "property_type":"",
+          "state":"",
+          "title":"",
+          "zip_code":""
      },
   owners:[{
-      "address":"test",
-      "city":"Bangalore",
-      "country":"India",
-      "id":"1",
-      "owner_name":"jireh",
-      "pin_code":"560029",
-      "property_id":"1",
-      "state":"Karnataka"
+      "address":"",
+      "city":"",
+      "country":"",
+      "id":"",
+      "owner_name":"",
+      "pin_code":"",
+      "property_id":"",
+      "state":""
     },
     {
-      "address":"test",
-      "city":"Bangalore",
-      "country":"India",
+      "address":"",
+      "city":"",
+      "country":"",
       "id":"1",
-      "owner_name":"jireh",
-      "pin_code":"560029",
-      "property_id":"1",
-      "state":"Karnataka"
+      "owner_name":"",
+      "pin_code":"",
+      "property_id":"",
+      "state":""
     }
     ],
 	agentList:[]
@@ -80,11 +80,13 @@ export default class PropertyDetails extends React.Component{
 	
   }
   getPropertyDetails(id){
+	  $("#loaderDiv").show();
     fetch(`${API_URL}assetsapi/property_details/`+id)
     .then((response)=> {        
       response.json().then((data)=>{
+		  $("#loaderDiv").hide();
         // this.setState({proppertydetails:data.property})
-        debugger;
+        // debugger;
         var owners=[];
         for(var i=0;i<data.property.length;i++) {
           for(var j=0;j<data.property[i].owner_details.length;j++) {
@@ -277,7 +279,7 @@ export default class PropertyDetails extends React.Component{
               </div>
             </div>
           </div>
-          <div class="tz-project-details">
+		  {/*  <div class="tz-project-details">
             {proppertydetails.owner_details.map(owner=>(
 
               <div class="tz-property-box tz-property-author">
@@ -308,7 +310,7 @@ export default class PropertyDetails extends React.Component{
                   </div>
               </div>    
             ))}
-          </div>
+</div> */}
         </div>
         <PropretySearchForm ownerDetails={this.state.owners} AgentList={this.state.agentList}/>
       </div>

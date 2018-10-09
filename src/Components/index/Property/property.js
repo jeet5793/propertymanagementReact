@@ -12,7 +12,7 @@ import ProppertSearchForm from './propertSearch'
 // import $ from 'jquery'
 import API_URL from '../../../app-config';
 import PropertItem from './propertyItems'
-
+import $ from 'jquery'
 
 export default class Property extends React.Component{
   constructor(props)
@@ -28,7 +28,7 @@ export default class Property extends React.Component{
     this.updateProps=this.updateProps.bind(this)
   }
   updatePropertyGrid(property){
-    debugger;
+    // debugger;
     if (property.success === 0) {
         this.setState({isPropertySearchEmpty: true, propertySearchMsg: property.msg})
     } else {
@@ -66,9 +66,11 @@ updateProps(props){
     if (this.props.location && this.props.location.state){
       this.setState(this.props.location.state.state);
     }
+	 $("#loaderDiv").show();
   fetch(`${API_URL}assetsapi/property/`)
   .then((response)=> {        
     response.json().then((data)=>{
+		 $("#loaderDiv").hide();
       var owners=[];
 	  if(data.property){
 		for(var i=0;i<data.property.length;i++) {
@@ -327,13 +329,14 @@ updateProps(props){
         $('html, body').animate({scrollTop: 0}, 500); 
   }
 	render(){ 
+	// console.log('props'+JSON.stringify(this.props))
 		return(
 			<div>
       {/* <Header actChild="Properties" loggedIn={this.props.login} />       */}
 				<div className="tz-Breadcrumb">
     <div className="tzOverlayBreadcrumb">
       <div className="container">
-        <h1> Archives </h1>
+        <h1> Properties </h1>
         <div className="tz-breadcrumb-navxt"> 
           {/*<!--Breadcrumbs--> */}
         </div>

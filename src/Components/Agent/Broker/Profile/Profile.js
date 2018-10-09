@@ -205,6 +205,16 @@ class BrokerProfie extends React.Component{
                   </div>
                 </div>
                 {/* Personal-Information */} 
+				{/* Personal-Information */}
+                <div className="card-box">
+                  <h4 className="header-title mt-0 m-b-20">Recent Added Property</h4>
+				  {(this.state.property).length>0?
+                  <div className="panel-body"> <img id="single-image" src={this.state.property!=''?API_URL+this.state.property.img_path:img_not_available} alt="image-1" className="img-fluid" />
+                      <hr/>
+                      <p className="text-muted font-13">{this.state.property.description} </p>
+				  <Link to={{"pathname":"/broker-property-detail",state:{propertyID:this.state.property.property_id,session:JSON.parse(this.state.userData).session_id}}}><a className="btn btn-custom waves-light waves-effect w-md">View</a></Link> </div>:<div>No Property Added</div>}
+                </div>
+                {/* Personal-Information */}
               </div>
               <div className="col-md-8">
                 <div className="card-box">
@@ -236,23 +246,7 @@ class BrokerProfie extends React.Component{
 	</table>:<div style={{textAlign:'center'}}>No Contact Available</div>}
                   </div>
                 </div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-md-4"> 
-                {/* Personal-Information */}
-                <div className="card-box">
-                  <h4 className="header-title mt-0 m-b-20">Recent Added Property</h4>
-				  {(this.state.property).length>0?
-                  <div className="panel-body"> <img id="single-image" src={this.state.property!=''?API_URL+this.state.property.img_path:img_not_available} alt="image-1" className="img-fluid" />
-                      <hr/>
-                      <p className="text-muted font-13">{this.state.property.description} </p>
-				  <Link to={{"pathname":"/broker-property-detail",state:{propertyID:this.state.property.property_id,session:JSON.parse(this.state.userData).session_id}}}><a className="btn btn-custom waves-light waves-effect w-md">View</a></Link> </div>:<div>No Property Added</div>}
-                </div>
-                {/* Personal-Information */} 
-              </div>
-              <div className="col-md-8">
-                <div className="card-box">
+				 <div className="card-box">
                   <h4 className="mt-0">Recent Tenant Contact</h4>
                   <div className="table-responsive">
 				  {(TenantList.length>0)?
@@ -282,6 +276,14 @@ class BrokerProfie extends React.Component{
                   </div>
                 </div>
               </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-md-4"> 
+                 
+              </div>
+              <div className="col-md-8">
+               
             </div>
             {/* end col */} 
             {/* end row */} 

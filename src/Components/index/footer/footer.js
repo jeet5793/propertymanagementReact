@@ -115,7 +115,7 @@ class Footer extends React.Component{
 				<div className="blockui-mask"></div>
 				<div className="RowDialogBody">
 					<div className="confirm-header row-dialog-hdr-success">
-						Response Message
+						Notification
 					</div>
 					<div className="confirm-body">
 						

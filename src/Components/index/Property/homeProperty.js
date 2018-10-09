@@ -18,7 +18,7 @@ export default class Homeproperty extends React.Component{
                     <div className="cbp-caption-activeWrap">
                     	<div className="cbp-l-caption-alignCenter">
                             <div className="cbp-l-caption-body"> 
-	                            <Link to={{'pathname':"property-detail",state:this.props.property}} className="cbp-l-caption-buttonLeft" rel="nofollow"><i className="icon-link"></i> </Link> 
+	                            <Link to={{'pathname':"property-detail",state:this.props}} className="cbp-l-caption-buttonLeft" rel="nofollow"><i className="icon-link"></i> </Link> 
 	                            <a href={this.props.src?this.props.src:img_not_available} className="cbp-lightbox cbp-l-caption-buttonRight" data-title="Stylish Apartment"> <i className="icon-plus-circle"></i> </a> 
                         	</div>
                     	</div>

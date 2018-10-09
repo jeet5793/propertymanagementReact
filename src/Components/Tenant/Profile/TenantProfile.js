@@ -204,6 +204,16 @@ render(){
                   </div>
                 </div>
                 {/* Personal-Information */} 
+				 {/* Personal-Information */}
+                <div className="card-box">
+                  <h4 className="header-title mt-0 m-b-20">Recent Added Property</h4>
+				   {(this.state.property).length>0?
+                  <div className="panel-body"> <img id="single-image" src={this.state.property!=''?API_URL+this.state.property.img_path:img_not_available} alt="image-1" className="img-fluid" />
+                      <hr/>
+                      <p className="text-muted font-13">{this.state.property.description} </p>
+                    <a className="btn btn-custom waves-light waves-effect w-md">View</a> </div>:<div>No Property Added</div>}
+                </div>
+                {/* Personal-Information */} 
               </div>
               <div className="col-md-8">
                 <div className="card-box">
@@ -236,23 +246,7 @@ render(){
                     </table>:<div style={{textAlign:'center'}}>No Contact Available</div>}
                   </div>
                 </div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-md-4"> 
-                {/* Personal-Information */}
-                <div className="card-box">
-                  <h4 className="header-title mt-0 m-b-20">Recent Added Property</h4>
-				   {(this.state.property).length>0?
-                  <div className="panel-body"> <img id="single-image" src={this.state.property!=''?API_URL+this.state.property.img_path:img_not_available} alt="image-1" className="img-fluid" />
-                      <hr/>
-                      <p className="text-muted font-13">{this.state.property.description} </p>
-                    <a className="btn btn-custom waves-light waves-effect w-md">View</a> </div>:<div>No Property Added</div>}
-                </div>
-                {/* Personal-Information */} 
-              </div>
-              <div className="col-md-8">
-                <div className="card-box">
+				<div className="card-box">
                   <h4 className="mt-0">Recent Agent Contact</h4>
                   <div className="table-responsive">
 				  {(AgentList.length>0)?
@@ -281,6 +275,14 @@ render(){
 				  </table>:<div style={{textAlign:'center'}}>No Contact Available</div>}
                   </div>
                 </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-md-4"> 
+               
+              </div>
+              <div className="col-md-8">
+                
               </div>
             </div>
             {/* end col */} 

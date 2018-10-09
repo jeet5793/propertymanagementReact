@@ -39,7 +39,7 @@ export default class PropertySearch extends React.Component{
       if(data.success===1)
       {
         console.log(data);
-        debugger;
+        // debugger;
 
         // this.props.updatePropertyGrid(data)
         // window.location.href='http://'+window.location.hostname+':'+window.location.port+'/property-detail'
@@ -70,13 +70,13 @@ export default class PropertySearch extends React.Component{
                   <input onChange={this.onChangeHandler} type="text" className="cbp-search-input" id="keyword" name="keyword"  placeholder="Enter your keyword..." />
                 </div>
                 <div>
-                  <input onChange={this.onChangeHandler} type="text" className="cbp-search-input " id="address" name="address"  placeholder="City" />
+                  <input onChange={this.onChangeHandler} type="text" className="cbp-search-input " id="city" name="city"  placeholder="City" />
                   <input type="hidden" id="latitude" name="latitude" />
                   <input type="hidden" id="longitude" name="longitude" />
                 </div>
                 <div>
                   {/* <label style={{width:'100%'}}> */}
-                    <select name="property_status" onChange={this.onChangeHandler} className="cbp-search-select">
+                    <select name="property_type" onChange={this.onChangeHandler} className="cbp-search-select">
                       <option>Type</option>
                       <option  value="house" >House</option>
                       <option  value="flat" >Flat</option>
@@ -85,7 +85,7 @@ export default class PropertySearch extends React.Component{
                 </div>
                 <div>
                   {/* <label style={{width:'100%'}}> */}
-                    <select name="property_type" onChange={this.onChangeHandler} className="cbp-search-select">
+                    <select name="property_status" onChange={this.onChangeHandler} className="cbp-search-select">
                       <option  value="">Status</option>
                       <option  value="Rent">Rent</option>
                       <option  value="Sale">Sale</option>
