@@ -255,7 +255,7 @@ this.profile();
                            <a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-user" /> <Link to = {{pathname:'/tenant-profile'}}> <span>Profile</span></Link> </a> 
                             {/* item*/} 
                             <a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-gear" /> <Link to = {{pathname:'/tenant-settings'}}><span>Settings</span></Link> </a> 
-							{(this.state.userTypeList).length>0?<hr/>:''}							
+							<hr/>							
 							{(this.state.userTypeList).length>0?<span className="dropdown-item notify-item">Switch To</span>:''}
 						{this.state.userTypeList?this.state.userTypeList.map((item)=>( 
 							<a href="javascript:void(0);" className="dropdown-item notify-item" onClick = {this.onClickSwitch.bind(this,item.assets_type)}> <i className="dripicons-user" />{item.assets_type=='2'?'Agent':item.assets_type=='3'?'Tenant':item.assets_type=='1'?'Owner':''}</a> )):''}

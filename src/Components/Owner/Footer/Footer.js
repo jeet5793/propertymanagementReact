@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import $ from 'jquery'
+import APP_VERSION from "../../../app-version";
 export default class Footer extends Component{
 	submitAlert()
 	{		
@@ -20,7 +21,7 @@ export default class Footer extends Component{
             <footer className="footer">
             <div className="container">
               <div className="row">
-                <div className="col-12 text-center"> © 2018 Assets Watch. All Rights Reserved </div>
+                <div className="col-12 text-center"> © 2018 Assets Watch. All Rights Reserved. ( {APP_VERSION} )</div>
               </div>
             </div>
 			<div id="loaderDiv" className="preloader">

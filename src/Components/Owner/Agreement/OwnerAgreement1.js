@@ -29,7 +29,7 @@ const Saved=(props)=>{
             <tr>
               <td>{element.agreement_title}</td>
               <td>{element.created_date}</td>
-              <td><a title="Edit"  onClick={() => props.editAgreement(element)} href="#" className="table-action-btn view-rqu"><i className="mdi mdi-border-color"></i></a><a title="Delete" href="#" className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a><a title="Send"  href="#" className="table-action-btn view-rqu" data-toggle="modal" data-target="#send-msg"><i className="mdi mdi-redo-variant" onClick={() => props.selectedAgreement(element)}></i></a></td>
+              <td><a title="Edit"  onClick={() => props.editAgreement(element)} href="#" className="table-action-btn view-rqu"><i className="mdi mdi-border-color"></i></a><a title="view" href="#" onClick={() => props.pdfViewAgreement(element.agreement_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Delete" href="#" className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a><a title="Send"  href="#" className="table-action-btn view-rqu" data-toggle="modal" data-target="#send-msg"><i className="mdi mdi-redo-variant" onClick={() => props.selectedAgreement(element)}></i></a></td>
             </tr>
           )):<div>No data </div>}        
         </tbody>
@@ -191,6 +191,7 @@ export default class container extends React.Component{
       this.editAgreement = this.editAgreement.bind(this)
       this.selectedExecutedAgreement = this.selectedExecutedAgreement.bind(this)
 	   this.onClickDownload = this.onClickDownload.bind(this)
+	    this.pdfViewAgreement = this.pdfViewAgreement.bind(this);
       var tinymce=window.tinyMCE
       // fetch('http://ec2-18-191-70-215.us-east-2.compute.amazonaws.com:8080/assetsapi/saved_agreement/2/qvtod9f0pqe9li38nsdsc03mu6hb0u2n')
       
@@ -205,6 +206,10 @@ export default class container extends React.Component{
 		//console.log("deal_id"+JSON.stringify(deal_id));
 		 
 			
+	 }
+	 pdfViewAgreement(agreement_id){
+		 let { user } = this.state;
+		  window.open(`${API_URL}assetsapi/agreement_pdf_view/`+agreement_id+`/${user.session_id}`, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
 	 }
     selectedExecutedAgreement(agreement) {
         let data = {id: agreement.deal_id};
@@ -581,7 +586,7 @@ getPropertyList() {
                       </div>
                       <div className="col-md-10">
                         <div className="tab-content">
-						<Saved editAgreement={this.editAgreement} selectedAgreement={this.selectedAgreement} agreement={this.state.agreement}/>
+						<Saved editAgreement={this.editAgreement} selectedAgreement={this.selectedAgreement} agreement={this.state.agreement} pdfViewAgreement={this.pdfViewAgreement}/>
 						 <VCreate userData={this.state.userData} editAgreement={this.state.editAgreement} />
                          {<VRequested previewAgreement={this.previewAgreement} ragreement={this.state.requestedAgreement || []}/>}
                           <VExecute ragreement={this.state.executedAgreement} selectedExecutedAgreement={this.selectedExecutedAgreement} onClickDownload={this.onClickDownload}/>

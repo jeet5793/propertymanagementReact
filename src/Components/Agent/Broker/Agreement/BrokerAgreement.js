@@ -4,7 +4,7 @@ import API_URL from '../../../../app-config';
 import Cookies from 'js-cookie';
 import $ from 'jquery';
 import Customwithmodal from '../../../Owner/Agreement/CustomWithModal';
-import VCreate from '../../../Owner/Agreement/VCreate'
+import VCreate from './VCreate'
 import {loadFile} from '../../../js/external'
 import SendMsg from './SendMSG'
 import swal from 'sweetalert';
@@ -28,7 +28,7 @@ const Saved=(props)=>{
             <tr>
               <td>{element.agreement_title}</td>
               <td>{element.created_date}</td>
-              <td><a title="Edit" href="#" onClick={() => props.editAgreement(element)} className="table-action-btn view-rqu"><i className="mdi mdi-border-color"></i></a><a title="Delete" href="#" className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a><a title="Send" href="#" className="table-action-btn view-rqu" data-toggle="modal" data-target="#send-msg"><i className="mdi mdi-redo-variant" onClick={() => props.selectedAgreement(element)}></i></a></td>
+              <td><a title="Edit" href="#" onClick={() => props.editAgreement(element)} className="table-action-btn view-rqu"><i className="mdi mdi-border-color"></i></a><a title="view" href="#" onClick={() => props.pdfViewAgreement(element.agreement_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Delete" href="#" className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a><a title="Send" href="#" className="table-action-btn view-rqu" data-toggle="modal" data-target="#send-msg"><i className="mdi mdi-redo-variant" onClick={() => props.selectedAgreement(element)}></i></a></td>
             </tr>
           )):<div>No data </div>}         
         </tbody>
@@ -130,7 +130,7 @@ export default class BrokerAgreement extends React.Component{
 	this.onClickChangeStatus =this.onClickChangeStatus.bind(this);
   }
   componentWillMount(){
-    $.getScript('assets/js/jquery.min.js', ()=> {
+    /* $.getScript('assets/js/jquery.min.js', ()=> {
       console.log('assets/pages/jquery.wizard-init.js');
    });
    $.getScript('"assets/js/tether.min.js', ()=> {
@@ -166,15 +166,15 @@ export default class BrokerAgreement extends React.Component{
       });
       $.getScript('assets/js/jquery.app.js', ()=> {
         console.log('assets/js/jquery.app.js');
-        });
+        }); */
         
 
   }
   componentDidMount() {
-	 loadFile("assets/tiny/plugin/tinymce/tinymce.min.js","js")
+	 /* loadFile("assets/tiny/plugin/tinymce/tinymce.min.js","js")
     loadFile("assets/tiny/plugin/tinymce/init-tinymce.js","js")
 	  loadFile("ssets/js/jquery.scrollTo.min.js","js")
-    loadFile("assets/js/jquery.slimscroll.js","js")
+    loadFile("assets/js/jquery.slimscroll.js","js") */
 		
 	  this.getAgreement()
 	  this.getRequestedAgreement();
@@ -184,7 +184,7 @@ export default class BrokerAgreement extends React.Component{
       this.editAgreement = this.editAgreement.bind(this)
       this.selectedExecutedAgreement = this.selectedExecutedAgreement.bind(this)
 	   this.onClickDownload = this.onClickDownload.bind(this);
-	   
+	   this.pdfViewAgreement = this.pdfViewAgreement.bind(this);
 	   var tinymce=window.tinyMCE
     // $('a[data-toggle="collapse"]').click(function (e) {
     //     console.log($(e.target).attr('aria-controls'))
@@ -209,6 +209,12 @@ export default class BrokerAgreement extends React.Component{
 		//console.log("deal_id"+JSON.stringify(deal_id));
 		 
 			
+	 }
+	 pdfViewAgreement(agreement_id){
+		 // $("#loaderDiv").show();
+		 let { user } = this.state;
+		  // window.open(`${API_URL}assetsapi/agreement_pdf_view/`+agreement_id,'theFrame')
+		  window.open(`${API_URL}assetsapi/agreement_pdf_view/`+agreement_id+`/${user.session_id}`, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
 	 }
 	 
 	 selectedExecutedAgreement(agreement) {
@@ -570,7 +576,7 @@ getPropertyList() {
                       <div className="col-md-10">
                         <div className="tab-content">
 						
-						<Saved editAgreement={this.editAgreement} selectedAgreement={this.selectedAgreement} agreement={this.state.agreement}/>
+						<Saved editAgreement={this.editAgreement} selectedAgreement={this.selectedAgreement} agreement={this.state.agreement} pdfViewAgreement={this.pdfViewAgreement}/>
 						 <VCreate userData={this.state.userData} editAgreement={this.state.editAgreement} />
                           {<VRequested previewAgreement={this.previewAgreement} ragreement={this.state.requestedAgreement || []}/>}
                           <VExecute ragreement={this.state.executedAgreement} selectedExecutedAgreement={this.selectedExecutedAgreement} onClickDownload={this.onClickDownload}/>
@@ -686,6 +692,8 @@ getPropertyList() {
 
         {/* /.modal */} 
         {/* EOD Signature POPUP */}
+		
+								
         <SendMsg userProperty={this.state.propertyByUser}
                  users={this.state.propertyByUser && this.state.propertyByUsers}
                  agreement={this.state.forwardAgreement}

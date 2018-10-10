@@ -3,6 +3,7 @@ import img1 from '../../../images/logo-white.png'
 import img2 from '../../../images/bk-footer.jpg'
 import { Link } from 'react-router-dom'
 import $ from 'jquery'
+import APP_VERSION from "../../../app-version";
 class Footer extends React.Component{
 	submitAlert()
 	{		
@@ -98,7 +99,7 @@ class Footer extends React.Component{
           </div>
         </div>
         <div className="tz-copyright">
-          <h6>Copyright 2018 Assets Watch. All rights reserved.</h6> 
+          <h6>Copyright 2018 Assets Watch. All rights reserved. ( {APP_VERSION} )</h6> 
         </div>
       </div>
     </div>

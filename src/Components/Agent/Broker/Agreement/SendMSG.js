@@ -275,7 +275,8 @@ document.getElementById("FormCancel").click();
       // console.log("propertyByUser render..."+JSON.stringify(this.state.propertyByUser));
         // console.log('props'+JSON.stringify(this.props))
         return(
-            <div id="send-msg" className="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{display: 'none'}}>
+		<div id="send-msg" className="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{display: 'none'}}>
+		{ this.props.userProperty && this.props.userProperty.length > 0?
             <div className="modal-dialog">
               <div className="modal-content">      
                 <div className="modal-header">        
@@ -336,7 +337,25 @@ document.getElementById("FormCancel").click();
               </div>  
               </div>
             </div>
-          </div>
+				:
+				<div className="modal-dialog">
+					<div className="modal-content"> 
+							
+								<div className="confirm-header row-dialog-hdr-success">        
+									<h4 className="modal-title">Notification </h4>      
+								</div> 
+								<div className="confirm-body">        
+									You don't have property to send agreement.
+								</div>     
+								<div className="confirm-btn-panel text-center">
+									<div className="btn-holder">
+									<input type="button" value="Ok" className="row-dialog-btn btn btn-success" onClick={this.hideModel} data-dismiss="modal"/>
+								</div>
+							
+						</div>					  
+					</div>
+				</div>}
+		</div>
         );
     }
 }
