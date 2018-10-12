@@ -39,7 +39,7 @@ class DashBoardIndex extends React.Component {
   render() {
     return (
       <div>
-        <link rel='stylesheet' href='../css/theme.css' type='text/css' media='all' />
+      {/*<link rel='stylesheet' href='../css/theme.css' type='text/css' media='all' />*/}
         <Header/>
 
         <Switch>

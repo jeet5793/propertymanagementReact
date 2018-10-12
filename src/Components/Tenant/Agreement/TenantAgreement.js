@@ -7,6 +7,32 @@ import swal from 'sweetalert';
 const VRequested=(props)=>{
     return(
         <div className="tab-pane active" id="v-requested">
+		<h4>Sent</h4>
+	{(props.sendedAgreement!=undefined)?
+	
+			<div className=" table-responsive">
+			  <table className="table bdr">
+				<thead>
+				  <tr>
+					<th>Title</th>
+					<th>Date</th>
+					<th>Action</th>
+				  </tr>
+				</thead>
+				<tbody>                                    
+				 
+			{(props.sendedAgreement!=undefined)?props.sendedAgreement.map(element=>(
+					<tr>
+					  <td>{element.agreement_title}</td>
+					  <td>{element.initiated_date}</td>
+					  <td><a title="Edit" href="#preview" onClick={() => props.previewAgreement(element)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a></td>
+					</tr>
+				  )):<div>No data </div>}
+				
+			  </tbody>
+			</table>
+			</div>:''}
+			<h4>Requested</h4>
           <div className=" table-responsive">
             <table className="table bdr">
               <thead>
@@ -80,6 +106,7 @@ export default class TenantAgreement extends React.Component {
         user : JSON.parse(Cookies.get('profile_data')),
     };
     this.getRequestedAgreement=this.getRequestedAgreement.bind(this);
+	this.getSendedAgreement=this.getSendedAgreement.bind(this);
     this.getExecutedAgreement=this.getExecutedAgreement.bind(this);
     this.verticalNavbar=this.verticalNavbar.bind(this);
     this.previewAgreement=this.previewAgreement.bind(this);
@@ -90,6 +117,7 @@ export default class TenantAgreement extends React.Component {
        console.log('assets/js/jquery.slimscroll.js');
     });
     this.getRequestedAgreement();
+	 this.getSendedAgreement();
     this.getExecutedAgreement();
     // $('a[data-toggle="collapse"]').click(function (e) {
     //     console.log($(e.target).attr('aria-controls'))
@@ -128,6 +156,29 @@ export default class TenantAgreement extends React.Component {
                 }
             )
     }
+	getSendedAgreement(){
+	$("#loaderDiv").show();
+      let { user } = this.state;
+    fetch(`${API_URL}assetsapi/sended_agreement/${user.assets_id}/${user.session_id}`, {
+      method: 'get'
+    })
+    .then(res => res.json())
+    .then(
+      (data) => {
+      //console.log("data 2: "+JSON.stringify(result.profile))
+       $("#loaderDiv").hide();
+      if (data.success) {
+        // debugger;
+        this.setState({sendedAgreement:data.sended_agreements, agrLoaded:true})
+        // console.log(this.state.ragreement);
+      } 
+      //console.log("set user data"+JSON.stringify(this.state.profileData))
+      },
+    (error) => {
+      console.log('error')
+    }
+    )
+}
 	getExecutedAgreement() {
         let { user } = this.state;
 		$("#loaderDiv").show();
@@ -306,12 +357,12 @@ export default class TenantAgreement extends React.Component {
                           {/*   <li class="nav-item"> <a href="#v-saved" class="nav-link agreement-fa active" data-toggle="tab" aria-expanded="false"><i class="icon-folder-alt"></i>&nbsp;&nbsp;Saved</a> </li>
                   <li class="nav-item"> <a href="#v-create" class="nav-link agreement-fa" data-toggle="tab" aria-expanded="true"><i class="icon-plus"></i>&nbsp;&nbsp;Create</a> </li>*/}
                           <li className="nav-item"> <a href="#v-requested" id="request" onClick={this.verticalNavbar} className="nav-link agreement-fa active" data-toggle="tab" aria-expanded="true"><i className="icon-note" />&nbsp;&nbsp;Requested</a> </li>
-                          <li className="nav-item"> <a href="#v-execute" id="execute" onClick={this.verticalNavbar} className="nav-link agreement-fa" data-toggle="tab" aria-expanded="true"><i className="icon-compass" />&nbsp;&nbsp;Execute</a> </li>
+                          <li className="nav-item"> <a href="#v-execute" id="execute" onClick={this.verticalNavbar} className="nav-link agreement-fa" data-toggle="tab" aria-expanded="true"><i className="icon-compass" />&nbsp;&nbsp;Executed</a> </li>
                         </ul>
                       </div>
                       <div className="col-md-10">
                         <div className="tab-content">
-                          {<VRequested previewAgreement={this.previewAgreement} ragreement={this.state.requestedAgreement || []}/>}
+                          {<VRequested previewAgreement={this.previewAgreement} ragreement={this.state.requestedAgreement || []} sendedAgreement={this.state.sendedAgreement || []}/>}
                           <VExecute ragreement={this.state.executedAgreement}/>
                           <div className="tab-pane" id="preview">
                             <div id="contentPreview"></div>

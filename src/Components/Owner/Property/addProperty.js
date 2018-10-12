@@ -295,13 +295,13 @@ class AddProperty extends React.Component {
                   <div className="row">
                     <div className="col-md-8">
                       <div className="form-group row">
-                        <label className="col-2 col-form-label">Property Title</label>
+                        <label className="col-2 col-form-label required">Property Title</label>
                         <div className="col-10">
                           <input name="title" onChange={this.onChangeHandler} type="text" className="form-control" />
                         </div>
                       </div>
                       <div className="form-group row">
-                        <label className="col-2 col-form-label">Address1</label>
+                        <label className="col-2 col-form-label required">Address1</label>
                         <div className="col-10">
 						<input name="address" onChange={this.onChangeHandler} placeholder='Property address1' type="text" className="form-control" />
                         </div>
@@ -313,7 +313,7 @@ class AddProperty extends React.Component {
                         </div>
                       </div>
                       <div className="form-group row">
-                        <label className="col-2 col-form-label">Country</label>
+                        <label className="col-2 col-form-label required">Country</label>
                         <div className="col-4">
                           <select className="form-control" name='country' onChange={this.onChangeHandler} >
                             <option>Please select a country</option>
@@ -321,7 +321,7 @@ class AddProperty extends React.Component {
                           </select>
                         </div>
 
-                        <label className="col-2 col-form-label">State</label>
+                        <label className="col-2 col-form-label required">State</label>
                         <div className="col-4">
                           <select className="form-control" name="state" onChange={this.onChangeHandler} >
                             <option>Please select a state</option>
@@ -330,14 +330,14 @@ class AddProperty extends React.Component {
                         </div>
                       </div>
                       <div className="form-group row">
-                        <label className="col-2 col-form-label">City</label>
+                        <label className="col-2 col-form-label required">City</label>
                         <div className="col-4">
                           <select className="form-control" name="city" onChange={this.onChangeHandler} >
                             <option>Please select a city</option>
                             {this.state.cities ? this.state.cities.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>)) : ''}
                           </select>
                         </div>
-                        <label className="col-2 col-form-label">PIN Code</label>
+                        <label className="col-2 col-form-label required">PIN Code</label>
                         <div className="col-4">
                           <input type="text" className="form-control" name="zip_code" onChange={this.onChangeHandler} />
                         </div>
@@ -349,14 +349,14 @@ class AddProperty extends React.Component {
                       {this.state.shareholders.map((shareholder, idx) => (
                         <div>
                           <div className="form-group row">
-                            <label className="col-2 col-form-label">Owner {idx + 1}</label>
+                            <label className="col-2 col-form-label required">Owner {idx + 1}</label>
                             <div className="col-10">
                               <input type="text" name={'owner_name' + (idx)} placeholder={`Owner #${idx + 1} owner_name`} className="form-control" onChange={(e) => { this.onChangeHandler(e, idx) }} />
                             </div>
                           </div>
                           {/*add second owner*/}
                           <div className="form-group row">
-                            <label className="col-2 col-form-label">Address1</label>
+                            <label className="col-2 col-form-label required">Address1</label>
                             <div className="col-10">
                              <input type="text" name={'address' + (idx)} placeholder={`Owner #${idx + 1} address1`} onChange={(e) => { this.onChangeHandler(e, idx) }} className="form-control"/>
 
@@ -371,7 +371,7 @@ class AddProperty extends React.Component {
                             </div>
                           </div>
                           <div className="form-group row">
-                            <label className="col-2 col-form-label">Country</label>
+                            <label className="col-2 col-form-label required">Country</label>
                             <div className="col-4">
                               <select className="form-control" name={'country' + (idx)} onChange={(e) => { this.onChangeHandler(e, idx) }} >
                                 <option>Please select a country</option>
@@ -379,7 +379,7 @@ class AddProperty extends React.Component {
                               </select>
                             </div>
 
-                            <label className="col-2 col-form-label">State</label>
+                            <label className="col-2 col-form-label required">State</label>
                             <div className="col-4">
                               <select className="form-control" name={'state' + (idx)} onChange={(e) => { this.onChangeHandler(e, idx) }} >
                                 <option>Please select a state</option>
@@ -388,14 +388,14 @@ class AddProperty extends React.Component {
                             </div>
                           </div>
                           <div className="form-group row">
-                            <label className="col-2 col-form-label">City</label>
+                            <label className="col-2 col-form-label required">City</label>
                             <div className="col-4">
                               <select className="form-control" name={'city' + (idx)} onChange={(e) => { this.onChangeHandler(e, idx) }} >
                                 <option>Please select a city</option>
                                 {this.state.cities ? this.state.cities.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>)) : ''}
                               </select>
                             </div>
-                            <label className="col-2 col-form-label">PIN Code</label>
+                            <label className="col-2 col-form-label required">PIN Code</label>
                             <div className="col-4">
                               <input type="text" className="form-control" name={'zip_code' + (idx)} onChange={(e) => { this.onChangeHandler(e, idx) }} />
                             </div>
@@ -408,7 +408,7 @@ class AddProperty extends React.Component {
                       ))}
                       <hr style={{ color: '#f0ad4e', backgroundColor: '#f0ad4e', height: 2 }} />
                       <div className="form-group row">
-                        <label className="col-2 col-form-label">Property Type</label>
+                        <label className="col-2 col-form-label required">Property Type</label>
                         <div className="col-4">
                           <select className="form-control" name="property_type" onChange={this.onChangeHandler}>
                             <option selected>Please Select</option>
@@ -418,7 +418,7 @@ class AddProperty extends React.Component {
                             <option value="House">House</option>
                           </select>
                         </div>
-                        <label className="col-2 col-form-label">Property Status</label>
+                        <label className="col-2 col-form-label required">Property Status</label>
                         <div className="col-4">
                           <select className="form-control" name="property_status" onChange={this.onChangeHandler}>
                             <option>Please Select</option>
@@ -432,9 +432,9 @@ class AddProperty extends React.Component {
                         </div>
                       </div>
                       <div className="form-group row">
-                        <label className="col-2 col-form-label">Description</label>
+                        <label className="col-2 col-form-label required">Description</label>
                         <div className="col-10">
-                          <textarea id="elm1" className="w-100" name="description" onChange={this.onChangeHandler}></textarea>
+                          <textarea id="elm1" className="w-100 form-control" name="description" onChange={this.onChangeHandler}></textarea>
                         </div>
                       </div>
 
@@ -448,7 +448,7 @@ class AddProperty extends React.Component {
 						            </div>*/}
 
                       <div className="form-group row">
-                        <label className="col-2 col-form-label">Square Feet</label>
+                        <label className="col-2 col-form-label required">Square Feet</label>
                         <div className="col-4">
                           <input name="square_feet" onChange={this.onChangeHandler} type="text" className="form-control" />
                         </div>
@@ -458,17 +458,17 @@ class AddProperty extends React.Component {
                         </div>
                       </div>
                       <div className="form-group row">
-                        <label className="col-2 col-form-label">Bedrooms</label>
+                        <label className="col-2 col-form-label required">Bedrooms</label>
                         <div className="col-4">
                           <input type="text" name="bedroom" onChange={this.onChangeHandler} className="form-control" />
                         </div>
-                        <label className="col-2 col-form-label">Bathrooms</label>
+                        <label className="col-2 col-form-label required">Bathrooms</label>
                         <div className="col-4">
                           <input type="text" name="bathroom" className="form-control" onChange={this.onChangeHandler} />
                         </div>
                       </div>
                       <div className="form-group row">
-                        <label className="col-2 col-form-label">Total Amount</label>
+                        <label className="col-2 col-form-label required">Total Amount</label>
                         <div className="col-4">
                           <input type="text" className="form-control" name="total_amount" onChange={this.onChangeHandler} />
                         </div>
@@ -479,7 +479,7 @@ class AddProperty extends React.Component {
                       </div>
                     </div>
                     <div className="col-md-4">
-                      <div className="autohide-scroll" style={{ height: '500px' }}>
+                       <div className="autohide-scroll" style={{ height: '600px',overflowX:"none",overflowY:"scroll"}}>
                         <div className="p-b-0">
                           <div className="form-group">
                             <div className="col-sm-12 padding-left-0 padding-right-0">
@@ -537,8 +537,8 @@ class AddProperty extends React.Component {
                       <div className="row">
                         <div className="col-md-8"></div>
                         <div className="col-md-4 submit-btn">
+                          <button type="button" className="btn btn-secondary waves-effect w-md m-r-10">Cancel</button>
                           <button type="button" onClick={this.createProperty} className="btn btn-success waves-effect w-md waves-light">Submit</button>
-                          <button type="button" className="btn btn-secondary waves-effect w-md">Cancel</button>
                         </div>
                       </div>
                     </div>

@@ -2,10 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux';
 import API_URL from "../../../app-config";
 import Cookies from 'js-cookie';
-import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
-import swal from 'sweetalert';
+import DatePicker from 'react-datetime-picker';
 import $ from 'jquery';
  class ProfileInfo extends React.Component{
 	constructor(props){
@@ -14,6 +13,7 @@ import $ from 'jquery';
     this.state={
 		userData:Cookies.get('profile_data'),	
 		userInfo:props.userData,
+		dobDate:"",
 		 profile:[],
       profileSetting:{
 				testDate:"",
@@ -42,21 +42,19 @@ import $ from 'jquery';
 	  countries: [{ name: "Afghanistan" }],
       states: [],
       cities: []
-      }
+			}
+			this.onChange=this.onChange.bind(this)
       this.onChangeHandler=this.onChangeHandler.bind(this);
-	  this.handleDobChange = this.handleDobChange.bind(this);
-	  this.fileInput = React.createRef();
+	    this.fileInput = React.createRef();
 	}
 	
-	 handleDobChange(date) {
-		alert('DATE '+JSON.stringify(date));
-		 this.setState({
+	onChange(date){
+		this.setState({
 			profileSetting:{dob:date}
 		 });
-	 }
+		}
+
 	onChangeHandler(e){
-	
-		
         // console.log(this.fileInput.current.files[0]);
 				const profileForm=this.state.profileSetting;
         let formData = new FormData();
@@ -147,39 +145,10 @@ import $ from 'jquery';
 	profileSubmit(e)
 	{
 		e.preventDefault();
-		const profileForm=this.state.profileSetting;
-		var dobDate= $('#dobDate').val();
-		var dateOfBirth = moment(dobDate).format();
-		profileForm.dob=dateOfBirth
+		// console.log(this.state.profileSetting)
+		// console.log(this.state.profile)
 		var opts= Object.assign(this.state.profile, this.state.profileSetting);
 		opts.session_id = JSON.parse(this.state.userData).session_id
-		// console.log('OPTS ', opts);
-        // let data = this.state.formData || new FormData();
-        // for (var i in opts) {
-		 //    data.append(i,opts[i]);
-        // }
-        // for (var pair of data.entries()) {
-        //     console.log(pair[0], ', ' , pair[1]);
-        // }
-      // console.log(opts.chekname);
-     
-      // if(!opts.old_password){
-        // alert('Old Password should not be blank');
-        // return;
-      // }
-      // if(!opts.new_password){
-        // alert('New Password should not be blank');
-        // return;
-      // }
-      // if(!opts.confirm_password){
-        // alert('Confirm Password should not be blank');
-        // return;
-      // }
-      
-	  // if(opts.confirm_password !== opts.new_password)
-	  // {
-		   // alert ('Confirm password is not matched.')
-	  // }
 	  $("#loaderDiv").show();
       fetch(`${API_URL}assetsapi/setting_profile/`, {
         method: 'post',        
@@ -212,27 +181,13 @@ import $ from 'jquery';
 			  (result) => {
 				//console.log("data 2: "+JSON.stringify(profile))
 				if (result.success) {
-				  this.setState({profile:result.profile})
-					var dobDate = new Date(this.state.profile.dob.replace( /(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3"))
-					var d = new Date(dobDate);
-					var dob=getFormattedString(d).slice(0,10);
-					function getFormattedString(d){
-						return  (d.getMonth()+1)+ "-"+d.getDate() +"-"+d.getFullYear()+ ' '+d.toString().split(' ')[4];
-					}
-				
-					if(dob){
+					this.setState({profile:result.profile})
+					var dobDate = new Date(this.state.profile.dob)
+						this.setState({
+							profileSetting:{dob: dobDate}
+						})
 						
-						this.setState({
-							profileSetting:{dob:dob}
-						 });
-					}else{
-					
-						this.setState({
-							profileSetting:{dob:dob}
-						 });
-					}
-				} 
-				//console.log("set user data"+JSON.stringify(this.state.profile))
+					} 
 			  },
 			(error) => {
 			  console.log('error')
@@ -295,7 +250,13 @@ Countries() {
 								<label for="dob">D.O.B</label>
 							  </div>
 							  <div className="col-md-2">
-								<input value={this.state.profileSetting.dob.slice(0,10)} className="form-control" id="dobDate" name="date" placeholder="MM/DD/YYYY" type="text"/>
+								{/* <input value={this.state.profileSetting.dob.slice(0,10)} className="form-control" id="dobDate" name="date" placeholder="MM/DD/YYYY" type="text"/> */}
+											<DatePicker className="form-control"
+												disableClock={true}
+												locale="en-US"
+												onChange={this.onChange}
+												value={this.state.profileSetting.dob}
+											/>
 							  </div>
 							  <div className="col-md-1 required">
 								<label for="gender">Gender</label>

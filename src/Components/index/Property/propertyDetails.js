@@ -131,7 +131,7 @@ export default class PropertyDetails extends React.Component{
     {
       // const propertyDetail
     }
-		return(<div>
+		return(<div className="mg-top-129">
 			<div class="tz-Breadcrumb">
     <div class="tzOverlayBreadcrumb">
       <div class="container">
@@ -200,7 +200,7 @@ export default class PropertyDetails extends React.Component{
             {/*&<!-- Nav tabs -->*/}
             <ul class="nav nav-tabs" role="tablist">
               <li role="presentation" class="active"><a href="#description" aria-controls="description" role="tab" data-toggle="tab">Description</a></li>
-              <li role="presentation"><a href="#features" aria-controls="features" role="tab" data-toggle="tab">Features</a></li>
+              {/* <li role="presentation"><a href="#features" aria-controls="features" role="tab" data-toggle="tab">Features</a></li> */}
               <li role="presentation"><a href="#details" aria-controls="details" role="tab" data-toggle="tab">Details</a></li>
               <li role="presentation"><a href="#location" aria-controls="location" role="tab" data-toggle="tab">Location</a></li>
             </ul>
@@ -240,39 +240,24 @@ export default class PropertyDetails extends React.Component{
               </div>
               
               {/*<!-- Tab details -->*/}
-              <div role="tabpanel" class="tab-pane fade" id="details">
-                <div class="row">
-				{/* <div class="col-md-4 col-sm-4 cbp-l-project-details-list">
-                    <p class="tz-property-detail"> Price:&nbsp; <strong> $18,000 </strong> </p>
-                    <p class="tz-property-detail"> Area:&nbsp; <strong> 2300ft&nbsp; </strong> </p>
-                    <p class="tz-property-detail"> Type:&nbsp; <strong> For Rent </strong> </p>
-                    <p class="tz-property-detail"> Bedrooms:&nbsp; <strong> 3 </strong> </p>
-                    <p class="tz-property-detail"> Bathrooms:&nbsp; <strong> 3 </strong> </p>
-                    <p class="tz-property-detail"> Garages:&nbsp; <strong> 2 </strong> </p>
-                    <p class="tz-property-detail"> Status:&nbsp; <strong> Sold </strong> </p>
+              <div role="tabpanel" className="tab-pane fade" id="details">
+                <div className="row">
+				 <div className="col-md-4 col-sm-4 cbp-l-project-details-list">
+                    <p className="tz-property-detail"> Price:&nbsp; <strong> ${proppertydetails.total_amount} </strong> </p>
+                    <p className="tz-property-detail"> Area:&nbsp; <strong> {proppertydetails.square_feet}&nbsp; </strong> </p>
+                    <p className="tz-property-detail"> Type:&nbsp; <strong> {proppertydetails.property_type} </strong> </p>
+                    <p className="tz-property-detail"> Bedrooms:&nbsp; <strong>  {proppertydetails.bedroom} </strong> </p>
+                    <p className="tz-property-detail"> Bathrooms:&nbsp; <strong>  {proppertydetails.bathroom} </strong> </p>
+                    <p className="tz-property-detail"> Status:&nbsp; <strong>  {proppertydetails.property_status} </strong> </p>
                   </div>
-                  <div class="col-md-4 col-sm-4">
-                    <p class="tz-property-detail"> Shop:&nbsp; <strong>10 km</strong> </p>
-                    <p class="tz-property-detail"> School:&nbsp; <strong>5 minutes</strong> </p>
-                    <p class="tz-property-detail"> University:&nbsp; <strong>5 km</strong> </p>
-                    <p class="tz-property-detail"> Airport:&nbsp; <strong>20 km</strong> </p>
-                    <p class="tz-property-detail"> City center:&nbsp; <strong>10 minutes</strong> </p>
-                    <p class="tz-property-detail"> Hospital:&nbsp; <strong>2 km</strong> </p>
-                    <p class="tz-property-detail"> CPT stop:&nbsp; <strong>1 km</strong> </p>
-                  </div>
-                  <div class="col-md-4 col-sm-4">
-                    <p class="tz-property-detail"> Year Built:&nbsp; <strong>2010</strong> </p>
-                    <p class="tz-property-detail"> Legal Desc:&nbsp; <strong>Legal Desc</strong> </p>
-                    <p class="tz-property-detail"> Dining Area:&nbsp; <strong>Dining Area</strong> </p>
-				</div> */}
                 </div>
               </div>
               
               {/*<!-- Tab location -->*/}
-              <div role="tabpanel" class="tab-pane fade" id="location">
-                <div class="cbp-2-project-desc">
-                  <div class="cbp-l-project-desc-text">
-                    <iframe style={{width:'750px',height:'350px'}} src={proppertydetails.geo_location} allowfullscreen></iframe>
+              <div role="tabpanel" className="tab-pane fade" id="location">
+                <div className="cbp-2-project-desc">
+                  <div className="cbp-l-project-desc-text">
+                      <iframe style={{width:'270%',height:'450px'}} src={proppertydetails.geo_location} allowfullscreen></iframe>
                     
                   </div>
                 </div>

@@ -331,7 +331,7 @@ updateProps(props){
 	render(){ 
 	// console.log('props'+JSON.stringify(this.props))
 		return(
-			<div>
+			<div className="mg-top-129">
       {/* <Header actChild="Properties" loggedIn={this.props.login} />       */}
 				<div className="tz-Breadcrumb">
     <div className="tzOverlayBreadcrumb">

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 export default class NavLinks extends React.Component{
 	NavItem(){
     return (
-        <ul className="nav navbar-nav tz-menu ">
+        <ul className="nav navbar-nav tz-menu mobile-menu">
             <li className={this.props.normalClass}><Link to={{pathname:'/'}}>Home</Link> </li>
             {/*<li className={this.props.normalClass}><Link to={{pathname:'/AboutUs'}}>About Us</Link></li>*/}
               <li className={this.props.normalClass}><Link to={{pathname:'/aboutus'}}>About Us</Link></li>

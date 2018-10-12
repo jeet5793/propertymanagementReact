@@ -10,8 +10,8 @@ import img9 from '../images/properties-11-2-1024x373.jpg'
 import img10 from '../images/properties-10-1-1024x683.jpg'
 import img11 from '../images/flexslider-1024x680.jpg'
 //import $ from 'jquery'
-import '../css/comp-main.css'
-import '../css/style.css'
+//import '../css/comp-main.css'
+//import '../css/style.css'
 
 
 export default class RIMages extends React.Component{

@@ -41,7 +41,7 @@ class BrokerSettings extends React.Component{
                               
                               <li className="nav-item" id="passNavItem"> <a id="passwordTab" onClick={this.changeTabs.bind(this,"password-settings")} href="#password-settings" data-toggle="tab" aria-expanded="false" className="nav-link"> Password Setting </a> </li>
                             </ul>
-                            <div className="tab-content">
+                            <div className="tab-content set-form">
                               <ProfileInfo />
                               <PasswordSettings />
                             </div>                            

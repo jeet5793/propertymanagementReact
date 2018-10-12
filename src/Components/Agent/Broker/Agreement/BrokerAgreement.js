@@ -1,5 +1,5 @@
 import React from 'react';
-import './BrokerAgreement.css';
+//import './BrokerAgreement.css';
 import API_URL from '../../../../app-config';
 import Cookies from 'js-cookie';
 import $ from 'jquery';
@@ -8,12 +8,13 @@ import VCreate from './VCreate'
 import {loadFile} from '../../../js/external'
 import SendMsg from './SendMSG'
 import swal from 'sweetalert';
-import '../../../Owner/Agreement/style.css'
-import './icons.css'
+//import '../../../Owner/Agreement/style.css'
+//import './icons.css'
 // import SendMsgExecute from './SendMsgExecute';
 const Saved=(props)=>{
   return(                                            
   <div className="tab-pane active" id="v-saved">
+  
     <div className=" table-responsive">
       <table className="table	bdr">
         <thead>
@@ -28,7 +29,7 @@ const Saved=(props)=>{
             <tr>
               <td>{element.agreement_title}</td>
               <td>{element.created_date}</td>
-              <td><a title="Edit" href="#" onClick={() => props.editAgreement(element)} className="table-action-btn view-rqu"><i className="mdi mdi-border-color"></i></a><a title="view" href="#" onClick={() => props.pdfViewAgreement(element.agreement_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Delete" href="#" className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a><a title="Send" href="#" className="table-action-btn view-rqu" data-toggle="modal" data-target="#send-msg"><i className="mdi mdi-redo-variant" onClick={() => props.selectedAgreement(element)}></i></a></td>
+              <td><a title="Edit" href="#" onClick={() => props.editAgreement(element)} className="table-action-btn view-rqu"><i className="mdi mdi-border-color"></i></a><a title="view" href="#" onClick={() => props.pdfViewAgreement(element.agreement_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Delete" href="#" onClick={() => props.deleteAgreement(element.agreement_id)} className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a><a title="Send" href="#" className="table-action-btn view-rqu" data-toggle="modal" data-target="#send-msg"><i className="mdi mdi-redo-variant" onClick={() => props.selectedAgreement(element)}></i></a></td>
             </tr>
           )):<div>No data </div>}         
         </tbody>
@@ -40,6 +41,34 @@ const VRequested=(props)=>{
 	console.log(JSON.stringify(props.ragreement))
     return(
         <div className="tab-pane" id="v-requested">
+		<h4>Sent</h4>
+		{(props.sendedAgreement!=undefined)?
+		
+		<div className=" table-responsive">
+		  <table className="table bdr">
+			<thead>
+			  <tr>
+				<th>Title</th>
+				<th>Date</th>
+				<th>Action</th>
+			  </tr>
+			</thead>
+			<tbody>                                    
+			 
+		{(props.sendedAgreement!=undefined)?props.sendedAgreement.map(element=>(
+				<tr>
+				  <td>{element.agreement_title}</td>
+				  <td>{element.initiated_date}</td>
+				  <td><a title="Edit" href="#preview" onClick={() => props.previewAgreement(element)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a></td>
+				</tr>
+			  )):<div>No data </div>}
+			
+		  </tbody>
+		</table>
+		</div>:''}
+	
+		<h4>Requested</h4>
+		{(props.ragreement)?
           <div className=" table-responsive">
             <table className="table bdr">
               <thead>
@@ -57,11 +86,11 @@ const VRequested=(props)=>{
               <td>{element.initiated_date}</td>
               <td><a title="Edit" href="#preview" onClick={() => props.previewAgreement(element)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Delete" href="#" className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a><a title="Send" href="#" className="table-action-btn view-rqu" data-toggle="modal" data-target="#send-msg"><i className="mdi mdi-redo-variant"></i></a></td>
             </tr>
-          )):<div>No data </div>}
+			  )):''}
 
               </tbody>
             </table>
-          </div>
+          </div>:<div>No data </div>}
         </div>
     );
 }
@@ -123,6 +152,7 @@ export default class BrokerAgreement extends React.Component{
 			  user: JSON.parse(Cookies.get('profile_data'))
     };
     this.getRequestedAgreement=this.getRequestedAgreement.bind(this);
+	this.getSendedAgreement=this.getSendedAgreement.bind(this);
     this.getExecuteAgreement=this.getExecuteAgreement.bind(this);
     this.verticalNavbar=this.verticalNavbar.bind(this);
     this.previewAgreement=this.previewAgreement.bind(this);
@@ -178,6 +208,7 @@ export default class BrokerAgreement extends React.Component{
 		
 	  this.getAgreement()
 	  this.getRequestedAgreement();
+	   this.getSendedAgreement();
       this.getExecuteAgreement();
       this.getPropertyList();
       this.selectedAgreement = this.selectedAgreement.bind(this)
@@ -185,6 +216,7 @@ export default class BrokerAgreement extends React.Component{
       this.selectedExecutedAgreement = this.selectedExecutedAgreement.bind(this)
 	   this.onClickDownload = this.onClickDownload.bind(this);
 	   this.pdfViewAgreement = this.pdfViewAgreement.bind(this);
+	   this.deleteAgreement = this.deleteAgreement.bind(this);
 	   var tinymce=window.tinyMCE
     // $('a[data-toggle="collapse"]').click(function (e) {
     //     console.log($(e.target).attr('aria-controls'))
@@ -216,6 +248,43 @@ export default class BrokerAgreement extends React.Component{
 		  // window.open(`${API_URL}assetsapi/agreement_pdf_view/`+agreement_id,'theFrame')
 		  window.open(`${API_URL}assetsapi/agreement_pdf_view/`+agreement_id+`/${user.session_id}`, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
 	 }
+	 deleteAgreement(id){
+        var session_id=JSON.parse(this.state.userData).session_id;
+		
+		 $(".confirm-body").html("Do you want to delete agreement..?");
+		$("#DelBlockUIConfirm").show();
+		$(".row-dialog-btn").click(function(){
+						const action = this.value;
+						// alert(action);
+						if(action==="Yes"){
+								 $("#loaderDiv").show();
+								fetch(`${API_URL}assetsapi/delete_agreement/`+id+`/`+session_id,{
+									method: 'GET'
+									})
+									.then(res => res.json())
+									.then(data =>{ 
+									if(data.msg==="Agreement deleted successfully. !!!")  
+										{
+												$("#loaderDiv").hide();
+												
+												$("#actionType").val("Yes");
+											   $("#hiddenURL").val("agreement");
+											   $(".confirm-body").html(data.msg);
+											   $("#BlockUIConfirm").show();
+										}else{
+												$("#loaderDiv").hide();
+												$("#actionType").val("Yes");
+											   $("#hiddenURL").val("agreement");
+											   $(".confirm-body").html(data.msg);
+											   $("#BlockUIConfirm").show();
+										}
+									})
+								
+						}else if(action==="Cancel"){
+							window.location.reload();
+						}
+		})
+    }
 	 
 	 selectedExecutedAgreement(agreement) {
         let data = {id: agreement.deal_id};
@@ -293,7 +362,29 @@ export default class BrokerAgreement extends React.Component{
                 }
             )
     }
-
+getSendedAgreement(){
+	$("#loaderDiv").show();
+      let { user } = this.state;
+    fetch(`${API_URL}assetsapi/sended_agreement/${user.assets_id}/${user.session_id}`, {
+      method: 'get'
+    })
+    .then(res => res.json())
+    .then(
+      (data) => {
+      //console.log("data 2: "+JSON.stringify(result.profile))
+       $("#loaderDiv").hide();
+      if (data.success) {
+        // debugger;
+        this.setState({sendedAgreement:data.sended_agreements, agrLoaded:true})
+        // console.log(this.state.ragreement);
+      } 
+      //console.log("set user data"+JSON.stringify(this.state.profileData))
+      },
+    (error) => {
+      console.log('error')
+    }
+    )
+}
     getExecuteAgreement() {
         let { user } = this.state;
 		$("#loaderDiv").show();
@@ -570,15 +661,15 @@ getPropertyList() {
                                     </a> 
                                 </li>
                           <li className="nav-item"> <a href="#v-requested" id="request" onClick={this.verticalNavbar.bind(this,"request")} className="nav-link agreement-fa" data-toggle="tab" aria-expanded="true"><i className="icon-note" />&nbsp;&nbsp;Requested</a> </li>
-                          <li className="nav-item"> <a href="#v-execute" id="execute" onClick={this.verticalNavbar.bind(this,"execute")} className="nav-link agreement-fa" data-toggle="tab" aria-expanded="true"><i className="icon-compass" />&nbsp;&nbsp;Execute</a> </li>
+                          <li className="nav-item"> <a href="#v-execute" id="execute" onClick={this.verticalNavbar.bind(this,"execute")} className="nav-link agreement-fa" data-toggle="tab" aria-expanded="true"><i className="icon-compass" />&nbsp;&nbsp;Executed</a> </li>
                         </ul>
                       </div>
                       <div className="col-md-10">
                         <div className="tab-content">
 						
-						<Saved editAgreement={this.editAgreement} selectedAgreement={this.selectedAgreement} agreement={this.state.agreement} pdfViewAgreement={this.pdfViewAgreement}/>
+						<Saved editAgreement={this.editAgreement} selectedAgreement={this.selectedAgreement} agreement={this.state.agreement} pdfViewAgreement={this.pdfViewAgreement} deleteAgreement={this.deleteAgreement}/>
 						 <VCreate userData={this.state.userData} editAgreement={this.state.editAgreement} />
-                          {<VRequested previewAgreement={this.previewAgreement} ragreement={this.state.requestedAgreement || []}/>}
+                          {<VRequested previewAgreement={this.previewAgreement} ragreement={this.state.requestedAgreement || []} sendedAgreement={this.state.sendedAgreement || []}/>}
                           <VExecute ragreement={this.state.executedAgreement} selectedExecutedAgreement={this.selectedExecutedAgreement} onClickDownload={this.onClickDownload}/>
 						  <div className="tab-pane" id="executePreview">
                                       <div id="executePreviewContainer"></div>

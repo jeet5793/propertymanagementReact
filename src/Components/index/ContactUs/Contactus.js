@@ -38,7 +38,7 @@ export default class ContactUs extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div className="mg-top-129">
         <div className="vc_row wpb_row vc_row-fluid">
           <div className="no_container">
             <div className="wpb_column vc_column_container vc_col-sm-12">
@@ -62,7 +62,7 @@ export default class ContactUs extends React.Component {
         </div>
 
 
-        <div className="vc_row wpb_row vc_row-fluid tz-responsive-top tz-responsive-bottom vc_custom_1465615755275">
+        <div className="vc_row wpb_row vc_row-fluid tz-responsive-top tz-responsive-bottom">
           <div className="container">
             <div className="row">
               <div className="tz-demo-edit wpb_column vc_column_container vc_col-sm-4">

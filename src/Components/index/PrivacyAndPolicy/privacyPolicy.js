@@ -30,7 +30,7 @@ export default class PrivacyPolicy extends React.Component{
 	}
     render(){
         return(
-          <div>
+          <div className="mg-top-129">
             {/*<Header />*/}
            
             <div className="vc_row wpb_row vc_row-fluid tz-responsive-bottom vc_custom_1465552428823 vc_row-has-fill trms-privc">

@@ -190,7 +190,7 @@ export default class RegistrationForm extends React.Component {
     if (event.target.value === "2")
       this.AgentRef.current.setAttribute(
         "style",
-        "display:block;margin-left:7%;width:93%"
+        "display:block;"
       );
     else this.AgentRef.current.setAttribute("style", "display:none");
     this.setState({
@@ -247,6 +247,7 @@ export default class RegistrationForm extends React.Component {
         <div className="col-md-12">
           <div className="form-group">
             <div className="col-md-12 " style={{ marginLeft: "15%" }}>
+			
               <div className="col-md-3">
                 <div className="radio radio-custom">
                   <input
@@ -288,8 +289,8 @@ export default class RegistrationForm extends React.Component {
             </div>
           </div>
         </div>
-        <div className="row col-md-12">
-          <div className="col-md-12">
+        <div className="col-md-12">
+          <div className="">
             <div className="form-group">
               <select
                 ref={this.AgentRef}
@@ -353,6 +354,7 @@ export default class RegistrationForm extends React.Component {
           </div>*/}
         <div className="col-md-6">
           <div className="form-group">
+		  <span className="required"/>
             <input
               className="form-control form-control-solid placeholder-no-fix"
               type="text"
@@ -366,6 +368,7 @@ export default class RegistrationForm extends React.Component {
         </div>
         <div className="col-md-6">
           <div className="form-group">
+		  <span className="required"/>
             <input
               className="form-control form-control-solid placeholder-no-fix"
               type="text"
@@ -379,6 +382,7 @@ export default class RegistrationForm extends React.Component {
         </div>
         <div className="col-md-6">
           <div className="form-group">
+		  <span className="required"/>
             <input
               className="form-control form-control-solid placeholder-no-fix"
               type="text"
@@ -392,7 +396,7 @@ export default class RegistrationForm extends React.Component {
         </div>
         <div className="col-md-6">
           <div className="form-group">
-            <div className="">
+            <div className="col-md-12">
               <div className="col-md-6">
                 <div className="radio radio-custom">
                   <input
@@ -452,6 +456,7 @@ export default class RegistrationForm extends React.Component {
         </div>
         <div className="col-md-6">
           <div className="form-group">
+		  <span className="required"/>
             <input
               className="form-control form-control-solid placeholder-no-fix"
               type="password"
@@ -465,6 +470,7 @@ export default class RegistrationForm extends React.Component {
         </div>
         <div className="col-md-6">
           <div className="form-group">
+		  <span className="required"/>
             <input
               className="form-control form-control-solid placeholder-no-fix"
               type="password"
@@ -478,6 +484,8 @@ export default class RegistrationForm extends React.Component {
         </div>
 
         <div className="col-md-6">
+		<div className="form-group">
+		<span className="required"/>
           <select
             className="form-control form-control-solid placeholder-no-fix"
             onChange={this.onChangeHandler}
@@ -492,8 +500,10 @@ export default class RegistrationForm extends React.Component {
             ))}
           </select>
         </div>
+		</div>
         <div className="col-md-6">
           <div className="form-group">
+		  <span className="required"/>
             <select
               className="form-control form-control-solid placeholder-no-fix"
               onChange={this.onChangeHandler}
@@ -511,6 +521,7 @@ export default class RegistrationForm extends React.Component {
         </div>
         <div className="col-md-6">
           <div className="form-group">
+		  <span className="required"/>
             <select
               onChange={this.onChangeHandler}
               className="form-control form-control-solid placeholder-no-fix"
@@ -528,6 +539,7 @@ export default class RegistrationForm extends React.Component {
         </div>
         <div className="col-md-6">
           <div className="form-group">
+		  <span className="required"/>
             <input
               className="form-control form-control-solid placeholder-no-fix"
               type="text"
@@ -541,6 +553,7 @@ export default class RegistrationForm extends React.Component {
         </div>
         <div className="col-md-6">
           <div className="form-group">
+		  <span className="required"/>
             <input
               className="form-control form-control-solid placeholder-no-fix"
               type="text"
@@ -569,11 +582,13 @@ export default class RegistrationForm extends React.Component {
         </div>
         <div className="col-md-12">
           <p className="pull-left  margin-20 para">
+		  <span className="required"/>
             <input
               type="checkbox"
               id="test2"
               name="chekbx"
               onClick={this.onChangeHandler}
+			  required
             />
             <label for="test2">
               I Agree to AssetsWatch Terms of use i would like to receive

@@ -4,7 +4,7 @@ import Logo_white from '../../../images/logo-white.png'
 import Logo from '../../../images/logo.png'
 import $ from 'jquery'
 
-import '../../../css/custom-main.css'
+//import '../../../css/custom-main.css'
 // import LanguageSelect from './languageSelect'
 // import {Redirect} from 'react-router-dom'
 import HeadrNav from './headerNav'
@@ -35,15 +35,15 @@ export default class Header extends Component {
             },1500);
   }
   headerChange(){
-    return(<div className="tz-header tz-header-type-1 tz-fixed">
+    return(<div className="tz-header tz-header-type-1">
               <div className="row">
                 <div className="container">
                   <div className="tz-header-center">
                     <div className="row">
                       <div className="col-lg-12">
                         <div className="col-lg-2 col-md-2 col-sm-4 col-xs-12"> <a className="tz-header-logo" href="/" title="Assets Watch"> <img src="images/logo.png" alt="Assets Watch" width="134" height="54" /> </a> </div>
-                        <div className="col-md-5 col-sm-5 col-xs-12 text-center"></div>
-                        <div className="col-md-5 col-sm-5 col-xs-12 tz-res-none">
+                        <div className="col-md-5 col-sm-2 col-xs-12 text-center"></div>
+                        <div className="col-md-5 col-sm-6 col-xs-12 tz-res-none">
                           <div className="tz-header-top row">
                             <div className="typ-2">
                               
@@ -90,7 +90,7 @@ export default class Header extends Component {
                   <div className="tz-header-bottom tz-slick text-center">
                     <div className="tz-menu">
                       <div className="tz-header-menu tz-slick text-center">
-                        <nav className="nav-collapse">
+                       {/* <nav className="nav-collapse">
                           <ul className="nav navbar-nav tz-nav ">
                             <li className=""><a href="index">Home</a> </li>
                             <li className="current-menu-item"><a href="/about">About Us</a></li>
@@ -101,7 +101,7 @@ export default class Header extends Component {
                             <li className=""><a href="blog">Blog</a> </li>
                             <li className=""><a href="contact">Contact Us</a></li>
                           </ul>
-                        </nav>
+                        </nav>*/}
                       </div>
                     </div>
                   </div>
@@ -144,19 +144,19 @@ export default class Header extends Component {
                           <div className="tz-header-bottom tz-slick text-center">
                             <div className="tz-menu">
                               <div className="tz-header-menu tz-slick text-center">
-                                <nav className="nav-collapse">
+                                {/*<nav className="nav-collapse">
                                   <ul id="menu-menu-home" className="nav navbar-nav tz-nav ">
                                     <li className="current-menu-item"><a href="index">Home</a> </li>
                                     <li className=""><a href="AboutUs">About Us</a></li>
                                     <li className="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-570">
-                                      {/*need to add router*/}
+                                     
                                       <a href="property">Properties</a>
                                     </li>
                                     <li className=""><a href="plans">Plans</a></li>
                                     <li className=""><a href="blog">Blog</a> </li>
                                     <li className=""><a href="contact">Contact Us</a></li>
                                   </ul>
-                                </nav>
+                                </nav>*/}
                               </div>
                             </div>
                           </div>

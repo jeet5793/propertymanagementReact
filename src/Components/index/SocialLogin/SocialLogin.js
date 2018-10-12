@@ -269,9 +269,9 @@ export default class SocialLogin extends React.Component {
 		// console.log(first_name);
     return (
       <div>
-        <link rel='stylesheet' href='../css/fonts.css' media='all' />
+	  {/*<link rel='stylesheet' href='../css/fonts.css' media='all' />
         <link rel='stylesheet' href='../css/comp-main.css' type='text/css' media='all' />
-        <link rel='stylesheet' href='../css/custom-main.css' type='text/css' media='all' />
+	  <link rel='stylesheet' href='../css/custom-main.css' type='text/css' media='all' />*/}
         <script type='text/javascript' src='../js/jquery.js'></script>
         <script type='text/javascript' src='../js/jquery/jquery-migrate.min.js'></script>
         <script type='text/javascript' src='../js/main.min.js'></script>

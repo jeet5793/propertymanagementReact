@@ -74,10 +74,10 @@ head.appendChild(script);
             <div className="wpb_wrapper">
             <div className="tz-homeslide-image">
               <div className="tz-slider-images">
-                <div className="tz-slider-item"> <img src={revoslider} alt="revoslider" width="1920" height="800" /> </div>
-                <div className="tz-slider-item"> <img src={night_dark_hotel_luxury} alt="night-dark-hotel-luxury" width="1920" height="800" /> </div>
-                <div className="tz-slider-item"> <img src={img1} alt="11619641833_5a64c42cce_k" width="1920" height="800" /> </div>
-                <div className="tz-slider-item"> <img src={img2} alt="3888165079_ccda0ebacb_o" width="1920" height="800" /> </div>
+                <div className="tz-slider-item"> <img src={revoslider} alt="revoslider" /> </div>
+                <div className="tz-slider-item"> <img src={night_dark_hotel_luxury} alt="night-dark-hotel-luxury" /> </div>
+                <div className="tz-slider-item"> <img src={img1} alt="11619641833_5a64c42cce_k" /> </div>
+                <div className="tz-slider-item"> <img src={img2} alt="3888165079_ccda0ebacb_o" /> </div>
               </div>
               <div className="tz-center-content">
                 <div className="tz-overlay"><img src={overlay} width="1920px" height="171px" alt="Assets Watch" /></div>

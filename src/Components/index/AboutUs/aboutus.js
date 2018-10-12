@@ -9,11 +9,20 @@ import img7 from '../../../images/man_PNG6531.png'
 import img8 from '../../../images/entrepreneur-593358_1920.jpg'
 import img10 from '../../../images/about.jpg'
 import '../../../css/aboutus.css'
-import '../../../css/comp-main.css'
-import '../../../css/style.css'
+//import '../../../css/comp-main.css'
+//import '../../../css/style.css'
 import $ from 'jquery'
+import API_URL from '../../../app-config';
+import img_not_available from '../../../images/img_not_available.png'
 
 export default class Aaboutus extends React.Component {
+	constructor(props)
+	  {
+		super(props)
+		this.state={
+			agentList:[]
+		}    
+	  }
   // componentDidMount() {
   //   var head = document.getElementsByTagName('head')[0];
   //   var script = document.createElement('script');
@@ -178,7 +187,17 @@ export default class Aaboutus extends React.Component {
     //     this.updateSinglePage(item.html());
     // }
 });
-
+this.TopAgentList();
+}
+TopAgentList(){
+	$("#loaderDiv").show();
+	  fetch(`${API_URL}assetsapi/top_rating_agents`)
+		.then((response)=> {
+			response.json().then((data)=>{
+				$("#loaderDiv").hide();
+				this.setState({ agentList: data.agent_list })
+			})
+		});
 }
 componentWillReceiveProps(nextProps){
     var jQuery=window.$
@@ -354,6 +373,7 @@ catch(error){
 }
 
 }
+
   render() {
     return (
       <div>
@@ -390,12 +410,9 @@ catch(error){
                     <div className="tz-home-title  title  text-left">
                       <div className="tz-content ">
                         <h3 className="text-left" >What is AWS?</h3>
-                        <div className="tz-title-content">
-                         <h4></h4>
+                        <div className="tz-title-content text-justy padng-top0">
 							<p>Are you looking to buy a New Property or want to take rent a property if facing difficulty in getting the Agreement/Paperwork done? Then you are at the right place! We are a one-stop destination for all your Property and other management needs online. </p>
-							<p>&nbsp;</p>
 							<p>We provide Property Listing, Property Management, Asset Management, Warranty Services and all other property related services. We always have an expert with the right knowledge to advice you across all property sectors,so that you make the right property decisions.</p>
-							<p>&nbsp;</p>
 							<p>We look for long-term relationships with our Customers and offer a personalized service to ensure our Customers individual needs are met. We pride ourselves on our great customer service and believe that our service, both before and after the sale, is the best.</p>
                         </div>
                       </div>
@@ -498,7 +515,7 @@ catch(error){
                   <div className="wpb_wrapper">
                     <div className="tz-home-title  title  text-center">
                       <div className="tz-content ">
-                        <h3 className="text-center"><a target="_blank">Our Services</a></h3>
+                        <h3 className="text-center about-ouser"><a target="_blank">Our Services</a></h3>
                         <div className="tz-title-content">
                           <p>Assetswatch offers a great marketplace so you can grow your business.</p>
                         </div>
@@ -551,89 +568,24 @@ catch(error){
               <div className="tz-content ">
                 <h3 className="text-center" >Our Agents</h3>
                 <div className="tz-title-content">
-                  <p></p>
+                  <p>Praesent dapibus ultricies eros. Nam cursus facilisis nunc, at tincidunt nisl hendrerit at. Quisque aliquet ex quis interdum sagittis.
+
+</p>
                 </div>
               </div>
             </div>
+			
             <div className="tz-property-home  ">
               <div id="agentslider" className="tz-property-author agent-slider cbp cbp-l-grid-team">
-                <div className="tz-author-item cbp-item">
-                  <div className="tz-thumbnail"> <a > <img src={img1} className="home-img wide tall" alt="Real Estate WordPress Theme" width="260" height="420" /> <img src={img1} className="tz-img-overlay home-img wide tall" alt="Real Estate WordPress Theme" width="260px" height="420px" /> </a> </div>
-                  <div className="tz-author-content">
-                    <h4> Michael Rutter </h4>
-                    <span>Selling AgentSelling agent</span>
-                    <div className="TzSocialLink"> <a href="#"> <i className="fa fa-facebook"></i> </a> <a href="#"> <i className="fa fa-twitter"></i> </a> <a href="#"> <i className="fa fa-google-plus"></i> </a> <a > <i className="fa fa-linkedin"></i> </a> </div>
-                  </div>
-                </div>
-                <div className="tz-author-item cbp-item">
-                  <div className="tz-thumbnail"> <a href="#"> <img src={img1} className="home-img wide tall" alt="Real Estate WordPress Theme" width="260" height="420" /> 
-                  <img src={img1} className="tz-img-overlay home-img wide tall" alt="Real Estate WordPress Theme" width="260px" height="420px" /> </a> </div>
-                  <div className="tz-author-content">
-                    <h4> Loan Lininger </h4>
-                    <span>Selling AgentSelling agent</span>
-                    <div className="TzSocialLink"> <a href="#"> <i className="fa fa-facebook"></i> </a> <a href="#"> <i className="fa fa-twitter"></i> </a> <a href="#"> <i className="fa fa-google-plus"></i> </a> <a > <i className="fa fa-linkedin"></i> </a> </div>
-                  </div>
-                </div>
-                <div className="tz-author-item cbp-item">
-                  <div className="tz-thumbnail"> <a href="#"> 
-                  <img src={img2} className="home-img wide tall" alt="Real Estate WordPress Theme" width="259" height="418" /> 
-                  <img src={img2} className="tz-img-overlay home-img wide tall" alt="Real Estate WordPress Theme" width="259px" height="418px" /> </a> </div>
-                  <div className="tz-author-content">
-                    <h4> Tommy Wiltshire </h4>
-                    <span>Renting AgentSelling agent</span>
-                    <div className="TzSocialLink"> <a href="#"> <i className="fa fa-facebook"></i> </a> <a href="#"> <i className="fa fa-twitter"></i> </a> <a href="#"> <i className="fa fa-google-plus"></i> </a> <a > <i className="fa fa-linkedin"></i> </a> </div>
-                  </div>
-                </div>
-                <div className="tz-author-item cbp-item">
-                  <div className="tz-thumbnail"> <a href="#"> 
-                  <img src={img3} className="home-img wide tall" alt="Real Estate WordPress Theme" width="260" height="420" /> 
-                  <img src={img3} className="tz-img-overlay home-img wide tall" alt="Real Estate WordPress Theme" width="260px" height="420px" /> </a> </div>
-                  <div className="tz-author-content">
-                    <h4> Christine Swim </h4>
-                    <span>Selling AgentSelling agent</span>
-                    <div className="TzSocialLink"> <a href="#"> <i className="fa fa-facebook"></i> </a> <a href="#"> <i className="fa fa-twitter"></i> </a> <a href="#"> <i className="fa fa-google-plus"></i> </a> <a > <i className="fa fa-linkedin"></i> </a> </div>
-                  </div>
-                </div>
-                <div className="tz-author-item cbp-item">
-                  <div className="tz-thumbnail"> <a href="#"> 
-                  <img src={img4} className="home-img wide tall" alt="Real Estate WordPress Theme" width="260" height="420" />
-                   <img src={img4} className="tz-img-overlay home-img wide tall" alt="Real Estate WordPress Theme" width="260px" height="420px" /> </a> </div>
-                  <div className="tz-author-content">
-                    <h4> Jonas Demar </h4>
-                    <span>Selling AgentSelling agent</span>
-                    <div className="TzSocialLink"> <a href="#"> <i className="fa fa-facebook"></i> </a> <a href="#"> <i className="fa fa-twitter"></i> </a> <a href="#"> <i className="fa fa-google-plus"></i> </a> <a > <i className="fa fa-linkedin"></i> </a> </div>
-                  </div>
-                </div>
-                <div className="tz-author-item cbp-item">
-                  <div className="tz-thumbnail"> <a href="#"> 
-                  <img src={img5} className="home-img wide tall" alt="Real Estate WordPress Theme" width="260" height="420" />
-                  <img src={img5} className="tz-img-overlay home-img wide tall" alt="Real Estate WordPress Theme" width="260px" height="420px" /> </a> </div>
-                  <div className="tz-author-content">
-                    <h4> Rodrick Weisner </h4>
-                    <span>Renting AgentSelling agent</span>
-                    <div className="TzSocialLink"> <a href="#"> <i className="fa fa-facebook"></i> </a> <a href="#"> <i className="fa fa-twitter"></i> </a> <a href="#"> <i className="fa fa-google-plus"></i> </a> <a > <i className="fa fa-linkedin"></i> </a> </div>
-                  </div>
-                </div>
-                <div className="tz-author-item cbp-item">
-                  <div className="tz-thumbnail"> <a href="#"> 
-                  <img src={img6} className="home-img wide tall" alt="Real Estate WordPress Theme" width="260" height="421" /> 
-                  <img src={img6} className="tz-img-overlay home-img wide tall" alt="Real Estate WordPress Theme" width="260px" height="421px" /> </a> </div>
-                  <div className="tz-author-content">
-                    <h4> Josh Spitzer </h4>
-                    <span>Selling AgentSelling agent</span>
-                    <div className="TzSocialLink"> <a href="#"> <i className="fa fa-facebook"></i> </a> <a href="#"> <i className="fa fa-twitter"></i> </a> <a href="#"> <i className="fa fa-google-plus"></i> </a> <a > <i className="fa fa-linkedin"></i> </a> </div>
-                  </div>
-                </div>
-                <div className="tz-author-item cbp-item">
-                  <div className="tz-thumbnail"> <a href="#"> 
-                  <img src={img7} className="home-img wide tall" alt="Real Estate WordPress Theme" width="260" height="420" /> 
-                  <img src={img7} className="tz-img-overlay home-img wide tall" alt="Real Estate WordPress Theme" width="260px" height="420px" /> </a> </div>
-                  <div className="tz-author-content">
-                    <h4> Dennis Vassar </h4>
-                    <span>Selling AgentSelling agent</span>
-                    <div className="TzSocialLink"> <a > <i className="fa fa-facebook"></i> </a> <a href="#"> <i className="fa fa-twitter"></i> </a> <a href="#"> <i className="fa fa-google-plus"></i> </a> <a > <i className="fa fa-linkedin"></i> </a> </div>
-                  </div>
-                </div>
+			  <div>
+			   
+			   {this.state.agentList.map((item)=>(    
+                
+					<p>sdfsdfsdf</p>
+				
+				))}
+				
+				</div> 
               </div>
             </div>
           </div>
@@ -649,7 +601,7 @@ catch(error){
             <div className="wpb_wrapper">
               <div className="tz-home-title vc_custom_1468224243653 title tz-responsive-title text-center">
                 <div className="tz-content ">
-                  <h3 className="text-center" >What They Say About Us</h3>
+                  <h3 className="text-center about-ouser">What They Say About Us</h3>
                   <div className="tz-title-content">
                     <p>Tenant Cloud saves time in processing rental payments and I'm always sure that the rent is paid every month. I love the "split the rent option" so I'm going to sign up my roommates too!</p>
                   </div>

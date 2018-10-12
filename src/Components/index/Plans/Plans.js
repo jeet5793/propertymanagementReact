@@ -1,9 +1,9 @@
 import React from 'react'
-import '../../../css/theme.css'
-import '../../../css/plans1.css'
+//import '../../../css/theme.css'
+//import '../../../css/plans1.css'
 import $ from 'jquery'
-import './comp-main.css'
-import './custom-main.css'
+//import './comp-main.css'
+//import './custom-main.css'
 import API_URL from '../../../app-config';
 export default class Plans extends React.Component {
 	constructor(props) {
@@ -35,7 +35,7 @@ $("#loaderDiv").show();
 	render() {
 		const { planData, userPlan } = this.state;
 		return (
-			<div>
+			<div className="mg-top-129 planpg">
 				{this.plansStyle}
 				<div className="tz-Breadcrumb">
 					<div className="tzOverlayBreadcrumb">
@@ -47,7 +47,7 @@ $("#loaderDiv").show();
 
 				<div className="container">
 					<div className="row">
-						<div className="col-md-offset-3 col-md-6">
+						<div className="col-md-offset-3 col-sm-offset-3 col-md-6 col-sm-6">
 							<div className="event-start"> {/* navAlign */}
 								<ul className="nav nav-pills">
 									<li className="active"><a data-toggle="pill" href="#owner" onClick={() => {
@@ -77,7 +77,7 @@ $("#loaderDiv").show();
 													<div>
 														{
 															planData[userPlan]['Basic'] ? (
-																<div className="col-md-3">
+																	<div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
 																	<ul id="price-t-5" className="">
 																		<li>
 																			<h2>Basic</h2>
@@ -106,7 +106,7 @@ $("#loaderDiv").show();
 														}
 														{
 															planData[userPlan]['Silver'] ? (
-																<div className="col-md-3">
+																	<div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
 																	<ul id="price-t-5" className="">
 																		<li>
 																			<h2>Silver</h2>
@@ -138,7 +138,7 @@ $("#loaderDiv").show();
 														}
 														{
 															planData[userPlan]['Gold'] ? (
-																<div className="col-md-3">
+																	<div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
 																	<ul id="price-t-5" className="">
 																		<li>
 																			<h2>Gold</h2>
@@ -174,7 +174,7 @@ $("#loaderDiv").show();
 														}
 														{
 															planData[userPlan]['Platinum'] ? (
-																<div className="col-md-3">
+																	<div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
 																	<ul id="price-t-5" className="">
 																		<li>
 																			<h2>Platinum</h2>
@@ -216,7 +216,7 @@ $("#loaderDiv").show();
 							</div>
 						</div>
 					</div>
-				</div>:<div className="container"  style={{marginTop:'13%',marginLeft:'40%',marginBottom:'25%'}}><img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif"/></div>}
+				</div>:<div className="container"  style={{marginTop:'10%',marginBottom:'10%'}}><img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif" className="center-block"/></div>}
 				<script type='text/javascript' src='js/validate.js'></script>
 			</div>
 		);

@@ -4,8 +4,8 @@ import {Link,Redirect} from 'react-router-dom';
 import API_URL from '../../../../app-config';
 import Cookies from 'js-cookie';
 import { connect } from 'react-redux';
-import '../../../../css/theme.css'
-import '../../../../css/plans.css'
+//import '../../../../css/theme.css'
+//import '../../../../css/plans.css'
 import $ from 'jquery';
 import swal from 'sweetalert';
 
@@ -125,7 +125,7 @@ unsubscribe()
                     <h4 className="page-title">Upgrade Plan</h4>
                 </div>  
 				
-<div className="container seprate-plan">
+<div className="seprate-plan">
     <div className="tz_page_content">
     <div className="post-1081 page type-page status-publish hentry">
 		
@@ -133,14 +133,14 @@ unsubscribe()
         <div className="text-center">
               {
 				planData  ? (
-                                <div>
+                                <div className="row">
 								
                                     {
                                         planData['Basic'] ? (
                                             <div className="col-md-3">
                                                 <ul id="price-t-5" className="">
                                                     <li>
-                                                        <h2>Basic {(this.state.profileData.planName=='') || planData['Basic'].plan_details.planName===this.state.profileData.planName?<i className="fa fa-check-circle" style={{fontSize:"20px",color:"#ffa91c", paddingLeft:"10px"}}></i>:''}</h2>
+                                                        <h2>Basic {(this.state.profileData.planName=='') || planData['Basic'].plan_details.planName===this.state.profileData.planName?<i className="fa fa-check-circle  plan-pur"></i>:''}</h2>
                                                         <h3>$ {planData['Basic'].plan_details.per_month}/{planData['Basic'].plan_details.per_annum} <br /><span> {Number(planData['Basic'].plan_details.per_annum) === 0 ? 'Free' : 'per month/Annum'}  </span></h3>
                                                         <ul>
 															{ planData['Basic'].features.manage_properties_upto ? <li className=" first even">{planData['Basic'].features.manage_properties_upto.feature_name} - {planData['Basic'].features.manage_properties_upto.feature_unit=='Limit'?(planData['Basic'].features.manage_properties_upto.limit_upto!=0?planData['Basic'].features.manage_properties_upto.limit_upto:'Free'):planData['Basic'].features.manage_properties_upto.confirmation}</li> : null }
@@ -175,7 +175,7 @@ unsubscribe()
                                             <div className="col-md-3">
                                                 <ul id="price-t-5" className="">
                                                     <li>
-                                                        <h2>Silver{planData['Silver'].plan_details.planName===this.state.profileData.planName?<i className="fa fa-check-circle" style={{fontSize:"20px",color:"#ffa91c", paddingLeft:"10px"}}></i>:''}</h2>
+                                                        <h2>Silver{planData['Silver'].plan_details.planName===this.state.profileData.planName?<i className="fa fa-check-circle plan-pur" ></i>:''}</h2>
                                                         <h3>$ {planData['Silver'].plan_details.per_month}/{planData['Silver'].plan_details.per_annum} <br /><span> {Number(planData['Silver'].plan_details.per_annum) === 0 ? 'Free' : 'per month/Annum'}  </span></h3>
                                                         <ul>
 															{ planData['Silver'].features.manage_properties_upto ? <li className=" first even">{planData['Silver'].features.manage_properties_upto.feature_name} - {planData['Silver'].features.manage_properties_upto.feature_unit=='Limit'?(planData['Silver'].features.manage_properties_upto.limit_upto!=0?planData['Silver'].features.manage_properties_upto.limit_upto:'Free'):planData['Silver'].features.manage_properties_upto.confirmation}</li> : null }
@@ -203,6 +203,7 @@ unsubscribe()
                                                           let getPlanId = setPlanID.toString()
                                                             this.props.history.push('/payment/'+userid+"/"+getPlanId+'/per_annum')
                                                         }} */}
+														<div className="row">
 															<div className="col-md-6">
 																<div className="radio radio-custom">
 
@@ -230,6 +231,7 @@ unsubscribe()
 																	<label HTMLFor="radioorg"> Per Annum </label>
 																</div>
 															</div>
+															</div>
 															
 															
 														</div>
@@ -243,7 +245,7 @@ unsubscribe()
                                             <div className="col-md-3">
                                                 <ul id="price-t-5" className="">
                                                     <li>
-                                                        <h2>Gold{planData['Gold'].plan_details.planName===this.state.profileData.planName?<i className="fa fa-check-circle" style={{fontSize:"20px",color:"#ffa91c", paddingLeft:"10px"}}></i>:''}</h2>
+                                                        <h2>Gold{planData['Gold'].plan_details.planName===this.state.profileData.planName?<i className="fa fa-check-circle plan-pur"></i>:''}</h2>
                                                         <h3>$ {planData['Gold'].plan_details.per_month}/{planData['Gold'].plan_details.per_annum} <br /><span> {Number(planData['Gold'].plan_details.per_annum) === 0 ? 'Free' : 'per month/Annum'}  </span></h3>
                                                         <ul>
 															{ planData['Gold'].features.manage_properties_upto ? <li className=" first even">{planData['Gold'].features.manage_properties_upto.feature_name} - {planData['Gold'].features.manage_properties_upto.feature_unit=='Limit'?(planData['Gold'].features.manage_properties_upto.limit_upto!=0?planData['Gold'].features.manage_properties_upto.limit_upto:'Free'):planData['Gold'].features.manage_properties_upto.confirmation}</li> : null }
@@ -274,6 +276,7 @@ unsubscribe()
                                                           let getPlanId = setPlanID.toString()
                                                             this.props.history.push('/payment/'+userid+"/"+getPlanId+'/per_annum')
                                                         }}*/}
+														<div className="row">
 														<div className="col-md-6">
 																<div className="radio radio-custom">
 																	<input type="radio" name="plan_month_year" id="radioind" val="per_month"  value={'per_month'} 
@@ -298,6 +301,7 @@ unsubscribe()
 																	<label HTMLFor="radioorg"> Per Annum </label>
 																</div>
 															</div>
+															</div>
 															
 														</div>
                                                     </li>
@@ -310,7 +314,7 @@ unsubscribe()
                                             <div className="col-md-3">
                                                 <ul id="price-t-5" className="">
                                                     <li>
-                                                        <h2>Platinum{planData['Platinum'].plan_details.planName===this.state.profileData.planName?<i className="fa fa-check-circle" style={{fontSize:"20px",color:"#ffa91c", paddingLeft:"10px"}}></i>:''}</h2>
+                                                        <h2>Platinum{planData['Platinum'].plan_details.planName===this.state.profileData.planName?<i className="fa fa-check-circle plan-pur"></i>:''}</h2>
                                                         <h3>$ {planData['Platinum'].plan_details.per_month}/{planData['Platinum'].plan_details.per_annum} <br /><span> {Number(planData['Platinum'].plan_details.per_annum) === 0 ? 'Free' : 'per month/Annum'}  </span></h3>
                                                         <ul>
                                                             { planData['Platinum'].features.manage_properties_upto ? <li className=" first even">{planData['Platinum'].features.manage_properties_upto.feature_name} - {planData['Platinum'].features.manage_properties_upto.feature_unit=='Limit'?(planData['Platinum'].features.manage_properties_upto.limit_upto!=0?planData['Platinum'].features.manage_properties_upto.limit_upto:'Free'):planData['Platinum'].features.manage_properties_upto.confirmation}</li> : null }
@@ -340,6 +344,7 @@ unsubscribe()
                                                           let getPlanId = setPlanID.toString()
                                                             this.props.history.push('/payment/'+userid+"/"+getPlanId+'/per_annum')
                                                         }}*/}
+														<div className="row">
 														<div className="col-md-6">
 																<div className="radio radio-custom">
 																	<input type="radio" name="plan_month_year" id="radioind" val="per_month"  value={'per_month'} 
@@ -364,6 +369,7 @@ unsubscribe()
 																	<label HTMLFor="radioorg"> Per Annum </label>
 																</div>
 															</div>
+															</div>
 														</div>
                                                     </li>
                                                 </ul>
@@ -379,7 +385,7 @@ unsubscribe()
     </div>
     </div>
 </div>
-	<link rel='stylesheet' href='css/theme.css' type='text/css' media='all' />
+		{/*<link rel='stylesheet' href='css/theme.css' type='text/css' media='all' />*/}
 	<script type='text/javascript' src='js/validate.js'></script>
 </div>
 </div>

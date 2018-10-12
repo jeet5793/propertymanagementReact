@@ -253,6 +253,7 @@ class ProfileDetails extends React.Component{
                         <div className="card-box"> 
                         <div className="row"> 
                         <div className="col-md-12"> 
+						<div className="row"> 
                         <div className="col-md-8">
                         <span className="pull-left m-r-15">
                         <img src={this.state.profileData.profile_photo!=''?API_URL+this.state.profileData.profile_photo:img_not_available} alt="" className="second-profiles rounded-circle" /></span>
@@ -288,6 +289,7 @@ class ProfileDetails extends React.Component{
                             </div>	
                             </div>	
                             </div>	
+                            </div>	
                             <hr />
                                 <div className="row">
                             <div className="col-md-12">
@@ -297,17 +299,39 @@ class ProfileDetails extends React.Component{
                                     </div>
 									<div className="col-md-4"></div>
 							{this.state.bgvInfo?
-								<div className="col-md-8">
+								<div className="col-md-12">
 									<h5>BGV Reports Download</h5>
-									{this.state.bgvInfo.map((item)=>( <a href="#" onClick={this.BgvDownload.bind(this,item.reportId)}><li>{(item.selected_package==14)?"Bronze Package - $8.16 : 1 Credit Report":(item.selected_package==12)?"Silver Package - $18.14 : 1 Credit Report + 1 Eviction Report":(item.selected_package==13)?"Gold Package - $26.78 : 1 County Criminal + 1 Credit Report + 1 Eviction Report":''}</li></a>))}
+									<div className=" table-responsive">
+										<table id="" className="table table-bordered datatable">
+                                            <thead>
+												<tr>
+                                                    <th>Report Type</th>
+                                                    <th>Package Name</th>
+                                                    <th>Date</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                          {this.state.bgvInfo?this.state.bgvInfo.map((item)=>(
+                                                <tr>
+													<td>{(item.selected_package==14)?"Credit Report":(item.selected_package==12)?"Credit Report, Eviction Report":(item.selected_package==13)?"County Criminal, Credit Report, Eviction Report":''}</td>
+                                                    <td className="tbl-text-overflow">{(item.selected_package==14)?"Bronze Package":(item.selected_package==12)?"Silver Package":(item.selected_package==13)?"Gold Package":''} </td>
+                                                    <td>{item.orderDate}</td>
+                                                    <td className="text-center"><a href="#" className="table-action-btn view-rqu" onClick={this.BgvDownload.bind(this,item.reportId)}><i className="mdi mdi-download"></i></a></td>
+                                                </tr>)):<tr><td style={{textAlign:'center'}} colSpan={5}>No Report Available</td></tr>}
+											</tbody>
+                                        </table>
+														
+                                    </div>
+								
 								</div>
 							:''}
 									
 									    {/*<!---Start Review Section--->*/}
-					<div className="col-md-12">
+					<div className="col-md-12 rev-top">
 							<div className="search-result-box">
 					
-                                    <div className="search-item">
+                                    <div className="search-item bdr-0">
 										<h4>Reviews:</h4>
 								{this.state.ratingDetail.map((item)=>(
 						

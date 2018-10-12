@@ -54,7 +54,7 @@ export default class BlogsDetails extends React.Component{
 	  }
 	render(){
 		return(
-			<div>
+			<div className="mg-top-129">
 			{this.state.blog.map(blogData=>(				
 				<div>
 					<div className="tz-Breadcrumb">
@@ -137,7 +137,7 @@ export default class BlogsDetails extends React.Component{
 			))}   
 			   
 			 
-			<link rel='stylesheet' href='css/theme.css' type='text/css' media='all' />
+		 {/*<link rel='stylesheet' href='css/theme.css' type='text/css' media='all' />*/}
 			<script type='text/javascript' src='js/validate.js'></script> 
 			<script type='text/javascript' src='js/propr.js'></script> 
 			<script type='text/javascript' src='js/realestatecookie.js'></script> 

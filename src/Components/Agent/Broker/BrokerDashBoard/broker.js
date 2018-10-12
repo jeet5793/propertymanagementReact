@@ -67,7 +67,7 @@ class AgentBrokerDashboard extends React.Component {
     } else {
       return (
         <div>
-          <link rel='stylesheet' href='../css/theme.css' type='text/css' media='all' />
+          {/*<link rel='stylesheet' href='../css/theme.css' type='text/css' media='all' />*/}
           <Header logoutLink={this.logoutLink} name={this.state.url} first_name={'jomin'} last_name={'john'} />
           <Switch>
             <Route exact path='/agent-broker' component={Profile} />

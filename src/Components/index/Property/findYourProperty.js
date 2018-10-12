@@ -91,13 +91,15 @@ export default class FindYourProperty extends React.Component{
             <input type="text" className="cbp-search-input tz-pro-search-input" id="keyword" name="max_price" placeholder="Max Price" value="" />
           </div>
         </div>
-        <div className="col-md-9 col-sm-9 col-xs-12"></div>
-        <div className="col-md-3 col-sm-3 col-xs-12 advance-serch tz-search-right">
-        <a id="toggle" style={{textDecoration:'underline'}}><div style={{marginTop:'12%'}}>Advance Search</div></a>
+       <div className="col-md-9 col-sm-8 col-xs-12"></div>
+	   <div className="col-md-3 col-sm-4 col-xs-12">
+        <div className="col-md-6 col-sm-6 col-xs-6 advance-serch">
+         <a id="toggle" style={{textDecoration:'underline'}}><div>Advance Search</div></a>
           </div>
-        <div className="col-md-3 col-sm-3 col-xs-12 tz-search-right">
-          <button  id="submit" name="submit" onClick={this.searchPropertys} className="btn btn-default tz-pro-search-btn">Search </button>
+        <div className="col-md-6 col-sm-6 col-xs-6">
+          <button  id="submit" name="submit" onClick={this.searchPropertys} className="btn btn-default tz-pro-search-btn home-searchbtn">Search </button>
         </div>
+			</div>
       </div>
     </div>);
  	}

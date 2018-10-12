@@ -25,8 +25,8 @@ import AgentProfileDetails from '../Agent/ProfileDetails'
 import Notifications from '../Notifications/Notifications'
 import OwnerPlan from '../UpgradePlan/Plan'
 import Upgrade from '../UpgradePlan/Payment'
-import "../../../css/style_pro.css";
-import '../Agreement/style.css'
+//import "../../../css/style_pro.css";
+//import '../Agreement/style.css'
 import Cookies from 'js-cookie';
 import Report from '../Reports/Report'
 import ReportTable from '../Reports/ReporTable'

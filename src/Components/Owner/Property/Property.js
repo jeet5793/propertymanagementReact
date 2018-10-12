@@ -84,32 +84,77 @@ class Property extends React.Component{
     }
     deleteProperty=(id)=>(e)=>{
         var session_id=JSON.parse(this.state.userData).session_id;
-        if(window.confirm('Do you want to delete property..?'))
-        {
-			$("#loaderDiv").show();
-        const properties=this.state.property;
-        var tempProperty=[]
-        var opts={'property_id':id,'session_id':session_id}
-        fetch(`${API_URL}assetsapi/delete_property`,{
-            method: 'POST',          
-            body: JSON.stringify(opts)
-            })
-            .then(res => res.json())
-            .then(data =>{ 
-			$("#loaderDiv").hide();
-                if(data.msg==="Property deleted successfully !!!")  
-                {
-					swal("Assets Watch", data.msg);
-        
-                    properties.forEach(propr=>{
-                        if(propr.id!==id)
-                        tempProperty.push(propr)                    
-                    })
-                    this.setState({property:tempProperty})
-                }
-                
-             })
-        }
+		const properties=this.state.property;
+		 $(".confirm-body").html("Do you want to delete property..?");
+		$("#DelBlockUIConfirm").show();
+		$(".row-dialog-btn").click(function(){
+						const action = this.value;
+						// alert(action);
+						if(action==="Yes"){
+								 $("#loaderDiv").show();
+								
+								var tempProperty=[]
+								var opts={'property_id':id,'session_id':session_id}
+								fetch(`${API_URL}assetsapi/delete_property`,{
+									method: 'POST',          
+									body: JSON.stringify(opts)
+									})
+									.then(res => res.json())
+									.then(data =>{ 
+									if(data.msg==="Property deleted successfully !!!")  
+										{
+												$("#loaderDiv").hide();
+												// properties.forEach(propr=>{
+												// if(propr.id!==id)
+													// tempProperty.push(propr)                    
+												// })
+												// this.setState({property:tempProperty})
+												$("#actionType").val("Yes");
+											   $("#hiddenURL").val("my-property");
+											   $(".confirm-body").html(data.msg);
+											   $("#BlockUIConfirm").show();
+										}else{
+												$("#loaderDiv").hide();
+												$("#actionType").val("Yes");
+											   $("#hiddenURL").val("my-property");
+											   $(".confirm-body").html(data.msg);
+											   $("#BlockUIConfirm").show();
+										}
+									})
+								/* fetch(`${API_URL}assetsapi/delete_property`,{
+									method: 'POST',          
+									body: JSON.stringify(opts)
+									})
+									.then(res => res.json())
+									.then(data =>{ 
+									$("#loaderDiv").hide();
+									
+										if(data.msg==="Property deleted successfully !!!")  
+										{
+											// swal("Assets Watch", data.msg);
+								
+											// properties.forEach(propr=>{
+												// if(propr.id!==id)
+												// tempProperty.push(propr)                    
+											// })
+											// this.setState({property:tempProperty})
+											 $("#actionType").val("Yes");
+											   $("#hiddenURL").val("my-property");
+											   $(".confirm-body").html(data.msg);
+											   $("#BlockUIConfirm").show();
+										}
+											   
+											  
+										
+									 }) */
+						}else if(action==="Cancel"){
+							window.location.reload();
+						}
+		})
+        // if(window.confirm('Do you want to delete property..?'))
+        // {
+			
+        // }
     }
 	editProperty(property) {
         this.setState({editProperty: property}, () => {
@@ -207,6 +252,26 @@ class Property extends React.Component{
                 </div>
                 {/* <!-- end container -->  */}
                 </div>
+				
+				<div id="DelBlockUIConfirm" className="BlockUIConfirm" style={{display:"none"}}>
+					<div className="blockui-mask"></div>
+						<div className="RowDialogBody">
+							<div className="confirm-header row-dialog-hdr-success">
+								Notification
+							</div>
+							<div className="confirm-body">
+						
+						</div>
+						<div className="confirm-btn-panel text-center">
+							<div className="btn-holder">
+								<input type="hidden" id="hiddenURL" />
+								<input type="hidden" id="actionType" />
+								<input type="button" className="row-dialog-btn btn btn-success" value="Yes" />
+								<input type="button" className="row-dialog-btn btn btn-naked" value="Cancel"  />
+							</div>
+						</div>
+					</div>
+				</div>
             </div>
         );
     }

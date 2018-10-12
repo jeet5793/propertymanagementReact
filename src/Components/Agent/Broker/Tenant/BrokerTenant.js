@@ -481,11 +481,10 @@ class BrokerTenant extends React.Component{
        <div className="wrapper">
           <div className="container agentdis"> 
             <div className="page-title-box">
-              <div className="btn-group pull-right">
-                <ol className="breadcrumb hide-phone p-0 m-0">
-					<li><a href="#" data-toggle="modal" data-target="#send-email" className="btn waves-light waves-effect w-md btn-custom"><i className="fi-open"></i>&nbsp;&nbsp;Send Email</a></li>
-                  <li><a href="#" data-toggle="modal" data-target="#send-invite" className="btn waves-light waves-effect w-md btn-custom"><i className="fi-open" />&nbsp;&nbsp;Send Invite</a></li>
-                </ol>
+              <div className="pull-right  my-proprty">
+               <a href="#" data-toggle="modal" data-target="#send-email" className="btn waves-light waves-effect w-md btn-custom m-r-10"><i className="fi-open"></i>&nbsp;&nbsp;Send Email</a>
+                <a href="#" data-toggle="modal" data-target="#send-invite" className="btn waves-light waves-effect w-md btn-custom"><i className="fi-open" />&nbsp;&nbsp;Send Invite</a>
+                
               </div>
               <h4 className="page-title">Tenant</h4>
             </div>

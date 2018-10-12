@@ -1,6 +1,6 @@
 import React from 'react'
-import '../../../css/theme.css'
-import '../../../css/plans.css'
+//import '../../../css/theme.css'
+//import '../../../css/plans.css'
 import $ from 'jquery';
 
 import API_URL from '../../../app-config';
@@ -50,7 +50,7 @@ export default class Plans extends React.Component{
           // const propertyDetail
         }
 		return(
-<div>
+<div className="mg-top-129">
 {this.plansStyle}
 <div className="tz-Breadcrumb">
     <div className="tzOverlayBreadcrumb">
@@ -325,7 +325,7 @@ export default class Plans extends React.Component{
     </div>
     </div>
 </div>
-	<link rel='stylesheet' href='css/theme.css' type='text/css' media='all' />
+	{/*<link rel='stylesheet' href='css/theme.css' type='text/css' media='all' />*/}
 	<script type='text/javascript' src='js/validate.js'></script>
 </div>
 			);

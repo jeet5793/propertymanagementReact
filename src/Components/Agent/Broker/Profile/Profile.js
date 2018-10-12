@@ -116,8 +116,11 @@ class BrokerProfie extends React.Component{
 		return(
 
 			<div>
-      <div  style={{marginTop:'3%',marginBottom:'5%'}} className="wrapper">
+      <div className="wrapper">
           <div className="container"> 
+		  	   <div className="page-title-box">
+122.	    <h4 className="page-title">Profile</h4>
+123.	  </div>
             {/* end page title end breadcrumb */}
             <div className="row">
               <div className="col-sm-12">
@@ -126,8 +129,8 @@ class BrokerProfie extends React.Component{
                     <div className="profile-user-box1"> <span className="pull-left m-r-15"><img src={profileInfo.profile_photo!=''?API_URL+profileInfo.profile_photo:img_not_available} alt="" className="thumb-lg rounded-circle" /></span>
                       <div className="media-body">
                         <h4 className="m-t-5 m-b-5 font-18 ellipsis">{profileInfo.first_name + '. '+ profileInfo.last_name}</h4>
-                        
                         <p className="text-muted m-b-0"><small>{profileInfo.city}, {profileInfo.country}</small></p>
+						 <p className="font-13" style={{visibility:'hidden'}}> Span</p>
                       </div>
                     </div>
                   </div>

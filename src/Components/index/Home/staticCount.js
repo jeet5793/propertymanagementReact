@@ -32,19 +32,19 @@ export default class StaticCount extends React.Component{
                 <div className="tz-partner count">
                   <div className="container">
                     <div className="row">
-                      <div className="col-md-3"> <img src={img21} />
+                      <div className="col-md-3 col-sm-3 col-xs-6"> <img src={img21} />
                         <h4>{this.state.statics_count.Property}</h4>
                         <h5>Property</h5>
                       </div>
-                      <div className="col-md-3"> <img src={img22} />
+                      <div className="col-md-3 col-sm-3 col-xs-6"> <img src={img22} />
                         <h4>{this.state.statics_count.Tenant}</h4>
                         <h5>Tenant</h5>
                       </div>
-                      <div className="col-md-3"> <img src={img23} />
+                      <div className="col-md-3 col-sm-3 col-xs-6"> <img src={img23} />
                         <h4>{this.state.statics_count.Owner}</h4>
                         <h5>Owners</h5>
                       </div>
-                      <div className="col-md-3"> <img src={img24} />
+                      <div className="col-md-3 col-sm-3 col-xs-6"> <img src={img24} />
                         <h4>{this.state.statics_count.Deal}</h4>
                         <h5>Deals</h5>
                       </div>

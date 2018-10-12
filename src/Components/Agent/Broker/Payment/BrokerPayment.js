@@ -376,21 +376,21 @@ ActiveDeactive(id,status){
 								</section>
 							  </div>
 							  
-						<div className=""  id="portion_one" style={{display: "none"}}>
+						<div className="set-form"  id="portion_one" style={{display: "none"}}>
 							{this.state.enrollInfo?<div className="col-md-12">
 								<div className="row batchtable-clp">
 								  <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding batch-list align-item-center">
 									
 									<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">
-									  <div className="dayandtime-clp-batch col-lg-3 col-md-6 col-sm-6 col-xs-12 no-padding">
+									  <div className="dayandtime-clp-batch col-lg-3 col-md-3 col-sm-6 col-xs-12 no-padding">
 										<div className="days-time-table no-padding day border-right-day"> <span id="days_9226"><span className="time-change-wrapper">Created Date</span> </span> ({this.state.enrollInfo.map((item)=>( item.created_on))} ) </div>
 										
 									  </div>
-									  <div className="dayandtime-clp-batch col-lg-4 col-md-6 col-sm-6 col-xs-12 no-padding">
+									  <div className="dayandtime-clp-batch col-lg-4 col-md-4 col-sm-6 col-xs-12 no-padding">
 										<div className="days-time-table no-padding day border-right-day"> <span id="days_9226"><span className="time-change-wrapper">DBA Name</span> </span> ( {this.state.enrollInfo.map((item)=>( item.dba_name))} ) </div>
 										
 									  </div>
-									  <div className="dayandtime-clp-batch col-lg-4 col-md-6 col-sm-6 col-xs-12 no-padding">
+									  <div className="dayandtime-clp-batch col-lg-4 col-md-4 col-sm-6 col-xs-12 no-padding">
 										<div className="days-time-table no-padding day border-right-day"> <span id="days_9226"><span className="time-change-wrapper">Merchant Account</span> </span> (  ) </div>
 										
 									  </div>
@@ -917,15 +917,15 @@ ActiveDeactive(id,status){
 								  <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding batch-list align-item-center">
 									
 									<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">
-									  <div className="dayandtime-clp-batch col-lg-3 col-md-6 col-sm-6 col-xs-12 no-padding">
+									  <div className="dayandtime-clp-batch col-lg-3 col-md-3 col-sm-6 col-xs-12 no-padding">
 										<div className="days-time-table no-padding day border-right-day"> <span id="days_9226"><span className="time-change-wrapper">Expiry Date</span> </span> ( 06-2022 ) </div>
 										
 									  </div>
-									  <div className="dayandtime-clp-batch col-lg-4 col-md-6 col-sm-6 col-xs-12 no-padding">
+									  <div className="dayandtime-clp-batch col-lg-4 col-md-4 col-sm-6 col-xs-12 no-padding">
 										<div className="days-time-table no-padding day border-right-day"> <span id="days_9226"><span className="time-change-wrapper">First Name</span> </span> ( First Name ) </div>
 										
 									  </div>
-									  <div className="dayandtime-clp-batch col-lg-4 col-md-6 col-sm-6 col-xs-12 no-padding">
+									  <div className="dayandtime-clp-batch col-lg-4 col-md-4 col-sm-6 col-xs-12 no-padding">
 										<div className="days-time-table no-padding day border-right-day"> <span id="days_9226"><span className="time-change-wrapper">Account No</span> </span> ( 9879875654xxxx54 ) </div>
 										
 									  </div>

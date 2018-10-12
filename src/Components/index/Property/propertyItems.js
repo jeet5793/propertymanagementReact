@@ -65,7 +65,7 @@ export default class PropertyItems extends React.Component{
                   <span id="fav_dir654" > 
                   <a data-toggle="tooltip" data-placement="bottom" title="Add to Favorites"  > 
                   <i className="icon-heart"></i> </a> </span> </div>
-                <a href="property-detail" className="pull-right tz-view" rel="nofollow">
+                <a href="property-detail" rel="nofollow">
                 <Link to={{'pathname':"property-detail",state:this.props.property}} className="pull-right tz-view" rel="nofollow">VIEW DETAILS</Link></a> </div>
                 
             </div>

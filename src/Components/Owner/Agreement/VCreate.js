@@ -266,10 +266,14 @@ editAgreement(){
           }
           else
           {
+			  // debugger;
            /*  tinymce.activeEditor.execCommand('mceInsertContent', false, "<p><span class='inner' style='background:#57bb57;padding:2px 10px;border-radius:2px;font-size: 14px;color: #fff;float: left;margin-right: 10px;'>"+compName+"</span></p>");
             
             tinymce.get("editor").setContent(content+" "+"<span class='inner' style='background:#57bb57;padding:2px 10px;border-radius:2px;font-size: 14px;color: #fff;float: left;margin-right: 10px;'>"+compName+"</span>");  */
-			tinymce.activeEditor.execCommand('mceInsertContent', false, "<div class='row col-12'><p><span class='inner' style='background:#57bb57;padding:2px 10px;border-radius:2px;font-size: 14px;color: #fff;margin-right: 10px;'>"+compName+"</span></p></div>"); 
+			// tinymce.activeeditor.execcommand('mceinsertcontent', false, "<div class='row col-12'><p><span class='inner' style='background:#57bb57;padding:2px 10px;border-radius:2px;font-size: 14px;color: #fff;margin-right: 10px;'>"+compname+"</span></p></div>"); 
+				tinymce.activeEditor.execCommand('mceInsertContent', false, "<div class='row col-12'><p><span class='inner' style='background:#57bb57;padding:2px 10px;border-radius:2px;font-size: 14px;color: #fff;margin-right: 10px;'>"+compName+"</span></p></div>"); 
+         
+			
           }
           this.updatePage();
 
@@ -467,11 +471,12 @@ editAgreement(){
               </div>
             </div>
           </div>
-          <div className="row " style={{float:'left',marginTop:10,marginBottom:15}}>
+          <div className="row ">
           <div className="col-sm-12">
           <textarea name="agreement_doc_content" onChange={this.onChangeHandler} id="editor" style={{position:'absolute',left:'0'}} className="tinymce"></textarea>            
           </div>
           </div>
+        
           
         </fieldset>
         <fieldset title="2"  id="default-wizard-step-1" className="stepy-step" style={{display: 'none'}}>

@@ -59,7 +59,7 @@ export default class App extends Component {
       isLoggedIn:true
     }
   };
-  this.homePaths=["/","/Home","/index","/AboutUs","about","/property","/blog","/blog-detail","/plans","/contact","/registration","/property-detail","/register-plans","/reset-password","/privacy-policy","/terms-condition"]
+  this.homePaths=["/","/Home","/index","/AboutUs","/aboutus","about","/property","/properties","/blog","/blog-detail","/plans","/contact","/contactus","/registration","/register","/property-detail","/register-plans","/reset-password","/privacy-policy","/terms-condition"]
   this.FtrCheck=this.FtrCheck.bind(this)
   this.LoggedIn=this.LoggedIn.bind(this)
   this.updateProfileInfo=this.updateProfileInfo.bind(this)
@@ -83,9 +83,18 @@ componentWillMount(){
     }
 }
 addIndexHeaderFiles(){
-  
+   // loadFile('assets/css/bootstrap.min.css','css')
+	loadFile('assets/css/main.css','css')
+    loadFile('assets/css/fonts.css','css')
+    loadFile('assets/css/comp-main.css','css')
+    loadFile('assets/css/custom-main.css','css')
+    loadFile('assets/css/plans1.css','css')
+    loadFile('assets/css/theme.css','css')
+    loadFile('assets/css/responsive_index.css','css')
 }
 addUserDashboardFiles(){
+  loadFile('assets/css/bootstrap.min.css','css')
+  //loadFile('assets/css/main.css','css')
   loadFile('assets/plugins/custombox/css/custombox.min.css','css')
   loadFile('assets/plugins/jquery.filer/css/jquery.filer.css','css')
   loadFile('assets/plugins/jquery.filer/css/themes/jquery.filer-dragdropbox-theme.css','css')
@@ -95,6 +104,7 @@ addUserDashboardFiles(){
   loadFile('assets/css/icons.css','css')
   loadFile('assets/css/style.css','css')
   loadFile('assets/css/custom-style.css','css')
+    loadFile('assets/css/responsive.css','css')
 }
 FtrCheck(){
       return <FooterOwner />

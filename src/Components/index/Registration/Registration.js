@@ -13,10 +13,10 @@ export default class Registration extends React.Component {
   }
   render() {
     return (
-      <div>
-        <link rel='stylesheet' href='../css/fonts.css' media='all' />
+       <div className="mg-top-129">
+       {/*<link rel='stylesheet' href='../css/fonts.css' media='all' />
         <link rel='stylesheet' href='../css/comp-main.css' type='text/css' media='all' />
-        <link rel='stylesheet' href='../css/custom-main.css' type='text/css' media='all' />
+	  <link rel='stylesheet' href='../css/custom-main.css' type='text/css' media='all' />*/}
         <script type='text/javascript' src='../js/jquery.js'></script>
         <script type='text/javascript' src='../js/jquery/jquery-migrate.min.js'></script>
         <script type='text/javascript' src='../js/main.min.js'></script>

@@ -179,6 +179,7 @@ class Profile extends React.Component {
                           <h4 className="m-t-5 m-b-5 font-18 ellipsis">{profileInfo.first_name + ' '+ profileInfo.last_name}</h4>
                           {/*<p className="font-13"> User Experience Specialist</p>*/}
                           <p className="text-muted m-b-0"><small>{profileInfo.city}, {profileInfo.country}</small></p>
+						    <p className="font-13" style={{visibility:'hidden'}}> Span</p>
                         </div>
                       </div>
                     </div>

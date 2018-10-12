@@ -1,5 +1,5 @@
 import React from 'react'
-// import img1 from '../../../images/1.jpg'
+import log_in1 from '../../../images/log-in1.png'
 import $ from 'jquery'
 import { Link } from 'react-router-dom'
 import API_URL from '../../../app-config';
@@ -30,7 +30,7 @@ $("#loaderDiv").show();
 	}
 	render() {
 		return (
-			<div>
+			<div className="mg-top-129">
 				<div className="tz-Breadcrumb">
 					<div className="tzOverlayBreadcrumb">
 						<div className="container">
@@ -66,11 +66,11 @@ $("#loaderDiv").show();
 													</div>
 													<div className="tz-property-author-content" dangerouslySetInnerHTML={{ __html: blog.description }} />
 													{/* <p>Praesent vehicula id neque in iaculis. Cras in malesuada tortor. Ut auctor magna nec augue semper, in laoreet metus maximus.&hellip;</p> */}
-													<div className="button-holder pull-right">
+													<div className="button-holder">
 														<Link to={{ 'pathname': "blog-detail", state: { id: blog.id } }}   >
 															{/* <a className="TzReadmore blog-read-more-btn"> */}
-															<a className="TzReadmore blog-read-more-btn">
-																<span>Read More</span>
+															<a className="TzReadmore read-more">
+																<img src={log_in1} alt="Read More" />&nbsp;&nbsp;<span>Read More</span>
 															</a>
 															{/* </a> */}
 														</Link>
@@ -87,7 +87,7 @@ $("#loaderDiv").show();
 
 
 
-				<link rel='stylesheet' href='css/theme.css' type='text/css' media='all' />
+				{/*<link rel='stylesheet' href='css/theme.css' type='text/css' media='all' />*/}
 				<script type='text/javascript' src='js/validate.js'></script>
 				<script type='text/javascript' src='js/propr.js'></script>
 				<script type='text/javascript' src='js/realestatecookie.js'></script>

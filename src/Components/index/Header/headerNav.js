@@ -40,9 +40,14 @@ class Headernav extends React.Component {
 		 this.onChangeEmail = this.onChangeEmail.bind(this);
     }
     
+	componentWillUnmount(){
+			window.location.reload()
+		}
+
+	onClickClose() {
+		$("#FirstBlockUIConfirm").hide();
+	}
 	
-
-
     onChangeHandler(e){
            this.setState({[e.target.name]:e.target.value})
       }
@@ -51,6 +56,7 @@ class Headernav extends React.Component {
      }
     Login(type) {
 		const assetstype = type;
+		alert(assetstype);
 		// console.log(assetstype)
 		this.state.assets_type= assetstype;
 		var opts = this.state;
@@ -77,6 +83,7 @@ class Headernav extends React.Component {
 					
 					for(var i=0;i<data.assetsType.length;i++)
 					{
+						
 						if(data.assetsType[i]==="Owner")
 						{
 							$("#OwnUserAction").val("SignIn")
@@ -97,12 +104,16 @@ class Headernav extends React.Component {
 						const userType = this.value;
 							// console.log(userType);
 							var UserAction = '';
+							
 							if(userType==="Owner")
 								{
 									UserAction = $("#OwnUserAction").val();
+									// alert(userType);
+									 //alert(UserAction);
 									if(UserAction==='SignIn')
 									{
-										//Login("1");
+										// this.Login('1');
+										this.Login('1')
 									}
 									else if(UserAction==='Register'){
 										
@@ -148,54 +159,11 @@ class Headernav extends React.Component {
 								else if(userType==="Agent")
 								{
 									UserAction = $("#AgnUserAction").val();
+									// alert(userType);
+									 //alert(UserAction);
 									if(UserAction==='SignIn')
 									{
-										setTimeout(()=>{
-
-										fetch(`${API_URL}assetsapi/profile/${data.userdata.assets_id}/${data.userdata.session_id}`, {
-											method: 'get'
-										})
-										.then(res => res.json())
-										.then(
-										  (result) => {
-											//console.log("data 2: "+JSON.stringify(result))
-											if (result.success) {
-											   // alert('profile:'+JSON.stringify(result.profile)+""+JSON.stringify(data.userdata.agentType));
-												localStorage.setItem('firstName',JSON.stringify(result.profile.first_name))
-												localStorage.setItem('lastName',JSON.stringify(result.profile.last_name))
-												localStorage.setItem('userType',JSON.stringify(result.profile.assets_type))
-												this.props.setUser(data.userdata, result.profile);
-												Cookies.set("profile_data", data.userdata);
-
-												if(result.profile.assets_type==="1"){
-												 this.props.history.push('/user')
-												}else if(result.profile.assets_type==="2"){
-													if(data.userdata.agentType==="Broker")
-													{
-														this.props.history.push('/agent-broker')
-													}
-													else{
-														this.props.history.push('/agent-serviceprovider')
-													}
-												   
-												}else{
-													
-													this.props.history.push('/tenant')
-												}
-											} else {
-												this.props.setUser(data.userdata, result.profile);
-												// console.log(result.msg);
-											}
-											// this.props.updateInfo(result.profile)
-										  },
-										  // Note: it's important to handle errors here
-										  // instead of a catch() block so that we don't swallow
-										  // exceptions from actual bugs in components.
-										  (error) => {
-											console.log('error')
-										  }
-										)
-									}, 1000)
+										this.Login('2');
 									}else if(UserAction==='Register'){
 										$("#FirstBlockUIConfirm").hide();
 										$(".confirm-body").html(data.msg);
@@ -267,54 +235,12 @@ class Headernav extends React.Component {
 								else if(userType==="Tenant")
 								{
 									UserAction = $("#TenUserAction").val();
+									// alert(userType);
+									 //alert(UserAction);
+									
 									if(UserAction==='SignIn')
 									{
-										setTimeout(()=>{
-
-										fetch(`${API_URL}assetsapi/profile/${data.userdata.assets_id}/${data.userdata.session_id}`, {
-											method: 'get'
-										})
-										.then(res => res.json())
-										.then(
-										  (result) => {
-											//console.log("data 2: "+JSON.stringify(result))
-											if (result.success) {
-											   // alert('profile:'+JSON.stringify(result.profile)+""+JSON.stringify(data.userdata.agentType));
-												localStorage.setItem('firstName',JSON.stringify(result.profile.first_name))
-												localStorage.setItem('lastName',JSON.stringify(result.profile.last_name))
-												localStorage.setItem('userType',JSON.stringify(result.profile.assets_type))
-												this.props.setUser(data.userdata, result.profile);
-												Cookies.set("profile_data", data.userdata);
-
-												if(result.profile.assets_type==="1"){
-												 this.props.history.push('/user')
-												}else if(result.profile.assets_type==="2"){
-													if(data.userdata.agentType==="Broker")
-													{
-														this.props.history.push('/agent-broker')
-													}
-													else{
-														this.props.history.push('/agent-serviceprovider')
-													}
-												   
-												}else{
-													
-													this.props.history.push('/tenant')
-												}
-											} else {
-												this.props.setUser(data.userdata, result.profile);
-												// console.log(result.msg);
-											}
-											// this.props.updateInfo(result.profile)
-										  },
-										  // Note: it's important to handle errors here
-										  // instead of a catch() block so that we don't swallow
-										  // exceptions from actual bugs in components.
-										  (error) => {
-											console.log('error')
-										  }
-										)
-									}, 1000)
+										this.Login('3');
 									}else if(UserAction==='Register'){
 										
 										var optsValue= data.userdata;
@@ -585,7 +511,10 @@ class Headernav extends React.Component {
 	  activeSignIn(actionId){
         if(actionId==="agent"){
             $(".login-open").fadeToggle();
-            $(".login-open").css('left','23%')
+            //$(".login-open").css('left','20%');
+			$("#loginDiv").addClass('agent-login');
+			$("#loginDiv").removeClass('tenant-login');
+			$("#loginDiv").removeClass('owner-login');
 			this.setState({assetsType:2});
             // document.getElementById('loginDiv').setAttribute('style','left:15%')
            
@@ -593,13 +522,19 @@ class Headernav extends React.Component {
         else if(actionId==='tenant')
         {
             $(".login-open").fadeToggle();
-            $(".login-open").css("left","44%")
+            //$(".login-open").css("left","34%");
+			$("#loginDiv").addClass('tenant-login');
+			$("#loginDiv").removeClass('agent-login');
+			$("#loginDiv").removeClass('owner-login');
             // document.getElementById('loginDiv').setAttribute('style','left:30%')
             this.setState({assetsType:3});
         }
         else{
             $(".login-open").fadeToggle();
-            $(".login-open").css('left','0%')
+            //$(".login-open").css('left','6%');
+			$("#loginDiv").addClass('owner-login');
+			$("#loginDiv").removeClass('tenant-login');
+			$("#loginDiv").removeClass('agent-login');
             // document.getElementById('loginDiv').setAttribute('style','left:0')
 			this.setState({assetsType:1});
             
@@ -695,13 +630,13 @@ class Headernav extends React.Component {
     render(){
 		
         return(
-            <div style={{position:'absolute',left:'30%'}} className="">
+            <div className="">
 	{!localStorage.getItem('firstName')?
-        <div className="pull-right">
+        <div className="login-cont">
         <a className= "typeli login" id="owner"   onMouseEnter={()=>this.activeSignIn("owner")} onMouseLeave={this.leaveButton}>Owners<span></span></a>
             <div ref={this.loginDiv} id="loginDiv" className="login-1 text-left  login-open">
             <form className="form-signin">
-                <div className="form-group ">
+                <div className="form-group">
                 <label>Username</label>
                 <input type="text" className="form-control" onChange={this.onChangeHandler} name="email" placeholder="Email Address"/>
                 </div>
@@ -740,7 +675,7 @@ class Headernav extends React.Component {
             <a className="typeli login" id="agent" onMouseEnter={()=>this.activeSignIn("agent")} onMouseLeave={this.leaveButton}>Agents<span></span></a>
             <a className="typeli login" id="tenant" onMouseEnter={()=>this.activeSignIn("tenant")} onMouseLeave={this.leaveButton}>Tenants<span></span></a>
         </div>
-		:localStorage.getItem('userType').replace(/["']/g, "")=="1"?<div className="pull-right"><a className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle  waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img src="assets/images/users/avatar-1.jpg" alt="user" className="rounded-circle" /><span className="profile-name">{localStorage.getItem('firstName').replace(/["']/g, "") +' '+ localStorage.getItem('lastName').replace(/["']/g, "")}</span> </a>
+		:localStorage.getItem('userType').replace(/["']/g, "")=="1"?<div className="login-cont usna"><a className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle  waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img src="assets/images/users/avatar-1.jpg" alt="user" className="rounded-circle" /><span className="profile-name">{localStorage.getItem('firstName').replace(/["']/g, "") +' '+ localStorage.getItem('lastName').replace(/["']/g, "")}</span> </a>
 								<div className="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview"> 
 								{/* item*/}
 								<div className="dropdown-item noti-title">
@@ -753,7 +688,7 @@ class Headernav extends React.Component {
 								{/* item*/} 
 								<a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-power" /> <span onClick={this.logout}>Logout</span> 
 						</a> </div>
-					</a></div>:localStorage.getItem('userType').replace(/["']/g, "")=="2"?<div className="pull-right"><a className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle  waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img src="assets/images/users/avatar-1.jpg" alt="user" className="rounded-circle" /><span className="profile-name">{localStorage.getItem('firstName').replace(/["']/g, "") +' '+ localStorage.getItem('lastName').replace(/["']/g, "")}</span> </a>
+					</a></div>:localStorage.getItem('userType').replace(/["']/g, "")=="2"?<div className="login-cont usna"><a className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle  waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img src="assets/images/users/avatar-1.jpg" alt="user" className="rounded-circle" /><span className="profile-name">{localStorage.getItem('firstName').replace(/["']/g, "") +' '+ localStorage.getItem('lastName').replace(/["']/g, "")}</span> </a>
 								<div className="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview"> 
 								{/* item*/}
 								<div className="dropdown-item noti-title">
@@ -766,7 +701,7 @@ class Headernav extends React.Component {
 								{/* item*/} 
 								<a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-power" /> <span onClick={this.logout}>Logout</span> 
 						</a> </div>
-					</a></div>:localStorage.getItem('userType').replace(/["']/g, "")=="3"?<div className="pull-right"><a className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle  waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img src="assets/images/users/avatar-1.jpg" alt="user" className="rounded-circle" /><span className="profile-name">{localStorage.getItem('firstName').replace(/["']/g, "") +' '+ localStorage.getItem('lastName').replace(/["']/g, "")}</span> </a>
+					</a></div>:localStorage.getItem('userType').replace(/["']/g, "")=="3"?<div className="login-cont usna"><a className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle  waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img src="assets/images/users/avatar-1.jpg" alt="user" className="rounded-circle" /><span className="profile-name">{localStorage.getItem('firstName').replace(/["']/g, "") +' '+ localStorage.getItem('lastName').replace(/["']/g, "")}</span> </a>
 								<div className="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview"> 
 								{/* item*/}
 								<div className="dropdown-item noti-title">
@@ -781,7 +716,7 @@ class Headernav extends React.Component {
 						</a> </div>
 					</a></div>:""
 	}
-        <div className="tz-header-wpml pull-right">
+        <div className="tz-header-wpml login-cont">
             <div id="lang_sel">
                 <ul>
                     <li> <a className="lang_sel_sel icl-en"> USA
@@ -843,6 +778,7 @@ class Headernav extends React.Component {
 				<div className="RowDialogBody">
 					<div className="confirm-header row-dialog-hdr-success">
 						Notification
+						<button type="button" className="close" onClick={this.onClickClose}>×</button>
 					</div>
 					<div className="confirm-body">
 						

@@ -3,7 +3,7 @@ import img1 from '../../../images/en.png'
 import img2 from '../../../images/vn.png';
 import img3 from '../../../images/fr.png';
 import { Link } from 'react-router-dom'
-import '../../../css/main.css'
+//import '../../../css/main.css'
 
 export default class LanguageSelect extends React.Component{
   render(){

@@ -4,8 +4,8 @@ import {Link,Redirect} from 'react-router-dom';
 import API_URL from '../../../app-config';
 import Cookies from 'js-cookie';
 import { connect } from 'react-redux';
-import '../../../css/theme.css'
-import '../../../css/plans.css'
+//import '../../../css/theme.css'
+//import '../../../css/plans.css'
 import $ from 'jquery';
 import swal from 'sweetalert';
 

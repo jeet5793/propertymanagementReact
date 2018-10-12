@@ -75,16 +75,16 @@ export default class PropertySearch extends React.Component{
                   <input type="hidden" id="longitude" name="longitude" />
                 </div>
                 <div>
-                  {/* <label style={{width:'100%'}}> */}
+                  <label>
                     <select name="property_type" onChange={this.onChangeHandler} className="cbp-search-select">
                       <option>Type</option>
                       <option  value="house" >House</option>
                       <option  value="flat" >Flat</option>
                     </select>
-                  {/* </label> */}
+                   </label> 
                 </div>
                 <div>
-                  {/* <label style={{width:'100%'}}> */}
+                  <label>
                     <select name="property_status" onChange={this.onChangeHandler} className="cbp-search-select">
                       <option  value="">Status</option>
                       <option  value="Rent">Rent</option>
@@ -92,7 +92,7 @@ export default class PropertySearch extends React.Component{
                       <option  value="Sold">Sold</option>
                       <option  value="Rented">Rented</option>
                     </select>
-                  {/* </label> */}
+                  </label>
                 </div>
                 <div>
                   <input type="text" onChange={this.onChangeHandler} className="cbp-search-input" id="area" name="area"  placeholder="Min Area (Sq Ft)" />
@@ -117,11 +117,11 @@ export default class PropertySearch extends React.Component{
 
                       <div className="tz-author-item">
                     <div className="tz-thumbnail"> <a> 
-                    <img src={owner.profile_photo?API_URL+owner.profile_photo:img_not_available} className="home-img wide tall" alt="" width="260" height="420" /> </a> </div>
+                    <img src={owner.profile_photo?API_URL+owner.profile_photo:img_not_available} className="home-img wide tall top-agent" alt="" width="260" height="420" /> </a> </div>
                     <div className="tz-author-content">
                       <div className="tz-property-author-title">
-                        <div className="tz-width-60 text-left pull-left">
-                          <h4><a>{owner.name}</a></h4>
+                        <div className="tz-width-60 text-left pull-left top-agent-name">
+                          <h4 className="nh4"><a>{owner.name}</a></h4>
                           <p>Rating : {parseFloat(owner.rating).toFixed(1)} </p>
                         </div>
                         <div className="tz-width-40 text-right pull-right">

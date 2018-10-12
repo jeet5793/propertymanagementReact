@@ -4,8 +4,9 @@ import Header from '../Header/TenantHeader'
 import {loadFile,removejscssfile} from '../../js/external'
 import API_URL from '../../../app-config';
 import Cookies from 'js-cookie';
-import DatePicker from 'react-datepicker';
+// import DatePicker from 'react-datepicker';
 import moment from 'moment';
+import DatePicker from 'react-datetime-picker';
 import 'react-datepicker/dist/react-datepicker.css';
 const TableReprt=(props)=>{
     // debugger;
@@ -106,23 +107,20 @@ const FilterCriteria=(props)=>{
               </div>
               <div className="col-md-2" id="">
 			  
-				
-				<DatePicker
-					className='form-control'
-					name='from_date'
-					dateFormat="MM/DD/YYYY"
-					selected={props.startDate}
-					onChange={props.handleStChange}
-				/>
+				<DatePicker className="form-control"
+                    disableClock={true}
+                    locale="en-US"
+                    onChange={props.handleStChange}
+                    value={props.startDate}
+                />
               </div>
               <div className="col-md-2" id="">
-			  <DatePicker
-					className='form-control'
-					name='to_date'
-					dateFormat="MM/DD/YYYY"
-					selected={props.endDate}
-					onChange={props.handleEdChange}
-				/>
+			  <DatePicker className="form-control"
+                    disableClock={true}
+                    locale="en-US"
+                    onChange={props.handleEdChange}
+                    value={props.endDate}
+                />
               </div>
               <div className="col-md-1">
                 <button type="button" onClick={props.submit} className="btn btn-icon waves-effect waves-light btn-success"> Go </button>
@@ -177,8 +175,8 @@ export default class ReportTable extends React.Component{
             // },
             reports:[],
             formType:'',
-			startDate: moment(),
-			endDate: moment()
+			startDate: "",
+			endDate: ""
             }
 			 this.handleChange = this.handleChange.bind(this);
 			 this.handleEdChange =this.handleEdChange.bind(this);
@@ -238,8 +236,8 @@ export default class ReportTable extends React.Component{
     }
     componentWillMount(){
        
-        loadFile("assets/css/bootstrap.min.css",'css')
-        loadFile("assets/css/style.css",'css')
+        {/*loadFile("assets/css/bootstrap.min.css",'css')
+        loadFile("assets/css/style.css",'css')*/}
         loadFile("assets/js/jquery.min.js",'js')
         loadFile("assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js",'js')
         

@@ -4,10 +4,10 @@ import img2 from '../../../images/logo.png'
 import img3 from '../../../images/vn.png';
 import img4 from '../../../images/vn.png'
 import img5 from '../../../images/fr.png'
-import '../../../css/custom-main.css'
+//import '../../../css/custom-main.css'
 import NavLinks from '../Navbar/NavLinks'
 import $ from 'jquery'
-import '../../../css/comp-main.css'
+//import '../../../css/comp-main.css'
 import HeadrNav1 from '../Header/headerNav1'
 import HeadrNav from '../Header/headerNav'
 export default class Header1 extends React.Component{
@@ -38,16 +38,16 @@ export default class Header1 extends React.Component{
       <div className="wpb_column vc_column_container vc_col-sm-12">
         <div className="vc_column-inner ">
           <div className="wpb_wrapper">
-              <header className="tz-header tz-header-type-1">
+              <header className="tz-header tz-header-type-1  tz-fixed">
                 <div className="row">
                   <div className="container">
                     <div className="tz-header-center">
                       <div className="row">
                         <div className="col-lg-12">
                           <div className="col-lg-2 col-md-2 col-sm-4 col-xs-12"> <a className="tz-header-logo" href="/" title="Assets Watch"> 
-                          <img src={img2} alt="Assets Watch" width="134" height="54" /> </a> </div>
-                          <div className="col-md-5 col-sm-5 col-xs-12 text-center"></div>
-                          <div className="col-md-5 col-sm-5 col-xs-12 tz-res-none">
+                          <img src={img2} alt="Assets Watch" width="133" height="54" /> </a> </div>
+                          <div className="col-md-5 col-sm-2 col-xs-12 text-center"></div>
+                          <div className="col-md-5 col-sm-6 col-xs-12 tz-res-none ownr">
                             <div className="tz-header-top row " >
                               <HeadrNav loggedIn={this.props.loggedIn} />
                             </div>
@@ -64,16 +64,16 @@ export default class Header1 extends React.Component{
                 </div>
               </header>
             
-            <div className="tz-header tz-header-type-1 tz-fixed">
+            {/* <div className="tz-header tz-header-type-1">
                 <div className="row">
                   <div className="container">
                     <div className="tz-header-center">
                       <div className="row">
                         <div className="col-lg-12">
                           <div className="col-lg-2 col-md-2 col-sm-4 col-xs-12"> <a className="tz-header-logo" href="/" title="Assets Watch"> 
-                          <img src={img2} alt="Assets Watch" width="134" height="54" /> </a> </div>
+                          <img src={img2} alt="Assets Watch" width="133" height="54" /> </a> </div>
                           <div className="col-md-5 col-sm-5 col-xs-12 text-center"></div>
-                          <div className="col-md-5 col-sm-5 col-xs-12 tz-res-none">
+                          <div className="col-md-5 col-sm-5 col-xs-12 tz-res-none ownr">
                             <div className="tz-header-top row " >
                               <HeadrNav loggedIn={this.props.loggedIn} />
                             </div>
@@ -82,13 +82,10 @@ export default class Header1 extends React.Component{
                       </div>
                     </div>
                     <NavLinks activeNav={this.props.actChild} activeClass="current-menu-item tabbable-line" normalClass="" />
-                    {/*<!--end header center-->*/}
-                    
-                    
-                  {/* <!--end header bottom--> */}
+                   
                   </div>
                 </div>
-              </div>       
+	</div>  */}     
             
           </div>
         </div>

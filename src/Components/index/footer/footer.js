@@ -4,7 +4,16 @@ import img2 from '../../../images/bk-footer.jpg'
 import { Link } from 'react-router-dom'
 import $ from 'jquery'
 import APP_VERSION from "../../../app-version";
+import API_URL from '../../../app-config';
 class Footer extends React.Component{
+	constructor(){
+		super();
+		this.state = {
+			email:""
+		}
+		this.onClickNewsLetter = this.onClickNewsLetter.bind(this);
+		this.onChangeNewsLetter = this.onChangeNewsLetter.bind(this);
+	}
 	submitAlert()
 	{		
 		var actionType = $("#actionType").val();
@@ -19,7 +28,32 @@ class Footer extends React.Component{
 			// HIT URL 
 		}
 	}
-	
+	onChangeNewsLetter(e){
+		this.setState({[e.target.name]:e.target.value})
+	}
+	onClickNewsLetter(e){
+		e.preventDefault();
+		
+		var opts = this.state;
+		if(!opts.email){
+			return alert("Email should not be blank.!!!");
+		}else{
+			$("#loaderDiv").show();
+		 fetch(`${API_URL}assetsapi/newsletter`, {
+            method: 'post',
+            body: JSON.stringify(opts)
+        }).then((response)=> {
+            response.json().then(data=>{
+				 $("#loaderDiv").hide();
+				 
+				$("#actionType").val("Yes");
+				$("#hiddenURL").val("/");
+				$(".confirm-body").html(data.msg);
+				$("#SBlockUIConfirm").show();
+			})
+		})
+	}
+	}
   openExternal(e,url){
     window.open(url)
   }
@@ -68,9 +102,9 @@ class Footer extends React.Component{
                 <h3 className="module-title title-widget"><span>Contact</span></h3>
                 <div className="menu-menu-footer-container">
                   <ul id="menu-menu-footer" className="menu">
-                    <li className="menu-item menu-item-type-custom menu-item-object-custom menu-item-1110 map-icon"><Link to="#">113 State Hwy 121 Coppell, TX 75019</Link></li>
-                    <li className="menu-item menu-item-type-post_type menu-item-object-page menu-item-309 phone-icon"><Link to="#">(214) 702-9959</Link></li>
-                    <li className="menu-item menu-item-type-post_type menu-item-object-page menu-item-1095 email-icon"><Link to="#">info@assetswatch.com </Link></li>
+                     <li className="menu-item menu-item-type-custom menu-item-object-custom menu-item-1110 map-icon"><Link to="#" className="foter-cont">113 State Hwy 121 Coppell, TX 75019</Link></li>
+                   <li className="menu-item menu-item-type-post_type menu-item-object-page menu-item-309 phone-icon"><Link to="#" className="foter-cont">(214) 702-9959</Link></li>
+                   <li className="menu-item menu-item-type-post_type menu-item-object-page menu-item-1095 email-icon"><Link to="#" className="foter-cont">info@assetswatch.com </Link></li>
                   </ul>
                 </div>
               </aside>
@@ -81,15 +115,15 @@ class Footer extends React.Component{
                 <h3 className="module-title title-widget"><span>NewsLetter</span></h3>
                 Subscribe here.
                 <div className="tnp tnp-widget">
-                  <form method="post" action="/?na=s" id="footerForm">
+                  <form method="post" action="/?na=s" id="footerForm" >
                     <input type="hidden" name="nr" value="widget" />
                     <input type='hidden' name='nl[]' value='0' />
                     <div className="tnp-field tnp-field-email">
                       <label>Email</label>
-                      <input className="tnp-email" type="email" name="ne" required />
+                      <input className="tnp-email" type="email" onChange={this.onChangeNewsLetter} name="email" required />
                     </div>
                     <div className="tnp-field tnp-field-button">
-                      <input className="tnp-submit" type="submit" value="Subscribe" />
+                      <input className="tnp-submit" type="submit" value="Subscribe" onClick={this.onClickNewsLetter}/>
                     </div>
                   </form>
                 </div>

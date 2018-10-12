@@ -2,20 +2,22 @@ import React from 'react'
 import { connect } from 'react-redux';
 import API_URL from "../../../../app-config";
 import Cookies from 'js-cookie';
-import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
-import swal from 'sweetalert';
+import DatePicker from 'react-datetime-picker';
 import $ from 'jquery';
- class ProfileInfo extends React.Component{
+
+class ProfileInfo extends React.Component{
 	constructor(props){
     super(props)
     this.profileSubmit=this.profileSubmit.bind(this)
     this.state={
 		userData:Cookies.get('profile_data'),	
 		userInfo:props.userData,
+		dobDate:"",
 		 profile:[],
       profileSetting:{
+				testDate:"",
 			assets_id:"",
 			session_id:"",
 			first_name:"",
@@ -41,23 +43,22 @@ import $ from 'jquery';
 	  countries: [{ name: "Afghanistan" }],
       states: [],
       cities: []
-      }
+			}
+			this.onChange=this.onChange.bind(this)
       this.onChangeHandler=this.onChangeHandler.bind(this);
-	  this.handleDobChange = this.handleDobChange.bind(this);
-	  this.fileInput = React.createRef();
+	    this.fileInput = React.createRef();
 	}
 	
-	 handleDobChange(date) {
-		console.log('DATE ', date);
-		 this.setState({
+	onChange(date){
+		this.setState({
 			profileSetting:{dob:date}
 		 });
-	 }
+		}
+
 	onChangeHandler(e){
         // console.log(this.fileInput.current.files[0]);
-		const profileForm=this.state.profileSetting;
+				const profileForm=this.state.profileSetting;
         let formData = new FormData();
-
       if(e.target.name==='first_name')
 	  {
         profileForm.first_name=e.target.value;
@@ -103,7 +104,7 @@ import $ from 'jquery';
 			reader.onerror = () => {
 				console.log('image read error')
 			};
-			//reader.readAsBinaryString(file);
+			// reader.readAsBinaryString(file);
 			 reader.readAsDataURL(file);
             formData.append('file', this.fileInput.current.files[0])
 			// profileForm.append('profile_photo', profileForm.profile_photo, profileForm.profile_photo.name)
@@ -126,9 +127,17 @@ import $ from 'jquery';
 			profileForm.gender=e.target.value
 	
 	 //console.log(this.state.userInfo);
+	  
+		// alert(dateOfBirth)
+		// this.setState({
+		// 	profileSetting:{dob:dateOfBirth}
+		//  },()=>{
+		// 	 alert("KKKK"+JSON.stringify(this.state.profileSetting))
+		//  });
 		profileForm.assets_id = JSON.parse(this.state.userData).assets_id;
 		profileForm.session_id = JSON.parse(this.state.userData).session_id;
-		// profileForm.assets_type = JSON.parse(this.state.userData).assetsTypeId;
+		//profileForm.assets_type = JSON.parse(this.state.userData).assetsTypeId;
+	
       this.setState({profileSetting:profileForm})
       this.setState({formData:formData});
       // this.setState({[e.target.name]:e.target.value})
@@ -137,35 +146,10 @@ import $ from 'jquery';
 	profileSubmit(e)
 	{
 		e.preventDefault();
+		// console.log(this.state.profileSetting)
+		// console.log(this.state.profile)
 		var opts= Object.assign(this.state.profile, this.state.profileSetting);
 		opts.session_id = JSON.parse(this.state.userData).session_id
-		// console.log('OPTS ', opts);
-        // let data = this.state.formData || new FormData();
-        // for (var i in opts) {
-		 //    data.append(i,opts[i]);
-        // }
-        // for (var pair of data.entries()) {
-        //     console.log(pair[0], ', ' , pair[1]);
-        // }
-      // console.log(opts.chekname);
-     
-      // if(!opts.old_password){
-        // alert('Old Password should not be blank');
-        // return;
-      // }
-      // if(!opts.new_password){
-        // alert('New Password should not be blank');
-        // return;
-      // }
-      // if(!opts.confirm_password){
-        // alert('Confirm Password should not be blank');
-        // return;
-      // }
-      
-	  // if(opts.confirm_password !== opts.new_password)
-	  // {
-		   // alert ('Confirm password is not matched.')
-	  // }
 	  $("#loaderDiv").show();
       fetch(`${API_URL}assetsapi/setting_profile/`, {
         method: 'post',        
@@ -176,7 +160,7 @@ import $ from 'jquery';
           //console.log('dataaaa:  ', data);
 						$("#loaderDiv").hide();
 						$("#actionType").val("Yes");
-					   $("#hiddenURL").val("broker-settings");
+					   $("#hiddenURL").val("settings");
 					   $(".confirm-body").html(data.msg);
 					   $("#BlockUIConfirm").show();
         }).catch((error) => {
@@ -184,6 +168,9 @@ import $ from 'jquery';
         });
       }
 	   componentDidMount(){
+			// $("#date").change(function() 
+			// { $('#datepicker').datepicker('option', {dateFormat: $(this).val()}); })
+		
 			const profile=JSON.parse(this.state.userData)
 			if(profile)
 			{
@@ -195,24 +182,13 @@ import $ from 'jquery';
 			  (result) => {
 				//console.log("data 2: "+JSON.stringify(profile))
 				if (result.success) {
-				  this.setState({profile:result.profile})
-					var dobDate = new Date(this.state.profile.dob.replace( /(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3"))
-					var d = new Date(dobDate);
-					var dob=getFormattedString(d).slice(0,9);
-					function getFormattedString(d){
-						return d.getFullYear() + "-"+(d.getMonth()+1) +"-"+d.getDate() + ' '+d.toString().split(' ')[4];
-					}
-					if(dob){
+					this.setState({profile:result.profile})
+					var dobDate = new Date(this.state.profile.dob)
 						this.setState({
-							profileSetting:{dob:moment(dob) }
-						 });
-					}else{
-						this.setState({
-							profileSetting:{dob:moment() }
-						 });
-					}
-				} 
-				//console.log("set user data"+JSON.stringify(this.state.profile))
+							profileSetting:{dob: dobDate}
+						})
+						
+					} 
 			  },
 			(error) => {
 			  console.log('error')
@@ -249,8 +225,7 @@ Countries() {
     render(){
 		//console.log(this.state.profile);
         return(
-
-					 (this.state.profile)?
+				(this.state.profile)?
 					  <div className="tab-pane fade show active" style={{width:"100%"}} id="profile-info">
 						<fieldset title="1">
 						 
@@ -276,12 +251,13 @@ Countries() {
 								<label for="dob">D.O.B</label>
 							  </div>
 							  <div className="col-md-2">
-							  {/*<input type="text" className="form-control"  name="dob"  id="datepicker-autoclose"  onChange={this.onChangeHandler} placeholder=""  />*/}
-							  <DatePicker id="dobdate" className="form-control" 
-								dateFormat="DD-MM-YYYY"
-									selected={this.state.profileSetting.dob}
-									onChange={this.handleDobChange}
-								/>
+								{/* <input value={this.state.profileSetting.dob.slice(0,10)} className="form-control" id="dobDate" name="date" placeholder="MM/DD/YYYY" type="text"/> */}
+											<DatePicker className="form-control"
+												disableClock={true}
+												locale="en-US"
+												onChange={this.onChange}
+												value={this.state.profileSetting.dob}
+											/>
 							  </div>
 							  <div className="col-md-1 required">
 								<label for="gender">Gender</label>
@@ -425,15 +401,13 @@ Countries() {
 							</div>
 						  </div>
 						</fieldset>
-						  <div > {/*style={{display: '-webkit-box'}} */}
+						   <div > {/*style={{display: '-webkit-box'}} */}
 						<div className="col-md-12 text-right">
 						  <button type="submit" className="btn btn-primary stepy-finish text-right" onClick={this.profileSubmit}>Submit </button>
 						</div>
 						</div>
 					  </div>:<div className="container"  style={{marginTop:'10%',marginLeft:'50%'}}><img src="http://wordpress.templaza.net/real-estate/wp-content/themes/real-estate/images/loading_blue_64x64.gif"/></div>
-						
-						
-		
+	
         );
     }
 }
