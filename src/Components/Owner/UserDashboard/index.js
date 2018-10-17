@@ -47,7 +47,7 @@ class UserDashboard extends React.Component {
       this.props.history.replace('/');
      console.log("owner props"+JSON.stringify(props));
     }
-    console.log("owner props"+JSON.stringify(props));
+    console.log("owner props"+JSON.stringify(this.state.userData));
   }
   componentWillMount(){
     var urlIndex=window.location.href.lastIndexOf('/')

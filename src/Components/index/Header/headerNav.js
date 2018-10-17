@@ -56,7 +56,7 @@ class Headernav extends React.Component {
      }
     Login(type) {
 		const assetstype = type;
-		alert(assetstype);
+		// alert(assetstype);
 		// console.log(assetstype)
 		this.state.assets_type= assetstype;
 		var opts = this.state;
@@ -71,12 +71,40 @@ class Headernav extends React.Component {
          // console.log("data 1st: "+JSON.stringify(data))
                 if(data.msg==="Invalid Email or Password") {
                   //  console.log(data.msg)
-                    swal("Assets Watch", data.msg);
-                    $(".login-open").fadeToggle();
+                    // swal("Assets Watch", data.msg);
+                    // $(".login-open").fadeToggle();
+						$("#actionType").val("Yes");
+									 $("#hiddenURL").val("/");
+									 $(".confirm-body").html(data.msg);
+									 $("#SBlockUIConfirm").show();
                 }else if(data.Success===0) {
+						 if(data.msg==="Your account is not activated.") {
+							 // $("#loaderDiv").hide();
+							 
+								if(data.userdata.agentType!='' && data.userdata.agentType=='Service Provider')
+								{
+									this.props.history.replace(`/`);
+								}else{
+										// const assetsType= data.assetsType;
+										var userid = data.userdata.assets_id
+											localStorage.setItem('userid',userid);
+									// window.location.href=;
+									$("#actionType").val("Yes");
+									 $("#hiddenURL").val(`/register-plans?Datatype=${data.userdata.assets_type.toLowerCase()}`);
+									 $(".confirm-body").html(data.msg);
+									 $("#SBlockUIConfirm").show();
+								}
+											   
+							}else{
+							  // swal("Assets Watch", data.msg);
+							// $(".login-open").fadeToggle();
+									$("#actionType").val("Yes");
+									 $("#hiddenURL").val("/");
+									 $(".confirm-body").html(data.msg);
+									 $("#SBlockUIConfirm").show();
+						 }
                   //  console.log(data.msg)
-                    swal("Assets Watch", data.msg);
-                    $(".login-open").fadeToggle();
+                   
                 }else if(data.Success===2){
 					$("#FirstBlockUIConfirm").show();
 					$(".confirm-body").html(data.msg);
@@ -113,7 +141,65 @@ class Headernav extends React.Component {
 									if(UserAction==='SignIn')
 									{
 										// this.Login('1');
-										this.Login('1')
+										// this.Login('1')
+										var email = $('#email').val();
+										var password = $('#password').val();
+										var opts = {email:email,password:password,assets_type:1}
+										fetch(`${API_URL}assetsapi/login/`, {
+											method: 'post',
+											body: JSON.stringify(opts)
+										}).then((response)=> {
+										response.json().then(data=>{
+											setTimeout(()=>{
+
+											fetch(`${API_URL}assetsapi/profile/${data.userdata.assets_id}/${data.userdata.session_id}`, {
+												method: 'get'
+											})
+											.then(res => res.json())
+											.then(
+											  (result) => {
+												//console.log("data 2: "+JSON.stringify(result))
+												if (result.success) {
+												   // alert('profile:'+JSON.stringify(result.profile)+""+JSON.stringify(data.userdata.agentType));
+													localStorage.setItem('firstName',JSON.stringify(result.profile.first_name))
+													localStorage.setItem('lastName',JSON.stringify(result.profile.last_name))
+													localStorage.setItem('userType',JSON.stringify(result.profile.assets_type))
+													// this.props.setUser(data.userdata, result.profile);
+													Cookies.set("profile_data", data.userdata);
+
+													if(result.profile.assets_type==="1"){
+													 // this.props.history.push('/user')
+													 window.location.href='/user';
+													}else if(result.profile.assets_type==="2"){
+														if(data.userdata.agentType==="Broker")
+														{
+															// this.props.history.push('/agent-broker')
+															window.location.href='/agent-broker';
+														}
+														else{
+															// this.props.history.push('/agent-serviceprovider')
+															window.location.href='/agent-serviceprovider';
+														}
+													   
+													}else{
+														
+														// this.props.history.push('/tenant')
+														window.location.href='/tenant';
+													}
+												} else {
+													// this.props.setUser(data.userdata, result.profile);
+												}
+
+											  },
+
+											  (error) => {
+												console.log('error')
+											  }
+											)
+										}, 1000)
+										})
+										})
+										
 									}
 									else if(UserAction==='Register'){
 										
@@ -163,7 +249,65 @@ class Headernav extends React.Component {
 									 //alert(UserAction);
 									if(UserAction==='SignIn')
 									{
-										this.Login('2');
+										// this.Login('1');
+										// this.Login('1')
+										var email = $('#email').val();
+										var password = $('#password').val();
+										var opts = {email:email,password:password,assets_type:2}
+										fetch(`${API_URL}assetsapi/login/`, {
+											method: 'post',
+											body: JSON.stringify(opts)
+										}).then((response)=> {
+										response.json().then(data=>{
+											setTimeout(()=>{
+
+											fetch(`${API_URL}assetsapi/profile/${data.userdata.assets_id}/${data.userdata.session_id}`, {
+												method: 'get'
+											})
+											.then(res => res.json())
+											.then(
+											  (result) => {
+												//console.log("data 2: "+JSON.stringify(result))
+												if (result.success) {
+												   // alert('profile:'+JSON.stringify(result.profile)+""+JSON.stringify(data.userdata.agentType));
+													localStorage.setItem('firstName',JSON.stringify(result.profile.first_name))
+													localStorage.setItem('lastName',JSON.stringify(result.profile.last_name))
+													localStorage.setItem('userType',JSON.stringify(result.profile.assets_type))
+													// this.props.setUser(data.userdata, result.profile);
+													Cookies.set("profile_data", data.userdata);
+
+													if(result.profile.assets_type==="1"){
+													 // this.props.history.push('/user')
+													 window.location.href='/user';
+													}else if(result.profile.assets_type==="2"){
+														if(data.userdata.agentType==="Broker")
+														{
+															// this.props.history.push('/agent-broker')
+															window.location.href='/agent-broker';
+														}
+														else{
+															// this.props.history.push('/agent-serviceprovider')
+															window.location.href='/agent-serviceprovider';
+														}
+													   
+													}else{
+														
+														// this.props.history.push('/tenant')
+														window.location.href='/tenant';
+													}
+												} else {
+													// this.props.setUser(data.userdata, result.profile);
+												}
+
+											  },
+
+											  (error) => {
+												console.log('error')
+											  }
+											)
+										}, 1000)
+										})
+										})
 									}else if(UserAction==='Register'){
 										$("#FirstBlockUIConfirm").hide();
 										$(".confirm-body").html(data.msg);
@@ -240,7 +384,65 @@ class Headernav extends React.Component {
 									
 									if(UserAction==='SignIn')
 									{
-										this.Login('3');
+										// this.Login('1');
+										// this.Login('1')
+										var email = $('#email').val();
+										var password = $('#password').val();
+										var opts = {email:email,password:password,assets_type:3}
+										fetch(`${API_URL}assetsapi/login/`, {
+											method: 'post',
+											body: JSON.stringify(opts)
+										}).then((response)=> {
+										response.json().then(data=>{
+											setTimeout(()=>{
+
+											fetch(`${API_URL}assetsapi/profile/${data.userdata.assets_id}/${data.userdata.session_id}`, {
+												method: 'get'
+											})
+											.then(res => res.json())
+											.then(
+											  (result) => {
+												//console.log("data 2: "+JSON.stringify(result))
+												if (result.success) {
+												   // alert('profile:'+JSON.stringify(result.profile)+""+JSON.stringify(data.userdata.agentType));
+													localStorage.setItem('firstName',JSON.stringify(result.profile.first_name))
+													localStorage.setItem('lastName',JSON.stringify(result.profile.last_name))
+													localStorage.setItem('userType',JSON.stringify(result.profile.assets_type))
+													// this.props.setUser(data.userdata, result.profile);
+													Cookies.set("profile_data", data.userdata);
+
+													if(result.profile.assets_type==="1"){
+													 // this.props.history.push('/user')
+													 window.location.href='/user';
+													}else if(result.profile.assets_type==="2"){
+														if(data.userdata.agentType==="Broker")
+														{
+															// this.props.history.push('/agent-broker')
+															window.location.href='/agent-broker';
+														}
+														else{
+															// this.props.history.push('/agent-serviceprovider')
+															window.location.href='/agent-serviceprovider';
+														}
+													   
+													}else{
+														
+														// this.props.history.push('/tenant')
+														window.location.href='/tenant';
+													}
+												} else {
+													// this.props.setUser(data.userdata, result.profile);
+												}
+
+											  },
+
+											  (error) => {
+												console.log('error')
+											  }
+											)
+										}, 1000)
+										})
+										})
 									}else if(UserAction==='Register'){
 										
 										var optsValue= data.userdata;
@@ -396,6 +598,7 @@ class Headernav extends React.Component {
 					
 				}
 				else{
+				
                     setTimeout(()=>{
 
                     fetch(`${API_URL}assetsapi/profile/${data.userdata.assets_id}/${data.userdata.session_id}`, {
@@ -442,15 +645,40 @@ class Headernav extends React.Component {
                       }
                     )
                 }, 1000)
+					
                 }
 				
             })
         })
       }
-	  logout(){
-			localStorage.clear();
-			window.location.href='/'
-		}
+	  // logout(){
+			// localStorage.clear();
+			// window.location.href='/'
+		// }
+		logout(id){
+		localStorage.clear();
+				 fetch(`${API_URL}assetsapi/signout/`+id, {
+				method: 'get'
+			  })
+			  .then(res => res.json())
+			  .then(
+				(result) => {
+				// console.log(JSON.stringify(result));
+				},
+			  (error) => {
+				console.log('error')
+				}
+				)
+				// $.cookie("profile_data", null, { path: '/' });
+				// createCookie(name, "", -1);
+				 // Cookies.set("profile_data", '');
+				// $.cookie('profile_data', null);
+				Cookies.set('profile_data', '', -1);
+
+				
+		window.location.href='/'
+	
+}
       /* activeSignIn(actionId){
         if(actionId==="agent")
         {
@@ -628,7 +856,17 @@ class Headernav extends React.Component {
 			  )     
   }
     render(){
+		var profileArr = Cookies.get("profile_data");
+		// console.log('profileArr'+profileArr.length);
+		if(profileArr){
+			if(profileArr.length>0){
+			var profileImg = JSON.parse(profileArr).profile_photo; 
+			var assets_id = JSON.parse(profileArr).assets_id;
+		}	
+		}
 		
+		
+		 
         return(
             <div className="">
 	{!localStorage.getItem('firstName')?
@@ -638,11 +876,11 @@ class Headernav extends React.Component {
             <form className="form-signin">
                 <div className="form-group">
                 <label>Username</label>
-                <input type="text" className="form-control" onChange={this.onChangeHandler} name="email" placeholder="Email Address"/>
+                <input type="text" className="form-control" onChange={this.onChangeHandler} name="email" id="email" placeholder="Email Address"/>
                 </div>
                 <div className="form-group">
                 <label>Password</label>
-                <input type="password" className="form-control" onChange={this.onChangeHandler} name="password" placeholder="Password"/>
+                <input type="password" className="form-control" onChange={this.onChangeHandler} name="password" id="password" placeholder="Password"/>
                 </div>
                 <div className="remember-checkbox">
                 <input type="checkbox" name="one" id="one" />
@@ -675,7 +913,7 @@ class Headernav extends React.Component {
             <a className="typeli login" id="agent" onMouseEnter={()=>this.activeSignIn("agent")} onMouseLeave={this.leaveButton}>Agents<span></span></a>
             <a className="typeli login" id="tenant" onMouseEnter={()=>this.activeSignIn("tenant")} onMouseLeave={this.leaveButton}>Tenants<span></span></a>
         </div>
-		:localStorage.getItem('userType').replace(/["']/g, "")=="1"?<div className="login-cont usna"><a className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle  waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img src="assets/images/users/avatar-1.jpg" alt="user" className="rounded-circle" /><span className="profile-name">{localStorage.getItem('firstName').replace(/["']/g, "") +' '+ localStorage.getItem('lastName').replace(/["']/g, "")}</span> </a>
+		:localStorage.getItem('userType').replace(/["']/g, "")=="1"?<div className="login-cont usna"><a className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle  waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img src={API_URL+profileImg} alt="user" className="rounded-circle" /><span className="profile-name">{localStorage.getItem('firstName').replace(/["']/g, "") +' '+ localStorage.getItem('lastName').replace(/["']/g, "")}</span> </a>
 								<div className="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview"> 
 								{/* item*/}
 								<div className="dropdown-item noti-title">
@@ -686,9 +924,9 @@ class Headernav extends React.Component {
 								{/* item*/} 
 								<a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-gear" /> <Link to = {{pathname:'/settings'}}><span>Settings</span></Link> </a> 
 								{/* item*/} 
-								<a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-power" /> <span onClick={this.logout}>Logout</span> 
+								<a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-power" /> <span onClick={this.logout.bind(this,assets_id)}>Logout</span> 
 						</a> </div>
-					</a></div>:localStorage.getItem('userType').replace(/["']/g, "")=="2"?<div className="login-cont usna"><a className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle  waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img src="assets/images/users/avatar-1.jpg" alt="user" className="rounded-circle" /><span className="profile-name">{localStorage.getItem('firstName').replace(/["']/g, "") +' '+ localStorage.getItem('lastName').replace(/["']/g, "")}</span> </a>
+					</a></div>:localStorage.getItem('userType').replace(/["']/g, "")=="2"?<div className="login-cont usna"><a className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle  waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img src={API_URL+profileImg} alt="user" className="rounded-circle" /><span className="profile-name">{localStorage.getItem('firstName').replace(/["']/g, "") +' '+ localStorage.getItem('lastName').replace(/["']/g, "")}</span> </a>
 								<div className="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview"> 
 								{/* item*/}
 								<div className="dropdown-item noti-title">
@@ -699,9 +937,9 @@ class Headernav extends React.Component {
 								{/* item*/} 
 								<a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-gear" /> <Link to = {{pathname:'/broker-settings'}}><span>Settings</span></Link> </a> 
 								{/* item*/} 
-								<a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-power" /> <span onClick={this.logout}>Logout</span> 
+								<a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-power" /> <span onClick={this.logout.bind(this,assets_id)}>Logout</span> 
 						</a> </div>
-					</a></div>:localStorage.getItem('userType').replace(/["']/g, "")=="3"?<div className="login-cont usna"><a className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle  waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img src="assets/images/users/avatar-1.jpg" alt="user" className="rounded-circle" /><span className="profile-name">{localStorage.getItem('firstName').replace(/["']/g, "") +' '+ localStorage.getItem('lastName').replace(/["']/g, "")}</span> </a>
+					</a></div>:localStorage.getItem('userType').replace(/["']/g, "")=="3"?<div className="login-cont usna"><a className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle  waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img src={API_URL+profileImg} alt="user" className="rounded-circle" /><span className="profile-name">{localStorage.getItem('firstName').replace(/["']/g, "") +' '+ localStorage.getItem('lastName').replace(/["']/g, "")}</span> </a>
 								<div className="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview"> 
 								{/* item*/}
 								<div className="dropdown-item noti-title">
@@ -712,7 +950,7 @@ class Headernav extends React.Component {
 								{/* item*/} 
 								<a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-gear" /> <Link to = {{pathname:'/tenant-settings'}}><span>Settings</span></Link> </a> 
 								{/* item*/} 
-								<a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-power" /> <span onClick={this.logout}>Logout</span> 
+								<a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-power" /> <span onClick={this.logout.bind(this,assets_id)}>Logout</span> 
 						</a> </div>
 					</a></div>:""
 	}

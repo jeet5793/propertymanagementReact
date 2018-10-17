@@ -467,7 +467,7 @@ editAgreement(){
               </div>
             </div>
           </div>
-          <div className="row " style={{float:'left',marginTop:10,marginBottom:15}}>
+          <div className="row" >
           <div className="col-sm-12">
           <textarea name="agreement_doc_content" onChange={this.onChangeHandler} id="editor" style={{position:'absolute',left:'0'}} className="tinymce"></textarea>            
           </div>

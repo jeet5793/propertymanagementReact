@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import Cookies from 'js-cookie';
 import swal from 'sweetalert';
 import $ from 'jquery';
+import {Link} from 'react-router-dom'
 class ProfileDetails extends React.Component{
 	constructor(props){
     super(props);
@@ -241,10 +242,11 @@ class ProfileDetails extends React.Component{
                     <div className="page-title-box">
                     <div className="btn-group pull-right">
                         <ol className="breadcrumb hide-phone p-0 m-0">
-                        <li><a href="/owner-agent" className="btn waves-light waves-effect w-md btn-custom"><i className="fi-reply"></i>&nbsp;&nbsp;Back</a></li>
+                        <li>
+					<Link to={this.props.location.state.loc.pathname}><a className="btn waves-light waves-effect w-md btn-custom">Back</a></Link>{/* <a href="/owner-agent" className="btn waves-light waves-effect w-md btn-custom"><i className="fi-reply"></i>&nbsp;&nbsp;Back</a> */}</li>
                         </ol>
                     </div>
-                    <h4 className="page-title">Agent Profile</h4>
+                    <h4 className="page-title">{this.state.profileData.first_name}'s Profile</h4>
                     </div>
                     {/* <!-- end page title end breadcrumb --> */}
                    
@@ -255,7 +257,7 @@ class ProfileDetails extends React.Component{
                         <div className="col-md-12"> 
 						<div className="row"> 
                         <div className="col-md-8">
-                        <span className="pull-left m-r-15">
+                        <span className="pull-left m-r-15 sec-profile-mg">
                         <img src={this.state.profileData.profile_photo!=''?API_URL+this.state.profileData.profile_photo:img_not_available} alt="" className="second-profiles rounded-circle" /></span>
                         <div className="details-dec ">
                                 <h4 className="m-t-5 m-b-5 font-18 ellipsis">{this.state.profileData.first_name+" "+this.state.profileData.last_name}</h4>
@@ -263,19 +265,7 @@ class ProfileDetails extends React.Component{
                                 <p className="text-muted m-b-3"><i className="icon-phone"></i>&nbsp; {this.state.profileData.mobile_no}</p>
                                 <p className="text-muted m-b-3 "><i className="icon-envelope"></i>&nbsp; {this.state.profileData.email}</p>
                                 <p className="text-muted m-b-3"><i className="icon-location-pin"></i>&nbsp; {this.state.profileData.country}</p>
-                                <div className="count">
-                                <ul>
-                                    <li>
-                                        <span>{this.state.statics.Owner}</span>
-                                        <p>Owners</p>
-                                    </li>
-                                    <li>
-                                        <span>{this.state.statics.Tenant?this.state.statics.Tenant:'0'}</span>
-                                        <p>Tenant</p>
-                                    </li>
-                                    
-                                </ul>
-                            </div>	
+                                
                             </div>
                             </div>
                             <div className="col-md-4">
@@ -288,52 +278,66 @@ class ProfileDetails extends React.Component{
 							<a href="#" data-toggle="modal" data-target="#add-review" className="btn btn-inverse waves-effect w-md waves-light w-md btn-custom m-t-30	"><i className="fi-star"></i>&nbsp;&nbsp;Review</a>
                             </div>	
                             </div>	
+							<div className="count">
+                                <ul>
+                                    <li>
+                                        <span>{this.state.statics.Owner}</span>
+                                        <p>Owners</p>
+                                    </li>
+                                    <li>
+                                        <span>{this.state.statics.Tenant?this.state.statics.Tenant:'0'}</span>
+                                        <p>Tenant</p>
+                                    </li>
+                                    
+                                </ul>
+                            </div>	
                             </div>	
                             </div>	
                             <hr />
-                                <div className="row">
-                            <div className="col-md-12">
-                                    <div className="col-md-8">
-                                        <h4>About:</h4>
-                                        <p>{this.state.profileData.about_us}</p>
-                                    </div>
-									<div className="col-md-4"></div>
-							{this.state.bgvInfo?
-								<div className="col-md-12">
-									<h5>BGV Reports Download</h5>
-									<div className=" table-responsive">
-										<table id="" className="table table-bordered datatable">
-                                            <thead>
-												<tr>
-                                                    <th>Report Type</th>
-                                                    <th>Package Name</th>
-                                                    <th>Date</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                          {this.state.bgvInfo?this.state.bgvInfo.map((item)=>(
-                                                <tr>
-													<td>{(item.selected_package==14)?"Credit Report":(item.selected_package==12)?"Credit Report, Eviction Report":(item.selected_package==13)?"County Criminal, Credit Report, Eviction Report":''}</td>
-                                                    <td className="tbl-text-overflow">{(item.selected_package==14)?"Bronze Package":(item.selected_package==12)?"Silver Package":(item.selected_package==13)?"Gold Package":''} </td>
-                                                    <td>{item.orderDate}</td>
-                                                    <td className="text-center"><a href="#" className="table-action-btn view-rqu" onClick={this.BgvDownload.bind(this,item.reportId)}><i className="mdi mdi-download"></i></a></td>
-                                                </tr>)):<tr><td style={{textAlign:'center'}} colSpan={5}>No Report Available</td></tr>}
-											</tbody>
-                                        </table>
-														
-                                    </div>
-								
+							<ul className="nav nav-tabs tabs-bordered">
+								<li className="nav-item"> <a href="#about" data-toggle="tab" aria-expanded="true" className="nav-link font-16 active">About  </a> </li>
+								<li className="nav-item"> <a href="#bgv" data-toggle="tab" aria-expanded="false" className="nav-link font-16">BGV  </a> </li>
+								<li className="nav-item"> <a href="#reviews" data-toggle="tab" aria-expanded="false" className="nav-link font-16">Reviews  </a> </li>
+                            </ul>
+							
+							<div className="tab-content">
+								<div className="tab-pane active" id="about">
+									<div className="row">
+										{this.state.profileData.about_us}
+									</div>
+						  
 								</div>
-							:''}
-									
-									    {/*<!---Start Review Section--->*/}
-					<div className="col-md-12 rev-top">
-							<div className="search-result-box">
-					
-                                    <div className="search-item bdr-0">
-										<h4>Reviews:</h4>
-								{this.state.ratingDetail.map((item)=>(
+								<div className="tab-pane" id="bgv">
+									<div className="row">
+									{this.state.bgvInfo?
+										<div className=" table-responsive">
+											<table id="" className="table table-bordered datatable">
+												<thead>
+													<tr>
+														<th>Report Type</th>
+														<th>Package Name</th>
+														<th>Date</th>
+														<th>Action</th>
+													</tr>
+												</thead>
+												<tbody>
+											  {this.state.bgvInfo?this.state.bgvInfo.map((item)=>(
+													<tr>
+														<td>{(item.selected_package==14)?"Credit Report":(item.selected_package==12)?"Credit Report, Eviction Report":(item.selected_package==13)?"County Criminal, Credit Report, Eviction Report":''}</td>
+														<td className="tbl-text-overflow">{(item.selected_package==14)?"Bronze Package":(item.selected_package==12)?"Silver Package":(item.selected_package==13)?"Gold Package":''} </td>
+														<td>{item.orderDate}</td>
+														<td className="text-center"><a href="#" className="table-action-btn view-rqu" onClick={this.BgvDownload.bind(this,item.reportId)}><i className="mdi mdi-download"></i></a></td>
+													</tr>)):<tr><td style={{textAlign:'center'}} colSpan={5}>No Report Available</td></tr>}
+												</tbody>
+											</table>
+										</div>:<div className=" table-responsive" style={{textAlign:'center'}}>No Report Available</div>}
+									</div>
+								</div>
+								
+								<div className="tab-pane" id="reviews">
+									<div className="row">
+									  <div className="col-md-12">
+											{this.state.ratingDetail.map((item)=>(
 						
 										<div className="media" key={item.id}>
                                             <div className="media-left">
@@ -485,17 +489,11 @@ class ProfileDetails extends React.Component{
                                             </div>
                                         </div>
 										))}
-                                    </div>
+										</div>
+									</div>
+								</div>
+							</div>
 							
-								
-                                    <div className="clearfix"></div>
-
-</div>
-                                </div>
-								
-								    {/*<!---End Review Section--->*/}
-                                </div>
-                            </div>
                         </div>
                     </div>
                     {/* <!-- end col --> */}

@@ -166,6 +166,39 @@ class Footer extends React.Component{
 				</div>
 			</div>
 			
+			
+			
+			
+			{/* ALERT DIV*/}
+				{/* <div id="proImageConfirm" className="BlockUIConfirm" style={{display:"none"}}>
+				<div className="blockui-mask"></div>
+				<div className="RowDialogBody">
+					<div className="confirm-header row-dialog-hdr-success">
+						Property Image
+					</div>
+					<div className="confirm-body">
+						
+						<div className="slider-holder">
+							<span id="slider-image-1"></span>
+							<span id="slider-image-2"></span>
+							<span id="slider-image-3"></span>
+							<div className="image-holder">
+								<img src="1.jpg" className="slider-image" />
+								<img src="2.jpg" className="slider-image" />
+								<img src="3.jpg" className="slider-image" />
+							</div>
+							<div className="button-holder">
+								<a href="#slider-image-1" className="slider-change"></a>
+								<a href="#slider-image-2" className="slider-change"></a>
+								<a href="#slider-image-3" className="slider-change"></a>
+							</div>
+						</div>
+						
+					</div>
+					
+				</div>
+				</div> */}
+			
 	
   </footer>);
 	}

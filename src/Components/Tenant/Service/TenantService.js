@@ -287,6 +287,7 @@ class TenantService extends React.Component {
                                             <div className="col-md-10">
                                                 <div className="tab-content">
                                                     <div className="tab-pane active" id="v-requested">
+														{this.state.requestedList && (this.state.requestedList.length>0)?
                                                         <div className=" table-responsive">
 														
                                                             <table id="" className="table table-bordered datatable">
@@ -314,9 +315,10 @@ class TenantService extends React.Component {
                                                                 </tbody>
                                                             </table>
 														
-                                                        </div>
+                                                         </div>:<div className=" table-responsive" style={{textAlign:'center'}}>No record available </div>}
                                                     </div>
                                                     <div className="tab-pane" id="v-send">
+													{this.state.sendedList && (this.state.sendedList.length>0)?
                                                         <div className=" table-responsive">
 														
                                                             <table id="" className="table table-bordered datatable">
@@ -341,9 +343,10 @@ class TenantService extends React.Component {
 																	:<tr><td style={{textAlign:'center'}} colSpan={5}>No Request Send</td></tr>}
                                                                 </tbody>
                                                             </table>
-                                                        </div>
+                                                         </div>:<div className=" table-responsive" style={{textAlign:'center'}}>No record available </div>}
                                                     </div>
                                                     <div className="tab-pane" id="v-Resolve">
+													{this.state.resolvedList && (this.state.resolvedList.length>0)?
                                                     <div className=" table-responsive">
 													
                                                         <table id="" className="table table-bordered datatable">
@@ -369,7 +372,7 @@ class TenantService extends React.Component {
                                                                 
                                                             </tbody>
                                                         </table>
-                                                    </div>
+                                                    </div>:<div className=" table-responsive" style={{textAlign:'center'}}>No record available </div>}
                                                     </div>
                                                 </div>
                                             </div>

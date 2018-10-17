@@ -15,6 +15,7 @@ import swal from 'sweetalert';
 const Saved=(props)=>{
   return(                                            
   <div className="tab-pane active" id="v-saved">
+  {(props.agreement!=undefined && props.agreement.length>0)?
     <div className=" table-responsive">
       <table className="table	bdr">
         <thead>
@@ -34,61 +35,87 @@ const Saved=(props)=>{
           )):<div>No data </div>}        
         </tbody>
       </table>
-    </div>
+    </div>:<div className=" table-responsive" style={{textAlign:'center'}}>No record available </div>}
   </div>);
 }
 const VRequested=(props)=>{
   //debugger;
   return(
     <div className="tab-pane" id="v-requested">
-	<h4>Sent</h4>
-	{(props.sendedAgreement!=undefined)?
+						<ul className="nav nav-tabs tabs-bordered">
+								<li className="nav-item"> <a href="#sent" data-toggle="tab" aria-expanded="true" className="nav-link font-16 active">Sent  </a> </li>
+								<li className="nav-item"> <a href="#received" data-toggle="tab" aria-expanded="false" className="nav-link font-16">Received  </a> </li>
+                            </ul>
+							
+							<div className="tab-content">
+								<div className="tab-pane active" id="sent">
+									<div className="row">
+										{(props.sendedAgreement!=undefined && props.sendedAgreement.length>0)?
 	
-	<div className=" table-responsive">
-      <table className="table bdr">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Date</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>                                    
-         
-    {(props.sendedAgreement!=undefined)?props.sendedAgreement.map(element=>(
-            <tr>
-              <td>{element.agreement_title}</td>
-              <td>{element.initiated_date}</td>
-              <td><a title="Edit" href="#preview" onClick={() => props.previewAgreement(element)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a></td>
-            </tr>
-          )):<div>No data </div>}
-        
-      </tbody>
-    </table>
-	</div>:''}
-	<h4>Requested</h4>
-    <div className=" table-responsive">
-      <table className="table bdr">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Date</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>                                    
-         
-       {(props.ragreement!=undefined)?props.ragreement.map(element=>(
-            <tr>
-              <td>{element.agreement_title}</td>
-              <td>{element.initiated_date}</td>
-              <td><a title="Edit" href="#preview" onClick={() => props.previewAgreement(element)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Delete"  href="#" className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a><a title="Send" href="#" className="table-action-btn view-rqu" data-toggle="modal" data-target="#send-msg"><i className="mdi mdi-redo-variant"></i></a></td>
-            </tr>
-          )):<div>No data </div>}
-        
-      </tbody>
-    </table>
-  </div>
+										<div className=" table-responsive">
+										  <table className="table bdr">
+											<thead>
+											  <tr>
+												<th>Title</th>
+												<th>Date</th>
+												<th>Sent To</th>
+												<th>Assets Type</th>
+												<th>Action</th>
+											  </tr>
+											</thead>
+											<tbody>                                    
+											 
+										{(props.sendedAgreement!=undefined)?props.sendedAgreement.map(element=>(
+												<tr>
+												  <td>{element.agreement_title}</td>
+												  <td>{element.initiated_date}</td>
+												  <td>{element.sentTo}</td>
+												  <td>{element.assets_type==1?'Owner':(element.assets_type==2?'Agent':(element.assets_type==3)?'Tenant':'')}</td>
+												  <td><a title="Edit" href="#" onClick={() => props.dealPdfView(element.deal_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a></td>
+												</tr>
+											  )):<div>No record available </div>}
+											
+										  </tbody>
+										</table>
+										</div>:<div className=" table-responsive" style={{textAlign:'center'}}>No record available </div>}
+									</div>
+						  
+								</div>
+
+
+							<div className="tab-pane" id="received">
+								<div className="row">
+								{(props.ragreement!=undefined && props.ragreement.length>0)?
+									<div className=" table-responsive">
+										  <table className="table bdr">
+											<thead>
+											  <tr>
+												<th>Title</th>
+												<th>Date</th>
+												<th>Sender</th>
+												<th>Assets Type</th>
+												<th>Action</th>
+											  </tr>
+											</thead>
+											<tbody>                                    
+											 
+										   {(props.ragreement!=undefined)?props.ragreement.map(element=>(
+												<tr>
+												  <td>{element.agreement_title}</td>
+												  <td>{element.initiated_date}</td>
+												   <td>{element.sender}</td>
+												  <td>{element.assets_type==1?'Owner':(element.assets_type==2?'Agent':(element.assets_type==3)?'Tenant':'')}</td>
+												  <td><a title="Edit" href="#preview" onClick={() => props.previewAgreement(element)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Delete"  href="#" className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a><a title="Send" href="#" className="table-action-btn view-rqu" data-toggle="modal" data-target="#send-msg"><i className="mdi mdi-redo-variant"></i></a></td>
+												</tr>
+											  )):<div>No record available </div>}
+											
+										  </tbody>
+										</table>
+									</div>:<div className=" table-responsive" style={{textAlign:'center'}}>No record available </div>}
+								</div>
+						   </div>
+						</div>
+	
   </div>
   );
 }
@@ -96,6 +123,7 @@ const VExecute=(props)=>{
 	//console.log("hello"+JSON.stringify(props))
   return(
     <div className="tab-pane" id="v-execute">
+	{props.ragreement.length>0?
     <div className=" table-responsive">
       <table className="table bdr">
         <thead>
@@ -112,12 +140,12 @@ const VExecute=(props)=>{
               <td>{element.agreement_title}</td>
               <td>{element.initiated_date}</td>
 			  <td>{element.status}</td>
-              <td><a title="Edit" href="#executePreview" data-toggle="tab" onClick={() => props.selectedExecutedAgreement(element)} className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Download"  href="#" className="table-action-btn view-rqu"><i className="mdi mdi-download" onClick={() => props.onClickDownload(element.deal_id)}></i></a><a title="Send"  href="#" className="table-action-btn view-rqu" data-toggle="modal" onClick={() => props.selectedExecutedAgreement(element)} data-target="#send-msg"><i className="mdi mdi-redo-variant"></i></a></td>
+              <td>{element.status==="Inprocess"?<a title="Edit" href="#executePreview" data-toggle="tab" onClick={() => props.selectedExecutedAgreement(element)} className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a>:(element.status==="Completed")?<a title="view" href="#" onClick={() => props.dealPdfView(element.deal_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a>:''}<a title="Download"  href="#" className="table-action-btn view-rqu"><i className="mdi mdi-download" onClick={() => props.onClickDownload(element.deal_id)}></i></a><a title="Send"  href="#" className="table-action-btn view-rqu" data-toggle="modal" onClick={() => props.selectedExecutedAgreement(element)} data-target="#send-msg"><i className="mdi mdi-redo-variant"></i></a></td>
             </tr>
           )):<div>No data </div>}
       </tbody>
     </table>
-  </div>
+  </div>:<div className=" table-responsive" style={{textAlign:'center'}}>No record available </div>}
   </div>
   );
 }
@@ -220,6 +248,7 @@ export default class container extends React.Component{
       this.selectedExecutedAgreement = this.selectedExecutedAgreement.bind(this)
 	   this.onClickDownload = this.onClickDownload.bind(this)
 	    this.pdfViewAgreement = this.pdfViewAgreement.bind(this);
+		  this.dealPdfView = this.dealPdfView.bind(this);
 		this.deleteAgreement = this.deleteAgreement.bind(this);
       var tinymce=window.tinyMCE
       // fetch('http://ec2-18-191-70-215.us-east-2.compute.amazonaws.com:8080/assetsapi/saved_agreement/2/qvtod9f0pqe9li38nsdsc03mu6hb0u2n')
@@ -239,6 +268,10 @@ export default class container extends React.Component{
 	 pdfViewAgreement(agreement_id){
 		 let { user } = this.state;
 		  window.open(`${API_URL}assetsapi/agreement_pdf_view/`+agreement_id+`/${user.session_id}`, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
+	 }
+	  dealPdfView(deal_id){
+		 let { user } = this.state;
+		  window.open(`${API_URL}assetsapi/deal_agreement_pdf_view/`+deal_id+`/${user.session_id}`, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
 	 }
 	 deleteAgreement(id){
         var session_id=JSON.parse(this.state.userData).session_id;
@@ -495,12 +528,13 @@ getSendedAgreement(){
 		 let { user, updatedAgreement } = this.state;
 	
 		// console.log('dsafgas'+JSON.stringify(this.state));
-		
+		// var status = $('#status').val();
         let data = {
-          property_id:updatedAgreement.property_id
-          // user_id: user.assets_id
+          property_id:updatedAgreement.property_id,
+		  // status:status,
+           user_id: user.assets_id
         };
-		// console.log('dsafgas'+JSON.stringify(data));
+		 //console.log('dsafgas'+JSON.stringify(data));
 		 $("#loaderDiv").show();
 		 
 		fetch(`${API_URL}assetsapi/change_status_execute`, {
@@ -677,11 +711,20 @@ getPropertyList() {
                         <div className="tab-content">
 						<Saved editAgreement={this.editAgreement} selectedAgreement={this.selectedAgreement} agreement={this.state.agreement} pdfViewAgreement={this.pdfViewAgreement} deleteAgreement={this.deleteAgreement}/>
 						 <VCreate userData={this.state.userData} editAgreement={this.state.editAgreement} />
-                         {<VRequested previewAgreement={this.previewAgreement} ragreement={this.state.requestedAgreement || []} sendedAgreement={this.state.sendedAgreement || []}/>}
-                          <VExecute ragreement={this.state.executedAgreement} selectedExecutedAgreement={this.selectedExecutedAgreement} onClickDownload={this.onClickDownload}/>
+                         {<VRequested previewAgreement={this.previewAgreement} ragreement={this.state.requestedAgreement || []} sendedAgreement={this.state.sendedAgreement || []} dealPdfView={this.dealPdfView}/>}
+                          <VExecute ragreement={this.state.executedAgreement} selectedExecutedAgreement={this.selectedExecutedAgreement} onClickDownload={this.onClickDownload} dealPdfView={this.dealPdfView}/>
 						  <div className="tab-pane" id="executePreview">
                                       <div id="executePreviewContainer"></div>
-									  <button type ="button" className="btn btn-success" onClick={this.onClickChangeStatus} >Execute</button>
+									  {this.state.updatedAgreement && this.state.updatedAgreement.status==="Inprocess"?
+									  <div className="row">
+									  {/* < select className="form-control" id="status">
+										  <option>Please Select</option>
+											<option value="Inprocess">Inprocess</option>
+											<option value="Completed">Completed</option>
+									  </select> */}
+										   <button type ="button" className="btn btn-success" onClick={this.onClickChangeStatus} >Execute</button>
+									   </div>: ''
+									   }
                                   </div>
                           <div className="tab-pane" id="preview">
                             <div id="contentPreview"></div>

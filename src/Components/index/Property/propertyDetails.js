@@ -257,7 +257,7 @@ export default class PropertyDetails extends React.Component{
               <div role="tabpanel" className="tab-pane fade" id="location">
                 <div className="cbp-2-project-desc">
                   <div className="cbp-l-project-desc-text">
-                      <iframe style={{width:'270%',height:'450px'}} src={proppertydetails.geo_location} allowfullscreen></iframe>
+                      <iframe style={{width:'270%',height:'auto'}} src={proppertydetails.geo_location} allowfullscreen></iframe>
                     
                   </div>
                 </div>

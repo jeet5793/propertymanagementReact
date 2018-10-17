@@ -3,14 +3,14 @@ import React, { Component } from 'react';
 import DashBoardIndex from './Components/index/DashBoardIndex';
 import { connect } from 'react-redux';
 import { setUser } from './actions';
-// import UserDashboard from './Components/Owner/Profile/profile';
+import OwnerProfile from './Components/Owner/Profile/profile';
 import UserDashboard from './Components/Owner/UserDashboard/index';
 import AgentBrokerDashboard from './Components/Agent/Broker/BrokerDashBoard/broker';
 import AgentServiceProviderDashboard from './Components/Agent/ServiceProvider/ServiceProviderDashboard/serviceprovider';
 import TenantDashboard from './Components/Tenant/UserDashboard/Tenant';
 // jomin-end
 
- 
+import loading_blue from './images/loading_blue_64x64.gif' 
 import Home from './Components/index/Home/Home'
 import Footer from './Components/index/footer/footer'
 import { Switch, Route,Redirect,withRouter } from 'react-router-dom'
@@ -91,6 +91,7 @@ addIndexHeaderFiles(){
     loadFile('assets/css/plans1.css','css')
     loadFile('assets/css/theme.css','css')
     loadFile('assets/css/responsive_index.css','css')
+	
 }
 addUserDashboardFiles(){
   loadFile('assets/css/bootstrap.min.css','css')
@@ -101,6 +102,8 @@ addUserDashboardFiles(){
   loadFile('assets/plugins/bootstrap-fileupload/bootstrap-fileupload.css','css')
   loadFile('assets/plugins/datatables/dataTables.bootstrap4.min.css','css')
   loadFile('assets/plugins/datatables/responsive.bootstrap4.min.css','css')
+  loadFile('assets/plugins/slick-slider/slick.css','css')
+  loadFile('assets/plugins/slick-slider/slick-theme.css','css')
   loadFile('assets/css/icons.css','css')
   loadFile('assets/css/style.css','css')
   loadFile('assets/css/custom-style.css','css')
@@ -111,7 +114,7 @@ FtrCheck(){
 }
 
 LoggedIn(userId){
-      fetch("https://devstg.assetswatch.com:444/assetsapi/profile/"+userId)
+      fetch(`API_URL+assetsapi/profile/`+userId)
         .then(res => res.json())
         .then(
           (result) => {
@@ -142,6 +145,7 @@ LoggedIn(userId){
     //     state: { user: this.state.profile }
     // }} />
     // }
+	// alert(this.state.user.isLoggedIn);
     return (
       <div className="">
        <Switch>
@@ -233,10 +237,10 @@ LoggedIn(userId){
       {/* TermsCondition */}
 
           {/* //Owner */}
-        {/*<Route exact path="/profile" render={(props)=>(
+        <Route exact path="/user" render={(props)=>(
                   this.state.user.isLoggedIn?
                   (<OwnerProfile {...props} logOut={this.logOut} updateInfo={this.updateProfileInfo} user={this.state.profile} />)
-                  :(<Redirect to="/" />))} />*/}
+                  :(<Redirect to="/" />))} />
         {/* <Route exact path="/agreement" render={(props)=>(
           this.state.user.isLoggedIn?
           (<OwnerAgreement owner_id={this.state.owner_id} updateInfo={this.updateProfileInfo} logOut={this.logOut} {...props} logoutLink={this.logoutLink} owner={this.state.profile} />)

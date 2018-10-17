@@ -29,9 +29,29 @@ export default class Header extends React.Component{
 	   this.profileNoti = this.profileNoti.bind(this);
 	   this.profile = this.profile.bind(this)
     }
-logout(){
+logout(id){
     localStorage.clear();
+			 fetch(`${API_URL}assetsapi/signout/`+id, {
+			method: 'get'
+		  })
+		  .then(res => res.json())
+		  .then(
+			(result) => {
+			// console.log(JSON.stringify(result));
+			},
+		  (error) => {
+			console.log('error')
+			}
+			)
+			// $.cookie("profile_data", null, { path: '/' });
+			// createCookie(name, "", -1);
+			 // Cookies.set("profile_data", '');
+			// $.cookie('profile_data', null);
+			Cookies.set('profile_data', '', -1);
+
+			
     window.location.href='/'
+	
 }
 /* onHover()
 {
@@ -288,7 +308,7 @@ onHoverNoti()
 							<a href="javascript:void(0);" className="dropdown-item notify-item" onClick = {this.onClickSwitch.bind(this,item.assets_type)}> <i className="dripicons-user" />{item.assets_type=='2'?'Agent':item.assets_type=='3'?'Tenant':item.assets_type=='1'?'Owner':''}</a> )):''}
 							{(this.state.userTypeList).length>0?<hr/>:''}
                             {/* item*/} 
-                            <a href="javascript:void(0);" className="dropdown-item notify-item" onClick={this.logout}> <i className="dripicons-power" /> <span >Logout</span> </a> </div>
+                            <a href="javascript:void(0);" className="dropdown-item notify-item" onClick={this.logout.bind(this,JSON.parse(this.state.userData).assets_id)}> <i className="dripicons-power" /> <span >Logout</span> </a> </div>
                         </li>
                         </ul>
                     </div>

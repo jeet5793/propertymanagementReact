@@ -106,32 +106,24 @@ import $ from 'jquery';
             <div className="tab-pane fade" style={{width:"100%"}} id="password-settings">
 						<div className="form-group">
 						  <div className="row">
-							<div className="col-md-2 required">
+							<div className="col-lg-2 col-md-3 col-sm-3 required">
 							  <label for="old-password">Old Password</label>
 							</div>
-							<div className="col-md-4">
+							<div className="col-lg-2 col-md-3 col-sm-3 ">
 							  <input type="password" name="old_password" className="form-control" id="old-password" onChange={this.onChangeHandler} placeholder="" required />
 							</div>
-							<div className="col-md-2 required">
+							<div className="col-lg-2 col-md-3 col-sm-3 required">
 							  <label for="new-password">New Password</label>
 							</div>
-							<div className="col-md-4">
+							<div className="col-lg-2 col-md-3 col-sm-3 ">
 							  <input type="password" name="new_password" className="form-control" id="new-password" onChange={this.onChangeHandler} placeholder="" required />
 							</div>
-						 </div>
-				</div>
-                <div className="form-group">
-						 <div className="row">
-							<div className="col-md-2 required">
+							<div className="col-lg-2 col-md-3 col-sm-3 required">
 							  <label for="confirm-password">Confirm Password</label>
 							</div>
-							<div className="col-md-4">
+							<div className="col-lg-2 col-md-3 col-sm-3 ">
 							  <input type="password" name="confirm_password" className="form-control" id="confirm-password" onChange={this.onChangeHandler} placeholder="" required />
 							</div>
-							{/*<!--<div className="col-md-6">
-							  <label for="new-password">New Password</label>
-							  <input type="password" className="form-control" id="new-password" placeholder=""/>
-							</div>--> */}
 						 </div>
 				</div>
                 <div> {/* style={{display: '-webkit-box'}}} */}

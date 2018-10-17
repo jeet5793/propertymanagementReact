@@ -376,7 +376,7 @@ catch(error){
 
   render() {
     return (
-      <div>
+      <div className="mg-top-129">
 
         <link rel='stylesheet' href='../css/theme.css' type='text/css' media='all' />
         <div className="vc_row wpb_row vc_row-fluid">
@@ -568,9 +568,7 @@ catch(error){
               <div className="tz-content ">
                 <h3 className="text-center" >Our Agents</h3>
                 <div className="tz-title-content">
-                  <p>Praesent dapibus ultricies eros. Nam cursus facilisis nunc, at tincidunt nisl hendrerit at. Quisque aliquet ex quis interdum sagittis.
-
-</p>
+                  
                 </div>
               </div>
             </div>

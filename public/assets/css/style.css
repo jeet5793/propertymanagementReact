@@ -3026,7 +3026,7 @@ a:focus {
 label {
     font-size: 14px;
     color: #313a46;
-    letter-spacing: 0.01em;
+ /*    letter-spacing: 0.01em; */
     margin-top: 4px;
     font-weight: 500;
 
@@ -3037,8 +3037,8 @@ label {
     letter-spacing: 0.01em;
     margin-top: 4px;
     font-weight: 500;
-	    text-align: right;
-    display: block;
+/* 	    text-align: right;
+    display: block; */
 
 }
 select[multiple] option + option, select[size] option + option {
@@ -6053,7 +6053,7 @@ li.list-inline-item .dropdown .notification-list .show{
 
  background-color: #fafafa;
 
- margin-left: 30px;
+/*  margin-left: 30px; */
 
 }
 
@@ -6273,4 +6273,3 @@ input.react-autosuggest__input{
 	.react-datetime-picker__button__input__input {
 		min-width: 13.5px
 	}
-	.required:after { content:"*"; color: red; }

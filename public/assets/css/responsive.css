@@ -1,12 +1,59 @@
+@media (min-width:992px) and (max-width:1199px) {
+#topnav .navigation-menu > li > a {
+    padding-left: 7px;
+    padding-right: 7px;
+}
+label {
+    font-size: 12px;
+}
+}
+@media (min-width:992px) and (max-width:1024px) {
+	.member-card-alt .member-card-alt-info {
+    margin-left: 125px;
+}
+.member-card-alt .member-card-alt-info .font-18 {
+    font-size: 14px !important;
+}
+.agentdis .search-result-box .tab-content .card-box {
+    padding: 10px 5px;
+}
+.count {
+    padding-left: 170px;
+}
+}
 @media (min-width: 768px) and (max-width: 991px) {
+.adpro-lbl {
+	    margin-bottom: 10px;
+}
+	.add-property label {
+    font-size: 13px;
+	}
   body {
     overflow-x: hidden;
   }
   .fixedHeader-floating {
     top: 60px !important;
   }
+  .snv {
+	      margin-top: 10px;
+  }
+.count {
+    padding-left: 160px;
+}
 }
 @media (max-width: 768px) {
+.count {
+    padding-left: 160px;
+}
+	  .snv {
+	      margin-top: 10px;
+  }
+	.add-property label {
+    font-size: 13px;
+	}
+	.adpro-lbl {
+	    margin-bottom: 10px;
+}
   body {
     overflow-x: hidden;
   }
@@ -60,6 +107,9 @@
   }
 }
 @media (max-width: 767px) {
+	.count {
+    padding-left: 0px;
+}
   .navbar-nav .open .dropdown-menu {
     background-color: #ffffff;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
@@ -90,6 +140,14 @@
   }
 }
 @media only screen and (min-width:300px) and (max-width:767px) {
+	.second-profiles {
+    width: 90px;
+    height: 90px;
+    line-height: 90px;
+}
+.sec-profile-mg {
+	line-height: 110px;
+}
 	#topnav {
     position: relative;
 	}
@@ -130,6 +188,9 @@
   }
 }
 @media (max-width: 419px) {
+		  .snv {
+	      margin-top: 0px;
+  }
   .hidden-xxs {
     display: none;
   }

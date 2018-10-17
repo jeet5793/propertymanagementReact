@@ -529,7 +529,7 @@ class Tenants extends React.Component{
           <div className="tab-pane active" id="joined-agent">
             <div className="row">
 			{joinedUserList.map((item)=>(
-              <div className="col-md-4" key={item.profile_id}>
+              <div className="col-lg-4 col-md-6 col-sm-6" key={item.profile_id}>
                 <div className="card-box">
                   <div className="member-card-alt">
                     <div className="thumb-xl member-thumb m-b-10 pull-left"> 
@@ -541,10 +541,10 @@ class Tenants extends React.Component{
                       <p className="text-muted m-b-3 "><i className="icon-envelope"></i>&nbsp; {item.email}</p>
                       <p className="text-muted m-b-3 text-overflow"><i className="icon-location-pin"></i>&nbsp; {item.country}</p>
                       <ul className="list-inline m-t-10 m-b-0 text-right">
-					  {item.reportId>0?<li className="bgv-download"><a className="bgv-icon bgv-bg" title="Download" href="#" onClick = {this.BgvDownload.bind(this,item.reportId)}><i className="icon-cloud-download"></i></a> </li>:''}
+					  {/* item.reportId>0?<li className="bgv-download"><a className="bgv-icon bgv-bg" title="Download" href="#" onClick = {this.BgvDownload.bind(this,item.reportId)}><i className="icon-cloud-download"></i></a> </li>:'' */}
 					  <li className="list-inline-item"> <a className="bgv-icon" data-toggle="modal" data-target="#background-verifi" title="background Verification" href="" onClick={this.onClickProfile.bind(this,item.profile_id)}><i className="icon-magnifier"></i></a> </li>
 					   <li className="list-inline-item"> <a className="mesg-icon" data-toggle="modal" data-target="#send-msg" title="Message" href="#" onClick={this.messagerec.bind(this,item.profile_id,item.name)}><i className="icon-bubble" /></a> </li>
-                        <li className="list-inline-item"> <Link to={{"pathname":"/profile-details",state:{profileid:item.profile_id,session:JSON.parse(this.state.userData).session_id}}} className="view-icon"><i className="icon-eye"></i></Link></li>
+                        <li className="list-inline-item"> <Link to={{"pathname":"/profile-details",state:{profileid:item.profile_id,session:JSON.parse(this.state.userData).session_id,loc: this.props.location}}} className="view-icon"><i className="icon-eye"></i></Link></li>
                       </ul>
                     </div>
                   </div>
@@ -588,7 +588,7 @@ class Tenants extends React.Component{
             <div className="row">
 			
 			    {requestedUserList.map((item)=> (
-              <div className="col-md-4">
+              <div className="col-lg-4 col-md-6 col-sm-6">
                 <div className="card-box">
                   <div className="member-card-alt">
                     <div className="thumb-xl member-thumb m-b-10 pull-left"> 

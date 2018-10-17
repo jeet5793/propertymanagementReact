@@ -248,7 +248,7 @@ export default class RegistrationForm extends React.Component {
           <div className="form-group">
             <div className="col-md-12 " style={{ marginLeft: "15%" }}>
 			
-              <div className="col-md-3">
+              <div className="col-md-3 col-sm-3">
                 <div className="radio radio-custom">
                   <input
                     type="radio"
@@ -261,7 +261,7 @@ export default class RegistrationForm extends React.Component {
                 </div>
               </div>
 
-              <div className="col-md-3">
+              <div className="col-md-3 col-sm-3">
                 <div className="radio radio-custom">
                   <input
                     type="radio"
@@ -274,7 +274,7 @@ export default class RegistrationForm extends React.Component {
                 </div>
               </div>
 
-              <div className="col-md-3">
+              <div className="col-md-3 col-sm-3">
                 <div className="radio radio-custom">
                   <input
                     type="radio"
@@ -352,7 +352,7 @@ export default class RegistrationForm extends React.Component {
           </div>
 
           </div>*/}
-        <div className="col-md-6">
+        <div className="col-md-6 col-sm-6">
           <div className="form-group">
 		  <span className="required"/>
             <input
@@ -366,7 +366,7 @@ export default class RegistrationForm extends React.Component {
             />
           </div>
         </div>
-        <div className="col-md-6">
+        <div className="col-md-6 col-sm-6">
           <div className="form-group">
 		  <span className="required"/>
             <input
@@ -380,7 +380,7 @@ export default class RegistrationForm extends React.Component {
             />
           </div>
         </div>
-        <div className="col-md-6">
+        <div className="col-md-6 col-sm-6">
           <div className="form-group">
 		  <span className="required"/>
             <input
@@ -394,10 +394,10 @@ export default class RegistrationForm extends React.Component {
             />
           </div>
         </div>
-        <div className="col-md-6">
+        <div className="col-md-6 col-sm-6">
           <div className="form-group">
             <div className="col-md-12">
-              <div className="col-md-6">
+              <div className="col-md-6 col-sm-6">
                 <div className="radio radio-custom">
                   <input
                     type="radio"
@@ -410,7 +410,7 @@ export default class RegistrationForm extends React.Component {
                   <label HTMLFor="radioind"> Individual </label>
                 </div>
               </div>
-              <div className="col-md-6">
+              <div className="col-md-6 col-sm-6">
                 <div className="radio radio-custom">
                   <input
                     type="radio"
@@ -427,7 +427,7 @@ export default class RegistrationForm extends React.Component {
           </div>
         </div>
         <div className="orgnaize box" style={{ display: "none" }}>
-          <div className="col-md-6">
+          <div className="col-md-6 col-sm-6">
             <div className="form-group">
               <input
                 className="form-control form-control-solid placeholder-no-fix"
@@ -440,7 +440,7 @@ export default class RegistrationForm extends React.Component {
               />
             </div>
           </div>
-          <div className="col-md-6">
+          <div className="col-md-6 col-sm-6">
             <div className="form-group">
               <input
                 className="form-control form-control-solid placeholder-no-fix"
@@ -454,7 +454,7 @@ export default class RegistrationForm extends React.Component {
             </div>
           </div>
         </div>
-        <div className="col-md-6">
+        <div className="col-md-6 col-sm-6">
           <div className="form-group">
 		  <span className="required"/>
             <input
@@ -468,7 +468,7 @@ export default class RegistrationForm extends React.Component {
             />
           </div>
         </div>
-        <div className="col-md-6">
+        <div className="col-md-6 col-sm-6">
           <div className="form-group">
 		  <span className="required"/>
             <input
@@ -483,7 +483,7 @@ export default class RegistrationForm extends React.Component {
           </div>
         </div>
 
-        <div className="col-md-6">
+        <div className="col-md-6 col-sm-6">
 		<div className="form-group">
 		<span className="required"/>
           <select
@@ -501,7 +501,7 @@ export default class RegistrationForm extends React.Component {
           </select>
         </div>
 		</div>
-        <div className="col-md-6">
+        <div className="col-md-6 col-sm-6">
           <div className="form-group">
 		  <span className="required"/>
             <select
@@ -519,7 +519,7 @@ export default class RegistrationForm extends React.Component {
             </select>
           </div>
         </div>
-        <div className="col-md-6">
+        <div className="col-md-6 col-sm-6">
           <div className="form-group">
 		  <span className="required"/>
             <select
@@ -537,7 +537,7 @@ export default class RegistrationForm extends React.Component {
             </select>
           </div>
         </div>
-        <div className="col-md-6">
+        <div className="col-md-6 col-sm-6">
           <div className="form-group">
 		  <span className="required"/>
             <input
@@ -551,7 +551,7 @@ export default class RegistrationForm extends React.Component {
             />
           </div>
         </div>
-        <div className="col-md-6">
+        <div className="col-md-6 col-sm-6">
           <div className="form-group">
 		  <span className="required"/>
             <input
@@ -566,7 +566,7 @@ export default class RegistrationForm extends React.Component {
             />
           </div>
         </div>
-        <div className="col-md-6">
+        <div className="col-md-6 col-sm-6">
           <div className="form-group">
             <input
               className="form-control form-control-solid placeholder-no-fix"

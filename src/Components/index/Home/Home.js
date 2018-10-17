@@ -283,7 +283,8 @@ class Home extends React.Component{
 								<li> <a href="#tab_default_3" data-toggle="tab"> Feature </a> </li> */}
 				                  </ul>
 				                  <div className="tab-content">
-				                    <div className="tab-pane active" id="tab_default_1">
+				                    
+									<div className="tab-pane active" id="tab_default_1">
 				                      <div className="wpb_wrapper">
 				                        <div className="tz-property-home vc_custom_1466569792560 tz-slider">
 				                          <div id="tz-pro-slider-5ac1cdf22e330" className="cbp cbp-l-grid-team tz-property-slider false">
@@ -291,11 +292,12 @@ class Home extends React.Component{
 				          						this.state.properties?this.state.properties.map((property, index) => (
 				          							<HomeProperty key={index} description={property.description}  Title={property.title} src={property.img_path.length>0?API_URL+property.img_path[0].img_path:''} Status={property.property_status} total_amount={property.total_amount} id = {property.id} />
 				          						)):<h3 style={{textAlign:'center'}}>No Property Available</h3>}
-				          					}
+				          					
 				                          </div>
 				                        </div>
 				                      </div>
 				                    </div>
+									
 				                    {/* <div className="tab-pane" id="tab_default_2">
 				                      <div className="wpb_wrapper">
 				                        <div className="tz-property-home vc_custom_1466569792560 tz-slider">

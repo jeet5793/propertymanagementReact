@@ -6,6 +6,7 @@ import img_not_available from '../../../images/img_not_available.png'
 import { connect } from 'react-redux';
 import Cookies from 'js-cookie';
 import $ from 'jquery';
+import {Link} from 'react-router-dom'
 class ProfileDetails extends React.Component{
 	constructor(props){
     super(props);
@@ -153,13 +154,13 @@ class ProfileDetails extends React.Component{
                     <div className="page-title-box">
                     <div className="btn-group pull-right">
                         <ol className="breadcrumb hide-phone p-0 m-0">
-                        <li><a href="/owner-tenant" className="btn waves-light waves-effect w-md btn-custom"><i className="fi-reply"></i>&nbsp;&nbsp;Back</a></li>
+                        <li><Link to={this.props.location.state.loc.pathname}><a className="btn waves-light waves-effect w-md btn-custom">Back</a></Link></li>
                         </ol>
                     </div>
-                    <h4 className="page-title">Tenant Profile</h4>
+                    <h4 className="page-title">{this.state.profileData.first_name}'s Profile</h4>
                     </div>
                     {/* <!-- end page title end breadcrumb --> */}
-                    {this.state.profileData?
+
                     <div className="row">
                     <div className="col-md-12 col-lg-12 second-profiles-details">
                         <div className="card-box"> 
@@ -167,7 +168,7 @@ class ProfileDetails extends React.Component{
                         <div className="col-md-12"> 
 						<div className="row">
                         <div className="col-md-8">
-                        <span className="pull-left m-r-15">
+                        <span className="pull-left m-r-15 sec-profile-mg">
                         <img src={this.state.profileData.profile_photo!=''?API_URL+this.state.profileData.profile_photo:img_not_available} alt="" className="second-profiles rounded-circle" /></span>
                         <div className="details-dec ">
                                 <h4 className="m-t-5 m-b-5 font-18 ellipsis">{this.state.profileData.first_name+" "+this.state.profileData.last_name}</h4>
@@ -175,7 +176,19 @@ class ProfileDetails extends React.Component{
                                 <p className="text-muted m-b-3"><i className="icon-phone"></i>&nbsp; {this.state.profileData.mobile_no}</p>
                                 <p className="text-muted m-b-3 "><i className="icon-envelope"></i>&nbsp; {this.state.profileData.email}</p>
                                 <p className="text-muted m-b-3"><i className="icon-location-pin"></i>&nbsp; {this.state.profileData.country}</p>
-                                <div className="count">
+                                
+                            </div>
+                            </div>
+                            <div className="col-md-4">
+                                <ul className="social-links list-inline m-t-20 m-b-0">
+								{(this.state.profileData.facebook_link>0)?<li className="list-inline-item"> <a title="" data-placement="top" data-toggle="tooltip" className="tooltips" href="" data-original-title="Facebook"><i className="fa fa-facebook"></i>{this.state.profileData.facebook_link}</a> </li>:''}
+                            {(this.state.profileData.twitter_link>0)?<li className="list-inline-item"> <a title="" data-placement="top" data-toggle="tooltip" className="tooltips" href="" data-original-title="Twitter"><i className="fa fa-twitter"></i></a> </li>:''}
+                            {(this.state.profileData.linkedin_link>0)?<li className="list-inline-item"> <a title="" data-placement="top" data-toggle="tooltip" className="tooltips" href="" data-original-title="Skype"><i className="fa fa-linkedin"></i></a> </li>:''}
+                            </ul>
+                            <a href="#" data-toggle="modal" data-target="#send-msg" className="btn waves-light waves-effect w-md btn-custom m-t-30	"><i className="fi-mail"></i>&nbsp;&nbsp;Send Message</a>
+                            </div>	
+                            </div>	
+							<div className="count">
                                 <ul>
                                     <li>
                                         <span>{this.state.statics.Owner?this.state.statics.Owner:'0'}</span>
@@ -188,65 +201,55 @@ class ProfileDetails extends React.Component{
                                     
                                 </ul>
                             </div>	
-                            </div>
-                            </div>
-                            <div className="col-md-4">
-                                <ul className="social-links list-inline m-t-20 m-b-0">
-								{(this.state.profileData.facebook_link>0)?<li className="list-inline-item"> <a title="" data-placement="top" data-toggle="tooltip" className="tooltips" href="" data-original-title="Facebook"><i className="fa fa-facebook"></i>{this.state.profileData.facebook_link}</a> </li>:''}
-                            {(this.state.profileData.twitter_link>0)?<li className="list-inline-item"> <a title="" data-placement="top" data-toggle="tooltip" className="tooltips" href="" data-original-title="Twitter"><i className="fa fa-twitter"></i></a> </li>:''}
-                            {(this.state.profileData.linkedin_link>0)?<li className="list-inline-item"> <a title="" data-placement="top" data-toggle="tooltip" className="tooltips" href="" data-original-title="Skype"><i className="fa fa-linkedin"></i></a> </li>:''}
-                            </ul>
-                            <a href="#" data-toggle="modal" data-target="#send-msg" className="btn waves-light waves-effect w-md btn-custom m-t-30	"><i className="fi-mail"></i>&nbsp;&nbsp;Send Message</a>
-                            </div>	
-                            </div>	
                             </div>	
 							  </div>
                             <hr />
-                            <div className="row">
-                                <div className="col-md-12">
-                                    <div className="col-md-8">
-                                        <h4>About:</h4>
-                                        <p>{this.state.profileData.about_us}</p>
-                                    </div>
-									<div className="col-md-4"></div>
-                                </div>
-                            </div>
-							<div className="row">
-								<div className="col-md-12">
-									{this.state.bgvInfo?
-								<div className="col-md-12">
-									<h5>BGV Reports Download</h5>
-									<div className=" table-responsive">
-										<table id="" className="table table-bordered datatable">
-                                            <thead>
-												<tr>
-                                                    <th>Report Type</th>
-                                                    <th>Package Name</th>
-                                                    <th>Date</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                          {this.state.bgvInfo?this.state.bgvInfo.map((item)=>(
-                                                <tr>
-													<td>{(item.selected_package==14)?"Credit Report":(item.selected_package==12)?"Credit Report, Eviction Report":(item.selected_package==13)?"County Criminal, Credit Report, Eviction Report":''}</td>
-                                                    <td className="tbl-text-overflow">{(item.selected_package==14)?"Bronze Package":(item.selected_package==12)?"Silver Package":(item.selected_package==13)?"Gold Package":''} </td>
-                                                    <td>{item.orderDate}</td>
-                                                    <td className="text-center"><a href="#" className="table-action-btn view-rqu" onClick={this.BgvDownload.bind(this,item.reportId)}><i className="mdi mdi-download"></i></a></td>
-                                                </tr>)):<tr><td style={{textAlign:'center'}} colSpan={5}>No Report Available</td></tr>}
-											</tbody>
-                                        </table>
-														
-                                    </div>
+                           <ul className="nav nav-tabs tabs-bordered">
+								<li className="nav-item"> <a href="#about" data-toggle="tab" aria-expanded="true" className="nav-link font-16 active">About  </a> </li>
+								<li className="nav-item"> <a href="#bgv" data-toggle="tab" aria-expanded="false" className="nav-link font-16">BGV  </a> </li>
 								
+                            </ul>
+							
+							<div className="tab-content">
+								<div className="tab-pane active" id="about">
+									<div className="row">
+										{this.state.profileData.about_us}
+									</div>
+						  
 								</div>
-							:''}
+								<div className="tab-pane" id="bgv">
+									<div className="row">
+									{this.state.bgvInfo?
+										<div className=" table-responsive">
+											<table id="" className="table table-bordered datatable">
+												<thead>
+													<tr>
+														<th>Report Type</th>
+														<th>Package Name</th>
+														<th>Date</th>
+														<th>Action</th>
+													</tr>
+												</thead>
+												<tbody>
+											  {this.state.bgvInfo?this.state.bgvInfo.map((item)=>(
+													<tr>
+														<td>{(item.selected_package==14)?"Credit Report":(item.selected_package==12)?"Credit Report, Eviction Report":(item.selected_package==13)?"County Criminal, Credit Report, Eviction Report":''}</td>
+														<td className="tbl-text-overflow">{(item.selected_package==14)?"Bronze Package":(item.selected_package==12)?"Silver Package":(item.selected_package==13)?"Gold Package":''} </td>
+														<td>{item.orderDate}</td>
+														<td className="text-center"><a href="#" className="table-action-btn view-rqu" onClick={this.BgvDownload.bind(this,item.reportId)}><i className="mdi mdi-download"></i></a></td>
+													</tr>)):<tr><td style={{textAlign:'center'}} colSpan={5}>No Report Available</td></tr>}
+												</tbody>
+											</table>
+									</div>:<div className=" table-responsive" style={{textAlign:'center'}}>No Report Available</div>}
+									</div>
 								</div>
+								
 							</div>
+							
                         </div>
                     </div>
                     {/* <!-- end col --> */}
-                    </div>:<div className="container"  style={{marginTop:'10%',marginLeft:'50%'}}><img src="http://wordpress.templaza.net/real-estate/wp-content/themes/real-estate/images/loading_blue_64x64.gif"/></div>}
+				   </div>
                     {/* <!-- end row --> */}
                     
                 </div>

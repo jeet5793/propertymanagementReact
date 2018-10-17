@@ -119,8 +119,8 @@ class BrokerProfie extends React.Component{
       <div className="wrapper">
           <div className="container"> 
 		  	   <div className="page-title-box">
-122.	    <h4 className="page-title">Profile</h4>
-123.	  </div>
+    <h4 className="page-title">Profile</h4>
+	  </div>
             {/* end page title end breadcrumb */}
             <div className="row">
               <div className="col-sm-12">
@@ -241,7 +241,7 @@ class BrokerProfie extends React.Component{
                           <td><h5 className="m-b-0 m-t-0 font-600">{item.name}</h5></td>
                           <td><i className="mdi mdi-map-marker text-primary" /> {item.country} </td>
                           <td>{item.connectedDate} </td>
-                          <td><Link to={{"pathname":"/broker-owner-profile",state:{profileid:item.profile_id,session:JSON.parse(this.state.userData).session_id}}} className="view-icon"><i className="mdi mdi-eye"></i></Link></td>
+                          <td><Link to={{"pathname":"/broker-owner-profile",state:{profileid:item.profile_id,session:JSON.parse(this.state.userData).session_id,loc: this.props.location}}} className="view-icon"><i className="mdi mdi-eye"></i></Link></td>
                         </tr>
 					))}
                         
@@ -270,7 +270,7 @@ class BrokerProfie extends React.Component{
                           <td><h5 className="m-b-0 m-t-0 font-600">{item.name}</h5></td>
                           <td><i className="mdi mdi-map-marker text-primary" /> {item.country} </td>
                           <td>{item.connectedDate} </td>
-                          <td><Link to={{"pathname":"/broker-tenant-profile",state:{profileid:item.profile_id,session:JSON.parse(this.state.userData).session_id}}} className="view-icon"><i className="mdi mdi-eye"></i></Link></td>
+                          <td><Link to={{"pathname":"/broker-tenant-profile",state:{profileid:item.profile_id,session:JSON.parse(this.state.userData).session_id,loc: this.props.location}}} className="view-icon"><i className="mdi mdi-eye"></i></Link></td>
                         </tr>
 					 ))}
                         

@@ -539,18 +539,18 @@ ActiveDeactive(id,status){
 						</div>
 							  
 							
-								<div id="send-request" className="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{display: "none"}}>
+								{/* <<div id="send-request" className="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{display: "none"}}>
 									
 								  <div className="modal-dialog modal-lg">
 									<div className="modal-content">
 									  <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
 									  <div className="">
-									  {this.state.singularFrame.enrollmentlink?<iframe src={this.state.singularFrame.enrollmentlink} className="iform"></iframe>:<div className="container"  style={{marginTop:'13%',marginLeft:'40%',marginBottom:'25%'}}><img src="http://wordpress.templaza.net/real-estate/wp-content/themes/real-estate/images/loading_blue_32x32.gif" /></div>}
+									  {<iframe src={this.state.singularFrame.enrollmentlink} className="iform"></iframe>}
 									  </div>
 									</div>
 									</div>
 								</div>
-							  
+							  */}
 					
 							  <div className=""  id="portion_two" style={{display: "none"}}>
 								 {/* <div className="form-group">

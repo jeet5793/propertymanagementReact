@@ -8096,7 +8096,9 @@ ul.price-t-5 li h3 {
 
 .tz-property-all .cbp-item-wrapper .cbp-caption img {
     position: relative;
-    max-width: none
+    width: 100% !important;
+    max-width: none;
+    left: 0 !important;
 }
 
 .tz-property-all .cbp-item-wrapper h5 {
@@ -41332,4 +41334,3 @@ body .wpb_gallery_slides ul li {
 .tenant-login {
 	left:34%;
 }
-.required:after { content:"*"; color: red; }

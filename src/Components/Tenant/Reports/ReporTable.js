@@ -16,8 +16,11 @@ const TableReprt=(props)=>{
    }
    console.log(props);
     return(
-        <div className=" table-responsive">
-		{props.formType==='?property'?
+        <div>
+        
+		{props.formType==='?property'?  
+			(props.report && props.report.length>0)?
+			<div className=" table-responsive">
                     <table id="" className="table">
                       <thead>
                         <tr>
@@ -46,8 +49,11 @@ const TableReprt=(props)=>{
 							</tr>
 						</tfoot>
                     </table>
-		:''}
+		</div>:<div className=" table-responsive" style={{textAlign:'center'}}>No record available </div>:''}
+		
 		{(props.formType==='?Transaction')?
+			(props.report && props.report.length>0)?
+			<div className=" table-responsive">
 					<table id="" className="table">
                       <thead>
                         <tr>
@@ -76,8 +82,9 @@ const TableReprt=(props)=>{
 							<td><b></b></td>
 							</tr>
 						</tfoot>
-                    </table>:''}
-				</div>
+                    </table>
+				</div>:<div className=" table-responsive" style={{textAlign:'center'}}>No record available </div>:''}
+			</div>
     );
 }
 const FilterCriteria=(props)=>{
@@ -137,7 +144,7 @@ const ReportTableHeader=(props)=>{
                 <div className="btn-group pull-right">
             <ol className="breadcrumb hide-phone p-0 m-0">
                 <li><a href="owner-report" className="btn btn-custom waves-light waves-effect w-md">
-                    <i className="fi-outbox"></i>&nbsp;&nbsp;Back</a>
+                    <i className="fi-reply"></i>&nbsp;&nbsp;Back</a>
                 </li>
             </ol>
             </div>

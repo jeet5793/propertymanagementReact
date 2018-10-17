@@ -18,12 +18,15 @@ class Property extends React.Component{
 			  userData:Cookies.get('profile_data'),
 			  profileData:'',
             property:[],
+			propertyImg:[],
+			 propertyDetail:[],
             loggedOwner:props.owner,
             owner_id:props.owner_id
             
             }
         this.getPropertiesByType=this.getPropertiesByType.bind(this)
-        this.deleteProperty=this.deleteProperty.bind(this)
+        this.deleteProperty=this.deleteProperty.bind(this);
+		this.viewProperty = this.viewProperty.bind(this);
     }
     componentDidMount(){
         if(this.state.flag)
@@ -164,6 +167,14 @@ class Property extends React.Component{
             
         })
      }
+	 viewProperty(property){
+		 $(".proeprty-sec").show();
+		 this.setState({propertyDetail: property});
+		 this.setState({propertyImg: property.img_path});
+	 }
+	 onClickClose(){
+		$(".proeprty-sec").hide(); 
+	 }
     render(){
         const imgSer=this.imgServer
         console.log("propertyloading..."+JSON.stringify(this.state.propertiesLoading))
@@ -223,9 +234,9 @@ class Property extends React.Component{
                                          <a onClick={this.editProperty.bind(this,element)} id={element.id} className="table-action-btn">
                                                 <i style={{cursor:'pointer'}} className="mdi mdi-pencil"></i>
                                             </a> 	
-                                           <Link to={{pathname:'/property-detail',state:{id:element.id}}}  className="table-action-btn">
-                                                <i className="mdi mdi-eye"></i>
-                                            </Link>
+                                           <a onClick = {this.viewProperty.bind(this,element)}  id="view-property" className="table-action-btn">
+                                                <i style={{cursor:'pointer'}} className="mdi mdi-eye"></i>
+                                            </a>
                                             <a onClick={this.deleteProperty(element.id)} id={element.id} className="table-action-btn">
                                                 <i style={{cursor:'pointer'}} className="mdi mdi-close"></i>
                                             </a>
@@ -244,6 +255,64 @@ class Property extends React.Component{
                 }
                     {/* <!-- end row --> */}
                     
+					{/* =========================property view==========================================*/}
+				
+				
+				 <div className="row proeprty-sec" id="">
+                    <div className="col-12">
+                        <div className="card-box">
+                            <h4 className="header-title m-t-0 view-property-title">Property Title</h4>
+							<div className=" view-property-close">
+                                   <a href="#" onClick={this.onClickClose} id="close-property"><i className="mdi mdi-close"></i></a>
+                                </div>
+							<div className="col-12 no-padding">
+                            <div className="single-item slider ">
+							{this.state.propertyImg.map((item)=>(
+							
+                                <div>
+                                    <img src={API_URL+item.img_path} alt="slider-img" className="img-fluid"/>
+                                </div>
+                              ))}
+                            </div>
+                            </div>
+							<ul className="nav nav-tabs tabs-bordered">
+								<li className="nav-item"> <a href="#description" data-toggle="tab" aria-expanded="true" className="nav-link font-16 active">Description  </a> </li>
+								<li className="nav-item"> <a href="#details" data-toggle="tab" aria-expanded="false" className="nav-link font-16">Details  </a> </li>
+								<li className="nav-item"> <a href="#location" data-toggle="tab" aria-expanded="false" className="nav-link font-16">Location  </a> </li>
+                            </ul>
+							<div className="col-12 no-padding m-t-15">
+							<div className="tab-content">
+								<div className="tab-pane active" id="description">
+									<div className="row">
+										{this.state.propertyDetail.description}
+									</div>
+						  
+								</div>
+							<div className="tab-pane" id="details">
+								
+									<p className="tz-property-detail"> Price:&nbsp; <strong> ${this.state.propertyDetail.total_amount} </strong> </p>
+										<p className="tz-property-detail"> Area:&nbsp; <strong> {this.state.propertyDetail.square_feet}&nbsp; </strong> </p>
+										<p className="tz-property-detail"> Type:&nbsp; <strong> {this.state.propertyDetail.property_type} </strong> </p>
+										<p className="tz-property-detail"> Bedrooms:&nbsp; <strong>  {this.state.propertyDetail.bedroom} </strong> </p>
+										<p className="tz-property-detail"> Bathrooms:&nbsp; <strong>  {this.state.propertyDetail.bathroom} </strong> </p>
+										<p className="tz-property-detail"> Status:&nbsp; <strong>  {this.state.propertyDetail.property_status} </strong> </p>
+								
+						   </div>
+						   <div className="tab-pane" id="location">
+								<div className="row">
+									 <iframe style={{width:'100%',height:'450px'}} src={this.state.propertyDetail.map} allowfullscreen></iframe>
+								</div>
+						   </div>
+						</div>
+	
+							
+                           
+							</div>
+                        </div>
+                    </div>
+				</div> 
+				{/* =========================property view end==========================================*/}
+					
                     <div className="row">
                     <div className="col-sm-12"> </div>
                     </div>
@@ -272,6 +341,7 @@ class Property extends React.Component{
 						</div>
 					</div>
 				</div>
+				
             </div>
         );
     }

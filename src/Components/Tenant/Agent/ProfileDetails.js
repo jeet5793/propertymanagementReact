@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import Cookies from 'js-cookie';
 import swal from 'sweetalert';
 import $ from 'jquery';
+import {Link} from 'react-router-dom'
 class ProfileDetails extends React.Component{
 	constructor(props){
     super(props);
@@ -203,20 +204,21 @@ class ProfileDetails extends React.Component{
                     <div className="page-title-box">
                     <div className="btn-group pull-right">
                         <ol className="breadcrumb hide-phone p-0 m-0">
-                        <li><a href="/tenant-agent" className="btn waves-light waves-effect w-md btn-custom"><i className="fi-reply"></i>&nbsp;&nbsp;Back</a></li>
+                        <li><Link to={this.props.location.state.loc.pathname}><a className="btn waves-light waves-effect w-md btn-custom">Back</a></Link></li>
                         </ol>
                     </div>
-                    <h4 className="page-title">Agent Profile</h4>
+                    <h4 className="page-title">{this.state.profileData.first_name}'s Profile</h4>
                     </div>
                     {/* <!-- end page title end breadcrumb --> */}
-                     {this.state.profileData?
+                  
                     <div className="row">
                     <div className="col-md-12 col-lg-12 second-profiles-details">
                         <div className="card-box"> 
                         <div className="row"> 
                         <div className="col-md-12"> 
+                        <div className="row"> 
                         <div className="col-md-8">
-                        <span className="pull-left m-r-15">
+                        <span className="pull-left m-r-15 sec-profile-mg">
                         <img src={this.state.profileData.profile_photo!=''?API_URL+this.state.profileData.profile_photo:img_not_available} alt="" className="second-profiles rounded-circle" /></span>
                         <div className="details-dec ">
                                 <h4 className="m-t-5 m-b-5 font-18 ellipsis">{this.state.profileData.first_name+" "+this.state.profileData.last_name}</h4>
@@ -224,19 +226,7 @@ class ProfileDetails extends React.Component{
                                 <p className="text-muted m-b-3"><i className="icon-phone"></i>&nbsp; {this.state.profileData.mobile_no}</p>
                                 <p className="text-muted m-b-3 "><i className="icon-envelope"></i>&nbsp; {this.state.profileData.email}</p>
                                 <p className="text-muted m-b-3"><i className="icon-location-pin"></i>&nbsp; {this.state.profileData.country}</p>
-                                <div className="count">
-                                <ul>
-                                    <li>
-                                        <span>{this.state.statics.Owner?this.state.statics.Owner:'0'}</span>
-                                        <p>Owners</p>
-                                    </li>
-                                    <li>
-                                        <span>{this.state.statics.Tenant?this.state.statics.Tenant:'0'}</span>
-                                        <p>Tenant</p>
-                                    </li>
-                                    
-                                </ul>
-                            </div>	
+                                
                             </div>
                             </div>
                             <div className="col-md-4">
@@ -249,21 +239,41 @@ class ProfileDetails extends React.Component{
 							<a href="#" data-toggle="modal" data-target="#add-review" className="btn btn-inverse waves-effect w-md waves-light w-md btn-custom m-t-30	"><i className="fi-star"></i>&nbsp;&nbsp;Review</a>
                             </div>	
                             </div>	
+							<div className="count">
+                                <ul>
+                                    <li>
+                                        <span>{this.state.statics.Owner?this.state.statics.Owner:'0'}</span>
+                                        <p>Owners</p>
+                                    </li>
+                                    <li>
+                                        <span>{this.state.statics.Tenant?this.state.statics.Tenant:'0'}</span>
+                                        <p>Tenant</p>
+                                    </li>
+                                    
+                                </ul>
+                            </div>	
+                            </div>	
                             </div>	
                             <hr />
-                                <div className="row">
-                            <div className="col-md-12">
-                                    <div className="col-md-8">
-                                        <h4>About:</h4>
-                                        <p>{this.state.profileData.about_us}</p>
-                                    </div>
-                            <div className="col-md-4"></div>
-                            <div className="col-md-12">
-									<div className="search-result-box">
-					
-                                    <div className="search-item">
-										<h4>Reviews:</h4>
-								{this.state.ratingDetail.map((item)=>(
+                            <ul className="nav nav-tabs tabs-bordered">
+								<li className="nav-item"> <a href="#about" data-toggle="tab" aria-expanded="true" className="nav-link font-16 active">About  </a> </li>
+								
+								<li className="nav-item"> <a href="#reviews" data-toggle="tab" aria-expanded="false" className="nav-link font-16">Reviews  </a> </li>
+                            </ul>
+							
+							<div className="tab-content">
+								<div className="tab-pane active" id="about">
+									<div className="row">
+										{this.state.profileData.about_us}
+									</div>
+						  
+								</div>
+								
+								
+								<div className="tab-pane" id="reviews">
+									<div className="row">
+									  <div className="col-md-12">
+											{this.state.ratingDetail.map((item)=>(
 						
 										<div className="media" key={item.id}>
                                             <div className="media-left">
@@ -299,7 +309,7 @@ class ProfileDetails extends React.Component{
 													<label className = "full" for="star1" title="Sucks big time - 1 star"></label>
 													<label className="rat-check half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
 												</fieldset>
-												:item.rating==2?<fieldset className="rating">
+												:item.rating==1?<fieldset className="rating">
 													<label className = "full" for="star5" title="Awesome - 5 stars"></label>
 													<label className="half" for="star4half" title="Pretty good - 4.5 stars"></label>
 													<label className = "full" for="star4" title="Pretty good - 4 stars"></label>
@@ -415,18 +425,15 @@ class ProfileDetails extends React.Component{
                                             </div>
                                         </div>
 										))}
-                                    </div>
-									
-									<div className="clearfix"></div>
+										</div>
+									</div>
 								</div>
-								</div>
-								
-                                </div>
-                            </div>
+							</div>
+							
                         </div>
                     </div>
                     {/* <!-- end col --> */}
-                    </div>:<div className="container"  style={{marginTop:'10%',marginLeft:'50%'}}><img src="http://wordpress.templaza.net/real-estate/wp-content/themes/real-estate/images/loading_blue_64x64.gif"/></div>}
+				   </div>
                     {/* <!-- end row --> */}
                     
                 </div>

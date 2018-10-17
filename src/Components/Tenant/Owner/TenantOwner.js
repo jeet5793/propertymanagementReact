@@ -510,7 +510,7 @@ class TenantOwner extends React.Component {
             <div className="tab-pane active" id="joined-owner">
                 <div className="row">
                {joinedUserList.map((item)=>(
-              <div className="col-md-4">
+              <div className="col-lg-4 col-md-6 col-sm-6">
                 <div className="card-box">
                   <div className="member-card-alt">
                     <div className="thumb-xl member-thumb m-b-10 pull-left"> 
@@ -523,7 +523,7 @@ class TenantOwner extends React.Component {
                       <p className="text-muted m-b-3 text-overflow"><i className="icon-location-pin"></i>&nbsp; {item.country}</p>
                       <ul className="list-inline m-t-10 m-b-0 text-right">
                        <li className="list-inline-item"> <a className="mesg-icon" data-toggle="modal" data-target="#send-msg" title="Message" href="#" onClick={this.messagerec.bind(this,item.profile_id,item.name)}><i className="icon-bubble" /></a> </li>
-                         <li className="list-inline-item"> <Link to={{"pathname":"/tenant-owner-profile",state:{profileid:item.profile_id,session:JSON.parse(this.state.userData).session_id}}} className="view-icon"><i className="icon-eye"></i></Link></li>
+                         <li className="list-inline-item"> <Link to={{"pathname":"/tenant-owner-profile",state:{profileid:item.profile_id,session:JSON.parse(this.state.userData).session_id,loc: this.props.location}}} className="view-icon"><i className="icon-eye"></i></Link></li>
                       </ul>
                     </div>
                   </div>
@@ -559,7 +559,7 @@ class TenantOwner extends React.Component {
             <div className="tab-pane" id="owner-request">
                 <div className="row">
                 {requestedUserList.map((item)=> (
-              <div className="col-md-4">
+              <div className="col-lg-4 col-md-6 col-sm-6">
                 <div className="card-box">
                   <div className="member-card-alt">
                     <div className="thumb-xl member-thumb m-b-10 pull-left"> 

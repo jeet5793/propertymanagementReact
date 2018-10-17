@@ -20,8 +20,8 @@
 }
 .sigPad input {
 	margin: 0;
-	padding: 0.2em 0;
-	/*  width: 198px;
+	/*padding: 0.2em 0;
+	  width: 198px;
 
   border: 1px solid #666; */
 
@@ -44,7 +44,7 @@
 	text-align: left;
 }
 .sigPad button:hover {
-	background-color: #333;
+	background-color: #fff !important;
 	color: #fff;
 }
 .sig {
@@ -72,7 +72,7 @@
 	color: #333;
 	font-weight: bold;
 	line-height: 2.25em;
-	text-decoration: underline;
+	text-decoration: none;
 }
 .sigNav a.current, .sigNav a.current:link, .sigNav a.current:visited {
 	background-color: #57bb57;
@@ -133,9 +133,9 @@
 	user-select: none;
 }
 .typed {
-	height: 97px;
+	height: auto;
 	margin: 0;
-	padding: 0 5px;
+	padding: 0 12px;
 	position: absolute;
 	z-index: 90;
 	cursor: default;
@@ -159,28 +159,37 @@ p.error {
 }
 .drawIt {
 	margin-right: 10px !important;
-    border-radius: 4px;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    border: 1px solid #eee;
-    margin-left: 10px !important;
+	border-radius: 0;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	border: 1px solid #eee;
+	margin-left: 10px !important;
+	border-bottom: 0;
 }
 .typeIt {
-    border-radius: 4px;
+    border-radius: 0;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
     border: 1px solid #eee;
+    border-bottom: 0;
 }
 .slt-sig {
-	    display: block;
-    margin: 0 !important;
-    padding: 2px 15px !important;
-    font-weight: bold !important;
-    line-height: 2.25em !important;
-    background: #eee !important;
-    color: #313a46 !important;
-    border-radius: 4px !important;
-    border-top-left-radius: 4px !important;
-    border-top-right-radius: 4px !important;
-    border: 1px solid #eee !important;
+	display: block;
+	margin: 0 !important;
+	padding: 2px 15px !important;
+	font-weight: bold !important;
+	line-height: 2.25em !important;
+	background: #fff !important;
+	color: #000 !important;
+	border-radius: 0 !important;
+	border-top-left-radius: 4px !important;
+	border-top-right-radius: 4px !important;
+	border: 1px solid #eee !important;
+	border-bottom: 0 !important;
+}
+.slt-sig span{
+	    text-decoration: none;
+}
+.slimScrollDiv {
+	text-align:center
 }
