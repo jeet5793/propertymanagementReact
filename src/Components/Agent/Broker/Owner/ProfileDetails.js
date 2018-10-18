@@ -218,7 +218,7 @@ class ProfileDetails extends React.Component{
 								</div>
 								<div className="tab-pane" id="bgv">
 									<div className="row">
-									{this.state.bgvInfo?
+									{this.state.bgvInfo && (this.state.bgvInfo).length>0?
 										<div className=" table-responsive">
 											<table id="" className="table table-bordered datatable">
 												<thead>

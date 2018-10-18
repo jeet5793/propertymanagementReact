@@ -28,7 +28,9 @@ class Headernav extends React.Component {
           password:'',
           flag:false,
 		  social_links:'',
-		 fgtemail:''
+		 fgtemail:'',
+		 auth:'',
+		 profileData:[]
 
         }
 
@@ -38,6 +40,9 @@ class Headernav extends React.Component {
 		this.socialLogin = this.socialLogin.bind(this);
 		 this.sendForgetPassword = this.sendForgetPassword.bind(this);
 		 this.onChangeEmail = this.onChangeEmail.bind(this);
+		 
+		 this.checkUser();
+		 this.profileDetail();
     }
     
 	componentWillUnmount(){
@@ -613,6 +618,7 @@ class Headernav extends React.Component {
                             localStorage.setItem('firstName',JSON.stringify(result.profile.first_name))
                             localStorage.setItem('lastName',JSON.stringify(result.profile.last_name))
 							localStorage.setItem('userType',JSON.stringify(result.profile.assets_type))
+
                             this.props.setUser(data.userdata, result.profile);
                             Cookies.set("profile_data", data.userdata);
 
@@ -855,21 +861,90 @@ class Headernav extends React.Component {
 				}
 			  )     
   }
+  checkUser(){
+	  var profileArr = Cookies.get("profile_data");
+		 console.log('profileArr'+profileArr);
+		if(profileArr){
+			if(profileArr.length>0){
+			// var profileImg = JSON.parse(profileArr).profile_photo; 
+			var assets_id = JSON.parse(profileArr).assets_id;
+			var session_id = JSON.parse(profileArr).session_id;
+				
+				
+				fetch(`${API_URL}assetsapi/session_check/`+assets_id+`/`+session_id, {
+					method: 'get'
+				  })
+				.then(res => res.json())
+				.then(
+				  (result) => {
+					//console.log("data 2: "+JSON.stringify(result.profile))
+					$("#loaderDiv").hide();
+					if (result.success===0) {
+					  // this.setState({auth:result.auth})
+					   // this.props.history.replace('/');
+					   // window.location.href='/';
+					   // console.log("index"+JSON.stringify(result))
+					   this.setState({auth:false})
+					  
+					} 
+					
+				  },
+				(error) => {
+				  console.log('error')
+				}
+			  )
+			}	
+		}
+  }
+    profileDetail(){
+	  var profileArr = Cookies.get("profile_data");
+		 console.log('profileArr'+profileArr);
+		if(profileArr){
+			if(profileArr.length>0){
+			// var profileImg = JSON.parse(profileArr).profile_photo; 
+			var assets_id = JSON.parse(profileArr).assets_id;
+			var session_id = JSON.parse(profileArr).session_id;
+				
+				
+				fetch(`${API_URL}assetsapi/profile/`+assets_id+`/`+session_id, {
+					method: 'get'
+				  })
+				.then(res => res.json())
+				.then(
+				  (result) => {
+					//console.log("data 2: "+JSON.stringify(result.profile))
+					$("#loaderDiv").hide();
+					if (result.success===1) {
+					  // this.setState({auth:result.auth})
+					   // this.props.history.replace('/');
+					   // window.location.href='/';
+					   // console.log("index"+JSON.stringify(result))
+					   this.setState({profileData:result.profile})
+					  
+					} 
+					
+				  },
+				(error) => {
+				  console.log('error')
+				}
+			  )
+			}	
+		}
+  }
     render(){
-		var profileArr = Cookies.get("profile_data");
+		
+		/* var profileArr = Cookies.get("profile_data");
 		// console.log('profileArr'+profileArr.length);
 		if(profileArr){
 			if(profileArr.length>0){
 			var profileImg = JSON.parse(profileArr).profile_photo; 
 			var assets_id = JSON.parse(profileArr).assets_id;
-		}	
-		}
-		
-		
+			}
+		} */
 		 
         return(
             <div className="">
-	{!localStorage.getItem('firstName')?
+	{(!localStorage.getItem('firstName') || (localStorage.getItem('firstName') && this.state.auth===false))?
         <div className="login-cont">
         <a className= "typeli login" id="owner"   onMouseEnter={()=>this.activeSignIn("owner")} onMouseLeave={this.leaveButton}>Owners<span></span></a>
             <div ref={this.loginDiv} id="loginDiv" className="login-1 text-left  login-open">
@@ -913,7 +988,7 @@ class Headernav extends React.Component {
             <a className="typeli login" id="agent" onMouseEnter={()=>this.activeSignIn("agent")} onMouseLeave={this.leaveButton}>Agents<span></span></a>
             <a className="typeli login" id="tenant" onMouseEnter={()=>this.activeSignIn("tenant")} onMouseLeave={this.leaveButton}>Tenants<span></span></a>
         </div>
-		:localStorage.getItem('userType').replace(/["']/g, "")=="1"?<div className="login-cont usna"><a className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle  waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img src={API_URL+profileImg} alt="user" className="rounded-circle" /><span className="profile-name">{localStorage.getItem('firstName').replace(/["']/g, "") +' '+ localStorage.getItem('lastName').replace(/["']/g, "")}</span> </a>
+		:localStorage.getItem('userType').replace(/["']/g, "")=="1"?<div className="login-cont usna"><a className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle  waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img src={API_URL+this.state.profileData.profile_photo} alt="user" className="rounded-circle" /><span className="profile-name">{localStorage.getItem('firstName').replace(/["']/g, "") +' '+ localStorage.getItem('lastName').replace(/["']/g, "")}</span> </a>
 								<div className="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview"> 
 								{/* item*/}
 								<div className="dropdown-item noti-title">
@@ -924,9 +999,9 @@ class Headernav extends React.Component {
 								{/* item*/} 
 								<a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-gear" /> <Link to = {{pathname:'/settings'}}><span>Settings</span></Link> </a> 
 								{/* item*/} 
-								<a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-power" /> <span onClick={this.logout.bind(this,assets_id)}>Logout</span> 
+								<a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-power" /> <span onClick={this.logout.bind(this,this.state.profileData.assets_id)}>Logout</span> 
 						</a> </div>
-					</a></div>:localStorage.getItem('userType').replace(/["']/g, "")=="2"?<div className="login-cont usna"><a className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle  waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img src={API_URL+profileImg} alt="user" className="rounded-circle" /><span className="profile-name">{localStorage.getItem('firstName').replace(/["']/g, "") +' '+ localStorage.getItem('lastName').replace(/["']/g, "")}</span> </a>
+					</a></div>:localStorage.getItem('userType').replace(/["']/g, "")=="2"?<div className="login-cont usna"><a className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle  waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img src={API_URL+this.state.profileData.profile_photo} alt="user" className="rounded-circle" /><span className="profile-name">{localStorage.getItem('firstName').replace(/["']/g, "") +' '+ localStorage.getItem('lastName').replace(/["']/g, "")}</span> </a>
 								<div className="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview"> 
 								{/* item*/}
 								<div className="dropdown-item noti-title">
@@ -937,9 +1012,9 @@ class Headernav extends React.Component {
 								{/* item*/} 
 								<a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-gear" /> <Link to = {{pathname:'/broker-settings'}}><span>Settings</span></Link> </a> 
 								{/* item*/} 
-								<a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-power" /> <span onClick={this.logout.bind(this,assets_id)}>Logout</span> 
+								<a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-power" /> <span onClick={this.logout.bind(this,this.state.profileData.assets_id)}>Logout</span> 
 						</a> </div>
-					</a></div>:localStorage.getItem('userType').replace(/["']/g, "")=="3"?<div className="login-cont usna"><a className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle  waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img src={API_URL+profileImg} alt="user" className="rounded-circle" /><span className="profile-name">{localStorage.getItem('firstName').replace(/["']/g, "") +' '+ localStorage.getItem('lastName').replace(/["']/g, "")}</span> </a>
+					</a></div>:localStorage.getItem('userType').replace(/["']/g, "")=="3"?<div className="login-cont usna"><a className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle  waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img src={API_URL+this.state.profileData.profile_photo} alt="user" className="rounded-circle" /><span className="profile-name">{localStorage.getItem('firstName').replace(/["']/g, "") +' '+ localStorage.getItem('lastName').replace(/["']/g, "")}</span> </a>
 								<div className="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview"> 
 								{/* item*/}
 								<div className="dropdown-item noti-title">
@@ -950,7 +1025,7 @@ class Headernav extends React.Component {
 								{/* item*/} 
 								<a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-gear" /> <Link to = {{pathname:'/tenant-settings'}}><span>Settings</span></Link> </a> 
 								{/* item*/} 
-								<a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-power" /> <span onClick={this.logout.bind(this,assets_id)}>Logout</span> 
+								<a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-power" /> <span onClick={this.logout.bind(this,this.state.profileData.assets_id)}>Logout</span> 
 						</a> </div>
 					</a></div>:""
 	}

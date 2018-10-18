@@ -21,6 +21,8 @@ import Notifications from '../Notifications/BrokerNotifications'
 import Report from '../Reports/Report'
 import ReportTable from '../Reports/ReporTable'
 import BGVPayment from '../Owner/PaymentGateway'
+import $ from 'jquery';
+import API_URL from '../../../../app-config';
 class AgentBrokerDashboard extends React.Component {
 
   constructor(props) {
@@ -31,12 +33,41 @@ class AgentBrokerDashboard extends React.Component {
       userData:Cookies.get('profile_data')
     }
     //console.log("owner props"+JSON.stringify(this.state.userInfo))
+    // if (!this.state.userData) {
+      // console.log("owner props"+JSON.stringify(props))
+      // this.props.history.replace('/');
+     // console.log("owner props"+JSON.stringify(props));
+    // }
+    // console.log("owner props"+JSON.stringify(props));
+	 // console.log("owner dashboard userInfo props"+JSON.stringify(this.props.userData))
     if (!this.state.userData) {
       console.log("owner props"+JSON.stringify(props))
       this.props.history.replace('/');
-     console.log("owner props"+JSON.stringify(props));
-    }
-    console.log("owner props"+JSON.stringify(props));
+     // console.log("owner props"+JSON.stringify(props));
+    }else{
+		const profile=JSON.parse(this.state.userData);
+			fetch(`${API_URL}assetsapi/session_check/${profile.assets_id}/${profile.session_id}`, {
+				method: 'get'
+			  })
+			.then(res => res.json())
+			.then(
+			  (result) => {
+				//console.log("data 2: "+JSON.stringify(result.profile))
+				$("#loaderDiv").hide();
+				if (result.success===0) {
+				  // this.setState({auth:result.auth})
+				   // this.props.history.replace('/');
+				   window.location.href='/';
+				  
+				} 
+				// console.log("index"+JSON.stringify(this.state.profile))
+			  },
+			(error) => {
+			  console.log('error')
+			}
+		  )
+	}
+    // console.log("owner props"+JSON.stringify(this.state.userData));
   }
   componentWillMount(){
     var urlIndex=window.location.href.lastIndexOf('/')

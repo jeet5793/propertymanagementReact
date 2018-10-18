@@ -405,7 +405,7 @@ Countries() {
 						  <button type="submit" className="btn btn-primary stepy-finish text-right" onClick={this.profileSubmit}>Submit </button>
 						</div>
 						</div>
-					  </div>:<div className="container"  style={{marginTop:'10%',marginLeft:'50%'}}><img src="http://wordpress.templaza.net/real-estate/wp-content/themes/real-estate/images/loading_blue_64x64.gif"/></div>
+					  </div>:<div className="container"  style={{marginTop:'10%',marginLeft:'50%'}}><img src=""/></div>
 	
         );
     }

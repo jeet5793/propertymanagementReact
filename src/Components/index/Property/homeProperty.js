@@ -5,6 +5,9 @@ import img_not_available from '../../../images/img_not_available.png'
 import { Link } from 'react-router-dom'
 import $ from 'jquery'
 import  API_URL from '../../../app-config'
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+
 export default class Homeproperty extends React.Component{
 	constructor(props){
 		super(props);
@@ -39,7 +42,7 @@ $("#loaderDiv").show();
 			
 			// $('#ninja-slider').show();
 			// $('#lightbox').show();
-			// $('#proImageConfirm').show();
+			 $('#proImageConfirm').show();
 			// $('#lightbox').show();
             
           } 
@@ -49,6 +52,9 @@ $("#loaderDiv").show();
         console.log('error')
       }
 }
+onClickClose() {
+		$("#proImageConfirm").hide();
+	}
 	render(){
 		return(
            
@@ -71,13 +77,7 @@ $("#loaderDiv").show();
 							<div className="cbp-l-caption-body"> 
 	                            
 								<Link to={{'pathname':"property-detail",state:this.props}} className="cbp-l-caption-buttonLeft" rel="nofollow"><i className="icon-link"></i> </Link> 
-	                           
-							  
-								
-								 <span href="#lightbox" data-toggle="modal" className="" onClick={this.onClickImagePreview.bind(this,this.props.id)} > <i className="icon-plus-circle" ></i>aa </span> 
-											
-						
-								
+	                           <a href="#lightbox" data-toggle="modal" className="cbp-l-caption-buttonRight" onClick={this.onClickImagePreview.bind(this,this.props.id)} > <i className="icon-plus-circle" ></i> </a> 
                         	</div>
                     	</div>
                 	</div>
@@ -90,36 +90,33 @@ $("#loaderDiv").show();
 						<div className="tz-property-excerpt"> {this.props.description} </div>
 					</div>
 					
-					{/* <div id="ninja-slider">
-						<div className="modal fade and carousel slide" id="lightbox">
-							<div className="modal-dialog modal-lg">
-							  <div className="modal-content">
-								<div className="modal-body">
-								  <div className="carousel-inner">
-									<div className="item active">
-									  <img src="images/properties-9-2-1024x373.jpg" alt="First slide"/>
-									</div>
-									<div className="item">
-									  <img src="images/properties-9-2-1024x373.jpg" alt="Second slide"/>
-									</div>
-									<div className="item">
-									  <img src="images/properties-9-2-1024x373.jpg" alt="Third slide" />
-									  <div className="carousel-caption"><p>even with captions...</p></div>
-									</div>
-								  </div>
-								  <a className="left carousel-control slider-inner" href="#lightbox" role="button" data-slide="prev">
-									  <span id="ninja-slider-prev"></span>
-								  </a>
-								  <a className="right carousel-control slider-inner" href="#lightbox" role="button" data-slide="next">
-									<span id="ninja-slider-next"></span>
-								  </a>
-								</div>
-							  </div>
+					
+					
+				<div id="proImageConfirm" className="BlockUIConfirm" style={{display:"none"}}>
+				
+					<div className="blockui-mask"></div>
+						<div className="RowDialogBody">
+							<div className="confirm-header row-dialog-hdr-success">
+								Property Image
+								<button type="button" className="close" onClick={this.onClickClose}>×</button>
 							</div>
-						  </div>
-	</div> */}
+							<div className="confirm-body">
 						
+								<Carousel autoPlay showArrows={true}>
+								{this.state.propertiesImg.map((item)=>(
+									<div>
+										<img src={API_URL+item.img_path} />
+									</div>
+								))}			
+								</Carousel>
+								
 						
+							</div>
+					
+						</div>
+					</div> 
+						
+							
 					
 				</div>
 			);

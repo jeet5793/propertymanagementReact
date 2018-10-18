@@ -74,7 +74,7 @@ class EditProperty extends React.Component {
           const propertyDetails=JSON.parse(this.state.propertyInfo)
           // console.log("receeeeeived123456..."+ JSON.stringify(propertyDetails))
           this.setState({
-            formData:{property_id:propertyDetails.id,title:propertyDetails.title,address:propertyDetails.address,address2:propertyDetails.address2,country:propertyDetails.country,state:propertyDetails.state,city:propertyDetails.city,zip_code:propertyDetails.zip_code,property_type:propertyDetails.property_type,property_status:propertyDetails.property_status,geo_location:propertyDetails.geo_location,square_feet:propertyDetails.square_feet,description:propertyDetails.description,bedroom:propertyDetails.bedroom,bathroom:propertyDetails.bathroom,total_amount:propertyDetails.total_amount,advance:propertyDetails.advance,advance:propertyDetails.advance},images:propertyDetails.img_path,shareholders:propertyDetails.owner_details
+            formData:{property_id:propertyDetails.id,title:propertyDetails.title,address:propertyDetails.address,address2:propertyDetails.address2,country:propertyDetails.country,state:propertyDetails.state,city:propertyDetails.city,zip_code:propertyDetails.zip_code,property_type:propertyDetails.property_type,property_status:propertyDetails.property_status,geo_location:propertyDetails.geo_location,square_feet:propertyDetails.square_feet,agent_perc:propertyDetails.agent_perc,description:propertyDetails.description,bedroom:propertyDetails.bedroom,bathroom:propertyDetails.bathroom,total_amount:propertyDetails.total_amount,advance:propertyDetails.advance,advance:propertyDetails.advance},images:propertyDetails.img_path,shareholders:propertyDetails.owner_details
           },()=>{
             this.stateLists(propertyDetails.country);
             this.cityList(propertyDetails.state);
@@ -475,7 +475,7 @@ class EditProperty extends React.Component {
                         </div>
 						<label className="col-lg-2 col-md-3 col-sm-3 col-form-label">Agent (%)</label>
                         <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl">
-                          <input name="square_feet" onChange={this.onChangeHandler} type="text" className="form-control" />
+                           <input value={editPropertyInfo.agent_perc} name="agent_perc" onChange={this.onChangeHandler} type="text" className="form-control" />
                         </div>
                       </div>
                       <div className="form-group row">
