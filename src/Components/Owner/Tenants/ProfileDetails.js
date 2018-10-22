@@ -63,7 +63,7 @@ class ProfileDetails extends React.Component{
 					   $("#BlockUIConfirm").show();
 				  
 				} 
-				console.log("notification"+JSON.stringify(this.state.sendForm))
+				// console.log("notification"+JSON.stringify(this.state.sendForm))
 			  },
 				(error) => {
 				  console.log('error')
@@ -89,7 +89,7 @@ class ProfileDetails extends React.Component{
           this.setState({profileData:result.profile})
           
         } 
-        console.log("set user data"+JSON.stringify(this.state.profileData))
+        // console.log("set user data"+JSON.stringify(this.state.profileData))
       },
 		(error) => {
 		  console.log('error')
@@ -128,7 +128,7 @@ class ProfileDetails extends React.Component{
           this.setState({bgvInfo:result.bgvInfo})
           
         } 
-        console.log("bgvInfo"+JSON.stringify(this.state.bgvInfo))
+        // console.log("bgvInfo"+JSON.stringify(this.state.bgvInfo))
       },
 		(error) => {
 		  console.log('error')
@@ -140,6 +140,16 @@ class ProfileDetails extends React.Component{
 		window.open(`${API_URL}assetsapi/bgv_report/`+reportId,"_self")
 		
 	}
+	changeTabs(id) {
+        if (id == "bgv") {
+            $("#aboutTab").removeClass("active")
+
+        }
+        else {
+            $("#bgvTab").removeClass("active")
+           
+        }
+    }
     render(){
         // if(this.props.owner===undefined)
         // window.location.href='http://'+window.location.host
@@ -205,8 +215,8 @@ class ProfileDetails extends React.Component{
 							  </div>
                             <hr />
                            <ul className="nav nav-tabs tabs-bordered">
-								<li className="nav-item"> <a href="#about" data-toggle="tab" aria-expanded="true" className="nav-link font-16 active">About  </a> </li>
-								<li className="nav-item"> <a href="#bgv" data-toggle="tab" aria-expanded="false" className="nav-link font-16">BGV  </a> </li>
+								<li className="nav-item"> <a href="#about" data-toggle="tab" onClick={this.changeTabs.bind(this, "about")} id="aboutTab" aria-expanded="true" className="nav-link font-16 active">About  </a> </li>
+								<li className="nav-item"> <a href="#bgv" data-toggle="tab" onClick={this.changeTabs.bind(this, "bgv")} id="bgvTab" aria-expanded="false" className="nav-link font-16">BGV  </a> </li>
 								
                             </ul>
 							

@@ -7,6 +7,7 @@ import {Link} from 'react-router-dom'
 import { connect } from 'react-redux';
 import API_URL from "../../../../app-config";
 import swal from 'sweetalert';
+import $ from 'jquery';
 class BrokerService extends React.Component{
 	constructor(props){
     super(props);
@@ -251,6 +252,20 @@ class BrokerService extends React.Component{
 		  )       
           
 	}
+	changeTabs(id) {
+        if (id == "v-requested") {
+            $("#sendTab").removeClass("active")
+            $("#resolveTab").removeClass("active")
+
+        } else if (id == "v-send") {
+            $("#requestedTab").removeClass("active")
+            $("#resolveTab").removeClass("active")
+        }
+        else {
+            $("#sendTab").removeClass("active")
+            $("#requestedTab").removeClass("active")
+        }
+    }
 	render(){
 		const propertyList = this.state.property_list;
 		const userList = this.state.user_list;
@@ -275,9 +290,9 @@ class BrokerService extends React.Component{
                                         <div className="row">
                                             <div className="col-md-2">
                                                 <ul className="nav tabs-vertical">
-                                                    <li className="nav-item"> <a href="#v-requested" className="nav-link active" data-toggle="tab" aria-expanded="false" onClick={this.getRequestedList}>Requested</a> </li>
-                                                    <li className="nav-item"> <a href="#v-send" className="nav-link" data-toggle="tab" aria-expanded="true" onClick={this.getSendedList}>Send</a> </li>
-                                                    <li className="nav-item"> <a href="#v-Resolve" className="nav-link" data-toggle="tab" aria-expanded="false" onClick={this.getResolvedList}>Resolve</a> </li>
+                                                   <li className="nav-item" onClick={this.changeTabs.bind(this, "v-requested")}> <a id="requestedTab" href="#v-requested" className="nav-link active" data-toggle="tab" aria-expanded="false" onClick={this.getRequestedList}>Requested</a> </li>
+                                                    <li className="nav-item" onClick={this.changeTabs.bind(this, "v-send")}> <a id="sendTab" href="#v-send" className="nav-link" data-toggle="tab" aria-expanded="true" onClick={this.getSendedList}>Send</a> </li>
+                                                    <li className="nav-item" onClick={this.changeTabs.bind(this, "v-Resolve")}> <a id="resolveTab"  href="#v-Resolve" className="nav-link" data-toggle="tab" aria-expanded="false" onClick={this.getResolvedList}>Resolve</a> </li>
                                                 </ul>
                                             </div>
                                             <div className="col-md-10">

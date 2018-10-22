@@ -3,8 +3,12 @@ import { connect } from 'react-redux';
 import API_URL from "../../../app-config";
 import Cookies from 'js-cookie';
 import moment from 'moment';
-import 'react-datepicker/dist/react-datepicker.css';
-import DatePicker from 'react-datetime-picker';
+// import 'react-datepicker/dist/react-datepicker.css';
+// import DatePicker from 'react-datetime-picker';
+import 'react-date-picker/dist/DatePicker.css';
+import DatePicker from 'react-date-picker';
+
+
 import $ from 'jquery';
  class ProfileInfo extends React.Component{
 	constructor(props){
@@ -251,11 +255,15 @@ Countries() {
 							  </div>
 							  <div className="col-lg-2 col-md-4 col-sm-4">
 								{/* <input value={this.state.profileSetting.dob.slice(0,10)} className="form-control" id="dobDate" name="date" placeholder="MM/DD/YYYY" type="text"/> */}
-											<DatePicker className="form-control"
+									{/* <DatePicker className="form-control"
 												disableClock={true}
 												locale="en-US"
 												onChange={this.onChange}
 												value={this.state.profileSetting.dob}
+									/> */}
+											<DatePicker className="form-control"
+											  onChange={this.onChange}
+											 value={this.state.profileSetting.dob}
 											/>
 							  </div>
 							  <div className="col-lg-1 col-md-2 col-sm-2 required">

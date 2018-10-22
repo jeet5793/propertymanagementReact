@@ -6273,3 +6273,27 @@ input.react-autosuggest__input{
 	.react-datetime-picker__button__input__input {
 		min-width: 13.5px
 	}
+	
+	/* datepicker */
+	.react-date-picker__clear-button{
+		display: none;
+	}
+
+	.react-date-picker__calendar-button{
+		display: none;
+	}
+
+	.react-date-picker__button{
+		border:none;
+	}
+
+	/* .react-datetime-picker__button__input__amPm{ */
+		/* display: none; */
+	/* } */
+
+	.react-date-picker__inputGroup__input {
+		min-width: 13.5px
+	}
+	.react-date-picker__wrapper {
+		border: none;
+	}

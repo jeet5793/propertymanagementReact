@@ -7,49 +7,8 @@ import swal from 'sweetalert';
 const VRequested=(props)=>{
     return(
         <div className="tab-pane active" id="v-requested">
-		<ul className="nav nav-tabs tabs-bordered">
-								<li className="nav-item"> <a href="#sent" data-toggle="tab" aria-expanded="true" className="nav-link font-16 active">Sent  </a> </li>
-								<li className="nav-item"> <a href="#received" data-toggle="tab" aria-expanded="false" className="nav-link font-16">Received  </a> </li>
-                            </ul>
-							
-							<div className="tab-content">
-								<div className="tab-pane active" id="sent">
-									<div className="row">
-										{(props.sendedAgreement!=undefined && props.sendedAgreement.length>0)?
-	
-										<div className=" table-responsive">
-										  <table className="table bdr">
-											<thead>
-											  <tr>
-												<th>Title</th>
-												<th>Date</th>
-												<th>Sent To</th>
-												<th>Assets Type</th>
-												<th>Action</th>
-											  </tr>
-											</thead>
-											<tbody>                                    
-											 
-										{(props.sendedAgreement!=undefined)?props.sendedAgreement.map(element=>(
-												<tr>
-												  <td>{element.agreement_title}</td>
-												  <td>{element.initiated_date}</td>
-												  <td>{element.sentTo}</td>
-												  <td>{element.assets_type==1?'Owner':(element.assets_type==2?'Agent':(element.assets_type==3)?'Tenant':'')}</td>
-												  <td><a title="Edit" href="#" onClick={() => props.dealPdfView(element.deal_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a></td>
-												</tr>
-											  )):<div>No record available </div>}
-											
-										  </tbody>
-										</table>
-										</div>:<div className=" table-responsive" style={{textAlign:'center'}}>No record available </div>}
-									</div>
-						  
-								</div>
-
-
-							<div className="tab-pane" id="received">
-								<div className="row">
+		
+			<div className="row">
 								{(props.ragreement!=undefined && props.ragreement.length>0)?
 									<div className=" table-responsive">
 										  <table className="table bdr">
@@ -77,11 +36,10 @@ const VRequested=(props)=>{
 										  </tbody>
 										</table>
 									</div>:<div className=" table-responsive" style={{textAlign:'center'}}>No record available </div>}
-								</div>
-						   </div>
-						</div>
-	
-        </div>
+				</div>
+		</div>
+						
+
     );
 }
 

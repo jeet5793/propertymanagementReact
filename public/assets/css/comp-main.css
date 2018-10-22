@@ -8622,15 +8622,16 @@ body .tz-post.tz-property-all .wp-pagenavi {
 }
 
 .tz-property-single .tz-property-top .tz-property-title {
-    color: #404040;
-    font-size: 24px;
-    font-weight: 800;
+	color: #404040;
+    font-size: 20px;
+    font-weight: 600;
     letter-spacing: 0.1px;
-    line-height: 1em;
+    line-height: 26px;
     margin: 0;
     padding: 6px 0 4px;
     text-transform: uppercase;
-    display: inline-block
+    display: inline-block;
+    text-align: justify;
 }
 
 .tz-property-single .tz-property-top .tz-property-title .for-sale {

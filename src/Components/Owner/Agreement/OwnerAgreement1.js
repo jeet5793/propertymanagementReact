@@ -43,8 +43,8 @@ const VRequested=(props)=>{
   return(
     <div className="tab-pane" id="v-requested">
 						<ul className="nav nav-tabs tabs-bordered">
-								<li className="nav-item"> <a href="#sent" data-toggle="tab" aria-expanded="true" className="nav-link font-16 active">Sent  </a> </li>
-								<li className="nav-item"> <a href="#received" data-toggle="tab" aria-expanded="false" className="nav-link font-16">Received  </a> </li>
+								<li className="nav-item"> <a href="#sent" data-toggle="tab" onClick={props.changeTabs.bind(this, "sent")} id="sentTab" aria-expanded="true" className="nav-link font-16 active">Sent  </a> </li>
+								<li className="nav-item"> <a href="#received" data-toggle="tab" onClick={props.changeTabs.bind(this, "received")} id="receivedTab" aria-expanded="false" className="nav-link font-16">Received  </a> </li>
                             </ul>
 							
 							<div className="tab-content">
@@ -676,7 +676,16 @@ getPropertyList() {
             $('#sideTogle').hide();
         }
     }
-		
+	changeTabs(id) {
+        if (id == "received") {
+            $("#sentTab").removeClass("active")
+
+        }
+        else {
+            $("#receivedTab").removeClass("active")
+           
+        }
+    }	
   render(){
       return(
     <div>
@@ -711,7 +720,7 @@ getPropertyList() {
                         <div className="tab-content">
 						<Saved editAgreement={this.editAgreement} selectedAgreement={this.selectedAgreement} agreement={this.state.agreement} pdfViewAgreement={this.pdfViewAgreement} deleteAgreement={this.deleteAgreement}/>
 						 <VCreate userData={this.state.userData} editAgreement={this.state.editAgreement} />
-                         {<VRequested previewAgreement={this.previewAgreement} ragreement={this.state.requestedAgreement || []} sendedAgreement={this.state.sendedAgreement || []} dealPdfView={this.dealPdfView}/>}
+                         {<VRequested previewAgreement={this.previewAgreement} ragreement={this.state.requestedAgreement || []} sendedAgreement={this.state.sendedAgreement || []} dealPdfView={this.dealPdfView} changeTabs = {this.changeTabs}/>}
                           <VExecute ragreement={this.state.executedAgreement} selectedExecutedAgreement={this.selectedExecutedAgreement} onClickDownload={this.onClickDownload} dealPdfView={this.dealPdfView}/>
 						  <div className="tab-pane" id="executePreview">
                                       <div id="executePreviewContainer"></div>

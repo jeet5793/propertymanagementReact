@@ -252,9 +252,9 @@ class Profile extends React.Component {
                         <p className="text-muted font-13"><strong>Location :</strong> <span className="m-l-15">{profileInfo.country}</span></p>
                       </div>
                       <ul className="social-links list-inline m-t-20 m-b-0">
-                       {profileInfo.facebook_link?<li className="list-inline-item"> <a title={profileInfo.facebook_link} data-placement="top" data-toggle="tooltip" className="tooltips" href="" data-original-title="Facebook"><i className="fa fa-facebook"></i></a> </li>:''} 
-                         {profileInfo.twitter_link	?<li className="list-inline-item"> <a title={profileInfo.twitter_link	} data-placement="top" data-toggle="tooltip" className="tooltips" href="" data-original-title="Twitter"><i className="fa fa-twitter"></i></a> </li>:''} 
-                         {profileInfo.linkedin_link?<li className="list-inline-item"> <a title={profileInfo.linkedin_link} data-placement="top" data-toggle="tooltip" className="tooltips" href="" data-original-title="Linkedin"><i className="fa fa-linkedin"></i></a> </li>:''} 
+                       {profileInfo.facebook_link?<li className="list-inline-item"> <a title="Facebook" data-placement="top" data-toggle="tooltip" className="tooltips" href={profileInfo.facebook_link} data-original-title="Facebook"><i className="fa fa-facebook"></i></a> </li>:''} 
+                         {profileInfo.twitter_link	?<li className="list-inline-item"> <a title="Twitter" data-placement="top" data-toggle="tooltip" className="tooltips" href={profileInfo.twitter_link} data-original-title="Twitter"><i className="fa fa-twitter"></i></a> </li>:''} 
+                         {profileInfo.linkedin_link?<li className="list-inline-item"> <a title="Linkedin" data-placement="top" data-toggle="tooltip" className="tooltips" href={profileInfo.linkedin_link}  data-original-title="Linkedin"><i className="fa fa-linkedin"></i></a> </li>:''} 
                       </ul>
                     </div>
                   </div>   

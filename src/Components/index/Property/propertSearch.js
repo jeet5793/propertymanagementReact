@@ -124,13 +124,13 @@ export default class PropertySearch extends React.Component{
                           <h4 className="nh4"><a>{owner.name}</a></h4>
                           <p>Rating : {parseFloat(owner.rating).toFixed(1)} </p>
                         </div>
-                        <div className="tz-width-40 text-right pull-right">
+                        {/*<div className="tz-width-40 text-right pull-right">
                           <div className="TzSocialLink"> 
                           <a> <i className="fa fa-linkedin"></i> </a> 
                           <a > <i className="fa fa-google-plus"></i> </a> 
                           <a> <i className="fa fa-twitter"></i> </a>
                            <a> <i className="fa fa-facebook"></i> </a> </div>
-                        </div>
+                        </div>*/}
                       </div>
                       <div className="tz-property-author-info"> <span> <i className="icon-smartphone"></i> {owner.mobile_no} </span> <span> <i className="icon-envelope-open"></i> {owner.email} </span> </div>
                     </div>

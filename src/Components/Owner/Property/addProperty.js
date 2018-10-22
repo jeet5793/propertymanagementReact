@@ -337,7 +337,7 @@ class AddProperty extends React.Component {
                             {this.state.cities ? this.state.cities.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>)) : ''}
                           </select>
                         </div>
-                        <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">PIN Code</label>
+                        <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">ZIP code</label>
                         <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl">
                           <input type="text" className="form-control" name="zip_code" onChange={this.onChangeHandler} />
                         </div>
@@ -395,7 +395,7 @@ class AddProperty extends React.Component {
                                 {this.state.cities ? this.state.cities.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>)) : ''}
                               </select>
                             </div>
-                            <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">PIN Code</label>
+                            <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">ZIP code</label>
                             <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl">
                               <input type="text" className="form-control" name={'zip_code' + (idx)} onChange={(e) => { this.onChangeHandler(e, idx) }} />
                             </div>

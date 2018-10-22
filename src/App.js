@@ -10,10 +10,10 @@ import AgentServiceProviderDashboard from './Components/Agent/ServiceProvider/Se
 import TenantDashboard from './Components/Tenant/UserDashboard/Tenant';
 // jomin-end
 
-import loading_blue from './images/loading_blue_64x64.gif' 
+import loading_blue from './images/loading_blue_64x64.gif'
 import Home from './Components/index/Home/Home'
 import Footer from './Components/index/footer/footer'
-import { Switch, Route,Redirect,withRouter } from 'react-router-dom'
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import Aboutus from './Components/index/AboutUs/aboutus'
 import Property from './Components/index/Property/property'
 import Blog from './Components/index/Blogs/Blogs'
@@ -47,97 +47,118 @@ import OwnerAgentprofile from './Components/Owner/Agent/ProfileDetails'
 import FooterOwner from './Components/Owner/Footer/Footer'
 import NoMatch from './Components/Owner/NoMatch'
 
-import {loadFile,removejscssfile} from './Components/js/external'
+import { loadFile, removejscssfile } from './Components/js/external'
 
 export default class App extends Component {
   constructor(props) {
-  super(props);
-  this.state = {
-    // location: '/index',
-    couter:0,
-    user:{
-      isLoggedIn:true
-    }
-  };
-  this.homePaths=["/","/Home","/index","/AboutUs","/aboutus","about","/property","/properties","/blog","/blog-detail","/plans","/contact","/contactus","/registration","/register","/property-detail","/register-plans","/reset-password","/privacy-policy","/terms-condition"]
-  this.FtrCheck=this.FtrCheck.bind(this)
-  this.LoggedIn=this.LoggedIn.bind(this)
-  this.updateProfileInfo=this.updateProfileInfo.bind(this)
-  this.logOut=this.logOut.bind(this)
-}
-logOut(){
-  this.setState({user:{isLoggedIn:false}})
-}
-updateProfileInfo(profile){
-this.setState({profile:profile})
-}
+    super(props);
+    this.state = {
+      // location: '/index',
+      couter: 0,
+      user: {
+        isLoggedIn: true
+      },
+      loading: false
+    };
+    this.homePaths = ["/", "/Home", "/index", "/AboutUs", "/aboutus", "about", "/property", "/properties", "/blog", "/blog-detail", "/plans", "/contact", "/contactus", "/registration", "/register", "/property-detail", "/register-plans", "/reset-password", "/privacy-policy", "/terms-condition"]
+    this.FtrCheck = this.FtrCheck.bind(this)
+    this.LoggedIn = this.LoggedIn.bind(this)
+    this.updateProfileInfo = this.updateProfileInfo.bind(this)
+    this.logOut = this.logOut.bind(this)
+  }
+  logOut() {
+    this.setState({ user: { isLoggedIn: false } })
+  }
+  updateProfileInfo(profile) {
+    this.setState({ profile: profile })
+  }
+  componentDidMount() {
+    setTimeout(() => this.setState({ loading: true }), 500); // simulates an async action, and hides the spinner
+  }
+  sleep(milliseconds) {
 
-componentWillMount(){
-  if(this.homePaths.indexOf(window.location.pathname) ===-1)
-    {
+    var start = new Date().getTime();
+    for (var i = 0; i < 1e7; i++) {
+      if ((new Date().getTime() - start) > milliseconds) {
+        this.setState({ loading: true }, () => {
+          alert(milliseconds)
+
+        })
+        break;
+
+      }
+    }
+  }
+
+  componentWillMount() {
+    if (window.location.pathname == "/agreement") {
+      // this.sleep(1000)
+      this.setState({ loading: true })
+    }
+    if (this.homePaths.indexOf(window.location.pathname) === -1) {
       this.addUserDashboardFiles()
-        // this.removeMain();
-        this.setState({couter:1})
-    }else{
+      // this.removeMain();
+      this.setState({ couter: 1 })
+    } else {
       this.addIndexHeaderFiles();
     }
-}
-addIndexHeaderFiles(){
-   // loadFile('assets/css/bootstrap.min.css','css')
-	loadFile('assets/css/main.css','css')
-    loadFile('assets/css/fonts.css','css')
-    loadFile('assets/css/comp-main.css','css')
-    loadFile('assets/css/custom-main.css','css')
-    loadFile('assets/css/plans1.css','css')
-    loadFile('assets/css/theme.css','css')
-    loadFile('assets/css/responsive_index.css','css')
-	
-}
-addUserDashboardFiles(){
-  loadFile('assets/css/bootstrap.min.css','css')
-  //loadFile('assets/css/main.css','css')
-  loadFile('assets/plugins/custombox/css/custombox.min.css','css')
-  loadFile('assets/plugins/jquery.filer/css/jquery.filer.css','css')
-  loadFile('assets/plugins/jquery.filer/css/themes/jquery.filer-dragdropbox-theme.css','css')
-  loadFile('assets/plugins/bootstrap-fileupload/bootstrap-fileupload.css','css')
-  loadFile('assets/plugins/datatables/dataTables.bootstrap4.min.css','css')
-  loadFile('assets/plugins/datatables/responsive.bootstrap4.min.css','css')
-  loadFile('assets/plugins/slick-slider/slick.css','css')
-  loadFile('assets/plugins/slick-slider/slick-theme.css','css')
-  loadFile('assets/css/icons.css','css')
-  loadFile('assets/css/style.css','css')
-  loadFile('assets/css/custom-style.css','css')
-    loadFile('assets/css/responsive.css','css')
-}
-FtrCheck(){
-      return <FooterOwner />
-}
+  }
+  addIndexHeaderFiles() {
+    // loadFile('assets/css/bootstrap.min.css','css')
+    loadFile('assets/css/main.css', 'css')
+    loadFile('assets/css/fonts.css', 'css')
+    loadFile('assets/css/comp-main.css', 'css')
+    loadFile('assets/css/custom-main.css', 'css')
+    loadFile('assets/css/plans1.css', 'css')
+    loadFile('assets/css/theme.css', 'css')
+    loadFile('assets/css/responsive_index.css', 'css')
 
-LoggedIn(userId){
-      fetch(`API_URL+assetsapi/profile/`+userId)
-        .then(res => res.json())
-        .then(
-          (result) => {
-            window.localStorage.setItem('firstName',result.profile.first_name)
-            window.localStorage.setItem('secondName',result.profile.last_name)
-            this.setState({
-              isLoaded: true,
-              profile: result.profile,
-              isLoggedIn:true
-            });
-            window.location.href='http://'+window.location.host+'/profile?Id='+userId
-            // this.props.history.push('/profile')
-          },
-          // Note: it's important to handle errors here
-          // instead of a catch() block so that we don't swallow
-          // exceptions from actual bugs in components.
-          (error) => {
-            this.setState({
-              isLoaded: true,
-              error
-            });
-          })
-}
+  }
+  addUserDashboardFiles() {
+    loadFile('assets/css/bootstrap.min.css', 'css')
+    //loadFile('assets/css/main.css','css')
+    loadFile('assets/plugins/custombox/css/custombox.min.css', 'css')
+    loadFile('assets/plugins/jquery.filer/css/jquery.filer.css', 'css')
+    loadFile('assets/plugins/jquery.filer/css/themes/jquery.filer-dragdropbox-theme.css', 'css')
+    loadFile('assets/plugins/bootstrap-fileupload/bootstrap-fileupload.css', 'css')
+    loadFile('assets/plugins/datatables/dataTables.bootstrap4.min.css', 'css')
+    loadFile('assets/plugins/datatables/responsive.bootstrap4.min.css', 'css')
+    loadFile('assets/plugins/slick-slider/slick.css', 'css')
+    loadFile('assets/plugins/slick-slider/slick-theme.css', 'css')
+    loadFile('assets/css/icons.css', 'css')
+    loadFile('assets/css/style.css', 'css')
+    loadFile('assets/css/custom-style.css', 'css')
+    loadFile('assets/css/responsive.css', 'css')
+  }
+  FtrCheck() {
+    return <FooterOwner />
+  }
+
+  LoggedIn(userId) {
+    fetch(`API_URL+assetsapi/profile/` + userId)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          window.localStorage.setItem('firstName', result.profile.first_name)
+          window.localStorage.setItem('secondName', result.profile.last_name)
+          this.setState({
+            isLoaded: true,
+            profile: result.profile,
+            isLoggedIn: true
+          });
+          window.location.href = 'http://' + window.location.host + '/profile?Id=' + userId
+          // this.props.history.push('/profile')
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        })
+  }
   render() {
     // if (this.state.isLoggedIn === true) {
     //   return <Redirect to={{
@@ -145,155 +166,156 @@ LoggedIn(userId){
     //     state: { user: this.state.profile }
     // }} />
     // }
-	// alert(this.state.user.isLoggedIn);
+    // alert(this.state.user.isLoggedIn);
     return (
-      <div className="">
-       <Switch>
-        <Route  path='/user' component={UserDashboard} />
-        <Route  path='/agent-broker' component={AgentBrokerDashboard} />
-        <Route  path='/agent-serviceprovider' component={AgentServiceProviderDashboard} />
-        <Route  path='/tenant' component={TenantDashboard} />
+      this.state.loading ?
+        <div className="">
+          <Switch>
+            <Route path='/user' component={UserDashboard} />
+            <Route path='/agent-broker' component={AgentBrokerDashboard} />
+            <Route path='/agent-serviceprovider' component={AgentServiceProviderDashboard} />
+            <Route path='/tenant' component={TenantDashboard} />
 
-        {/* Owner Dashboard */}
-        <Route  path='/profile' component={UserDashboard} />
-        <Route  path='/agreement' component={UserDashboard} />
-        <Route  path='/settings' component={UserDashboard} />
-        <Route  path='/my-property' component={UserDashboard} />
-		<Route  path='/add-property' component={UserDashboard} />
-		<Route  path='/edit-property' component={UserDashboard} />
-		<Route  path='/profile-detail' component={UserDashboard} />
-    <Route  path='/profile-details' component={UserDashboard} />
-    <Route  path='/owner-report' component={UserDashboard} />
-    <Route  path='/owner-report-table' component={UserDashboard} />
-        <Route  path='/owner-payment' component={UserDashboard} />
-        <Route  path='/service' component={UserDashboard} />
-        <Route  path='/owner-agent' component={UserDashboard} />
-        <Route  path='/owner-tenant' component={UserDashboard} />
-		 <Route  path='/owner-agent-profile' component={UserDashboard} />
-		 <Route exact path='/owner-notifications' component={UserDashboard} />
-		 <Route exact path='/owner-plan' component={UserDashboard} />
-        <Route exact path='/owner-upgrade' component={UserDashboard} />
-        <Route exact path='/social-login' component={UserDashboard} />
-		<Route exact path='/bgvpayment' component={UserDashboard} />
-        {/* Broker Dashboard */}
-		<Route  path='/broker-tenant' component={AgentBrokerDashboard} />
-        <Route  path='/broker-profile' component={AgentBrokerDashboard} />
-        <Route  path='/broker-agreement' component={AgentBrokerDashboard} />
-        <Route  path='/broker-settings' component={AgentBrokerDashboard} />
-        <Route  path='/broker-property' component={AgentBrokerDashboard} />
-        <Route  path='/broker-payment' component={AgentBrokerDashboard} />
-        <Route  path='/broker-service' component={AgentBrokerDashboard} />
-        <Route  path='/broker-owner' component={AgentBrokerDashboard} />
-        <Route  path='/broker-tenant' component={AgentBrokerDashboard} />
-		<Route  path='/broker-owner-profile' component={AgentBrokerDashboard} />
-        <Route  path='/broker-tenant-profile' component={AgentBrokerDashboard} />
-		<Route exact path='/broker-plan' component={AgentBrokerDashboard} />
-        <Route exact path='/broker-upgrade' component={AgentBrokerDashboard} />
-		<Route exact path='/broker-notifications' component={AgentBrokerDashboard} />
-		 <Route  path='/broker-report' component={AgentBrokerDashboard} />
-		<Route  path='/broker-report-table' component={AgentBrokerDashboard} />
-		<Route  path='/broker-owner-bgvpayment' component={AgentBrokerDashboard} />
+            {/* Owner Dashboard */}
+            <Route path='/profile' component={UserDashboard} />
+            <Route path='/agreement' component={UserDashboard} />
+            <Route path='/settings' component={UserDashboard} />
+            <Route path='/my-property' component={UserDashboard} />
+            <Route path='/add-property' component={UserDashboard} />
+            <Route path='/edit-property' component={UserDashboard} />
+            <Route path='/profile-detail' component={UserDashboard} />
+            <Route path='/profile-details' component={UserDashboard} />
+            <Route path='/owner-report' component={UserDashboard} />
+            <Route path='/owner-report-table' component={UserDashboard} />
+            <Route path='/owner-payment' component={UserDashboard} />
+            <Route path='/service' component={UserDashboard} />
+            <Route path='/owner-agent' component={UserDashboard} />
+            <Route path='/owner-tenant' component={UserDashboard} />
+            <Route path='/owner-agent-profile' component={UserDashboard} />
+            <Route exact path='/owner-notifications' component={UserDashboard} />
+            <Route exact path='/owner-plan' component={UserDashboard} />
+            <Route exact path='/owner-upgrade' component={UserDashboard} />
+            <Route exact path='/social-login' component={UserDashboard} />
+            <Route exact path='/bgvpayment' component={UserDashboard} />
+            {/* Broker Dashboard */}
+            <Route path='/broker-tenant' component={AgentBrokerDashboard} />
+            <Route path='/broker-profile' component={AgentBrokerDashboard} />
+            <Route path='/broker-agreement' component={AgentBrokerDashboard} />
+            <Route path='/broker-settings' component={AgentBrokerDashboard} />
+            <Route path='/broker-property' component={AgentBrokerDashboard} />
+            <Route path='/broker-payment' component={AgentBrokerDashboard} />
+            <Route path='/broker-service' component={AgentBrokerDashboard} />
+            <Route path='/broker-owner' component={AgentBrokerDashboard} />
+            <Route path='/broker-tenant' component={AgentBrokerDashboard} />
+            <Route path='/broker-owner-profile' component={AgentBrokerDashboard} />
+            <Route path='/broker-tenant-profile' component={AgentBrokerDashboard} />
+            <Route exact path='/broker-plan' component={AgentBrokerDashboard} />
+            <Route exact path='/broker-upgrade' component={AgentBrokerDashboard} />
+            <Route exact path='/broker-notifications' component={AgentBrokerDashboard} />
+            <Route path='/broker-report' component={AgentBrokerDashboard} />
+            <Route path='/broker-report-table' component={AgentBrokerDashboard} />
+            <Route path='/broker-owner-bgvpayment' component={AgentBrokerDashboard} />
 
-        {/* Service Provider Dashboard */}
-        <Route  path='/agent-serviceprovider' component={AgentServiceProviderDashboard} />
-        <Route  path='/agentprovider-services' component={AgentServiceProviderDashboard} />
-        <Route  path='/agentprovider-users' component={AgentServiceProviderDashboard} />
-        <Route  path='/agentprovider-settings' component={AgentServiceProviderDashboard} />
-      
-        {/* Tenant Dashboard */}
-        <Route  path='/tenant-profile' component={TenantDashboard} />
-        <Route  path='/tenant-agreement' component={TenantDashboard} />
-        <Route  path='/tenant-settings' component={TenantDashboard} />
-        <Route  path='/tenant-myproperty' component={TenantDashboard} />
-        <Route  path='/tenant-service' component={TenantDashboard} />
-        <Route  path='/tenant-owner' component={TenantDashboard} />
-        <Route  path='/tenant-agent' component={TenantDashboard} />
-		<Route  path='/tenant-owner-profile' component={TenantDashboard} />
-		<Route  path='/tenant-agent-profile' component={TenantDashboard} />
-		 <Route  path='/tenant-plan' component={TenantDashboard} />
-        <Route  path='/tenant-upgrade' component={TenantDashboard} />
-		<Route exact path='/tenant-notifications' component={TenantDashboard} />
-		 <Route  path='/tenant-report' component={TenantDashboard} />
-		<Route  path='/tenant-report-table' component={TenantDashboard} />
-    <Route  path='/tenant-deal-payment' component={TenantDashboard} />
+            {/* Service Provider Dashboard */}
+            <Route path='/agent-serviceprovider' component={AgentServiceProviderDashboard} />
+            <Route path='/agentprovider-services' component={AgentServiceProviderDashboard} />
+            <Route path='/agentprovider-users' component={AgentServiceProviderDashboard} />
+            <Route path='/agentprovider-settings' component={AgentServiceProviderDashboard} />
 
-        <Route  path='/' component={DashBoardIndex} />
-        <Route exact path='/plans' render={props=><Plans {...props} login={this.LoggedIn} />} />
-        <Route exact path='/' render={props=><Home {...props} login={this.LoggedIn} />} />
-        <Route exact path='/Home' render={props=><Home {...props} login={this.LoggedIn} />} />
-        <Route exact path='/index' render={props=><Home {...props} login={this.LoggedIn} />} />
-        {/* <Route exact path='/AboutUs' render={props=><Aboutus {...props} login={this.LoggedIn} />} /> */}
-        <Route exact path='/about' render={props=><Aboutus {...props} login={this.LoggedIn} />} />
-        <Route exact path='/property' render={props=><Property {...props} login={this.LoggedIn} />} />
-        {/* <Route exact path='/blog' render={props=><Blog {...props} login={this.LoggedIn} />} /> */}
-        <Route exact path='/blog-detail' render={props=><BlogDetails {...props} login={this.LoggedIn} />} />
+            {/* Tenant Dashboard */}
+            <Route path='/tenant-profile' component={TenantDashboard} />
+            <Route path='/tenant-agreement' component={TenantDashboard} />
+            <Route path='/tenant-settings' component={TenantDashboard} />
+            <Route path='/tenant-myproperty' component={TenantDashboard} />
+            <Route path='/tenant-service' component={TenantDashboard} />
+            <Route path='/tenant-owner' component={TenantDashboard} />
+            <Route path='/tenant-agent' component={TenantDashboard} />
+            <Route path='/tenant-owner-profile' component={TenantDashboard} />
+            <Route path='/tenant-agent-profile' component={TenantDashboard} />
+            <Route path='/tenant-plan' component={TenantDashboard} />
+            <Route path='/tenant-upgrade' component={TenantDashboard} />
+            <Route exact path='/tenant-notifications' component={TenantDashboard} />
+            <Route path='/tenant-report' component={TenantDashboard} />
+            <Route path='/tenant-report-table' component={TenantDashboard} />
+            <Route path='/tenant-deal-payment' component={TenantDashboard} />
 
-        {/* <Route exact path='/contact' render={props=><ContactUs {...props} login={this.LoggedIn} />} /> */}
-        <Route exact path='/registration' render={props=><Regisgtration {...props} login={this.LoggedIn} />} />
-        <Route exact path='/register-plans' render={props=><PlansReg {...props} login={this.LoggedIn} />} />
-		<Route exact path='/reset-password' render={props=><ResetPassword {...props} login={this.LoggedIn} />} />
-        <Route exact path='/privacy-policy' render={props=><PrivacyPlans {...props} login={this.LoggedIn} />} />
-        <Route exact path='/terms-condition' render={props=><TermsCondition {...props} login={this.LoggedIn} />} />
-      {/* TermsCondition */}
+            <Route path='/' component={DashBoardIndex} />
+            <Route exact path='/plans' render={props => <Plans {...props} login={this.LoggedIn} />} />
+            <Route exact path='/' render={props => <Home {...props} login={this.LoggedIn} />} />
+            <Route exact path='/Home' render={props => <Home {...props} login={this.LoggedIn} />} />
+            <Route exact path='/index' render={props => <Home {...props} login={this.LoggedIn} />} />
+            {/* <Route exact path='/AboutUs' render={props=><Aboutus {...props} login={this.LoggedIn} />} /> */}
+            <Route exact path='/about' render={props => <Aboutus {...props} login={this.LoggedIn} />} />
+            <Route exact path='/property' render={props => <Property {...props} login={this.LoggedIn} />} />
+            {/* <Route exact path='/blog' render={props=><Blog {...props} login={this.LoggedIn} />} /> */}
+            <Route exact path='/blog-detail' render={props => <BlogDetails {...props} login={this.LoggedIn} />} />
 
-          {/* //Owner */}
-        <Route exact path="/user" render={(props)=>(
-                  this.state.user.isLoggedIn?
-                  (<OwnerProfile {...props} logOut={this.logOut} updateInfo={this.updateProfileInfo} user={this.state.profile} />)
-                  :(<Redirect to="/" />))} />
-        {/* <Route exact path="/agreement" render={(props)=>(
+            {/* <Route exact path='/contact' render={props=><ContactUs {...props} login={this.LoggedIn} />} /> */}
+            <Route exact path='/registration' render={props => <Regisgtration {...props} login={this.LoggedIn} />} />
+            <Route exact path='/register-plans' render={props => <PlansReg {...props} login={this.LoggedIn} />} />
+            <Route exact path='/reset-password' render={props => <ResetPassword {...props} login={this.LoggedIn} />} />
+            <Route exact path='/privacy-policy' render={props => <PrivacyPlans {...props} login={this.LoggedIn} />} />
+            <Route exact path='/terms-condition' render={props => <TermsCondition {...props} login={this.LoggedIn} />} />
+            {/* TermsCondition */}
+
+            {/* //Owner */}
+            <Route exact path="/user" render={(props) => (
+              this.state.user.isLoggedIn ?
+                (<OwnerProfile {...props} logOut={this.logOut} updateInfo={this.updateProfileInfo} user={this.state.profile} />)
+                : (<Redirect to="/" />))} />
+            {/* <Route exact path="/agreement" render={(props)=>(
           this.state.user.isLoggedIn?
           (<OwnerAgreement owner_id={this.state.owner_id} updateInfo={this.updateProfileInfo} logOut={this.logOut} {...props} logoutLink={this.logoutLink} owner={this.state.profile} />)
           :(<Redirect to="/" />))} /> */}
-        <Route exact path="/planPayment" render={(props)=>(
-          this.state.user.isLoggedIn?
-          (<PlanPayment owner_id={this.state.owner_id} updateInfo={this.updateProfileInfo} logOut={this.logOut} {...props} logoutLink={this.logoutLink} owner={this.state.profile} />)
-          :(<Redirect to="/" />))} />
-          <Route exact path="/my-property" render={(props)=>(
-            this.state.user.isLoggedIn?
-            (<OwnerProperty owner_id={this.state.owner_id} {...props} logoutLink={this.logoutLink} owner={this.state.profile} />)
-            :(<Redirect to="/" />))} />
-          <Route exact path="/payment" render={(props)=>(
-            this.state.user.isLoggedIn?
-            (<OwnerPayment1 owner_id={this.state.owner_id} updateInfo={this.updateProfileInfo} {...props} logoutLink={this.logoutLink} owner={this.state.profile} />)
-            :(<Redirect to="/" />))} />
-          <Route exact path="/add-property" render={(props)=>(
-            this.state.user.isLoggedIn?
-            (<OwnerAddproperty owner_id={this.state.owner_id} {...props} logoutLink={this.logoutLink} owner={this.state.profile} />)
-            :(<Redirect to="/" />))} />
-			<Route exact path="/profile-details" render={(props)=>(
-            this.state.user.isLoggedIn?
-            (<OwnerTenantProfileDetails owner_id={this.state.owner_id} {...props} logoutLink={this.logoutLink} owner={this.state.profile} />)
-            :(<Redirect to="/" />))} />
-          <Route exact path="/settings" render={(props)=>(
-            this.state.user.isLoggedIn?
-            (<OwnerSettings owner_id={this.state.owner_id} {...props} logoutLink={this.logoutLink} owner={this.state.profile} />)
-            :(<Redirect to="/" />))} />
-          <Route exact path="/tenant" render={(props)=>(
-            this.state.user.isLoggedIn?
-            (<OwnerTenant owner_id={this.state.owner_id} {...props} logoutLink={this.logoutLink} owner={this.state.profile} />)
-            :(<Redirect to="/" />))} />
-			{/* <Route exact path="/tenant-profile" render={(props)=>(
+            <Route exact path="/planPayment" render={(props) => (
+              this.state.user.isLoggedIn ?
+                (<PlanPayment owner_id={this.state.owner_id} updateInfo={this.updateProfileInfo} logOut={this.logOut} {...props} logoutLink={this.logoutLink} owner={this.state.profile} />)
+                : (<Redirect to="/" />))} />
+            <Route exact path="/my-property" render={(props) => (
+              this.state.user.isLoggedIn ?
+                (<OwnerProperty owner_id={this.state.owner_id} {...props} logoutLink={this.logoutLink} owner={this.state.profile} />)
+                : (<Redirect to="/" />))} />
+            <Route exact path="/payment" render={(props) => (
+              this.state.user.isLoggedIn ?
+                (<OwnerPayment1 owner_id={this.state.owner_id} updateInfo={this.updateProfileInfo} {...props} logoutLink={this.logoutLink} owner={this.state.profile} />)
+                : (<Redirect to="/" />))} />
+            <Route exact path="/add-property" render={(props) => (
+              this.state.user.isLoggedIn ?
+                (<OwnerAddproperty owner_id={this.state.owner_id} {...props} logoutLink={this.logoutLink} owner={this.state.profile} />)
+                : (<Redirect to="/" />))} />
+            <Route exact path="/profile-details" render={(props) => (
+              this.state.user.isLoggedIn ?
+                (<OwnerTenantProfileDetails owner_id={this.state.owner_id} {...props} logoutLink={this.logoutLink} owner={this.state.profile} />)
+                : (<Redirect to="/" />))} />
+            <Route exact path="/settings" render={(props) => (
+              this.state.user.isLoggedIn ?
+                (<OwnerSettings owner_id={this.state.owner_id} {...props} logoutLink={this.logoutLink} owner={this.state.profile} />)
+                : (<Redirect to="/" />))} />
+            <Route exact path="/tenant" render={(props) => (
+              this.state.user.isLoggedIn ?
+                (<OwnerTenant owner_id={this.state.owner_id} {...props} logoutLink={this.logoutLink} owner={this.state.profile} />)
+                : (<Redirect to="/" />))} />
+            {/* <Route exact path="/tenant-profile" render={(props)=>(
             this.state.user.isLoggedIn?
             (<OwnerTenanprofilet owner_id={this.state.owner_id} {...props} logoutLink={this.logoutLink} owner={this.state.profile} />)
   :(<Redirect to="/" />))} /> */}
-          <Route exact path="/agent" render={(props)=>(
-            this.state.user.isLoggedIn?
-            (<OwnerAgent owner_id={this.state.owner_id} {...props} logoutLink={this.logoutLink} owner={this.state.profile} />)
-            :(<Redirect to="/" />))} />
-          <Route exact path="/owner-agent-profile" render={(props)=>(
-            this.state.user.isLoggedIn?
-            (<OwnerAgentprofile owner_id={this.state.owner_id} {...props} logoutLink={this.logoutLink} owner={this.state.profile} />)
-            :(<Redirect to="/" />))} />
-          <Route exact path="/service" render={(props)=>(
-            this.state.user.isLoggedIn?
-            (<OwnerService owner_id={this.state.owner_id} {...props} logoutLink={this.logoutLink} owner={this.state.profile} />)
-            :(<Redirect to="/" />))} />
-        <Route component={NoMatch} />
-        </Switch>
+            <Route exact path="/agent" render={(props) => (
+              this.state.user.isLoggedIn ?
+                (<OwnerAgent owner_id={this.state.owner_id} {...props} logoutLink={this.logoutLink} owner={this.state.profile} />)
+                : (<Redirect to="/" />))} />
+            <Route exact path="/owner-agent-profile" render={(props) => (
+              this.state.user.isLoggedIn ?
+                (<OwnerAgentprofile owner_id={this.state.owner_id} {...props} logoutLink={this.logoutLink} owner={this.state.profile} />)
+                : (<Redirect to="/" />))} />
+            <Route exact path="/service" render={(props) => (
+              this.state.user.isLoggedIn ?
+                (<OwnerService owner_id={this.state.owner_id} {...props} logoutLink={this.logoutLink} owner={this.state.profile} />)
+                : (<Redirect to="/" />))} />
+            <Route component={NoMatch} />
+          </Switch>
 
-       {/* {this.state.couter===0 ?  <Footer />: <FooterOwner />} */}
-      </div>
+          {/* {this.state.couter===0 ?  <Footer />: <FooterOwner />} */}
+        </div> : <h4 style={{ marginTop: '25%', marginLeft: '50%' }}>Loading...</h4>
     );
   }
 }

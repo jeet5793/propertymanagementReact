@@ -482,6 +482,16 @@ constructor(props) {
 			)
 		}
 	}
+	changeTabs(id) {
+        if (id == "agent-request") {
+            $("#joined").removeClass("active")
+
+        }
+        else {
+            $("#request").removeClass("active")
+           
+        }
+    }
     render(){
       // if(this.props.owner===undefined)
       //   window.location.href='http://'+window.location.host
@@ -506,20 +516,20 @@ constructor(props) {
         <div className="wrapper">
           <div className="container agentdis">
             <div className="page-title-box">
-              <div className="btn-group pull-right">
-                <ol className="breadcrumb hide-phone p-0 m-0">
-				<li><a href="#" data-toggle="modal" data-target="#send-email" className="btn waves-light waves-effect w-md btn-custom"><i className="fi-open"></i>&nbsp;&nbsp;Send Email</a></li>
-                  <li><a href="#" data-toggle="modal" data-target="#send-invite" className="btn waves-light waves-effect w-md btn-custom"><i className="fi-open" />&nbsp;&nbsp;Send Invite</a></li>
-                </ol>
-              </div>
-              <h4 className="page-title">Agents</h4>
-            </div>
+                    <div className="pull-right  my-proprty">
+                      <a href="#" data-toggle="modal" data-target="#send-email" className="btn waves-light waves-effect w-md btn-custom m-r-10"><i className="fi-open"></i>&nbsp;&nbsp;Send Email</a>
+                        <a href="#" data-toggle="modal" data-target="#send-invite" className="btn waves-light waves-effect w-md btn-custom"><i className="fi-open"></i>&nbsp;&nbsp;Send Invite</a>
+                   
+                    </div>
+					
+                    <h4 className="page-title">Agents</h4>
+                  </div>
             {/* end page title end breadcrumb */} 
             {/* end row */}
             <div className="search-result-box card-box">
               <ul className="nav nav-tabs tabs-bordered">
-                <li className="nav-item"> <a href="#joined-agent" data-toggle="tab" aria-expanded="true" className="nav-link font-16 active">Joined Agents <span className="badge badge-success m-l-10">{joinedUserList.length}</span> </a> </li>
-                        <li className="nav-item"> <a href="#agent-request" data-toggle="tab" aria-expanded="false" className="nav-link font-16">Agent Requested <span className="badge badge-danger m-l-10">{requestedUserList.length}</span> </a> </li>
+                <li className="nav-item"> <a href="#joined-agent" data-toggle="tab" onClick={this.changeTabs.bind(this, "joined-agent")} id="joined" aria-expanded="true" className="nav-link font-16 active">Joined Agents <span className="badge badge-success m-l-10">{joinedUserList.length}</span> </a> </li>
+                        <li className="nav-item"> <a href="#agent-request" onClick={this.changeTabs.bind(this, "agent-request")} id="request" data-toggle="tab" aria-expanded="false" className="nav-link font-16">Agent Requested <span className="badge badge-danger m-l-10">{requestedUserList.length}</span> </a> </li>
               </ul>
               <div className="tab-content">
                 <div className="tab-pane active" id="joined-agent">

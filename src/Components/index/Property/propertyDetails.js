@@ -241,25 +241,39 @@ export default class PropertyDetails extends React.Component{
               
               {/*<!-- Tab details -->*/}
               <div role="tabpanel" className="tab-pane fade" id="details">
+                <div className="col-md-12">
                 <div className="row">
 				 <div className="col-md-4 col-sm-4 cbp-l-project-details-list">
                     <p className="tz-property-detail"> Price:&nbsp; <strong> ${proppertydetails.total_amount} </strong> </p>
-                    <p className="tz-property-detail"> Area:&nbsp; <strong> {proppertydetails.square_feet}&nbsp; </strong> </p>
-                    <p className="tz-property-detail"> Type:&nbsp; <strong> {proppertydetails.property_type} </strong> </p>
-                    <p className="tz-property-detail"> Bedrooms:&nbsp; <strong>  {proppertydetails.bedroom} </strong> </p>
-                    <p className="tz-property-detail"> Bathrooms:&nbsp; <strong>  {proppertydetails.bathroom} </strong> </p>
-                    <p className="tz-property-detail"> Status:&nbsp; <strong>  {proppertydetails.property_status} </strong> </p>
+                    
+                    
+                    
+                    
+                    
+                  </div>
+				  <div className="col-md-4 col-sm-4 cbp-l-project-details-list">
+				  <p className="tz-property-detail"> Area:&nbsp; <strong> {proppertydetails.square_feet}&nbsp; </strong> </p>
+				  </div>
+				  <div className="col-md-4 col-sm-4 cbp-l-project-details-list">
+				  <p className="tz-property-detail"> Type:&nbsp; <strong> {proppertydetails.property_type} </strong> </p>
+                  </div>
+				  <div className="col-md-4 col-sm-4 cbp-l-project-details-list"><p className="tz-property-detail"> Bedrooms:&nbsp; <strong>  {proppertydetails.bedroom} </strong> </p></div>
+				  <div className="col-md-4 col-sm-4 cbp-l-project-details-list"><p className="tz-property-detail"> Bathrooms:&nbsp; <strong>  {proppertydetails.bathroom} </strong> </p></div>
+				  <div className="col-md-4 col-sm-4 cbp-l-project-details-list"><p className="tz-property-detail"> Status:&nbsp; <strong>  {proppertydetails.property_status} </strong> </p></div>
+				  
                   </div>
                 </div>
               </div>
               
               {/*<!-- Tab location -->*/}
-              <div role="tabpanel" className="tab-pane fade" id="location">
+              <div role="tabpanel" className="tab-pane fade" id="location"> 
+			  <div className="col-md-12">
                 <div className="cbp-2-project-desc">
                   <div className="cbp-l-project-desc-text">
-                      <iframe style={{width:'270%',height:'auto'}} src={proppertydetails.geo_location} allowfullscreen></iframe>
+                      <iframe style={{width:'100%',height:'auto'}} src={proppertydetails.geo_location} allowfullscreen></iframe>
                     
                   </div>
+                </div>
                 </div>
               </div>
             </div>

@@ -470,6 +470,16 @@ class TenantOwner extends React.Component {
 		}
 	)
 	}
+	changeTabs(id) {
+        if (id == "owner-request") {
+            $("#joined").removeClass("active")
+
+        }
+        else {
+            $("#request").removeClass("active")
+           
+        }
+    }
     render() {
 		const { value, suggestions,selectedOption,property_list,autocompleteData } = this.state;
 			// Autosuggest will pass through all these props to the input.
@@ -491,20 +501,19 @@ class TenantOwner extends React.Component {
     <div className="wrapper">
         <div className="container agentdis">
         <div className="page-title-box">
-            <div className="btn-group pull-right">
-            <ol className="breadcrumb hide-phone p-0 m-0">
-				<li><a href="#" data-toggle="modal" data-target="#send-email" className="btn waves-light waves-effect w-md btn-custom"><i className="fi-open"></i>&nbsp;&nbsp;Send Email</a></li>
-                <li><a href="#" data-toggle="modal" data-target="#send-invite" className="btn waves-light waves-effect w-md btn-custom"><i className="fi-open" />&nbsp;&nbsp;Send Invite</a></li>
-            </ol>
-            </div>
-            <h4 className="page-title">Owners</h4>
-        </div>
+            <div className="pull-right  my-proprty">
+		<a href="#" data-toggle="modal" data-target="#send-email" className="btn waves-light waves-effect w-md btn-custom m-r-10"><i className="fi-open"></i>&nbsp;&nbsp;Send Email</a>
+        <a href="#" data-toggle="modal" data-target="#send-invite" className="btn waves-light waves-effect w-md btn-custom"><i className="fi-open"></i>&nbsp;&nbsp;Send Invite</a>
+       
+      </div>
+      <h4 className="page-title">Owner</h4>
+    </div>
         {/* end page title end breadcrumb */} 
         {/* end row */}
         <div className="search-result-box card-box">
             <ul className="nav nav-tabs tabs-bordered">
-            <li className="nav-item"> <a href="#joined-owner" data-toggle="tab" aria-expanded="true" className="nav-link active font-16">Joined Owners <span className="badge badge-success m-l-10">{joinedUserList.length}</span> </a> </li>
-            <li className="nav-item"> <a href="#owner-request" data-toggle="tab" aria-expanded="false" className="nav-link font-16">Owner Requested <span className="badge badge-danger m-l-10">{requestedUserList.length}</span> </a> </li>
+            <li className="nav-item"> <a href="#joined-owner" data-toggle="tab" onClick={this.changeTabs.bind(this, "joined-owner")} id="joined" aria-expanded="true" className="nav-link active font-16">Joined Owners <span className="badge badge-success m-l-10">{joinedUserList.length}</span> </a> </li>
+            <li className="nav-item"> <a href="#owner-request" data-toggle="tab" onClick={this.changeTabs.bind(this, "owner-request")} id="request" aria-expanded="false" className="nav-link font-16">Owner Requested <span className="badge badge-danger m-l-10">{requestedUserList.length}</span> </a> </li>
             </ul>
             <div className="tab-content">
             <div className="tab-pane active" id="joined-owner">
@@ -535,14 +544,15 @@ class TenantOwner extends React.Component {
                 </div>
                 
                 {/* end row */}
-                <Pagination
+                {joinedUserList.length>0?
+			<Pagination
                   activePage={this.state.activePageJoined}
                   itemsCountPerPage={this.state.itemsCountPerPageJoined}
                   totalItemsCount={joinedUserList.length}
                   pageRangeDisplayed={5}
                   activeLinkClass={'btn-success'}
                   onChange={this.handlePageChangeJoinedList}
-              />
+				/>:'No Owner Joined'}
              {/*<ul className="pagination justify-content-end pagination-split mt-0">
               <li className="page-item"> <a className="page-link" href="#" aria-label="Previous"> <span aria-hidden="true">«</span> <span className="sr-only">Previous</span> </a> </li>
               <li className="page-item"><a className="page-link" href="#">1</a></li>
@@ -583,6 +593,7 @@ class TenantOwner extends React.Component {
                
           
                 </div>
+			{requestedUserList.length>0?
                 <Pagination
                   activePage={this.state.activePageReq}
                   itemsCountPerPage={this.state.itemsCountPerPageReq}
@@ -590,7 +601,7 @@ class TenantOwner extends React.Component {
                   pageRangeDisplayed={5}
                   activeLinkClass={'btn-success'}
                   onChange={this.handlePageChangeRequestedList}
-              />
+			/>:'No Owner Requested'}
             {/* <ul className="pagination justify-content-end pagination-split mt-0">
               <li className="page-item"> <a className="page-link" href="#" aria-label="Previous"> <span aria-hidden="true">«</span> <span className="sr-only">Previous</span> </a> </li>
               <li className="page-item"><a className="page-link" href="#">1</a></li>

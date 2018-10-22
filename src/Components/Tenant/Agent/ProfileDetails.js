@@ -190,6 +190,16 @@ class ProfileDetails extends React.Component{
 			)
 		}
 	}
+	changeTabs(id) {
+        if (id == "reviews") {
+            $("#aboutTab").removeClass("active")
+
+        }
+        else {
+            $("#reviewsTab").removeClass("active")
+           
+        }
+    }
     render(){
         // if(this.props.owner===undefined)
         // window.location.href='http://'+window.location.host
@@ -256,9 +266,9 @@ class ProfileDetails extends React.Component{
                             </div>	
                             <hr />
                             <ul className="nav nav-tabs tabs-bordered">
-								<li className="nav-item"> <a href="#about" data-toggle="tab" aria-expanded="true" className="nav-link font-16 active">About  </a> </li>
+								<li className="nav-item"> <a href="#about" data-toggle="tab" onClick={this.changeTabs.bind(this, "about")} id="aboutTab" aria-expanded="true" className="nav-link font-16 active">About  </a> </li>
 								
-								<li className="nav-item"> <a href="#reviews" data-toggle="tab" aria-expanded="false" className="nav-link font-16">Reviews  </a> </li>
+								<li className="nav-item"> <a href="#reviews" data-toggle="tab" onClick={this.changeTabs.bind(this, "reviews")} id="reviewsTab" aria-expanded="false" className="nav-link font-16">Reviews  </a> </li>
                             </ul>
 							
 							<div className="tab-content">

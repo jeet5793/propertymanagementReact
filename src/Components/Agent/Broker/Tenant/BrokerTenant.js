@@ -458,6 +458,16 @@ class BrokerTenant extends React.Component{
 			)
 		}
 	}
+	changeTabs(id) {
+        if (id == "tenant-request") {
+            $("#joined").removeClass("active")
+
+        }
+        else {
+            $("#request").removeClass("active")
+           
+        }
+    }
     render(){
 		const { value, suggestions,selectedOption,property_list,autocompleteData } = this.state;
 			// Autosuggest will pass through all these props to the input.
@@ -492,8 +502,8 @@ class BrokerTenant extends React.Component{
             {/* end row */}
             <div className="search-result-box card-box">
               <ul className="nav nav-tabs tabs-bordered">
-                <li className="nav-item"> <a href="#joined-tenant" data-toggle="tab" aria-expanded="true" className="nav-link active font-16">Joined Tenants <span className="badge badge-success m-l-10">{joinedUserList.length}</span> </a> </li>
-                <li className="nav-item"> <a href="#tenant-request" data-toggle="tab" aria-expanded="false" className="nav-link font-16">Tenant Requested <span className="badge badge-danger m-l-10">{requestedUserList.length}</span> </a> </li>
+                <li className="nav-item"> <a href="#joined-tenant" data-toggle="tab" aria-expanded="true" onClick={this.changeTabs.bind(this, "joined-tenant")} id="joined" className="nav-link active font-16">Joined Tenants <span className="badge badge-success m-l-10">{joinedUserList.length}</span> </a> </li>
+                <li className="nav-item"> <a href="#tenant-request" data-toggle="tab" onClick={this.changeTabs.bind(this, "tenant-request")} id="request" aria-expanded="false" className="nav-link font-16">Tenant Requested <span className="badge badge-danger m-l-10">{requestedUserList.length}</span> </a> </li>
               </ul>
               <div className="tab-content">
                 <div className="tab-pane active" id="joined-tenant">
@@ -524,14 +534,15 @@ class BrokerTenant extends React.Component{
                   </div>
                    
                   {/* end row */}
-                  <Pagination
-                  activePage={this.state.activePageJoined}
-                  itemsCountPerPage={this.state.itemsCountPerPageJoined}
-                  totalItemsCount={joinedUserList.length}
-                  pageRangeDisplayed={5}
-                  activeLinkClass={'btn-success'}
-                  onChange={this.handlePageChangeJoinedList}
-              />
+                   {(joinedUserList.length>0)?
+                          <Pagination
+                              activePage={this.state.activePageJoined}
+                              itemsCountPerPage={this.state.itemsCountPerPageJoined}
+                              totalItemsCount={joinedUserList.length}
+                              pageRangeDisplayed={5}
+                              activeLinkClass={'btn-success'}
+                              onChange={this.handlePageChangeJoinedList}
+                          />:'No Tenant Joined'}
              {/*<ul className="pagination justify-content-end pagination-split mt-0">
               <li className="page-item"> <a className="page-link" href="#" aria-label="Previous"> <span aria-hidden="true">«</span> <span className="sr-only">Previous</span> </a> </li>
               <li className="page-item"><a className="page-link" href="#">1</a></li>
@@ -572,14 +583,17 @@ class BrokerTenant extends React.Component{
                     
                     
                   </div>
-                  <Pagination
-                  activePage={this.state.activePageReq}
-                  itemsCountPerPage={this.state.itemsCountPerPageReq}
-                  totalItemsCount={requestedUserList.length}
-                  pageRangeDisplayed={5}
-                  activeLinkClass={'btn-success'}
-                  onChange={this.handlePageChangeRequestedList}
-              />
+                  {(requestedUserList.length>0)?
+                          <Pagination
+                                activePage={this.state.activePageReq}
+                                itemsCountPerPage={this.state.itemsCountPerPageReq}
+                                totalItemsCount={requestedUserList.length}
+                                pageRangeDisplayed={5}
+                                activeLinkClass={'btn-success'}
+                                onChange={this.handlePageChangeRequestedList}
+
+                            />:'No Tenant Requested'}
+
                 </div>
                 {/* end Users tab */} 
               </div>
