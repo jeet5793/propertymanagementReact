@@ -120,38 +120,38 @@ export default class ContactForm extends React.Component {
             </div>
             <div className="tz-contactform row">
               <div className="col-md-6"> <span className="wpcf7-form-control-wrap your-name">
-			  <span className="required"/><span style={{color: "red"}}>{this.state.errors["name"]}</span>
-                <input type="text" name="name" value={this.state.name} onChange={this.onChangeHandler} placeholder="Enter your name" size="40" className="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" />
+			 <span style={{color: "red"}}>{this.state.errors["name"]}</span>
+                <input type="text" name="name" value={this.state.name} onChange={this.onChangeHandler} placeholder="Enter your name*" size="40" className="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" />
 				
                           
               </span> </div>
               <div className="col-md-6"> <span className="wpcf7-form-control-wrap your-mail">
-			  <span className="required"/>
+			 
 			  <span style={{color: "red"}}>{this.state.errors["email"]}</span>
-                <input type="text" name="email" value={this.state.email} onChange={this.onChangeHandler} placeholder="Enter your mail" size="40" className="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" />
+                <input type="text" name="email" value={this.state.email} onChange={this.onChangeHandler} placeholder="Enter your mail*" size="40" className="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" />
 				
                           
               </span> </div>
 			  <div className="col-md-6"> <span className="wpcf7-form-control-wrap phone">
-			  <span className="required"/><span style={{color: "red"}}>{this.state.errors["phone"]}</span>
-                <input type="text" name="phone" value={this.state.phone} onChange={this.onChangeHandler} placeholder="Phone" size="40" className="wpcf7-form-control wpcf7-text" aria-invalid="false" />
+			 <span style={{color: "red"}}>{this.state.errors["phone"]}</span>
+                <input type="text" name="phone" value={this.state.phone} onChange={this.onChangeHandler} placeholder="Phone*" size="40" className="wpcf7-form-control wpcf7-text" aria-invalid="false" />
               </span> </div>
 			   <div className="col-md-6"> <span className="">
-			   <span className="required"/><span style={{color: "red"}}>{this.state.errors["contactfor"]}</span>
-                <select className="form-control" name="contactfor" onChange={this.onChangeHandler}>
-					<option>Select Contact For</option>
+			  <span style={{color: "red"}}>{this.state.errors["contactfor"]}</span>
+                <select className="form-control" name="contactfor"  placeholder="Select Contact For*"onChange={this.onChangeHandler}>
+					<option>Select Contact For*</option>
 					<option value="Feedback">Feedback</option>
 					<option value="Others">Others</option>
 				</select>
               </span> </div>
               <div className="col-md-12"> <span className="wpcf7-form-control-wrap subject">
-			  <span className="required"/><span style={{color: "red"}}>{this.state.errors["subject"]}</span>
-                <input type="text" name="subject" value={this.state.subject} onChange={this.onChangeHandler} placeholder="Subject" size="40" className="wpcf7-form-control wpcf7-text" aria-invalid="false" />
+			 <span style={{color: "red"}}>{this.state.errors["subject"]}</span>
+                <input type="text" name="subject" value={this.state.subject} onChange={this.onChangeHandler} placeholder="Subject*" size="40" className="wpcf7-form-control wpcf7-text" aria-invalid="false" />
               </span> </div>
               
               <div className="col-md-12"> <span className="wpcf7-form-control-wrap your-message">
-			  <span className="required"/><span style={{color: "red"}}>{this.state.errors["message"]}</span>
-                <textarea name="message" value={this.state.message} onChange={this.onChangeHandler} cols="40" rows="10" className="wpcf7-form-control wpcf7-textarea" aria-invalid="false" placeholder="Message"></textarea>
+			 <span style={{color: "red"}}>{this.state.errors["message"]}</span>
+                <textarea name="message" value={this.state.message} onChange={this.onChangeHandler} cols="40" rows="10" className="wpcf7-form-control wpcf7-textarea" aria-invalid="false" placeholder="Message*"></textarea>
               </span> </div>
               <div className="tz-submit col-md-12">
                 <input onClick={this.submitContactUsFor} type="button" value="SUBMIT MESSAGE" className="wpcf7-form-control wpcf7-submit" />

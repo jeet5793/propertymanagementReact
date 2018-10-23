@@ -154,9 +154,32 @@ class AddProperty extends React.Component {
         formData.zip_code = e.target.value
       else if (e.target.name == "property_type")
         formData.property_type = e.target.value
-      else if (e.target.name == "property_status")
-        formData.property_status = e.target.value
-      else if (e.target.name == "description")
+      else if (e.target.name == "property_status"){
+		  // formData.property_status = e.target.value
+		  if(e.target.value==="Rent"){
+				$('#rent').show();
+				$('#advance').show();
+				$('#total_amount').hide();
+		  }else if(e.target.value==="Sale"){
+				$('#total_amount').show();
+				$('#advance').show();
+				$('#rent').hide();
+		  }else if(e.target.value==="Rented"){
+				$('#rent').show();
+				$('#advance').show();
+				$('#total_amount').hide();
+		  }else if(e.target.value==="Sold"){
+				$('#total_amount').show();
+				$('#advance').show();
+				$('#rent').hide();
+		  }else if(e.target.value==="Private"){
+			   $('#total_amount').show();
+				$('#rent').show();
+				$('#advance').show();
+		  }
+		  formData.property_status = e.target.value
+	  }
+       else if (e.target.name == "description")
         formData.description = e.target.value
       else if (e.target.name == "geo_location")
         formData.geo_location = e.target.value
@@ -170,6 +193,8 @@ class AddProperty extends React.Component {
         formData.bathroom = e.target.value
       else if (e.target.name == "total_amount")
         formData.total_amount = e.target.value
+	else if (e.target.name == "rent")
+        formData.rent = e.target.value
       else if (e.target.name == "advance")
         formData.advance = e.target.value
       else if (e.target.name === 'owner_name' + count) {
@@ -468,12 +493,18 @@ class AddProperty extends React.Component {
                         </div>
                       </div>
                       <div className="form-group row">
-                        <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">Total Amount</label>
-                        <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl">
+                       
+                        <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl" id="total_amount" style={{display:'none'}}>
+							<label className="col-lg-2 col-md-3 col-sm-3 col-form-label required" id="to" >Total Amount</label>
                           <input type="text" className="form-control" name="total_amount" onChange={this.onChangeHandler} />
                         </div>
-                        <label className="col-lg-2 col-md-3 col-sm-3 col-form-label">Advance</label>
-                        <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl">
+						<div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl" id="rent" style={{display:'none'}}>
+							<label className="col-lg-2 col-md-3 col-sm-3 col-form-label required"  >Rent</label>
+                          <input type="text" className="form-control" name="rent" onChange={this.onChangeHandler} />
+                        </div>
+                        
+                        <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl" id="advance" style={{display:'none'}} >
+						<label className="col-lg-2 col-md-3 col-sm-3 col-form-label" >Advance</label>
                           <input type="text" className="form-control" name="advance" onChange={this.onChangeHandler} />
                         </div>
                       </div>

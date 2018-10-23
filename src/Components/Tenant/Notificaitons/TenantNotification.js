@@ -81,7 +81,7 @@ class TenantNotification extends React.Component {
 			}).then((response) => {
 			  return response.json();
 			}).then((data) => {
-			  console.log('dataaaa:  ', data);
+			  // console.log('dataaaa:  ', data);
 			  if(data)
 			  {
 					$("#loaderDiv").hide();

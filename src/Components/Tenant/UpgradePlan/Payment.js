@@ -112,7 +112,7 @@ class Payment extends React.Component {
 
   paymentPage(event) {
   event.preventDefault();
-  	console.log(this.state);
+  	// console.log(this.state);
   var payment_Object={
     "userid":this.state.userDetails.user_id,
     "tokenizedaccountnumber":this.state.tokenizedaccountnumber,
@@ -130,7 +130,7 @@ class Payment extends React.Component {
     "profileid": null,
     "orderid":this.state.userDetails.orderid
   }
-  console.log(payment_Object);
+  // console.log(payment_Object);
     fetch(`${API_URL}assetsapi/upgpaymentgateway`,{
       method: 'post',
       //headers: {'Content-Type':'application/json'},
@@ -173,7 +173,7 @@ class Payment extends React.Component {
 	  // this.props.history.replace('/owner-plan');
   }
 	render(){  
-	console.log(this.props.history);
+	// console.log(this.props.history);
     if(this.state.userDetails){
       var user = this.state.userDetails
     }

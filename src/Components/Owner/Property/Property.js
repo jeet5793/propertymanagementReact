@@ -161,7 +161,7 @@ class Property extends React.Component{
     }
 	editProperty(property) {
         this.setState({editProperty: property}, () => {
-            console.log('editProperty ', property)
+            // console.log('editProperty ', property)
             Cookies.set("editProperty",property);
             this.props.history.push("/edit-property")
             

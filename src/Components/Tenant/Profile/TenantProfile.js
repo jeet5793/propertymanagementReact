@@ -98,7 +98,7 @@ class TenantProfile extends React.Component{
          // console.log("data 2: "+this.state.contactlist)
         } 
         // console.log("set user data"+JSON.stringify(this.state.profileData))
-		  console.log("set user data"+JSON.stringify(this.state.contactlist))
+		  // console.log("set user data"+JSON.stringify(this.state.contactlist))
         },
       (error) => {
         console.log('error')

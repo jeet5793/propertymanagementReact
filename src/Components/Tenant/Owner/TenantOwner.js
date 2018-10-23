@@ -110,7 +110,7 @@ class TenantOwner extends React.Component {
 	 };
 
 	 getSuggestionValue(suggestion) {
-		console.log("onSuggestionSelected",suggestion)
+		// console.log("onSuggestionSelected",suggestion)
 		 this.setState({
 			 searchValue: suggestion.label,
 			 receive_user_id: suggestion.value
@@ -129,7 +129,7 @@ class TenantOwner extends React.Component {
 	 }
 
 	 onChange = (event, { newValue }) => {
-	console.log("onChange ",newValue)
+	// console.log("onChange ",newValue)
 		 this.setState({
 			 value: newValue
 		 },()=>{
@@ -149,7 +149,7 @@ class TenantOwner extends React.Component {
 	};
 
 	onSuggestionsClearRequested = () => {
-		console.log("onSuggestionsClearRequested ")
+		// console.log("onSuggestionsClearRequested ")
 		this.setState({
 			suggestions: []
 		});
@@ -157,9 +157,9 @@ class TenantOwner extends React.Component {
 	searchUser() {
 		var searchValue = $('.react-autosuggest__input').val()
 		const session = JSON.parse(this.state.userData).session_id;  
-		console.log("selVal"+searchValue);
+		// console.log("selVal"+searchValue);
 		const opts ={assets_type:1,keyword:searchValue,session_id:session}
-		console.log("optsssss1111"+JSON.stringify(opts));
+		// console.log("optsssss1111"+JSON.stringify(opts));
 		fetch(`${API_URL}assetsapi/user_search`, {
 			method: 'POST',
 		body: JSON.stringify(opts)
@@ -167,10 +167,10 @@ class TenantOwner extends React.Component {
 		.then(res => res.json())
 		.then(
 			(result) => {
-			console.log("data22222: "+JSON.stringify(result))
+			// console.log("data22222: "+JSON.stringify(result))
 			if (result.success) {
 			
-				console.log("ifffff: "+JSON.stringify(result))
+				// console.log("ifffff: "+JSON.stringify(result))
 						this.setState({propertyByUser:result.search_userlist},()=>{
 							this.setState({
 								suggestions: this.getSuggestions()
@@ -178,7 +178,7 @@ class TenantOwner extends React.Component {
 						})
 					
 			} else{
-				console.log("elseee"+JSON.stringify(result))
+				// console.log("elseee"+JSON.stringify(result))
 				this.setState({propertyByUser:[{"value":"","label":"No Results Found"}]},()=>{
 					this.setState({
 						suggestions: this.getSuggestions()
@@ -219,7 +219,7 @@ class TenantOwner extends React.Component {
 		 let _this = this;
 
        const opts ={assets_type:1,keyword:selVal,session_id:session}
-	   console.log(opts);
+	   // console.log(opts);
 		fetch(`${API_URL}assetsapi/user_search`, {
 			  method: 'POST',
 			body: JSON.stringify(opts)
@@ -400,7 +400,7 @@ class TenantOwner extends React.Component {
         }).then((response) => {
           return response.json();
         }).then((data) => {
-          console.log('dataaaa:  ', data);
+          // console.log('dataaaa:  ', data);
           if(data.msg.indexOf("Invitation Accepted successfully")!=-1)
           {
            swal("Assets Watch", data.msg);
@@ -444,7 +444,7 @@ class TenantOwner extends React.Component {
 		sendFrm.sender=JSON.parse(this.state.userData).assets_id
 		sendFrm.session_id=JSON.parse(this.state.userData).session_id
 		this.setState({sendForm:sendFrm})
-		console.log(this.state.sendForm);
+		// console.log(this.state.sendForm);
 	}
 	sendMessage(){
 		const opts = this.state.sendForm
@@ -463,7 +463,7 @@ class TenantOwner extends React.Component {
 			m.style.display='none';
           
         } 
-        console.log("notification"+JSON.stringify(this.state.sendForm))
+        // console.log("notification"+JSON.stringify(this.state.sendForm))
       },
 		(error) => {
 		  console.log('error')

@@ -102,7 +102,7 @@ import $ from 'jquery';
 			profileForm.profile_photo = result;
 			};
 			reader.onerror = () => {
-				console.log('image read error')
+				// console.log('image read error')
 			};
 			// reader.readAsBinaryString(file);
 			 reader.readAsDataURL(file);

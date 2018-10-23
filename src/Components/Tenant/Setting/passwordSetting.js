@@ -41,12 +41,12 @@ import $ from 'jquery';
 		settingForm.session_id= JSON.parse(this.state.userData).session_id;
       this.setState({settings:settingForm})
       // this.setState({[e.target.name]:e.target.value})   
- console.log(this.state.settings);	  
+ // console.log(this.state.settings);	  
   }
   formSubmit(){
       var opts=this.state.settings
 
-      console.log(opts.chekname);
+      // console.log(opts.chekname);
      
       if(!opts.old_password){
         alert('Old Password should not be blank');
@@ -76,7 +76,7 @@ import $ from 'jquery';
         }).then((response) => {
           return response.json();
         }).then((data) => {
-          console.log('dataaaa:  ', data);
+          // console.log('dataaaa:  ', data);
           if(data)
           {
 				// swal("Assets Watch", data.msg);

@@ -48,6 +48,7 @@ class EditProperty extends React.Component {
         "bedroom": "",
         "bathroom": "",
         "total_amount": "",
+		"rent":"",
         "advance": "",
         "owner_details": [],
         "img_path": [],
@@ -76,7 +77,7 @@ class EditProperty extends React.Component {
       const propertyDetails = JSON.parse(this.state.propertyInfo)
       // console.log("receeeeeived123456..."+ JSON.stringify(propertyDetails))
       this.setState({
-        formData: { property_id: propertyDetails.id, title: propertyDetails.title, address: propertyDetails.address, address2: propertyDetails.address2, country: propertyDetails.country, state: propertyDetails.state, city: propertyDetails.city, zip_code: propertyDetails.zip_code, property_type: propertyDetails.property_type, property_status: propertyDetails.property_status, geo_location: propertyDetails.geo_location, square_feet: propertyDetails.square_feet, agent_perc: propertyDetails.agent_perc, description: propertyDetails.description, bedroom: propertyDetails.bedroom, bathroom: propertyDetails.bathroom, total_amount: propertyDetails.total_amount, advance: propertyDetails.advance, advance: propertyDetails.advance }, base64images: propertyDetails.img_path, shareholders: propertyDetails.owner_details
+        formData: { property_id: propertyDetails.id, title: propertyDetails.title, address: propertyDetails.address, address2: propertyDetails.address2, country: propertyDetails.country, state: propertyDetails.state, city: propertyDetails.city, zip_code: propertyDetails.zip_code, property_type: propertyDetails.property_type, property_status: propertyDetails.property_status, geo_location: propertyDetails.geo_location, square_feet: propertyDetails.square_feet, agent_perc: propertyDetails.agent_perc, description: propertyDetails.description, bedroom: propertyDetails.bedroom, bathroom: propertyDetails.bathroom, total_amount: propertyDetails.total_amount,rent: propertyDetails.rent, advance: propertyDetails.advance, advance: propertyDetails.advance }, base64images: propertyDetails.img_path, shareholders: propertyDetails.owner_details
       }, () => {
         this.stateLists(propertyDetails.country);
         this.cityList(propertyDetails.state);
@@ -185,7 +186,26 @@ class EditProperty extends React.Component {
       else if (e.target.name == "property_type")
         formData.property_type = e.target.value
       else if (e.target.name == "property_status")
+	  {
+		   if(e.target.value==="Rent"){
+				$('#rent').show();
+				$('#total_amount').hide();
+		  }else if(e.target.value==="Sale"){
+				$('#total_amount').show();
+				$('#rent').hide();
+		  }else if(e.target.value==="Rented"){
+				$('#rent').show();
+				$('#total_amount').hide();
+		  }else if(e.target.value==="Sold"){
+				$('#total_amount').show();
+				$('#rent').hide();
+		  }else if(e.target.value==="Private"){
+			   $('#total_amount').show();
+				$('#rent').show();
+				
+		  }
         formData.property_status = e.target.value
+	  }
       else if (e.target.name == "description")
         formData.description = e.target.value
       else if (e.target.name == "geo_location")
@@ -518,12 +538,20 @@ class EditProperty extends React.Component {
                         </div>
                       </div>
                       <div className="form-group row">
-                        <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">Total Amount</label>
-                        <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl">
+					  {editPropertyInfo.property_status==="Sale" || editPropertyInfo.property_status==="Sold" || editPropertyInfo.property_status==="Private"? 
+                        <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl" id="total_amount">
+						<label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">Total Amount</label>
                           <input value={editPropertyInfo.total_amount} type="text" className="form-control" name="total_amount" onChange={this.onChangeHandler} />
-                        </div>
-                        <label className="col-lg-2 col-md-3 col-sm-3 col-form-label">Advance</label>
+                        </div>:''
+					  }
+					   {editPropertyInfo.property_status==="Rent" || editPropertyInfo.property_status==="Rented" || editPropertyInfo.property_status==="Private"? 
+						<div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl" id="rent">
+						<label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">Rent</label>
+                          <input value={editPropertyInfo.rent} type="text" className="form-control" name="rent" onChange={this.onChangeHandler} />
+                        </div>:''
+                       }
                         <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl">
+						 <label className="col-lg-2 col-md-3 col-sm-3 col-form-label">Advance</label>
                           <input value={editPropertyInfo.advance} type="text" className="form-control" name="advance" onChange={this.onChangeHandler} />
                         </div>
                       </div>

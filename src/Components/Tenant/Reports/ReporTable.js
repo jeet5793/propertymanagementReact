@@ -12,9 +12,12 @@ const TableReprt=(props)=>{
     // debugger;
     var expens=0;
    for(var i=0;i<props.report.length;i++){
-       expens=Number(expens)+Number(props.report[i].transactionamount)
+	    // console.log('transactionamount '+ JSON.stringify(props.report[i].transactionamount));
+
+	    expens = expens + props.report[i].transactionamount.toLocaleString(navigator.language, { minimumFractionDigits: 2 });
+	   
    }
-   console.log(props);
+   // console.log(props);
     return(
         <div>
         
@@ -33,8 +36,8 @@ const TableReprt=(props)=>{
                       </thead>
 					{ props.report?
                       <tbody>
-						{props.report.map(element=><tr>
-						  <td></td>
+						{props.report.map((element,index)=><tr>
+						  <td>{index + 1}</td>
                           <td className="tbl-text-overflow">{element.title}</td>
                           <td>{element.transactiondate}</td>
                           <td></td>
@@ -104,7 +107,7 @@ const FilterCriteria=(props)=>{
 					<select name="property_id" className="form-control" id="paymentmode" onChange={props.change}>
 					  <option>All</option>
 					  {props.property.map(element=>(
-						  <option value={element.id}>{element.title}</option>
+						  <option value={element.property_id}>{element.property_name}</option>
 					  ))}
 					</select>
 				  </div>
@@ -208,20 +211,20 @@ export default class ReportTable extends React.Component{
         }).then(res=>res.json())
         .then((data)=>{
             // debugger;
-            console.log(data)
+            // console.log(data)
             if(data.success){
                 this.setState({reports:data.report})
             }
         })}        
         else if(this.state.formType==='?Transaction'){
-			console.log('Transaction'+JSON.stringify(formData))
+			// console.log('Transaction'+JSON.stringify(formData))
             fetch(`${API_URL}assetsapi/transaction_report`,{
                 method:'post',
                 body: JSON.stringify(formData)
             }).then(res=>res.json())
             .then((data)=>{
                 // debugger;
-                console.log(data)
+                // console.log(data)
                 if(data.success){
                     this.setState({reports:data.report})
                 }
@@ -234,7 +237,7 @@ export default class ReportTable extends React.Component{
             }).then(res=>res.json())
             .then((data)=>{
                 // debugger;
-                console.log(data)
+                // console.log(data)
                 if(data.success){
                     this.setState({reports:data.report})
                 }
@@ -275,7 +278,7 @@ export default class ReportTable extends React.Component{
     }
     loadPropertyList(){
         // debugger;
-		fetch(`${API_URL}assetsapi/property_by/${JSON.parse(this.state.userData).assets_id}/${JSON.parse(this.state.userData).session_id}`, {
+		fetch(`${API_URL}assetsapi/service_request/${JSON.parse(this.state.userData).assets_id}/${JSON.parse(this.state.userData).session_id}`, {
 		  method: 'get'
 		})
 		.then(res => res.json())
@@ -284,7 +287,7 @@ export default class ReportTable extends React.Component{
             //console.log("data 2: "+JSON.stringify(result.profile))
             debugger;
 			if (data.success) {
-			  this.setState({property:data.property})
+			  this.setState({property:data.service.property_list})
 			  //console.log(this.state.statics);
 			} 
 			//console.log("set user data"+JSON.stringify(this.state.profileData))
@@ -333,7 +336,7 @@ export default class ReportTable extends React.Component{
           this.setState({createForm:ReportTable})
           // else
           // this.setState({createForm1:ReportTable})
-	  console.log(this.state.createForm);
+	  // console.log(this.state.createForm);
       }
 	  handleChange(date) {
     this.setState({

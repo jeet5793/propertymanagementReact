@@ -112,8 +112,15 @@ class Payment extends React.Component {
  */
   paymentPage(event) {
   event.preventDefault();
-  	console.log(this.state);
+  	// console.log(this.state);
 	var dealData = this.props.location.state;
+	if(dealData.paidFor==='Rent')
+	{
+		var transAmount = dealData.rent;
+	}else{
+		var transAmount = dealData.total_amount;
+	}
+	
   var payment_Object={
     "tokenizedaccountnumber":this.state.tokenizedaccountnumber,
     "paymentmode": "card",
@@ -121,7 +128,7 @@ class Payment extends React.Component {
     "cvv": this.state.cvv,
     "routingnumber": null,
     "surchargeamount": null,
-    "transactionamount":dealData.rent,
+    "transactionamount":transAmount,
     "currency": "USD",
     "transactionreference": null,
     "payeeid": dealData.userId,
@@ -131,6 +138,7 @@ class Payment extends React.Component {
     "orderid":'',
 	"deal_id":dealData.deal_id,
 	"paid_for":dealData.paidFor,
+	"property_id":dealData.property_id
   }
   $("#loaderDiv").show();
   // console.log(payment_Object);
@@ -167,7 +175,7 @@ class Payment extends React.Component {
 	  // this.props.history.replace('/owner-plan');
   }
 	render(){  
-	console.log(this.props.history);
+	// console.log(this.props.history);
     if(this.state.userDetails){
       var user = this.state.userDetails
     }
@@ -205,7 +213,7 @@ class Payment extends React.Component {
                              </div>
                              <div className="col-md-5 text-right">
                                <h5>Total Amount</h5>
-                               <h5>$ {dealData.rent}</h5>
+                               <h5>$ {dealData.paidFor==='Rent'?dealData.rent:dealData.total_amount}</h5>
                              </div>
                            </div>
                          </div>
@@ -292,7 +300,7 @@ class Payment extends React.Component {
                  </div>
                </div>
                <div className="col-md-12 text-center">
-                 <li className="list-inline-item"> <button type="button" onClick = {this.onClickReturn} className="btn btn-warning waves-effect w-md waves-light"><i className="dripicons-home" /> Back to Home</button></li>
+                 <li className="list-inline-item"> <button type="button" onClick = {this.onClickReturn} className="btn btn-warning waves-effect w-md waves-light"><i className="dripicons-home" /> Back</button></li>
                </div>
              </div>
              {/* end row */}
