@@ -333,7 +333,7 @@ export default class container extends React.Component{
 
     editAgreement(agreement) {
        this.setState({editAgreement: agreement}, () => {
-           console.log('editAgreement ', agreement)
+           // console.log('editAgreement ', agreement)
            $('#create')[0].click();
        })
     }

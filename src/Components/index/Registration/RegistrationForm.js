@@ -89,7 +89,7 @@ export default class RegistrationForm extends React.Component {
     //http://ec2-18-191-70-215.us-east-2.compute.amazonaws.com/assetsapi/register/
     var opts = this.state.Registeration;
     opts.assets_type = this.state.RegType;
-    console.log(opts.chekname);
+    // console.log(opts.chekname);
     if (opts.assets_type === "2") {
       if (!opts.agent_type) {
         alert("Must select the Agent type");
@@ -157,7 +157,7 @@ export default class RegistrationForm extends React.Component {
           return response.json();
         })
         .then((data) => {
-          console.log('dataaaa:  ', data);
+          // console.log('dataaaa:  ', data);
           if(data){
             var userid = data.user.assets_id
             localStorage.setItem('userid',userid)
@@ -257,7 +257,7 @@ export default class RegistrationForm extends React.Component {
                     id="ownerid"
                     value="1"
                   />
-                  <label HTMLFor="ownerid"> Owner </label>
+                  <label htmlFor="ownerid"> Owner </label>
                 </div>
               </div>
 
@@ -270,7 +270,7 @@ export default class RegistrationForm extends React.Component {
                     id="agentid"
                     value="2"
                   />
-                  <label HTMLFor="agentid"> Agent </label>
+                  <label htmlFor="agentid"> Agent </label>
                 </div>
               </div>
 
@@ -283,7 +283,7 @@ export default class RegistrationForm extends React.Component {
                     value="3"
                     onChange={this.handleChange}
                   />
-                  <label HTMLFor="tenantid"> Tenant </label>
+                  <label htmlFor="tenantid"> Tenant </label>
                 </div>
               </div>
             </div>
@@ -297,7 +297,7 @@ export default class RegistrationForm extends React.Component {
                 className="form-control form-control-solid placeholder-no-fix"
                 name="agent_type"
                 onChange={this.onChangeHandler}
-                id=""
+                id="agent_type"
               >
                 <option>Select</option>
                 <option value="1">Service provider</option>
@@ -348,7 +348,7 @@ export default class RegistrationForm extends React.Component {
                   </div>
                   <div className="radio radio-custom">
                     <input type="radio" id="tenant" value="tenant" name="regTye" />
-                    <label HTMLFor="tenant"> Tenant </label>
+                    <label htmlFor="tenant"> Tenant </label>
           </div>
 
           </div>*/}
@@ -358,11 +358,11 @@ export default class RegistrationForm extends React.Component {
             <input
               className="form-control form-control-solid placeholder-no-fix"
               type="text"
-              autocomplete="off"
+              autoComplete="off"
               placeholder="First Name"
               onChange={this.onChangeHandler}
               name="first_name"
-              id=""
+              id="first_name"
             />
           </div>
         </div>
@@ -372,10 +372,10 @@ export default class RegistrationForm extends React.Component {
             <input
               className="form-control form-control-solid placeholder-no-fix"
               type="text"
-              autocomplete="off"
+              autoComplete="off"
               placeholder="Last Name"
               name="last_name"
-              id=""
+              id="last_name"
               onChange={this.onChangeHandler}
             />
           </div>
@@ -386,10 +386,10 @@ export default class RegistrationForm extends React.Component {
             <input
               className="form-control form-control-solid placeholder-no-fix"
               type="text"
-              autocomplete="off"
+              autoComplete="off"
               placeholder="Email"
               name="email"
-              id=""
+              
               onChange={this.onChangeHandler}
             />
           </div>
@@ -407,7 +407,7 @@ export default class RegistrationForm extends React.Component {
                     onChange={this.onChangeHandler}
                     value={1}
                   />
-                  <label HTMLFor="radioind"> Individual </label>
+                  <label htmlFor="radioind"> Individual </label>
                 </div>
               </div>
               <div className="col-md-6 col-sm-6">
@@ -420,7 +420,7 @@ export default class RegistrationForm extends React.Component {
                     onChange={this.onChangeHandler}
                     value={0}
                   />
-                  <label HTMLFor="radioorg"> Organization </label>
+                  <label htmlFor="radioorg"> Organization </label>
                 </div>
               </div>
             </div>
@@ -432,11 +432,11 @@ export default class RegistrationForm extends React.Component {
               <input
                 className="form-control form-control-solid placeholder-no-fix"
                 type="text"
-                autocomplete="off"
+                autoComplete="off"
                 placeholder="Company Name"
                 name="company_name"
                 onChange={this.onChangeHandler}
-                id=""
+                id="company_name"
               />
             </div>
           </div>
@@ -445,11 +445,11 @@ export default class RegistrationForm extends React.Component {
               <input
                 className="form-control form-control-solid placeholder-no-fix"
                 type="text"
-                autocomplete="off"
+                autoComplete="off"
                 placeholder="Website URL"
                 name="website_url"
                 onChange={this.onChangeHandler}
-                id=""
+                id="website_url"
               />
             </div>
           </div>
@@ -460,11 +460,11 @@ export default class RegistrationForm extends React.Component {
             <input
               className="form-control form-control-solid placeholder-no-fix"
               type="password"
-              autocomplete="off"
+              autoComplete="off"
               onChange={this.onChangeHandler}
               placeholder="Password"
               name="password"
-              id=""
+              
             />
           </div>
         </div>
@@ -474,11 +474,11 @@ export default class RegistrationForm extends React.Component {
             <input
               className="form-control form-control-solid placeholder-no-fix"
               type="password"
-              autocomplete="off"
+              autoComplete="off"
               onChange={this.onChangeHandler}
               placeholder="Confirm Password"
               name="cnfPass"
-              id=""
+              id="cnfPass"
             />
           </div>
         </div>
@@ -493,10 +493,8 @@ export default class RegistrationForm extends React.Component {
             id="countrySelect"
           >
             <option>Select Country</option>
-            {this.state.countries.map((option, key) => (
-              <option key={key.id} value={option.name}>
-                {option.name}
-              </option>
+            {this.state.countries.map((option, index) => (
+              <option key={index} value={option.name}>{option.name}</option>
             ))}
           </select>
         </div>
@@ -511,8 +509,8 @@ export default class RegistrationForm extends React.Component {
               id="stateSelect"
             >
               <option>Select State</option>
-              {this.state.states?this.state.states.map((option, key) => (
-                <option key={key.id} value={option.name}>
+              {this.state.states?this.state.states.map((option, index) => (
+                <option key={index} value={option.name}>
                   {option.name}
                 </option>
               )):''}
@@ -543,11 +541,11 @@ export default class RegistrationForm extends React.Component {
             <input
               className="form-control form-control-solid placeholder-no-fix"
               type="text"
-              autocomplete="off"
+              autoComplete="off"
               onChange={this.onChangeHandler}
               placeholder="ZIP Code"
               name="zip_code"
-              id=""
+              id="zip_code"
             />
           </div>
         </div>
@@ -557,12 +555,12 @@ export default class RegistrationForm extends React.Component {
             <input
               className="form-control form-control-solid placeholder-no-fix"
               type="text"
-              autocomplete="off"
+              autoComplete="off"
               placeholder="Mobile"
               onChange={this.onChangeHandler}
               name="mobile_no"
               value={this.state.Registeration.mobile_no}
-              id=""
+              id="mobile_no"
             />
           </div>
         </div>
@@ -571,11 +569,11 @@ export default class RegistrationForm extends React.Component {
             <input
               className="form-control form-control-solid placeholder-no-fix"
               type="text"
-              autocomplete="off"
+              autoComplete="off"
               placeholder="Landline"
               name="landline_no"
               value={this.state.Registeration.landline_no}
-              id=""
+              id="landline_no"
               onChange={this.onChangeHandler}
             />
           </div>
@@ -590,7 +588,7 @@ export default class RegistrationForm extends React.Component {
               onClick={this.onChangeHandler}
 			  required
             />
-            <label for="test2">
+            <label htmlFor="test2">
               I Agree to AssetsWatch Terms of use i would like to receive
               property relates communication through Email, call or SMS{" "}
             </label>

@@ -72,7 +72,7 @@ export default class SendMSG extends React.Component{
                     if (data.success) {
                         // debugger;
                         this.setState({propertyByUser: data.service.property_list})
-                        console.log('fjfg'+JSON.stringify(this.state.propertyByUser));
+                        // console.log('fjfg'+JSON.stringify(this.state.propertyByUser));
                     }
                     //console.log("set user data"+JSON.stringify(this.state.profileData))
                 },
@@ -180,7 +180,7 @@ document.getElementById("FormCancel").click();
 	 };
 
 	 getSuggestionValue(suggestion) {
-		console.log("onSuggestionSelected",suggestion)
+		// console.log("onSuggestionSelected",suggestion)
 		 this.setState({
 			 searchValue: suggestion.label,
 			 receive_user_id: suggestion.value
@@ -199,7 +199,7 @@ document.getElementById("FormCancel").click();
 	 }
 
 	 onChange = (event, { newValue }) => {
-	console.log("onChange ",newValue)
+	// console.log("onChange ",newValue)
 		 this.setState({
 			 value: newValue
 		 },()=>{
@@ -219,7 +219,7 @@ document.getElementById("FormCancel").click();
 	};
 
 	onSuggestionsClearRequested = () => {
-		console.log("onSuggestionsClearRequested ")
+		// console.log("onSuggestionsClearRequested ")
 		this.setState({
 			suggestions: []
 		});
@@ -228,9 +228,9 @@ document.getElementById("FormCancel").click();
 		var searchValue = $('.react-autosuggest__input').val();
 		var assetsType = $('#assets_type').val();
 		const session = JSON.parse(this.state.userData).session_id;  
-		console.log("selVal"+searchValue);
+		// console.log("selVal"+searchValue);
 		const opts ={assets_type:assetsType,string:searchValue,session_id:session,userid:JSON.parse(this.state.userData).assets_id}
-		console.log("optsssss1111"+JSON.stringify(opts));
+		// console.log("optsssss1111"+JSON.stringify(opts));
 		fetch(`${API_URL}assetsapi/userSearch`, {
 			method: 'POST',
 		body: JSON.stringify(opts)
@@ -238,10 +238,10 @@ document.getElementById("FormCancel").click();
 		.then(res => res.json())
 		.then(
 			(result) => {
-			console.log("data22222: "+JSON.stringify(result))
+			// console.log("data22222: "+JSON.stringify(result))
 			if (result.success) {
 			
-				console.log("ifffff: "+JSON.stringify(result))
+				// console.log("ifffff: "+JSON.stringify(result))
 						this.setState({propertyByUser:result.users},()=>{
 							this.setState({
 								suggestions: this.getSuggestions()
@@ -249,7 +249,7 @@ document.getElementById("FormCancel").click();
 						})
 					
 			} else{
-				console.log("elseee"+JSON.stringify(result))
+				// console.log("elseee"+JSON.stringify(result))
 				this.setState({propertyByUser:[{"value":"","label":"No Results Found"}]},()=>{
 					this.setState({
 						suggestions: this.getSuggestions()

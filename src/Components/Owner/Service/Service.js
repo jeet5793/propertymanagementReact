@@ -161,7 +161,7 @@ class Service extends React.Component {
                     //alert("data 2: "+JSON.stringify(result));
                     if (result.success) {
                         this.setState({ sendedList: result.service });
-                        console.log(this.state.sendedList)
+                        // console.log(this.state.sendedList)
 
                     }
                     // console.log("property_list"+JSON.stringify(this.state.property_list))
@@ -185,7 +185,7 @@ class Service extends React.Component {
                     //alert("data 2: "+JSON.stringify(result));
                     if (result.success) {
                         this.setState({ requestedList: result.service });
-                        console.log(this.state.requestedList)
+                        // console.log(this.state.requestedList)
 
                     }
                     // console.log("property_list"+JSON.stringify(this.state.property_list))
@@ -210,7 +210,7 @@ class Service extends React.Component {
                     //alert("data 2: "+JSON.stringify(result));
                     if (result.success) {
                         this.setState({ resolvedList: result.service });
-                        console.log(this.state.resolvedList)
+                        // console.log(this.state.resolvedList)
 
                     }
                     // console.log("property_list"+JSON.stringify(this.state.property_list))
@@ -238,7 +238,7 @@ class Service extends React.Component {
                     //alert("data 2: "+JSON.stringify(result));
                     if (result.success) {
                         this.setState({ serviceDetail: result.service });
-                        console.log(this.state.serviceDetail)
+                        // console.log(this.state.serviceDetail)
                         /*  const elmnt = document.getElementsByClassName("view-reslt");
                          alert(elmnt);
                          elmnt.style.display='block'; */

@@ -90,7 +90,7 @@ this.profile();
 				this.setState({profileData:result.profile})
 				
 			  } 
-			  console.log("profileData"+JSON.stringify(this.state.profileData))
+			  // console.log("profileData"+JSON.stringify(this.state.profileData))
 			},
 		  (error) => {
 			console.log('error')
@@ -137,7 +137,7 @@ this.profile();
 				if (result.success) {
 				   this.setState({notification:result.notification});
 				  } 
-				console.log(this.state.notification)
+				// console.log(this.state.notification)
 			  },
 			(error) => {
 			  console.log('error')
@@ -148,7 +148,7 @@ this.profile();
 	onClickSwitch(assetstype)
 	{
 		const opts = {email:JSON.parse(this.state.userData).email,assets_type:assetstype,password:this.state.userTypeList[0].password}
-		 console.log('swl'+JSON.stringify(opts))
+		 // console.log('swl'+JSON.stringify(opts))
 		fetch(`${API_URL}assetsapi/login`, {
 			  method: 'POST',
 			  body:JSON.stringify(opts)
@@ -170,7 +170,7 @@ this.profile();
 								 
 								//console.log("data 2: "+JSON.stringify(result))
 								if (result.success) {
-									console.log("3");
+									// console.log("3");
 								   // alert('profile:'+JSON.stringify(result.profile)+""+JSON.stringify(data.userdata.agentType));
 									localStorage.setItem('firstName',JSON.stringify(result.profile.first_name))
 									localStorage.setItem('lastName',JSON.stringify(result.profile.last_name))

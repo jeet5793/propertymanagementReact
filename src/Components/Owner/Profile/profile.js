@@ -290,7 +290,7 @@ class Profile extends React.Component {
                         </thead>
                         <tbody>
 						 {AgentList.map((item,key)=>(
-                          <tr key={item.name}>
+                          <tr key={item.profile_id}>
                             <td><img src={item.profile_photo!=''?API_URL+item.profile_photo:img_not_available} alt="contact-img" title="contact-img" className="rounded-circle thumb-sm" /></td>
                             <td><h5 className="m-b-0 m-t-0 font-600">{item.name}</h5></td>
                             <td><i className="mdi mdi-map-marker text-primary"></i> {item.country} </td>
@@ -319,7 +319,7 @@ class Profile extends React.Component {
                         </thead>
                         <tbody>
 						{TenantList.map((item,key)=>(
-                          <tr>
+                          <tr key={item.profile_id}>
                             <td><img src={item.profile_photo!=''?API_URL+item.profile_photo:img_not_available} alt="contact-img" title="contact-img" className="rounded-circle thumb-sm" /></td>
                             <td><h5 className="m-b-0 m-t-0 font-600">{item.name}</h5></td>
                             <td><i className="mdi mdi-map-marker text-primary"></i> {item.country}</td>

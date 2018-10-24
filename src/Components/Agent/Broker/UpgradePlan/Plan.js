@@ -96,7 +96,7 @@ unsubscribe()
     // var userid = localStorage.getItem('userid')
 		const profileDetail = JSON.parse(this.state.userData);
         const { planData } = this.state;
-        console.log("plan data"+JSON.stringify(planData));
+        // console.log("plan data"+JSON.stringify(planData));
         if(this.props.location.state!==undefined)
         {
         // const regPlans=this.props.location.state

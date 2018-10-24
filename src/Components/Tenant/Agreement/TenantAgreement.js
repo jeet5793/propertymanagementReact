@@ -99,7 +99,7 @@ export default class TenantAgreement extends React.Component {
   }
   componentDidMount() {
     $.getScript('assets/js/jquery.slimscroll.js', function () {
-       console.log('assets/js/jquery.slimscroll.js');
+       // console.log('assets/js/jquery.slimscroll.js');
     });
     this.getRequestedAgreement();
 	 this.getSendedAgreement();
@@ -132,7 +132,7 @@ export default class TenantAgreement extends React.Component {
                     //console.log("data 2: "+JSON.stringify(result.profile))
                     if (data.success) {
                         this.setState({requestedAgreement:data.requested_agreements, agrLoaded:true})
-                        console.log(this.state.requestedAgreement);
+                        // console.log(this.state.requestedAgreement);
 
                     }
                     //console.log("set user data"+JSON.stringify(this.state.profileData))
@@ -183,7 +183,7 @@ export default class TenantAgreement extends React.Component {
 					$("#loaderDiv").hide();
                     if (data.success) {
                         this.setState({executedAgreement:data.agreement_detail,agrLoaded:true})
-                        console.log(this.state.executedAgreement);
+                        // console.log(this.state.executedAgreement);
                     }
                     //console.log("set user data"+JSON.stringify(this.state.profileData))
                 },

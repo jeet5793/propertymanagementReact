@@ -77,7 +77,7 @@ export default class Agent extends React.Component{
 		 // console.log(this.state.bgForm);
 	 }
 	 onClickBGVFormSubmit(){
-		 console.log('opts'+JSON.stringify(this.state.bgForm))
+		 // console.log('opts'+JSON.stringify(this.state.bgForm))
 		 var opts = Object.assign(this.props.profileData,this.state.bgForm);
 		
 		 // this.props.history.push('/')

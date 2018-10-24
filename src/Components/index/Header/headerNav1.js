@@ -44,7 +44,7 @@ export default class Headernav extends React.Component{
                 $(".login-open").fadeToggle();
                 }
                 else{
-                console.log(data);
+                // console.log(data);
                 localStorage.setItem('myData', data);
                 sessionStorage.setItem('myData', data);
                 //window.location.pathname='/Owner'
@@ -118,7 +118,7 @@ export default class Headernav extends React.Component{
                     <input type="checkbox" name="one" id="one" />
                     <label className="remember" for="one">Remember me</label>
                     </div>
-                    <a className="button"> <span>Login</span> </a> <span>-or-</span> <a href="registration" className="button button-grey"> <span>Register</span> </a> <a href="#">Forgot password ?</a>
+                    <a className="button"> <span>Login</span> </a> <span>-or-</span> <a href="registration" className="button button-grey"> <span>Register</span> </a> <a href="">Forgot password ?</a>
                 </form>
                 <div className="login-with"> <span>Login With: </span> <a className="fb">
                  <i className="fa fa-facebook"></i></a> 

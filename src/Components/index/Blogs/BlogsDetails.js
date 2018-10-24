@@ -56,7 +56,7 @@ export default class BlogsDetails extends React.Component{
 		return(
 			<div className="mg-top-129">
 			{this.state.blog.map(blogData=>(				
-				<div>
+				<div key = {blogData.id}>
 					<div className="tz-Breadcrumb">
 						<div className="tzOverlayBreadcrumb">
 							<div className="container">

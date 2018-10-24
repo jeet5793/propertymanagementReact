@@ -24,7 +24,7 @@ $("#loaderDiv").show();
 			.then((response) => {
 				response.json().then((data) => {
 					$("#loaderDiv").hide();
-					console.log('planData:  ', data);
+					// console.log('planData:  ', data);
 					this.setState({ planData: data.plan });
 				})
 			});

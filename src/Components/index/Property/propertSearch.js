@@ -27,7 +27,7 @@ export default class PropertySearch extends React.Component{
       this.setState({[e.target.name]:e.target.value})
   }
   searchPropertys(){
-    console.log('nnooo', this.state);
+    // console.log('nnooo', this.state);
     var opts=this.state
        // if(this.state.property_status!=='')
     fetch(`${API_URL}assetsapi/property_search`, {
@@ -38,7 +38,7 @@ export default class PropertySearch extends React.Component{
     }).then(function(data) {
       if(data.success===1)
       {
-        console.log(data);
+        // console.log(data);
         // debugger;
 
         // this.props.updatePropertyGrid(data)
@@ -115,7 +115,7 @@ export default class PropertySearch extends React.Component{
               <div className="tz-property-author agent-list">
               {this.props.AgentList.map(owner=>(                  
 
-                      <div className="tz-author-item">
+                      <div className="tz-author-item" key={owner.agent_id}>
                     <div className="tz-thumbnail"> <a> 
                     <img src={owner.profile_photo?API_URL+owner.profile_photo:img_not_available} className="home-img wide tall top-agent" alt="" width="260" height="420" /> </a> </div>
                     <div className="tz-author-content">

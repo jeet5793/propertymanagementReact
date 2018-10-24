@@ -118,7 +118,7 @@ onHoverNoti()
 				this.setState({profileData:result.profile})
 				
 			  } 
-			  console.log("profileData"+JSON.stringify(this.state.profileData))
+			  // console.log("profileData"+JSON.stringify(this.state.profileData))
 			},
 		  (error) => {
 			console.log('error')
@@ -175,7 +175,7 @@ onHoverNoti()
 	onClickSwitch(assetstype)
 	{
 		const opts = {email:JSON.parse(this.state.userData).email,assets_type:assetstype,password:this.state.userTypeList[0].password}
-		 console.log('swl'+JSON.stringify(opts))
+		 // console.log('swl'+JSON.stringify(opts))
 		fetch(`${API_URL}assetsapi/login`, {
 			  method: 'POST',
 			  body:JSON.stringify(opts)
@@ -197,7 +197,7 @@ onHoverNoti()
 								 
 								//console.log("data 2: "+JSON.stringify(result))
 								if (result.success) {
-									console.log("3");
+									// console.log("3");
 								   // alert('profile:'+JSON.stringify(result.profile)+""+JSON.stringify(data.userdata.agentType));
 									localStorage.setItem('firstName',JSON.stringify(result.profile.first_name))
 									localStorage.setItem('lastName',JSON.stringify(result.profile.last_name))
@@ -290,7 +290,7 @@ onHoverNoti()
 							))}
                             
                             {/* All*/} 
-                             <a href="#" className="dropdown-item notify-item notify-all"> <Link to = {{pathname:'/owner-notifications'}}>View All</Link> </a> </div>
+                             <Link to = {{pathname:'/owner-notifications'}} className="dropdown-item notify-item notify-all">  View All</Link> </div>
                         </li>
                          <li className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle  waves-light nav-user" onClick = {this.profileToggle} data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img src={this.state.profileData.profile_photo!=''?API_URL+this.state.profileData.profile_photo:img_not_available} alt="user" className="rounded-circle" /><span className="profile-name">{this.state.profileData.first_name+" "+this.state.profileData.last_name}</span> </a>
                             <div className="dropdown-menu dropdown-menu-right profile-dropdown" aria-labelledby="Preview"> 
@@ -299,9 +299,9 @@ onHoverNoti()
                                 <h5 className="text-overflow"><small>Hi,{this.state.profileData.first_name}</small> </h5>
                             </div>
                             {/* item*/} 
-                            <a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-user" /> <Link to = {{pathname:'/profile'}}> <span>Profile</span></Link> </a> 
+							<Link to = {{pathname:'/profile'}} className="dropdown-item notify-item"> <i className="dripicons-user" />  <span>Profile</span></Link> 
                             {/* item*/} 
-                            <a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-gear" /> <Link to = {{pathname:'/settings'}}><span>Settings</span></Link> </a>
+                            <Link to = {{pathname:'/settings'}} className="dropdown-item notify-item"> <i className="dripicons-gear" /> <span>Settings</span></Link>
 							<hr/>													
 							{(this.state.userTypeList).length>0?<span className="dropdown-item notify-item">Switch To</span>:''}
 						{this.state.userTypeList?this.state.userTypeList.map((item)=>( 

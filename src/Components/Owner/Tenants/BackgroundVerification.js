@@ -36,7 +36,7 @@ export default class Agent extends React.Component{
 	}
 	handleDobChange(date) {
 		// alert(date)
-		console.log('DATE ', date);
+		// console.log('DATE ', date);
 		 this.setState({
 			bgForm:{DOB:date}
 		 });

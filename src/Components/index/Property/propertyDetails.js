@@ -132,110 +132,110 @@ export default class PropertyDetails extends React.Component{
       // const propertyDetail
     }
 		return(<div className="mg-top-129">
-			<div class="tz-Breadcrumb">
-    <div class="tzOverlayBreadcrumb">
-      <div class="container">
+			<div className="tz-Breadcrumb">
+    <div className="tzOverlayBreadcrumb">
+      <div className="container">
 	  
         <h1> {proppertydetails.title} </h1>
-        <div class="tz-breadcrumb-navxt"> </div>
+        <div className="tz-breadcrumb-navxt"> </div>
       </div>
-      {/*<!-- end class container -->*/}
+      {/*<!-- end className container -->*/}
     </div>
   </div>
-  {/*- end class tzbreadcrumb -->*/}
-  <div class="tz-post tz-property-single">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12 tz-has-sidebar">
-          <div class="tz-property-top">
-            <h1 class="cbp-l-project-title tz-property-title" > {proppertydetails.title} </h1>
-            <div class="tz-property-price"> ${proppertydetails.total_amount} </div>
-            <div class="tz-property-address"> <i class="icon-map-marker"></i> {proppertydetails.address}, {proppertydetails.city}, {proppertydetails.country} </div>
+  {/*- end className tzbreadcrumb -->*/}
+  <div className="tz-post tz-property-single">
+    <div className="container">
+      <div className="row">
+        <div className="col-lg-9 col-md-8 col-sm-8 col-xs-12 tz-has-sidebar">
+          <div className="tz-property-top">
+            <h1 className="cbp-l-project-title tz-property-title" > {proppertydetails.title} </h1>
+            <div className="tz-property-price"> ${proppertydetails.total_amount} </div>
+            <div className="tz-property-address"> <i className="icon-map-marker"></i> {proppertydetails.address}, {proppertydetails.city}, {proppertydetails.country} </div>
           </div>
-          <div class="tz-property-content">
-            <div class="tz-property-box tz-property-slider">
-              <div id="tz-img-single"  class="flexslider">
-                <ul class="slides">
-                {proppertydetails.img_path.map(imgs=>(
-                  <li class="tz-slider-for-item"> <img src={`${API_URL}`+imgs.img_path} alt="" /> </li>
+          <div className="tz-property-content">
+            <div className="tz-property-box tz-property-slider">
+              <div id="tz-img-single"  className="flexslider">
+                <ul className="slides">
+                {proppertydetails.img_path.map((imgs,index)=>(
+                  <li className="tz-slider-for-item" key={index}> <img src={`${API_URL}`+imgs.img_path} alt="" /> </li>
                   ))}
-                {/*}  <li class="tz-slider-for-item"> <img src={img1} alt="" /> </li>
-                  <li class="tz-slider-for-item"> <img src={img2} alt="" /> </li>
-                  <li class="tz-slider-for-item"> <img src={img3} alt="" /> </li>
-                  <li class="tz-slider-for-item"> <img src= {img4} alt="" /> </li>
-                  <li class="tz-slider-for-item"> <img src={img5} alt="" /> </li>
-                  <li class="tz-slider-for-item"> <img src={img6} alt="" /> </li>*/}
+                {/*}  <li className="tz-slider-for-item"> <img src={img1} alt="" /> </li>
+                  <li className="tz-slider-for-item"> <img src={img2} alt="" /> </li>
+                  <li className="tz-slider-for-item"> <img src={img3} alt="" /> </li>
+                  <li className="tz-slider-for-item"> <img src= {img4} alt="" /> </li>
+                  <li className="tz-slider-for-item"> <img src={img5} alt="" /> </li>
+                  <li className="tz-slider-for-item"> <img src={img6} alt="" /> </li>*/}
                 </ul>
               </div>
-              <div id="tz-img-thumbnail"  class="flexslider">
-                <ul class="slides">
-                {proppertydetails.img_path.map(imgs=>(
-                    <li class="tz-slider-item">
-                    <div class="border"></div>
+              <div id="tz-img-thumbnail"  className="flexslider">
+                <ul className="slides">
+                {proppertydetails.img_path.map((imgs,index)=>(
+                    <li className="tz-slider-item" key={index}>
+                    <div className="border"></div>
                     <img src={`${API_URL}`+imgs.img_path} alt="" /> </li>
                   ))}   
                 {/* 
-                   <li class="tz-slider-item">
-                    <div class="border"></div>
+                   <li className="tz-slider-item">
+                    <div className="border"></div>
                     <img src={img1} alt="" /> </li>
-                    <li class="tz-slider-item">
-                      <div class="border"></div>
+                    <li className="tz-slider-item">
+                      <div className="border"></div>
                       <img src={img2} alt="" /> </li>
-                    <li class="tz-slider-item">
-                      <div class="border"></div>
+                    <li className="tz-slider-item">
+                      <div className="border"></div>
                       <img src={img3} alt="" /> </li>
-                    <li class="tz-slider-item">
-                      <div class="border"></div>
+                    <li className="tz-slider-item">
+                      <div className="border"></div>
                       <img src={img4} alt="" /> </li>
-                    <li class="tz-slider-item">
-                      <div class="border"></div>
+                    <li className="tz-slider-item">
+                      <div className="border"></div>
                       <img src={img5} alt="" /> </li>
-                    <li class="tz-slider-item">
-                    <div class="border"></div>
+                    <li className="tz-slider-item">
+                    <div className="border"></div>
                     <img src={img6} alt="" /> </li>
                 */}
                 </ul>
               </div>
             </div>
             {/*&<!-- Nav tabs -->*/}
-            <ul class="nav nav-tabs" role="tablist">
-              <li role="presentation" class="active"><a href="#description" aria-controls="description" role="tab" data-toggle="tab">Description</a></li>
+            <ul className="nav nav-tabs" role="tablist">
+              <li role="presentation" className="active"><a href="#description" aria-controls="description" role="tab" data-toggle="tab">Description</a></li>
               {/* <li role="presentation"><a href="#features" aria-controls="features" role="tab" data-toggle="tab">Features</a></li> */}
               <li role="presentation"><a href="#details" aria-controls="details" role="tab" data-toggle="tab">Details</a></li>
               <li role="presentation"><a href="#location" aria-controls="location" role="tab" data-toggle="tab">Location</a></li>
             </ul>
             
             {/*<!-- Tab panes content -->*/}
-            <div class="tab-content"> 
+            <div className="tab-content"> 
              {/*<!-- Tab description -->*/}
-              <div role="tabpanel" class="tab-pane fade in active" id="description">
+              <div role="tabpanel" className="tab-pane fade in active" id="description">
                 {/*<p>This owner built home was created to cater for every possible family need without quality compromise. Every living space has been designed to capture incredible uninterrupted views across Randwick golf course over Little Bay out to the ocean, while every lifestyle desire has been carefully catered for. Completed over three levels in solid full-brick construction with internal lift servicing all floors, the immaculate architecturally designed residence has left nothing to chance by utilising only the finest materials with premium finishes.</p>
                 <p>North facing to capture optimal light, the vast family room on the mid level has been completed with high ceilings, limestone tiled flooring and gas flame fireplace opening through concertina doors onto the expansive entertaining terrace which enjoys a pool aspect across the golf greens to the ocean. Indoor and outdoor functions on this level are easily supported from the designer gas kitchen with 60mm Caesarstone bench tops, quality Miele appliances including two dishwashers, and a walk-in preparation pantry with second sink. Stroll back past the guest powder room to the fully equipped and custom designed cinema room for the ultimate movie experience while an integrated Bose stereo system can deliver music throughout the entire residence.</p>*/}
                 <p>{proppertydetails.description}</p>
               </div>
               
               {/*<!-- Tab features -->*/}
-              <div role="tabpanel" class="tab-pane fade" id="features">
-                <div class="row tz-property-features">
-				{ /* <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i class="icon-check"> </i>Air Conditioning</a></div>
-                  <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i class="icon-check"> </i>Backyard</a></div>
-                  <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i class="icon-check"> </i>Balcony</a></div>
-                  <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i class="icon-check"> </i>Dryer</a></div>
-                  <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i class="icon-check"> </i>Electric Range</a></div>
-                  <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i class="icon-check"> </i>Fire Place</a></div>
-                  <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i class="icon-check"> </i>Fully Furnished</a></div>
-                  <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i class="icon-check"> </i>Gas Heat</a></div>
-                  <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i class="icon-check"> </i>Gym</a></div>
-                  <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i class="icon-check"> </i>Home Theater</a></div>
-                  <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i class="icon-check"> </i>Laundry Room</a></div>
-                  <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i class="icon-check"> </i>Ocean View</a></div>
-                  <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i class="icon-check"> </i>Pool</a></div>
-                  <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i class="icon-check"> </i>Recreation</a></div>
-                  <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i class="icon-check"> </i>Roof Deck</a></div>
-                  <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i class="icon-check"> </i>Storage</a></div>
-                  <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i class="icon-check"> </i>Swimming Pool</a></div>
-                  <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i class="icon-check"> </i>Washer</a></div>
-				<div class="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i class="icon-check"> </i>Wifi</a></div> */}
+              <div role="tabpanel" className="tab-pane fade" id="features">
+                <div className="row tz-property-features">
+				{ /* <div className="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i className="icon-check"> </i>Air Conditioning</a></div>
+                  <div className="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i className="icon-check"> </i>Backyard</a></div>
+                  <div className="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i className="icon-check"> </i>Balcony</a></div>
+                  <div className="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i className="icon-check"> </i>Dryer</a></div>
+                  <div className="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i className="icon-check"> </i>Electric Range</a></div>
+                  <div className="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i className="icon-check"> </i>Fire Place</a></div>
+                  <div className="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i className="icon-check"> </i>Fully Furnished</a></div>
+                  <div className="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i className="icon-check"> </i>Gas Heat</a></div>
+                  <div className="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i className="icon-check"> </i>Gym</a></div>
+                  <div className="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i className="icon-check"> </i>Home Theater</a></div>
+                  <div className="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i className="icon-check"> </i>Laundry Room</a></div>
+                  <div className="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i className="icon-check"> </i>Ocean View</a></div>
+                  <div className="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i className="icon-check"> </i>Pool</a></div>
+                  <div className="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i className="icon-check"> </i>Recreation</a></div>
+                  <div className="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i className="icon-check"> </i>Roof Deck</a></div>
+                  <div className="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i className="icon-check"> </i>Storage</a></div>
+                  <div className="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i className="icon-check"> </i>Swimming Pool</a></div>
+                  <div className="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i className="icon-check"> </i>Washer</a></div>
+				<div className="col-lg-3 col-md-4 col-sm-4 col-xs-6"><a ><i className="icon-check"> </i>Wifi</a></div> */}
                 </div>
               </div>
               
@@ -270,7 +270,7 @@ export default class PropertyDetails extends React.Component{
 			  <div className="col-md-12">
                 <div className="cbp-2-project-desc">
                   <div className="cbp-l-project-desc-text">
-                      <iframe style={{width:'100%',height:'auto'}} src={proppertydetails.geo_location} allowfullscreen></iframe>
+                      <iframe style={{width:'100%',height:'auto'}} src={proppertydetails.geo_location} allowFullScreen></iframe>
                     
                   </div>
                 </div>
@@ -278,33 +278,33 @@ export default class PropertyDetails extends React.Component{
               </div>
             </div>
           </div>
-		  {/*  <div class="tz-project-details">
+		  {/*  <div className="tz-project-details">
             {proppertydetails.owner_details.map(owner=>(
 
-              <div class="tz-property-box tz-property-author">
-                  <div class="tz-property-author-left"> 
-                      <a class="tz-property-thumbnail"> 
+              <div className="tz-property-box tz-property-author">
+                  <div className="tz-property-author-left"> 
+                      <a className="tz-property-thumbnail"> 
                        <img src={img10} alt=""/> 
                       </a> 
                   </div>
-                  <div class="tz-property-author-right">
-                    <div class="tz-property-author-title">
+                  <div className="tz-property-author-right">
+                    <div className="tz-property-author-title">
                       <h4> <a href={img10}>{owner.owner_name} </a> </h4>
                       <span>Owner Name</span>                  
-                      <div class="TzSocialLink">
-                       <a > <i class="fa fa-linkedin"></i> </a> 
-                       <a > <i class="fa fa-google-plus"></i> </a> 
-                       <a > <i class="fa fa-twitter"></i> </a> 
-                       <a > <i class="fa fa-facebook"></i> </a> 
+                      <div className="TzSocialLink">
+                       <a > <i className="fa fa-linkedin"></i> </a> 
+                       <a > <i className="fa fa-google-plus"></i> </a> 
+                       <a > <i className="fa fa-twitter"></i> </a> 
+                       <a > <i className="fa fa-facebook"></i> </a> 
                       </div>
                     </div>
-                    <div class="tz-property-author-content">
+                    <div className="tz-property-author-content">
                       <p>Praesent vehicula id neque in iaculis. Cras in malesuada tortor. Ut auctor magna nec augue semper, in laoreet metus maximus.&hellip;</p>
                     </div>
-                    <div class="tz-property-author-info">
-                     <span> <i class="icon-smartphone"></i>12345 67890 </span> 
-                     <span> <i class="icon-telephone2"></i> 0123-456-789 </span> 
-                     <span> <i class="icon-envelope-open"></i> Ownername@domain.com </span> 
+                    <div className="tz-property-author-info">
+                     <span> <i className="icon-smartphone"></i>12345 67890 </span> 
+                     <span> <i className="icon-telephone2"></i> 0123-456-789 </span> 
+                     <span> <i className="icon-envelope-open"></i> Ownername@domain.com </span> 
                     </div>
                   </div>
               </div>    

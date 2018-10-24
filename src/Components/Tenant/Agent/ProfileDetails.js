@@ -55,7 +55,7 @@ class ProfileDetails extends React.Component{
 		ratingFrm.agent_id=this.props.location.state.profileid;
 		
 		this.setState({ratingForm:ratingFrm})
-		console.log(this.state.ratingForm);
+		// console.log(this.state.ratingForm);
 	}
 	sendMessage(){
 		const opts = this.state.sendForm;
@@ -85,7 +85,7 @@ class ProfileDetails extends React.Component{
 					   $("#BlockUIConfirm").show();
 				  
 				} 
-				console.log("notification"+JSON.stringify(this.state.sendForm))
+				// console.log("notification"+JSON.stringify(this.state.sendForm))
 			  },
 				(error) => {
 				  console.log('error')
@@ -110,7 +110,7 @@ class ProfileDetails extends React.Component{
           this.setState({profileData:result.profile})
           
         } 
-        console.log("set user data"+JSON.stringify(this.state.profileData))
+        // console.log("set user data"+JSON.stringify(this.state.profileData))
       },
 		(error) => {
 		  console.log('error')

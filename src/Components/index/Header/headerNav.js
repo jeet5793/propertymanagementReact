@@ -209,7 +209,7 @@ class Headernav extends React.Component {
 									else if(UserAction==='Register'){
 										
 										var optsValue= data.userdata;
-										console.log(optsValue)
+										// console.log(optsValue)
 										fetch(`${API_URL}assetsapi/register/`, {
 										method: "post",
 										body: JSON.stringify(optsValue)
@@ -218,7 +218,7 @@ class Headernav extends React.Component {
 										  return response.json();
 										})
 										.then((res) => {
-										  console.log('dataaaa:  ', res);
+										  // console.log('dataaaa:  ', res);
 										  if(res){
 											var userid = res.user.assets_id
 											localStorage.setItem('userid',userid)
@@ -349,7 +349,7 @@ class Headernav extends React.Component {
 														  return response.json();
 														})
 														.then((res) => {
-														  console.log('dataaaa:  ', res);
+														  // console.log('dataaaa:  ', res);
 														  if(res){
 															var userid = res.user.assets_id
 															localStorage.setItem('userid',userid)
@@ -451,7 +451,7 @@ class Headernav extends React.Component {
 									}else if(UserAction==='Register'){
 										
 										var optsValue= data.userdata;
-										console.log(optsValue)
+										// console.log(optsValue)
 										fetch(`${API_URL}assetsapi/register/`, {
 										method: "post",
 										body: JSON.stringify(optsValue)
@@ -460,7 +460,7 @@ class Headernav extends React.Component {
 										  return response.json();
 										})
 										.then((res) => {
-										  console.log('dataaaa:  ', res);
+										  // console.log('dataaaa:  ', res);
 										  if(res){
 											var userid = res.user.assets_id
 											localStorage.setItem('userid',userid)
@@ -788,7 +788,7 @@ class Headernav extends React.Component {
 		  .then(
 			(result) => {
 			  
-			  console.log("data 2: "+JSON.stringify(result))
+			  // console.log("data 2: "+JSON.stringify(result))
 			  
 				this.setState({social_links:result.data});
 				
@@ -863,7 +863,7 @@ class Headernav extends React.Component {
   }
   checkUser(){
 	  var profileArr = Cookies.get("profile_data");
-		 console.log('profileArr'+profileArr);
+		 // console.log('profileArr'+profileArr);
 		if(profileArr){
 			if(profileArr.length>0){
 			// var profileImg = JSON.parse(profileArr).profile_photo; 
@@ -898,7 +898,7 @@ class Headernav extends React.Component {
   }
     profileDetail(){
 	  var profileArr = Cookies.get("profile_data");
-		 console.log('profileArr'+profileArr);
+		 // console.log('profileArr'+profileArr);
 		if(profileArr){
 			if(profileArr.length>0){
 			// var profileImg = JSON.parse(profileArr).profile_photo; 

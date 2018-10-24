@@ -33,7 +33,7 @@ class ProfileDetails extends React.Component{
 		sendFrm.sender=JSON.parse(this.state.userData).assets_id
 		sendFrm.session_id=JSON.parse(this.state.userData).session_id
 		this.setState({sendForm:sendFrm})
-		console.log(this.state.sendForm);
+		// console.log(this.state.sendForm);
 	}
 	sendMessage(){
 		const opts = this.state.sendForm;

@@ -39,7 +39,7 @@ this.imgServer=API_URL,
               this.setState({property:result.service.property_list,propertiesLoading:true})
               
             } 
-             console.log("set user data"+JSON.stringify(this.state.property))
+             // console.log("set user data"+JSON.stringify(this.state.property))
           },
         (error) => {
           console.log('error')

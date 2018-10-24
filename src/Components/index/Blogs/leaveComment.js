@@ -80,7 +80,7 @@ export default class LeaveComment extends React.Component {
                   <input id="author" className="form-control" placeholder="Your Name..." value={this.state.name} onChange={this.onChangeHandler} name="name" type="text" size="30" aria-required='true' />
                 </div>
                 <div className="tz-comment-email pull-right">
-                  <input id="email" className="form-control" placeholder="Email Adress..." name="email" value={this.state.email} onChange={this.onChangeHandler} type="text" size="30" aria-required='true' />
+                  <input  className="form-control" placeholder="Email Adress..." name="email" value={this.state.email} onChange={this.onChangeHandler} type="text" size="30" aria-required='true' />
                 </div>
                 <div className="clearfix"></div>
                 <div className="tzcomment-textarea">

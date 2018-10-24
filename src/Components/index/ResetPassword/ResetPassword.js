@@ -30,7 +30,7 @@ export default class ResetPassword extends React.Component{
 				.then(res => res.json())
 				.then(
 				  (result) => {
-					console.log('safd'+JSON.stringify(result));
+					// console.log('safd'+JSON.stringify(result));
 					if (result.success==0) {
 					   $("#loaderDiv").hide();
 					   
@@ -143,13 +143,13 @@ export default class ResetPassword extends React.Component{
 							
 							<div className="col-md-12">
 							  <div className="form-group">
-								<input className="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off" placeholder="New Password" value={this.state.resetPass.password} onChange = {this.onChangeHandler} name="password" id=""/>
+								<input className="form-control form-control-solid placeholder-no-fix" type="password" autoComplete="off" placeholder="New Password" value={this.state.resetPass.password} onChange = {this.onChangeHandler} name="password" />
 							  </div>
 							</div>
 							
 							<div className="col-md-12">
 							  <div className="form-group">
-								<input className="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off" placeholder="Confirm Password" value={this.state.resetPass.cnfPass} onChange = {this.onChangeHandler}name="cnfpass" id=""/>
+								<input className="form-control form-control-solid placeholder-no-fix" type="password" autoComplete="off" placeholder="Confirm Password" value={this.state.resetPass.cnfPass} onChange = {this.onChangeHandler}name="cnfpass" />
 							  </div>
 							</div>
 							

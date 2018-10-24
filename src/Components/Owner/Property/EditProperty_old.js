@@ -9,14 +9,17 @@ import swal from 'sweetalert';
 import Dropzone from 'react-dropzone'
 import $ from 'jquery'
 
-class AddProperty extends React.Component {
+class EditProperty extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      propertyInfo: Cookies.get('editProperty'),
       userInfo: props.userData,
       profileData: '',
       files: [],
       images: [],
+      imagesList: [],
+      base64images: [],
       userData: Cookies.get('profile_data'),
       countries: [{ name: "Afghanistan" }],
       states: [],
@@ -27,10 +30,11 @@ class AddProperty extends React.Component {
       isLoaded: true,
       countrySelected: '',
       formData: {
-        //"owner_id":"",
+        "owner_id": "",
+        "property_id": "",
         "title": "",
         "address": "",
-		"address2": "",
+        "address2": "",
         "city": '',
         "state": "",
         "country": [],
@@ -40,10 +44,11 @@ class AddProperty extends React.Component {
         "description": " ",
         "geo_location": "",
         "square_feet": "",
-		"agent_perc":"",
+        "agent_perc": "",
         "bedroom": "",
         "bathroom": "",
         "total_amount": "",
+		"rent":"",
         "advance": "",
         "owner_details": [],
         "img_path": [],
@@ -53,18 +58,46 @@ class AddProperty extends React.Component {
       shareholders: [{
         owner_name: "",
         address: "",
-		address2: "",
+        address2: "",
         city: "",
         state: "",
         country: "",
         zip_code: ""
       }]
     }
-    this.createProperty = this.createProperty.bind(this)
+    this.editProperty = this.editProperty.bind(this)
     this.onChangeHandler = this.onChangeHandler.bind(this)
     this.onDrop = this.onDrop.bind(this);
     this.removeImage = this.removeImage.bind(this);
   }
+
+  componentWillMount() {
+    // console.log("receeeeeived123456..."+ JSON.parse(this.state.propertyInfo))
+    if (this.state.propertyInfo) {
+      const propertyDetails = JSON.parse(this.state.propertyInfo)
+      // console.log("receeeeeived123456..."+ JSON.stringify(propertyDetails))
+      this.setState({
+        formData: { property_id: propertyDetails.id, title: propertyDetails.title, address: propertyDetails.address, address2: propertyDetails.address2, country: propertyDetails.country, state: propertyDetails.state, city: propertyDetails.city, zip_code: propertyDetails.zip_code, property_type: propertyDetails.property_type, property_status: propertyDetails.property_status, geo_location: propertyDetails.geo_location, square_feet: propertyDetails.square_feet, agent_perc: propertyDetails.agent_perc, description: propertyDetails.description, bedroom: propertyDetails.bedroom, bathroom: propertyDetails.bathroom, total_amount: propertyDetails.total_amount,rent: propertyDetails.rent, advance: propertyDetails.advance, advance: propertyDetails.advance }, base64images: propertyDetails.img_path, shareholders: propertyDetails.owner_details
+      }, () => {
+        this.stateLists(propertyDetails.country);
+        this.cityList(propertyDetails.state);
+        this.state.base64images.map((img, key) => {
+          // console.log("base64...... " + JSON.stringify(img.img_path));
+          // this.state.imagesList.push(img.img_path)
+          this.toDataUrl(img.img_path, (myBase64) => {
+            this.state.images.push(myBase64)
+            // console.log("base6464...... " + this.state.images); // myBase64 is the base64 string
+          })
+        })
+        // this.toDataUrl('assets/Owner/14/Property/d9485dcc806bd496a99a9ecc28edb457.png', (myBase64) => {
+        //   console.log("base64...... " + myBase64); // myBase64 is the base64 string
+        // })
+      })
+
+    }
+  }
+
+
   handleShareholderNameChange = (idx) => (evt) => {
     const newShareholders = this.state.shareholders.map((shareholder, sidx) => {
       if (idx !== sidx) return shareholder;
@@ -79,7 +112,7 @@ class AddProperty extends React.Component {
       shareholders: this.state.shareholders.concat([{
         owner_name: "",
         address: "",
-		address2: "",
+        address2: "",
         city: "",
         state: "",
         country: "",
@@ -135,8 +168,6 @@ class AddProperty extends React.Component {
         formData.title = e.target.value
       else if (e.target.name == "address")
         formData.address = e.target.value
-	else if (e.target.name == "address2")
-        formData.address2 = e.target.value
       else if (e.target.name == "country") {
         formData.country = e.target.value
         var SelectCountry = formData.country;
@@ -154,38 +185,34 @@ class AddProperty extends React.Component {
         formData.zip_code = e.target.value
       else if (e.target.name == "property_type")
         formData.property_type = e.target.value
-      else if (e.target.name == "property_status"){
-		  // formData.property_status = e.target.value
-		  if(e.target.value==="Rent"){
+      else if (e.target.name == "property_status")
+	  {
+		   if(e.target.value==="Rent"){
 				$('#rent').show();
-				$('#advance').show();
 				$('#total_amount').hide();
 		  }else if(e.target.value==="Sale"){
 				$('#total_amount').show();
-				$('#advance').show();
 				$('#rent').hide();
 		  }else if(e.target.value==="Rented"){
 				$('#rent').show();
-				$('#advance').show();
 				$('#total_amount').hide();
 		  }else if(e.target.value==="Sold"){
 				$('#total_amount').show();
-				$('#advance').show();
 				$('#rent').hide();
 		  }else if(e.target.value==="Private"){
 			   $('#total_amount').show();
 				$('#rent').show();
-				$('#advance').show();
+				
 		  }
-		  formData.property_status = e.target.value
+        formData.property_status = e.target.value
 	  }
-       else if (e.target.name == "description")
+      else if (e.target.name == "description")
         formData.description = e.target.value
       else if (e.target.name == "geo_location")
         formData.geo_location = e.target.value
       else if (e.target.name == "square_feet")
         formData.square_feet = e.target.value
-	 else if (e.target.name == "agent_perc")
+      else if (e.target.name == "agent_perc")
         formData.agent_perc = e.target.value
       else if (e.target.name == "bedroom")
         formData.bedroom = e.target.value
@@ -193,8 +220,6 @@ class AddProperty extends React.Component {
         formData.bathroom = e.target.value
       else if (e.target.name == "total_amount")
         formData.total_amount = e.target.value
-	else if (e.target.name == "rent")
-        formData.rent = e.target.value
       else if (e.target.name == "advance")
         formData.advance = e.target.value
       else if (e.target.name === 'owner_name' + count) {
@@ -207,9 +232,6 @@ class AddProperty extends React.Component {
       }
       else if (e.target.name === 'address' + count) {
         this.state.shareholders[count].address = e.target.value
-      }
-	  else if (e.target.name === 'address2' + count) {
-        this.state.shareholders[count].address2 = e.target.value
       }
 
       else if (e.target.name === 'city' + count) {
@@ -226,6 +248,7 @@ class AddProperty extends React.Component {
       }
       formData.session_id = JSON.parse(this.state.userData).session_id;
       formData.owner_id = JSON.parse(this.state.userData).assets_id;
+      formData.property_id = JSON.parse(this.state.propertyInfo).id;
     }
     else {
       formData.img_path.push(e.target.value)
@@ -233,28 +256,45 @@ class AddProperty extends React.Component {
     this.setState({ formData: formData })
 
   }
-  createProperty() {
+  toDataUrl(url, callback) {
+    const xhr = new XMLHttpRequest();
+    xhr.onload = () => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        callback(reader.result);
+      };
+      reader.readAsDataURL(xhr.response);
+    };
+    xhr.open('GET', url);
+    xhr.responseType = 'blob';
+    xhr.send();
+  };
+
+  editProperty() {
     var opts = this.state.formData
     opts.owner_details = this.state.shareholders
-    opts.img_path = this.state.images;
-	$("#loaderDiv").show();
-    // console.log("imgpathhh" + JSON.stringify(this.state.images))
-    fetch(`${API_URL}assetsapi/add_property/`, {
+     opts.img_path = this.state.images;
+    opts.session_id = JSON.parse(this.state.userData).session_id;
+    opts.owner_id = JSON.parse(this.state.userData).assets_id;
+    opts.property_id = JSON.parse(this.state.propertyInfo).id;
+
+    // console.log("imgpathhh" + JSON.stringify(opts))
+    $("#loaderDiv").show();
+
+    fetch(`${API_URL}assetsapi/edit_property/`, {
       method: 'post',
       body: JSON.stringify(opts)
     }, { 'Content-type': 'multipart/form-data' }).then((response) => {
       return response.json();
     }).then((data) => {
-      //console.log("responseeeee" + JSON.stringify(data));
+      // console.log("responseeeee" + JSON.stringify(data));
       if (data) {
-        // swal("Assets Watch", data.msg);
-        // window.location.href = '/my-property'
-					$("#loaderDiv").hide();
-					   
-					   $("#actionType").val("Yes");
-					   $("#hiddenURL").val("my-property");
-					   $(".confirm-body").html(data.msg);
-					   $("#BlockUIConfirm").show();
+        $("#loaderDiv").hide();
+
+        $("#actionType").val("Yes");
+        $("#hiddenURL").val("my-property");
+        $(".confirm-body").html(data.msg);
+        $("#BlockUIConfirm").show();
       }
     }).catch((error) => {
       console.log('error: ', error);
@@ -288,6 +328,9 @@ class AddProperty extends React.Component {
   }
 
   render() {
+    const editPropertyInfo = this.state.formData
+    const { base64images } = this.state
+    // console.log("renderrrr..."+JSON.stringify(editPropertyInfo));
     const contries = this.state.countries
     var coptions = contries.map(function (item) {
       var selectValue = 'India'
@@ -316,31 +359,31 @@ class AddProperty extends React.Component {
             <div className="row">
               <div className="col-12">
                 <div className="card-box add-property">
-                 <form  className="form-horizontal">*/}
+                  <form className="form-horizontal">
                   <div className="row">
                     <div className="col-md-8 col-sm-8">
                       <div className="form-group row">
                         <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">Property Title</label>
                         <div className="col-lg-10 col-md-9 col-sm-9">
-                          <input name="title" onChange={this.onChangeHandler} type="text" className="form-control" />
+                          <input value={editPropertyInfo.title} name="title" onChange={this.onChangeHandler} type="text" className="form-control" />
                         </div>
                       </div>
                       <div className="form-group row">
                         <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">Address1</label>
                         <div className="col-lg-10 col-md-9 col-sm-9">
-						<input name="address" onChange={this.onChangeHandler} placeholder='Property address1' type="text" className="form-control" />
+                          <input name="address" value={editPropertyInfo.address} onChange={this.onChangeHandler} placeholder='Property address1' type="text" className="form-control" />
                         </div>
                       </div>
-					  <div className="form-group row">
+                      <div className="form-group row">
                         <label className="col-lg-2 col-md-3 col-sm-3 col-form-label">Address2</label>
                         <div className="col-lg-10 col-md-9 col-sm-9">
-						<input name="address2" onChange={this.onChangeHandler} placeholder='Property address2' type="text" className="form-control" />
+                          <input name="address2" value={editPropertyInfo.address2} onChange={this.onChangeHandler} placeholder='Property address2' type="text" className="form-control" />
                         </div>
                       </div>
                       <div className="form-group row">
                         <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">Country</label>
                         <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl">
-                          <select className="form-control" name='country' onChange={this.onChangeHandler} >
+                          <select value={editPropertyInfo.country} className="form-control" name='country' onChange={this.onChangeHandler} >
                             <option>Please select a country</option>
                             {this.state.countries.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>))}
                           </select>
@@ -348,7 +391,7 @@ class AddProperty extends React.Component {
 
                         <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">State</label>
                         <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl">
-                          <select className="form-control" name="state" onChange={this.onChangeHandler} >
+                          <select value={editPropertyInfo.state} className="form-control" name="state" onChange={this.onChangeHandler} >
                             <option>Please select a state</option>
                             {this.state.states ? this.state.states.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>)) : ''}
                           </select>
@@ -357,56 +400,59 @@ class AddProperty extends React.Component {
                       <div className="form-group row">
                         <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">City</label>
                         <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl">
-                          <select className="form-control" name="city" onChange={this.onChangeHandler} >
+                          <select value={editPropertyInfo.city} className="form-control" name="city" onChange={this.onChangeHandler} >
                             <option>Please select a city</option>
                             {this.state.cities ? this.state.cities.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>)) : ''}
                           </select>
                         </div>
-                        <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">ZIP code</label>
+                        <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">Zip Code</label>
                         <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl">
-                          <input type="text" className="form-control" name="zip_code" onChange={this.onChangeHandler} />
+                          <input value={editPropertyInfo.zip_code} type="text" className="form-control" name="zip_code" onChange={this.onChangeHandler} />
                         </div>
                       </div>
                       <hr style={{ color: '#f0ad4e', backgroundColor: '#f0ad4e', height: 2 }} />
                       <a className="btn btn-custom waves-light waves-effect w-md add-owner" onClick={this.handleAddShareholder}>
                         Add Owner
                       </a>
-                      {this.state.shareholders.map((shareholder, idx) => (
-                        <div>
+                      {this.state.shareholders.map((shareholder, idx) => {
+                        // this.stateLists(shareholder.country)
+                        // this.cityList(shareholder.state)
+                        return <div>
                           <div className="form-group row">
                             <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">Owner {idx + 1}</label>
                             <div className="col-lg-10 col-md-9 col-sm-9">
-                              <input type="text" name={'owner_name' + (idx)} placeholder={`Owner #${idx + 1} owner_name`} className="form-control" onChange={(e) => { this.onChangeHandler(e, idx) }} />
+                              <input type="text" value={this.state.shareholders[idx].owner_name} name={'owner_name' + (idx)} placeholder={`Owner #${idx + 1} owner_name`} className="form-control" onChange={(e) => { this.onChangeHandler(e, idx) }} />
                             </div>
                           </div>
                           {/*add second owner*/}
                           <div className="form-group row">
-                            <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">Address1</label>
+                            <label className="col-lg-2 col-md-3 col-sm-3 col-form-label">Address1</label>
                             <div className="col-lg-10 col-md-9 col-sm-9">
-                             <input type="text" name={'address' + (idx)} placeholder={`Owner #${idx + 1} address1`} onChange={(e) => { this.onChangeHandler(e, idx) }} className="form-control"/>
+                              <input type="text" value={this.state.shareholders[idx].address} name={'address' + (idx)} placeholder={`Owner #${idx + 1} address1`} onChange={(e) => { this.onChangeHandler(e, idx) }} className="form-control" />
 
 
                             </div>
                           </div>
-						  <div className="form-group row">
+                          <div className="form-group row">
                             <label className="col-lg-2 col-md-3 col-sm-3 col-form-label">Address2</label>
                             <div className="col-lg-10 col-md-9 col-sm-9">
-                              <input type="text" name={'address2' + (idx)} placeholder={`Owner #${idx + 1} address2`} onChange={(e) => { this.onChangeHandler(e, idx) }} className="form-control"/>
+                              <input type="text" value={this.state.shareholders[idx].address2} name={'address2' + (idx)} placeholder={`Owner #${idx + 1} address2`} onChange={(e) => { this.onChangeHandler(e, idx) }} className="form-control" />
 
                             </div>
                           </div>
                           <div className="form-group row">
                             <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">Country</label>
                             <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl">
-                              <select className="form-control" name={'country' + (idx)} onChange={(e) => { this.onChangeHandler(e, idx) }} >
+                              <select value={this.state.shareholders[idx].country} className="form-control" name={'country' + (idx)} onChange={(e) => { this.onChangeHandler(e, idx) }} >
                                 <option>Please select a country</option>
                                 {this.state.countries.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>))}
                               </select>
                             </div>
 
+
                             <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">State</label>
                             <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl">
-                              <select className="form-control" name={'state' + (idx)} onChange={(e) => { this.onChangeHandler(e, idx) }} >
+                              <select value={this.state.shareholders[idx].state} className="form-control" name={'state' + (idx)} onChange={(e) => { this.onChangeHandler(e, idx) }} >
                                 <option>Please select a state</option>
                                 {this.state.states ? this.state.states.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>)) : ''}
                               </select>
@@ -415,27 +461,27 @@ class AddProperty extends React.Component {
                           <div className="form-group row">
                             <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">City</label>
                             <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl">
-                              <select className="form-control" name={'city' + (idx)} onChange={(e) => { this.onChangeHandler(e, idx) }} >
+                              <select value={this.state.shareholders[idx].city} className="form-control" name={'city' + (idx)} onChange={(e) => { this.onChangeHandler(e, idx) }} >
                                 <option>Please select a city</option>
                                 {this.state.cities ? this.state.cities.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>)) : ''}
                               </select>
                             </div>
-                            <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">ZIP code</label>
+                            <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">ZIP Code</label>
                             <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl">
-                              <input type="text" className="form-control" name={'zip_code' + (idx)} onChange={(e) => { this.onChangeHandler(e, idx) }} />
+                              <input value={this.state.shareholders[idx].zip_code} type="text" className="form-control" name={'zip_code' + (idx)} onChange={(e) => { this.onChangeHandler(e, idx) }} />
                             </div>
                           </div>
                           <div className="form-group row">
                             <div className="col-8"></div>
-                            <div className="col-2"><button type="button" onClick={this.handleRemoveShareholder(idx)}  className="btn btn-danger waves-effect w-md waves-light small">Remove</button></div>
+                            <div className="col-2"><button type="button" onClick={this.handleRemoveShareholder(idx)} className="btn btn-danger waves-effect w-md waves-light small">Remove--</button></div>
                           </div>
                         </div>
-                      ))}
+                      })}
                       <hr style={{ color: '#f0ad4e', backgroundColor: '#f0ad4e', height: 2 }} />
                       <div className="form-group row">
                         <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">Property Type</label>
                         <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl">
-                          <select className="form-control" name="property_type" onChange={this.onChangeHandler}>
+                          <select value={editPropertyInfo.property_type} className="form-control" name="property_type" onChange={this.onChangeHandler}>
                             <option selected>Please Select</option>
                             <option value="Private Apartment">Private Apartment</option>
                             <option value="Apartment">Apartment</option>
@@ -445,21 +491,20 @@ class AddProperty extends React.Component {
                         </div>
                         <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">Property Status</label>
                         <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl">
-                          <select className="form-control" name="property_status" onChange={this.onChangeHandler}>
+                          <select value={editPropertyInfo.property_status} className="form-control" name="property_status" onChange={this.onChangeHandler}>
                             <option>Please Select</option>
                             <option value="Rent">Rent</option>
                             <option value="Sale">Sale</option>
-							<option value="Rented">Rented</option>
+                            <option value="Rented">Rented</option>
                             <option value="Sold">Sold</option>
-							<option value="Private">Private</option>
-                           
+                            <option value="Private">Private</option>
                           </select>
                         </div>
                       </div>
                       <div className="form-group row">
                         <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">Description</label>
                         <div className="col-lg-10 col-md-9 col-sm-9">
-                          <textarea id="elm1" className="w-100 form-control" name="description" onChange={this.onChangeHandler}></textarea>
+                          <textarea value={editPropertyInfo.description} id="elm1" className="w-100 form-control" name="description" onChange={this.onChangeHandler}></textarea>
                         </div>
                       </div>
 
@@ -475,42 +520,44 @@ class AddProperty extends React.Component {
                       <div className="form-group row">
                         <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">Square Feet</label>
                         <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl">
-                          <input name="square_feet" onChange={this.onChangeHandler} type="text" className="form-control" />
+                          <input value={editPropertyInfo.square_feet} name="square_feet" onChange={this.onChangeHandler} type="text" className="form-control" />
                         </div>
-						 <label className="col-lg-2 col-md-3 col-sm-3 col-form-label">Agent (%)</label>
+                        <label className="col-lg-2 col-md-3 col-sm-3 col-form-label">Agent (%)</label>
                         <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl">
-                          <input name="agent_perc" onChange={this.onChangeHandler} type="text" className="form-control" />
+                          <input value={editPropertyInfo.agent_perc} name="agent_perc" onChange={this.onChangeHandler} type="text" className="form-control" />
                         </div>
                       </div>
                       <div className="form-group row">
                         <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">Bedrooms</label>
                         <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl">
-                          <input type="text" name="bedroom" onChange={this.onChangeHandler} className="form-control" />
+                          <input type="text" value={editPropertyInfo.bedroom} name="bedroom" onChange={this.onChangeHandler} className="form-control" />
                         </div>
                         <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">Bathrooms</label>
                         <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl">
-                          <input type="text" name="bathroom" className="form-control" onChange={this.onChangeHandler} />
+                          <input value={editPropertyInfo.bathroom} type="text" name="bathroom" className="form-control" onChange={this.onChangeHandler} />
                         </div>
                       </div>
                       <div className="form-group row">
-                       
-                        <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl" id="total_amount" style={{display:'none'}}>
-							<label className="col-lg-2 col-md-3 col-sm-3 col-form-label required" id="to" >Total Amount</label>
-                          <input type="text" className="form-control" name="total_amount" onChange={this.onChangeHandler} />
-                        </div>
-						<div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl" id="rent" style={{display:'none'}}>
-							<label className="col-lg-2 col-md-3 col-sm-3 col-form-label required"  >Rent</label>
-                          <input type="text" className="form-control" name="rent" onChange={this.onChangeHandler} />
-                        </div>
-                        
-                        <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl" id="advance" style={{display:'none'}} >
-						<label className="col-lg-2 col-md-3 col-sm-3 col-form-label" >Advance</label>
-                          <input type="text" className="form-control" name="advance" onChange={this.onChangeHandler} />
+					  {editPropertyInfo.property_status==="Sale" || editPropertyInfo.property_status==="Sold" || editPropertyInfo.property_status==="Private"? 
+                        <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl" id="total_amount">
+						<label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">Total Amount</label>
+                          <input value={editPropertyInfo.total_amount} type="text" className="form-control" name="total_amount" onChange={this.onChangeHandler} />
+                        </div>:''
+					  }
+					   {editPropertyInfo.property_status==="Rent" || editPropertyInfo.property_status==="Rented" || editPropertyInfo.property_status==="Private"? 
+						<div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl" id="rent">
+						<label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">Rent</label>
+                          <input value={editPropertyInfo.rent} type="text" className="form-control" name="rent" onChange={this.onChangeHandler} />
+                        </div>:''
+                       }
+                        <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl">
+						 <label className="col-lg-2 col-md-3 col-sm-3 col-form-label">Advance</label>
+                          <input value={editPropertyInfo.advance} type="text" className="form-control" name="advance" onChange={this.onChangeHandler} />
                         </div>
                       </div>
                     </div>
                     <div className="col-md-4">
-                       <div className="autohide-scroll">
+                      <div className="autohide-scroll">
                         <div className="p-b-0">
                           <div className="form-group">
                             <div className="col-sm-12 padding-left-0 padding-right-0">
@@ -530,25 +577,25 @@ class AddProperty extends React.Component {
                                 style={{ borderStyle: 'none' }}
                                 onDrop={this.onDrop}
                               />
-                              <ul class="jFiler-items-list jFiler-items-grid no-padding propertyimg-upld">
+                              <ul className="jFiler-items-list jFiler-items-grid no-padding propertyimg-upld">
                                 {
-                                  this.state.images && this.state.images.length > 0 ? this.state.images.map(image => (
-                                    <li class="jFiler-item">
-                                      <div class="jFiler-item-container">
-                                        <div class="jFiler-item-inner">
-                                          <div class="jFiler-item-thumb">
-                                            <div class="jFiler-item-status"></div>
-                                            <div class="jFiler-item-info">
-                                              <span class="jFiler-item-title"><b title="{{file.name}}"></b></span>
-                                              <span class="jFiler-item-others"></span>
+                                  this.state.images && this.state.images.length > 0 ? this.state.images.map((image, key) => (
+                                    <li className="jFiler-item">
+                                      <div className="jFiler-item-container">
+                                        <div className="jFiler-item-inner">
+                                          <div className="jFiler-item-thumb">
+                                            <div className="jFiler-item-status"></div>
+                                            <div className="jFiler-item-info">
+                                              <span className="jFiler-item-title"><b title="{{file.name}}"></b></span>
+                                              <span className="jFiler-item-others"></span>
                                             </div>
-                                            <img src={image} />
+                                            <img src={base64images[key] ? API_URL + base64images[key].img_path : image} />
                                           </div>
-                                          <div class="jFiler-item-assets jFiler-row">
+                                          <div className="jFiler-item-assets jFiler-row">
                                             {/*<ul class="list-inline pull-left">*/}
                                             {/*<li>fi-progressBar</li>*/}
                                             {/*</ul>*/}
-                                            <ul class="list-inline pull-right">
+                                            <ul className="list-inline pull-right">
                                               <li><a onClick={() => this.removeImage(image)} className="icon-jfi-trash jFiler-item-trash-action"></a>
                                               </li>
                                             </ul>
@@ -569,7 +616,8 @@ class AddProperty extends React.Component {
                         <div className="col-md-8"></div>
                         <div className="col-md-4 submit-btn">
                           <input type="reset" className="btn btn-secondary waves-effect w-md m-r-10" value="Cancel"/>
-                          <button type="button" onClick={this.createProperty} className="btn btn-success waves-effect w-md waves-light">Submit</button>
+                          <button type="button" onClick={this.editProperty} className="btn btn-success waves-effect w-md waves-light">Submit</button>
+
                         </div>
                       </div>
                     </div>
@@ -587,4 +635,4 @@ class AddProperty extends React.Component {
     );
   }
 }
-export default withRouter(connect(state => ({ userData: state.userData, userProfile: state.userProfile }))(AddProperty))
+export default withRouter(connect(state => ({ userData: state.userData, userProfile: state.userProfile }))(EditProperty))

@@ -7,7 +7,7 @@ import React from 'react'
 // import img6 from '../../../images/properties.jpg'
 // import img7 from '../../../images/girls_PNG6463-1.png'
 // import img8 from '../../../images/young-businessman-2.png'
-import Header from '../Header/Header1'  
+// import Header from '../Header/Header1'  
 import ProppertSearchForm from './propertSearch'
 // import $ from 'jquery'
 import API_URL from '../../../app-config';
@@ -366,7 +366,7 @@ updateProps(props){
 
               <div id="js-grid-meet-the-team" className="cbp cbp-l-grid-team grid" >
               {this.state.properties.map(property=>(
-                <PropertItem updatePropertyGrid={this.updatePropertyGrid} ownerDetails={this.state.owners} property={property} total_amount={property.total_amount}  Title={property.title} description={property.description} square_feet={property.square_feet} src={(property.img_path!=undefined&&property.img_path.length>0&&property.img_path[0].img_path!=undefined)?API_URL+property.img_path[0].img_path:''} PropertyStatus={property.property_status} />
+                <PropertItem  updatePropertyGrid={this.updatePropertyGrid} ownerDetails={this.state.owners} property={property} total_amount={property.total_amount}  Title={property.title} description={property.description} square_feet={property.square_feet} src={(property.img_path!=undefined&&property.img_path.length>0&&property.img_path[0].img_path!=undefined)?API_URL+property.img_path[0].img_path:''} PropertyStatus={property.property_status} />
               ))}            
                   {/* <div className="tz-property-content cbp-item  for-rent "> 
                     <a href="property-detail.html" className="tz-property-thum cbp-caption" rel="nofollow">
@@ -630,7 +630,7 @@ updateProps(props){
                     </div>
                   </div> */}
               </div>
-              <div class='wp-pagenavi'> <span class='pages'>Page 1 of 4</span><span className='current'>1</span><a className="page larger" title="Page 2" href="#">2</a><a className="page larger" title="Page 3" href="#">3</a><a className="page larger" title="Page 4" href="#">4</a><a className="nextpostslink" rel="next" href="#"><i className="icon-arrow-right"></i></a> </div>
+              <div className='wp-pagenavi'> <span className='pages'>Page 1 of 4</span><span className='current'>1</span><a className="page larger" title="Page 2" href="#">2</a><a className="page larger" title="Page 3" href="#">3</a><a className="page larger" title="Page 4" href="#">4</a><a className="nextpostslink" rel="next" href="#"><i className="icon-arrow-right"></i></a> </div>
             </div>
             <div className="auto-loading"> <img src="images/loading_blue_32x32.gif" width="32" height="32" /> </div>
           </div>

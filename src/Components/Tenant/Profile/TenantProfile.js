@@ -125,7 +125,7 @@ render(){
               <div className="col-sm-12">
                 <div className="row">
                   <div className="col-sm-4">
-                    <div className="profile-user-box1"> <span className="pull-left m-r-15"><img src={profileInfo.profile_photo!=''?API_URL+profileInfo.profile_photo:img_not_available} alt className="thumb-lg rounded-circle" /></span>
+                    <div className="profile-user-box1"> <span className="pull-left m-r-15"><img src={profileInfo.profile_photo!==''?API_URL+profileInfo.profile_photo:img_not_available} alt="" className="thumb-lg rounded-circle" /></span>
                       <div className="media-body">
                         <h4 className="m-t-5 m-b-5 font-18 ellipsis">{profileInfo.first_name + '. '+ profileInfo.last_name}</h4>
                         <p className="text-muted m-b-0"><small>{profileInfo.city}, {profileInfo.country}</small></p>
@@ -211,7 +211,7 @@ render(){
                 <div className="card-box">
                   <h4 className="header-title mt-0 m-b-20">Recent Added Property</h4>
 				   {(this.state.property).length>0?
-                  <div className="panel-body"> <img id="single-image" src={this.state.property!=''?API_URL+this.state.property.img_path:img_not_available} alt="image-1" className="img-fluid" />
+                  <div className="panel-body"> <img id="single-image" src={this.state.property!==''?API_URL+this.state.property.img_path:img_not_available} alt="image-1" className="img-fluid" />
                       <hr/>
                       <p className="text-muted font-13">{this.state.property.description} </p>
                     <a className="btn btn-custom waves-light waves-effect w-md">View</a> </div>:<div>No Property Added</div>}
@@ -237,7 +237,7 @@ render(){
                       <tbody>
 					  {OwnerList.map((item)=>(
                         <tr>
-                          <td><img src={item.profile_photo!=''?API_URL+item.profile_photo:img_not_available} alt="contact-img" title="contact-img" className="rounded-circle thumb-sm" /></td>
+                          <td><img src={item.profile_photo!==''?API_URL+item.profile_photo:img_not_available} alt="contact-img" title="contact-img" className="rounded-circle thumb-sm" /></td>
                           <td><h5 className="m-b-0 m-t-0 font-600">{item.name}</h5></td>
                           <td><i className="mdi mdi-map-marker text-primary" /> {item.country}</td>
                           <td>{item.connectedDate} </td>
@@ -266,7 +266,7 @@ render(){
                       <tbody>
 					  {AgentList.map((item,key)=>(
                         <tr>
-                          <td><img src={item.profile_photo!=''?API_URL+item.profile_photo:img_not_available} alt="contact-img" title="contact-img" className="rounded-circle thumb-sm" /></td>
+                          <td><img src={item.profile_photo!==''?API_URL+item.profile_photo:img_not_available} alt="contact-img" title="contact-img" className="rounded-circle thumb-sm" /></td>
                           <td><h5 className="m-b-0 m-t-0 font-600">{item.name}</h5></td>
                           <td><i className="mdi mdi-map-marker text-primary" /> {item.country} </td>
                           <td>{item.connectedDate} </td>

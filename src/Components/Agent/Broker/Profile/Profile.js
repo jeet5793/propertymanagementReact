@@ -98,7 +98,7 @@ class BrokerProfie extends React.Component{
           this.setState({contactlist:data1.contactlist})
          // console.log("data 2: "+this.state.contactlist)
         } 
-         console.log("set user data"+JSON.stringify(this.state.contactlist))
+         // console.log("set user data"+JSON.stringify(this.state.contactlist))
         },
       (error) => {
         console.log('error')
@@ -108,7 +108,7 @@ class BrokerProfie extends React.Component{
     render(){
       const profileInfo=this.state.profileData;
       const { userProfile: profile } = this.props;
-      const profile_pic = profile.profile_photo || avatar_1;
+      // const profile_pic = profile.profile_photo || avatar_1;
 	  const TenantList = this.state.contactlist.Tenant;
 	  const OwnerList = this.state.contactlist.Owner;
 	  // console.log(JSON.stringify(TenantList));
@@ -126,7 +126,7 @@ class BrokerProfie extends React.Component{
               <div className="col-sm-12">
                 <div className="row">
                   <div className="col-sm-4">
-                    <div className="profile-user-box1"> <span className="pull-left m-r-15"><img src={profileInfo.profile_photo!=''?API_URL+profileInfo.profile_photo:img_not_available} alt="" className="thumb-lg rounded-circle" /></span>
+                    <div className="profile-user-box1"> <span className="pull-left m-r-15"><img src={profileInfo.profile_photo!==''?API_URL+profileInfo.profile_photo:img_not_available} alt="" className="thumb-lg rounded-circle" /></span>
                       <div className="media-body">
                         <h4 className="m-t-5 m-b-5 font-18 ellipsis">{profileInfo.first_name + '. '+ profileInfo.last_name}</h4>
                         <p className="text-muted m-b-0"><small>{profileInfo.city}, {profileInfo.country}</small></p>
@@ -212,7 +212,7 @@ class BrokerProfie extends React.Component{
                 <div className="card-box">
                   <h4 className="header-title mt-0 m-b-20">Recent Added Property</h4>
 				  {(this.state.property).length>0?
-                  <div className="panel-body"> <img id="single-image" src={this.state.property!=''?API_URL+this.state.property.img_path:img_not_available} alt="image-1" className="img-fluid" />
+                  <div className="panel-body"> <img id="single-image" src={this.state.property!==''?API_URL+this.state.property.img_path:img_not_available} alt="image-1" className="img-fluid" />
                       <hr/>
                       <p className="text-muted font-13">{this.state.property.description} </p>
 				  <Link to={{"pathname":"/broker-property-detail",state:{propertyID:this.state.property.property_id,session:JSON.parse(this.state.userData).session_id}}}><a className="btn btn-custom waves-light waves-effect w-md">View</a></Link> </div>:<div>No Property Added</div>}
@@ -237,7 +237,7 @@ class BrokerProfie extends React.Component{
                       <tbody>
 					   {OwnerList.map((item)=>(
                         <tr>
-                          <td><img src={item.profile_photo!=''?API_URL+item.profile_photo:img_not_available} alt="contact-img" title="contact-img" className="rounded-circle thumb-sm" /></td>
+                          <td><img src={item.profile_photo!==''?API_URL+item.profile_photo:img_not_available} alt="contact-img" title="contact-img" className="rounded-circle thumb-sm" /></td>
                           <td><h5 className="m-b-0 m-t-0 font-600">{item.name}</h5></td>
                           <td><i className="mdi mdi-map-marker text-primary" /> {item.country} </td>
                           <td>{item.connectedDate} </td>
@@ -266,7 +266,7 @@ class BrokerProfie extends React.Component{
                       <tbody>
 					 {TenantList.map((item,key)=>(
                         <tr>
-                          <td><img src={item.profile_photo!=''?API_URL+item.profile_photo:img_not_available} alt="contact-img" title="contact-img" className="rounded-circle thumb-sm" /></td>
+                          <td><img src={item.profile_photo!==''?API_URL+item.profile_photo:img_not_available} alt="contact-img" title="contact-img" className="rounded-circle thumb-sm" /></td>
                           <td><h5 className="m-b-0 m-t-0 font-600">{item.name}</h5></td>
                           <td><i className="mdi mdi-map-marker text-primary" /> {item.country} </td>
                           <td>{item.connectedDate} </td>

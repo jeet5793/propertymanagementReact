@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom'
 import img_not_available from '../../../../images/img_not_available.png'
 class ServiceProfie extends React.Component{
     constructor(props){
-        console.log('rifgwirgfwiugfweugfweifugw')
+        // console.log('rifgwirgfwiugfweugfweifugw')
         super(props);
         this.state = {
           userInfo:props.userData,
@@ -52,7 +52,7 @@ class ServiceProfie extends React.Component{
 			//console.log("data 2: "+JSON.stringify(result.profile))
 			if (data.success) {
 			  this.setState({statics:data.statics[0]})
-			  console.log(this.state.statics);
+			  // console.log(this.state.statics);
 			} 
 			//console.log("set user data"+JSON.stringify(this.state.profileData))
 		  },
@@ -75,7 +75,7 @@ class ServiceProfie extends React.Component{
           this.setState({resolvedList:data.recent_resolve_request})
          // console.log("data 2: "+this.state.contactlist)
         } 
-         console.log("set user data"+JSON.stringify(this.state.contactlist))
+         // console.log("set user data"+JSON.stringify(this.state.contactlist))
         },
 		(error) => {
 			console.log('error')

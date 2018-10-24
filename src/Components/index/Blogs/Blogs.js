@@ -44,8 +44,8 @@ $("#loaderDiv").show();
 				<div className="tz-post tz-blog">
 					<div className="container">
 						<div className="row">
-							{this.state.blog?this.state.blog.map((blog) => (
-								<div className="col-md-6">
+							{this.state.blog?this.state.blog.map((blog,index) => (
+								<div className="col-md-6" key={index}>
 									<div className="tz-property-single">
 										<div className="tz-project-details">
 											<div className="tz-property-box tz-property-author">
@@ -69,9 +69,9 @@ $("#loaderDiv").show();
 													<div className="button-holder">
 														<Link to={{ 'pathname': "blog-detail", state: { id: blog.id } }}   >
 															{/* <a className="TzReadmore blog-read-more-btn"> */}
-															<a className="TzReadmore read-more">
+															<span className="TzReadmore read-more">
 																<img src={log_in1} alt="Read More" />&nbsp;&nbsp;<span>Read More</span>
-															</a>
+															</span>
 															{/* </a> */}
 														</Link>
 													</div>

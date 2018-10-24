@@ -432,7 +432,8 @@ class TenantOwner extends React.Component {
         this.setState({activePageJoined: pageNum, pagedJoinedList: propData })
     }
 	messagerec(id,name)
-	{ console.log(id+''+name);
+	{ 
+	//console.log(id+''+name);
 		document.getElementById('receiver').value= id;
 		document.getElementById('receiver_name').value= name;
 	}

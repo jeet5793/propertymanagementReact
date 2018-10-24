@@ -42,7 +42,7 @@ export default class Headernav extends React.Component{
                 $(".login-open").fadeToggle();
                 }
                 else{
-                console.log(data);
+                // console.log(data);
                 localStorage.setItem('myData', data);
                 sessionStorage.setItem('myData', data);
                 //window.location.pathname='/Owner'

@@ -33,7 +33,7 @@ import $ from 'jquery'
 
                     <div className="row">
                       <div className="col-md-12">
-                        <div className="card-box" enctype="multipart/form-data">
+                        <div className="card-box" encType="multipart/form-data">
                           <form id="default-wizard" encType="multipart/form-data">
                           <ul className="nav nav-pills navtab-bg "> {/*nav-justified */}
                               <li className="nav-item"> <a id="profileTab" onClick={this.changeTabs.bind(this,"profile-info")} href="#profile-info" data-toggle="tab" aria-expanded="false" className="nav-link active"> Profile Information </a> </li>

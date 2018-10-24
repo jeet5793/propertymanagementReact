@@ -32,7 +32,7 @@ export default class FindYourProperty extends React.Component{
   }).then(function(data) {
     if(data.success===1)
     {
-      console.log(data);    
+      // console.log(data);    
       // window.location.href='http://'+window.location.hostname+':'+window.location.port+'/property-detail'
       // window.location.pathname="/property-detail"
       
@@ -80,15 +80,15 @@ export default class FindYourProperty extends React.Component{
         <div  id="text">
           <div className="col-md-3 col-sm-3 col-xs-12 key">
             <label style={{border:'none'}}>Area</label>
-            <input type="text" onChange={this.onChangeHandler} className="cbp-search-input tz-pro-search-input" id="keyword" name="area" placeholder="Sq Ft" value="" />
+            <input type="text" onChange={this.onChangeHandler} className="cbp-search-input tz-pro-search-input" id="area" name="area" placeholder="Sq Ft" value="" />
           </div>
           <div className="col-md-3 col-sm-3 col-xs-12 key">
             <label style={{border:'none'}}>Min Price</label>
-            <input type="text" className="cbp-search-input tz-pro-search-input" id="keyword" name="min_price" placeholder="Min Price" value="" />
+            <input type="text" className="cbp-search-input tz-pro-search-input" id="min_price" name="min_price" placeholder="Min Price" value="" />
           </div>
           <div className="col-md-3 col-sm-3 col-xs-12 key">
             <label style={{border:'none'}}>Max Price</label>
-            <input type="text" className="cbp-search-input tz-pro-search-input" id="keyword" name="max_price" placeholder="Max Price" value="" />
+            <input type="text" className="cbp-search-input tz-pro-search-input" id="max_price" name="max_price" placeholder="Max Price" value="" />
           </div>
         </div>
        <div className="col-md-9 col-sm-8 col-xs-12"></div>

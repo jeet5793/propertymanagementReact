@@ -12,7 +12,7 @@ var i =1;
 export default class VCreate extends React.Component{
   constructor(props){
     super(props)
-    console.log('props ', props);
+    // console.log('props ', props);
     this.state={
       userData : Cookies.get('profile_data'),
       sectionOpenId:"",
@@ -135,7 +135,7 @@ createAgreement(){
   agreementForm.agreement_title=	$('input[name="agreement_title"]').val()
 	agreementForm.header_content=	  $('input[name="headerContent"]').val();
 	agreementForm.footer_content=	  $('textArea[name="footerContent"]').val();
-	console.log('agreementForm'+JSON.stringify(agreementForm))
+	// console.log('agreementForm'+JSON.stringify(agreementForm))
   if(agreementForm.agreement_title!==''&&agreementForm.agreement_doc_content!=='')
   {
 	 

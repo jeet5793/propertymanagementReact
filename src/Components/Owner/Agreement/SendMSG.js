@@ -65,10 +65,10 @@ userlist(assets_type){
         .then(res => res.json())
         .then(
           (data) => {
-            console.log("data.....: "+JSON.stringify(data))
+            // console.log("data.....: "+JSON.stringify(data))
             if (data.success) {
               this.setState({ propertyByUser: data.invitation.users })
-              console.log("propertyByUser..."+JSON.stringify(this.state.propertyByUser));
+              // console.log("propertyByUser..."+JSON.stringify(this.state.propertyByUser));
             }
             //console.log("set user data"+JSON.stringify(this.state.profileData))
           },
@@ -187,7 +187,7 @@ userlist(assets_type){
 	 };
 
 	 getSuggestionValue(suggestion) {
-		console.log("onSuggestionSelected",suggestion)
+		// console.log("onSuggestionSelected",suggestion)
 		 this.setState({
 			 searchValue: suggestion.label,
 			 receive_user_id: suggestion.value
@@ -206,7 +206,7 @@ userlist(assets_type){
 	 }
 
 	 onChange = (event, { newValue }) => {
-	console.log("onChange ",newValue)
+	// console.log("onChange ",newValue)
 		 this.setState({
 			 value: newValue
 		 },()=>{
@@ -226,7 +226,7 @@ userlist(assets_type){
 	};
 
 	onSuggestionsClearRequested = () => {
-		console.log("onSuggestionsClearRequested ")
+		// console.log("onSuggestionsClearRequested ")
 		this.setState({
 			suggestions: []
 		});
@@ -235,9 +235,9 @@ userlist(assets_type){
 		var searchValue = $('.react-autosuggest__input').val();
 		var assetsType = $('#assets_type').val();
 		const session = JSON.parse(this.state.userData).session_id;  
-		console.log("selVal"+searchValue);
+		// console.log("selVal"+searchValue);
 		const opts ={assets_type:assetsType,string:searchValue,session_id:session,userid:JSON.parse(this.state.userData).assets_id}
-		console.log("optsssss1111"+JSON.stringify(opts));
+		// console.log("optsssss1111"+JSON.stringify(opts));
 		fetch(`${API_URL}assetsapi/userSearch`, {
 			method: 'POST',
 		body: JSON.stringify(opts)
@@ -245,10 +245,10 @@ userlist(assets_type){
 		.then(res => res.json())
 		.then(
 			(result) => {
-			console.log("data22222: "+JSON.stringify(result))
+			// console.log("data22222: "+JSON.stringify(result))
 			if (result.success) {
 			
-				console.log("ifffff: "+JSON.stringify(result))
+				// console.log("ifffff: "+JSON.stringify(result))
 						this.setState({propertyByUser:result.users},()=>{
 							this.setState({
 								suggestions: this.getSuggestions()
@@ -256,7 +256,7 @@ userlist(assets_type){
 						})
 					
 			} else{
-				console.log("elseee"+JSON.stringify(result))
+				// console.log("elseee"+JSON.stringify(result))
 				this.setState({propertyByUser:[{"value":"","label":"No Results Found"}]},()=>{
 					this.setState({
 						suggestions: this.getSuggestions()

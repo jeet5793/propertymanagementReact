@@ -201,7 +201,7 @@ export default class PaymentGateway extends React.Component {
 	render(){  
 		var retrievedData = localStorage.getItem("opts");
 		var opts = JSON.parse(retrievedData);
-		console.log(JSON.stringify(opts));
+		// console.log(JSON.stringify(opts));
 		var Amount = (opts.packageid==14)?8.16:(opts.packageid==12)?18.14:(opts.packageid==14)?26.78:'';
 		// var check = localStorage.removeItem("opts");
 		// console.log(JSON.stringify(check));

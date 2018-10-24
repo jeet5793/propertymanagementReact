@@ -39,7 +39,7 @@ export default class Plans extends React.Component{
 	render(){
     var userid = localStorage.getItem('userid')
         const { planData } = this.state;
-        console.log("plan data"+JSON.stringify(planData))
+        // console.log("plan data"+JSON.stringify(planData))
         if(this.props.location.state!==undefined)
         {
         // const regPlans=this.props.location.state
@@ -119,7 +119,7 @@ export default class Plans extends React.Component{
 																	}
 																  
                                                         } />
-																	<label HTMLFor="radioind"> Free </label>
+																	<label htmlFor="radioind"> Free </label>
 																</div> </div>
                                                     </li>
                                                 </ul>
@@ -167,7 +167,7 @@ export default class Plans extends React.Component{
 																			let getPlanId = setPlanID.toString()
 																			this.props.history.push('payment/'+userid+"/"+getPlanId+'/per_month')
 																		}} />
-																	<label HTMLFor="radioind"> Per Month </label>
+																	<label htmlFor="radioind"> Per Month </label>
 																</div>
 															</div>
 															<div className="col-md-6">
@@ -178,7 +178,7 @@ export default class Plans extends React.Component{
 																			let getPlanId = setPlanID.toString()
 																			this.props.history.push('payment/'+userid+"/"+getPlanId+'/per_annum')
 																		}}/>
-																	<label HTMLFor="radioorg"> Per Annum </label>
+																	<label htmlFor="radioorg"> Per Annum </label>
 																</div>
 															</div>
 															
@@ -233,7 +233,7 @@ export default class Plans extends React.Component{
 																			let getPlanId = setPlanID.toString()
 																			this.props.history.push('payment/'+userid+"/"+getPlanId+'/per_month')
 																		}} />
-																	<label HTMLFor="radioind"> Per Month </label>
+																	<label htmlFor="radioind"> Per Month </label>
 																</div>
 															</div>
 															<div className="col-md-6">
@@ -244,7 +244,7 @@ export default class Plans extends React.Component{
 																			let getPlanId = setPlanID.toString()
 																			this.props.history.push('payment/'+userid+"/"+getPlanId+'/per_annum')
 																		}}/>
-																	<label HTMLFor="radioorg"> Per Annum </label>
+																	<label htmlFor="radioorg"> Per Annum </label>
 																</div>
 															</div>
 															
@@ -297,7 +297,7 @@ export default class Plans extends React.Component{
 																			let getPlanId = setPlanID.toString()
 																			this.props.history.push('payment/'+userid+"/"+getPlanId+'/per_month')
 																		}} />
-																	<label HTMLFor="radioind"> Per Month </label>
+																	<label htmlFor="radioind"> Per Month </label>
 																</div>
 															</div>
 															<div className="col-md-6">
@@ -308,7 +308,7 @@ export default class Plans extends React.Component{
 																			let getPlanId = setPlanID.toString()
 																			this.props.history.push('payment/'+userid+"/"+getPlanId+'/per_annum')
 																		}}/>
-																	<label HTMLFor="radioorg"> Per Annum </label>
+																	<label htmlFor="radioorg"> Per Annum </label>
 																</div>
 															</div>
 														</div>

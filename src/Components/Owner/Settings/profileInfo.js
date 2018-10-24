@@ -235,13 +235,13 @@ Countries() {
 						  <div className="form-group">
 							<div className="row">
 							  <div className="col-lg-1 col-md-2 col-sm-2 required">
-								<label for="first_name">First Name</label>
+								<label htmlFor="first_name">First Name</label>
 							  </div>
 							  <div className="col-lg-5 col-md-4 col-sm-4">
 								<input type="text" className="form-control" id="first_name" name="first_name"  value={this.state.profileSetting.first_name || this.state.profile.first_name} onChange={this.onChangeHandler} placeholder="" />
 							  </div>
 							  <div className="col-lg-1 col-md-2 col-sm-2 required">
-								<label for="last_name">Last Name</label>
+								<label htmlFor="last_name">Last Name</label>
 							  </div>
 							  <div className="col-lg-5 col-md-4 col-sm-4">
 								<input type="text" className="form-control" id="last_name" name="last_name"  value={this.state.profileSetting.last_name || this.state.profile.last_name} onChange={this.onChangeHandler} placeholder=""  />
@@ -251,7 +251,7 @@ Countries() {
 						  <div className="form-group">
 							<div className="row">
 							  <div className="col-lg-1 col-md-2 col-sm-2 required">
-								<label for="dob">D.O.B</label>
+								<label htmlFor="dob">D.O.B</label>
 							  </div>
 							  <div className="col-lg-2 col-md-4 col-sm-4">
 								{/* <input value={this.state.profileSetting.dob.slice(0,10)} className="form-control" id="dobDate" name="date" placeholder="MM/DD/YYYY" type="text"/> */}
@@ -267,7 +267,7 @@ Countries() {
 											/>
 							  </div>
 							  <div className="col-lg-1 col-md-2 col-sm-2 required">
-								<label for="gender">Gender</label>
+								<label htmlFor="gender">Gender</label>
 							  </div>
 							  <div className="col-lg-2 col-md-4 col-sm-4">
 								<select className="form-control" value = {this.state.profileSetting.gender || this.state.profile.gender} name="gender" onChange={this.onChangeHandler}>
@@ -277,7 +277,7 @@ Countries() {
 								</select>
 							  </div>
 							  <div className="col-lg-1 col-md-2 col-sm-2 required snv">
-								<label for="SSN_EIN">SSN/EIN</label>
+								<label htmlFor="SSN_EIN">SSN/EIN</label>
 							  </div>
 							  <div className="col-lg-5 col-md-4 col-sm-4 snv">
 								<input type="text" className="form-control" name="SSN_EIN"  id="SSN_EIN" value={this.state.profileSetting.SSN_EIN || this.state.profile.SSN_EIN} onChange={this.onChangeHandler} placeholder="" required />
@@ -287,13 +287,13 @@ Countries() {
 						  <div className="form-group">
 							<div className="row">
 							  <div className="col-lg-1 col-md-2 col-sm-2 required">
-								<label for="email">Email</label>
+								<label htmlFor="email">Email</label>
 							  </div>
 							  <div className="col-lg-5 col-md-4 col-sm-4">
 								<input type="email" className="form-control" name="email"  id="email"  value={this.state.profileSetting.email || this.state.profile.email} onChange={this.onChangeHandler} placeholder="" required />
 							  </div>
 							  <div className="col-lg-1 col-md-2 col-sm-2 required">
-								<label for="owner_type">User Type</label>
+								<label htmlFor="owner_type">User Type</label>
 							  </div>
 							  <div className="col-lg-5 col-md-4 col-sm-4">
 								<select className="form-control" name="owner_type"  value = {this.state.profileSetting.owner_type ||this.state.profile.owner_type} onChange={this.onChangeHandler} >
@@ -307,21 +307,21 @@ Countries() {
 						  <div className="form-group">
 							<div className="row">
 							  <div className="col-lg-1 col-md-2 col-sm-2 required">
-								<label for="country">Country</label>
+								<label htmlFor="country">Country</label>
 							  </div>
 							  <div className="col-lg-5 col-md-4 col-sm-4">
 								<select className="form-control" name="country" value={this.state.profileSetting.country || this.state.profile.country} onChange={this.onChangeHandler} >
-								  {this.state.countries.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>))}
+								  {this.state.countries.map((option, key) => (<option key={key} value={option.name}>{option.name}</option>))}
 								 
 								</select>
 							  </div>
 							  <div className="col-lg-1 col-md-2 col-sm-2 required">
-								<label for="state" >State</label>
+								<label htmlFor="state" >State</label>
 							  </div>
 							  <div className="col-lg-5 col-md-4 col-sm-4">
 								<select className="form-control" name="state"  onChange={this.onChangeHandler} >
 								  <option>{this.state.profile.state}</option>
-								 {this.state.states?this.state.states.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>)):''}
+								 {this.state.states?this.state.states.map((option, key) => (<option key={key} value={option.name}>{option.name}</option>)):''}
 								 
 								</select>
 							  </div>
@@ -331,17 +331,17 @@ Countries() {
 						  <div className="form-group">
 							<div className="row">
 							  <div className="col-lg-1 col-md-2 col-sm-2 required">
-								<label for="city">City</label>
+								<label htmlFor="city">City</label>
 							  </div>
 							  <div className="col-lg-5 col-md-4 col-sm-4">
 								<select className="form-control" name="city" onChange={this.onChangeHandler} >
 								  <option>{this.state.profile.city}</option>
-								  {this.state.cities?this.state.cities.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>)):''}
+								  {this.state.cities?this.state.cities.map((option, key) => (<option key={key} value={option.name}>{option.name}</option>)):''}
 								 
 								</select>
 							  </div>
 							  <div className="col-lg-1 col-md-2 col-sm-2 required">
-								<label for="zip-code">ZIP Code</label>
+								<label htmlFor="zip-code">ZIP Code</label>
 							  </div>
 							  <div className="col-lg-5 col-md-4 col-sm-4">
 								<input type="text" className="form-control" name="zip_code"  id="zip-code" placeholder="" value={this.state.profileSetting.zip_code || this.state.profile.zip_code} onChange={this.onChangeHandler} />
@@ -352,13 +352,13 @@ Countries() {
 						  <div className="form-group">
 							<div className="row">
 							  <div className="col-lg-1 col-md-2 col-sm-2 required">
-								<label for="mobile-no">Mobile No</label>
+								<label htmlFor="mobile-no">Mobile No</label>
 							  </div>
 							  <div className="col-lg-5 col-md-4 col-sm-4">
 								<input type="text" className="form-control" name="mobile_no"  id="mobile-no" placeholder="" value={this.state.profileSetting.mobile_no || this.state.profile.mobile_no}  onChange={this.onChangeHandler} />
 							  </div>
 							  <div className="col-lg-1 col-md-2 col-sm-2">
-								<label for="landline_no">Landline</label>
+								<label htmlFor="landline_no">Landline</label>
 							  </div>
 							  <div className="col-lg-5 col-md-4 col-sm-4">
 								<input type="text" className="form-control" name="landline_no"  value={this.state.profileSetting.landline_no || this.state.profile.landline_no} id="landline"  placeholder="" onChange={this.onChangeHandler} />
@@ -368,13 +368,13 @@ Countries() {
 						  <div className="form-group">
 							<div className="row">
 							  <div className="col-lg-1 col-md-2 col-sm-2 required">
-								<label for="profile_photo">Profile Img</label>
+								<label htmlFor="profile_photo">Profile Img</label>
 							  </div>
 							  <div className="col-lg-5 col-md-4 col-sm-4">
 								<input type="file" className="form-control" name="profile_photo"  id="u"  placeholder="" onChange={this.onChangeHandler} ref={this.fileInput} />
 							  </div>
 							  <div className="col-lg-1 col-md-2 col-sm-2 required">
-								<label for="about_us">About Me</label>
+								<label htmlFor="about_us">About Me</label>
 							  </div>
 							  <div className="col-lg-5 col-md-4 col-sm-4">
 								<textarea type="text" className="form-control" name="about_us"  value={this.state.profileSetting.about_us || this.state.profile.about_us} id="about_us-no"  placeholder="" onChange={this.onChangeHandler}></textarea>

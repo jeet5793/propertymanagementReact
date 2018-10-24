@@ -37,7 +37,7 @@ export default class Agent extends React.Component{
 	}
 	handleDobChange(date) {
 		// alert(date)
-		console.log('DATE ', date);
+		// console.log('DATE ', date);
 		 this.setState({
 			bgForm:{DOB:date}
 		 });
@@ -75,11 +75,11 @@ export default class Agent extends React.Component{
 		 bgFields.login_user_id = JSON.parse(this.state.userData).assets_id;
 			// bgFields.session_id=this.props.profileData.session_id;
 			this.setState({bgForm:bgFields});
-		 console.log(this.state.bgForm);
+		 // console.log(this.state.bgForm);
 	 }
 	 onClickBGVFormSubmit(){
 		  var opts = Object.assign(this.props.profileData,this.state.bgForm);
-		 console.log('opts'+JSON.stringify(opts))
+		 // console.log('opts'+JSON.stringify(opts))
 		 if(!opts.first_name)
 		 {
 			 alert('First Name should not be blank');

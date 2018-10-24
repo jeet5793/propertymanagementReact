@@ -73,26 +73,11 @@ export default class App extends Component {
     this.setState({ profile: profile })
   }
   componentDidMount() {
-    setTimeout(() => this.setState({ loading: true }), 500); // simulates an async action, and hides the spinner
-  }
-  sleep(milliseconds) {
-
-    var start = new Date().getTime();
-    for (var i = 0; i < 1e7; i++) {
-      if ((new Date().getTime() - start) > milliseconds) {
-        this.setState({ loading: true }, () => {
-          alert(milliseconds)
-
-        })
-        break;
-
-      }
-    }
+    setTimeout(() => this.setState({ loading: true }), 2000); // simulates an async action, and hides the spinner
   }
 
   componentWillMount() {
-    if (window.location.pathname == "/agreement") {
-      // this.sleep(1000)
+    if (window.location.pathname == "/agreement" || window.location.pathname == "/broker-agreement") {
       this.setState({ loading: true })
     }
     if (this.homePaths.indexOf(window.location.pathname) === -1) {
@@ -315,7 +300,7 @@ export default class App extends Component {
           </Switch>
 
           {/* {this.state.couter===0 ?  <Footer />: <FooterOwner />} */}
-        </div> : <h4 style={{ marginTop: '25%', marginLeft: '50%' }}>Loading...</h4>
+        </div> : <div style={{ marginTop: '25%', marginLeft: '50%' }}><img className="loadding_img" src="/static/media/loading_blue_64x64.07401db4.gif" alt="loading..." /></div>
     );
   }
 }

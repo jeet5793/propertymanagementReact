@@ -12,7 +12,7 @@ export default class Customwithmodal extends React.Component{
         // $('.sigPad').signaturePad();
        
 	   $(document).on('click', '.sigDiv', function () {
-            console.log('this ', this);
+            // console.log('this ', this);
 			
             $("#placeId").val(this.id);            
         });
@@ -43,23 +43,23 @@ export default class Customwithmodal extends React.Component{
 
         $(document).ready(function () {
             $.getScript('assets/signature/numeric-1.2.6.min.js', function () {
-                console.log('assets/signature/numeric-1.2.6.min.js ')
+                // console.log('assets/signature/numeric-1.2.6.min.js ')
             });
             $.getScript('assets/signature/bezier.js', function () {
-                console.log('assets/signature/bezier.js ')
+                // console.log('assets/signature/bezier.js ')
             });
             $.getScript('assets/signature/jquery.signaturepad.js', function () {
-                console.log('assets/signature/jquery.signaturepad.js ');
+                // console.log('assets/signature/jquery.signaturepad.js ');
                 var int = setInterval(function () {
                     if (window.$('.sigPad').signaturePad){
-                        console.log('interval ');
+                        // console.log('interval ');
                         window.$('.sigPad').signaturePad();
                         clearInterval(int);
                     }
                 },1000)
             });
             $.getScript('assets/signature/json2.min.js', function () {
-                console.log('assets/signature/json2.min.js ')
+                // console.log('assets/signature/json2.min.js ')
             });
             loadFile("assets/signature/jquery.signaturepad.css", "css");
         });
@@ -133,7 +133,7 @@ export default class Customwithmodal extends React.Component{
         }
         let reader = new FileReader();
         reader.onload = function() {
-            console.log(reader.result);
+            // console.log(reader.result);
             var image = $($("#"+placeId).html("<img id='sigImg' src='"+reader.result+"' style='width:297px;height:97px;'/>")).html();
             var tinymce=window.tinyMCE;
             // tinymce.activeEditor.execCommand('mceInsertContent', false, image)

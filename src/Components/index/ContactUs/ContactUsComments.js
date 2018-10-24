@@ -110,7 +110,7 @@ export default class ContactForm extends React.Component {
       <div className="wpb_wrapper">
         <div role="form" className="wpcf7" id="wpcf7-f322-p304-o1" lang="en-US" dir="ltr">
           <div className="screen-reader-response"></div>
-          <form className="wpcf7-form" novalidate>
+          <form className="wpcf7-form" noValidate>
             <div style={{ display: 'none' }}>
               <input type="hidden" name="_wpcf7" value="322" />
               <input type="hidden" name="_wpcf7_version" value="5.0.1" />

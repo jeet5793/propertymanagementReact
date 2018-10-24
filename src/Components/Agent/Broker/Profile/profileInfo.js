@@ -47,13 +47,13 @@ import 'react-datepicker/dist/react-datepicker.css';
 	}
 	
 	 handleDobChange(date) {
-		console.log('DATE ', date);
+		// console.log('DATE ', date);
 		 this.setState({
 			profileSetting:{dob:date}
 		 });
 	 }
 	onChangeHandler(e){
-        console.log(this.fileInput.current.files[0]);
+        // console.log(this.fileInput.current.files[0]);
 		const profileForm=this.state.profileSetting;
         let formData = new FormData();
 
@@ -131,12 +131,12 @@ import 'react-datepicker/dist/react-datepicker.css';
       this.setState({profileSetting:profileForm})
       this.setState({formData:formData});
       // this.setState({[e.target.name]:e.target.value})
-	 console.log(this.state.profileSetting);
+	 // console.log(this.state.profileSetting);
   }
 	profileSubmit()
 	{
 		var opts= Object.assign(this.state.profile, this.state.profileSetting);
-		console.log('OPTS ', opts);
+		// console.log('OPTS ', opts);
         // let data = this.state.formData || new FormData();
         // for (var i in opts) {
 		 //    data.append(i,opts[i]);

@@ -41,12 +41,12 @@ import $ from 'jquery';
 		settingForm.session_id= JSON.parse(this.state.userData).session_id;
       this.setState({settings:settingForm})
       // this.setState({[e.target.name]:e.target.value})   
- console.log(this.state.settings);	  
+ // console.log(this.state.settings);	  
   }
   formSubmit(){
       var opts=this.state.settings
 
-      console.log(opts.chekname);
+      // console.log(opts.chekname);
      
       if(!opts.old_password){
         alert('Old Password should not be blank');
@@ -76,7 +76,7 @@ import $ from 'jquery';
         }).then((response) => {
           return response.json();
         }).then((data) => {
-          console.log('dataaaa:  ', data);
+          // console.log('dataaaa:  ', data);
           if(data)
           {
 				// swal("Assets Watch", data.msg);
@@ -108,19 +108,19 @@ import $ from 'jquery';
 						<div className="form-group">
 						  <div className="row">
 							<div className="col-lg-2 col-md-3 col-sm-3 required">
-							  <label for="old-password">Old Password</label>
+							  <label htmlFor="old-password">Old Password</label>
 							</div>
 							<div className="col-lg-2 col-md-3 col-sm-3">
 							  <input type="password" name="old_password" className="form-control" id="old-password" onChange={this.onChangeHandler} placeholder="" required />
 							</div>
 							<div className="col-lg-2 col-md-3 col-sm-3 required">
-							  <label for="new-password">New Password</label>
+							  <label htmlFor="new-password">New Password</label>
 							</div>
 							<div className="col-lg-2 col-md-3 col-sm-3">
 							  <input type="password" name="new_password" className="form-control" id="new-password" onChange={this.onChangeHandler} placeholder="" required />
 							</div>
 							<div className="ccol-lg-2 col-md-3 col-sm-3 required">
-							  <label for="confirm-password">Confirm Password</label>
+							  <label htmlFor="confirm-password">Confirm Password</label>
 							</div>
 							<div className="col-lg-2 col-md-3 col-sm-3 snv">
 							  <input type="password" name="confirm_password" className="form-control" id="confirm-password" onChange={this.onChangeHandler} placeholder="" required />

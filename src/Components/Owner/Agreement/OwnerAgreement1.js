@@ -335,7 +335,7 @@ export default class container extends React.Component{
 
     editAgreement(agreement) {
        this.setState({editAgreement: agreement}, () => {
-           console.log('editAgreement ', agreement)
+           // console.log('editAgreement ', agreement)
            $('#create')[0].click();
        })
     }
@@ -572,7 +572,7 @@ getPropertyList() {
                     if (data.success) {
                         // debugger;
                         this.setState({propertyByUser: data.service.property_list})
-                        console.log('pp'+JSON.stringify(this.state.propertyByUser));
+                        // console.log('pp'+JSON.stringify(this.state.propertyByUser));
                     }
                     //console.log("set user data"+JSON.stringify(this.state.profileData))
                 },

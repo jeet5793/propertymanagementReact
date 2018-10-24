@@ -33,7 +33,7 @@ class ProfileDetails extends React.Component{
 		sendFrm.sender=JSON.parse(this.state.userData).assets_id
 		sendFrm.session_id=JSON.parse(this.state.userData).session_id
 		this.setState({sendForm:sendFrm})
-		console.log(this.state.sendForm);
+		// console.log(this.state.sendForm);
 	}
 	sendMessage(){
 		const opts = this.state.sendForm;
@@ -63,7 +63,7 @@ class ProfileDetails extends React.Component{
 					   $("#BlockUIConfirm").show();
 				  
 				} 
-				console.log("notification"+JSON.stringify(this.state.sendForm))
+				// console.log("notification"+JSON.stringify(this.state.sendForm))
 			  },
 				(error) => {
 				  console.log('error')
@@ -88,7 +88,7 @@ class ProfileDetails extends React.Component{
           this.setState({profileData:result.profile})
           
         } 
-        console.log("set user data"+JSON.stringify(this.state.profileData))
+        // console.log("set user data"+JSON.stringify(this.state.profileData))
       },
 		(error) => {
 		  console.log('error')
@@ -127,7 +127,7 @@ class ProfileDetails extends React.Component{
 			  this.setState({bgvInfo:result.bgvInfo})
 			  
 			} 
-			console.log("bgvInfo"+JSON.stringify(this.state.bgvInfo))
+			// console.log("bgvInfo"+JSON.stringify(this.state.bgvInfo))
 		  },
 			(error) => {
 			  console.log('error')

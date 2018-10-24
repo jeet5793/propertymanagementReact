@@ -113,7 +113,7 @@ class BrokerTenant extends React.Component{
 	 };
 
 	 getSuggestionValue(suggestion) {
-		console.log("onSuggestionSelected",suggestion)
+		// console.log("onSuggestionSelected",suggestion)
 		 this.setState({
 			 searchValue: suggestion.label,
 			 receive_user_id: suggestion.value
@@ -132,7 +132,7 @@ class BrokerTenant extends React.Component{
 	 }
 
 	 onChange = (event, { newValue }) => {
-	console.log("onChange ",newValue)
+	// console.log("onChange ",newValue)
 		 this.setState({
 			 value: newValue
 		 },()=>{
@@ -152,7 +152,7 @@ class BrokerTenant extends React.Component{
 	};
 
 	onSuggestionsClearRequested = () => {
-		console.log("onSuggestionsClearRequested ")
+		// console.log("onSuggestionsClearRequested ")
 		this.setState({
 			suggestions: []
 		});
@@ -160,9 +160,9 @@ class BrokerTenant extends React.Component{
 	searchUser() {
 		var searchValue = $('.react-autosuggest__input').val()
 		const session = JSON.parse(this.state.userData).session_id;  
-		console.log("selVal"+searchValue);
+		// console.log("selVal"+searchValue);
 		const opts ={assets_type:3,keyword:searchValue,session_id:session}
-		console.log("optsssss1111"+JSON.stringify(opts));
+		// console.log("optsssss1111"+JSON.stringify(opts));
 		fetch(`${API_URL}assetsapi/user_search`, {
 			method: 'POST',
 		body: JSON.stringify(opts)
@@ -170,10 +170,10 @@ class BrokerTenant extends React.Component{
 		.then(res => res.json())
 		.then(
 			(result) => {
-			console.log("data22222: "+JSON.stringify(result))
+			// console.log("data22222: "+JSON.stringify(result))
 			if (result.success) {
 			
-				console.log("ifffff: "+JSON.stringify(result))
+				// console.log("ifffff: "+JSON.stringify(result))
 						this.setState({propertyByUser:result.search_userlist},()=>{
 							this.setState({
 								suggestions: this.getSuggestions()
@@ -181,7 +181,7 @@ class BrokerTenant extends React.Component{
 						})
 					
 			} else{
-				console.log("elseee"+JSON.stringify(result))
+				// console.log("elseee"+JSON.stringify(result))
 				this.setState({propertyByUser:[{"value":"","label":"No Results Found"}]},()=>{
 					this.setState({
 						suggestions: this.getSuggestions()
@@ -222,7 +222,7 @@ class BrokerTenant extends React.Component{
 		 let _this = this;
 
        const opts ={assets_type:3,keyword:selVal,session_id:session}
-	   console.log(opts);
+	   // console.log(opts);
 		fetch(`${API_URL}assetsapi/user_search`, {
 			  method: 'POST',
 			body: JSON.stringify(opts)
@@ -238,7 +238,7 @@ class BrokerTenant extends React.Component{
 						
 						
 				} 
-				 console.log("autocompleteData"+JSON.stringify(this.state.autocompleteData))
+				 // console.log("autocompleteData"+JSON.stringify(this.state.autocompleteData))
 				// console.log("user_list"+JSON.stringify(this.state.user_list))
 			  },
 			(error) => {
@@ -251,7 +251,7 @@ class BrokerTenant extends React.Component{
   handleChange = (selectedOption) => {
 
 		this.setState({ selectedOption });
-     console.log(`Option selected:`, selectedOption);
+     // console.log(`Option selected:`, selectedOption);
   }
   
   inviteDropdowns(){
@@ -369,7 +369,7 @@ class BrokerTenant extends React.Component{
         }).then((response) => {
           return response.json();
         }).then((data) => {
-          console.log('dataaaa:  ', data); 
+          // console.log('dataaaa:  ', data); 
 		  $("#loaderDiv").hide();
 			 $("#actionType").val("Yes");
 			 $("#hiddenURL").val("broker-tenant");
@@ -416,7 +416,8 @@ class BrokerTenant extends React.Component{
         this.setState({activePageJoined: pageNum, pagedJoinedList: propData })
     }
 	messagerec(id,name)
-	{ console.log(id+''+name);
+	 { 
+	// console.log(id+''+name);
 		document.getElementById('receiver').value= id;
 		document.getElementById('receiver_name').value= name;
 	}
@@ -428,7 +429,7 @@ class BrokerTenant extends React.Component{
 		sendFrm.sender=JSON.parse(this.state.userData).assets_id
 		sendFrm.session_id=JSON.parse(this.state.userData).session_id
 		this.setState({sendForm:sendFrm})
-		console.log(this.state.sendForm);
+		// console.log(this.state.sendForm);
 	}
 	sendMessage(){
 		const opts = this.state.sendForm

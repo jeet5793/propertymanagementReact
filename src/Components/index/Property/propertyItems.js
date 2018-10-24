@@ -3,6 +3,9 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import img_not_available from '../../../images/img_not_available.png'
 export default class PropertyItems extends React.Component{
+	constructor(props){
+		super(props)
+	}
     render(){
       var classs=""
       if(this.props.PropertyStatus!=="Rent"){
@@ -14,9 +17,9 @@ export default class PropertyItems extends React.Component{
       }
         return(
             
-            <div style={{width:"30%",marginRight:30}} className={"tz-property-content filterDiv cbp-item "+classs}>
-            <Link to={{'pathname':"property-detail",state:this.props.property}} ownerDetails={this.props.ownerDetails}>
-            <a className="tz-property-thum cbp-caption" rel="nofollow">
+            <div style={{width:"30%",marginRight:30}}    className={"tz-property-content filterDiv cbp-item "+classs}>
+            <Link to={{'pathname':"property-detail",state:this.props.property}}>
+            <span className="tz-property-thum cbp-caption" rel="nofollow">
               <div className="cbp-caption-defaultWrap">
                 <figure>
                 <img className="property-imggg" src={this.props.src?this.props.src:img_not_available} alt="" style={{width: '100%'}}/>
@@ -30,10 +33,10 @@ export default class PropertyItems extends React.Component{
                   </div>
                 </div>
               </div>
-            </a>
+            </span>
             </Link>
             <div className="tz-property-des">
-              <h5><Link to={{'pathname':"property-detail",state:this.props.property}}><a>{this.props.Title}</a></Link></h5>
+              <h5><Link to={{'pathname':"property-detail",state:this.props.property}}>{this.props.Title}</Link></h5>
               <div className="tz-property-price"> $ {this.props.total_amount}&nbsp; </div>
               <div className="tz-property-info">
                 <div className="pull-left"> 
@@ -60,8 +63,8 @@ export default class PropertyItems extends React.Component{
                   <span id="fav_dir654" > 
                   <a data-toggle="tooltip" data-placement="bottom" title="Add to Favorites"  > 
                   <i className="icon-heart"></i> </a> </span> </div>*/}
-                <a href="property-detail" rel="nofollow">
-                <Link to={{'pathname':"property-detail",state:this.props.property}} className="pull-right tz-view" rel="nofollow">VIEW DETAILS</Link></a> </div>
+                <span rel="nofollow">
+                <Link to={{'pathname':"property-detail",state:this.props.property}} className="pull-right tz-view" rel="nofollow">VIEW DETAILS</Link></span> </div>
                 
             </div>
           </div>

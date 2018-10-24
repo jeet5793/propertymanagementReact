@@ -92,7 +92,7 @@ class PlanPayment extends React.Component {
                 this.setState({
                   userDetails:result.user_detail
                 })
-				console.log(this.state.userDetails);
+				// console.log(this.state.userDetails);
               }
               //this.props.updateInfo(result.profile);
             },
@@ -110,7 +110,7 @@ class PlanPayment extends React.Component {
 
   paymentPage(event) {
   event.preventDefault();
-  	console.log(this.state);
+  	// console.log(this.state);
 
   var payment_Object={
     "userid":this.state.userDetails.user_id,

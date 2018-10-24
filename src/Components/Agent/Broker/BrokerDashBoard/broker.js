@@ -41,7 +41,7 @@ class AgentBrokerDashboard extends React.Component {
     // console.log("owner props"+JSON.stringify(props));
 	 // console.log("owner dashboard userInfo props"+JSON.stringify(this.props.userData))
     if (!this.state.userData) {
-      console.log("owner props"+JSON.stringify(props))
+      // console.log("owner props"+JSON.stringify(props))
       this.props.history.replace('/');
      // console.log("owner props"+JSON.stringify(props));
     }else{

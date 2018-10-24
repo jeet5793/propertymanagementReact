@@ -19,7 +19,7 @@ export default class StaticCount extends React.Component{
 			.then((response) => {
 				response.json().then((data) => {
 					this.setState({ statics_count: data.statics_count[0] });
-					console.log(this.state.statics_count)
+					// console.log(this.state.statics_count)
 				})
 			});
 	}

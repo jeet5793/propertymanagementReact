@@ -24,7 +24,7 @@ export default class PrivacyPolicy extends React.Component{
 			response.json().then((data)=>{
 				
 				this.setState({portal_content:data.portal_content[0]['description']})
-				console.log(this.state.portal_content)
+				// console.log(this.state.portal_content)
 			})
 		});
 	}

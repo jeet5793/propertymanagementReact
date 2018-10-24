@@ -148,7 +148,7 @@ this.imgServer=API_URL,
                                             </a>
 											<a title="Download"  href="#" className="table-action-btn view-rqu"><i className="mdi mdi-download" onClick={() => this.onClickDownload(element.deal_id)}></i></a>
 											<Link to={{pathname:'/tenant-deal-payment',state:{rent:element.rent,total_amount:element.total_amount,deal_id:element.deal_id,userId:JSON.parse(this.state.userData).assets_id,paidFor:element.property_status,property_id:element.property_id}}}  className="table-action-btn" >
-                                                <button className="btn btn-success" style={{cursor:'pointer'}}>{element.property_status}</button>
+                                                <button className="btn btn-success" style={{cursor:'pointer'}}>Pay</button>
                                             </Link>
                                             
                                         </td>

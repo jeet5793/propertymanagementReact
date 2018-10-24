@@ -107,7 +107,7 @@ export default class SocialLogin extends React.Component {
 	const fetchedDate = {'first_name':first_name,'last_name':last_name,'email':email};
 	var opts =Object.assign(this.state.Registeration,fetchedDate);
     opts.assets_type = this.state.RegType;
-   console.log(opts);
+   // console.log(opts);
     if (opts.assets_type === "2") {
       if (!opts.agent_type) {
         alert("Must select the Agent type");
@@ -176,7 +176,7 @@ export default class SocialLogin extends React.Component {
           return response.json();
         })
         .then((data) => {
-          console.log('dataaaa:  ', data);
+          // console.log('dataaaa:  ', data);
 		  if(data.msg.indexOf("Email Already Exist")!=-1)
 		  {
 			  swal("Assets Watch", data.msg);
@@ -318,7 +318,7 @@ export default class SocialLogin extends React.Component {
 									id="ownerid"
 									value="1"
 								  />
-								  <label HTMLFor="ownerid"> Owner </label>
+								  <label htmlFor="ownerid"> Owner </label>
 								</div>
 							  </div>
 
@@ -331,7 +331,7 @@ export default class SocialLogin extends React.Component {
 									id="agentid"
 									value="2"
 								  />
-								  <label HTMLFor="agentid"> Agent </label>
+								  <label htmlFor="agentid"> Agent </label>
 								</div>
 							  </div>
 
@@ -344,7 +344,7 @@ export default class SocialLogin extends React.Component {
 									value="3"
 									onChange={this.handleChange}
 								  />
-								  <label HTMLFor="tenantid"> Tenant </label>
+								  <label htmlFor="tenantid"> Tenant </label>
 								</div>
 							  </div>
 							</div>
@@ -358,7 +358,7 @@ export default class SocialLogin extends React.Component {
 								className="form-control form-control-solid placeholder-no-fix"
 								name="agent_type"
 								onChange={this.onChangeHandler}
-								id=""
+								
 							  >
 								<option>Select</option>
 								<option value="1">Service provider</option>
@@ -372,11 +372,11 @@ export default class SocialLogin extends React.Component {
 							<input
 							  className="form-control form-control-solid placeholder-no-fix"
 							  type="text"
-							  autocomplete="off"
+							  autoComplete="off"
 							  placeholder="First Name"
 							  onChange={this.onChangeHandler}
 							  name="first_name"
-							  id=""
+							  
 							  value={this.state.Registeration.first_name ||first_name}
 							/>
 						  </div>
@@ -386,7 +386,7 @@ export default class SocialLogin extends React.Component {
 							<input
 							  className="form-control form-control-solid placeholder-no-fix"
 							  type="text"
-							  autocomplete="off"
+							  autoComplete="off"
 							  placeholder="Last Name"
 							  name="last_name"
 							  id=""
@@ -400,10 +400,10 @@ export default class SocialLogin extends React.Component {
 							<input
 							  className="form-control form-control-solid placeholder-no-fix"
 							  type="text"
-							  autocomplete="off"
+							  autoComplete="off"
 							  placeholder="Email"
 							  name="email"
-							  id=""
+							  
 							  onChange={this.onChangeHandler}
 							   value={this.state.Registeration.email || email}
 							/>
@@ -422,7 +422,7 @@ export default class SocialLogin extends React.Component {
 									onChange={this.onChangeHandler}
 									value={1}
 								  />
-								  <label HTMLFor="radioind"> Individual </label>
+								  <label htmlFor="radioind"> Individual </label>
 								</div>
 							  </div>
 							  <div className="col-md-6">
@@ -435,7 +435,7 @@ export default class SocialLogin extends React.Component {
 									onChange={this.onChangeHandler}
 									value={0}
 								  />
-								  <label HTMLFor="radioorg"> Organize </label>
+								  <label htmlFor="radioorg"> Organize </label>
 								</div>
 							  </div>
 							</div>
@@ -447,11 +447,11 @@ export default class SocialLogin extends React.Component {
 							  <input
 								className="form-control form-control-solid placeholder-no-fix"
 								type="text"
-								autocomplete="off"
+								autoComplete="off"
 								placeholder="Company Name"
 								name="company_name"
 								onChange={this.onChangeHandler}
-								id=""
+								
 							  />
 							</div>
 						  </div>
@@ -460,11 +460,11 @@ export default class SocialLogin extends React.Component {
 							  <input
 								className="form-control form-control-solid placeholder-no-fix"
 								type="text"
-								autocomplete="off"
+								autoComplete="off"
 								placeholder="Website URL"
 								name="website_url"
 								onChange={this.onChangeHandler}
-								id=""
+								
 							  />
 							</div>
 						  </div>
@@ -474,11 +474,11 @@ export default class SocialLogin extends React.Component {
 							<input
 							  className="form-control form-control-solid placeholder-no-fix"
 							  type="password"
-							  autocomplete="off"
+							  autoComplete="off"
 							  onChange={this.onChangeHandler}
 							  placeholder="Password"
 							  name="password"
-							  id=""
+							  
 							/>
 						  </div>
 						</div>
@@ -487,11 +487,11 @@ export default class SocialLogin extends React.Component {
 							<input
 							  className="form-control form-control-solid placeholder-no-fix"
 							  type="password"
-							  autocomplete="off"
+							  autoComplete="off"
 							  onChange={this.onChangeHandler}
 							  placeholder="Confirm Password"
 							  name="cnfPass"
-							  id=""
+							  
 							/>
 						  </div>
 						</div>
@@ -505,7 +505,7 @@ export default class SocialLogin extends React.Component {
 						  >
 							<option>Select Country</option>
 							{this.state.countries.map((option, key) => (
-							  <option key={key.id} value={option.name}>
+							  <option key={key} value={option.name}>
 								{option.name}
 							  </option>
 							))}
@@ -521,7 +521,7 @@ export default class SocialLogin extends React.Component {
 							>
 							  <option>Select State</option>
 							  {this.state.states?this.state.states.map((option, key) => (
-								<option key={key.id} value={option.name}>
+								<option key={key} value={option.name}>
 								  {option.name}
 								</option>
 							  )):''}
@@ -538,7 +538,7 @@ export default class SocialLogin extends React.Component {
 							>
 							  <option>Select City</option>
 							  {this.state.cities?this.state.cities.map((option, key) => (
-								<option key={key.id} value={option.name}>
+								<option key={key} value={option.name}>
 								  {option.name}
 								</option>
 							  )):''}
@@ -550,11 +550,11 @@ export default class SocialLogin extends React.Component {
 							<input
 							  className="form-control form-control-solid placeholder-no-fix"
 							  type="text"
-							  autocomplete="off"
+							  autoComplete="off"
 							  onChange={this.onChangeHandler}
 							  placeholder="ZIP Code"
 							  name="zip_code"
-							  id=""
+							  
 							/>
 						  </div>
 						</div>
@@ -563,12 +563,12 @@ export default class SocialLogin extends React.Component {
 							<input
 							  className="form-control form-control-solid placeholder-no-fix"
 							  type="text"
-							  autocomplete="off"
+							  autoComplete="off"
 							  placeholder="Mobile"
 							  onChange={this.onChangeHandler}
 							  name="mobile_no"
 							  value={this.state.Registeration.mobile_no}
-							  id=""
+							  
 							/>
 						  </div>
 						</div>
@@ -577,11 +577,11 @@ export default class SocialLogin extends React.Component {
 							<input
 							  className="form-control form-control-solid placeholder-no-fix"
 							  type="text"
-							  autocomplete="off"
+							  autoComplete="off"
 							  placeholder="Landline"
 							  name="landline_no"
 							  value={this.state.Registeration.landline_no}
-							  id=""
+							  
 							  onChange={this.onChangeHandler}
 							/>
 						  </div>

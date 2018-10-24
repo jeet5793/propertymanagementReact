@@ -77,21 +77,16 @@ class EditProperty extends React.Component {
       const propertyDetails = JSON.parse(this.state.propertyInfo)
       // console.log("receeeeeived123456..."+ JSON.stringify(propertyDetails))
       this.setState({
-        formData: { property_id: propertyDetails.id, title: propertyDetails.title, address: propertyDetails.address, address2: propertyDetails.address2, country: propertyDetails.country, state: propertyDetails.state, city: propertyDetails.city, zip_code: propertyDetails.zip_code, property_type: propertyDetails.property_type, property_status: propertyDetails.property_status, geo_location: propertyDetails.geo_location, square_feet: propertyDetails.square_feet, agent_perc: propertyDetails.agent_perc, description: propertyDetails.description, bedroom: propertyDetails.bedroom, bathroom: propertyDetails.bathroom, total_amount: propertyDetails.total_amount,rent: propertyDetails.rent, advance: propertyDetails.advance, advance: propertyDetails.advance }, base64images: propertyDetails.img_path, shareholders: propertyDetails.owner_details
+        formData: { property_id: propertyDetails.id, title: propertyDetails.title, address: propertyDetails.address, address2: propertyDetails.address2, country: propertyDetails.country, state: propertyDetails.state, city: propertyDetails.city, zip_code: propertyDetails.zip_code, property_type: propertyDetails.property_type, property_status: propertyDetails.property_status, geo_location: propertyDetails.geo_location, square_feet: propertyDetails.square_feet, agent_perc: propertyDetails.agent_perc, description: propertyDetails.description, bedroom: propertyDetails.bedroom, bathroom: propertyDetails.bathroom, total_amount: propertyDetails.total_amount, rent: propertyDetails.rent, advance: propertyDetails.advance, advance: propertyDetails.advance }, base64images: propertyDetails.img_path, shareholders: propertyDetails.owner_details
       }, () => {
         this.stateLists(propertyDetails.country);
         this.cityList(propertyDetails.state);
-        this.state.base64images.map((img, key) => {
-          // console.log("base64...... " + JSON.stringify(img.img_path));
-          // this.state.imagesList.push(img.img_path)
-          this.toDataUrl(img.img_path, (myBase64) => {
-            this.state.images.push(myBase64)
-            console.log("base6464...... " + this.state.images); // myBase64 is the base64 string
-          })
+        // console.log("base646465666...... " + this.state.base64images.length);
+       this.state.base64images.map((img, key) => {
+            this.state.images.push(img.img_path)
+             // console.log("base6464...... " + this.state.images); // myBase64 is the base64 string
         })
-        // this.toDataUrl('assets/Owner/14/Property/d9485dcc806bd496a99a9ecc28edb457.png', (myBase64) => {
-        //   console.log("base64...... " + myBase64); // myBase64 is the base64 string
-        // })
+        
       })
 
     }
@@ -256,19 +251,7 @@ class EditProperty extends React.Component {
     this.setState({ formData: formData })
 
   }
-  toDataUrl(url, callback) {
-    const xhr = new XMLHttpRequest();
-    xhr.onload = () => {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        callback(reader.result);
-      };
-      reader.readAsDataURL(xhr.response);
-    };
-    xhr.open('GET', url);
-    xhr.responseType = 'blob';
-    xhr.send();
-  };
+ 
 
   editProperty() {
     var opts = this.state.formData
@@ -278,7 +261,7 @@ class EditProperty extends React.Component {
     opts.owner_id = JSON.parse(this.state.userData).assets_id;
     opts.property_id = JSON.parse(this.state.propertyInfo).id;
 
-    console.log("imgpathhh" + JSON.stringify(opts))
+    // console.log("imgpathhh" + JSON.stringify(opts))
     $("#loaderDiv").show();
 
     fetch(`${API_URL}assetsapi/edit_property/`, {
@@ -310,7 +293,7 @@ class EditProperty extends React.Component {
         const fileAsBinaryString = reader.result;
         this.state.images.push(fileAsBinaryString)
         this.setState({ files: [file, ...this.state.files], images: this.state.images }, () => {
-          console.log("helllllllllllllllo " + JSON.stringify(this.state.images))
+          // console.log("helllllllllllllllo " + JSON.stringify(this.state.images))
         })
       };
       reader.onerror = function (error) {
@@ -359,7 +342,7 @@ class EditProperty extends React.Component {
             <div className="row">
               <div className="col-12">
                 <div className="card-box add-property">
-                  {/*<form method="post" className="form-horizontal">*/}
+                  <form  className="form-horizontal">
                   <div className="row">
                     <div className="col-md-8 col-sm-8">
                       <div className="form-group row">
@@ -589,7 +572,8 @@ class EditProperty extends React.Component {
                                               <span className="jFiler-item-title"><b title="{{file.name}}"></b></span>
                                               <span className="jFiler-item-others"></span>
                                             </div>
-                                            <img src={base64images[key] ? API_URL + base64images[key].img_path : image} />
+                                            <img src={image.indexOf("assets")>=0 ?API_URL+image:image} />
+                                            {/* <img src={image.img_path ? API_URL + image.img_path : image} /> */}
                                           </div>
                                           <div className="jFiler-item-assets jFiler-row">
                                             {/*<ul class="list-inline pull-left">*/}
@@ -615,14 +599,14 @@ class EditProperty extends React.Component {
                       <div className="row">
                         <div className="col-md-8"></div>
                         <div className="col-md-4 submit-btn">
-                          <button type="button" className="btn btn-secondary waves-effect w-md m-r-10">Cancel</button>
+                         <input type="reset" className="btn btn-secondary waves-effect w-md m-r-10" value="Cancel"/>
                           <button type="button" onClick={this.editProperty} className="btn btn-success waves-effect w-md waves-light">Submit</button>
 
                         </div>
                       </div>
                     </div>
                   </div>
-                  {/*</form>*/}
+                  </form>
                 </div>
               </div>
             </div>

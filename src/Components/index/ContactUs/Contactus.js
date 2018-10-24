@@ -80,7 +80,7 @@ export default class ContactUs extends React.Component {
                       <div className="tz-content ">
                         <h3>Contact us</h3>
 						{this.state.contactinfo.map((item)=>(
-                        <div className="tz-title-content">
+                        <div className="tz-title-content" key={item.id}>
 							{item.address? <div className="item address"> <i className="icon-map-marker"></i> {item.address} </div>:''}
 							{item.phone?<div className="item phone"> <i className="icon-telephone2"></i> {item.phone} </div>:''}
 							{item.mobile?<div className="item mobile"> <i className="icon-mobile"></i> {item.mobile} </div>:''}
@@ -109,7 +109,7 @@ export default class ContactUs extends React.Component {
                     <div className="wpb_gmaps_widget wpb_content_element" >
                       <div className="wpb_wrapper">
                         <div className="wpb_map_wraper">
-                          <iframe title="contactus" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3346.690290462099!2d-96.99440488481267!3d32.985571980909455!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864c2eba6b8f1751%3A0xeb7a94785fd8c42e!2s113+TX-121%2C+Coppell%2C+TX+75019%2C+USA!5e0!3m2!1sen!2sin!4v1529928209642" width="600" height="450" frameborder="0" style={{ border: '0' }} allowfullscreen></iframe>
+                          <iframe title="contactus" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3346.690290462099!2d-96.99440488481267!3d32.985571980909455!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864c2eba6b8f1751%3A0xeb7a94785fd8c42e!2s113+TX-121%2C+Coppell%2C+TX+75019%2C+USA!5e0!3m2!1sen!2sin!4v1529928209642" width="600" height="450" frameBorder="0" style={{ border: '0' }} allowFullScreen></iframe>
                         </div>
                       </div>
                     </div>

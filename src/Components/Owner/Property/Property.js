@@ -51,7 +51,7 @@ class Property extends React.Component{
 		.then(res => res.json())
 		.then(
 		  (data) => {
-            console.log("data22: "+JSON.stringify(data))
+            // console.log("data22: "+JSON.stringify(data))
             this.setState({propertiesLoading:true})
             // debugger;
 			$("#loaderDiv").hide();
@@ -177,7 +177,7 @@ class Property extends React.Component{
 	 }
     render(){
         const imgSer=this.imgServer
-        console.log("propertyloading..."+JSON.stringify(this.state.propertiesLoading))
+        // console.log("propertyloading..."+JSON.stringify(this.state.propertiesLoading))
         // if(this.props.owner===undefined)
         // window.location.href='http://'+window.location.host
         return(

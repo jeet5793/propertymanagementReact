@@ -14,7 +14,7 @@ const TableReprt=(props)=>{
    for(var i=0;i<props.report.length;i++){
        expens=Number(expens)+Number(props.report[i].transactionamount)
    }
-   console.log(props);
+   // console.log(props);
     return(
 		<div>
         
@@ -33,19 +33,19 @@ const TableReprt=(props)=>{
                       </thead>
 					{ props.report?
                       <tbody>
-						{props.report.map(element=><tr>
-						  <td></td>
+						{props.report.map((element,index)=><tr>
+						  <td>{index + 1}</td>
                           <td className="tbl-text-overflow">{element.title}</td>
                           <td>{element.transactiondate}</td>
-                          <td></td>
-                          <td>{element.transactionamount} </td>
+                          <td>{element.transactionamount}</td>
+                          <td> </td>
                         </tr>)}
 					</tbody>:'No Contact Available'}
 						<tfoot>
 						<tr>
-							<td colspan="3" className="text-right"><b>Total :</b></td>
+							<td colSpan={3} className="text-right"><b>Total :</b></td>
+							<td><b>{props.totalAmt}</b></td>
 							<td><b></b></td>
-							<td><b>{expens}</b></td>
 							</tr>
 						</tfoot>
                     </table>
@@ -77,7 +77,7 @@ const TableReprt=(props)=>{
 					</tbody>: <tbody><td colSpan={5}>'No transaction Available'</td> </tbody>}
 						<tfoot>
 						<tr>
-							<td colspan="3" className="text-right"><b>Total :</b></td>
+							<td colSpan={3} className="text-right"><b>Total :</b></td>
 							<td><b>{expens}</b></td>
 							<td><b></b></td>
 							</tr>
@@ -209,20 +209,21 @@ export default class ReportTable extends React.Component{
         }).then(res=>res.json())
         .then((data)=>{
             // debugger;
-            console.log(data)
+            // console.log(data)
             if(data.success){
                 this.setState({reports:data.report})
+				this.setState({totalAmt:data.totalAmt})
             }
         })}        
         else if(this.state.formType==='?Transaction'){
-			console.log('Transaction'+JSON.stringify(formData))
+			// console.log('Transaction'+JSON.stringify(formData))
             fetch(`${API_URL}assetsapi/transaction_report`,{
                 method:'post',
                 body: JSON.stringify(formData)
             }).then(res=>res.json())
             .then((data)=>{
                 // debugger;
-                console.log(data)
+                // console.log(data)
                 if(data.success){
                     this.setState({reports:data.report})
                 }
@@ -235,7 +236,7 @@ export default class ReportTable extends React.Component{
             }).then(res=>res.json())
             .then((data)=>{
                 // debugger;
-                console.log(data)
+                // console.log(data)
                 if(data.success){
                     this.setState({reports:data.report})
                 }
@@ -334,7 +335,7 @@ export default class ReportTable extends React.Component{
           this.setState({createForm:ReportTable})
           // else
           // this.setState({createForm1:ReportTable})
-	  console.log(this.state.createForm);
+	  // console.log(this.state.createForm);
       }
 	  handleChange(date) {
     this.setState({
@@ -366,7 +367,7 @@ export default class ReportTable extends React.Component{
                 <div className="form-group search-sec">
                     <FilterCriteria property={this.state.property} submit={this.submit} formType = {this.state.formType} change={this.onChangeHandler} startDate = {this.state.startDate} endDate = {this.state.endDate} handleStChange={this.handleChange} handleEdChange={this.handleEdChange}/>
                 </div>
-                <TableReprt report={Report}  incoiceDownload = {this.incoiceDownload} formType = {this.state.formType}/>
+                <TableReprt report={Report}  totalAmt={this.state.totalAmt} incoiceDownload = {this.incoiceDownload} formType = {this.state.formType}/>
             </div>
         </div>
     </div>

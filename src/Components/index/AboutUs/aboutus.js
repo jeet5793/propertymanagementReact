@@ -388,7 +388,7 @@ export default class Aaboutus extends React.Component {
   }
 
   render() {
-    console.log("testing... " + JSON.stringify(this.state.agentList))
+    // console.log("testing... " + JSON.stringify(this.state.agentList))
     return (
       <div className="mg-top-129">
 
@@ -590,7 +590,7 @@ export default class Aaboutus extends React.Component {
                   <div className="tz-property-home  ">
                     <div>
                       {this.state.agentList && this.state.agentList.length > 0 ? this.state.agentList.map((agent) => {
-                        return (<div className="tz-author-item cbp-item">
+                        return (<div className="tz-author-item cbp-item" key={agent.agent_id}>
                           <div className="tz-thumbnail"> <a > <img style={{maxWidth:'68%'}} src={agent.profile_photo ? API_URL +agent.profile_photo:img_not_available} className="home-img wide tall" alt="" width="260" height="420" />  </a> </div>
                           <div className="tz-author-content">
                             <h4> {agent.name} </h4>
