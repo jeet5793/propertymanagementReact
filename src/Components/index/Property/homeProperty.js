@@ -36,15 +36,19 @@ $("#loaderDiv").show();
 				// $(".slider-holder").append("<span id='slider-image-"+`${index+1}`+"'/>"),
 				// $(".button-holder").append("<a href='#slider-image-"+`${index+1}`+"' className='slider-change'></a>")
 			 // ))
-			 
+			 $('#proImageConfirm').show();
 			 // $("#proImageConfirm").show();
 			//alert(result.property_images);
 			
 			// $('#ninja-slider').show();
 			// $('#lightbox').show();
-			 $('#proImageConfirm').show();
+			
+			 
 			// $('#lightbox').show();
-            
+            /* for(var i= 0; i<result.property_images.length; i++)
+			{
+				$(".presentation-mode").append("<div><img src='"+API_URL+result.property_images[i].img_path+"'/></div>")
+			} */
           } 
           
         }),
@@ -56,6 +60,7 @@ onClickClose() {
 		$("#proImageConfirm").hide();
 	}
 	render(){
+		// console.log(JSON.stringify(this.state.propertiesImg))
 		return(
            
 
@@ -102,12 +107,12 @@ onClickClose() {
 							</div>
 							<div className="confirm-body">
 						
-								<Carousel autoPlay showArrows={true}>
-								{this.state.propertiesImg.map((item)=>(
+								<Carousel autoPlay showArrows={true} showThumbs={false} >
+								{this.state.propertiesImg?this.state.propertiesImg.map((item,index)=>(
 									<div>
-										<img src={API_URL+item.img_path} />
+										<img src={API_URL+item.img_path}/>
 									</div>
-								))}			
+								)):''}	
 								</Carousel>
 								
 						
@@ -115,8 +120,6 @@ onClickClose() {
 					
 						</div>
 					</div> 
-						
-							
 					
 				</div>
 			);

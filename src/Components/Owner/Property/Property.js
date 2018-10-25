@@ -7,6 +7,8 @@ import { connect } from 'react-redux';
 import swal from 'sweetalert';
 import img_not_available from '../../../images/img_not_available.png'
 import $ from 'jquery';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
 class Property extends React.Component{
     constructor(props){
         super(props)
@@ -175,6 +177,21 @@ class Property extends React.Component{
 	 onClickClose(){
 		$(".proeprty-sec").hide(); 
 	 }
+	 changeTabs(id) {
+        if (id == "location") {
+            $("#detailsTab").removeClass("active");
+			 $("#descriptionTab").removeClass("active");
+
+        }else if(id == "details"){
+			$("#locationTab").removeClass("active");
+			 $("#descriptionTab").removeClass("active");
+		}
+        else {
+            $("#locationTab").removeClass("active");
+			$("#detailsTab").removeClass("active");
+			
+        }
+    }
     render(){
         const imgSer=this.imgServer
         // console.log("propertyloading..."+JSON.stringify(this.state.propertiesLoading))
@@ -267,18 +284,20 @@ class Property extends React.Component{
                                 </div>
 							<div className="col-12 no-padding">
                             <div className="single-item slider ">
-							{this.state.propertyImg.map((item)=>(
-							
-                                <div>
-                                    <img src={API_URL+item.img_path} alt="slider-img" className="img-fluid"/>
-                                </div>
-                              ))}
+								<Carousel showThumbs={false}>
+									{this.state.propertyImg.map((item)=>(
+									
+										<div>
+											<img src={API_URL+item.img_path} alt="slider-img" className="img-fluid"/>
+										</div>
+									  ))}
+								</Carousel>
                             </div>
                             </div>
 							<ul className="nav nav-tabs tabs-bordered">
-								<li className="nav-item"> <a href="#description" data-toggle="tab" aria-expanded="true" className="nav-link font-16 active">Description  </a> </li>
-								<li className="nav-item"> <a href="#details" data-toggle="tab" aria-expanded="false" className="nav-link font-16">Details  </a> </li>
-								<li className="nav-item"> <a href="#location" data-toggle="tab" aria-expanded="false" className="nav-link font-16">Location  </a> </li>
+								<li className="nav-item"> <a href="#description" onClick={this.changeTabs.bind(this, "description")} id="descriptionTab"data-toggle="tab" aria-expanded="true" className="nav-link font-16 active" >Description  </a> </li>
+								<li className="nav-item"> <a href="#details" data-toggle="tab" aria-expanded="false" className="nav-link font-16" onClick={this.changeTabs.bind(this, "details")} id="detailsTab">Details  </a> </li>
+								<li className="nav-item"> <a href="#location" data-toggle="tab" aria-expanded="false" className="nav-link font-16" onClick={this.changeTabs.bind(this, "location")} id="locationTab">Location  </a> </li>
                             </ul>
 							<div className="col-12 no-padding m-t-15">
 							<div className="tab-content">

@@ -1,9 +1,8 @@
 import React from 'react'
 import API_URL from "../../../app-config";
 import Cookies from 'js-cookie';
-import DatePicker from 'react-datepicker';
 import moment from 'moment';
-import 'react-datepicker/dist/react-datepicker.css';
+import DatePicker from 'react-date-picker';
 import swal from 'sweetalert';
 import $ from 'jquery'
 export default class Agent extends React.Component{
@@ -14,7 +13,7 @@ export default class Agent extends React.Component{
 			bgForm:{
 				first_name:'',
 				last_name:'',
-				DOB:'',
+				dob:'',
 				gender:'',
 				address:'',
 				city:'',
@@ -35,12 +34,19 @@ export default class Agent extends React.Component{
 	   this.handleDobChange = this.handleDobChange.bind(this);
 	}
 	handleDobChange(date) {
-		// alert(date)
-		// console.log('DATE ', date);
-		 this.setState({
-			bgForm:{DOB:date}
-		 });
+		this.setState({
+			bgForm: { dob: date }
+		});
 	 }
+	 componentWillReceiveProps(props){
+	
+		if (props.profileData.dob) {
+			var dobDate = new Date(props.profileData.dob)
+			this.setState({
+				bgForm: { dob: dobDate }
+			})
+		}
+	}
 	 onChangeBGVHandler(e){
 		
 
@@ -89,7 +95,7 @@ export default class Agent extends React.Component{
 			 alert('Last Name should not be blank');
 			 return;
 		 }
-		  if(!opts.DOB)
+		  if(!opts.dob)
 		 {
 			 alert('D.O.B should not be blank');
 			 return;
@@ -165,7 +171,7 @@ export default class Agent extends React.Component{
         }); */
       }
 	 
-	 componentDidMount(){
+	/*  componentDidMount(){
 		 if(this.props.profileData.dob)
 		 {
 			 var dobDate = new Date(this.props.profileData.dob.replace( /(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3"))
@@ -185,7 +191,7 @@ export default class Agent extends React.Component{
 						}
 		 }
 
-	 }
+	 } */
 	  hideModel()
 		{
 			var $=window.$;
@@ -194,7 +200,7 @@ export default class Agent extends React.Component{
 render(){
 
 	return(
-			<div id="background-verifi" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{display: "none"}}>
+			<div id="background-verifi" className="modal fade" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{display: "none"}}>
 				<div className="modal-dialog modal-lg">
 				<div className="modal-content">
 				  <div className="modal-header">
@@ -210,13 +216,13 @@ render(){
 							  <label className="control-label">First Name</label>
 							</div>
 							<div className="col-md-4">
-							  <input type="text" name="first_name" className="form-control" onChange={this.onChangeBGVHandler} value={this.state.bgForm.first_name || this.props.profileData.first_name} />
+							  <input type="text" name="first_name" className="form-control" onChange={this.onChangeBGVHandler} value={this.state.bgForm.first_name || this.props.profileData.first_name || ''} />
 							</div>
 							<div className="col-md-2 required">
 							  <label className="control-label" >Last Name</label>
 							</div>
 							<div className="col-md-4">
-								<input type="text" className="form-control" name="last_name" onChange={this.onChangeBGVHandler} value={this.state.bgForm.last_name || this.props.profileData.last_name} />
+								<input type="text" className="form-control" name="last_name" onChange={this.onChangeBGVHandler} value={this.state.bgForm.last_name || this.props.profileData.last_name || ''} />
 							</div>
 						  </div>
 						</div>
@@ -225,20 +231,18 @@ render(){
 							<div className="col-md-2 required">
 							  <label className="control-label">D.O.B</label>
 							</div>
-							<div className="col-md-4">
-							  <DatePicker id="dob" className="form-control" 
-								dateFormat="DD-MM-YYYY"
-									 selected={this.state.bgForm.DOB}
-									 onChange={this.handleDobChange}
-									 
-								/>
+							<div className="col-md-4" id="bgv">
+											<DatePicker className="form-control"
+												onChange={this.handleDobChange}
+												value={this.state.bgForm.dob}
+											/>
 							</div>
 							<div className="col-md-2 required">
 							  <label className="control-label">Gender</label>
 							</div>
 							
 							<div className="col-md-4">
-							  <select className="form-control" name="gender" onChange={this.onChangeBGVHandler}>
+							  <select className="form-control" value={this.state.bgForm.gender || this.props.profileData.gender || ''} name="gender" onChange={this.onChangeBGVHandler}>
 								  <option>{this.state.bgForm.gender || this.props.profileData.gender}</option>
 								  <option value="Male" >Male</option>
 								  <option value="Female" >Female</option>
@@ -258,7 +262,7 @@ render(){
 							  <label className="control-label">City</label>
 							</div>
 							<div className="col-md-4">
-							  <input type="text" name="city" className="form-control" onChange={this.onChangeBGVHandler} value={this.state.bgForm.city || this.props.profileData.city} />
+							  <input type="text" name="city" className="form-control" onChange={this.onChangeBGVHandler} value={this.state.bgForm.city || this.props.profileData.city || ''} />
 							</div>
 						  </div>
 						</div>
@@ -268,13 +272,13 @@ render(){
 							  <label className="control-label">State</label>
 							</div>
 							<div className="col-md-4">
-							  <input type="text" name="state" className="form-control" onChange={this.onChangeBGVHandler} value={this.state.bgForm.state || this.props.profileData.state} />
+							  <input type="text" name="state" className="form-control" onChange={this.onChangeBGVHandler} value={this.state.bgForm.state || this.props.profileData.state || ''} />
 							</div>
 							<div className="col-md-2 required">
 							  <label className="control-label">ZIP Code</label>
 							</div>
 							<div className="col-md-4">
-							  <input type="text" className="form-control" name="zip_code" onChange={this.onChangeBGVHandler} value={this.state.bgForm.zip_code || this.props.profileData.zip_code} />
+							  <input type="text" className="form-control" name="zip_code" onChange={this.onChangeBGVHandler} value={this.state.bgForm.zip_code || this.props.profileData.zip_code || ''} />
 							</div>
 						  </div>
 						</div>
@@ -284,14 +288,14 @@ render(){
 							  <label className="control-label">Phone</label>
 							</div>
 							<div className="col-md-4">
-							  <input type="text" className="form-control" name="mobile_no"  id="mobile-no" placeholder="" value={this.state.bgForm.mobile_no || this.props.profileData.mobile_no}  onChange={this.onChangeBGVHandler} />
+							  <input type="text" className="form-control" name="mobile_no"  id="mobile-no" placeholder="" value={this.state.bgForm.mobile_no || this.props.profileData.mobile_no || ''}  onChange={this.onChangeBGVHandler} />
 							</div>
 							<div className="col-md-2 required">
 							  <label className="control-label">Email</label>
 							</div>
 							<div className="col-md-4">
 							 
-							  <input type="email" className="form-control" name="email"  id="email"  value={this.state.bgForm.email || this.props.profileData.email} onChange={this.onChangeBGVHandler} placeholder="" />
+							  <input type="email" className="form-control" name="email"  id="email"  value={this.state.bgForm.email || this.props.profileData.email || ''} onChange={this.onChangeBGVHandler} placeholder="" />
 							</div>
 						  </div>
 						</div>
@@ -301,7 +305,7 @@ render(){
 							  <label className="control-label">SSN</label>
 							</div>
 							<div className="col-md-4">
-							  <input type="text" className="form-control" name="SSN_EIN"  id="SSN_EIN" value={this.state.bgForm.SSN_EIN || this.props.profileData.SSN_EIN} onChange={this.onChangeBGVHandler} placeholder="" />
+							  <input type="text" className="form-control" name="SSN_EIN"  id="SSN_EIN" value={this.state.bgForm.SSN_EIN || this.props.profileData.SSN_EIN || ''} onChange={this.onChangeBGVHandler} placeholder="" />
 							</div>
 						  </div>
 						</div>
@@ -311,45 +315,44 @@ render(){
 					  <div className="col-md-12">
 						<div className="form-group no-margin">
 						 <h5>Packages<span className="required"/></h5>
-							 <div className="col-md-8">
+							 <div className="col-md-10">
 									<div className="radio radio-custom">
 									  <input
 										type="radio"
 										name="packageid"
-										id="packageid"
+										 id="Bronze"
 										value="14"
 										onChange={this.onChangeBGVHandler}
 									  />
-									  <label HTMLFor="packageid"> Bronze Package - $8.16 : 1 Credit Report </label>
+									  <label htmlFor="Bronze"> Bronze Package - $8.16 : 1 Credit Report </label>
 									</div>
 								  </div>
-								  <div className="col-md-8">
+								  
+								  <div className="col-md-10">
 										<div className="radio radio-custom">
 										  <input
 											type="radio"
 											onChange={this.onChangeBGVHandler}
 											name="packageid"
-											id="ownerid"
+											 id="Silver"
 											value="12"
 										  />
-										  <label HTMLFor="packageid">Silver Package - $18.14 : 1 Credit Report + 1 Eviction Report </label>
+										  <label htmlFor="Silver">Silver Package - $18.14 : 1 Credit Report + 1 Eviction Report </label>
 										</div>
 									  </div>
 
-							  <div className="col-md-8">
+							  <div className="col-md-10">
 								<div className="radio radio-custom">
 								  <input
 									type="radio"
 									name="packageid"
 									onChange={this.onChangeBGVHandler}
-									id="packageid"
+									 id="Gold"
 									value="13"
 								  />
-								  <label HTMLFor="packageid">Gold Package - $26.78 : 1 County Criminal + 1 Credit Report + 1 Eviction Report </label>
+								  <label htmlFor="Gold">Gold Package - $26.78 : 1 County Criminal + 1 Credit Report + 1 Eviction Report </label>
 								</div>
-							  </div>
-
-							  
+							  </div>  
 						</div>
 					  </div>
 					</div>

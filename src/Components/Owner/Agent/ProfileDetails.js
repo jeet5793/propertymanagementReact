@@ -258,7 +258,7 @@ class ProfileDetails extends React.Component{
                     <div className="btn-group pull-right">
                         <ol className="breadcrumb hide-phone p-0 m-0">
                         <li>
-					<Link to={this.props.location.state.loc.pathname}><a className="btn waves-light waves-effect w-md btn-custom">Back</a></Link>{/* <a href="/owner-agent" className="btn waves-light waves-effect w-md btn-custom"><i className="fi-reply"></i>&nbsp;&nbsp;Back</a> */}</li>
+					<Link to={this.props.location.state.loc.pathname}><span className="btn waves-light waves-effect w-md btn-custom">Back</span></Link>{/* <a href="/owner-agent" className="btn waves-light waves-effect w-md btn-custom"><i className="fi-reply"></i>&nbsp;&nbsp;Back</a> */}</li>
                         </ol>
                     </div>
                     <h4 className="page-title">{this.state.profileData.first_name}'s Profile</h4>
@@ -530,7 +530,7 @@ class ProfileDetails extends React.Component{
                         <div className="row">
                         <div className="col-md-12">
                             <div className="form-group">
-                            <label for="receiver" className="control-label">Name<span className="required"/></label>
+                            <label htmlFor="receiver" className="control-label">Name<span className="required"/></label>
                             <input type="hidden" className="form-control" placeholder="" value={this.state.profileData.assets_id} name="receiver" id="receiver" onChange={this.onChangeHandler}/>
 							<input type="text" className="form-control" placeholder="" name="receiver_name" value={this.state.profileData.first_name+''+this.state.profileData.last_name} id="receiver" />
                             </div>
@@ -539,7 +539,7 @@ class ProfileDetails extends React.Component{
                         <div className="row">
                         <div className="col-md-12">
                             <div className="form-group no-margin">
-                            <label for="field-7" className="control-label">Message<span className="required"/></label>
+                            <label className="control-label">Message<span className="required"/></label>
                             <textarea className="form-control" id="field-7" placeholder="" name="message" onChange={this.onChangeHandler}></textarea>
                             </div>
                         </div>
@@ -565,7 +565,7 @@ class ProfileDetails extends React.Component{
 							<div className="form-group">
 							<div className="row">
 							<div className="col-md-2">
-							<label for="nme" className="control-label">Rating<span className="required"/> :</label>
+							<label htmlFor="nme" className="control-label">Rating<span className="required"/> :</label>
 							</div>
 								<div className="col-md-10">
 									<fieldset className="rating">
@@ -588,7 +588,7 @@ class ProfileDetails extends React.Component{
 						<div className="row">
 						  <div className="col-md-12">
 							<div className="form-group no-margin">
-							  <label for="field-7" className="control-label">Comment<span className="required"/></label>
+							  <label  className="control-label">Comment<span className="required"/></label>
 							  
 							  <textarea className="form-control" id="field-7" onChange={this.onChangeRating} name = "feedback" placeholder=""></textarea>
 							</div>

@@ -6,8 +6,7 @@ import API_URL from '../../../../app-config';
 import Cookies from 'js-cookie';
 // import DatePicker from 'react-datepicker';
 import moment from 'moment';
-import DatePicker from 'react-datetime-picker';
-import 'react-datepicker/dist/react-datepicker.css';
+import DatePicker from 'react-date-picker';
 const TableReprt=(props)=>{
     // debugger;
     var expens=0;
@@ -33,8 +32,8 @@ const TableReprt=(props)=>{
                       </thead>
 					{ props.report?
                       <tbody>
-						{props.report.map(element=><tr>
-						  <td></td>
+						{props.report.map((element,index)=><tr>
+						  <td>{index + 1}</td>
                           <td className="tbl-text-overflow">{element.title}</td>
                           <td>{element.transactiondate}</td>
                           <td></td>
@@ -112,20 +111,16 @@ const FilterCriteria=(props)=>{
 				<div className="col-md-1 required">
                 <label><b>Date:</b></label>
               </div>
-              <div className="col-md-2" id="">
+              <div className="col-md-2 reportdate">
 			  
 				
 				<DatePicker className="form-control"
-                    disableClock={true}
-                    locale="en-US"
                     onChange={props.handleStChange}
                     value={props.startDate}
                 />
               </div>
-              <div className="col-md-2" id="">
+            <div className="col-md-2 reportdate">
 			  <DatePicker className="form-control"
-                    disableClock={true}
-                    locale="en-US"
                     onChange={props.handleEdChange}
                     value={props.endDate}
                 />

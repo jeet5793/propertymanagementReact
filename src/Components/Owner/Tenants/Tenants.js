@@ -656,7 +656,7 @@ class Tenants extends React.Component{
 {/* ========== BG Verification =====================*/}
 			  <BackgroundVerification profileData={this.state.profileData}/>
 {/* <!-- Modal --> */}
-<div id="send-invite" className="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{display:'none'}}>
+<div id="send-invite" className="modal fade" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{display:'none'}}>
   <div className="modal-dialog">
     <div className="modal-content"  id="hidemodal">
       <div className="modal-header">
@@ -667,7 +667,7 @@ class Tenants extends React.Component{
           <div className="row">
           <div className="col-md-12">
             <div className="form-group">
-              <label for="field-1" className="control-label">Property<span className="required"/></label>
+              <label htmlFor="field-1" className="control-label">Property<span className="required"/></label>
               <div className="input-group">
 			   <select className="form-control" name="property_id" onChange={this.onChangeHandler}>
 				   <option>Please Select</option>
@@ -682,7 +682,7 @@ class Tenants extends React.Component{
 		<div className="row">
           <div className="col-md-12">
             <div className="form-group">
-              <label for="field-1" className="control-label">Tenant<span className="required"/></label>
+              <label htmlFor="field-1" className="control-label">Tenant<span className="required"/></label>
               <div className="">
             
 						<Autosuggest className="form-control"
@@ -702,7 +702,7 @@ class Tenants extends React.Component{
         <div className="row">
           <div className="col-md-12">
             <div className="form-group no-margin">
-              <label for="field-7" className="control-label" >Message<span className="required"/></label>
+              <label htmlFor="field-7" className="control-label" >Message<span className="required"/></label>
               <textarea className="form-control" id="field-7" placeholder="" name="message" onChange={this.onChangeHandler}></textarea>
             </div>
           </div>
@@ -716,7 +716,7 @@ class Tenants extends React.Component{
   </div>
 </div>
  
-		<div id="send-msg" className="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{display: 'none'}}>
+		<div id="send-msg" className="modal fade" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{display: 'none'}}>
                 <div className="modal-dialog">
                     <div className="modal-content" id="hidemodal2">
                     <div className="modal-header">
@@ -727,7 +727,7 @@ class Tenants extends React.Component{
                         <div className="row">
                         <div className="col-md-12">
                             <div className="form-group">
-                            <label for="receiver" className="control-label">Name<span className="required"/></label>
+                            <label htmlFor="receiver" className="control-label">Name<span className="required"/></label>
                             <input type="hidden" className="form-control" placeholder=""  name="receiver" id="receiver" onChange={this.onChangeSMHandler}/>
 							<input type="text" className="form-control" placeholder="" name="receiver_name" id="receiver_name" />
                             </div>
@@ -736,7 +736,7 @@ class Tenants extends React.Component{
                         <div className="row">
                         <div className="col-md-12">
                             <div className="form-group no-margin">
-                            <label for="field-7" className="control-label">Message<span className="required"/></label>
+                            <label htmlFor="field-7" className="control-label">Message<span className="required"/></label>
                             <textarea className="form-control" id="field-7" placeholder="" name="message" onChange={this.onChangeSMHandler}></textarea>
                             </div>
                         </div>

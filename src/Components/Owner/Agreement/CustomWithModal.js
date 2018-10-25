@@ -78,7 +78,15 @@ export default class Customwithmodal extends React.Component{
 					var value = $("#"+compId).val();
 					var seqId = compId.replace('textId','');
 					
-					$("#textDivId"+seqId).html("<span class='textClass' id='"+seqId+"'><u><b>&nbsp; "+value+" &nbsp;</b></u></span>")
+					if(value=='')
+					{
+						$("#textDivId"+seqId).html("<input class='inner' type='text' id='textId"+seqId+"' value='' style='width:300px;height:22px;border:1px solid #eee;' placeholder='Enter text value'>");
+					}
+					else
+					{
+						$("#textDivId"+seqId).html("<span class='textClass' id='"+seqId+"'><u><b>&nbsp; "+value+" &nbsp;</b></u></span>")
+					}
+					
 				}
 				
 			});
@@ -89,7 +97,7 @@ export default class Customwithmodal extends React.Component{
 				
 				var text = $("#"+seqId).text();
 				
-				$("#textDivId"+seqId).html("<input class='inner' type='text' id='textId"+seqId+"' value='"+text+"' style='width:300px;height:20px;border:1px solid #eee;' placeholder='Enter text value'>");
+				$("#textDivId"+seqId).html("<input class='inner' type='text' id='textId"+seqId+"' value='"+text+"' style='width:300px;height:22px;border:1px solid #eee;' placeholder='Enter text value'>");
 			});
 			
 	// END OF TEXT BOX EDITOR SCRIPT -->
@@ -107,7 +115,14 @@ export default class Customwithmodal extends React.Component{
 					var value = $("#"+compId).val();
 					var seqId = compId.replace('dateId','');
 					
-					$("#dateDivId"+seqId).html("<span class='dateClass' id='"+seqId+"'><b>&nbsp; "+value+" &nbsp;</b></span>")
+					if(value=='')
+					{
+						$("#dateDivId"+seqId).html("<input class='datepickerWithoutTime' type='text' id='dateId"+seqId+"' value='' style='width:120px;height:22px;border:1px solid #eee;' placeholder='MM/DD/YYYY' />");
+					}
+					else
+					{
+						$("#dateDivId"+seqId).html("<span class='dateClass' id='"+seqId+"'><b>&nbsp; "+value+" &nbsp;</b></span>")
+					}
 				}
 				
 			});
@@ -118,14 +133,14 @@ export default class Customwithmodal extends React.Component{
 				
 				var text = $("#"+seqId).text();
 				
-				$("#dateDivId"+seqId).html("<input class='datepickerWithoutTime' type='text' id='dateId"+seqId+"' value='"+text+"' style='width:120px;height:20px;border:1px solid #eee;' placeholder='dd/mm/yyyy' />");
+				$("#dateDivId"+seqId).html("<input class='datepickerWithoutTime' type='text' id='dateId"+seqId+"' value='"+text+"' style='width:120px;height:22px;border:1px solid #eee;' placeholder='MM/DD/YYYY' />");
 			});
 			
 	 // END OF DATE BOX EDITOR SCRIPT -->
-	 
+	 	
 	  
     }
-    onChangeHandler(e) {
+     onChangeHandler(e) {
         var placeId = $("#placeId").val();
         let file = this.imgInp.current.files[0];
         if (!file) {
@@ -133,8 +148,8 @@ export default class Customwithmodal extends React.Component{
         }
         let reader = new FileReader();
         reader.onload = function() {
-            // console.log(reader.result);
-            var image = $($("#"+placeId).html("<img id='sigImg' src='"+reader.result+"' style='width:297px;height:97px;'/>")).html();
+            console.log(reader.result);
+            var image = $($("#"+placeId).html("<img id='sigImg' src='"+reader.result+"' style='width:220px;height:38px;'/>")).html();
             var tinymce=window.tinyMCE;
             // tinymce.activeEditor.execCommand('mceInsertContent', false, image)
             tinymce.get("editor").setContent(image);
@@ -147,12 +162,13 @@ export default class Customwithmodal extends React.Component{
         };
         reader.readAsDataURL(file);
     }
+	
     canvasToImg() {        
         var placeId = $("#placeId").val();        
         var name = $("#name").val();        
         if(name!="")
         {
-          $("#"+placeId).html("<div class='typed' style='display: block; font-size: 36.25px; height: 150px;'>"+name+"</div>");
+          $("#"+placeId).html("<div style='display: block; margin: 0;padding: 0 3px; position: absolute; z-index: 90;cursor: default;color: #145394;font-size: 1.875em;line-height: 25px;font-family: Journal, Georgia, Times, serif;'>"+name+"</div>");
           
           $("#name").val("");
           $("#typedPadId").html("");          
@@ -165,7 +181,7 @@ export default class Customwithmodal extends React.Component{
             var url = canvas.toDataURL();
             var newImg = document.createElement("img"); // create img tag
             newImg.src = url;  
-            newImg.style="width:297px;height:97px;";            
+            newImg.style="width:220px;height:38px;";            
             $("#"+placeId).html(newImg);            
             document.getElementById("closeButtonId").click();
         }

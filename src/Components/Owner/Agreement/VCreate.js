@@ -249,31 +249,25 @@ editAgreement(){
           
           if(compName=='Insert Signature Block')
             {
-				tinymce.activeEditor.execCommand('mceInsertContent', false, "<p><div contenteditable='false' class='sigDiv' id='sigId"+i+"' style='width:300px;height:85px;padding-top:5px;marginTop:10,padding-left:10px;margin-right:10px;border:1px solid #eee;' data-toggle='modal' data-target='#custom-width-modal' onclick='addplaceId(this.id)'>"+compName+"</div></p>");
-				 
+				tinymce.activeEditor.execCommand('mceInsertContent', false, "&nbsp;<div contenteditable='false' class='sigDiv' id='sigId"+i+"' style='width:222px;height:40px;padding-top:5px;marginTop:10,padding-left:10px;margin-right:10px;border:1px solid #57bb57;' data-toggle='modal' data-target='#custom-width-modal' onclick='addplaceId(this.id)'>"+compName+"</div>&nbsp;");				 
           }
           else if(compName=='Insert Text Box')
-            {
-            tinymce.activeEditor.execCommand('mceInsertContent', false, "<p><div id='textDivId"+i+"' class='textDiv'><input class='inner' type='text' id='textId"+i+"'  style='width:300px;padding-left:10px;height:30px;margin-right:10px;border:1px solid #eee;' placeholder='Enter text value' /></div></p>");
+          {
+            tinymce.activeEditor.execCommand('mceInsertContent', false, "&nbsp;<span id='textDivId"+i+"' class='textDiv'><input class='inner' type='text' id='textId"+i+"'  style='width:300px;padding-left:2px;height:22px;margin-right:3px;border:1px solid #57bb57;' placeholder='Enter text value' /></span>&nbsp;");
           }
           else if(compName=='Insert Date Box')
-            {
-            tinymce.activeEditor.execCommand('mceInsertContent', false, "<p><div id='dateDivId"+i+"' class='dateDiv'><input class='datepickerWithoutTime' type='text' id='dateId"+i+"'  style='width:120px;height:30px;padding-left:10px;margin-right:10px;border:1px solid #eee;' placeholder='dd/mm/yyyy' /></div></p>");
+          {
+            tinymce.activeEditor.execCommand('mceInsertContent', false, "&nbsp;<span id='dateDivId"+i+"' class='dateDiv'><input class='datepickerWithoutTime' type='text' id='dateId"+i+"'  style='width:120px;height:22px;padding-left:2px;margin-right:3px;border:1px solid #57bb57;' placeholder='MM/DD/YYYY' /></span>&nbsp;");
           }
           else if(compName=='Insert Check Box')
-            {
-            tinymce.activeEditor.execCommand('mceInsertContent', false, "<p id='checkDivId"+i+"'><input style='width:120px;height:30px;padding-left:10px;margin-right:10px;class='inner' type='checkbox' id='dateId"+i+"' /></p>");
+          {
+            tinymce.activeEditor.execCommand('mceInsertContent', false, "&nbsp;<span id='checkDivId"+i+"'><input style='width:120px;height:30px;padding-left:10px;margin-right:10px;class='inner' type='checkbox' id='dateId"+i+"' /></span>&nbsp;");
           }
           else
           {
-			  // debugger;
-           /*  tinymce.activeEditor.execCommand('mceInsertContent', false, "<p><span class='inner' style='background:#57bb57;padding:2px 10px;border-radius:2px;font-size: 14px;color: #fff;float: left;margin-right: 10px;'>"+compName+"</span></p>");
-            
-            tinymce.get("editor").setContent(content+" "+"<span class='inner' style='background:#57bb57;padding:2px 10px;border-radius:2px;font-size: 14px;color: #fff;float: left;margin-right: 10px;'>"+compName+"</span>");  */
-			// tinymce.activeeditor.execcommand('mceinsertcontent', false, "<div class='row col-12'><p><span class='inner' style='background:#57bb57;padding:2px 10px;border-radius:2px;font-size: 14px;color: #fff;margin-right: 10px;'>"+compname+"</span></p></div>"); 
-				tinymce.activeEditor.execCommand('mceInsertContent', false, "<div class='row col-12'><p><span class='inner' style='background:#57bb57;padding:2px 10px;border-radius:2px;font-size: 14px;color: #fff;margin-right: 10px;'>"+compName+"</span></p></div>"); 
-         
-			
+			 
+				tinymce.activeEditor.execCommand('mceInsertContent', false, "&nbsp;<span class='inner' style='background-color:#57bb57;padding:0px 2px;border-radius:2px;font-size:12px;color: #fff;margin-right:2px;'>"+compName+"</span>&nbsp;"); 
+
           }
           this.updatePage();
 
@@ -457,7 +451,6 @@ editAgreement(){
                               <input type="button" value="Insert Signature Block" onClick={this.insertComponent.bind(this)} />
                                       <input type="button" value="Insert Text Box" onClick={this.insertComponent.bind(this)} />
                                       <input type="button" value="Insert Date Box" onClick={this.insertComponent.bind(this)} />
-                                    <input type="button" value="Insert Check Box" onClick={this.insertComponent.bind(this)} />
                             </div>
                           </div>
                         </div>

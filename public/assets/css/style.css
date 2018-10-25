@@ -6287,13 +6287,18 @@ input.react-autosuggest__input{
 		border:none;
 	}
 
-	/* .react-datetime-picker__button__input__amPm{ */
-		/* display: none; */
-	/* } */
-
 	.react-date-picker__inputGroup__input {
 		min-width: 13.5px
 	}
 	.react-date-picker__wrapper {
 		border: none;
+	}
+
+	.reportdate .react-date-picker__calendar--above-label {
+    bottom: 0;
+    top: 35px;
+}
+
+#bgv .react-date-picker__inputGroup__input {
+		min-width: 7.5px
 	}

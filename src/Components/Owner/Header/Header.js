@@ -280,13 +280,13 @@ onHoverNoti()
                                 <h5><span className="badge badge-danger float-right">{this.state.notification.length}</span>Notification</h5>
                             </div>
                             {/* item*/} 
-							{this.state.notification.map((item)=>( 
-                            <a href="javascript:void(0);" className="dropdown-item notify-item">
-                               <Link to = {{pathname:'/owner-notifications'}}> 
+							{this.state.notification.map((item,index)=>( 
+                            
+                               <Link to = {{pathname:'/owner-notifications'}} className="dropdown-item notify-item" key={index}> 
 									<div className="notify-icon bg-success"><i className="icon-bubble" /></div>
 									<p className="notify-details">{item.message}<small className="text-muted"></small></p>
 								</Link>
-                            </a> 
+                            
 							))}
                             
                             {/* All*/} 

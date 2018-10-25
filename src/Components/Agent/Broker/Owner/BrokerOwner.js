@@ -269,7 +269,7 @@ class BrokerOwner extends React.Component{
 		  (result) => {
 			//console.log("data 2: "+JSON.stringify(result.profile))
 			if (result.success) {
-			  // this.setState({profileData:result.profile})
+			   this.setState({profileData:result.profile})
 			  
 			} 
 			// console.log("set user data"+JSON.stringify(this.state.profileData))

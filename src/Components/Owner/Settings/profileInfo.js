@@ -228,7 +228,7 @@ Countries() {
     render(){
 		//console.log(this.state.profile);
         return(
-				(this.state.profile)?
+				
 					  <div className="tab-pane fade show active" style={{width:"100%"}} id="profile-info">
 						<fieldset title="1">
 						 
@@ -238,13 +238,13 @@ Countries() {
 								<label htmlFor="first_name">First Name</label>
 							  </div>
 							  <div className="col-lg-5 col-md-4 col-sm-4">
-								<input type="text" className="form-control" id="first_name" name="first_name"  value={this.state.profileSetting.first_name || this.state.profile.first_name} onChange={this.onChangeHandler} placeholder="" />
+								<input type="text" className="form-control" id="first_name" name="first_name"  value={this.state.profileSetting.first_name || this.state.profile.first_name || ''} onChange={this.onChangeHandler} placeholder="" />
 							  </div>
 							  <div className="col-lg-1 col-md-2 col-sm-2 required">
 								<label htmlFor="last_name">Last Name</label>
 							  </div>
 							  <div className="col-lg-5 col-md-4 col-sm-4">
-								<input type="text" className="form-control" id="last_name" name="last_name"  value={this.state.profileSetting.last_name || this.state.profile.last_name} onChange={this.onChangeHandler} placeholder=""  />
+								<input type="text" className="form-control" id="last_name" name="last_name"  value={this.state.profileSetting.last_name || this.state.profile.last_name || ''} onChange={this.onChangeHandler} placeholder=""  />
 							  </div>
 							</div>
 						  </div>
@@ -270,7 +270,7 @@ Countries() {
 								<label htmlFor="gender">Gender</label>
 							  </div>
 							  <div className="col-lg-2 col-md-4 col-sm-4">
-								<select className="form-control" value = {this.state.profileSetting.gender || this.state.profile.gender} name="gender" onChange={this.onChangeHandler}>
+								<select className="form-control" value = {this.state.profileSetting.gender || this.state.profile.gender || ''} name="gender" onChange={this.onChangeHandler}>
 								  <option value="Male" >Male</option>
 								  <option value="Female" >Female</option>
 								  <option value="Other" >Other</option>
@@ -280,7 +280,7 @@ Countries() {
 								<label htmlFor="SSN_EIN">SSN/EIN</label>
 							  </div>
 							  <div className="col-lg-5 col-md-4 col-sm-4 snv">
-								<input type="text" className="form-control" name="SSN_EIN"  id="SSN_EIN" value={this.state.profileSetting.SSN_EIN || this.state.profile.SSN_EIN} onChange={this.onChangeHandler} placeholder="" required />
+								<input type="text" className="form-control" name="SSN_EIN"  id="SSN_EIN" value={this.state.profileSetting.SSN_EIN || this.state.profile.SSN_EIN || ''} onChange={this.onChangeHandler} placeholder="" required />
 							  </div>
 							</div>
 						  </div>
@@ -290,13 +290,13 @@ Countries() {
 								<label htmlFor="email">Email</label>
 							  </div>
 							  <div className="col-lg-5 col-md-4 col-sm-4">
-								<input type="email" className="form-control" name="email"  id="email"  value={this.state.profileSetting.email || this.state.profile.email} onChange={this.onChangeHandler} placeholder="" required />
+								<input type="email" className="form-control" name="email"  id="email"  value={this.state.profileSetting.email || this.state.profile.email || ''} onChange={this.onChangeHandler} placeholder="" required />
 							  </div>
 							  <div className="col-lg-1 col-md-2 col-sm-2 required">
 								<label htmlFor="owner_type">User Type</label>
 							  </div>
 							  <div className="col-lg-5 col-md-4 col-sm-4">
-								<select className="form-control" name="owner_type"  value = {this.state.profileSetting.owner_type ||this.state.profile.owner_type} onChange={this.onChangeHandler} >
+								<select className="form-control" name="owner_type"  value = {this.state.profileSetting.owner_type ||this.state.profile.owner_type || ''} onChange={this.onChangeHandler} >
 								 
 								  <option value="1" >Individual</option>
 								  <option value="2" >Organization</option>
@@ -344,7 +344,7 @@ Countries() {
 								<label htmlFor="zip-code">ZIP Code</label>
 							  </div>
 							  <div className="col-lg-5 col-md-4 col-sm-4">
-								<input type="text" className="form-control" name="zip_code"  id="zip-code" placeholder="" value={this.state.profileSetting.zip_code || this.state.profile.zip_code} onChange={this.onChangeHandler} />
+								<input type="text" className="form-control" name="zip_code"  id="zip-code" placeholder="" value={this.state.profileSetting.zip_code || this.state.profile.zip_code || ''} onChange={this.onChangeHandler} />
 							  </div>
 							</div>
 						  </div>
@@ -355,13 +355,13 @@ Countries() {
 								<label htmlFor="mobile-no">Mobile No</label>
 							  </div>
 							  <div className="col-lg-5 col-md-4 col-sm-4">
-								<input type="text" className="form-control" name="mobile_no"  id="mobile-no" placeholder="" value={this.state.profileSetting.mobile_no || this.state.profile.mobile_no}  onChange={this.onChangeHandler} />
+								<input type="text" className="form-control" name="mobile_no"  id="mobile-no" placeholder="" value={this.state.profileSetting.mobile_no || this.state.profile.mobile_no || ''}  onChange={this.onChangeHandler} />
 							  </div>
 							  <div className="col-lg-1 col-md-2 col-sm-2">
 								<label htmlFor="landline_no">Landline</label>
 							  </div>
 							  <div className="col-lg-5 col-md-4 col-sm-4">
-								<input type="text" className="form-control" name="landline_no"  value={this.state.profileSetting.landline_no || this.state.profile.landline_no} id="landline"  placeholder="" onChange={this.onChangeHandler} />
+								<input type="text" className="form-control" name="landline_no"  value={this.state.profileSetting.landline_no || this.state.profile.landline_no || ''} id="landline"  placeholder="" onChange={this.onChangeHandler} />
 							  </div>
 							</div>
 						  </div>
@@ -377,7 +377,7 @@ Countries() {
 								<label htmlFor="about_us">About Me</label>
 							  </div>
 							  <div className="col-lg-5 col-md-4 col-sm-4">
-								<textarea type="text" className="form-control" name="about_us"  value={this.state.profileSetting.about_us || this.state.profile.about_us} id="about_us-no"  placeholder="" onChange={this.onChangeHandler}></textarea>
+								<textarea type="text" className="form-control" name="about_us"  value={this.state.profileSetting.about_us || this.state.profile.about_us || ''} id="about_us-no"  placeholder="" onChange={this.onChangeHandler}></textarea>
 							  </div>
 							</div>
 						  </div>
@@ -388,21 +388,21 @@ Countries() {
 							<div className="col-sm-4">
 							  <div className="form-group">
 								<div className="input-group"> <span className="input-group-addon"><i className="mdi mdi-facebook"></i></span>
-								  <input type="text" className="form-control" name="facebook_link"  placeholder="Facebook url"value={this.state.profileSetting.facebook_link || this.state.profile.facebook_link}  onChange={this.onChangeHandler}/>
+								  <input type="text" className="form-control" name="facebook_link"  placeholder="Facebook url"value={this.state.profileSetting.facebook_link || this.state.profile.facebook_link || ''}  onChange={this.onChangeHandler}/>
 								</div>
 							  </div>
 							</div>
 							<div className="col-sm-4">
 							  <div className="form-group">
 								<div className="input-group"> <span className="input-group-addon"><i className="mdi mdi-linkedin"></i></span>
-								  <input type="text" className="form-control" name="linkedin_link" value={this.state.profileSetting.linkedin_link || this.state.profile.linkedin_link}  placeholder="Linkdin url" onChange={this.onChangeHandler}/>
+								  <input type="text" className="form-control" name="linkedin_link" value={this.state.profileSetting.linkedin_link || this.state.profile.linkedin_link || ''}  placeholder="Linkdin url" onChange={this.onChangeHandler}/>
 								</div>
 							  </div>
 							</div>
 							<div className="col-sm-4">
 							  <div className="form-group">
 								<div className="input-group"> <span className="input-group-addon"><i className="mdi mdi-twitter"></i></span>
-								  <input type="text" className="form-control" name="twitter_link" value={this.state.profileSetting.twitter_link || this.state.profile.twitter_link}  placeholder="Twitter url" onChange={this.onChangeHandler}/>
+								  <input type="text" className="form-control" name="twitter_link" value={this.state.profileSetting.twitter_link || this.state.profile.twitter_link || ''}  placeholder="Twitter url" onChange={this.onChangeHandler}/>
 								</div>
 							  </div>
 							</div>
@@ -413,7 +413,7 @@ Countries() {
 						  <button type="submit" className="btn btn-primary stepy-finish text-right" onClick={this.profileSubmit}>Submit </button>
 						</div>
 						</div>
-					  </div>:<div className="container"  style={{marginTop:'10%',marginLeft:'50%'}}><img src=""/></div>
+					  </div>
 	
         );
     }

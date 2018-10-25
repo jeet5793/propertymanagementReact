@@ -160,7 +160,7 @@ class ProfileInfo extends React.Component{
           //console.log('dataaaa:  ', data);
 						$("#loaderDiv").hide();
 						$("#actionType").val("Yes");
-					   $("#hiddenURL").val("settings");
+					   $("#hiddenURL").val("broker-settings");
 					   $(".confirm-body").html(data.msg);
 					   $("#BlockUIConfirm").show();
         }).catch((error) => {
@@ -225,7 +225,7 @@ Countries() {
     render(){
 		//console.log(this.state.profile);
         return(
-				(this.state.profile)?
+				
 					  <div className="tab-pane fade show active" style={{width:"100%"}} id="profile-info">
 						<fieldset title="1">
 						 
@@ -404,7 +404,7 @@ Countries() {
 						  <button type="submit" className="btn btn-primary stepy-finish text-right" onClick={this.profileSubmit}>Submit </button>
 						</div>
 						</div>
-					  </div>:<div className="container"  style={{marginTop:'10%',marginLeft:'50%'}}><img src="http://wordpress.templaza.net/real-estate/wp-content/themes/real-estate/images/loading_blue_64x64.gif"/></div>
+					  </div>
 	
         );
     }

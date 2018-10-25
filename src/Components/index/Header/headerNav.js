@@ -12,7 +12,7 @@ import {Redirect,Route} from 'react-router-dom'
 import API_URL from '../../../app-config';
 import { setUser } from '../../../actions';
 import Cookies from 'js-cookie';
-
+import img_not_available from '../../../images/img_not_available.png'
 const timeoutLength = 300;
 class Headernav extends React.Component {
     constructor(props){
@@ -988,7 +988,7 @@ class Headernav extends React.Component {
             <a className="typeli login" id="agent" onMouseEnter={()=>this.activeSignIn("agent")} onMouseLeave={this.leaveButton}>Agents<span></span></a>
             <a className="typeli login" id="tenant" onMouseEnter={()=>this.activeSignIn("tenant")} onMouseLeave={this.leaveButton}>Tenants<span></span></a>
         </div>
-		:localStorage.getItem('userType').replace(/["']/g, "")=="1"?<div className="login-cont usna"><a className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle  waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img src={API_URL+this.state.profileData.profile_photo} alt="user" className="rounded-circle" /><span className="profile-name">{localStorage.getItem('firstName').replace(/["']/g, "") +' '+ localStorage.getItem('lastName').replace(/["']/g, "")}</span> </a>
+		:localStorage.getItem('userType').replace(/["']/g, "")=="1"?<div className="login-cont usna"><a className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle  waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img src={this.state.profileData.profile_photo?API_URL+this.state.profileData.profile_photo:img_not_available} alt="user" className="rounded-circle" /><span className="profile-name">{localStorage.getItem('firstName').replace(/["']/g, "") +' '+ localStorage.getItem('lastName').replace(/["']/g, "")}</span> </a>
 								<div className="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview"> 
 								{/* item*/}
 								<div className="dropdown-item noti-title">
@@ -1001,7 +1001,7 @@ class Headernav extends React.Component {
 								{/* item*/} 
 								<a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-power" /> <span onClick={this.logout.bind(this,this.state.profileData.assets_id)}>Logout</span> 
 						</a> </div>
-					</a></div>:localStorage.getItem('userType').replace(/["']/g, "")=="2"?<div className="login-cont usna"><a className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle  waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img src={API_URL+this.state.profileData.profile_photo} alt="user" className="rounded-circle" /><span className="profile-name">{localStorage.getItem('firstName').replace(/["']/g, "") +' '+ localStorage.getItem('lastName').replace(/["']/g, "")}</span> </a>
+					</a></div>:localStorage.getItem('userType').replace(/["']/g, "")=="2"?<div className="login-cont usna"><a className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle  waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img src={this.state.profileData.profile_photo?API_URL+this.state.profileData.profile_photo:img_not_available} alt="user" className="rounded-circle" /><span className="profile-name">{localStorage.getItem('firstName').replace(/["']/g, "") +' '+ localStorage.getItem('lastName').replace(/["']/g, "")}</span> </a>
 								<div className="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview"> 
 								{/* item*/}
 								<div className="dropdown-item noti-title">
@@ -1014,7 +1014,7 @@ class Headernav extends React.Component {
 								{/* item*/} 
 								<a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-power" /> <span onClick={this.logout.bind(this,this.state.profileData.assets_id)}>Logout</span> 
 						</a> </div>
-					</a></div>:localStorage.getItem('userType').replace(/["']/g, "")=="3"?<div className="login-cont usna"><a className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle  waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img src={API_URL+this.state.profileData.profile_photo} alt="user" className="rounded-circle" /><span className="profile-name">{localStorage.getItem('firstName').replace(/["']/g, "") +' '+ localStorage.getItem('lastName').replace(/["']/g, "")}</span> </a>
+					</a></div>:localStorage.getItem('userType').replace(/["']/g, "")=="3"?<div className="login-cont usna"><a className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle  waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img src={this.state.profileData.profile_photo?API_URL+this.state.profileData.profile_photo:img_not_available} alt="user" className="rounded-circle" /><span className="profile-name">{localStorage.getItem('firstName').replace(/["']/g, "") +' '+ localStorage.getItem('lastName').replace(/["']/g, "")}</span> </a>
 								<div className="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview"> 
 								{/* item*/}
 								<div className="dropdown-item noti-title">

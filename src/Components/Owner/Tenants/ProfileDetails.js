@@ -164,7 +164,7 @@ class ProfileDetails extends React.Component{
                     <div className="page-title-box">
                     <div className="btn-group pull-right">
                         <ol className="breadcrumb hide-phone p-0 m-0">
-                        <li><Link to={this.props.location.state.loc.pathname}><a className="btn waves-light waves-effect w-md btn-custom">Back</a></Link></li>
+                        <li><Link to={this.props.location.state.loc.pathname}><span className="btn waves-light waves-effect w-md btn-custom">Back</span></Link></li>
                         </ol>
                     </div>
                     <h4 className="page-title">{this.state.profileData.first_name}'s Profile</h4>
@@ -266,7 +266,7 @@ class ProfileDetails extends React.Component{
                 {/* <!-- end container -->  */}
                 </div>
 				 
-                <div id="send-msg" className="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{display: 'none'}}>
+                <div id="send-msg" className="modal fade" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{display: 'none'}}>
                 <div className="modal-dialog">
                     <div className="modal-content" id="hidemodal">
                     <div className="modal-header">
@@ -277,16 +277,16 @@ class ProfileDetails extends React.Component{
                         <div className="row">
                         <div className="col-md-12">
                             <div className="form-group">
-                            <label for="receiver" className="control-label">Name<span className="required"/></label>
-                            <input type="hidden" className="form-control" placeholder="" value={this.state.profileData.assets_id} name="receiver" id="receiver" onChange={this.onChangeHandler}/>
-							<input type="text" className="form-control" placeholder="" name="receiver_name" value={this.state.profileData.first_name+''+this.state.profileData.last_name} id="receiver" />
+                            <label htmlFor="receiver" className="control-label">Name<span className="required"/></label>
+                            <input type="hidden" className="form-control" placeholder="" defaultValue={this.state.profileData.assets_id} name="receiver" id="receiver" />
+							<input type="text" className="form-control" placeholder="" name="receiver_name" value={this.state.profileData.first_name+''+this.state.profileData.last_name} id="receiver" onChange={this.onChangeHandler} />
                             </div>
                         </div>
                         </div>
                         <div className="row">
                         <div className="col-md-12">
                             <div className="form-group no-margin">
-                            <label for="field-7" className="control-label">Message<span className="required"/></label>
+                            <label htmlFor="field-7" className="control-label">Message<span className="required"/></label>
                             <textarea className="form-control" id="field-7" placeholder="" name="message" onChange={this.onChangeHandler}></textarea>
                             </div>
                         </div>

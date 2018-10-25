@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import swal from 'sweetalert';
 import img_not_available from '../../../../images/img_not_available.png'
 import $ from 'jquery';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
 export default class BrokerMyProperty extends React.Component{
 	constructor(props){
     super(props)
@@ -187,6 +189,7 @@ this.imgServer=API_URL,
                                     <img src={API_URL+item.img_path} alt="slider-img" className="img-fluid"/>
                                 </div>
                               ))*/}
+							  <Carousel showThumbs={false}>
 							  {this.state.propertyDetail.map((item)=>(
 								item.img_path.map((element)=>(
 									<div>
@@ -194,6 +197,7 @@ this.imgServer=API_URL,
 									</div>
 									))
                               ))}
+							  </Carousel>
                             </div>
                             </div>
 							<ul className="nav nav-tabs tabs-bordered">

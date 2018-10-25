@@ -316,7 +316,7 @@ class AddProperty extends React.Component {
             <div className="row">
               <div className="col-12">
                 <div className="card-box add-property">
-                 <form  className="form-horizontal">*/}
+                 <form  className="form-horizontal">
                   <div className="row">
                     <div className="col-md-8 col-sm-8">
                       <div className="form-group row">

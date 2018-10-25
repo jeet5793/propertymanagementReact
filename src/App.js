@@ -73,7 +73,7 @@ export default class App extends Component {
     this.setState({ profile: profile })
   }
   componentDidMount() {
-    setTimeout(() => this.setState({ loading: true }), 2000); // simulates an async action, and hides the spinner
+    setTimeout(() => this.setState({ loading: true }), 4000); // simulates an async action, and hides the spinner
   }
 
   componentWillMount() {
