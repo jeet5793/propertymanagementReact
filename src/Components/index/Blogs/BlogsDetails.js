@@ -3,6 +3,7 @@ import React from 'react'
 import LeaveComment from './leaveComment'
 import $ from 'jquery'
 import API_URL from '../../../app-config';
+import img_not_available from '../../../images/img_not_available.png'
 export default class BlogsDetails extends React.Component{
 	constructor(props) {
 		super(props);
@@ -52,6 +53,9 @@ export default class BlogsDetails extends React.Component{
 		  })
 		});
 	  }
+	  addDefaultSrc(ev){
+  ev.target.src = img_not_available;
+}
 	render(){
 		return(
 			<div className="mg-top-129">
@@ -107,7 +111,7 @@ export default class BlogsDetails extends React.Component{
 										</div>
 										<div className="tz-post-content">
 											<div className="tz-post-thumbbox tz-post-thumbnail"> 
-											<img width="880" height="405" src={`${API_URL}assetsadmin/`+blogData.img_path} className="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt=""  sizes="(max-width: 880px) 100vw, 880px" />
+											<img onError={this.addDefaultSrc} width="880" height="405" src={`${API_URL}assetsadmin/`+blogData.img_path} className="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt=""  sizes="(max-width: 880px) 100vw, 880px" />
 											</div>
 											<div className="tz-post-excerpt" dangerouslySetInnerHTML={{__html: blogData.description}} />
 												{/* <p>Real estate has been a driving force in world economies since the days of Babylon, one of the most fantastic developments the world has ever known, and the desire to create, not destroy, is alive and well. As the world grows more populous and available land diminishes, the opportunities that real estate development has to offer are vast and obtainable. As we descend from the booming 90s and find ourselves burdened with the realities of our own self-inflicted economic implosion cause by greed and speculation, many investors find solace in the tangible world of real estate. Moreover, the malignant affects of September the 11th are still cascading down through our economy, which is causing an ever-increasing desire for a more concrete wealth-building option not offered by many paper investments. Many investors are still coping with the fall of such giants as Enron and WorldCom, while others are looking for the stability that the real estate market offers, and when you add all these ingredients to the grossly over-priced US stock market, one finds a more appealing meal in the fascinating world of real estate.<span id="more-523"></span></p>

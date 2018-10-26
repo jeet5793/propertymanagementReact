@@ -385,7 +385,7 @@ ActiveDeactive(id,status){
 										
 									  </div>
 									  <div className="dayandtime-clp-batch col-lg-4 col-md-6 col-sm-6 col-xs-12 no-padding">
-										<div className="days-time-table no-padding day border-right-day"> <span id="days_9226"><span className="time-change-wrapper">DBA Name</span> </span> ( {this.state.enrollInfo.map((item)=>( item.dba_name))} ) </div>
+										<div className="days-time-table no-padding day border-right-day"> <span id="days_9226"><span className="time-change-wrapper">DBA/Nick name</span> </span> ( {this.state.enrollInfo.map((item)=>( item.dba_name))} ) </div>
 										
 									  </div>
 									  <div className="dayandtime-clp-batch col-lg-4 col-md-6 col-sm-6 col-xs-12 no-padding">
@@ -409,7 +409,7 @@ ActiveDeactive(id,status){
 								  <div className="col-md-12">
 									<div className="row">
 									  <div  className="col-md-2 required">
-										<label for="dba-name">DBA Name</label>
+										<label for="dba-name">DBA/Nick name</label>
 									  </div>
 									  <div className="col-md-4">
 										<input type="text" className="form-control" id="dba-name" name="dba_name" onChange={this.SingularBillChange} placeholder=""/>

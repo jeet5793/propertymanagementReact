@@ -153,7 +153,7 @@ class Property extends React.Component{
 										
 									 }) */
 						}else if(action==="Cancel"){
-							window.location.reload();
+							$("#DelBlockUIConfirm").hide();
 						}
 		})
         // if(window.confirm('Do you want to delete property..?'))
@@ -171,11 +171,14 @@ class Property extends React.Component{
      }
 	 viewProperty(property){
 		 $(".proeprty-sec").show();
+		  $("#table").hide();
+		
 		 this.setState({propertyDetail: property});
 		 this.setState({propertyImg: property.img_path});
 	 }
 	 onClickClose(){
 		$(".proeprty-sec").hide(); 
+		  $("#table").show();
 	 }
 	 changeTabs(id) {
         if (id == "location") {
@@ -192,6 +195,10 @@ class Property extends React.Component{
 			
         }
     }
+	//in your component
+	addDefaultSrc(ev){
+	  ev.target.src = img_not_available;
+	}
     render(){
         const imgSer=this.imgServer
         // console.log("propertyloading..."+JSON.stringify(this.state.propertiesLoading))
@@ -216,7 +223,7 @@ class Property extends React.Component{
                 </div>
                 {this.state.property.length>0?
                                   
-                    <div className="row">
+                    <div className="row" id="table">
                     <div className="col-sm-12">
                         <div className="card-box">
                         <div className="table-responsive">
@@ -237,7 +244,7 @@ class Property extends React.Component{
                            { this.state.property.map(element=>(
                                     <tr>
                                         <td>
-                                            <img src={(element.img_path && element.img_path.length>0)?imgSer+element.img_path[0].img_path:img_not_available} alt="contact-img" title="contact-img" className="rounded-circle property-img" />
+                                            <img onError={this.addDefaultSrc} src={(element.img_path && element.img_path.length>0)?imgSer+element.img_path[0].img_path:img_not_available} alt="contact-img" title="contact-img" className="rounded-circle property-img" />
                                         </td>
                                         <td><h5 className="m-b-0 m-t-0 font-600">{element.title}</h5></td>
                                         {/* <td><i className="mdi mdi-map-marker text-primary"></i> #0,22ndFloor,27th Main NewYork </td> */}
@@ -278,17 +285,18 @@ class Property extends React.Component{
 				 <div className="row proeprty-sec" id="">
                     <div className="col-12">
                         <div className="card-box">
-                            <h4 className="header-title m-t-0 view-property-title">Property Title</h4>
 							<div className=" view-property-close">
-                                   <a href="#" onClick={this.onClickClose} id="close-property"><i className="mdi mdi-close"></i></a>
-                                </div>
+								<button type="button" className="btn btn-primary waves-effect waves-light" onClick={this.onClickClose}>Back</button>
+                            </div>
+                            <h4 className="header-title m-t-0 view-property-title">{this.state.propertyDetail.title}</h4>
+							
 							<div className="col-12 no-padding">
                             <div className="single-item slider ">
 								<Carousel showThumbs={false}>
 									{this.state.propertyImg.map((item)=>(
 									
 										<div>
-											<img src={API_URL+item.img_path} alt="slider-img" className="img-fluid"/>
+											<img onError={this.addDefaultSrc} src={API_URL+item.img_path} alt="slider-img" className="img-fluid"/>
 										</div>
 									  ))}
 								</Carousel>

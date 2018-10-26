@@ -57,6 +57,9 @@ export default class PropertySearch extends React.Component{
 
     $('html, body').animate({scrollTop: 0}, 1500);        
   }
+  addDefaultSrc(ev){
+	  ev.target.src = img_not_available;
+	}
 	render(){  
 		return(        
       <div className="col-lg-3 col-md-4 col-sm-4 col-xs-12 tz-sidebar-right">
@@ -117,7 +120,7 @@ export default class PropertySearch extends React.Component{
 
                       <div className="tz-author-item" key={owner.agent_id}>
                     <div className="tz-thumbnail"> <a> 
-                    <img src={owner.profile_photo?API_URL+owner.profile_photo:img_not_available} className="home-img wide tall top-agent" alt="" width="260" height="420" /> </a> </div>
+                    <img onError={this.addDefaultSrc} src={owner.profile_photo?API_URL+owner.profile_photo:img_not_available} className="home-img wide tall top-agent" alt="" width="260" height="420" /> </a> </div>
                     <div className="tz-author-content">
                       <div className="tz-property-author-title">
                         <div className="tz-width-60 text-left pull-left top-agent-name">

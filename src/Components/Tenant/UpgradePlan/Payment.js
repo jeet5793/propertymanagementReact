@@ -296,7 +296,7 @@ class Payment extends React.Component {
                  </div>
                </div>
                <div className="col-md-12 text-center">
-                 <li className="list-inline-item"> <button type="button" onClick = {this.onClickReturn} className="btn btn-warning waves-effect w-md waves-light"><i className="dripicons-home" /> Back to Home</button></li>
+                 <li className="list-inline-item"> <button type="button" onClick = {this.onClickReturn} className="btn btn-warning waves-effect w-md waves-light"><i className="dripicons-home" /> Back</button></li>
                </div>
              </div>
              {/* end row */}

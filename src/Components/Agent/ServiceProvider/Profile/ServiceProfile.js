@@ -84,6 +84,9 @@ class ServiceProfie extends React.Component{
 
 	  
     }
+	addDefaultSrc(ev){
+  ev.target.src = img_not_available;
+}
         render(){
           const profileInfo=this.state.profileData;
           const { userProfile: profile } = this.props;
@@ -99,7 +102,7 @@ class ServiceProfie extends React.Component{
               <div className="col-sm-12">
                 <div className="row">
                   <div className="col-sm-4">
-                    <div className="profile-user-box1"> <span className="pull-left m-r-15"><img src={profileInfo.profile_photo!=''?API_URL+profileInfo.profile_photo:img_not_available} alt="" className="thumb-lg rounded-circle" /></span>
+                    <div className="profile-user-box1"> <span className="pull-left m-r-15"><img onError={this.addDefaultSrc} src={profileInfo.profile_photo!=''?API_URL+profileInfo.profile_photo:img_not_available} alt="" className="thumb-lg rounded-circle" /></span>
                     <div className="media-body">
                         <h4 className="m-t-5 m-b-5 font-18 ellipsis">{profileInfo.first_name + '. '+ profileInfo.last_name}</h4>
                         <p className="font-13"> User Experience Specialist</p>
@@ -189,7 +192,7 @@ class ServiceProfie extends React.Component{
                       <tbody>
 					   {this.state.resolvedList.map((item)=>(
                         <tr>
-                            <td><img src={item.requestedUserPhoto!=''?API_URL+item.requestedUserPhoto:img_not_available} alt="contact-img" title="contact-img" className="rounded-circle thumb-sm" /></td>
+                            <td><img onError={this.addDefaultSrc} src={item.requestedUserPhoto!=''?API_URL+item.requestedUserPhoto:img_not_available} alt="contact-img" title="contact-img" className="rounded-circle thumb-sm" /></td>
                             <td><h5 className="m-b-0 m-t-0 font-600">{item.requestedUserName}</h5></td>
                             <td><i className="mdi mdi-map-marker text-primary"></i> {item.requestedUserCountry} </td>
                             <td>{item.entry_date} </td>

@@ -6,6 +6,9 @@ export default class PropertyItems extends React.Component{
 	constructor(props){
 		super(props)
 	}
+	addDefaultSrc(ev){
+	  ev.target.src = img_not_available;
+	}
     render(){
       var classs=""
       if(this.props.PropertyStatus!=="Rent"){
@@ -22,7 +25,7 @@ export default class PropertyItems extends React.Component{
             <span className="tz-property-thum cbp-caption" rel="nofollow">
               <div className="cbp-caption-defaultWrap">
                 <figure>
-                <img className="property-imggg" src={this.props.src?this.props.src:img_not_available} alt="" style={{width: '100%'}}/>
+                <img onError={this.addDefaultSrc} className="property-imggg" src={this.props.src?this.props.src:img_not_available} alt="" style={{width: '100%'}}/>
                   <figcaption className="for-sale"> {this.props.PropertyStatus} </figcaption>
                 </figure>
               </div>

@@ -7,6 +7,7 @@ import API_URL from '../../../app-config';
 
 import '../../../css/flexslider.min.css'
 import $ from 'jquery'
+import img_not_available from '../../../images/img_not_available.png'
 export default class PropertyDetails extends React.Component{
   constructor(props){
     super(props)
@@ -118,6 +119,9 @@ export default class PropertyDetails extends React.Component{
 			})
 		});
   }
+  addDefaultSrc(ev){
+	  ev.target.src = img_not_available;
+	}
 	render (){
     const { proppertydetails } = this.state;
     if(this.props.location.state!==undefined)
@@ -157,7 +161,7 @@ export default class PropertyDetails extends React.Component{
               <div id="tz-img-single"  className="flexslider">
                 <ul className="slides">
                 {proppertydetails.img_path.map((imgs,index)=>(
-                  <li className="tz-slider-for-item" key={index}> <img src={`${API_URL}`+imgs.img_path} alt="" /> </li>
+                  <li className="tz-slider-for-item" key={index}> <img onError={this.addDefaultSrc} src={`${API_URL}`+imgs.img_path} alt="" /> </li>
                   ))}
                 {/*}  <li className="tz-slider-for-item"> <img src={img1} alt="" /> </li>
                   <li className="tz-slider-for-item"> <img src={img2} alt="" /> </li>
@@ -172,7 +176,7 @@ export default class PropertyDetails extends React.Component{
                 {proppertydetails.img_path.map((imgs,index)=>(
                     <li className="tz-slider-item" key={index}>
                     <div className="border"></div>
-                    <img src={`${API_URL}`+imgs.img_path} alt="" /> </li>
+                    <img onError={this.addDefaultSrc} src={`${API_URL}`+imgs.img_path} alt="" /> </li>
                   ))}   
                 {/* 
                    <li className="tz-slider-item">

@@ -272,6 +272,9 @@ class Service extends React.Component {
             $("#requestedTab").removeClass("active")
         }
     }
+	addDefaultSrc(ev){
+	  ev.target.src = img_not_available;
+	}
     render() {
         // if(this.props.owner===undefined)
         // window.location.href='http://'+window.location.host
@@ -412,7 +415,7 @@ class Service extends React.Component {
                                                 <h4 className="m-t-0 header-title">Service Details </h4>
                                                 <div className="search-item">
                                                     <div className="media">
-                                                        <img className="d-flex mr-3 rounded-circle" src={item.profile_photo != '' ? API_URL + item.profile_photo : img_not_available} alt="Generic placeholder image" height="54" />
+                                                        <img onError={this.addDefaultSrc} className="d-flex mr-3 rounded-circle" src={item.profile_photo != '' ? API_URL + item.profile_photo : img_not_available} alt="Generic placeholder image" height="54" />
                                                         <div className="media-body">
                                                             <h5 className="media-heading">
                                                                 <a href="#" className="text-dark">{item.first_name + item.last_name}</a>

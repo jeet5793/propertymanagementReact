@@ -150,6 +150,9 @@ class ProfileDetails extends React.Component{
            
         }
     }
+	addDefaultSrc(ev){
+	  ev.target.src = img_not_available;
+	}
     render(){
         // if(this.props.owner===undefined)
         // window.location.href='http://'+window.location.host
@@ -179,7 +182,7 @@ class ProfileDetails extends React.Component{
 						<div className="row">
                         <div className="col-md-8">
                         <span className="pull-left m-r-15 sec-profile-mg">
-                        <img src={this.state.profileData.profile_photo!=''?API_URL+this.state.profileData.profile_photo:img_not_available} alt="" className="second-profiles rounded-circle" /></span>
+                        <img onError={this.addDefaultSrc} src={this.state.profileData.profile_photo!=''?API_URL+this.state.profileData.profile_photo:img_not_available} alt="" className="second-profiles rounded-circle" /></span>
                         <div className="details-dec ">
                                 <h4 className="m-t-5 m-b-5 font-18 ellipsis">{this.state.profileData.first_name+" "+this.state.profileData.last_name}</h4>
                                 

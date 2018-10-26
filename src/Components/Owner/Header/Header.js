@@ -242,6 +242,9 @@ onHoverNoti()
 			}
 		  )   
 	}
+	addDefaultSrc(ev){
+	  ev.target.src = img_not_available;
+	}
     render(){
   // console.log(JSON.stringify(this.state.userData))
         return(
@@ -292,7 +295,7 @@ onHoverNoti()
                             {/* All*/} 
                              <Link to = {{pathname:'/owner-notifications'}} className="dropdown-item notify-item notify-all">  View All</Link> </div>
                         </li>
-                         <li className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle  waves-light nav-user" onClick = {this.profileToggle} data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img src={this.state.profileData.profile_photo!=''?API_URL+this.state.profileData.profile_photo:img_not_available} alt="user" className="rounded-circle" /><span className="profile-name">{this.state.profileData.first_name+" "+this.state.profileData.last_name}</span> </a>
+                         <li className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle  waves-light nav-user" onClick = {this.profileToggle} data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> <img onError={this.addDefaultSrc} src={this.state.profileData.profile_photo!=''?API_URL+this.state.profileData.profile_photo:img_not_available} alt="user" className="rounded-circle" /><span className="profile-name">{this.state.profileData.first_name+" "+this.state.profileData.last_name}</span> </a>
                             <div className="dropdown-menu dropdown-menu-right profile-dropdown" aria-labelledby="Preview"> 
                             {/* item*/}
                             <div className="dropdown-item noti-title">

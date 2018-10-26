@@ -144,7 +144,9 @@ class Profile extends React.Component {
       // }
 
     }
-    
+    addDefaultSrc(ev){
+	  ev.target.src = img_not_available;
+	}
     render(){
 		
       const profileInfo=this.state.profileData;
@@ -172,7 +174,7 @@ class Profile extends React.Component {
                     <div className="col-sm-4">
                       <div className="profile-user-box">
                         <span className="pull-left m-r-15">
-                          <img src={profileInfo.profile_photo!=''?API_URL+profileInfo.profile_photo:img_not_available} alt="" className="thumb-lg rounded-circle" />
+                          <img onError={this.addDefaultSrc} src={profileInfo.profile_photo!=''?API_URL+profileInfo.profile_photo:img_not_available} alt="" className="thumb-lg rounded-circle" />
                         </span>
                         <div className="media-body">
                           {/* <h4 className="m-t-5 m-b-5 font-18 ellipsis">Michael A. Franklin</h4> */}
@@ -263,7 +265,7 @@ class Profile extends React.Component {
                     <h4 className="header-title mt-0 m-b-20">Recent Added Property</h4>
 					 {(this.state.property).length>0?
                     <div className="panel-body"> 
-                    <img id="single-image" src={this.state.property!=''?API_URL+this.state.property.img_path:img_not_available} alt="image-1" className="img-fluid" />
+                    <img onError={this.addDefaultSrc} id="single-image" src={this.state.property!=''?API_URL+this.state.property.img_path:img_not_available} alt="image-1" className="img-fluid" />
                       <hr/>
                       <p className="text-muted font-13">{this.state.property.description} </p>
                       <Link to={{"pathname":"/owner-property-detail",state:{propertyID:this.state.property.property_id,session:JSON.parse(this.state.userData).session_id}}}><a className="btn btn-custom waves-light waves-effect w-md">View</a></Link> </div>:<div>No Property Added</div>}
@@ -291,7 +293,7 @@ class Profile extends React.Component {
                         <tbody>
 						 {AgentList.map((item,key)=>(
                           <tr key={item.profile_id}>
-                            <td><img src={item.profile_photo!=''?API_URL+item.profile_photo:img_not_available} alt="contact-img" title="contact-img" className="rounded-circle thumb-sm" /></td>
+                            <td><img onError={this.addDefaultSrc} src={item.profile_photo!=''?API_URL+item.profile_photo:img_not_available} alt="contact-img" title="contact-img" className="rounded-circle thumb-sm" /></td>
                             <td><h5 className="m-b-0 m-t-0 font-600">{item.name}</h5></td>
                             <td><i className="mdi mdi-map-marker text-primary"></i> {item.country} </td>
                             <td>{item.connectedDate} </td>
@@ -320,7 +322,7 @@ class Profile extends React.Component {
                         <tbody>
 						{TenantList.map((item,key)=>(
                           <tr key={item.profile_id}>
-                            <td><img src={item.profile_photo!=''?API_URL+item.profile_photo:img_not_available} alt="contact-img" title="contact-img" className="rounded-circle thumb-sm" /></td>
+                            <td><img onError={this.addDefaultSrc} src={item.profile_photo!=''?API_URL+item.profile_photo:img_not_available} alt="contact-img" title="contact-img" className="rounded-circle thumb-sm" /></td>
                             <td><h5 className="m-b-0 m-t-0 font-600">{item.name}</h5></td>
                             <td><i className="mdi mdi-map-marker text-primary"></i> {item.country}</td>
                             <td>{item.connectedDate}</td>

@@ -4,7 +4,7 @@ import $ from 'jquery'
 import { Link } from 'react-router-dom'
 import API_URL from '../../../app-config';
 // import {fetch} from 'whatwg-fetch'
-
+import img_not_available from '../../../images/img_not_available.png'
 export default class Blog extends React.Component {
 	constructor(props) {
 		super(props)
@@ -28,6 +28,9 @@ $("#loaderDiv").show();
 
 
 	}
+	addDefaultSrc(ev){
+  ev.target.src = img_not_available;
+}
 	render() {
 		return (
 			<div className="mg-top-129">
@@ -51,7 +54,7 @@ $("#loaderDiv").show();
 											<div className="tz-property-box tz-property-author">
 												<div className="tz-property-author-left blog-img">
 													<a className="tz-property-thumbnail">
-														<img src={API_URL+'assetsadmin/' + blog.img_path} alt="" />
+														<img onError={this.addDefaultSrc} src={API_URL+'assetsadmin/' + blog.img_path} alt="" />
 													</a>
 												</div>
 												<div className="tz-property-author-right">

@@ -11,13 +11,36 @@ export default class ContactForm extends React.Component {
 	  contactfor:'',
       subject: '',
       message: '',
-	  errors: {}
+	  errors: {},
+	  attachement:''
+	  
     }
     this.onChangeHandler = this.onChangeHandler.bind(this)
     this.submitContactUsFor = this.submitContactUsFor.bind(this)
+	 this.fileInput = React.createRef();
   }
   onChangeHandler(e) {
-    this.setState({ [e.target.name]: e.target.value })
+	   let formData = new FormData();
+	   if(e.target.name=='attachement'){
+		   let file = this.fileInput.current.files[0];
+		  
+				let reader = new FileReader();
+				reader.onload = () => {
+
+				let result = reader.result;
+				this.state.attachement = result;
+				};
+				reader.onerror = () => {
+					console.log('image read error')
+				};
+				// reader.readAsBinaryString(file);
+				 reader.readAsDataURL(file);
+				formData.append('file', this.fileInput.current.files[0])
+		   
+	   }
+	 
+    this.setState({ [e.target.name]: e.target.value });
+	this.setState({formData:formData});
   }
   submitContactUsFor(e) {
 	  e.preventDefault();
@@ -101,6 +124,14 @@ export default class ContactForm extends React.Component {
            formIsValid = false;
            errors["message"] = "Cannot be empty";
         }
+		 if(fields.attachement!==''){
+			  let file = this.fileInput.current.files[0];
+			 const fileMaxSize = 100;//1048576; // 1MB
+		   if(file.size!=undefined && file.size>fileMaxSize){
+			   formIsValid = false;
+				errors["attachement"] = "Document size should be less than 1MB !";
+		   }
+		 }
 
        this.setState({errors: errors});
        return formIsValid;
@@ -110,7 +141,7 @@ export default class ContactForm extends React.Component {
       <div className="wpb_wrapper">
         <div role="form" className="wpcf7" id="wpcf7-f322-p304-o1" lang="en-US" dir="ltr">
           <div className="screen-reader-response"></div>
-          <form className="wpcf7-form" noValidate>
+          <form className="wpcf7-form" encType='multipart/form-data' noValidate >
             <div style={{ display: 'none' }}>
               <input type="hidden" name="_wpcf7" value="322" />
               <input type="hidden" name="_wpcf7_version" value="5.0.1" />
@@ -132,11 +163,11 @@ export default class ContactForm extends React.Component {
 				
                           
               </span> </div>
-			  <div className="col-md-6"> <span className="wpcf7-form-control-wrap phone">
+			  <div className="col-md-4"> <span className="wpcf7-form-control-wrap phone">
 			 <span style={{color: "red"}}>{this.state.errors["phone"]}</span>
                 <input type="text" name="phone" value={this.state.phone} onChange={this.onChangeHandler} placeholder="Phone*" size="40" className="wpcf7-form-control wpcf7-text" aria-invalid="false" />
               </span> </div>
-			   <div className="col-md-6"> <span className="">
+			   <div className="col-md-4"> <span className="wpcf7-form-control-wrap contactfor">
 			  <span style={{color: "red"}}>{this.state.errors["contactfor"]}</span>
                 <select className="form-control" name="contactfor"  placeholder="Select Contact For*"onChange={this.onChangeHandler}>
 					<option>Select Contact For*</option>
@@ -144,6 +175,10 @@ export default class ContactForm extends React.Component {
 					<option value="Others">Others</option>
 				</select>
               </span> </div>
+			  <div className="col-md-4"> <span className="wpcf7-form-control-wrap attachement">
+				<span style={{color: "red"}}>{this.state.errors["attachement"]}</span>
+				<input type="file" name="attachement" ref={this.fileInput} onChange={this.onChangeHandler}/>
+				</span> </div>
               <div className="col-md-12"> <span className="wpcf7-form-control-wrap subject">
 			 <span style={{color: "red"}}>{this.state.errors["subject"]}</span>
                 <input type="text" name="subject" value={this.state.subject} onChange={this.onChangeHandler} placeholder="Subject*" size="40" className="wpcf7-form-control wpcf7-text" aria-invalid="false" />
@@ -152,7 +187,9 @@ export default class ContactForm extends React.Component {
               <div className="col-md-12"> <span className="wpcf7-form-control-wrap your-message">
 			 <span style={{color: "red"}}>{this.state.errors["message"]}</span>
                 <textarea name="message" value={this.state.message} onChange={this.onChangeHandler} cols="40" rows="10" className="wpcf7-form-control wpcf7-textarea" aria-invalid="false" placeholder="Message*"></textarea>
-              </span> </div>
+              </span> 
+			  </div>
+			  
               <div className="tz-submit col-md-12">
                 <input onClick={this.submitContactUsFor} type="button" value="SUBMIT MESSAGE" className="wpcf7-form-control wpcf7-submit" />
               </div>

@@ -59,6 +59,9 @@ $("#loaderDiv").show();
 onClickClose() {
 		$("#proImageConfirm").hide();
 	}
+	addDefaultSrc(ev){
+	  ev.target.src = img_not_available;
+	}
 	render(){
 		// console.log(JSON.stringify(this.state.propertiesImg))
 		return(
@@ -71,7 +74,7 @@ onClickClose() {
 					
 					<div className="cbp-caption-defaultWrap">
 	                    <figure> 
-		                     <img src={this.props.src?this.props.src:img_not_available} alt="Assets Watch" width="900" height="328" />
+		                     <img onError={this.addDefaultSrc} src={this.props.src?this.props.src:img_not_available} alt="Assets Watch" width="900" height="328" />
 		                     <figcaption className="for-sale for-rent"> {this.props.Status} </figcaption>
 	                    </figure>
                     </div>
@@ -110,7 +113,7 @@ onClickClose() {
 								<Carousel autoPlay showArrows={true} showThumbs={false} >
 								{this.state.propertiesImg?this.state.propertiesImg.map((item,index)=>(
 									<div>
-										<img src={API_URL+item.img_path}/>
+										<img onError={this.addDefaultSrc} src={API_URL+item.img_path}/>
 									</div>
 								)):''}	
 								</Carousel>

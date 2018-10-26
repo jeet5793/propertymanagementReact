@@ -568,7 +568,7 @@ class AddProperty extends React.Component {
                       <div className="row">
                         <div className="col-md-8"></div>
                         <div className="col-md-4 submit-btn">
-                          <input type="reset" className="btn btn-secondary waves-effect w-md m-r-10" value="Cancel"/>
+                          <input type="reset" className="btn btn-secondary waves-effect w-md m-r-10" value="Reset"/>
                           <button type="button" onClick={this.createProperty} className="btn btn-success waves-effect w-md waves-light">Submit</button>
                         </div>
                       </div>

@@ -215,7 +215,7 @@ unsubscribe()
 																			// <Link to = {{pathname:'/broker-upgrade'}}></Link>
 																			// <Redirect to='/broker-upgrade'/>alert(Object.keys(obj)[0])
 																		}} />
-																	<label HTMLFor="radioind"> Per Month </label>
+																	<label htmlFor="radioind"> Per Month </label>
 																</div>
 															</div>
 															<div className="col-md-6">
@@ -227,7 +227,7 @@ unsubscribe()
 																			this.props.history.push({pathname: '/owner-upgrade',
 																			state: { PlanId: getPlanId,Pay:'per_annum',userId:profileDetail.assets_id }})
 																		}}/>
-																	<label HTMLFor="radioorg"> Per Annum </label>
+																	<label htmlFor="radioorg"> Per Annum </label>
 																</div>
 															</div>
 															</div>
@@ -285,7 +285,7 @@ unsubscribe()
 																			this.props.history.push({pathname: '/owner-upgrade',
 																			state: { PlanId: getPlanId,Pay:'per_month',userId:profileDetail.assets_id }})
 																			}}/>
-																	<label HTMLFor="radioind"> Per Month </label>
+																	<label htmlFor="radioind"> Per Month </label>
 																</div>
 															</div>
 															<div className="col-md-6">
@@ -297,7 +297,7 @@ unsubscribe()
 																			this.props.history.push({pathname: '/owner-upgrade',
 																			state: { PlanId: getPlanId,Pay:'per_annum',userId:profileDetail.assets_id }})
 																		}}/>
-																	<label HTMLFor="radioorg"> Per Annum </label>
+																	<label htmlFor="radioorg"> Per Annum </label>
 																</div>
 															</div>
 															</div>
@@ -353,7 +353,7 @@ unsubscribe()
 																			this.props.history.push({pathname: '/owner-upgrade',
 																			state: { PlanId: getPlanId,Pay:'per_month',userId:profileDetail.assets_id }})
 																		}} />
-																	<label HTMLFor="radioind"> Per Month </label>
+																	<label htmlFor="radioind"> Per Month </label>
 																</div>
 															</div>
 															<div className="col-md-6">
@@ -365,7 +365,7 @@ unsubscribe()
 																			this.props.history.push({pathname: '/owner-upgrade',
 																			state: { PlanId: getPlanId,Pay:'per_annum',userId:profileDetail.assets_id }})
 																		}}/>
-																	<label HTMLFor="radioorg"> Per Annum </label>
+																	<label htmlFor="radioorg"> Per Annum </label>
 																</div>
 															</div>
 															</div>

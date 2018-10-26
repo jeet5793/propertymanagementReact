@@ -306,7 +306,7 @@ export default class container extends React.Component{
 									})
 								
 						}else if(action==="Cancel"){
-							window.location.reload();
+							$("#DelBlockUIConfirm").hide();
 						}
 		})
     }

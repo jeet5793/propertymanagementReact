@@ -8,7 +8,7 @@ import { withRouter } from 'react-router'
 import swal from 'sweetalert';
 import Dropzone from 'react-dropzone'
 import $ from 'jquery'
-
+import img_not_available from '../../../images/img_not_available.png'
 class EditProperty extends React.Component {
   constructor(props) {
     super(props)
@@ -309,7 +309,9 @@ class EditProperty extends React.Component {
     }
     this.setState({ images })
   }
-
+addDefaultSrc(ev){
+	  ev.target.src = img_not_available;
+	}
   render() {
     const editPropertyInfo = this.state.formData
     const { base64images } = this.state
@@ -324,6 +326,7 @@ class EditProperty extends React.Component {
       }
 
     })
+  
 
     return (
       <div>
@@ -572,7 +575,7 @@ class EditProperty extends React.Component {
                                               <span className="jFiler-item-title"><b title="{{file.name}}"></b></span>
                                               <span className="jFiler-item-others"></span>
                                             </div>
-                                            <img src={image.indexOf("assets")>=0 ?API_URL+image:image} />
+                                            <img onError={this.addDefaultSrc} src={image.indexOf("assets")>=0 ?API_URL+image:image} />
                                             {/* <img src={image.img_path ? API_URL + image.img_path : image} /> */}
                                           </div>
                                           <div className="jFiler-item-assets jFiler-row">
@@ -599,7 +602,7 @@ class EditProperty extends React.Component {
                       <div className="row">
                         <div className="col-md-8"></div>
                         <div className="col-md-4 submit-btn">
-                         <input type="reset" className="btn btn-secondary waves-effect w-md m-r-10" value="Cancel"/>
+                         <input type="reset" className="btn btn-secondary waves-effect w-md m-r-10" value="Reset"/>
                           <button type="button" onClick={this.editProperty} className="btn btn-success waves-effect w-md waves-light">Submit</button>
 
                         </div>

@@ -495,6 +495,9 @@ class Tenants extends React.Component{
            
         }
     }
+	addDefaultSrc(ev){
+	  ev.target.src = img_not_available;
+	}
     render(){
 		const { value, suggestions,selectedOption,property_list,autocompleteData } = this.state;
 			// Autosuggest will pass through all these props to the input.
@@ -544,7 +547,7 @@ class Tenants extends React.Component{
                 <div className="card-box">
                   <div className="member-card-alt">
                     <div className="thumb-xl member-thumb m-b-10 pull-left"> 
-                    <img src={item.profile_photo!=''?API_URL+item.profile_photo:img_not_available} className="img-thumbnail list-pro-img" alt="profile-image" /> 
+                    <img onError={this.addDefaultSrc} src={item.profile_photo!=''?API_URL+item.profile_photo:img_not_available} className="img-thumbnail list-pro-img" alt="profile-image" /> 
                     <i className="mdi mdi-star-circle member-star text-success" title="verified user"></i> </div>
                     <div className="member-card-alt-info">
                       <h4 className="m-b-5 m-t-0 font-18">{item.name}</h4>
@@ -603,7 +606,7 @@ class Tenants extends React.Component{
                 <div className="card-box">
                   <div className="member-card-alt">
                     <div className="thumb-xl member-thumb m-b-10 pull-left"> 
-                    <img src={item.profile_photo!=''?API_URL+item.profile_photo:img_not_available} className="img-thumbnail list-pro-img" alt="profile-image" /> 
+                    <img onError={this.addDefaultSrc} src={item.profile_photo!=''?API_URL+item.profile_photo:img_not_available} className="img-thumbnail list-pro-img" alt="profile-image" /> 
                     <i className="mdi mdi-star-circle member-star text-success" title="verified user"></i> </div>
                     <div className="member-card-alt-info">
                    <h4 className="m-b-5 m-t-0 font-18" >{item.name}</h4> 

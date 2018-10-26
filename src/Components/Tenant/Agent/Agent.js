@@ -493,6 +493,9 @@ constructor(props) {
            
         }
     }
+	addDefaultSrc(ev){
+	  ev.target.src = img_not_available;
+	}
     render(){
       // if(this.props.owner===undefined)
       //   window.location.href='http://'+window.location.host
@@ -540,7 +543,7 @@ constructor(props) {
 								<div className="card-box">
 								  <div className="member-card-alt">
 									<div className="thumb-xl member-thumb m-b-10 pull-left"> 
-									<img src={item.profile_photo!=''?API_URL+item.profile_photo:img_not_available} className="img-thumbnail" alt="profile-image" /> 
+									<img onError={this.addDefaultSrc} src={item.profile_photo!=''?API_URL+item.profile_photo:img_not_available} className="img-thumbnail" alt="profile-image" /> 
 									<i className="mdi mdi-star-circle member-star text-success" title="verified user"></i> </div>
 									<div className="member-card-alt-info">
 									  <h4 className="m-b-5 m-t-0 font-18">{item.name}</h4>
@@ -592,7 +595,7 @@ constructor(props) {
 							<div className="card-box">
 							  <div className="member-card-alt">
 								<div className="thumb-xl member-thumb m-b-10 pull-left"> 
-								<img src={item.profile_photo!=''?API_URL+item.profile_photo:img_not_available} className="img-thumbnail" alt="profile-image" /> 
+								<img onError={this.addDefaultSrc} src={item.profile_photo!=''?API_URL+item.profile_photo:img_not_available} className="img-thumbnail" alt="profile-image" /> 
 								<i className="mdi mdi-star-circle member-star text-success" title="verified user"></i> </div>
 								<div className="member-card-alt-info">
 							   <h4 className="m-b-5 m-t-0 font-18" >{item.name}</h4> 
