@@ -166,14 +166,18 @@ export default class Customwithmodal extends React.Component{
     canvasToImg() {        
         var placeId = $("#placeId").val();        
         var name = $("#name").val();        
-        if(name!="")
-        {
-          $("#"+placeId).html("<div style='display: block; margin: 0;padding: 0 3px; position: absolute; z-index: 90;cursor: default;color: #145394;font-size: 1.875em;line-height: 25px;font-family: Journal, Georgia, Times, serif;'>"+name+"</div>");
+         if(name!="")
+        {			
+		  $("#"+placeId).css({"background-color":""});
+			
+		  $("#"+placeId).html("<span style='padding: 0 3px;z-index: 90;cursor: default;color: #145394;font-size: 1.875em;line-height: 25px;font-family: Journal, Georgia, Times, serif;'>"+name+"</span>");
           
           $("#name").val("");
           $("#typedPadId").html("");          
           document.getElementById("closeButtonId").click();
+		  
         }
+
         else
         {
             var canvas = document.getElementById("signaturePadId");

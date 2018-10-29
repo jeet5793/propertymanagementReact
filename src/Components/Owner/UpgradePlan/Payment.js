@@ -18,7 +18,14 @@ class Payment extends React.Component {
         month:'',
         year:'',
 		tokenizedaccountnumber:'',
-		cvv:''
+		cvv:'',
+		name:'',
+		achFields:{
+			name:'',
+			tokenizedaccountnumber:'',
+			routingnumber:'',
+			
+		}
 		
     }
       this.userInfo = this.userInfo.bind(this);
@@ -29,6 +36,8 @@ class Payment extends React.Component {
 	  this.changeaccHandler=this.changeaccHandler.bind(this);
       this.changecvvHandler=this.changecvvHandler.bind(this);
 	   this.onClickReturn = this.onClickReturn.bind(this);
+	   this.onChangeACH = this.onChangeACH.bind(this);
+	   this.changeNameHandler = this.changeNameHandler.bind(this)
   }
  componentDidMount() {
     // setTimeout(function(){ $('#tzloadding').remove(); }, 2000)
@@ -42,7 +51,11 @@ class Payment extends React.Component {
     //setTimeout(function(){ $('#tzloadding').remove(); }, 2000)
     //$('html, body').animate({scrollTop: 0}, 1500);
   }
-
+changeNameHandler(e)
+{
+	e.preventDefault()
+    this.setState({name:e.target.value});
+}
   handleMonthChange(e){
     e.preventDefault()
     this.setState({month:e.target.value});
@@ -109,71 +122,172 @@ class Payment extends React.Component {
             }
           )
   }
-
-  paymentPage(event) {
-  event.preventDefault();
+onChangeACH(e){
+	var achField = this.state.achFields;
+	if(e.target.name=="name")
+		achField.name = e.target.value;
+	if(e.target.name=="tokenizedaccountnumber")
+		achField.tokenizedaccountnumber = e.target.value;
+	if(e.target.name=="routingnumber")
+		achField.routingnumber = e.target.value;
+	this.setState({achFields:achField});
+}
+  paymentPage(paymentType) {
+	  // alert('dsawfh');
+	  // console.log(paymentType)
+	  // alert(paymentType);
+	  var user_detail = this.state.userDetails;
+  // event.preventDefault();
   	// console.log(this.state);
-  var payment_Object={
-    "userid":this.state.userDetails.user_id,
-    "tokenizedaccountnumber":this.state.tokenizedaccountnumber,
-    "paymentmode": "card",
-    "expirymmyy": this.state.month+this.state.year,
-    "cvv": this.state.cvv,
-    "routingnumber": null,
-    "surchargeamount": null,
-    "transactionamount":this.state.userDetails.planPrice,
-    "currency": "USD",
-    "transactionreference": null,
-    "payeeid": null,
-    "notifypayee": null,
-    "profile": null,
-    "profileid": null,
-    "orderid":this.state.userDetails.orderid,
-	"plan_id":this.state.userDetails.plan_id,
-	"plan_type":this.state.userDetails.plan_month_year
-  }
-  $("#loaderDiv").show();
-  // console.log(payment_Object);
-    fetch(`${API_URL}assetsapi/upgpaymentgateway`,{
-      method: 'post',
-      //headers: {'Content-Type':'application/json'},
-      body: JSON.stringify(payment_Object)
-    })
-          .then(res => res.json())
-          .then(
-            (result) => {
-              // debugger;
-              //alert("PaymentRes:"+JSON.stringify(result))
-              //if(result){
-                // this.setState({
-                  // userDetails:result.user_detail
-                // })
-			  //}
-			   /* if(result.msg.indexOf("Plan Upgraded Successfully")!=-1)
-			   {
-				   //window.location.href='https://'+window.location.hostname+':'+window.location.port+'/';
-				   swal("Assets Watch", result.msg);
-				   	this.props.history.replace('/owner-plan');
-			   } */
-				$("#loaderDiv").hide();
-					   
-					   $("#actionType").val("Yes");
-					   $("#hiddenURL").val("owner-plan");
-					   $(".confirm-body").html(result.msg);
-					   $("#BlockUIConfirm").show();
-             
-              //this.props.updateInfo(result.profile);
-            },
-            // Note: it's important to handle errors here
-            // instead of a catch() block so that we don't swallow
-            // exceptions from actual bugs in components.
-            (error) => {
-              this.setState({
-                isLoaded: true,
-                error
-              });
-            }
-          )
+	if(paymentType === 'CC'){
+		var payment_Object={
+			"userid":user_detail.user_id,
+			"tokenizedaccountnumber":this.state.tokenizedaccountnumber,
+			"paymentmode": "card",
+			"expirymmyy": this.state.month+this.state.year,
+			"cvv": this.state.cvv,
+			"routingnumber": null,
+			"surchargeamount": null,
+			"transactionamount":user_detail.planPrice,
+			"currency": "USD",
+			"transactionreference": null,
+			"payeeid": null,
+			"notifypayee": null,
+			"profile": null,
+			"profileid": null,
+			"orderid":user_detail.orderid,
+			"plan_id":user_detail.plan_id,
+			"plan_type":user_detail.plan_month_year,
+			"type": paymentType,
+			"name":this.state.name
+			
+		}
+		if(!payment_Object.name){
+			 alert("Full Name should not be blank");
+			return;
+		}
+		if(!payment_Object.tokenizedaccountnumber){
+			 alert("Card Number should not be blank");
+			return;
+		}
+		if(!this.state.month){
+			 alert("Month should not be blank");
+			return;
+		}
+		if(!this.state.year){
+			 alert("Year should not be blank");
+			return;
+		}
+		if(!payment_Object.cvv){
+			 alert("CVV should not be blank");
+			return;
+		}else{
+			$("#loaderDiv").show();
+		  // console.log(payment_Object);
+			fetch(`${API_URL}assetsapi/upgpaymentgateway`,{
+			  method: 'post',
+			  //headers: {'Content-Type':'application/json'},
+			  body: JSON.stringify(payment_Object)
+			})
+				  .then(res => res.json())
+				  .then(
+					(result) => {
+					 
+						$("#loaderDiv").hide();
+							   
+							   $("#actionType").val("Yes");
+							   $("#hiddenURL").val("owner-plan");
+							   $(".confirm-body").html(result.msg);
+							   $("#BlockUIConfirm").show();
+					 
+					  //this.props.updateInfo(result.profile);
+					},
+					
+					(error) => {
+					  this.setState({
+						isLoaded: true,
+						error
+					  });
+					}
+				  )
+		}
+		 
+	}else if(paymentType === 'ACH'){
+		var payment_Object={
+			"userid":user_detail.user_id,
+			"tokenizedaccountnumber": this.state.achFields.tokenizedaccountnumber,
+			  "paymentmode": "check",
+			  "routingnumber": this.state.achFields.routingnumber,
+			  "transactionamount": user_detail.planPrice,
+			  "surchargeamount": null,
+			  "currency": null,
+			  "payeefirstname": "",
+			  "payeelastname": "",
+			  "address": "",
+			  "city": "",
+			  "state": "",
+			  "country": "",
+			  "zip": "",
+			  "email": "",
+			  "transactionreference": null,
+			  "orderid": null,
+			  "payeeid": null,
+			  "udfield1": null,
+			  "udfield2": null,
+			  "udfield3": null,
+			  "notifypayee": null,
+			  "profile": null,
+			  "profileid": null,
+			  "orderid":user_detail.orderid,
+				"plan_id":user_detail.plan_id,
+				"plan_type":user_detail.plan_month_year,
+			  "type": paymentType,
+			  "name":this.state.achFields.name
+		}
+		if(!payment_Object.name){
+			 alert("Name should not be blank");
+			return;
+		}
+		if(!payment_Object.tokenizedaccountnumber){
+			 alert("Transaction A/C should not be blank");
+			return;
+		}
+		if(!payment_Object.routingnumber){
+			 alert("Routing Number should not be blank");
+			return;
+		}else{
+		 $("#loaderDiv").show();
+	  // console.log(payment_Object);
+		fetch(`${API_URL}assetsapi/upgpaymentgateway`,{
+		  method: 'post',
+		  //headers: {'Content-Type':'application/json'},
+		  body: JSON.stringify(payment_Object)
+		})
+			  .then(res => res.json())
+			  .then(
+				(result) => {
+				 
+					$("#loaderDiv").hide();
+						   
+						   $("#actionType").val("Yes");
+						   $("#hiddenURL").val("owner-plan");
+						   $(".confirm-body").html(result.msg);
+						   $("#BlockUIConfirm").show();
+				 
+				  //this.props.updateInfo(result.profile);
+				},
+				
+				(error) => {
+				  this.setState({
+					isLoaded: true,
+					error
+				  });
+				}
+			  )
+		
+		}
+  
+	}
   }
   onClickReturn()
   {
@@ -217,7 +331,7 @@ class Payment extends React.Component {
                  <div className="row">
                    <div className="col-md-3" />
                    <div className="col-sm-6 pay-now">
-									<div className="card-box">
+						<div className="card-box">
                             <ul className="nav nav-tabs tabs-bordered nav-justified">
                                 <li className="nav-item"> <a href="#credit-card" data-toggle="tab" onClick={this.changeTabs.bind(this, "credit-card")} id="CCTab" aria-expanded="true" className="nav-link font-16 active">Credit Card  </a> </li>
 									<li className="nav-item"> <a href="#ach" data-toggle="tab" onClick={this.changeTabs.bind(this, "ach")} id="ACHTab" aria-expanded="false" className="nav-link font-16">ACH  </a> </li>
@@ -251,14 +365,14 @@ class Payment extends React.Component {
 													</div>
 												</div>
 											</div>
-									<form role="form" className="card-dtl" method ="post" onSubmit={this.paymentPage.bind(this)}>
+									<form role="form" className="card-dtl" >
 									 <div className="form-group">
 										 <label htmlFor="name">Full Name (Card)<span className="required"/></label>
-										 <input type="text" ref="name" className="form-control" name="name" placeholder required />
+										 <input type="text" ref="name" className="form-control" name="name" onChange={this.changeNameHandler} placeholder />
 									   </div> {/* form-group.// */}
 									   <div className="form-group">
 										 <label htmlFor="cardNumber">Card Number<span className="required"/></label>
-										 <input type="text" ref="cardNumber" className="form-control" name="cardNumber" onChange={this.changeaccHandler} placeholder />
+										 <input type="text" ref="cardNumber" className="form-control" name="tokenizedaccountnumber" onChange={this.changeaccHandler} placeholder />
 									   </div> {/* form-group.// */}
 
 									<div className="row">
@@ -266,7 +380,7 @@ class Payment extends React.Component {
 											   <div className="form-group">
 												 <label><span className="hidden-xs">Exp<span className="required"/></span> </label>
 												 <div className="form-inline">
-												   <select className="form-control" style={{width: '45%'}} value={this.state.month} onChange={this.handleMonthChange}>
+												   <select className="form-control" style={{width: '45%'}} name = "month" value={this.state.month} onChange={this.handleMonthChange}>
 													 <option value="">MM</option>
 													<option value="01">January</option>
 													<option value="02">February</option>
@@ -282,7 +396,7 @@ class Payment extends React.Component {
 													<option value="12">December</option>
 												   </select>
 												   <span style={{width: '10%', textAlign: 'center'}}> / </span>
-												   <select className="form-control" style={{width: '45%'}} value={this.state.year} onChange={this.handleYearChange}>
+												   <select className="form-control" name = "year" style={{width: '45%'}} value={this.state.year} onChange={this.handleYearChange}>
 													 <option value="">YY</option>
 													<option value="18">2018</option>
 													<option value="19">2019</option>
@@ -304,12 +418,12 @@ class Payment extends React.Component {
 										<div className="col-sm-4">
 									   <div className="form-group">
 										 <label data-toggle="tooltip" title data-original-title="3 digits code on back side of the card">CVV<span className="required"/> <i className="fa fa-question-circle" /></label>
-										 <input className="form-control" ref="cvv" name="cvv" onChange={this.changecvvHandler} required type="text" />
+										 <input className="form-control" ref="cvv" name="cvv" onChange={this.changecvvHandler}  type="text" />
 									   </div> {/* form-group.// */}
 									 </div>
 									</div>{/* <!-- row.// -->*/}
 									<div className="col-md-12 text-center">
-									<button type="button" className="btn btn-success uppercase" >Pay Now</button>
+									<button type="button" onClick={this.paymentPage.bind(this,'CC')} className="btn btn-success uppercase" >Pay Now</button>
 									</div>
 									</form>
 									</div> {/*<!-- card-body.// -->*/}
@@ -343,22 +457,22 @@ class Payment extends React.Component {
 													</div>
 												</div>
 											</div>
-								<form role="form" className="card-dtl">
+								<form role="form" className="card-dtl" >
 									<div className="form-group">
-									<label>Name </label>
-										<input type="text" className="form-control" name="" placeholder="" required=""/>
+									<label>Name<span className="required"/> </label>
+										<input type="text" className="form-control" name="name" onChange = {this.onChangeACH} placeholder=""/>
 									</div> {/*<!-- form-group.// -->*/}
 
 									<div className="form-group">
-									<label>Transaction A/C</label>
-										<input type="text" className="form-control" name="" placeholder=""/>
+									<label>Transaction A/C<span className="required"/></label>
+										<input type="text" className="form-control" name="tokenizedaccountnumber" onChange = {this.onChangeACH} placeholder=""/>
 									</div> {/*<!-- form-group.// -->*/}
 									<div className="form-group">
-									<label>Routing No</label>
-										<input type="text" className="form-control" name="" placeholder=""/>
+									<label>Routing Number<span className="required"/></label>
+										<input type="text" className="form-control" name="routingnumber" onChange = {this.onChangeACH}placeholder=""/>
 									</div> {/*<!-- form-group.// -->*/}
 									<div className="col-md-12 text-center">
-									<button type="button" className="btn btn-success uppercase" onclick="">Pay Now</button>
+									<button type="button" onClick={this.paymentPage.bind(this,'ACH')} className="btn btn-success uppercase">Pay Now</button>
 									</div>
 								</form>
 								</div> {/*<!-- card-body.// -->*/}

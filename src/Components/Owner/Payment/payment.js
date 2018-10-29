@@ -16,15 +16,45 @@ export default class Payment extends React.Component{
 			  "dba_name": "",
 			  "legal_name": "",
 			  "business_address_line_1": "",
+			  "business_address_line_2": "",
+			  "business_city":'',
+			  "business_state_province":"",
+			  "business_postal_code":'',
+			  "business_phone_number":"",
+			  "website":"",
+			  "business_category":"",
+			  "business_type":"",
+			  "business_description":"",
 			  "city": "",
 			  "state": "",
 			  "zip_code": "",
 			  "mobile_no": "",
 			  "first_name": "",
 			  "last_name": "",
+			  "principal_middle_name":"",
+			  "principal_title":"",
+			  "principal_date_of_birth":"",
+			  "principal_ownership_percent":"",
+			  "principal_ssn":"",
+			  "ownership_type":"",
 			  "fed_tax_id": "",
 			  "login_user":"",
-			  "country":""
+			  "country":"",
+			   "account_number": "",
+			  "routing_number": "",
+			  "account_holder_name": "",
+			   "mcc": "",
+			  "swiped_percent": "",
+			  "keyed_percent": "",
+			  "ecommerce_percent": "",
+			  "cc_average_ticket_range": "",
+			  "cc_monthly_volume_range": "",
+			  "cc_high_ticket": "",
+			  "ec_high_ticket": "",
+			  "ec_average_ticket_range": "",
+			  "ec_monthly_volume_range": "",
+			  "principal_address_line_1":'',
+			  "principal_address_line_2":""
 		},
 		singularFrame:[],
 		profileData:[],
@@ -82,6 +112,8 @@ export default class Payment extends React.Component{
 		
 		this.enrollInfo();
 		this.Countries();
+		this.listOfStates();
+		// this.listOfCities();
     }
 	Countries() {
     fetch(`${API_URL}assetsapi/country/`).then(response => {
@@ -90,6 +122,14 @@ export default class Payment extends React.Component{
         //console.log(this.state.countries)
       });
     });
+  }
+  listOfStates(){
+	 fetch(`${API_URL}assetsapi/state_list/`).then(response => {
+      response.json().then(data => {
+        this.setState({ states: data.states });
+        //console.log(this.state.countries)
+      });
+    });  
   }
   stateLists(SelectCountry) {
     fetch(`${API_URL}assetsapi/state/` + SelectCountry).then(response => {
@@ -108,6 +148,14 @@ export default class Payment extends React.Component{
       });
     });
   }
+  // listOfCities(){
+	  // fetch(`${API_URL}assetsapi/city_list/`).then(response => {
+      // response.json().then(data => {
+        // this.setState({ cities: data.cities });
+        // console.log(this.state.countries)
+      // });
+    // }); 
+  // }
   // componentWillReceiveProps(nextProps) {
   //   if (nextProps.owner && this.props.owner) {
   //     console.og('yayayay22')
@@ -153,6 +201,8 @@ export default class Payment extends React.Component{
 			singularForm.legal_name=e.target.value
 		else if(e.target.name==='business_address_line_1')
 			singularForm.business_address_line_1=e.target.value;
+		else if(e.target.name==='business_address_line_2')
+			singularForm.business_address_line_2=e.target.value;
 		else if(e.target.name==='country')
 		{
 			singularForm.country=e.target.value;
@@ -165,6 +215,12 @@ export default class Payment extends React.Component{
 			var SelectState = singularForm.state;
 			this.cityList(SelectState);
 		}
+		else if(e.target.name==='city')
+			singularForm.city=e.target.value
+		else if(e.target.name==='business_city')
+			singularForm.business_city=e.target.value
+		else if(e.target.name==='business_state_province')
+			singularForm.business_state_province=e.target.value
 		else if(e.target.name==='zip_code')
 			singularForm.zip_code=e.target.value
 		else if(e.target.name==='mobile_no')
@@ -180,7 +236,61 @@ export default class Payment extends React.Component{
 			// var str = singularForm.fed_tax_id.replace(/.(?=.{4})/g, '*');
 			// $('#fed_tax_id').val(str);
 			//alert(str);
-		}
+		}else if(e.target.name==='business_postal_code')
+			singularForm.business_postal_code=e.target.value
+		else if(e.target.name==='business_state_province')
+			singularForm.business_state_province=e.target.value
+		else if(e.target.name==='business_phone_number')
+			singularForm.business_phone_number=e.target.value
+		else if(e.target.name==='website')
+			singularForm.website=e.target.value
+		else if(e.target.name==='business_category')
+			singularForm.business_category=e.target.value
+		else if(e.target.name==='business_type')
+			singularForm.business_type=e.target.value
+		else if(e.target.name==='business_description')
+			singularForm.business_description=e.target.value
+		else if(e.target.name==='principal_middle_name')
+			singularForm.principal_middle_name=e.target.value
+		else if(e.target.name==='principal_title')
+			singularForm.principal_title=e.target.value
+		else if(e.target.name==='principal_date_of_birth')
+			singularForm.principal_date_of_birth=e.target.value
+		else if(e.target.name==='principal_ownership_percent')
+			singularForm.principal_ownership_percent=e.target.value
+		else if(e.target.name==='principal_ssn')
+			singularForm.principal_ssn=e.target.value
+		else if(e.target.name==='ownership_type')
+			singularForm.ownership_type=e.target.value
+		else if(e.target.name==='account_number')
+			singularForm.account_number=e.target.value
+		else if(e.target.name==='routing_number')
+			singularForm.routing_number=e.target.value
+		else if(e.target.name==='account_holder_name')
+			singularForm.account_holder_name=e.target.value
+		else if(e.target.name==='mcc')
+			singularForm.mcc=e.target.value
+		else if(e.target.name==='swiped_percent')
+			singularForm.swiped_percent=e.target.value
+		else if(e.target.name==='keyed_percent')
+			singularForm.keyed_percent=e.target.value
+		else if(e.target.name==='ecommerce_percent')
+			singularForm.ecommerce_percent=e.target.value
+		else if(e.target.name==='cc_monthly_volume_range')
+			singularForm.cc_monthly_volume_range=e.target.value
+		else if(e.target.name==='cc_high_ticket')
+			singularForm.cc_high_ticket=e.target.valueelse 
+		else if(e.target.name==='ec_high_ticket')
+			singularForm.ec_high_ticket=e.target.value
+		else if(e.target.name==='ec_average_ticket_range')
+			singularForm.ec_average_ticket_range=e.target.value
+		else if(e.target.name==='ec_monthly_volume_range')
+			singularForm.ec_monthly_volume_range=e.target.value
+		else if(e.target.name==='principal_address_line_1')
+			singularForm.principal_address_line_1=e.target.value
+		else if(e.target.name==='principal_address_line_2')
+			singularForm.principal_address_line_2=e.target.value
+		 
 		singularForm.login_user = JSON.parse(this.state.userData).assets_id
 		this.setState({singularEnrollForm:singularForm});
 		
@@ -442,20 +552,97 @@ render(){
 								  <div className="col-md-12">
 									<div className="row">
 									  <div  className="col-md-2 required">
-										<label for="business-address1">Address</label>
+										<label for="business-address1">Business Address Line 1</label>
 									  </div>
 									  <div className="col-md-4">
 										<input type="text" className="form-control" id="business-address1" name="business_address_line_1" onChange={this.SingularBillChange} placeholder=""/>
 									  </div>
-									  <div  className="col-md-2 required">
-										<label for="business-state-province">Country</label>
+									  <div  className="col-md-2">
+										<label for="fed_tax_id">Business Address Line 2</label>
 									  </div>
 									  <div className="col-md-4">
-										<select className="form-control" name="country" value={this.state.singularEnrollForm.country || this.state.profileData.country} onChange={this.SingularBillChange} >
-										  {this.state.countries.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>))}
-										 
+										<input type="text" className="form-control" id="business_address_line_2" onChange={this.SingularBillChange} name="business_address_line_2" placeholder=""/>
+									  </div>
+									  
+									</div>
+								  </div>
+								</div>
+								<div className="form-group">
+								  <div className="col-md-12">
+									<div className="row">
+									<div  className="col-md-2">
+										<label for="business-postal-code" >Business City</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" name="business_city" id="business_city" onChange={this.SingularBillChange} placeholder=""/>
+									  </div>
+									  <div  className="col-md-2">
+										<label for="fed_tax_id">Business State Province</label>
+									  </div>
+									  <div className="col-md-4">
+										<select className="form-control"   name="business_state_province"  onChange={this.SingularBillChange} >
+											<option>-Please Select-</option>
+											{this.state.states?this.state.states.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>)):this.state.profileData.state}
+								 
 										</select>
-										
+									  </div>
+									  
+									  
+									</div>
+								  </div>
+								</div>
+								<div className="form-group">
+								  <div className="col-md-12">
+									<div className="row">
+									<div  className="col-md-2">
+										<label for="business-postal-code" >Business Postal Code</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" name="business_postal_code" id="business_postal_code" onChange={this.SingularBillChange} placeholder=""/>
+									  </div>
+									  <div  className="col-md-2">
+										<label for="fed_tax_id">Business Phone Number</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" id="business_phone_number" onChange={this.SingularBillChange} name="business_phone_number" placeholder=""/>
+									  </div>
+									  
+									</div>
+								  </div>
+								</div>
+								<div className="form-group">
+								  <div className="col-md-12">
+									<div className="row">
+									<div  className="col-md-2">
+										<label for="business-postal-code" >Website</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" name="website" id="website" onChange={this.SingularBillChange} placeholder=""/>
+									  </div>
+									  <div  className="col-md-2">
+										<label for="fed_tax_id">Business Category</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" id="business_category" onChange={this.SingularBillChange} name="business_category" placeholder=""/>
+									  </div>
+									  
+									</div>
+								  </div>
+								</div>
+								<div className="form-group">
+								  <div className="col-md-12">
+									<div className="row">
+									<div  className="col-md-2">
+										<label for="business-postal-code" >Business Type</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" name="business_type" id="business_type" onChange={this.SingularBillChange} placeholder=""/>
+									  </div>
+									  <div  className="col-md-2">
+										<label for="fed_tax_id">Business Description</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" id="business_description" onChange={this.SingularBillChange} name="business_description" placeholder=""/>
 									  </div>
 									  
 									</div>
@@ -465,18 +652,6 @@ render(){
 								  <div className="col-md-12">
 								  <div className="row">
 								   <div  className="col-md-2 required">
-										<label for="business-state-province">State</label>
-									  </div>
-									  <div className="col-md-4">
-										<select className="form-control"  value={this.state.singularEnrollForm.state || this.state.profileData.state} name="state"  onChange={this.SingularBillChange} >
-											<option>{this.state.profileData.state}</option>
-											{this.state.states?this.state.states.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>)):this.state.profileData.state}
-								 
-										</select>
-										
-									  </div>
-									
-									  <div  className="col-md-2 required">
 										<label for="business city" >City</label>
 									  </div>
 									  <div className="col-md-4">
@@ -486,6 +661,19 @@ render(){
 										 
 										</select>
 									  </div>
+								   <div  className="col-md-2 required">
+										<label for="business-state-province">State</label>
+									  </div>
+									  <div className="col-md-4">
+										<select className="form-control"  value={this.state.singularEnrollForm.state || this.state.profileData.state} name="state"  onChange={this.SingularBillChange} >
+											
+											{this.state.states?this.state.states.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>)):this.state.profileData.state}
+								 
+										</select>
+										
+									  </div>
+									
+									 
 									  
 									</div>
 								  </div>
@@ -530,17 +718,37 @@ render(){
 								<div className="form-group">
 								  <div className="col-md-12">
 									<div className="row">
-									<div  className="col-md-2 required">
+									<div  className="col-md-2">
 										<label for="business-postal-code" >Principal Middle Name</label>
 									  </div>
 									  <div className="col-md-4">
 										<input type="text" className="form-control" name="principal_middle_name" id="principal_middle_name" onChange={this.SingularBillChange} placeholder=""/>
 									  </div>
-									  <div  className="col-md-2 required">
-										<label for="fed_tax_id">Ownership Type</label>
+									  <div  className="col-md-2">
+										<label for="fed_tax_id">Principal Title</label>
 									  </div>
 									  <div className="col-md-4">
-										<input type="text" className="form-control" id="ownership_type" onChange={this.SingularBillChange} name="ownership_type" placeholder=""/>
+										<input type="text" className="form-control" id="principal_title" onChange={this.SingularBillChange} name="principal_title" placeholder=""/>
+									  </div>
+									  
+									  
+									</div>
+								  </div>
+								</div>
+								<div className="form-group">
+								  <div className="col-md-12">
+									<div className="row">
+									<div  className="col-md-2">
+										<label for="business-postal-code" >Principal Address Line 1</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" name="principal_address_line_1" id="principal_address_line_1" onChange={this.SingularBillChange} placeholder=""/>
+									  </div>
+									  <div  className="col-md-2">
+										<label for="fed_tax_id">Principal Address Line 2</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" id="principal_address_line_2" onChange={this.SingularBillChange} name="principal_address_line_2" placeholder=""/>
 									  </div>
 									  
 									</div>
@@ -568,280 +776,13 @@ render(){
 								<div className="form-group">
 								  <div className="col-md-12">
 									<div className="row">
-									<div  className="col-md-2 required">
-										<label for="business-postal-code" >Business Address Line 1</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" name="business_address_line_1" id="business_address_line_1" onChange={this.SingularBillChange} placeholder=""/>
-									  </div>
-									  <div  className="col-md-2 required">
-										<label for="fed_tax_id">Business Address Line 2</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" id="business_address_line_2" onChange={this.SingularBillChange} name="business_address_line_2" placeholder=""/>
-									  </div>
-									  
-									</div>
-								  </div>
-								</div>
-								<div className="form-group">
-								  <div className="col-md-12">
-									<div className="row">
-									<div  className="col-md-2 required">
-										<label for="business-postal-code" >Business City</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" name="business_city" id="business_city" onChange={this.SingularBillChange} placeholder=""/>
-									  </div>
-									  <div  className="col-md-2 required">
-										<label for="fed_tax_id">Business State Province</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" id="business_state_province" onChange={this.SingularBillChange} name="business_state_province" placeholder=""/>
-									  </div>
-									  
-									</div>
-								  </div>
-								</div>
-								<div className="form-group">
-								  <div className="col-md-12">
-									<div className="row">
-									<div  className="col-md-2 required">
-										<label for="business-postal-code" >Business Postal Code</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" name="business_postal_code" id="business_postal_code" onChange={this.SingularBillChange} placeholder=""/>
-									  </div>
-									  <div  className="col-md-2 required">
-										<label for="fed_tax_id">Business Phone Number</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" id="business_phone_number" onChange={this.SingularBillChange} name="business_phone_number" placeholder=""/>
-									  </div>
-									  
-									</div>
-								  </div>
-								</div>
-								<div className="form-group">
-								  <div className="col-md-12">
-									<div className="row">
-									<div  className="col-md-2 required">
-										<label for="business-postal-code" >Website</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" name="website" id="website" onChange={this.SingularBillChange} placeholder=""/>
-									  </div>
-									  <div  className="col-md-2 required">
-										<label for="fed_tax_id">Business Category</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" id="business_category" onChange={this.SingularBillChange} name="business_category" placeholder=""/>
-									  </div>
-									  
-									</div>
-								  </div>
-								</div>
-								<div className="form-group">
-								  <div className="col-md-12">
-									<div className="row">
-									<div  className="col-md-2 required">
-										<label for="business-postal-code" >Business Type</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" name="business_type" id="business_type" onChange={this.SingularBillChange} placeholder=""/>
-									  </div>
-									  <div  className="col-md-2 required">
-										<label for="fed_tax_id">Business Description</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" id="business_description" onChange={this.SingularBillChange} name="business_description" placeholder=""/>
-									  </div>
-									  
-									</div>
-								  </div>
-								</div>
-								<div className="form-group">
-								  <div className="col-md-12">
-									<div className="row">
-									<div  className="col-md-2 required">
-										<label for="business-postal-code" >MCC</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" name="mcc" id="mcc" onChange={this.SingularBillChange} placeholder=""/>
-									  </div>
-									  <div  className="col-md-2 required">
-										<label for="fed_tax_id">Swiped Percent</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" id="swiped_percent" onChange={this.SingularBillChange} name="swiped_percent" placeholder=""/>
-									  </div>
-									  
-									</div>
-								  </div>
-								</div>
-								<div className="form-group">
-								  <div className="col-md-12">
-									<div className="row">
-									<div  className="col-md-2 required">
-										<label for="business-postal-code" >Keypad Percent</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" name="keyed_percent" id="keyed_percent" onChange={this.SingularBillChange} placeholder=""/>
-									  </div>
-									  <div  className="col-md-2 required">
-										<label for="fed_tax_id">Ecommerce Percent</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" id="ecommerce_percent" onChange={this.SingularBillChange} name="ecommerce_percent" placeholder=""/>
-									  </div>
-									  
-									</div>
-								  </div>
-								</div>
-								<div className="form-group">
-								  <div className="col-md-12">
-									<div className="row">
-									<div  className="col-md-2 required">
-										<label for="business-postal-code" >CC Average Ticket Range</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" name="cc_average_ticket_range" id="cc_average_ticket_range" onChange={this.SingularBillChange} placeholder=""/>
-									  </div>
-									  <div  className="col-md-2 required">
-										<label for="fed_tax_id">CC Monthly Volume Range</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" id="cc_monthly_volume_range" onChange={this.SingularBillChange} name="cc_monthly_volume_range" placeholder=""/>
-									  </div>
-									  
-									</div>
-								  </div>
-								</div>
-								<div className="form-group">
-								  <div className="col-md-12">
-									<div className="row">
-									<div  className="col-md-2 required">
-										<label for="business-postal-code" >CC High Ticket</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" name="cc_high_ticket" id="cc_high_ticket" onChange={this.SingularBillChange} placeholder=""/>
-									  </div>
-									  <div  className="col-md-2 required">
-										<label for="fed_tax_id">EC High Ticket</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" id="ec_high_ticket" onChange={this.SingularBillChange} name="ec_high_ticket" placeholder=""/>
-									  </div>
-									  
-									</div>
-								  </div>
-								</div>
-								<div className="form-group">
-								  <div className="col-md-12">
-									<div className="row">
-									<div  className="col-md-2 required">
-										<label for="business-postal-code" >EC Average Ticket Range</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" name="ec_average_ticket_range" id="ec_average_ticket_range" onChange={this.SingularBillChange} placeholder=""/>
-									  </div>
-									  <div  className="col-md-2 required">
-										<label for="fed_tax_id">EC Monthly Volume Range</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" id="ec_monthly_volume_range" onChange={this.SingularBillChange} name="ec_monthly_volume_range" placeholder=""/>
-									  </div>
-									  
-									</div>
-								  </div>
-								</div>
-								
-								<div className="form-group">
-								  <div className="col-md-12">
-									<div className="row">
-									<div  className="col-md-2 required">
-										<label for="business-postal-code" >Principal Middle Name</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" name="principal_middle_name" id="principal_middle_name" onChange={this.SingularBillChange} placeholder=""/>
-									  </div>
-									  <div  className="col-md-2 required">
-										<label for="fed_tax_id">Principal Title</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" id="principal_title" onChange={this.SingularBillChange} name="principal_title" placeholder=""/>
-									  </div>
-									  
-									</div>
-								  </div>
-								</div>
-								<div className="form-group">
-								  <div className="col-md-12">
-									<div className="row">
-									<div  className="col-md-2 required">
-										<label for="business-postal-code" >Principal Address Line 1</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" name="principal_address_line_1" id="principal_address_line_1" onChange={this.SingularBillChange} placeholder=""/>
-									  </div>
-									  <div  className="col-md-2 required">
-										<label for="fed_tax_id">Principal Address Line 2</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" id="principal_address_line_2" onChange={this.SingularBillChange} name="principal_address_line_2" placeholder=""/>
-									  </div>
-									  
-									</div>
-								  </div>
-								</div>
-								<div className="form-group">
-								  <div className="col-md-12">
-									<div className="row">
-									<div  className="col-md-2 required">
-										<label for="business-postal-code" >Principal City</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" name="principal_city" id="principal_city" onChange={this.SingularBillChange} placeholder=""/>
-									  </div>
-									  <div  className="col-md-2 required">
-										<label for="fed_tax_id">Principal State Provide</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" id="principal_state_province" onChange={this.SingularBillChange} name="principal_state_province" placeholder=""/>
-									  </div>
-									  
-									</div>
-								  </div>
-								</div>
-								<div className="form-group">
-								  <div className="col-md-12">
-									<div className="row">
-									<div  className="col-md-2 required">
-										<label for="business-postal-code" >Principal Postal Code</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" name="principal_postal_code" id="principal_postal_code" onChange={this.SingularBillChange} placeholder=""/>
-									  </div>
-									  <div  className="col-md-2 required">
-										<label for="fed_tax_id">Principal Phone Number</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" id="principal_phone_number" onChange={this.SingularBillChange} name="principal_phone_number" placeholder=""/>
-									  </div>
-									  
-									</div>
-								  </div>
-								</div>
-								<div className="form-group">
-								  <div className="col-md-12">
-									<div className="row">
-									<div  className="col-md-2 required">
+									<div  className="col-md-2">
 										<label for="business-postal-code" >Principal DOB</label>
 									  </div>
 									  <div className="col-md-4">
 										<input type="text" className="form-control" name="principal_date_of_birth" id="principal_date_of_birth" onChange={this.SingularBillChange} placeholder=""/>
 									  </div>
-									  <div  className="col-md-2 required">
+									  <div  className="col-md-2">
 										<label for="fed_tax_id">Principal Ownership Percent</label>
 									  </div>
 									  <div className="col-md-4">
@@ -854,17 +795,37 @@ render(){
 								<div className="form-group">
 								  <div className="col-md-12">
 									<div className="row">
-									<div  className="col-md-2 required">
+									<div  className="col-md-2">
 										<label for="business-postal-code" >Principal SSN</label>
 									  </div>
 									  <div className="col-md-4">
 										<input type="text" className="form-control" name="principal_ssn" id="principal_ssn" onChange={this.SingularBillChange} placeholder=""/>
 									  </div>
-									  <div  className="col-md-2 required">
-										<label for="fed_tax_id">Account Number</label>
+									  <div  className="col-md-2">
+										<label for="fed_tax_id">Ownership Type</label>
 									  </div>
 									  <div className="col-md-4">
-										<input type="text" className="form-control" id="account_number" onChange={this.SingularBillChange} name="account_holder_name" placeholder=""/>
+										<input type="text" className="form-control" id="ownership_type" onChange={this.SingularBillChange} name="ownership_type" placeholder=""/>
+									  </div>
+									  
+									</div>
+								  </div>
+								</div>
+								
+								<div className="form-group">
+								  <div className="col-md-12">
+									<div className="row">
+									<div  className="col-md-2">
+										<label for="business-postal-code" >MCC</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" name="mcc" id="mcc" onChange={this.SingularBillChange} placeholder=""/>
+									  </div>
+									  <div  className="col-md-2">
+										<label for="fed_tax_id">Swiped Percent</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" id="swiped_percent" onChange={this.SingularBillChange} name="swiped_percent" placeholder=""/>
 									  </div>
 									  
 									</div>
@@ -873,17 +834,112 @@ render(){
 								<div className="form-group">
 								  <div className="col-md-12">
 									<div className="row">
-									<div  className="col-md-2 required">
+									<div  className="col-md-2">
+										<label for="business-postal-code" >Keypad Percent</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" name="keyed_percent" id="keyed_percent" onChange={this.SingularBillChange} placeholder=""/>
+									  </div>
+									  <div  className="col-md-2">
+										<label for="fed_tax_id">Ecommerce Percent</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" id="ecommerce_percent" onChange={this.SingularBillChange} name="ecommerce_percent" placeholder=""/>
+									  </div>
+									  
+									</div>
+								  </div>
+								</div>
+								<div className="form-group">
+								  <div className="col-md-12">
+									<div className="row">
+									<div  className="col-md-2">
+										<label for="business-postal-code" >CC Average Ticket Range</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" name="cc_average_ticket_range" id="cc_average_ticket_range" onChange={this.SingularBillChange} placeholder=""/>
+									  </div>
+									  <div  className="col-md-2">
+										<label for="fed_tax_id">CC Monthly Volume Range</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" id="cc_monthly_volume_range" onChange={this.SingularBillChange} name="cc_monthly_volume_range" placeholder=""/>
+									  </div>
+									  
+									</div>
+								  </div>
+								</div>
+								<div className="form-group">
+								  <div className="col-md-12">
+									<div className="row">
+									<div  className="col-md-2">
+										<label for="business-postal-code" >CC High Ticket</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" name="cc_high_ticket" id="cc_high_ticket" onChange={this.SingularBillChange} placeholder=""/>
+									  </div>
+									  <div  className="col-md-2">
+										<label for="fed_tax_id">EC High Ticket</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" id="ec_high_ticket" onChange={this.SingularBillChange} name="ec_high_ticket" placeholder=""/>
+									  </div>
+									  
+									</div>
+								  </div>
+								</div>
+								<div className="form-group">
+								  <div className="col-md-12">
+									<div className="row">
+									<div  className="col-md-2">
+										<label for="business-postal-code" >EC Average Ticket Range</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" name="ec_average_ticket_range" id="ec_average_ticket_range" onChange={this.SingularBillChange} placeholder=""/>
+									  </div>
+									  <div  className="col-md-2">
+										<label for="fed_tax_id">EC Monthly Volume Range</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" id="ec_monthly_volume_range" onChange={this.SingularBillChange} name="ec_monthly_volume_range" placeholder=""/>
+									  </div>
+									  
+									</div>
+								  </div>
+								</div>
+								
+								
+								
+								
+								
+								
+								<div className="form-group">
+								  <div className="col-md-12">
+									<div className="row">
+									<div  className="col-md-2">
 										<label for="business-postal-code" >Routing Number</label>
 									  </div>
 									  <div className="col-md-4">
 										<input type="text" className="form-control" name="routing_number" id="routing_number" onChange={this.SingularBillChange} placeholder=""/>
 									  </div>
-									  <div  className="col-md-2 required">
+									  <div  className="col-md-2">
 										<label for="fed_tax_id">Account Holder Name</label>
 									  </div>
 									  <div className="col-md-4">
 										<input type="text" className="form-control" id="account_holder_name" onChange={this.SingularBillChange} name="account_holder_name" placeholder=""/>
+									  </div>
+									  
+									</div>
+								  </div>
+								</div>
+								<div className="form-group">
+								  <div className="col-md-12">
+									<div className="row">
+									<div  className="col-md-2">
+										<label for="fed_tax_id">Account Number</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" id="account_number" onChange={this.SingularBillChange} name="account_holder_name" placeholder=""/>
 									  </div>
 									  
 									</div>

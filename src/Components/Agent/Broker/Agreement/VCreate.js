@@ -249,7 +249,7 @@ editAgreement(){
           
           if(compName=='Insert Signature Block')
             {
-				tinymce.activeEditor.execCommand('mceInsertContent', false, "&nbsp;<div contenteditable='false' class='sigDiv' id='sigId"+i+"' style='width:222px;height:40px;padding-top:5px;marginTop:10,padding-left:10px;margin-right:10px;border:1px solid #57bb57;' data-toggle='modal' data-target='#custom-width-modal' onclick='addplaceId(this.id)'>"+compName+"</div>&nbsp;");				 
+				tinymce.activeEditor.execCommand('mceInsertContent', false, "&nbsp;<span contenteditable='false' class='sigDiv' id='sigId"+i+"' style='width:222px;height:40px;border-radius: 4px;padding:10px;border:1px solid #57bb57;background-color:#f2f3f2;color:#ea1010;' data-toggle='modal' data-target='#custom-width-modal' onclick='addplaceId(this.id)'>"+compName+"</span>&nbsp;"); 		
           }
           else if(compName=='Insert Text Box')
           {

@@ -56,8 +56,8 @@ export default class Agent extends React.Component{
 			bgFields.first_name = e.target.value;
 		 if(e.target.name=='last_name')
 			 bgFields.last_name=e.target.value;
-		 if(e.target.name=='DOB')
-			 bgFields.DOB=e.target.value;
+		 if(e.target.name=='dob')
+			 bgFields.dob=e.target.value;
 		 if(e.target.name=='gender')
 			 bgFields.gender=e.target.value;
 		 if(e.target.name=='address')
@@ -96,7 +96,7 @@ export default class Agent extends React.Component{
 			 alert('Last Name should not be blank');
 			 return;
 		 }
-		  if(!opts.DOB)
+		  if(!opts.dob)
 		 {
 			 alert('D.O.B should not be blank');
 			 return;
