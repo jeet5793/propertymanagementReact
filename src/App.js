@@ -231,7 +231,7 @@ export default class App extends Component {
             <Route exact path='/Home' render={props => <Home {...props} login={this.LoggedIn} />} />
             <Route exact path='/index' render={props => <Home {...props} login={this.LoggedIn} />} />
             {/* <Route exact path='/AboutUs' render={props=><Aboutus {...props} login={this.LoggedIn} />} /> */}
-            <Route exact path='/about' render={props => <Aboutus {...props} login={this.LoggedIn} />} />
+            <Route exact path='/aboutus' render={props => <Aboutus {...props} login={this.LoggedIn} />} />
             <Route exact path='/property' render={props => <Property {...props} login={this.LoggedIn} />} />
             {/* <Route exact path='/blog' render={props=><Blog {...props} login={this.LoggedIn} />} /> */}
             <Route exact path='/blog-detail' render={props => <BlogDetails {...props} login={this.LoggedIn} />} />

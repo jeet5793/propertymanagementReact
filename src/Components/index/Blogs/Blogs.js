@@ -60,9 +60,9 @@ $("#loaderDiv").show();
 												<div className="tz-property-author-right">
 													<div className="tz-property-author-title">
 														<h4> <Link to={{ 'pathname': "blog-detail", state: { id: blog.id } }}   > {blog.blog_name} </Link> </h4>
-															{/*<span className="tz-post-author"> Posted by <a className="single-author-name" href="#"> Smith Doe </a> </span>*/}&nbsp;&nbsp;<span className="TzDate"> <i className="icon-calendar-full"></i> <span className="tz-post-date">
+															{/*<span className="tz-post-author"> Posted by <a className="single-author-name" href="#"> Smith Doe </a> </span>*/}<span className="TzDate"> <i className="icon-calendar-full"></i> <span className="tz-post-date">
 															{/* <a href="#">May 20, 2016</a> */}
-															<a>{blog.entry_date}</a>
+															<a className="date-a">{blog.entry_date}</a>
 														</span> </span>
 
 														<div className="TzSocialLink">  </div>

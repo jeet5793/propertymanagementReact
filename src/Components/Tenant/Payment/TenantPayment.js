@@ -384,7 +384,7 @@ ActiveDeactive(id,status){
 										<div className="days-time-table no-padding day border-right-day"> <span id="days_9226"><span className="time-change-wrapper">Created Date</span> </span> ({this.state.enrollInfo.map((item)=>( item.created_on))} ) </div>
 										
 									  </div>
-									  <div className="dayandtime-clp-batch col-lg-4 col-md-6 col-sm-6 col-xs-12 no-padding">
+									  <div className="dayandtime-clp-batch col-lg-3 col-md-6 col-sm-6 col-xs-12 no-padding">
 										<div className="days-time-table no-padding day border-right-day"> <span id="days_9226"><span className="time-change-wrapper">DBA/Nick name</span> </span> ( {this.state.enrollInfo.map((item)=>( item.dba_name))} ) </div>
 										
 									  </div>
@@ -397,7 +397,7 @@ ActiveDeactive(id,status){
 							
 							{/* <i className=" mdi mdi-lead-pencil edit-card"></i> 
 										<i className="mdi mdi-delete delete-card"></i>*/}
-										{this.state.enrollInfo.map((item)=>(<div className="col-md-12"> <a type="" className="btn btn-primary stepy-finish text-right" data-toggle="modal" data-target="#send-request" onClick={this.ActiveDeactive.bind(this,item.id,item.status)} >{item.status}</a> </div>))}
+										{this.state.enrollInfo.map((item)=>(<div className="col-md-12 text-center"> <a type="" className="btn btn-primary stepy-finish text-center" data-toggle="modal" data-target="#send-request" onClick={this.ActiveDeactive.bind(this,item.id,item.status)} >{item.status}</a> </div>))}
 									   </div>
 										
 									  </div>

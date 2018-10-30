@@ -258,7 +258,7 @@ class ProfileDetails extends React.Component{
                     <div className="btn-group pull-right">
                         <ol className="breadcrumb hide-phone p-0 m-0">
                         <li>
-					<Link to={this.props.location.state.loc.pathname}><span className="btn waves-light waves-effect w-md btn-custom">Back</span></Link>{/* <a href="/owner-agent" className="btn waves-light waves-effect w-md btn-custom"><i className="fi-reply"></i>&nbsp;&nbsp;Back</a> */}</li>
+					<Link to={this.props.location.state.loc.pathname}><span className="btn waves-light waves-effect w-md btn-custom"><i class="fi-reply"></i>&nbsp;&nbsp;Back</span></Link>{/* <a href="/owner-agent" className="btn waves-light waves-effect w-md btn-custom"><i className="fi-reply"></i>&nbsp;&nbsp;Back</a> */}</li>
                         </ol>
                     </div>
                     <h4 className="page-title">{this.state.profileData.first_name}'s Profile</h4>
@@ -283,14 +283,14 @@ class ProfileDetails extends React.Component{
                                 
                             </div>
                             </div>
-                            <div className="col-md-4">
-                                <ul className="social-links list-inline m-t-20 m-b-0">
+                            <div className="col-md-4 profile-sms">
+                                <ul className="social-links list-inline m-t-10 m-b-0">
 								{(this.state.profileData.facebook_link>0)?<li className="list-inline-item"> <a title="" data-placement="top" data-toggle="tooltip" className="tooltips" href="" data-original-title="Facebook"><i className="fa fa-facebook"></i>{this.state.profileData.facebook_link}</a> </li>:''}
                             {(this.state.profileData.twitter_link>0)?<li className="list-inline-item"> <a title="" data-placement="top" data-toggle="tooltip" className="tooltips" href="" data-original-title="Twitter"><i className="fa fa-twitter"></i></a> </li>:''}
                             {(this.state.profileData.linkedin_link>0)?<li className="list-inline-item"> <a title="" data-placement="top" data-toggle="tooltip" className="tooltips" href="" data-original-title="Skype"><i className="fa fa-linkedin"></i></a> </li>:''}
                             </ul>
-                            <a href="#" data-toggle="modal" data-target="#send-msg" className="btn waves-light waves-effect w-md btn-custom m-t-30	"><i className="fi-mail"></i>&nbsp;&nbsp;Send Message</a>
-							<a href="#" data-toggle="modal" data-target="#add-review" className="btn btn-inverse waves-effect w-md waves-light w-md btn-custom m-t-30	"><i className="fi-star"></i>&nbsp;&nbsp;Review</a>
+                            <a href="#" data-toggle="modal" data-target="#send-msg" className="btn waves-light waves-effect w-md btn-custom m-t-10"><i className="fi-mail"></i>&nbsp;&nbsp;Send Message</a>
+							<a href="#" data-toggle="modal" data-target="#add-review" className="btn btn-inverse waves-effect w-md waves-light w-md btn-custom m-t-10 m-l-10"><i className="fi-star"></i>&nbsp;&nbsp;Review</a>
                             </div>	
                             </div>	
 							<div className="count">

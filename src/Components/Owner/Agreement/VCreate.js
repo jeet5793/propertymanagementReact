@@ -342,7 +342,7 @@ editAgreement(){
           <legend style={{display: 'none'}}>Create</legend>
           <div className="form-group">
             <div className="col-md-12">
-              <div className="row m-t-20">
+              <div className="row m-t-10">
                 <div className=" col-sm-2">
                  <label><b>Title<span className="required"/> :</b></label>
                 </div>
@@ -352,6 +352,48 @@ editAgreement(){
               </div>
             </div>
           </div>
+		  {/*<div className="form-group">
+            <div className="col-md-12">
+              <div className="row ">
+                <div className=" col-sm-2">
+                 <label><b>Header Content :</b></label>
+                </div>
+                <div className="col-sm-10">
+                 <input type="text" name="headerContent" onChange={this.onChangeHandler} className="form-control" maxlength="15" />
+                </div>
+              </div>
+            </div>
+          </div>
+		   <div className="form-group">
+            <div className="col-md-12">
+              <div className="row">
+				<div className=" col-sm-2">
+                 <label><b>Header Image :</b></label>
+                </div>
+                <div className="col-sm-4">
+                   <input type="file" name="headerImage" onChange={this.onChangeHandler} ref={this.headerImage} className="form-control" />
+                </div>
+                <div className=" col-sm-2">
+                 <label><b>Water Mark Image :</b></label>
+                </div>
+                <div className="col-sm-4">
+                  <input type="file" name="waterMarkImage" onChange={this.onChangeHandler} ref={this.waterMarkImage} className="form-control" />
+                </div>
+              </div>
+            </div>
+          </div>
+		  <div className="form-group">
+            <div className="col-md-12">
+              <div className="row">
+                <div className=" col-sm-2">
+                 <label><b>Footer Content :</b></label>
+                </div>
+                <div className="col-sm-10">
+                 <input className="form-control" name="footerContent" onChange={this.onChangeHandler} maxlength="30" />
+                </div>
+              </div>
+            </div>
+          </div>*/}
           <div className="row" >
             <div className="col-md-12">                               
               {/* <!-- sample modal content -->                             */}

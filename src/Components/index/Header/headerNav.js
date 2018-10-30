@@ -79,9 +79,12 @@ class Headernav extends React.Component {
                     // swal("Assets Watch", data.msg);
                     // $(".login-open").fadeToggle();
 						$("#actionType").val("Yes");
-									 $("#hiddenURL").val("/");
+									 // $("#hiddenURL").val("/");
 									 $(".confirm-body").html(data.msg);
 									 $("#SBlockUIConfirm").show();
+									 $(".row-dialog-btn").click(function(){
+										  $("#SBlockUIConfirm").hide();
+									 })
                 }else if(data.Success===0) {
 						 if(data.msg==="Your account is not activated.") {
 							 // $("#loaderDiv").hide();
@@ -603,7 +606,7 @@ class Headernav extends React.Component {
 					
 				}
 				else{
-				
+					
                     setTimeout(()=>{
 
                     fetch(`${API_URL}assetsapi/profile/${data.userdata.assets_id}/${data.userdata.session_id}`, {
@@ -650,7 +653,7 @@ class Headernav extends React.Component {
                         console.log('error')
                       }
                     )
-                }, 1000)
+                 }, 1000)
 					
                 }
 				

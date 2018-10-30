@@ -139,7 +139,7 @@ export default class ContactForm extends React.Component {
   render() {
     return (
       <div className="wpb_wrapper">
-        <div role="form" className="wpcf7" id="wpcf7-f322-p304-o1" lang="en-US" dir="ltr">
+        <div role="form" className="wpcf7 inde-contact" id="wpcf7-f322-p304-o1" lang="en-US" dir="ltr">
           <div className="screen-reader-response"></div>
           <form className="wpcf7-form" encType='multipart/form-data' noValidate >
             <div style={{ display: 'none' }}>
@@ -169,7 +169,7 @@ export default class ContactForm extends React.Component {
               </span> </div>
 			   <div className="col-md-4"> <span className="wpcf7-form-control-wrap contactfor">
 			  <span style={{color: "red"}}>{this.state.errors["contactfor"]}</span>
-                <select className="form-control" name="contactfor"  placeholder="Select Contact For*"onChange={this.onChangeHandler}>
+                <select className="wpcf7-form-control" name="contactfor"  placeholder="Select Contact For*"onChange={this.onChangeHandler}>
 					<option>Select Contact For*</option>
 					<option value="Feedback">Feedback</option>
 					<option value="Others">Others</option>

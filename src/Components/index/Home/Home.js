@@ -43,7 +43,8 @@ class Home extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-    		properties:[]
+    		properties:[],
+			testimonialDetail:[]
 		}
 		//this.getProperties=this.getProperties.bind(this)
 	}
@@ -173,6 +174,7 @@ class Home extends React.Component{
 	componentDidMount(){		
 		this.advertisementImgLoad();
 		this.properties();
+		this.testimonial();
 	}
 
 	properties(){
@@ -185,7 +187,24 @@ class Home extends React.Component{
 			})
 		});
 	}
-
+	testimonial(){
+		fetch(`${API_URL}assetsapi/testimonial`, {
+			  method: 'GET'
+			})
+			.then(res => res.json())
+			.then(
+			  (result) => {
+				
+				if (result.success) {
+				   this.setState({testimonialDetail:result.testimonial});
+				  } 
+				 // console.log(this.state.testimonialDetail)
+			  },
+			(error) => {
+			  console.log('error')
+			}
+		  )  
+	}
 	advertisementImgLoad(){
 		var img='';
 		fetch(`${API_URL}assetsapi/advertisement/`)
@@ -471,7 +490,7 @@ class Home extends React.Component{
 				              <div className="col-md-8 col-md-offset-2">
 			
 
-				              <Testimonial />
+				              <Testimonial testimonialDetail = {this.state.testimonialDetail}/>
 
 
 

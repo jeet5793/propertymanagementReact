@@ -1543,3 +1543,12 @@ ul#price-t-5:hover .submit-btn a{
 .proeprty-sec {
     display: none;
 }
+.profile-sms {
+	text-align:right;
+}
+.img-circle {
+	    border-radius: 50%;
+}
+.text-justfy {
+	text-align:justify
+}

@@ -2124,7 +2124,7 @@ a img.aligncenter {
     position: absolute;
     top: 100%;
     width: 100%;
-    z-index: 11
+    z-index: 1
 }
 
 .tz-header .tz-header-bottom .navbar-nav > li:hover > .sub-menu,
@@ -6781,9 +6781,16 @@ body .tz-property-home.tz-property-grid .cbp-l-caption-text::after {
     outline: 0;
     box-shadow: none;
     border-radius: 0;
-    padding: 10px 25px
+    padding: 10px 15px;
+    height: 40px;
+    background: #57bb57;
+    font-weight: 600;
+    border: 0;
 }
-
+.tz-login .uppercase:hover{
+	   color: #fff;
+    box-shadow: 0 1px 2px rgba(87, 187, 87, 0.8);
+}
 .tz-login .social-icons {
     margin-left: 0;
     padding-top: 15px
@@ -7468,7 +7475,7 @@ body #cboxLoadingGraphic {
 }
 
 .tz-contactform .tz-submit {
-    text-align: center;
+/*     text-align: center; */
 	    margin-bottom: 25px;
 }
 
@@ -7486,7 +7493,8 @@ body #cboxLoadingGraphic {
     transition: all 0.3s linear 0s;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
-    border-radius: 0
+    border-radius: 0;
+	    border: 0;
 }
 
 .tz-contactform .tz-submit input:hover,
@@ -7494,9 +7502,9 @@ body #cboxLoadingGraphic {
 .tz-contactform .tz-submit input:focus {
     color: #fff;
     box-shadow: 0 1px 2px rgba(87, 187, 87, 0.8);
-    -webkit-border-radius: 30px;
+/*     -webkit-border-radius: 30px;
     -moz-border-radius: 30px;
-    border-radius: 30px
+    border-radius: 30px */
 }
 
 .tz-contactform .tz-submit .ajax-loader {
@@ -7505,28 +7513,53 @@ body #cboxLoadingGraphic {
 }
 
 .tz-contactform input {
-    background: #fff none repeat scroll 0 0;
-    display: block;
-    position: relative;
     width: 100%;
-    border: 1px solid #e7e7e7;
-    line-height: 50px;
-    height: 50px;
-    padding: 0 30px;
-    -webkit-transition: all 0.3s linear 0s;
-    -moz-transition: all 0.3s linear 0s;
-    -ms-transition: all 0.3s linear 0s;
-    -o-transition: all 0.3s linear 0s;
-    transition: all 0.3s linear 0s;
-    margin: 0 0 30px;
-    font-weight: 400;
-    color: #aaa;
-    font-size: 13px;
+    color: #404040;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
-    border-radius: 0
+    border-radius: 0;
+    padding: 10px 15px;
+    /* line-height: 48px; */
+    height: 40px;
+    font-weight: 400;
+    box-shadow: none;
+    border: 1px solid #e7e7e7;
+    -webkit-transition: all 0.2s linear 0s;
+    -moz-transition: all 0.2s linear 0s;
+    -ms-transition: all 0.2s linear 0s;
+    -o-transition: all 0.2s linear 0s;
+    transition: all 0.2s linear 0s;
+    display: inline-block;
+    background: #fff none repeat scroll 0 0;
+    outline: 0;
+    font-size: 14px;
+    position: relative;
+    margin: 0 0 15px;
 }
-
+.inde-contact  select {
+    width: 100%;
+    color: #404040;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    padding: 10px 15px;
+    /* line-height: 48px; */
+    height: 40px;
+    font-weight: 400;
+    box-shadow: none;
+    border: 1px solid #e7e7e7;
+    -webkit-transition: all 0.2s linear 0s;
+    -moz-transition: all 0.2s linear 0s;
+    -ms-transition: all 0.2s linear 0s;
+    -o-transition: all 0.2s linear 0s;
+    transition: all 0.2s linear 0s;
+    display: inline-block;
+    background: #fff none repeat scroll 0 0;
+    outline: 0;
+    font-size: 14px;
+    position: relative;
+    margin: 0 0 15px;
+}
 .tz-contactform input:hover,
 .tz-contactform input:active,
 .tz-contactform input:focus {
@@ -7534,26 +7567,28 @@ body #cboxLoadingGraphic {
 }
 
 .tz-contactform textarea {
-    background: #fff none repeat scroll 0 0;
-    display: block;
-    position: relative;
-    width: 100%;
-    border: 1px solid #e7e7e7;
-    line-height: 50px;
-    max-height: 190px;
-    padding: 0 30px;
-    -webkit-transition: all 0.3s linear 0s;
-    -moz-transition: all 0.3s linear 0s;
-    -ms-transition: all 0.3s linear 0s;
-    -o-transition: all 0.3s linear 0s;
-    transition: all 0.3s linear 0s;
-    margin: 0 0 30px;
-    font-weight: 400;
-    color: #aaa;
-    font-size: 13px;
+	width: 100%;
+    color: #404040;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
-    border-radius: 0
+    border-radius: 0;
+    padding: 10px 15px;/* 
+    line-height: 48px; */
+    font-weight: 400;
+    box-shadow: none;
+    border: 1px solid #e7e7e7;
+    -webkit-transition: all 0.2s linear 0s;
+    -moz-transition: all 0.2s linear 0s;
+    -ms-transition: all 0.2s linear 0s;
+    -o-transition: all 0.2s linear 0s;
+    transition: all 0.2s linear 0s;
+    display: inline-block;
+    background: #fff none repeat scroll 0 0;
+    outline: 0;
+    font-size: 14px;
+    position: relative;
+    margin: 0 0 15px;
+    max-height: 190px;
 }
 
 .tz-contactform textarea:hover,
@@ -9150,7 +9185,7 @@ body .tz-post.tz-property-all .wp-pagenavi {
 }
 
 .tz-property-single .tz-property-author .tz-property-author-right {
-    padding: 30px 20px 30px 20px;
+    padding: 20px 20px 20px 20px;
     width: 66.6667%;
     float: right
 }
@@ -9252,10 +9287,9 @@ body .tz-post.tz-property-all .wp-pagenavi {
 }
 
 .tz-property-single .tz-property-author .tz-property-author-right .tz-property-author-title span {
-    font-family: "Libre Baskerville";
     color: #8d959a;
-    font-size: 12px;
-    font-style: italic
+    font-size: 13px;
+    font-weight: 500;
 }
 
 .tz-property-single .tz-property-author .tz-property-author-right .tz-property-author-title p {
@@ -9279,7 +9313,8 @@ body .tz-post.tz-property-all .wp-pagenavi {
 }
 
 .tz-property-single .tz-property-author .tz-property-author-right .tz-property-author-content p {
-    line-height: 1.9em
+    line-height: 1.9em;
+	text-align: justify;
 }
 
 .tz-property-single .tz-property-author .tz-property-author-info span {
@@ -11187,20 +11222,21 @@ body .tz-post.tz-property-all .wp-pagenavi {
 	padding: 0 35px 0 0
 }
 .tz-width-auto span, .tz-width-auto a {
-	font-size: 12px;
+	font-size: 13px;
 	color: #8d959a;
 	font-weight: 400;
-	font-style: italic;
 	text-transform: capitalize;
 	letter-spacing: 0.1px;
-	font-family: "Libre Baskerville"
+	/* font-style: italic;
+	font-family: "Libre Baskerville" */
 }
 .tz-width-auto a.single-author-name {
-	color: #62b3ec
+	color: #43909f
 }
 .tz-width-auto i {
 	color: #57bb57;
-	font-size: 12px
+	font-size: 14px;
+	    margin-right: 5px;
 }
 .tz-width-auto a:hover {
 	color: #57bb57
@@ -11474,7 +11510,7 @@ body .tz-post.tz-property-all .wp-pagenavi {
 	width: 88.8889%
 }
 .tz-post .tz-post-item .tz-post-content .tz-post-excerpt {
-	padding: 23px 40px 36px
+	padding: 13px 20px 13px
 }
 .tz-post .tz-post-item .tz-post-content .tz-post-excerpt p {
 	line-height: 24px;
@@ -11747,32 +11783,39 @@ body .tz-post.tz-property-all .wp-pagenavi {
 	display: none
 }
 .tzComments input {
-	font-size: 13px;
-	color: #aaa;
-	line-height: 50px;
-	padding: 0 30px;
-	display: inline-block;
-	border: 1px solid #d8ecf0;
-	-webkit-border-radius: 0;
-	-moz-border-radius: 0;
-	border-radius: 0;
-	margin-top: 30px;
-	height: 50px;
-	box-shadow: none;
-	-webkit-box-shadow: none;
-	-moz-box-shadow: none;
-	background: #fff none repeat scroll 0 0
+    color: #404040;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    padding: 10px 15px;
+    /* line-height: 48px; */
+    height: 40px;
+    font-weight: 400;
+    box-shadow: none;
+    -webkit-transition: all 0.2s linear 0s;
+    -moz-transition: all 0.2s linear 0s;
+    -ms-transition: all 0.2s linear 0s;
+    -o-transition: all 0.2s linear 0s;
+    transition: all 0.2s linear 0s;
+    display: inline-block;
+    background: #fff none repeat scroll 0 0;
+    outline: 0;
+    font-size: 14px;
+    position: relative;
+    margin: 0 0 15px;
+    margin-top: 15px;
+    border: 1px solid #d8ecf0;
 }
 .tzComments textarea {
-	font-size: 13px;
+	font-size: 14px;
 	color: #aaa;
-	padding: 15px 30px 0;
+	padding: 10px 15px;
 	display: inline-block;
 	border: 1px solid #d8ecf0;
 	-webkit-border-radius: 0;
 	-moz-border-radius: 0;
 	border-radius: 0;
-	margin-top: 30px;
+/* 	margin-top: 30px; */
 	height: 150px;
 	box-shadow: none;
 	-webkit-box-shadow: none;
@@ -11790,15 +11833,16 @@ body .tz-post.tz-property-all .wp-pagenavi {
 	padding: 0
 }
 .tzComments .form-submit .submit {
-	font-size: 14px;
-	font-weight: 600;
-	text-transform: uppercase;
-	line-height: 50px;
-	background: #57bb57;
-	padding: 0 25px;
-	color: #fff;
-	box-shadow: none;
-	border: none
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    line-height: 0;
+    background: #57bb57;
+    padding: 0 25px;
+    color: #fff;
+    box-shadow: none;
+    border: none;
+    height: 40px;
 }
 .tzComments .tz-comment-author, .tzComments .tz-comment-email {
 	width: 48%
@@ -41334,4 +41378,18 @@ body .wpb_gallery_slides ul li {
 }
 .tenant-login {
 	left:34%;
+}
+.date-a {
+   color: #43909f;
+}
+.blog-detl-img {
+	    max-height: 400px;
+    overflow: hidden;
+}
+.blog-detl-img img{
+	width:100%;
+}
+.blog-detl-pra p{
+	    padding: 5px 0 !important;
+    text-align: justify;
 }

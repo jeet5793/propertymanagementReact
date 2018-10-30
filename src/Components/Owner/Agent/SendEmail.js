@@ -38,6 +38,7 @@ export default class SendEmail extends React.Component{
 			  (result) => {
 				   
 				if (result) {
+					$("#loaderDiv").hide();
 					$("#actionType").val("Yes");
 				    $("#hiddenURL").val("owner-agent");
 					   $(".confirm-body").html(result.msg);

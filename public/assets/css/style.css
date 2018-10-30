@@ -3054,7 +3054,7 @@ textarea.form-control {
 .form-control {
 	    border: 1px solid #eee;
     border-radius: 2px;
-    padding: 7px 12px;
+    padding: 7px 7px;
     height: 34px;
     max-width: 100%;
     font-size: 14px;
@@ -6252,7 +6252,7 @@ input.react-autosuggest__input{
     background-color: transparent;
 }
 .paym-pay {
-	padding-top: 100px;
+	padding-top: 100px !important;
 }
 .react-datetime-picker__clear-button{
 		display: none;

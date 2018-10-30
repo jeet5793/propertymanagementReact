@@ -14,15 +14,45 @@ export default class BrokerPayment extends React.Component{
 			  "dba_name": "",
 			  "legal_name": "",
 			  "business_address_line_1": "",
+			  "business_address_line_2": "",
+			  "business_city":'',
+			  "business_state_province":"",
+			  "business_postal_code":'',
+			  "business_phone_number":"",
+			  "website":"",
+			  "business_category":"",
+			  "business_type":"",
+			  "business_description":"",
 			  "city": "",
 			  "state": "",
 			  "zip_code": "",
 			  "mobile_no": "",
 			  "first_name": "",
 			  "last_name": "",
+			  "principal_middle_name":"",
+			  "principal_title":"",
+			  "principal_date_of_birth":"",
+			  "principal_ownership_percent":"",
+			  "principal_ssn":"",
+			  "ownership_type":"",
 			  "fed_tax_id": "",
 			  "login_user":"",
-			  "country":""
+			  "country":"",
+			   "account_number": "",
+			  "routing_number": "",
+			  "account_holder_name": "",
+			   "mcc": "",
+			  "swiped_percent": "",
+			  "keyed_percent": "",
+			  "ecommerce_percent": "",
+			  "cc_average_ticket_range": "",
+			  "cc_monthly_volume_range": "",
+			  "cc_high_ticket": "",
+			  "ec_high_ticket": "",
+			  "ec_average_ticket_range": "",
+			  "ec_monthly_volume_range": "",
+			  "principal_address_line_1":'',
+			  "principal_address_line_2":""
 		},
 		singularFrame:[],
 		profileData:[],
@@ -80,6 +110,7 @@ export default class BrokerPayment extends React.Component{
 		
 		this.enrollInfo();
 		this.Countries();
+		this.listOfStates();
     }
 	Countries() {
     fetch(`${API_URL}assetsapi/country/`).then(response => {
@@ -88,6 +119,14 @@ export default class BrokerPayment extends React.Component{
         //console.log(this.state.countries)
       });
     });
+  }
+   listOfStates(){
+	 fetch(`${API_URL}assetsapi/state_list/`).then(response => {
+      response.json().then(data => {
+        this.setState({ states: data.states });
+        //console.log(this.state.countries)
+      });
+    });  
   }
   stateLists(SelectCountry) {
     fetch(`${API_URL}assetsapi/state/` + SelectCountry).then(response => {
@@ -145,6 +184,8 @@ export default class BrokerPayment extends React.Component{
 			singularForm.legal_name=e.target.value
 		else if(e.target.name==='business_address_line_1')
 			singularForm.business_address_line_1=e.target.value;
+		else if(e.target.name==='business_address_line_2')
+			singularForm.business_address_line_2=e.target.value;
 		else if(e.target.name==='country')
 		{
 			singularForm.country=e.target.value;
@@ -157,6 +198,12 @@ export default class BrokerPayment extends React.Component{
 			var SelectState = singularForm.state;
 			this.cityList(SelectState);
 		}
+		else if(e.target.name==='city')
+			singularForm.city=e.target.value
+		else if(e.target.name==='business_city')
+			singularForm.business_city=e.target.value
+		else if(e.target.name==='business_state_province')
+			singularForm.business_state_province=e.target.value
 		else if(e.target.name==='zip_code')
 			singularForm.zip_code=e.target.value
 		else if(e.target.name==='mobile_no')
@@ -168,12 +215,68 @@ export default class BrokerPayment extends React.Component{
 		else if(e.target.name==='fed_tax_id')
 		{
 			singularForm.fed_tax_id=e.target.value;
+			
 			// var str = singularForm.fed_tax_id.replace(/.(?=.{4})/g, '*');
 			// $('#fed_tax_id').val(str);
 			//alert(str);
-		}
+		}else if(e.target.name==='business_postal_code')
+			singularForm.business_postal_code=e.target.value
+		else if(e.target.name==='business_state_province')
+			singularForm.business_state_province=e.target.value
+		else if(e.target.name==='business_phone_number')
+			singularForm.business_phone_number=e.target.value
+		else if(e.target.name==='website')
+			singularForm.website=e.target.value
+		else if(e.target.name==='business_category')
+			singularForm.business_category=e.target.value
+		else if(e.target.name==='business_type')
+			singularForm.business_type=e.target.value
+		else if(e.target.name==='business_description')
+			singularForm.business_description=e.target.value
+		else if(e.target.name==='principal_middle_name')
+			singularForm.principal_middle_name=e.target.value
+		else if(e.target.name==='principal_title')
+			singularForm.principal_title=e.target.value
+		else if(e.target.name==='principal_date_of_birth')
+			singularForm.principal_date_of_birth=e.target.value
+		else if(e.target.name==='principal_ownership_percent')
+			singularForm.principal_ownership_percent=e.target.value
+		else if(e.target.name==='principal_ssn')
+			singularForm.principal_ssn=e.target.value
+		else if(e.target.name==='ownership_type')
+			singularForm.ownership_type=e.target.value
+		else if(e.target.name==='account_number')
+			singularForm.account_number=e.target.value
+		else if(e.target.name==='routing_number')
+			singularForm.routing_number=e.target.value
+		else if(e.target.name==='account_holder_name')
+			singularForm.account_holder_name=e.target.value
+		else if(e.target.name==='mcc')
+			singularForm.mcc=e.target.value
+		else if(e.target.name==='swiped_percent')
+			singularForm.swiped_percent=e.target.value
+		else if(e.target.name==='keyed_percent')
+			singularForm.keyed_percent=e.target.value
+		else if(e.target.name==='ecommerce_percent')
+			singularForm.ecommerce_percent=e.target.value
+		else if(e.target.name==='cc_monthly_volume_range')
+			singularForm.cc_monthly_volume_range=e.target.value
+		else if(e.target.name==='cc_high_ticket')
+			singularForm.cc_high_ticket=e.target.valueelse 
+		else if(e.target.name==='ec_high_ticket')
+			singularForm.ec_high_ticket=e.target.value
+		else if(e.target.name==='ec_average_ticket_range')
+			singularForm.ec_average_ticket_range=e.target.value
+		else if(e.target.name==='ec_monthly_volume_range')
+			singularForm.ec_monthly_volume_range=e.target.value
+		else if(e.target.name==='principal_address_line_1')
+			singularForm.principal_address_line_1=e.target.value
+		else if(e.target.name==='principal_address_line_2')
+			singularForm.principal_address_line_2=e.target.value
+		 
 		singularForm.login_user = JSON.parse(this.state.userData).assets_id
 		this.setState({singularEnrollForm:singularForm});
+		
 		
 		
 		 // console.log(this.state.singularEnrollForm);
@@ -386,7 +489,7 @@ ActiveDeactive(id,status){
 										<div className="days-time-table no-padding day border-right-day"> <span id="days_9226"><span className="time-change-wrapper">Created Date</span> </span> ({this.state.enrollInfo.map((item)=>( item.created_on))} ) </div>
 										
 									  </div>
-									  <div className="dayandtime-clp-batch col-lg-4 col-md-4 col-sm-6 col-xs-12 no-padding">
+									  <div className="dayandtime-clp-batch col-lg-3 col-md-3 col-sm-6 col-xs-12 no-padding">
 										<div className="days-time-table no-padding day border-right-day"> <span id="days_9226"><span className="time-change-wrapper">DBA/Nick name</span> </span> ( {this.state.enrollInfo.map((item)=>( item.dba_name))} ) </div>
 										
 									  </div>
@@ -394,12 +497,12 @@ ActiveDeactive(id,status){
 										<div className="days-time-table no-padding day border-right-day"> <span id="days_9226"><span className="time-change-wrapper">Merchant Account</span> </span> (  ) </div>
 										
 									  </div>
-									  <div className="dayandtime-clp-batch col-lg-2 col-md-6 col-sm-6 col-xs-12 no-padding">
+									  <div className="dayandtime-clp-batch col-lg-2 col-md-2 col-sm-6 col-xs-12 no-padding">
 										<div className="days-time-table no-padding day "> 
-							
+										
 							{/* <i className=" mdi mdi-lead-pencil edit-card"></i> 
 										<i className="mdi mdi-delete delete-card"></i>*/}
-										{this.state.enrollInfo.map((item)=>(<div className="col-md-12"> <a type="" className="btn btn-primary stepy-finish text-right" data-toggle="modal" data-target="#send-request" onClick={this.ActiveDeactive.bind(this,item.id,item.status)} >{item.status}</a> </div>))}
+										{this.state.enrollInfo.map((item)=>(<div className="col-md-12 text-center"> <a type="" className="btn btn-primary stepy-finish text-center" data-toggle="modal" data-target="#send-request" onClick={this.ActiveDeactive.bind(this,item.id,item.status)} >{item.status}</a> </div>))}
 									   </div>
 										
 									  </div>
@@ -429,21 +532,99 @@ ActiveDeactive(id,status){
 								  <div className="col-md-12">
 									<div className="row">
 									  <div  className="col-md-2 required">
-										<label for="business-address1">Address</label>
+										<label for="business-address1">Business Address Line 1</label>
 									  </div>
 									  <div className="col-md-4">
 										<input type="text" className="form-control" id="business-address1" name="business_address_line_1" onChange={this.SingularBillChange} placeholder=""/>
 									  </div>
-									  <div  className="col-md-2 required">
-										<label for="business-state-province">Country</label>
+									  <div  className="col-md-2">
+										<label for="fed_tax_id">Business Address Line 2</label>
 									  </div>
 									  <div className="col-md-4">
-										<select className="form-control" name="country" value={this.state.singularEnrollForm.country || this.state.profileData.country} onChange={this.SingularBillChange} >
-										  {this.state.countries.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>))}
-										 
-										</select>
-										
+										<input type="text" className="form-control" id="business_address_line_2" onChange={this.SingularBillChange} name="business_address_line_2" placeholder=""/>
 									  </div>
+									  
+									</div>
+								  </div>
+								</div>
+								<div className="form-group">
+								  <div className="col-md-12">
+									<div className="row">
+									<div  className="col-md-2">
+										<label for="business-postal-code" >Business City</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" name="business_city" id="business_city" onChange={this.SingularBillChange} placeholder=""/>
+									  </div>
+									  <div  className="col-md-2">
+										<label for="fed_tax_id">Business State Province</label>
+									  </div>
+									  <div className="col-md-4">
+										<select className="form-control"   name="business_state_province"  onChange={this.SingularBillChange} >
+											<option>-Please Select-</option>
+											{this.state.states?this.state.states.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>)):this.state.profileData.state}
+								 
+										</select>
+									  </div>
+									  
+									  
+									</div>
+								  </div>
+								</div>
+								<div className="form-group">
+								  <div className="col-md-12">
+									<div className="row">
+									<div  className="col-md-2">
+										<label for="business-postal-code" >Business Postal Code</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" name="business_postal_code" id="business_postal_code" onChange={this.SingularBillChange} placeholder=""/>
+									  </div>
+									  <div  className="col-md-2">
+										<label for="fed_tax_id">Business Phone Number</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" id="business_phone_number" onChange={this.SingularBillChange} name="business_phone_number" placeholder=""/>
+									  </div>
+									  
+									</div>
+								  </div>
+								</div>
+								<div className="form-group">
+								  <div className="col-md-12">
+									<div className="row">
+									<div  className="col-md-2">
+										<label for="business-postal-code" >Website</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" name="website" id="website" onChange={this.SingularBillChange} placeholder=""/>
+									  </div>
+									  <div  className="col-md-2">
+										<label for="fed_tax_id">Business Category</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" id="business_category" onChange={this.SingularBillChange} name="business_category" placeholder=""/>
+									  </div>
+									  
+									</div>
+								  </div>
+								</div>
+								<div className="form-group">
+								  <div className="col-md-12">
+									<div className="row">
+									<div  className="col-md-2">
+										<label for="business-postal-code" >Business Type</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" name="business_type" id="business_type" onChange={this.SingularBillChange} placeholder=""/>
+									  </div>
+									  <div  className="col-md-2">
+										<label for="fed_tax_id">Business Description</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" id="business_description" onChange={this.SingularBillChange} name="business_description" placeholder=""/>
+									  </div>
+									  
 									</div>
 								  </div>
 								</div>
@@ -451,18 +632,6 @@ ActiveDeactive(id,status){
 								  <div className="col-md-12">
 								  <div className="row">
 								   <div  className="col-md-2 required">
-										<label for="business-state-province">State</label>
-									  </div>
-									  <div className="col-md-4">
-										<select className="form-control"  value={this.state.singularEnrollForm.state || this.state.profileData.state} name="state"  onChange={this.SingularBillChange} >
-											<option>{this.state.profileData.state}</option>
-											{this.state.states?this.state.states.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>)):this.state.profileData.state}
-								 
-										</select>
-										
-									  </div>
-									
-									  <div  className="col-md-2 required">
 										<label for="business city" >City</label>
 									  </div>
 									  <div className="col-md-4">
@@ -472,6 +641,19 @@ ActiveDeactive(id,status){
 										 
 										</select>
 									  </div>
+								   <div  className="col-md-2 required">
+										<label for="business-state-province">State</label>
+									  </div>
+									  <div className="col-md-4">
+										<select className="form-control"  value={this.state.singularEnrollForm.state || this.state.profileData.state} name="state"  onChange={this.SingularBillChange} >
+											
+											{this.state.states?this.state.states.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>)):this.state.profileData.state}
+								 
+										</select>
+										
+									  </div>
+									
+									 
 									  
 									</div>
 								  </div>
@@ -516,6 +698,45 @@ ActiveDeactive(id,status){
 								<div className="form-group">
 								  <div className="col-md-12">
 									<div className="row">
+									<div  className="col-md-2">
+										<label for="business-postal-code" >Principal Middle Name</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" name="principal_middle_name" id="principal_middle_name" onChange={this.SingularBillChange} placeholder=""/>
+									  </div>
+									  <div  className="col-md-2">
+										<label for="fed_tax_id">Principal Title</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" id="principal_title" onChange={this.SingularBillChange} name="principal_title" placeholder=""/>
+									  </div>
+									  
+									  
+									</div>
+								  </div>
+								</div>
+								<div className="form-group">
+								  <div className="col-md-12">
+									<div className="row">
+									<div  className="col-md-2">
+										<label for="business-postal-code" >Principal Address Line 1</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" name="principal_address_line_1" id="principal_address_line_1" onChange={this.SingularBillChange} placeholder=""/>
+									  </div>
+									  <div  className="col-md-2">
+										<label for="fed_tax_id">Principal Address Line 2</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" id="principal_address_line_2" onChange={this.SingularBillChange} name="principal_address_line_2" placeholder=""/>
+									  </div>
+									  
+									</div>
+								  </div>
+								</div>
+								<div className="form-group">
+								  <div className="col-md-12">
+									<div className="row">
 									<div  className="col-md-2 required">
 										<label for="business-postal-code" >Zip Code</label>
 									  </div>
@@ -532,6 +753,178 @@ ActiveDeactive(id,status){
 									</div>
 								  </div>
 								</div>
+								<div className="form-group">
+								  <div className="col-md-12">
+									<div className="row">
+									<div  className="col-md-2">
+										<label for="business-postal-code" >Principal DOB</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" name="principal_date_of_birth" id="principal_date_of_birth" onChange={this.SingularBillChange} placeholder=""/>
+									  </div>
+									  <div  className="col-md-2">
+										<label for="fed_tax_id">Principal Ownership Percent</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" id="principal_ownership_percent" onChange={this.SingularBillChange} name="principal_ownership_percent" placeholder=""/>
+									  </div>
+									  
+									</div>
+								  </div>
+								</div>
+								<div className="form-group">
+								  <div className="col-md-12">
+									<div className="row">
+									<div  className="col-md-2">
+										<label for="business-postal-code" >Principal SSN</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" name="principal_ssn" id="principal_ssn" onChange={this.SingularBillChange} placeholder=""/>
+									  </div>
+									  <div  className="col-md-2">
+										<label for="fed_tax_id">Ownership Type</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" id="ownership_type" onChange={this.SingularBillChange} name="ownership_type" placeholder=""/>
+									  </div>
+									  
+									</div>
+								  </div>
+								</div>
+								
+								<div className="form-group">
+								  <div className="col-md-12">
+									<div className="row">
+									<div  className="col-md-2">
+										<label for="business-postal-code" >MCC</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" name="mcc" id="mcc" onChange={this.SingularBillChange} placeholder=""/>
+									  </div>
+									  <div  className="col-md-2">
+										<label for="fed_tax_id">Swiped Percent</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" id="swiped_percent" onChange={this.SingularBillChange} name="swiped_percent" placeholder=""/>
+									  </div>
+									  
+									</div>
+								  </div>
+								</div>
+								<div className="form-group">
+								  <div className="col-md-12">
+									<div className="row">
+									<div  className="col-md-2">
+										<label for="business-postal-code" >Keypad Percent</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" name="keyed_percent" id="keyed_percent" onChange={this.SingularBillChange} placeholder=""/>
+									  </div>
+									  <div  className="col-md-2">
+										<label for="fed_tax_id">Ecommerce Percent</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" id="ecommerce_percent" onChange={this.SingularBillChange} name="ecommerce_percent" placeholder=""/>
+									  </div>
+									  
+									</div>
+								  </div>
+								</div>
+								<div className="form-group">
+								  <div className="col-md-12">
+									<div className="row">
+									<div  className="col-md-2">
+										<label for="business-postal-code" >CC Average Ticket Range</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" name="cc_average_ticket_range" id="cc_average_ticket_range" onChange={this.SingularBillChange} placeholder=""/>
+									  </div>
+									  <div  className="col-md-2">
+										<label for="fed_tax_id">CC Monthly Volume Range</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" id="cc_monthly_volume_range" onChange={this.SingularBillChange} name="cc_monthly_volume_range" placeholder=""/>
+									  </div>
+									  
+									</div>
+								  </div>
+								</div>
+								<div className="form-group">
+								  <div className="col-md-12">
+									<div className="row">
+									<div  className="col-md-2">
+										<label for="business-postal-code" >CC High Ticket</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" name="cc_high_ticket" id="cc_high_ticket" onChange={this.SingularBillChange} placeholder=""/>
+									  </div>
+									  <div  className="col-md-2">
+										<label for="fed_tax_id">EC High Ticket</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" id="ec_high_ticket" onChange={this.SingularBillChange} name="ec_high_ticket" placeholder=""/>
+									  </div>
+									  
+									</div>
+								  </div>
+								</div>
+								<div className="form-group">
+								  <div className="col-md-12">
+									<div className="row">
+									<div  className="col-md-2">
+										<label for="business-postal-code" >EC Average Ticket Range</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" name="ec_average_ticket_range" id="ec_average_ticket_range" onChange={this.SingularBillChange} placeholder=""/>
+									  </div>
+									  <div  className="col-md-2">
+										<label for="fed_tax_id">EC Monthly Volume Range</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" id="ec_monthly_volume_range" onChange={this.SingularBillChange} name="ec_monthly_volume_range" placeholder=""/>
+									  </div>
+									  
+									</div>
+								  </div>
+								</div>
+								
+								
+								
+								
+								
+								
+								<div className="form-group">
+								  <div className="col-md-12">
+									<div className="row">
+									<div  className="col-md-2">
+										<label for="business-postal-code" >Routing Number</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" name="routing_number" id="routing_number" onChange={this.SingularBillChange} placeholder=""/>
+									  </div>
+									  <div  className="col-md-2">
+										<label for="fed_tax_id">Account Holder Name</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" id="account_holder_name" onChange={this.SingularBillChange} name="account_holder_name" placeholder=""/>
+									  </div>
+									  
+									</div>
+								  </div>
+								</div>
+								<div className="form-group">
+								  <div className="col-md-12">
+									<div className="row">
+									<div  className="col-md-2">
+										<label for="fed_tax_id">Account Number</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" id="account_number" onChange={this.SingularBillChange} name="account_holder_name" placeholder=""/>
+									  </div>
+									  
+									</div>
+								  </div>
+								</div>
 								<div className="">
 								  <div className="col-md-12 text-right"> <a type="" className="btn btn-primary stepy-finish text-right" data-toggle="modal" data-target="#send-request" onClick={this.onSubmitSingular}>Submit</a> </div>
 								</div>
@@ -539,18 +932,18 @@ ActiveDeactive(id,status){
 						</div>
 							  
 							
-								{/* <<div id="send-request" className="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{display: "none"}}>
+							{/* <div id="send-request" className="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{display: "none"}}>
 									
 								  <div className="modal-dialog modal-lg">
 									<div className="modal-content">
 									  <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
 									  <div className="">
-									  {<iframe src={this.state.singularFrame.enrollmentlink} className="iform"></iframe>}
+									  {this.state.singularFrame.enrollmentlink?<iframe src={this.state.singularFrame.enrollmentlink} className="iform"></iframe>:<div className="container"  style={{marginTop:'13%',marginLeft:'45%',marginBottom:'25%'}}><img src="http://wordpress.templaza.net/real-estate/wp-content/themes/real-estate/images/loading_blue_32x32.gif" /></div>}
 									  </div>
 									</div>
 									</div>
-								</div>
-							  */}
+</div> */}
+							  
 					
 							  <div className=""  id="portion_two" style={{display: "none"}}>
 								 {/* <div className="form-group">
@@ -917,15 +1310,15 @@ ActiveDeactive(id,status){
 								  <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding batch-list align-item-center">
 									
 									<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">
-									  <div className="dayandtime-clp-batch col-lg-3 col-md-3 col-sm-6 col-xs-12 no-padding">
+									  <div className="dayandtime-clp-batch col-lg-3 col-md-6 col-sm-6 col-xs-12 no-padding">
 										<div className="days-time-table no-padding day border-right-day"> <span id="days_9226"><span className="time-change-wrapper">Expiry Date</span> </span> ( 06-2022 ) </div>
 										
 									  </div>
-									  <div className="dayandtime-clp-batch col-lg-4 col-md-4 col-sm-6 col-xs-12 no-padding">
+									  <div className="dayandtime-clp-batch col-lg-4 col-md-6 col-sm-6 col-xs-12 no-padding">
 										<div className="days-time-table no-padding day border-right-day"> <span id="days_9226"><span className="time-change-wrapper">First Name</span> </span> ( First Name ) </div>
 										
 									  </div>
-									  <div className="dayandtime-clp-batch col-lg-4 col-md-4 col-sm-6 col-xs-12 no-padding">
+									  <div className="dayandtime-clp-batch col-lg-4 col-md-6 col-sm-6 col-xs-12 no-padding">
 										<div className="days-time-table no-padding day border-right-day"> <span id="days_9226"><span className="time-change-wrapper">Account No</span> </span> ( 9879875654xxxx54 ) </div>
 										
 									  </div>
@@ -1080,34 +1473,7 @@ ActiveDeactive(id,status){
 				   {/*<!-- end container -->*/} 
 				</div>
 				 {/*<!-- end wrapper --> */}
-				
-          {/* Footer */}
-          <footer className="footer">
-            <div className="container">
-              <div className="row">
-                <div className="col-12 text-center"> © 2018 Assets Watch. All Rights Reserved </div>
-              </div>
-            </div>
-          </footer>
-          {/* End Footer */} 
-          {/* Modal */}
-          <div id="custom-modal" className="modal-demo">
-            <button type="button" className="close" onclick="Custombox.close();"> <span>×</span><span className="sr-only">Close</span> </button>
-            <h4 className="custom-modal-title">Modal title</h4>
-            <div className="custom-modal-text"> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. </div>
-          </div>
-          <div id="send-request" className="modal fade" tabIndex={-1} role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{display: 'none'}}>
-            <div className="modal-dialog modal-lg">
-              <div className="modal-content">
-                <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <div className>
-                  <iframe src="https://devenroll.singularbillpay.com/Enroll/index?cpid=singu_99244" className="iform" />
-                </div>
-              </div>
-            </div>
-          </div>
-        
-        </div></div>
+				</div></div>
 
 
 			)

@@ -245,7 +245,7 @@ class Profile extends React.Component {
                   <div className="card-box">
                     <h4 className="header-title mt-0 m-b-20">Personal Information</h4>
                     <div className="panel-body">
-                      <p className="text-muted font-13"> {profileInfo.about_us}  </p>
+                      <p className="text-muted font-14 text-justfy"> {profileInfo.about_us}  </p>
                       <hr/>
                       <div className="text-left">
                         <p className="text-muted font-13"><strong>Full Name :</strong> <span className="m-l-15">{profileInfo.first_name} {profileInfo.last_name}</span></p>

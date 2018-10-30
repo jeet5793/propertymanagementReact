@@ -9,6 +9,10 @@ export default class Customwithmodal extends React.Component{
         this.imgInp = React.createRef();
     }
     componentDidMount(){
+		
+		
+		
+		
         // $('.sigPad').signaturePad();
        
 	   $(document).on('click', '.sigDiv', function () {
@@ -20,7 +24,15 @@ export default class Customwithmodal extends React.Component{
         $("#imgInp").change(function() {            
             // this.readURL(this);
         });
-
+		
+		$(".typeIt").click(function() {            
+            $(".textBox").show();
+        });
+		
+		$(".drawIt").click(function() {            
+            $(".textBox").hide();
+        });
+		
         $('.sigNav').click(function (e) {
            var href = e.target.href;
            if(href) {
@@ -212,20 +224,15 @@ export default class Customwithmodal extends React.Component{
     render(){
         return(
             <div id="custom-width-modal" className="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel" aria-hidden="true" style={{display: 'none'}}>
-            <div className="modal-dialog" style={{width:'55%'}}>			
+            <div className="modal-dialog">			
             <div className="modal-content">				
               <div className="modal-header">
                 <button type="button" onClick={this.hideModel} className="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 className="modal-title" id="custom-width-modalLabel">Make Signature</h4>
+                <h4 className="modal-title" id="custom-width-modalLabel">Import Signature</h4>
               </div>		
                 <div className="modal-body">          
                   <form method="post" action="" className="sigPad form-horizontal">            
-                    <div className="form-group">
-                      <label for="name">Print your name</label>            
-                      <input type="text" name="name" id="name" className="name form-control" />            
-                      <p className="typeItDesc">Review your signature</p>
-                      <p className="drawItDesc">Draw your signature</p>
-                    </div>            
+                             
                     <div className="form-group">              
                       <ul className="sigNav" style={{display: "block"}}>
                         <li className="typeIt"><a href="#type-it" className="current">Type It</a></li>
@@ -239,7 +246,13 @@ export default class Customwithmodal extends React.Component{
                           </div>
                         </li>
                         <li className="clearButton"><a href="#clear">Clear</a></li>
-                      </ul>          
+                      </ul>    
+						<div className="form-group textBox">      
+                      <input type="text" name="name" id="name" className="name form-control" />   
+                      {/*<label for="name">Print your name</label>   */}            
+                      {/*<p className="typeItDesc">Review your signature</p>
+                      <p className="drawItDesc">Draw your signature</p>*/}
+                    </div>  					  
                       <div className="sig sigWrapper" style={{display: "block"}}>
                         <div className="typed" id="typedPadId"></div>
                         <canvas id="signaturePadId" className="pad" width="450" height="65"></canvas>
@@ -253,7 +266,7 @@ export default class Customwithmodal extends React.Component{
                   </form>        
                 </div>		
                 <div className="modal-footer">
-                  <button type="button" id="closeButtonId" lass="btn btn-secondary waves-effect" data-dismiss="modal" onClick={this.hideModel}>Close</button>
+                  <button type="button" id="closeButtonId" className="btn btn-secondary waves-effect" data-dismiss="modal" onClick={this.hideModel}>Close</button>
                   <button type="button" className="btn btn-primary waves-effect waves-light" onClick={this.canvasToImg.bind(this)}>Import</button>
                 </div>										
                     </div>

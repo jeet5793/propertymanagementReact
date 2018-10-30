@@ -115,13 +115,15 @@ class Property extends React.Component{
 												// })
 												// this.setState({property:tempProperty})
 												$("#actionType").val("Yes");
-											   $("#hiddenURL").val("my-property");
+											   // $("#hiddenURL").val("my-property");
 											   $(".confirm-body").html(data.msg);
 											   $("#BlockUIConfirm").show();
+												this.props.push('/my-property')
 										}else{
 												$("#loaderDiv").hide();
 												$("#actionType").val("Yes");
-											   $("#hiddenURL").val("my-property");
+											   // $("#hiddenURL").val("my-property");
+											   this.props.push('/my-property')
 											   $(".confirm-body").html(data.msg);
 											   $("#BlockUIConfirm").show();
 										}

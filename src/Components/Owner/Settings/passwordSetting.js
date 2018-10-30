@@ -85,9 +85,10 @@ import $ from 'jquery';
 			$("#loaderDiv").hide();
 					   
 					   $("#actionType").val("Yes");
-					   $("#hiddenURL").val("settings");
+					   // $("#hiddenURL").val("settings");
 					   $(".confirm-body").html(data.msg);
 					   $("#BlockUIConfirm").show();
+					   this.props.push('/settings');
           }
        
         }).catch((error) => {
@@ -119,7 +120,7 @@ import $ from 'jquery';
 							<div className="col-lg-2 col-md-3 col-sm-3">
 							  <input type="password" name="new_password" className="form-control" id="new-password" onChange={this.onChangeHandler} placeholder="" required />
 							</div>
-							<div className="ccol-lg-2 col-md-3 col-sm-3 required">
+							<div className="col-lg-2 col-md-3 col-sm-3 required">
 							  <label htmlFor="confirm-password">Confirm Password</label>
 							</div>
 							<div className="col-lg-2 col-md-3 col-sm-3 snv">
@@ -129,7 +130,7 @@ import $ from 'jquery';
 				</div>
                  <div> {/* style={{display: '-webkit-box'}}} */}
                     <div className="col-md-12 text-right">
-						  <button type="submit" className="btn btn-primary stepy-finish text-right" onClick={this.formSubmit}>Submit</button>
+						  <button type="button" className="btn btn-primary stepy-finish text-right" onClick={this.formSubmit}>Submit</button>
 				    </div>
                 </div>
             </div>

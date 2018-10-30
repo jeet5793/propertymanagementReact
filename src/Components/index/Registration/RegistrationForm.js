@@ -354,12 +354,11 @@ export default class RegistrationForm extends React.Component {
           </div>*/}
         <div className="col-md-6 col-sm-6">
           <div className="form-group">
-		  <span className="required"/>
             <input
               className="form-control form-control-solid placeholder-no-fix"
               type="text"
               autoComplete="off"
-              placeholder="First Name"
+              placeholder="First Name*"
               onChange={this.onChangeHandler}
               name="first_name"
               id="first_name"
@@ -368,12 +367,11 @@ export default class RegistrationForm extends React.Component {
         </div>
         <div className="col-md-6 col-sm-6">
           <div className="form-group">
-		  <span className="required"/>
             <input
               className="form-control form-control-solid placeholder-no-fix"
               type="text"
               autoComplete="off"
-              placeholder="Last Name"
+              placeholder="Last Name*"
               name="last_name"
               id="last_name"
               onChange={this.onChangeHandler}
@@ -382,12 +380,11 @@ export default class RegistrationForm extends React.Component {
         </div>
         <div className="col-md-6 col-sm-6">
           <div className="form-group">
-		  <span className="required"/>
             <input
               className="form-control form-control-solid placeholder-no-fix"
               type="text"
               autoComplete="off"
-              placeholder="Email"
+              placeholder="Email*"
               name="email"
               
               onChange={this.onChangeHandler}
@@ -456,13 +453,12 @@ export default class RegistrationForm extends React.Component {
         </div>
         <div className="col-md-6 col-sm-6">
           <div className="form-group">
-		  <span className="required"/>
             <input
               className="form-control form-control-solid placeholder-no-fix"
               type="password"
               autoComplete="off"
               onChange={this.onChangeHandler}
-              placeholder="Password"
+              placeholder="Password*"
               name="password"
               
             />
@@ -470,13 +466,12 @@ export default class RegistrationForm extends React.Component {
         </div>
         <div className="col-md-6 col-sm-6">
           <div className="form-group">
-		  <span className="required"/>
             <input
               className="form-control form-control-solid placeholder-no-fix"
               type="password"
               autoComplete="off"
               onChange={this.onChangeHandler}
-              placeholder="Confirm Password"
+              placeholder="Confirm Password*"
               name="cnfPass"
               id="cnfPass"
             />
@@ -485,7 +480,6 @@ export default class RegistrationForm extends React.Component {
 
         <div className="col-md-6 col-sm-6">
 		<div className="form-group">
-		<span className="required"/>
           <select
             className="form-control form-control-solid placeholder-no-fix"
             onChange={this.onChangeHandler}
@@ -501,7 +495,6 @@ export default class RegistrationForm extends React.Component {
 		</div>
         <div className="col-md-6 col-sm-6">
           <div className="form-group">
-		  <span className="required"/>
             <select
               className="form-control form-control-solid placeholder-no-fix"
               onChange={this.onChangeHandler}
@@ -519,7 +512,6 @@ export default class RegistrationForm extends React.Component {
         </div>
         <div className="col-md-6 col-sm-6">
           <div className="form-group">
-		  <span className="required"/>
             <select
               onChange={this.onChangeHandler}
               className="form-control form-control-solid placeholder-no-fix"
@@ -537,13 +529,12 @@ export default class RegistrationForm extends React.Component {
         </div>
         <div className="col-md-6 col-sm-6">
           <div className="form-group">
-		  <span className="required"/>
             <input
               className="form-control form-control-solid placeholder-no-fix"
               type="text"
               autoComplete="off"
               onChange={this.onChangeHandler}
-              placeholder="ZIP Code"
+              placeholder="ZIP Code*"
               name="zip_code"
               id="zip_code"
             />
@@ -551,12 +542,11 @@ export default class RegistrationForm extends React.Component {
         </div>
         <div className="col-md-6 col-sm-6">
           <div className="form-group">
-		  <span className="required"/>
             <input
               className="form-control form-control-solid placeholder-no-fix"
               type="text"
               autoComplete="off"
-              placeholder="Mobile"
+              placeholder="Mobile*"
               onChange={this.onChangeHandler}
               name="mobile_no"
               value={this.state.Registeration.mobile_no}
@@ -580,7 +570,6 @@ export default class RegistrationForm extends React.Component {
         </div>
         <div className="col-md-12">
           <p className="pull-left  margin-20 para">
-		  <span className="required"/>
             <input
               type="checkbox"
               id="test2"

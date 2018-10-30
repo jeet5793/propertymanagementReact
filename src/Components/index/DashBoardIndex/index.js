@@ -7,7 +7,7 @@ import { Switch, Route } from 'react-router';
 import Footer from '../footer/footer';
 
 import Home from '../Home/Home';
-import Aaboutus from '../AboutUs/aboutus';
+import Aboutus from '../AboutUs/aboutus';
 import ContactUs from '../ContactUs/Contactus';
 import Plans from '../Plans/Plans';
 import Blog from '../Blogs/Blogs';
@@ -44,7 +44,7 @@ class DashBoardIndex extends React.Component {
 
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route exact path='/aboutus' component={Aaboutus} />
+          <Route exact path='/aboutus' component={Aboutus} />
           <Route exact path='/contactus' component={ContactUs} />
           <Route exact path='/plans' component={Plans} />
           <Route exact path='/blog' component={Blog} />
