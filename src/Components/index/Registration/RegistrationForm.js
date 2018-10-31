@@ -100,18 +100,46 @@ export default class RegistrationForm extends React.Component {
       alert("First Name should not be blank");
       return;
     }
+	if(typeof opts.first_name !== "undefined"){
+           if(!opts.first_name.match(/^[a-zA-Z]+$/)){
+             alert("Please enter only letters for first name");
+			 return;
+           }        
+        }
     if (!opts.last_name) {
       alert("Last Name should not be blank");
       return;
     }
+	if(typeof opts.last_name !== "undefined"){
+           if(!opts.last_name.match(/^[a-zA-Z]+$/)){
+             alert("Please enter only letters for first name");
+			 return;
+           }        
+        }
     if (!opts.email) {
       alert("Email should not be blank");
       return;
     }
+	if(opts.email !== "undefined"){
+           let lastAtPos = opts.email.lastIndexOf('@');
+           let lastDotPos = opts.email.lastIndexOf('.');
+
+           if (!(lastAtPos < lastDotPos && lastAtPos > 0 && opts.email.indexOf('@@') == -1 && lastDotPos > 2 && (opts.email.length - lastDotPos) > 2)) {
+			  alert("Please enter valid Email");
+				return;
+            }
+       }  
     if (!opts.password) {
       alert("Password should not be blank");
       return;
     }
+	if (typeof opts.password !== "undefined") {
+        if (!opts.password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/)) {
+           alert("Password should contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character");
+			return;
+          
+        }
+      }
     if (!opts.cnfPass) {
       alert("Confirm Password should not be blank");
       return;
@@ -132,10 +160,18 @@ export default class RegistrationForm extends React.Component {
       alert("Zip Code should not be blank");
       return;
     }
+	
     if (!opts.mobile_no) {
       alert("Mobile number should not be blank");
       return;
     }
+	if (typeof opts.mobile_no !== "undefined") {
+        if (!opts.mobile_no.match(/^[0-9]{10}$/)) {
+           alert("Please enter valid 10 digit mobile number");
+			return;
+          
+        }
+      }
     // if (!opts.landline_no) {
       // alert("Landline number should not be blank");
       // return;

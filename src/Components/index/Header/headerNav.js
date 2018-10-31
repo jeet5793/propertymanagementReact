@@ -78,7 +78,7 @@ class Headernav extends React.Component {
                   //  console.log(data.msg)
                     // swal("Assets Watch", data.msg);
                     // $(".login-open").fadeToggle();
-						$("#actionType").val("Yes");
+						$("#actionType").val("No");
 									 // $("#hiddenURL").val("/");
 									 $(".confirm-body").html(data.msg);
 									 $("#SBlockUIConfirm").show();

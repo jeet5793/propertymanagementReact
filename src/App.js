@@ -113,7 +113,8 @@ export default class App extends Component {
     loadFile('assets/css/icons.css', 'css')
     loadFile('assets/css/style.css', 'css')
     loadFile('assets/css/custom-style.css', 'css')
-    loadFile('assets/css/responsive.css', 'css')
+    loadFile('assets/css/responsive.css', 'css');
+	
   }
   FtrCheck() {
     return <FooterOwner />

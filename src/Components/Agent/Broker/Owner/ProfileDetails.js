@@ -249,7 +249,7 @@ class ProfileDetails extends React.Component{
 														<td>{(item.selected_package==14)?"Credit Report":(item.selected_package==12)?"Credit Report, Eviction Report":(item.selected_package==13)?"County Criminal, Credit Report, Eviction Report":''}</td>
 														<td className="tbl-text-overflow">{(item.selected_package==14)?"Bronze Package":(item.selected_package==12)?"Silver Package":(item.selected_package==13)?"Gold Package":''} </td>
 														<td>{item.orderDate}</td>
-														<td className="text-center"><a href="#" className="table-action-btn view-rqu" onClick={this.BgvDownload.bind(this,item.reportId)}><i className="mdi mdi-download"></i></a></td>
+														<td className="text-center"><a style={{cursor:'pointer'}} className="table-action-btn view-rqu" onClick={this.BgvDownload.bind(this,item.reportId)}><i className="mdi mdi-download"></i></a></td>
 													</tr>)):<tr><td style={{textAlign:'center'}} colSpan={5}>No Report Available</td></tr>}
 												</tbody>
 											</table>

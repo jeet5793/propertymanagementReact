@@ -587,7 +587,7 @@ getPropertyList() {
       var normalclassName="nav-link agreement-fa";
       if(e.target.id==="saved")
       {
-		  window.location.reload();
+		  //window.location.reload();
           document.getElementById(e.target.id).setAttribute('class',activeclassName)
           document.getElementById("create").setAttribute('class',normalclassName)
           document.getElementById("request").setAttribute('class',normalclassName)

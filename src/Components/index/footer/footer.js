@@ -19,14 +19,19 @@ class Footer extends React.Component{
 		var actionType = $("#actionType").val();
 		if(actionType=="No")
 		{
-			$("#BlockUIConfirm").hide();
+			$("#SBlockUIConfirm").hide();
 		}
-		else
+		else if(actionType=="Yes")
 		{
 			var url = $("#hiddenURL").val();
-			$("#BlockUIConfirm").hide();
-			// window.location.href= url;
+			//$("#SBlockUIConfirm").hide();
+			 window.location.href= url;
 			// HIT URL 
+		}
+		else{
+			
+			$("#SBlockUIConfirm").hide();
+			
 		}
 	}
 	onChangeNewsLetter(e){
@@ -160,7 +165,7 @@ class Footer extends React.Component{
 						<div className="btn-holder">
 							<input type="hidden" id="hiddenURL" />
 							<input type="hidden" id="actionType" />
-							<input type="button" className="row-dialog-btn btn btn-success" value="Ok" onClick={this.submitAlert} />
+							<input type="button" id="actionBtn" className="row-dialog-btn btn btn-success" value="Ok" onClick={this.submitAlert} />
 							{/*<!-- <input type="button" className="row-dialog-btn btn btn-naked" value="No, Cancel" onclick="$('#BlockUIConfirm').hide();" /> -->*/}
 						</div>
 					</div>

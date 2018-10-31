@@ -17,7 +17,14 @@ class PlanPayment extends React.Component {
         month:'',
         year:'',
 		tokenizedaccountnumber:'',
-		cvv:''
+		cvv:'',
+		name:'',
+		achFields:{
+			name:'',
+			tokenizedaccountnumber:'',
+			routingnumber:'',
+			
+		}
 		
     }
       this.userInfo = this.userInfo.bind(this);
@@ -28,6 +35,8 @@ class PlanPayment extends React.Component {
 	  this.changeaccHandler=this.changeaccHandler.bind(this);
       this.changecvvHandler=this.changecvvHandler.bind(this);
 	  this.onClickReturn = this.onClickReturn.bind(this);
+	   this.onChangeACH = this.onChangeACH.bind(this);
+	   this.changeNameHandler = this.changeNameHandler.bind(this)
   }
  componentDidMount() {
     // setTimeout(function(){ $('#tzloadding').remove(); }, 2000)
@@ -58,6 +67,11 @@ class PlanPayment extends React.Component {
     e.preventDefault()
     this.setState({cvv:e.target.value});
   }
+  changeNameHandler(e)
+	{
+		e.preventDefault()
+		this.setState({name:e.target.value});
+	}
   userInfo() {
     var id=this.props.location.search.replace('?Id=','');
     fetch(`${API_URL}assetsapi/profile/`+id)
@@ -107,34 +121,63 @@ class PlanPayment extends React.Component {
             }
           )
   }
-
-  paymentPage(event) {
-  event.preventDefault();
-  	// console.log(this.state);
-
-  var payment_Object={
-    "userid":this.state.userDetails.user_id,
-    "tokenizedaccountnumber":this.state.tokenizedaccountnumber,
-    "paymentmode": "card",
-    "expirymmyy": this.state.month+this.state.year,
-    "cvv": this.state.cvv,
-    "routingnumber": null,
-    "surchargeamount": null,
-    "transactionamount":this.state.userDetails.planPrice,
-    "currency": "USD",
-    "transactionreference": null,
-    "payeeid": null,
-    "notifypayee": null,
-    "profile": null,
-    "profileid": null,
-    "orderid":this.state.userDetails.orderid,
-	"plan_id":this.state.userDetails.plan_id,
-	"plan_type":this.state.userDetails.plan_month_year
-  }
-  // this.setState({ fetchInProgress: true });
-  // console.log(payment_Object);
-  $("#loaderDiv").show();
-    fetch(`${API_URL}assetsapi/paymentgateway`,{
+onChangeACH(e){
+	var achField = this.state.achFields;
+	if(e.target.name=="name")
+		achField.name = e.target.value;
+	if(e.target.name=="tokenizedaccountnumber")
+		achField.tokenizedaccountnumber = e.target.value;
+	if(e.target.name=="routingnumber")
+		achField.routingnumber = e.target.value;
+	this.setState({achFields:achField});
+}
+  paymentPage(paymentType) {
+var user_detail = this.state.userDetails;
+	if(paymentType === 'CC'){
+		var payment_Object={
+			"userid":user_detail.user_id,
+			"tokenizedaccountnumber":this.state.tokenizedaccountnumber,
+			"paymentmode": "card",
+			"expirymmyy": this.state.month+this.state.year,
+			"cvv": this.state.cvv,
+			"routingnumber": null,
+			"surchargeamount": null,
+			"transactionamount":this.state.userDetails.planPrice,
+			"currency": "USD",
+			"transactionreference": null,
+			"payeeid": null,
+			"notifypayee": null,
+			"profile": null,
+			"profileid": null,
+			"orderid":user_detail.orderid,
+			"plan_id":user_detail.plan_id,
+			"plan_type":user_detail.plan_month_year,
+			"type": paymentType,
+			"name":this.state.name
+			
+		}
+		if(!payment_Object.name){
+			 alert("Full Name should not be blank");
+			return;
+		}
+		if(!payment_Object.tokenizedaccountnumber){
+			 alert("Card Number should not be blank");
+			return;
+		}
+		if(!this.state.month){
+			 alert("Month should not be blank");
+			return;
+		}
+		if(!this.state.year){
+			 alert("Year should not be blank");
+			return;
+		}
+		if(!payment_Object.cvv){
+			 alert("CVV should not be blank");
+			return;
+		}else{
+			$("#loaderDiv").show();
+		  fetch(`${API_URL}assetsapi/paymentgateway`,{
       method: 'post',
       //headers: {'Content-Type':'application/json'},
       body: JSON.stringify(payment_Object)
@@ -229,11 +272,168 @@ class PlanPayment extends React.Component {
               });
             }
           )
+		}
+		 
+	}else if(paymentType === 'ACH'){
+		var payment_Object={
+			"userid":user_detail.user_id,
+			"tokenizedaccountnumber": this.state.achFields.tokenizedaccountnumber,
+			  "paymentmode": "check",
+			  "routingnumber": this.state.achFields.routingnumber,
+			  "transactionamount": user_detail.planPrice,
+			  "surchargeamount": null,
+			  "currency": null,
+			  "payeefirstname": "",
+			  "payeelastname": "",
+			  "address": "",
+			  "city": "",
+			  "state": "",
+			  "country": "",
+			  "zip": "",
+			  "email": "",
+			  "transactionreference": null,
+			  "orderid": null,
+			  "payeeid": null,
+			  "udfield1": null,
+			  "udfield2": null,
+			  "udfield3": null,
+			  "notifypayee": null,
+			  "profile": null,
+			  "profileid": null,
+			  "orderid":user_detail.orderid,
+				"plan_id":user_detail.plan_id,
+				"plan_type":user_detail.plan_month_year,
+			  "type": paymentType,
+			  "name":this.state.achFields.name
+		}
+		if(!payment_Object.name){
+			 alert("Name should not be blank");
+			return;
+		}
+		if(!payment_Object.tokenizedaccountnumber){
+			 alert("Transaction A/C should not be blank");
+			return;
+		}
+		if(!payment_Object.routingnumber){
+			 alert("Routing Number should not be blank");
+			return;
+		}else{
+		 $("#loaderDiv").show();
+	  // console.log(payment_Object);
+		fetch(`${API_URL}assetsapi/paymentgateway`,{
+      method: 'post',
+      //headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(payment_Object)
+    })
+          .then(res => res.json())
+          .then(
+            (result) => {
+             
+			$("#loaderDiv").hide();
+			   if(result.msg.indexOf("Registered Successfully")!=-1)
+			   {	
+		   // console.log(JSON.stringify(this.state.userDetails));
+				var opts = {"email":this.state.userDetails.email,"password":this.state.userDetails.password,"assets_type":this.state.userDetails.assets_type};
+				// console.log(JSON.stringify(this.state.opts));
+				   fetch(`${API_URL}assetsapi/login/`, {
+							method: 'post',
+							body: JSON.stringify(opts)
+						})
+							  .then(res => res.json())
+							  .then(
+								(data) => {
+									setTimeout(()=>{
+
+										fetch(`${API_URL}assetsapi/profile/${data.userdata.assets_id}/${data.userdata.session_id}`, {
+										method: 'get'
+									})
+									.then(res => res.json())
+									.then(
+									  (result) => {
+												//console.log("data 2: "+JSON.stringify(result))
+												if (result.success) {
+												   // alert('profile:'+JSON.stringify(result.profile)+""+JSON.stringify(data.userdata.agentType));
+													localStorage.setItem('firstName',JSON.stringify(result.profile.first_name))
+													localStorage.setItem('lastName',JSON.stringify(result.profile.last_name))
+													localStorage.setItem('userType',JSON.stringify(result.profile.assets_type))
+													this.props.setUser(data.userdata, result.profile);
+													Cookies.set("profile_data", data.userdata);
+
+													if(result.profile.assets_type==="1"){
+													 // this.props.history.push('/user')
+																$("#actionType").val("Yes");
+																	$("#hiddenURL").val("/user");
+																   $(".confirm-body").html("Registered Successfully");
+																   $("#SBlockUIConfirm").show();
+													}else if(result.profile.assets_type==="2"){
+														if(data.userdata.agentType==="Broker")
+														{
+															// this.props.history.push('/agent-broker')
+															$("#actionType").val("Yes");
+																	$("#hiddenURL").val("/agent-broker");
+																   $(".confirm-body").html("Registered Successfully");
+																   $("#SBlockUIConfirm").show();
+														}
+														else{
+															// this.props.history.push('/agent-serviceprovider')
+															$("#actionType").val("Yes");
+																	$("#hiddenURL").val("/agent-serviceprovider");
+																   $(".confirm-body").html("Registered Successfully");
+																   $("#SBlockUIConfirm").show();
+														}
+													   
+													}else{
+														
+														// this.props.history.push('/tenant')
+														$("#actionType").val("Yes");
+																	$("#hiddenURL").val("/tenant");
+																   $(".confirm-body").html("Registered Successfully");
+																   $("#SBlockUIConfirm").show();
+													}
+												} else {
+													this.props.setUser(data.userdata, result.profile);
+													// console.log(result.msg);
+												}
+												// this.props.updateInfo(result.profile)
+											  },
+
+										  (error) => {
+											console.log('error')
+										  }
+										)
+									}, 1000)
+								})
+			   }
+
+            },
+  
+            (error) => {
+              this.setState({
+                isLoaded: true,
+				fetchInProgress: false,
+                error
+              });
+            }
+          )
+  
+		}
+	}
+    
   }
   onClickReturn()
   {
 	  window.location.href='/';
   }
+  changeTabs(id) {
+        if (id == "ach") {
+            $("#CCTab").removeClass("active");
+		}
+        else {
+            $("#ACHTab").removeClass("active");
+			
+			
+        }
+    }
 	render(){  
 
     if(this.state.userDetails){
@@ -243,129 +443,165 @@ class PlanPayment extends React.Component {
 	  var date = tempDate.toLocaleDateString();
 		return(
 		
-      <div>
-	  
-         <div className="logo text-center">
-           {/* Text Logo */}
-           {/*<a href="index.html" class="logo">*/}
-           {/*Adminox*/}
-           {/*</a>*/}
-           {/* Image Logo */}
-           <a href="/" className="logo"> <img src="/assets/images/logo_dark.png" alt className="logo-lg" /></a></div>
-		   <div className="payment-warp">
-           <div className="container">
-             {/* end page title end breadcrumb */}
-             <div className="row">
-               <div className="col-sm-12">
-                 <div className="row">
-                   <div className="col-md-3" />
-                   <div className="col-sm-6 pay-now">
-                     <div className="card-box widget-box-four">
-                       <div className="card-body p-5">
-                         <div className="amount-sec">
-                           <div className="row">
-                             <div className="col-md-7">
-                               <h5>Pay Now</h5>
-                               <p className="p-white">Register</p>
-                             </div>
-                             <div className="col-md-5 text-right">
-                               <h5>Total Amount</h5>
-                               <h5>$ {user.planPrice}</h5>
-                             </div>
-                           </div>
-                         </div>
-                         <div className="bref-detail">
-                           <div className="row">
-                             <div className="col-md-2">
-                               <label>Name :</label>
-                             </div>
-                             <div className="col-md-5">
-                               <label>{user.first_name+' '+user.last_name}</label>
-                             </div>
-                             <div className="col-md-2">
-                               <label>Date :</label>
-                             </div>
-                             <div className="col-md-3">
-                               <label>{date}</label>
-                             </div>
-                           </div>
-                         </div>
-                         <form role="form" className="card-dtl" method ="post" onSubmit={this.paymentPage.bind(this)}>
-                           <div className="form-group">
-                             <label htmlFor="name">Full Name (Card)<span className="required"/></label>
-                             <input type="text" ref="name" className="form-control" name="name" placeholder required />
-                           </div> {/* form-group.// */}
-                           <div className="form-group">
-                             <label htmlFor="cardNumber">Card Number<span className="required"/></label>
-                             <input type="password" ref="cardNumber" className="form-control" name="cardNumber" onChange={this.changeaccHandler} placeholder />
-                           </div> {/* form-group.// */}
-                           <div className="row">
-                             <div className="col-sm-8">
-                               <div className="form-group">
-                                 <label><span className="hidden-xs">Exp<span className="required"/></span> </label>
-                                 <div className="form-inline">
-                                   <select className="form-control" style={{width: '45%'}} value={this.state.month} onChange={this.handleMonthChange}>
-                                     <option value="">MM</option>
-                                    <option value="01">January</option>
-									<option value="02">February</option>
-									<option value="03">March</option>
-									<option value="04">April</option>
-									<option value="05">May</option>
-									<option value="06">June</option>
-									<option value="07">July</option>
-									<option value="08">August</option>
-									<option value="09">September</option>
-									<option value="10">October</option>
-									<option value="11">November</option>
-									<option value="12">December</option>
-                                   </select>
-                                   <span style={{width: '10%', textAlign: 'center'}}> / </span>
-                                   <select className="form-control" style={{width: '45%'}} value={this.state.year} onChange={this.handleYearChange}>
-                                     <option value="">YY</option>
-									<option value="18">2018</option>
-									<option value="19">2019</option>
-									<option value="20">2020</option>
-									<option value="21">2021</option>
-									<option value="22">2022</option>
-									<option value="23">2023</option>
-									<option value="24">2024</option>
-									<option value="25">2025</option>
-									<option value="26">2026</option>
-									<option value="27">2027</option>
-									<option value="28">2028</option>
-									<option value="29">2029</option>
-									<option value="30">2030</option>                            
-                                   </select>
-                                 </div>
-                               </div>
-                             </div>
-                             <div className="col-sm-4">
-                               <div className="form-group">
-                                 <label data-toggle="tooltip" title data-original-title="3 digits code on back side of the card">CVV<span className="required"/> <i className="fa fa-question-circle" /></label>
-                                 <input className="form-control" ref="cvv" name="cvv" onChange={this.changecvvHandler} required type="password" />
-                               </div> {/* form-group.// */}
-                             </div>
-                           </div> {/* row.// */}
-                           <div className="col-md-12 text-center">
-                             <button type="submit" className="btn btn-success uppercase" >Confirm</button>
-                           </div>
-                         </form>
-                       </div> {/* card-body.// */}
-                     </div> {/* card.// */}
-                   </div>
-                   <div className="col-md-3" />
-                 </div>
-               </div>
-               <div className="col-md-12 text-center">
-                 <li className="list-inline-item"> <button type="button" className="btn btn-warning waves-effect w-md waves-light" onClick = {this.onClickReturn}><i className="dripicons-home" /> Back to Home</button></li>
-               </div>
-             </div>
-      
-           </div>
-         
-         </div>
+		<div>
+	<div className="container">
+	<div className="tz_page_content">
+		<div className="post-1083 page type-page status-publish hentry">
+			<div id="login-2" className="bootstrap-wrapper tz-login">
+				<div className="menu-toggler sidebar-toggler"></div>
+				<div className="col-md-4 col-md-offset-4">
+					<div className="index-paym">
+						<ul className="nav nav-pills nav-justified no-margin">
+							<li className="active">
+								<a href="#credit-card" data-toggle="pill" onClick={this.changeTabs.bind(this, "credit-card")} id="CCTab" aria-expanded="true" className="nav-link font-16 active">Credit Card  </a>
+							</li>
+							<li>
+							<a href="#ach" data-toggle="pill" onClick={this.changeTabs.bind(this, "ach")} id="ACHTab" aria-expanded="false" className="nav-link font-16">ACH  </a>
+							</li>
+						</ul>
+						<div className="tab-content tab-cnt">
+							<div id="credit-card" className="tab-pane fade in active">
+																	<div className="widget-box-four">
+																		<div className="card-body p-5">
+																			<div className="amount-sec">
+																				<div className="row">
+																					<div className="col-md-7">
+																						<h5>Pay Now</h5>
+																						<p>Register</p>
+																					</div>
+																					<div className="col-md-5 text-right">
+																					<h5>Total Amount</h5>
+																						<h5>$ {user.planPrice}</h5>
+																					</div>
+																				</div>
+																			</div>
+																			<div className="bref-detail">
+																				<div className="row">
+																					<div className="col-md-7">
+																					{user.first_name+' '+user.last_name}
+																					</div>
+																					<div className="col-md-5">
+																						<label>Date : {date}</label>
+																					</div>
+																				</div>
+																			</div>
+																	<form role="form" className="card-dtl" >
+																	 <div className="form-group">
+																		 <label htmlFor="name">Full Name (Card)<span className="required"/></label>
+																		 <input type="text" ref="name" className="form-control" name="name" onChange={this.changeNameHandler} placeholder />
+																	   </div> {/* form-group.// */}
+																	   <div className="form-group">
+																		 <label htmlFor="cardNumber">Card Number<span className="required"/></label>
+																		 <input type="text" ref="cardNumber" className="form-control" name="tokenizedaccountnumber" onChange={this.changeaccHandler} placeholder />
+																	   </div> {/* form-group.// */}
 
+																	<div className="row">
+																		 <div className="col-sm-8">
+																			   <div className="form-group">
+																				 <label><span className="hidden-xs">Exp<span className="required"/></span> </label>
+																				 <div className="form-inline">
+																				   <select className="form-control form-control-solid" style={{width: '45%'}} name = "month" value={this.state.month} onChange={this.handleMonthChange}>
+																					 <option value="">MM</option>
+																					<option value="01">January</option>
+																					<option value="02">February</option>
+																					<option value="03">March</option>
+																					<option value="04">April</option>
+																					<option value="05">May</option>
+																					<option value="06">June</option>
+																					<option value="07">July</option>
+																					<option value="08">August</option>
+																					<option value="09">September</option>
+																					<option value="10">October</option>
+																					<option value="11">November</option>
+																					<option value="12">December</option>
+																				   </select>
+																				   <span style={{width: '10%', textAlign: 'center'}}> / </span>
+																				   <select className="form-control form-control-solid" name = "year" style={{width: '45%'}} value={this.state.year} onChange={this.handleYearChange}>
+																					 <option value="">YY</option>
+																					<option value="18">2018</option>
+																					<option value="19">2019</option>
+																					<option value="20">2020</option>
+																					<option value="21">2021</option>
+																					<option value="22">2022</option>
+																					<option value="23">2023</option>
+																					<option value="24">2024</option>
+																					<option value="25">2025</option>
+																					<option value="26">2026</option>
+																					<option value="27">2027</option>
+																					<option value="28">2028</option>
+																					<option value="29">2029</option>
+																					<option value="30">2030</option>                            
+																				   </select>
+																				 </div>
+																			   </div>
+																			 </div>
+																		<div className="col-sm-4">
+																	   <div className="form-group">
+																		 <label data-toggle="tooltip" title data-original-title="3 digits code on back side of the card">CVV<span className="required"/> <i className="fa fa-question-circle" /></label>
+																		 <input className="form-control" ref="cvv" name="cvv" onChange={this.changecvvHandler}  type="text" />
+																	   </div> {/* form-group.// */}
+																	 </div>
+																	</div>{/* <!-- row.// -->*/}
+																	<div className=" text-center">
+																	<button type="button" onClick={this.paymentPage.bind(this,'CC')} className="btn btn-success uppercase" >Pay Now</button>
+																	</div>
+																	</form>
+																	</div> {/*<!-- card-body.// -->*/}
+																	</div> {/*<!-- card.// -->*/}
+								</div>
+								<div id="ach" className="tab-pane fade">
+																	 <div className="widget-box-four">
+																		<div className="card-body p-5">
+																			<div className="amount-sec">
+																				<div className="row">
+																					<div className="col-md-7">
+																						<h5>Pay Now</h5>
+																						<p>Register</p>
+																					</div>
+																					<div className="col-md-5 text-right">
+																					<h5>Total Amount</h5>
+																						<h5>$ {user.planPrice}</h5>
+																					</div>
+																				</div>
+																			</div>
+																			<div className="bref-detail">
+																				<div className="row">
+																					<div className="col-md-7">
+																					{user.first_name+' '+user.last_name}
+																					</div>
+																					<div className="col-md-5">
+																						<label>Date : {date}</label>
+																					</div>
+																				</div>
+																			</div>
+																<form role="form" className="card-dtl" >
+																	<div className="form-group">
+																	<label>Name<span className="required"/> </label>
+																		<input type="text" className="form-control" name="name" onChange = {this.onChangeACH} placeholder=""/>
+																	</div> {/*<!-- form-group.// -->*/}
 
+																	<div className="form-group">
+																	<label>Transaction A/C<span className="required"/></label>
+																		<input type="text" className="form-control" name="tokenizedaccountnumber" onChange = {this.onChangeACH} placeholder=""/>
+																	</div> {/*<!-- form-group.// -->*/}
+																	<div className="form-group">
+																	<label>Routing Number<span className="required"/></label>
+																		<input type="text" className="form-control" name="routingnumber" onChange = {this.onChangeACH}placeholder=""/>
+																	</div> {/*<!-- form-group.// -->*/}
+																	<div className="text-center">
+																	<button type="button" onClick={this.paymentPage.bind(this,'ACH')} className="btn btn-success uppercase">Pay Now</button>
+																	</div>
+																</form>
+																</div> {/*<!-- card-body.// -->*/}
+																</div> {/*<!-- card.// -->*/}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 		</div>
 
 

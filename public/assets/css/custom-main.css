@@ -1102,6 +1102,76 @@ padding:0;
 .display-none {
 	display:none;
 }
-
+.index-paym {
+	background-color: #fff;
+    margin: 100px auto 0px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+.index-paym .card-dtl {
+    padding: 20px 40px;
+}
+.index-paym .amount-sec {
+    background: #57bb57;
+    color: #fff;
+    padding: 6px 14px;
+}
+.index-paym  h5 {
+    margin: 5px 0;  
+	font-size: 15px;
+    color: #fff;
+}
+.index-paym  p {
+    margin-bottom: 0;
+    color: #fff;
+}
+.index-paym .bref-detail {
+    padding: 10px 10px;
+    background: #f6f6f6;
+}
+.index-paym .bref-detail label {
+    margin: 0;
+    padding: 0;
+	color: #404040;
+}
+.index-paym .card-dtl label {
+	color: #404040;
+}
+.index-paym .tab-cnt {
+	    padding: 20px 0 0 0;
+}
+.index-paym .nav-justified>li {
+    display: table-cell;
+    width: 1%;
+}
+.index-paym .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+    color: #464a4c;
+    background-color: #fff;
+    border-bottom: 2px solid #57bb57 !important;
+    border-radius: 0;
+}
+.index-paym .nav-justified{
+	    border-bottom: 2px solid rgba(152, 166, 173, 0.2) !important;
+}
+.index-paym .nav>li>a:focus, .nav>li>a:hover {
+    text-decoration: none;
+    background-color: #fff;
+    border-radius: 0;    
+}
+.index-paym .nav>li>a {
+	color: #464a4c;
+}
 		
-		
+.index-paym .form-control-solid {
+    background-color: #fff;
+    color: #404040;
+    border-radius: 0;
+    outline: 0;
+    font-size: 14px;
+    padding: 10px 15px;
+    box-shadow: none;
+    line-height: 48px;
+    height: 40px;
+    border: 1px solid #e7e7e7;
+}

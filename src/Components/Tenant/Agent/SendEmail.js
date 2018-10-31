@@ -27,7 +27,7 @@ export default class SendEmail extends React.Component{
 		if(!opts.email){
 			return;
 		}else{	
-		document.getElementById("msgFormCancel").click();
+		document.getElementById("emailFormCancel").click();
 			$("#loaderDiv").show();
 		fetch(`${API_URL}assetsapi/send_emailto_non_register`, {
 			  method: 'post',
@@ -72,7 +72,7 @@ export default class SendEmail extends React.Component{
                         </div>
                     </div>
                     <div className="modal-footer">
-                        <button type="button" id = "msgFormCancel" className="btn btn-secondary waves-effect" data-dismiss="modal" onClick={this.hideModel}>Close</button>
+                        <button type="button" id="emailFormCancel" className="btn btn-secondary waves-effect" data-dismiss="modal" onClick={this.hideModel}>Close</button>
                         <button type="button" className="btn btn-success waves-effect waves-light" onClick={this.sendEmailToNonUser}>Send</button>
                     </div>
                     </div>
