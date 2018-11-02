@@ -293,7 +293,9 @@ export default class TenantAgreement extends React.Component {
        i = parseInt(i, 10) ? i+1 : 0;
        var target = $('#signature')
          if(compName=='Insert Signature Block') {
-          target.append("<p><div contenteditable='false' className='sigDiv' id='sigId"+i+"' style='width:300px;height:100px;border:1px solid #eee; border-top:0' data-toggle='modal' data-target='#custom-width-modal' onclick='addplaceId(this.id)'>"+compName+"</div></p>")
+          target.append("<p>  <span contenteditable='false' className='sigDiv' id='sigId"+i+"' style='width:222px;height:40px;border-radius: 4px;padding:10px;border:1px solid #57bb57;background-color:#f2f3f2;color:#ea1010;' data-toggle='modal' data-target='#custom-width-modal' onclick='addplaceId(this.id)'>"+compName+"</span></p>")
+		  
+		
         }
         else if(compName=='Insert Text Box')
         {

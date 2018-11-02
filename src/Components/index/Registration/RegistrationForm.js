@@ -28,23 +28,52 @@ export default class RegistrationForm extends React.Component {
       RegType: "",
       countries: [{ name: "Afghanistan" }],
       states: [],
-      cities: []
+      cities: [],
+	  errors: {}
     };
     this.handleChange = this.handleChange.bind(this);
     this.onChangeHandler = this.onChangeHandler.bind(this);
     this.AgentRef = React.createRef();
   }
   onChangeHandler(e) {
+	  let errors = {};
     const registrationForm = this.state.Registeration;
     if (e.target.name != "Regradio") {
       if (e.target.name === "first_name")
+	  {
         registrationForm.first_name = e.target.value;
+		if(!e.target.value.match(/^[a-zA-Z]+$/)){
+				errors["first_name"] = "Please enter only letters.";
+           }   
+	  }
       else if (e.target.name === "last_name")
+	  {
         registrationForm.last_name = e.target.value;
+		if(!registrationForm.last_name.match(/^[a-zA-Z]+$/)){
+				errors["last_name"] = "Please enter only letters.";
+           } 
+	  }
       else if (e.target.name === "email")
+	  {
         registrationForm.email = e.target.value;
+		 let lastAtPos = registrationForm.email.lastIndexOf('@');
+           let lastDotPos = registrationForm.email.lastIndexOf('.');
+
+           if (!(lastAtPos < lastDotPos && lastAtPos > 0 && registrationForm.email.indexOf('@@') == -1 && lastDotPos > 2 && (registrationForm.email.length - lastDotPos) > 2)) {
+			   
+				errors["email"] = "Please enter a valid Email";
+			  
+            }
+		
+	  }
       else if (e.target.name === "password")
+	  {
         registrationForm.password = e.target.value;
+		if (!registrationForm.password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/)) {
+			 errors["password"] = "Should contain at atleast 1 lowercase letter, 1 uppercase letter, 1 numeric digit, 1 special character and  minimum 8 characters";
+				
+		}
+	  }
       else if (e.target.name === "cnfPass")
         registrationForm.cnfPass = e.target.value;
       else if (e.target.name === "country") {
@@ -64,6 +93,11 @@ export default class RegistrationForm extends React.Component {
         registrationForm.mobile_no = isNaN(e.target.value)
           ? registrationForm.mobile_no
           : e.target.value;
+		  
+		   if (!registrationForm.mobile_no.match(/^[0-9]{10}$/)) {
+			
+			errors["mobile_no"] = "Please enter valid 10 digit mobile number";  
+        }
       } else if (e.target.name === "landline_no")
         registrationForm.landline_no = isNaN(e.target.value)
           ? registrationForm.landline_no
@@ -83,92 +117,153 @@ export default class RegistrationForm extends React.Component {
       registrationForm.assets_type = e.target.value;
 
     this.setState({ Registeration: registrationForm });
+	this.setState({errors: errors});
+       
     // this.setState({[e.target.name]:e.target.value})
   }
   registerNow() {
     //http://ec2-18-191-70-215.us-east-2.compute.amazonaws.com/assetsapi/register/
-    var opts = this.state.Registeration;
-    opts.assets_type = this.state.RegType;
-    // console.log(opts.chekname);
+		var opts = this.state.Registeration;
+		opts.assets_type = this.state.RegType;
+	 if(this.handleValidation()){
+		 $("#loaderDiv").show();
+			  fetch(`${API_URL}assetsapi/register/`, {
+				method: "post",
+				body: JSON.stringify(opts)
+			  })
+				.then(response => {
+				  return response.json();
+				})
+				.then((data) => {
+				  // console.log('dataaaa:  ', data);
+				  if(data){
+					var userid = data.user.assets_id
+					localStorage.setItem('userid',userid)
+				  }
+				  if(data.msg.indexOf("Registered Successfully")!=-1)
+				  {
+					  $("#loaderDiv").hide();
+					let userType = 'owner';
+					if (this.state.RegType==='2') {
+					  userType = 'agent'
+					} else if (this.state.RegType==='3') {
+					  userType = 'tenant'
+					}
+					if(data.user.agentType!='' && data.user.agentType=='Service Provider')
+					{
+						this.props.history.replace(`/`);
+					}else{
+						 this.props.history.replace(`/register-plans?Datatype=${userType}`);
+					}
+				   
+				  }
+				else alert(data.msg)
+				}).catch((error) => {
+				  console.log('error: ', error);
+				});
+	 }else{
+           return;
+        }
+  }
+  handleValidation(){
+	  let opts = this.state.Registeration;
+		opts.assets_type = this.state.RegType;
+		let errors = {};
+        let formIsValid = true;
     if (opts.assets_type === "2") {
       if (!opts.agent_type) {
-        alert("Must select the Agent type");
-        return;
+		  formIsValid = false;
+          errors["agent_type"] = "Must select the Agent type";
       }
     }
-    if (!opts.first_name) {
-      alert("First Name should not be blank");
-      return;
+	if (!opts.assets_type) {
+		  formIsValid = false;
+          errors["Regradio"] = "Must select the at least one.";
+        
     }
-	if(typeof opts.first_name !== "undefined"){
+    if (!opts.first_name) {
+		formIsValid = false;
+        errors["first_name"] = "First Name should not be blank";
+      
+    }else if(typeof opts.first_name !== ''){
            if(!opts.first_name.match(/^[a-zA-Z]+$/)){
-             alert("Please enter only letters for first name");
-			 return;
+			   formIsValid = false;
+				errors["first_name"] = "Please enter only letters";
+             
            }        
         }
     if (!opts.last_name) {
-      alert("Last Name should not be blank");
-      return;
-    }
-	if(typeof opts.last_name !== "undefined"){
+		formIsValid = false;
+        errors["last_name"] = "Last Name should not be blank";
+      
+    }else if(typeof opts.last_name !== "undefined"){
            if(!opts.last_name.match(/^[a-zA-Z]+$/)){
-             alert("Please enter only letters for first name");
-			 return;
+			   formIsValid = false;
+				errors["last_name"] = "Please enter only letters.";
+             
            }        
         }
     if (!opts.email) {
-      alert("Email should not be blank");
-      return;
-    }
-	if(opts.email !== "undefined"){
+		formIsValid = false;
+        errors["email"] = "Email should not be blank";
+      
+    }else if(opts.email !== "undefined"){
            let lastAtPos = opts.email.lastIndexOf('@');
            let lastDotPos = opts.email.lastIndexOf('.');
 
            if (!(lastAtPos < lastDotPos && lastAtPos > 0 && opts.email.indexOf('@@') == -1 && lastDotPos > 2 && (opts.email.length - lastDotPos) > 2)) {
-			  alert("Please enter valid Email");
-				return;
+			   formIsValid = false;
+				errors["email"] = "Please enter a valid Email";
+			  
             }
        }  
     if (!opts.password) {
-      alert("Password should not be blank");
-      return;
-    }
-	if (typeof opts.password !== "undefined") {
-        if (!opts.password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/)) {
-           alert("Password should contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character");
-			return;
+		formIsValid = false;
+        errors["password"] = "Password should not be blank";
+      
+    }else if (typeof opts.password !== "undefined") {
+		
+         if (!opts.password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/)) {
+			formIsValid = false;
+			errors["password"] = "Should contain at atleast 1 lowercase letter, 1 uppercase letter, 1 numeric digit, 1 special character and  minimum 8 characters";
+           
           
-        }
+        } 
       }
     if (!opts.cnfPass) {
-      alert("Confirm Password should not be blank");
-      return;
+		formIsValid = false;
+        errors["cnfPass"] = "Confirm Password should not be blank";
     }
     if (!opts.city) {
-      alert("City should not be blank");
-      return;
+		formIsValid = false;
+        errors["city"] = "City should not be blank";
+      
     }
     if (!opts.state) {
-      alert("State should not be blank");
-      return;
+		formIsValid = false;
+        errors["state"] = "State should not be blank";
+      
     }
     if (!opts.country) {
-      alert("Country should not be blank");
-      return;
+		formIsValid = false;
+        errors["country"] = "Country should not be blank";
+      
     }
     if (!opts.zip_code) {
-      alert("Zip Code should not be blank");
-      return;
+		formIsValid = false;
+        errors["zip_code"] = "Zip Code should not be blank";
+     
     }
 	
     if (!opts.mobile_no) {
-      alert("Mobile number should not be blank");
-      return;
-    }
-	if (typeof opts.mobile_no !== "undefined") {
+		formIsValid = false;
+        errors["mobile_no"] = "Mobile number should not be blank";
+      
+    }else if (typeof opts.mobile_no !== "undefined") {
         if (!opts.mobile_no.match(/^[0-9]{10}$/)) {
-           alert("Please enter valid 10 digit mobile number");
-			return;
+			formIsValid = false;
+        errors["mobile_no"] = "Please enter valid 10 digit mobile number";
+           
           
         }
       }
@@ -177,49 +272,32 @@ export default class RegistrationForm extends React.Component {
       // return;
     // }
     if(!opts.chekbx){
-      alert('Checkbox should be ticked');
-      return;
+		formIsValid = false;
+        errors["chekbx"] = "Checkbox should be ticked";
+      
     }
     if (opts.cnfPass !== opts.password) {
-      alert("Confirm password is not matched.");
-    } else if (this.state.Registeration.assets_type) {
-      //{'email':'testnow1@yopmail.com','password':'test123'}
-	  $("#loaderDiv").show();
-      fetch(`${API_URL}assetsapi/register/`, {
-        method: "post",
-        body: JSON.stringify(opts)
-      })
-        .then(response => {
-          return response.json();
-        })
-        .then((data) => {
-          // console.log('dataaaa:  ', data);
-          if(data){
-            var userid = data.user.assets_id
-            localStorage.setItem('userid',userid)
-          }
-          if(data.msg.indexOf("Registered Successfully")!=-1)
-          {
-			  $("#loaderDiv").hide();
-            let userType = 'owner';
-            if (this.state.RegType==='2') {
-              userType = 'agent'
-            } else if (this.state.RegType==='3') {
-              userType = 'tenant'
-            }
-			if(data.user.agentType!='' && data.user.agentType=='Service Provider')
-			{
-				this.props.history.replace(`/`);
-			}else{
-				 this.props.history.replace(`/register-plans?Datatype=${userType}`);
-			}
-           
-          }
-        else alert(data.msg)
-        }).catch((error) => {
-          console.log('error: ', error);
-        });
-    }
+		if(!opts.password){
+			formIsValid = false;
+			errors["password"] = "Password should not be blank.";
+		}else{
+			formIsValid = false;
+			errors["password"] = "Confirm password is not matched.";
+		}
+		
+      
+     }
+	 if (!opts.assets_type) {
+		formIsValid = false;
+        errors["assets_type"] = "Can not be empty.";
+      
+     }
+	 this.setState({errors: errors});
+       return formIsValid;
+	 // else if (this.state.Registeration.assets_type) {
+      // {'email':'testnow1@yopmail.com','password':'test123'}
+	  
+    // }
   }
 
   handleChange(event) {
@@ -282,6 +360,7 @@ export default class RegistrationForm extends React.Component {
         </div>
         <div className="col-md-12">
           <div className="form-group">
+		  <span style={{color: "red"}}>{this.state.errors["Regradio"]}</span>
             <div className="col-md-12 " style={{ marginLeft: "15%" }}>
 			
               <div className="col-md-3 col-sm-3">
@@ -322,7 +401,9 @@ export default class RegistrationForm extends React.Component {
                   <label htmlFor="tenantid"> Tenant </label>
                 </div>
               </div>
+			   
             </div>
+			
           </div>
         </div>
         <div className="col-md-12">
@@ -399,6 +480,7 @@ export default class RegistrationForm extends React.Component {
               name="first_name"
               id="first_name"
             />
+			 <span style={{color: "red"}}>{this.state.errors["first_name"]}</span>
           </div>
         </div>
         <div className="col-md-6 col-sm-6">
@@ -412,6 +494,7 @@ export default class RegistrationForm extends React.Component {
               id="last_name"
               onChange={this.onChangeHandler}
             />
+			 <span style={{color: "red"}}>{this.state.errors["last_name"]}</span>
           </div>
         </div>
         <div className="col-md-6 col-sm-6">
@@ -425,6 +508,7 @@ export default class RegistrationForm extends React.Component {
               
               onChange={this.onChangeHandler}
             />
+			 <span style={{color: "red"}}>{this.state.errors["email"]}</span>
           </div>
         </div>
         <div className="col-md-6 col-sm-6">
@@ -439,6 +523,7 @@ export default class RegistrationForm extends React.Component {
                     val="option2"
                     onChange={this.onChangeHandler}
                     value={1}
+					checked
                   />
                   <label htmlFor="radioind"> Individual </label>
                 </div>
@@ -456,6 +541,7 @@ export default class RegistrationForm extends React.Component {
                   <label htmlFor="radioorg"> Organization </label>
                 </div>
               </div>
+			  <span style={{color: "red"}}>{this.state.errors["owner_type"]}</span>
             </div>
           </div>
         </div>
@@ -498,6 +584,7 @@ export default class RegistrationForm extends React.Component {
               name="password"
               
             />
+			 <span style={{color: "red"}}>{this.state.errors["password"]}</span>
           </div>
         </div>
         <div className="col-md-6 col-sm-6">
@@ -511,6 +598,7 @@ export default class RegistrationForm extends React.Component {
               name="cnfPass"
               id="cnfPass"
             />
+			 <span style={{color: "red"}}>{this.state.errors["cnfPass"]}</span>
           </div>
         </div>
 
@@ -527,6 +615,7 @@ export default class RegistrationForm extends React.Component {
               <option key={index} value={option.name}>{option.name}</option>
             ))}
           </select>
+		   <span style={{color: "red"}}>{this.state.errors["country"]}</span>
         </div>
 		</div>
         <div className="col-md-6 col-sm-6">
@@ -544,6 +633,7 @@ export default class RegistrationForm extends React.Component {
                 </option>
               )):''}
             </select>
+			 <span style={{color: "red"}}>{this.state.errors["state"]}</span>
           </div>
         </div>
         <div className="col-md-6 col-sm-6">
@@ -561,6 +651,7 @@ export default class RegistrationForm extends React.Component {
                 </option>
               )):''}
             </select>
+			<span style={{color: "red"}}>{this.state.errors["city"]}</span>
           </div>
         </div>
         <div className="col-md-6 col-sm-6">
@@ -574,6 +665,7 @@ export default class RegistrationForm extends React.Component {
               name="zip_code"
               id="zip_code"
             />
+			<span style={{color: "red"}}>{this.state.errors["zip_code"]}</span>
           </div>
         </div>
         <div className="col-md-6 col-sm-6">
@@ -588,6 +680,7 @@ export default class RegistrationForm extends React.Component {
               value={this.state.Registeration.mobile_no}
               id="mobile_no"
             />
+			<span style={{color: "red"}}>{this.state.errors["mobile_no"]}</span>
           </div>
         </div>
         <div className="col-md-6 col-sm-6">
@@ -606,6 +699,7 @@ export default class RegistrationForm extends React.Component {
         </div>
         <div className="col-md-12">
           <p className="pull-left  margin-20 para">
+		  <span style={{color: "red"}}>{this.state.errors["chekbx"]}</span>
             <input
               type="checkbox"
               id="test2"
@@ -613,6 +707,7 @@ export default class RegistrationForm extends React.Component {
               onClick={this.onChangeHandler}
 			  required
             />
+			
             <label htmlFor="test2">
               I Agree to AssetsWatch Terms of use i would like to receive
               property relates communication through Email, call or SMS{" "}

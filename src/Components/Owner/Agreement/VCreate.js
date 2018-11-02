@@ -138,41 +138,61 @@ createAgreement(){
 	// console.log('agreementForm'+JSON.stringify(agreementForm))
   if(agreementForm.agreement_title!==''&&agreementForm.agreement_doc_content!=='')
   {
-	 
+	  
 	  $("#loaderDiv").show();
-    fetch(`${API_URL}assetsapi/add_agreement/`, {
-      method: "post",
-      body: JSON.stringify(agreementForm)
-    })
-      .then(response => {
-        return response.json();
-      })
-      .then((data) => {
-        //debugger;
-        //console.log('dataaaa:  ', data);
-        if(data){
-          // var userid = data.user.assets_id
-          // localStorage.setItem('userid',userid)
-		  $("#loaderDiv").hide();
-			$("#actionType").val("Yes");
-					   $("#hiddenURL").val("agreement");
-					   $(".confirm-body").html(data.msg);
-					   $("#BlockUIConfirm").show();
-        }
-      //   if(data.msg.indexOf("Registered Successfully")!=-1)
-      //   {
-      //     let userType = 'owner';
-      //     if (this.state.RegType==='2') {
-      //       userType = 'agent'
-      //     } else if (this.state.RegType==='3') {
-      //       userType = 'tenant'
-      //     }
-      //   }
-      // else alert(data.msg)
-      }
-    ).catch((error) => {
-        console.log('error: ', error);
-      });
+  fetch(`${API_URL}assetsapi/checkPermissions/${JSON.parse(this.state.userData).assets_id}/create_agreement`, {
+		  method: "GET"
+		})
+		  .then(response => {
+			return response.json();
+		  })
+		  .then((data) => {
+			//debugger;
+			//console.log('dataaaa:  ', data);
+			if(data.success===1){
+			  // var userid = data.user.assets_id
+			  // localStorage.setItem('userid',userid)
+						$("#loaderDiv").hide();
+						$("#actionType").val("No");
+						   $("#hiddenURL").val("agreement");
+						   $(".confirm-body").html(data.msg);
+						   $("#BlockUIConfirm").show();
+						   
+				}else if(data.success===0){
+					$("#loaderDiv").show();
+						fetch(`${API_URL}assetsapi/add_agreement/`, {
+						  method: "post",
+						  body: JSON.stringify(agreementForm)
+						})
+						  .then(response => {
+							return response.json();
+						  })
+						  .then((data) => {
+							//debugger;
+							//console.log('dataaaa:  ', data);
+							if(data){
+							  // var userid = data.user.assets_id
+							  // localStorage.setItem('userid',userid)
+							  $("#loaderDiv").hide();
+								$("#actionType").val("Yes");
+										   $("#hiddenURL").val("agreement");
+										   $(".confirm-body").html(data.msg);
+										   $("#BlockUIConfirm").show();
+										   
+							}
+						  
+						  }
+						).catch((error) => {
+							console.log('error: ', error);
+						  });
+					}
+		  
+		  }
+		).catch((error) => {
+			console.log('error: ', error);
+		  });
+	  
+    
   }
   else{
     alert('Please add title and content to create agreement')

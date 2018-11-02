@@ -186,6 +186,7 @@ export default class container extends React.Component{
     this.previewAgreement=this.previewAgreement.bind(this);
     this.submitAgreement=this.submitAgreement.bind(this);
 	this.onClickChangeStatus =this.onClickChangeStatus.bind(this);
+	this.onClickCheckPermission = this.onClickCheckPermission.bind(this);
   }
   componentWillMount(){
    
@@ -592,7 +593,8 @@ getPropertyList() {
           document.getElementById("execute").setAttribute('class',normalclassName)
       }
       else if(e.target.id==="create")
-      {
+      { 
+			this.onClickCheckPermission();
           document.getElementById(e.target.id).setAttribute('class',activeclassName)
           document.getElementById("saved").setAttribute('class',normalclassName)
           document.getElementById("request").setAttribute('class',normalclassName)
@@ -683,7 +685,37 @@ getPropertyList() {
             $("#receivedTab").removeClass("active")
            
         }
-    }	
+    }
+onClickCheckPermission(){
+	$("#loaderDiv").show();
+	fetch(`${API_URL}assetsapi/checkPermissions/${JSON.parse(this.state.userData).assets_id}/create_agreement`, {
+		  method: "GET"
+		})
+		  .then(response => {
+			return response.json();
+		  })
+		  .then((data) => {
+			//debugger;
+			//console.log('dataaaa:  ', data);
+			if(data.success===1){
+			  // var userid = data.user.assets_id
+			  // localStorage.setItem('userid',userid)
+						$("#loaderDiv").hide();
+						$("#actionType").val("No");
+						   $("#hiddenURL").val("broker-agreement");
+						   $(".confirm-body").html(data.msg);
+						   $("#BlockUIConfirm").show();
+						   
+				}else{
+					$("#loaderDiv").hide();
+				}
+		  }
+		).catch((error) => {
+			console.log('error: ', error);
+		  });
+	  
+    
+  }	
   render(){
       return(
     <div>

@@ -238,33 +238,67 @@ class AddProperty extends React.Component {
     opts.owner_details = this.state.shareholders
     opts.img_path = this.state.images;
 	$("#loaderDiv").show();
-    // console.log("imgpathhh" + JSON.stringify(this.state.images))
-    fetch(`${API_URL}assetsapi/add_property/`, {
-      method: 'post',
-      body: JSON.stringify(opts)
-    }, { 'Content-type': 'multipart/form-data' }).then((response) => {
-      return response.json();
-    }).then((data) => {
-      //console.log("responseeeee" + JSON.stringify(data));
-      if (data) {
-        // swal("Assets Watch", data.msg);
-        // window.location.href = '/my-property'
+  fetch(`${API_URL}assetsapi/checkPermissions/${JSON.parse(this.state.userData).assets_id}/upload_image_per_property`, {
+		  method: "GET"
+		})
+		  .then(response => {
+			return response.json();
+		  })
+		  .then((data) => {
+			//debugger;
+			// console.log('opts.img_path.length:  ', opts.img_path.length);
+			if(data.success===0){
+			  // var userid = data.user.assets_id
+			  // localStorage.setItem('userid',userid)
+						$("#loaderDiv").hide();
+						
+						   if(opts.img_path.length>data.limit)
+						   {
+							   $("#actionType").val("No");
+							   var msg = "You can upload maximum "+data.limit+ " images.";
+							   $("#hiddenURL").val("");
+							   $(".confirm-body").html(msg);
+							   $("#BlockUIConfirm").show();
+						   }else{
+							    $("#loaderDiv").show();
+							// console.log("imgpathhh" + JSON.stringify(this.state.images))
+							fetch(`${API_URL}assetsapi/add_property/`, {
+							  method: 'post',
+							  body: JSON.stringify(opts)
+							}, { 'Content-type': 'multipart/form-data' }).then((response) => {
+							  return response.json();
+							}).then((data) => {
+							  //console.log("responseeeee" + JSON.stringify(data));
+							  if (data) {
+								// swal("Assets Watch", data.msg);
+								// window.location.href = '/my-property'
+											$("#loaderDiv").hide();
+											   
+											   $("#actionType").val("Yes");
+											   // $("#hiddenURL").val("my-property");
+											   $(".confirm-body").html(data.msg);
+											   $("#BlockUIConfirm").show();
+											   this.props.history.push('my-property');
+											   
+							  }
+							}).catch((error) => {
+							  console.log('error: ', error);
+							}); 
+						   }
+				}else{
 					$("#loaderDiv").hide();
-					   
-					   $("#actionType").val("Yes");
-					   // $("#hiddenURL").val("my-property");
-					   $(".confirm-body").html(data.msg);
-					   $("#BlockUIConfirm").show();
-					   this.props.push('my-property');
-					   
-      }
-    }).catch((error) => {
-      console.log('error: ', error);
-    });
+				}
+		  }
+		).catch((error) => {
+			console.log('error: ', error);
+		  });
+	  
+	
   }
 
   onDrop(acceptedFiles) {
-    acceptedFiles.forEach(file => {
+	 
+     acceptedFiles.forEach(file => {
       var reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
@@ -273,12 +307,13 @@ class AddProperty extends React.Component {
         this.state.images.push(fileAsBinaryString)
         this.setState({ files: [file, ...this.state.files], images: this.state.images }, () => {
           // console.log("helllllllllllllllo " + JSON.stringify(this.state.images))
+		   // console.log(acceptedFiles.length);
         })
       };
       reader.onerror = function (error) {
         console.log('Error: ', error);
       };
-    })
+    }) 
   }
   removeImage(preview) {
     let { images } = this.state;

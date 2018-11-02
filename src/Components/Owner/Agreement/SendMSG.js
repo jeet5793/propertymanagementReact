@@ -86,7 +86,7 @@ userlist(assets_type){
       if (!property_id || !sender_id || !receive_user_id || !description) {
         return;
       }
-      let data = {
+      let dataToSend = {
           sender_id: profile.assets_id,
           receiver_id: receive_user_id, // agent_id
           agreement_id: this.props.agreement.agreement_id,
@@ -97,34 +97,60 @@ userlist(assets_type){
 // console.log("hello"+data);
 		document.getElementById("FormCancel").click();
 			$("#loaderDiv").show();
-        fetch(`${API_URL}assetsapi/send_agreement`, {
-            method: 'POST',
-            body: JSON.stringify(data)
-        })
-            .then(res => res.json())
-            .then(
-                (data) => {
-                    //console.log("data 2: "+JSON.stringify(result.profile))
-                    if (data) {
-						$("#loaderDiv").hide();
-					   
-					   $("#actionType").val("Yes");
-					   $("#hiddenURL").val("agreement");
-					   $(".confirm-body").html(data.msg);
-					   $("#BlockUIConfirm").show();
-                        // swal("Assets Watch", data.msg);
-						
-                        // console.log(this.state.propertyByUser);
-                        // window.$('.close').click();
-						// window.location.reload();
-                    }
-                    //console.log("set user data"+JSON.stringify(this.state.profileData))
-                },
-                (error) => {
-                  alert('Error sending data')
-                    console.log('error')
-                }
-            );
+			  fetch(`${API_URL}assetsapi/checkPermissions/${JSON.parse(this.state.userData).assets_id}/send_agreement_for_signature`, {
+			  method: "GET"
+			})
+			  .then(response => {
+				return response.json();
+			  })
+			  .then((data) => {
+				//debugger;
+				//console.log('dataaaa:  ', data);
+				if(data.success===1){
+				  // var userid = data.user.assets_id
+				  // localStorage.setItem('userid',userid)
+							$("#loaderDiv").hide();
+							$("#actionType").val("No");
+							   $("#hiddenURL").val("agreement");
+							   $(".confirm-body").html(data.msg);
+							   $("#BlockUIConfirm").show();
+							   
+					}else if(data.success===0){
+
+								 fetch(`${API_URL}assetsapi/send_agreement`, {
+									method: 'POST',
+									body: JSON.stringify(dataToSend)
+								})
+									.then(res => res.json())
+									.then(
+										(data) => {
+											//console.log("data 2: "+JSON.stringify(result.profile))
+											if (data) {
+												$("#loaderDiv").hide();
+											   
+											   $("#actionType").val("Yes");
+											   $("#hiddenURL").val("agreement");
+											   $(".confirm-body").html(data.msg);
+											   $("#BlockUIConfirm").show();
+												// swal("Assets Watch", data.msg);
+												
+												// console.log(this.state.propertyByUser);
+												// window.$('.close').click();
+												// window.location.reload();
+											}
+											//console.log("set user data"+JSON.stringify(this.state.profileData))
+										},
+										(error) => {
+										  alert('Error sending data')
+											console.log('error')
+										}
+									);
+								} 
+							  }
+							).catch((error) => {
+								console.log('error: ', error);
+							  });
+        
 
     }
 	sendForwardedAgreement() {

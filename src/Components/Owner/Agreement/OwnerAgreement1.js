@@ -11,6 +11,8 @@ import SendMsg from './SendMSG'
 //import './style.css'
 //import './icons.css'
 import swal from 'sweetalert';
+import { withRouter } from "react-router";
+
 
 const Saved=(props)=>{
   return(                                            
@@ -30,7 +32,7 @@ const Saved=(props)=>{
             <tr>
               <td>{element.agreement_title}</td>
               <td>{element.created_date}</td>
-              <td><a title="Edit"  onClick={() => props.editAgreement(element)} href="#" className="table-action-btn view-rqu"><i className="mdi mdi-border-color"></i></a><a title="view" href="#" onClick={() => props.pdfViewAgreement(element.agreement_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Delete" href="#" onClick={() => props.deleteAgreement(element.agreement_id)} className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a><a title="Send"  href="#" className="table-action-btn view-rqu" data-toggle="modal" data-target="#send-msg"><i className="mdi mdi-redo-variant" onClick={() => props.selectedAgreement(element)}></i></a></td>
+              <td><a title="Edit"  onClick={() => props.editAgreement(element)} href="#" className="table-action-btn view-rqu"><i className="mdi mdi-border-color"></i></a><a title="view" href="#" onClick={() => props.pdfViewAgreement(element.agreement_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Delete" href="#" onClick={() => props.deleteAgreement(element.agreement_id)} className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a><a title="Send"  href="#" className="table-action-btn view-rqu"   data-toggle="modal" data-target="#send-msg"><i className="mdi mdi-redo-variant" onClick={() => props.selectedAgreement(element)}></i></a></td>
             </tr>
           )):<div>No data </div>}        
         </tbody>
@@ -188,6 +190,7 @@ export default class container extends React.Component{
     this.previewAgreement=this.previewAgreement.bind(this);
     this.submitAgreement=this.submitAgreement.bind(this);
 	this.onClickChangeStatus =this.onClickChangeStatus.bind(this);
+	this.onClickCheckPermission = this.onClickCheckPermission.bind(this);
   }
   componentWillMount(){
    
@@ -274,6 +277,8 @@ export default class container extends React.Component{
 		  window.open(`${API_URL}assetsapi/deal_agreement_pdf_view/`+deal_id+`/${user.session_id}`, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
 	 }
 	 deleteAgreement(id){
+		 // console.log('props'+JSON.stringify(this.props));
+		 var propsroute = this.props;
         var session_id=JSON.parse(this.state.userData).session_id;
 		
 		 $(".confirm-body").html("Do you want to delete agreement..?");
@@ -296,17 +301,27 @@ export default class container extends React.Component{
 											   $("#hiddenURL").val("agreement");
 											   $(".confirm-body").html(data.msg);
 											   $("#BlockUIConfirm").show();
+											   $("#DelBlockUIConfirm").hide();
+											   // this.props.push('/agreement')
+											   // Router.refresh()
+											    propsroute.history.push('/agreement')
 										}else{
-												$("#loaderDiv").hide();
-												$("#actionType").val("Yes");
-											   $("#hiddenURL").val("agreement");
-											   $(".confirm-body").html(data.msg);
-											   $("#BlockUIConfirm").show();
+												// $("#loaderDiv").hide();
+												// $("#actionType").val("Yes");
+											   // $("#hiddenURL").val("agreement");
+											   // $(".confirm-body").html(data.msg);
+											   // $("#BlockUIConfirm").show();
+											   
+											   propsroute.history.push('/agreement')
 										}
 									})
 								
 						}else if(action==="Cancel"){
 							$("#DelBlockUIConfirm").hide();
+							// console.log('props'+JSON.stringify(this.props));
+							// propsroute.history.push('/agreement')
+							// propsroute.history.replace('/agreement')
+							 
 						}
 		})
     }
@@ -594,7 +609,8 @@ getPropertyList() {
           document.getElementById("execute").setAttribute('class',normalclassName)
       }
       else if(e.target.id==="create")
-      {
+      { 
+			this.onClickCheckPermission('create_agreement');
           document.getElementById(e.target.id).setAttribute('class',activeclassName)
           document.getElementById("saved").setAttribute('class',normalclassName)
           document.getElementById("request").setAttribute('class',normalclassName)
@@ -685,7 +701,38 @@ getPropertyList() {
             $("#receivedTab").removeClass("active")
            
         }
-    }	
+    }
+onClickCheckPermission(feature){
+	$("#loaderDiv").show();
+  fetch(`${API_URL}assetsapi/checkPermissions/${JSON.parse(this.state.userData).assets_id}/`+feature, {
+		  method: "GET"
+		})
+		  .then(response => {
+			return response.json();
+		  })
+		  .then((data) => {
+			//debugger;
+			//console.log('dataaaa:  ', data);
+			if(data.success===1){
+			  // var userid = data.user.assets_id
+			  // localStorage.setItem('userid',userid)
+						$("#loaderDiv").hide();
+						$("#actionType").val("No");
+						   $("#hiddenURL").val("agreement");
+						   $(".confirm-body").html(data.msg);
+						   $("#BlockUIConfirm").show();
+						   
+				}else{
+					$("#loaderDiv").hide();
+				}
+		  }
+		).catch((error) => {
+			console.log('error: ', error);
+		  });
+	  
+    
+  }
+	
   render(){
       return(
     <div>
@@ -718,8 +765,8 @@ getPropertyList() {
                       </div>
                       <div className="col-md-10">
                         <div className="tab-content">
-						<Saved editAgreement={this.editAgreement} selectedAgreement={this.selectedAgreement} agreement={this.state.agreement} pdfViewAgreement={this.pdfViewAgreement} deleteAgreement={this.deleteAgreement}/>
-						 <VCreate userData={this.state.userData} editAgreement={this.state.editAgreement} />
+						<Saved editAgreement={this.editAgreement} selectedAgreement={this.selectedAgreement} agreement={this.state.agreement} pdfViewAgreement={this.pdfViewAgreement} deleteAgreement={this.deleteAgreement} />
+						 <VCreate userData={this.state.userData} editAgreement={this.state.editAgreement}/>
                          {<VRequested previewAgreement={this.previewAgreement} ragreement={this.state.requestedAgreement || []} sendedAgreement={this.state.sendedAgreement || []} dealPdfView={this.dealPdfView} changeTabs = {this.changeTabs}/>}
                           <VExecute ragreement={this.state.executedAgreement} selectedExecutedAgreement={this.selectedExecutedAgreement} onClickDownload={this.onClickDownload} dealPdfView={this.dealPdfView}/>
 						  <div className="tab-pane" id="executePreview">

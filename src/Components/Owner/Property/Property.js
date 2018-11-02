@@ -29,6 +29,7 @@ class Property extends React.Component{
         this.getPropertiesByType=this.getPropertiesByType.bind(this)
         this.deleteProperty=this.deleteProperty.bind(this);
 		this.viewProperty = this.viewProperty.bind(this);
+		this.checkPermissions = this.checkPermissions.bind(this);
     }
     componentDidMount(){
         if(this.state.flag)
@@ -118,7 +119,8 @@ class Property extends React.Component{
 											   // $("#hiddenURL").val("my-property");
 											   $(".confirm-body").html(data.msg);
 											   $("#BlockUIConfirm").show();
-												this.props.push('/my-property')
+											   $("#DelBlockUIConfirm").hide();
+												
 										}else{
 												$("#loaderDiv").hide();
 												$("#actionType").val("Yes");
@@ -201,6 +203,36 @@ class Property extends React.Component{
 	addDefaultSrc(ev){
 	  ev.target.src = img_not_available;
 	}
+	checkPermissions(){
+	$("#loaderDiv").show();
+		  fetch(`${API_URL}assetsapi/checkPermissions/${JSON.parse(this.state.userData).assets_id}/manage_properties_upto`, {
+				  method: "GET"
+				})
+				  .then(response => {
+					return response.json();
+				  })
+				  .then((data) => {
+					//debugger;
+					//console.log('dataaaa:  ', data);
+					if(data.success===1){
+					  // var userid = data.user.assets_id
+					  // localStorage.setItem('userid',userid)
+								$("#loaderDiv").hide();
+								$("#actionType").val("No");
+								   $("#hiddenURL").val("my-property");
+								   $(".confirm-body").html(data.msg);
+								   $("#BlockUIConfirm").show();
+								   
+						}else if(data.success===0){
+							$("#loaderDiv").hide();
+							this.props.history.push('/add-property')
+						}
+				  }
+				).catch((error) => {
+					console.log('error: ', error);
+				  });
+	 
+	}
     render(){
         const imgSer=this.imgServer
         // console.log("propertyloading..."+JSON.stringify(this.state.propertiesLoading))
@@ -218,7 +250,7 @@ class Property extends React.Component{
                 <div className="page-title-box">
                 <div className="btn-group pull-right">
                     <ol className="breadcrumb hide-phone p-0 m-0">
-                    <li><Link to={{pathname:'/add-property'}} className="btn btn-custom waves-light waves-effect w-md"><i className="fi fi-circle-plus"></i>&nbsp;&nbsp;Add Property</Link></li>
+                    <li><a onClick = {this.checkPermissions} className="btn btn-custom waves-light waves-effect w-md"><i className="fi fi-circle-plus"></i>&nbsp;&nbsp;Add Property</a></li>
                     </ol>
                 </div>
                 <h4 className="page-title">My Properties</h4>
