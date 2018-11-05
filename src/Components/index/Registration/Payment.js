@@ -134,6 +134,7 @@ onChangeACH(e){
   paymentPage(paymentType) {
 var user_detail = this.state.userDetails;
 	if(paymentType === 'CC'){
+		var planPrice= Number(this.state.userDetails.planPrice)+Number((this.state.userDetails.planPrice*2.99)/100)
 		var payment_Object={
 			"userid":user_detail.user_id,
 			"tokenizedaccountnumber":this.state.tokenizedaccountnumber,
@@ -142,7 +143,7 @@ var user_detail = this.state.userDetails;
 			"cvv": this.state.cvv,
 			"routingnumber": null,
 			"surchargeamount": null,
-			"transactionamount":this.state.userDetails.planPrice,
+			"transactionamount":planPrice,
 			"currency": "USD",
 			"transactionreference": null,
 			"payeeid": null,
@@ -275,12 +276,13 @@ var user_detail = this.state.userDetails;
 		}
 		 
 	}else if(paymentType === 'ACH'){
+		var planPrice= Number(this.state.userDetails.planPrice)+Number((this.state.userDetails.planPrice*1.00)/100);
 		var payment_Object={
 			"userid":user_detail.user_id,
 			"tokenizedaccountnumber": this.state.achFields.tokenizedaccountnumber,
 			  "paymentmode": "check",
 			  "routingnumber": this.state.achFields.routingnumber,
-			  "transactionamount": user_detail.planPrice,
+			  "transactionamount": planPrice,
 			  "surchargeamount": null,
 			  "currency": null,
 			  "payeefirstname": "",
@@ -470,11 +472,28 @@ var user_detail = this.state.userDetails;
 																						<p>Register</p>
 																					</div>
 																					<div className="col-md-5 text-right">
-																					<h5>Total Amount</h5>
+																					<h5>Amount</h5>
 																						<h5>$ {user.planPrice}</h5>
 																					</div>
 																				</div>
+																			<div className="row">
+																			<div className="col-md-7">
+																				<p>CC Charges(2.99%)</p>
 																			</div>
+																			<div className="col-md-5 text-right">
+																				<h5>$ {(user.planPrice*2.99)/100}</h5>
+																			</div>
+																			</div>
+																			<hr style={{backgroundColor:"#fff"}}/>
+																			<div className="row">
+																				<div className="col-md-7">
+																					<p>Total Amount</p>
+																				</div>
+																				<div className="col-md-5 text-right">
+																					<h5>$ {Number(user.planPrice)+Number((user.planPrice*2.99)/100) }</h5>
+																				</div>
+																			</div>
+																		</div>
 																			<div className="bref-detail">
 																				<div className="row">
 																					<div className="col-md-7">
@@ -559,11 +578,28 @@ var user_detail = this.state.userDetails;
 																						<p>Register</p>
 																					</div>
 																					<div className="col-md-5 text-right">
-																					<h5>Total Amount</h5>
+																					<h5> Amount</h5>
 																						<h5>$ {user.planPrice}</h5>
 																					</div>
 																				</div>
+																			<div className="row">
+																				<div className="col-md-7">
+																					<p>ACH Charges(1.00%)</p>
+																				</div>
+																				<div className="col-md-5 text-right">
+																					<h5>$ {(user.planPrice*1.00)/100}</h5>
+																				</div>
 																			</div>
+																			<hr style={{backgroundColor:"#fff"}}/>
+																			<div className="row">
+																				<div className="col-md-7">
+																					<p>Total Amount</p>
+																				</div>
+																				<div className="col-md-5 text-right">
+																					<h5>$ {Number(user.planPrice)+Number((user.planPrice*1.00)/100) }</h5>
+																				</div>
+																			</div>
+																		</div>
 																			<div className="bref-detail">
 																				<div className="row">
 																					<div className="col-md-7">

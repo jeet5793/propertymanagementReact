@@ -851,7 +851,7 @@ class Headernav extends React.Component {
 							// window.location.reload();
 							$("#loaderDiv").hide();
 					   
-					   $("#actionType").val("Yes");
+					   $("#actionType").val("No");
 					   // $("#hiddenURL").val("/");
 					   $(".confirm-body").html(result.msg);
 					   $("#SBlockUIConfirm").show();

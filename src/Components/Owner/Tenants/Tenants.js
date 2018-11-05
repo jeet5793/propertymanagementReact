@@ -258,24 +258,55 @@ class Tenants extends React.Component{
   }
   onClickProfile(id)
 	 {
-		
-		 fetch(`${API_URL}assetsapi/profile/`+id+`/${JSON.parse(this.state.userData).session_id}`, {
-        method: 'get'
-      })
-    .then(res => res.json())
-		.then(
-		  (result) => {
-			//console.log("data 2: "+JSON.stringify(result.profile))
-			if (result.success) {
-			  this.setState({profileData:result.profile})
-			  
-			} 
-			// console.log("set user data"+JSON.stringify(this.state.profileData))
-		  },
-			(error) => {
-			  console.log('error')
-			}
-		)
+		$("#loaderDiv").show();
+			  fetch(`${API_URL}assetsapi/checkPermissions/${JSON.parse(this.state.userData).assets_id}/collect_payments`, {
+					  method: "GET"
+					})
+					  .then(response => {
+						return response.json();
+					  })
+					  .then((data) => {
+						//debugger;
+						//console.log('dataaaa:  ', data);
+						
+						if(data.success===1){
+							$("#loaderDiv").hide();
+						  fetch(`${API_URL}assetsapi/profile/`+id+`/${JSON.parse(this.state.userData).session_id}`, {
+								method: 'get'
+							  })
+							.then(res => res.json())
+								.then(
+								  (result) => {
+									//console.log("data 2: "+JSON.stringify(result.profile))
+									if (result.success) {
+									  this.setState({profileData:result.profile})
+									  
+									} 
+									//console.log("set user data"+JSON.stringify(this.state.profileData))
+								  },
+									(error) => {
+									  console.log('error')
+									}
+								)
+									
+									   
+							}else if(data.success===0){
+								$("#loaderDiv").hide();
+								 $("#background-verifi").hide();
+								 $(".modal-backdrop").hide();
+								 	$("#actionType").val("No");
+									   $("#hiddenURL").val("owner-agent");
+									   $(".confirm-body").html(data.msg);
+									   $("#BlockUIConfirm").show();
+									 
+									   
+									 
+							}
+					  }
+					).catch((error) => {
+						console.log('error: ', error);
+					  });
+		 
 	
 	 }
   inviteDropdowns(){

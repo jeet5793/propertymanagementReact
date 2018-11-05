@@ -73,7 +73,7 @@ changeNameHandler(e)
     this.setState({cvv:e.target.value});
   }
   userInfo() {
-	  const path = this.props.history.location.state;
+	  let path = this.props.history.location.state;
     // var id=this.props.location.search.replace('?Id=','');
     fetch(`${API_URL}assetsapi/profile/${path.userId}`)
           .then(res => res.json())
@@ -95,7 +95,7 @@ changeNameHandler(e)
   }
   userDetails() {
 	  
-	  const path = this.props.history.location.state;
+	  let path = this.props.history.location.state;
 	  //const exactpath =path.substring(1);
     fetch(`${API_URL}assetsapi/payment/${path.userId}/${path.PlanId}/${path.Pay}`)
           .then(res => res.json())
@@ -137,9 +137,11 @@ onChangeACH(e){
 	  // console.log(paymentType)
 	  // alert(paymentType);
 	  var user_detail = this.state.userDetails;
+	  var details = this.props.history.location.state;
   // event.preventDefault();
   	// console.log(this.state);
 	if(paymentType === 'CC'){
+		let amountToSend = Number(details.Amount)+Number((details.Amount*2.99)/100);
 		var payment_Object={
 			"userid":user_detail.user_id,
 			"tokenizedaccountnumber":this.state.tokenizedaccountnumber,
@@ -148,7 +150,7 @@ onChangeACH(e){
 			"cvv": this.state.cvv,
 			"routingnumber": null,
 			"surchargeamount": null,
-			"transactionamount":user_detail.planPrice,
+			"transactionamount":amountToSend,
 			"currency": "USD",
 			"transactionreference": null,
 			"payeeid": null,
@@ -156,8 +158,8 @@ onChangeACH(e){
 			"profile": null,
 			"profileid": null,
 			"orderid":user_detail.orderid,
-			"plan_id":user_detail.plan_id,
-			"plan_type":user_detail.plan_month_year,
+			"plan_id":details.PlanId,
+			"plan_type":details.Pay,
 			"type": paymentType,
 			"name":this.state.name
 			
@@ -213,12 +215,13 @@ onChangeACH(e){
 		}
 		 
 	}else if(paymentType === 'ACH'){
+		let amountToSend = Number(details.Amount)+Number((details.Amount*1.00)/100);
 		var payment_Object={
 			"userid":user_detail.user_id,
 			"tokenizedaccountnumber": this.state.achFields.tokenizedaccountnumber,
 			  "paymentmode": "check",
 			  "routingnumber": this.state.achFields.routingnumber,
-			  "transactionamount": user_detail.planPrice,
+			  "transactionamount": amountToSend,
 			  "surchargeamount": null,
 			  "currency": null,
 			  "payeefirstname": "",
@@ -239,8 +242,8 @@ onChangeACH(e){
 			  "profile": null,
 			  "profileid": null,
 			  "orderid":user_detail.orderid,
-				"plan_id":user_detail.plan_id,
-				"plan_type":user_detail.plan_month_year,
+				"plan_id":details.PlanId,
+			"plan_type":details.Pay,
 			  "type": paymentType,
 			  "name":this.state.achFields.name
 		}
@@ -311,6 +314,7 @@ onChangeACH(e){
     }
 	let tempDate = new Date();
 	  var date = tempDate.toLocaleDateString();
+	   var details = this.props.history.location.state;
 		return(
       <div>
 	  <Header name="owner-upgrade"  first_name={window.localStorage.getItem('firstName')} 
@@ -347,8 +351,25 @@ onChangeACH(e){
 														<p>Upgrade Plan</p>
 													</div>
 													<div className="col-md-5 text-right">
-													<h5>Total Amount</h5>
-														<h5>$ {user.planPrice}</h5>
+													<h5>Amount</h5>
+														<h5>$ {details.Amount}</h5>
+													</div>
+												</div>
+												<div className="row">
+													<div className="col-md-7">
+														<p>CC Charges</p>
+													</div>
+													<div className="col-md-5 text-right">
+														<h5>$ {(details.Amount*2.99)/100}</h5>
+													</div>
+												</div>
+												<hr style={{backgroundColor:"#fff"}}/>
+												<div className="row">
+													<div className="col-md-7">
+														<h5>Total Amount</h5>
+													</div>
+													<div className="col-md-5 text-right">
+														<h5>$ {Number(details.Amount)+Number((details.Amount*2.99)/100)}</h5>
 													</div>
 												</div>
 											</div>
@@ -439,8 +460,25 @@ onChangeACH(e){
 														<p>Upgrade Plan</p>
 													</div>
 													<div className="col-md-5 text-right">
-													<h5>Total Amount</h5>
-														<h5>$ {user.planPrice}</h5>
+													<h5>Amount</h5>
+														<h5>$ {details.Amount}</h5>
+													</div>
+												</div>
+												<div className="row">
+													<div className="col-md-7">
+														<p>ACH Charges</p>
+													</div>
+													<div className="col-md-5 text-right">
+														<h5>$ {(details.Amount*1.00)/100}</h5>
+													</div>
+												</div>
+												<hr style={{backgroundColor:"#fff"}}/>
+												<div className="row">
+													<div className="col-md-7">
+														<p>Total Amount</p>
+													</div>
+													<div className="col-md-5 text-right">
+														<h5>$ {Number(details.Amount)+Number((details.Amount*1.00)/100)}</h5>
 													</div>
 												</div>
 											</div>

@@ -178,8 +178,9 @@ changeNameHandler(e)
 			var opts = JSON.parse(retrievedData);
 			// console.log(JSON.stringify(opts));
 			var Amount = (opts.packageid==14)?8.16:(opts.packageid==12)?18.14:(opts.packageid==13)?26.78:'';
-			payment_Object.amount = Amount;
-			payment_Object.transactionamount = Amount;
+			var TotAmt = Number(Amount)+Number((Amount*2.99)/100);
+			payment_Object.amount = TotAmt;
+			payment_Object.transactionamount = TotAmt;
 			 var dataToPost = Object.assign(payment_Object,opts);
 			  // console.log(JSON.stringify(dataToPost));
 			  // alert(dataToPost);
@@ -259,8 +260,10 @@ changeNameHandler(e)
 			var opts = JSON.parse(retrievedData);
 			// console.log(JSON.stringify(opts));
 			var Amount = (opts.packageid==14)?8.16:(opts.packageid==12)?18.14:(opts.packageid==13)?26.78:'';
-			payment_Object.amount = Amount;
-			payment_Object.transactionamount = Amount;
+			
+			var TotAmt = Number(Amount)+Number((Amount*1.00)/100);
+			payment_Object.amount = TotAmt;
+			payment_Object.transactionamount = TotAmt;
 			
 			 var dataToPost = Object.assign(payment_Object,opts);
 			  // console.log(JSON.stringify(dataToPost));
@@ -355,8 +358,25 @@ changeNameHandler(e)
 														<p>BGV Payment</p>
 													</div>
 													<div className="col-md-5 text-right">
-													<h5>Total Amount</h5>
+													<h5>Amount</h5>
 														<h5>${Amount}</h5>
+													</div>
+												</div>
+												<div className="row">
+													<div className="col-md-7">
+														<p>CC Charges(2.99%)</p>
+													</div>
+													<div className="col-md-5 text-right">
+														<h5>$ {(Amount*2.99)/100}</h5>
+													</div>
+												</div>
+												<hr style={{backgroundColor:"#fff"}}/>
+												<div className="row">
+													<div className="col-md-7">
+														<p>Total Amount</p>
+													</div>
+													<div className="col-md-5 text-right">
+														<h5>$ {Number(Amount)+Number((Amount*2.99)/100)}</h5>
 													</div>
 												</div>
 											</div>
@@ -447,8 +467,25 @@ changeNameHandler(e)
 														<p>BGV Payment</p>
 													</div>
 													<div className="col-md-5 text-right">
-													<h5>Total Amount</h5>
+													<h5>Amount</h5>
 														<h5> ${Amount}</h5>
+													</div>
+												</div>
+												<div className="row">
+													<div className="col-md-7">
+														<p>ACH Charges(1.00%)</p>
+													</div>
+													<div className="col-md-5 text-right">
+														<h5>$ {(Amount*1.00)/100}</h5>
+													</div>
+												</div>
+												<hr style={{backgroundColor:"#fff"}}/>
+												<div className="row">
+													<div className="col-md-7">
+														<p>Total Amount</p>
+													</div>
+													<div className="col-md-5 text-right">
+														<h5>$ {Number(Amount)+Number((Amount*1.00)/100)}</h5>
 													</div>
 												</div>
 											</div>

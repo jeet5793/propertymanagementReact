@@ -198,6 +198,7 @@ changeNameHandler(e)
   // event.preventDefault();
   	// console.log(this.state); */
 	if(paymentType === 'CC'){
+		var TAmt = (Number(transAmount)+Number((transAmount*2.99)/100));
 		var payment_Object={
 			"tokenizedaccountnumber":this.state.tokenizedaccountnumber,
 			"paymentmode": "card",
@@ -205,7 +206,7 @@ changeNameHandler(e)
 			"cvv": this.state.cvv,
 			"routingnumber": null,
 			"surchargeamount": null,
-			"transactionamount":transAmount,
+			"transactionamount":TAmt,
 			"currency": "USD",
 			"transactionreference": null,
 			"payeeid": dealData.userId,
@@ -271,12 +272,13 @@ changeNameHandler(e)
 		}
 		 
 	}else if(paymentType === 'ACH'){
+		var TAmt = (Number(transAmount)+Number((transAmount*1.00)/100));
 		var payment_Object={
 			
 			"tokenizedaccountnumber": this.state.achFields.tokenizedaccountnumber,
 			  "paymentmode": "check",
 			  "routingnumber": this.state.achFields.routingnumber,
-			  "transactionamount": transAmount,
+			  "transactionamount": TAmt,
 			  "surchargeamount": null,
 			  "currency": null,
 			  "payeefirstname": "",
@@ -407,8 +409,25 @@ changeNameHandler(e)
 														 <p className="p-white">Property Payment</p>
 													</div>
 													<div className="col-md-5 text-right">
-													<h5>Total Amount</h5>
+													<h5>Amount</h5>
 														 <h5>$ {dealData.paidFor==='Rent'?dealData.rent:dealData.total_amount}</h5>
+													</div>
+												</div>
+											<div className="row">
+													<div className="col-md-7">
+														<p>CC Charges(2.99%)</p>
+													</div>
+													<div className="col-md-5 text-right">
+														<h5>$ {dealData.paidFor==='Rent'?((dealData.rent*2.99)/100):((dealData.total_amount*2.99)/100)}</h5>
+													</div>
+												</div>
+												<hr style={{backgroundColor:"#fff"}}/>
+												<div className="row">
+													<div className="col-md-7">
+														<p>Total Amount</p>
+													</div>
+													<div className="col-md-5 text-right">
+														<h5>$ {dealData.paidFor==='Rent'?(Number(dealData.rent)+Number((dealData.rent*2.99)/100)):(Number(dealData.total_amount)+Number((dealData.total_amount*2.99)/100)) }</h5>
 													</div>
 												</div>
 											</div>
@@ -501,6 +520,23 @@ changeNameHandler(e)
 													<div className="col-md-5 text-right">
 													<h5>Total Amount</h5>
 														<h5>$ {dealData.paidFor==='Rent'?dealData.rent:dealData.total_amount}</h5>
+													</div>
+												</div>
+											<div className="row">
+													<div className="col-md-7">
+														<p>ACH Charges(1.00%)</p>
+													</div>
+													<div className="col-md-5 text-right">
+														<h5>$ {dealData.paidFor==='Rent'?((dealData.rent*1.00)/100):((dealData.total_amount*1.00)/100)}</h5>
+													</div>
+												</div>
+												<hr style={{backgroundColor:"#fff"}}/>
+												<div className="row">
+													<div className="col-md-7">
+														<p>Total Amount</p>
+													</div>
+													<div className="col-md-5 text-right">
+														<h5>$ {dealData.paidFor==='Rent'?(Number(dealData.rent)+Number((dealData.rent*1.00)/100)):(Number(dealData.total_amount)+Number((dealData.total_amount*1.00)/100)) }</h5>
 													</div>
 												</div>
 											</div>

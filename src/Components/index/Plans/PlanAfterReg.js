@@ -97,7 +97,7 @@ export default class Plans extends React.Component{
 														
                                                         <div className="submit-btn"> <a href="#">Free</a>
 														<div className="radio radio-custom">
-																	<input type="radio" name="plan_month_year" id="radioind" val="per_month"  value={'per_month'} 
+																	<input type="radio" name="plan_month_year" id="basic" val="per_month"  value={'per_month'} 
 																	onClick={() => {
                                                           let setPlanID = planData['Basic'].plan_details.plan_id
                                                           let getPlanId = setPlanID.toString();
@@ -119,7 +119,7 @@ export default class Plans extends React.Component{
 																	}
 																  
                                                         } />
-																	<label htmlFor="radioind"> Free </label>
+																	<label htmlFor="basic"> Free </label>
 																</div> </div>
                                                     </li>
                                                 </ul>
@@ -161,24 +161,24 @@ export default class Plans extends React.Component{
                                                         }} */}
 															<div className="col-md-6">
 																<div className="radio radio-custom">
-																	<input type="radio" name="plan_month_year" id="radioind" val="per_month"  value={'per_month'} 
+																	<input type="radio" name="plan_month_year" id="silver_month" val="per_month"  value={'per_month'} 
 																	onClick={() => {
 																			let setPlanID = planData['Silver'].plan_details.plan_id
 																			let getPlanId = setPlanID.toString()
 																			this.props.history.push('payment/'+userid+"/"+getPlanId+'/per_month')
 																		}} />
-																	<label htmlFor="radioind"> Per Month </label>
+																	<label htmlFor="silver_month"> Per Month </label>
 																</div>
 															</div>
 															<div className="col-md-6">
 																<div className="radio radio-custom">
-																	<input type="radio" name="plan_month_year" id="radioorg" val="per_annum"  value={'per_annum'} 
+																	<input type="radio" name="plan_month_year" id="silver_year" val="per_annum"  value={'per_annum'} 
 																	onClick={() => {
 																			let setPlanID = planData['Silver'].plan_details.plan_id
 																			let getPlanId = setPlanID.toString()
 																			this.props.history.push('payment/'+userid+"/"+getPlanId+'/per_annum')
 																		}}/>
-																	<label htmlFor="radioorg"> Per Annum </label>
+																	<label htmlFor="silver_year"> Per Annum </label>
 																</div>
 															</div>
 															
@@ -227,24 +227,24 @@ export default class Plans extends React.Component{
                                                         }}*/}
 														<div className="col-md-6">
 																<div className="radio radio-custom">
-																	<input type="radio" name="plan_month_year" id="radioind" val="per_month"  value={'per_month'} 
+																	<input type="radio" name="plan_month_year" id="gold_month" val="per_month"  value={'per_month'} 
 																	onClick={() => {
 																			let setPlanID = planData['Gold'].plan_details.plan_id
 																			let getPlanId = setPlanID.toString()
 																			this.props.history.push('payment/'+userid+"/"+getPlanId+'/per_month')
 																		}} />
-																	<label htmlFor="radioind"> Per Month </label>
+																	<label htmlFor="gold_month"> Per Month </label>
 																</div>
 															</div>
 															<div className="col-md-6">
 																<div className="radio radio-custom">
-																	<input type="radio" name="plan_month_year" id="radioorg" val="per_annum"  value={'per_annum'} 
+																	<input type="radio" name="plan_month_year" id="gold_year" val="per_annum"  value={'per_annum'} 
 																	onClick={() => {
 																			let setPlanID = planData['Gold'].plan_details.plan_id
 																			let getPlanId = setPlanID.toString()
 																			this.props.history.push('payment/'+userid+"/"+getPlanId+'/per_annum')
 																		}}/>
-																	<label htmlFor="radioorg"> Per Annum </label>
+																	<label htmlFor="gold_year"> Per Annum </label>
 																</div>
 															</div>
 															
@@ -291,24 +291,24 @@ export default class Plans extends React.Component{
                                                         }}*/}
 														<div className="col-md-6">
 																<div className="radio radio-custom">
-																	<input type="radio" name="plan_month_year" id="radioind" val="per_month"  value={'per_month'} 
+																	<input type="radio" name="plan_month_year" id="platinum_month" val="per_month"  value={'per_month'} 
 																	onClick={() => {
 																			let setPlanID = planData['Platinum'].plan_details.plan_id
 																			let getPlanId = setPlanID.toString()
 																			this.props.history.push('payment/'+userid+"/"+getPlanId+'/per_month')
 																		}} />
-																	<label htmlFor="radioind"> Per Month </label>
+																	<label htmlFor="platinum_month"> Per Month </label>
 																</div>
 															</div>
 															<div className="col-md-6">
 																<div className="radio radio-custom">
-																	<input type="radio" name="plan_month_year" id="radioorg" val="per_annum"  value={'per_annum'} 
+																	<input type="radio" name="plan_month_year" id="platinum_year" val="per_annum"  value={'per_annum'} 
 																	onClick={() => {
 																			let setPlanID = planData['Platinum'].plan_details.plan_id
 																			let getPlanId = setPlanID.toString()
 																			this.props.history.push('payment/'+userid+"/"+getPlanId+'/per_annum')
 																		}}/>
-																	<label htmlFor="radioorg"> Per Annum </label>
+																	<label htmlFor="platinum_year"> Per Annum </label>
 																</div>
 															</div>
 														</div>
