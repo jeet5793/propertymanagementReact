@@ -12,9 +12,10 @@ export default class Homeproperty extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-    		propertiesImg:[]
+    		propertiesImg:[],
+			showPopup: false
 		}
-		//this.getProperties=this.getProperties.bind(this)
+		this.onClickClose=this.onClickClose.bind(this)
 	}
 
 onClickImagePreview(id){
@@ -27,28 +28,9 @@ $("#loaderDiv").show();
         (result) => {
 		  $("#loaderDiv").hide();
           if (result.success==1) {
-			  // console.log("propertiesImg"+JSON.stringify(this.state.propertiesImg))
-			// $(".image-holder").html("");
-            
-			this.setState({propertiesImg:result.property_images});
-			// this.state.propertiesImg.map((item,index)=>(
-				// $(".image-holder").append("<img src='"+API_URL+item.img_path+"' className='slider-image' />"),
-				// $(".slider-holder").append("<span id='slider-image-"+`${index+1}`+"'/>"),
-				// $(".button-holder").append("<a href='#slider-image-"+`${index+1}`+"' className='slider-change'></a>")
-			 // ))
-			 $('#proImageConfirm').show();
-			 // $("#proImageConfirm").show();
-			//alert(result.property_images);
-			
-			// $('#ninja-slider').show();
-			// $('#lightbox').show();
-			
-			 
-			// $('#lightbox').show();
-            /* for(var i= 0; i<result.property_images.length; i++)
-			{
-				$(".presentation-mode").append("<div><img src='"+API_URL+result.property_images[i].img_path+"'/></div>")
-			} */
+			  
+			this.setState({propertiesImg:result.property_images,showPopup: !this.state.showPopup});
+			 // $('#proImageConfirmImg').show();
           } 
           
         }),
@@ -57,7 +39,9 @@ $("#loaderDiv").show();
       }
 }
 onClickClose() {
-		$("#proImageConfirm").hide();
+	    
+		// $("#proImageConfirm").hide();
+		this.setState({showPopup: false});
 	}
 	addDefaultSrc(ev){
 	  ev.target.src = img_not_available;
@@ -65,32 +49,25 @@ onClickClose() {
 	render(){
 		// console.log(JSON.stringify(this.state.propertiesImg))
 		return(
-           
-
-
-		   <div className="tz-property-content cbp-item  slider ">
+           <div className="tz-property-content cbp-item  slider ">
                 <div className="tz-property-thum cbp-caption">
-                    
-					
-					<div className="cbp-caption-defaultWrap">
+                    <div className="cbp-caption-defaultWrap">
 	                    <figure> 
 		                     <img onError={this.addDefaultSrc} src={this.props.src?this.props.src:img_not_available} alt="Assets Watch" width="900" height="328" />
 		                     <figcaption className="for-sale for-rent"> {this.props.Status} </figcaption>
 	                    </figure>
                     </div>
-							
-                    <div className="cbp-caption-activeWrap">
+					<div className="cbp-caption-activeWrap">
                     	<div className="cbp-l-caption-alignCenter">
                             
 							<div className="cbp-l-caption-body"> 
 	                            
 								<Link to={{'pathname':"property-detail",state:this.props}} className="cbp-l-caption-buttonLeft" rel="nofollow"><i className="icon-link"></i> </Link> 
-	                           <a href="#lightbox" data-toggle="modal" className="cbp-l-caption-buttonRight" onClick={this.onClickImagePreview.bind(this,this.props.id)} > <i className="icon-plus-circle" ></i> </a> 
+	                           <a  className="cbp-l-caption-buttonRight" onClick={this.onClickImagePreview.bind(this,this.props.id)} > <i className="icon-plus-circle" ></i> </a> 
                         	</div>
                     	</div>
                 	</div>
-					
-            	</div>
+				</div>
 					
 					<div className="tz-property-des">
 						<h5><a href="">{this.props.Title}</a></h5>
@@ -99,30 +76,28 @@ onClickClose() {
 					</div>
 					
 					
-					
-				<div id="proImageConfirm" className="BlockUIConfirm" style={{display:"none"}}>
-				
-					<div className="blockui-mask"></div>
-						<div className="RowDialogBody">
-							<div className="confirm-header row-dialog-hdr-success">
-								Property Image
-								<button type="button" className="close" onClick={this.onClickClose}>×</button>
+					<div>
+					{(this.state.showPopup) ?
+						<div id="proImageConfirm" className="BlockUIConfirm product-img-popup" >
+							<div className="blockui-mask"></div>
+								<div className="RowDialogBody">
+									<div className="confirm-header row-dialog-hdr-success">
+										Property Image
+									<button type="button" className="close" onClick={this.onClickClose}>×</button>
+								</div>
+								<div className="confirm-body" >
+									<Carousel autoPlay showArrows={true} showThumbs={false} >
+									{this.state.propertiesImg?this.state.propertiesImg.map((item,index)=>(
+										<div>
+											<img onError={this.addDefaultSrc} src={API_URL+item.img_path}/>
+										</div>
+									)):''}	
+									</Carousel>		
+								</div>
 							</div>
-							<div className="confirm-body">
-						
-								<Carousel autoPlay showArrows={true} showThumbs={false} >
-								{this.state.propertiesImg?this.state.propertiesImg.map((item,index)=>(
-									<div>
-										<img onError={this.addDefaultSrc} src={API_URL+item.img_path}/>
-									</div>
-								)):''}	
-								</Carousel>
-								
-						
-							</div>
-					
-						</div>
-					</div> 
+						</div>  
+					: ''}						
+					</div>
 					
 				</div>
 			);

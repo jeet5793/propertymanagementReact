@@ -223,7 +223,7 @@ unsubscribe()
 																<div className="radio radio-custom">
 																	<input type="radio" name="plan_month_year" id="silver_year" val="per_annum"  value={'per_annum'} 
 																	onClick={() => {
-																		alert('silver');
+																		// alert('silver');
 																			let setPlanID = planData['Silver'].plan_details.plan_id
 																			let getPlanId = setPlanID.toString();
 																			let amount = planData['Silver'].plan_details.per_annum;

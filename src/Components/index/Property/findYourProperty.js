@@ -22,7 +22,8 @@ export default class FindYourProperty extends React.Component{
   onChangeHandler(e){
       this.setState({[e.target.name]:e.target.value})
   }
-  searchPropertys(){
+  searchPropertys(e){
+	 
     var opts=this.state
     fetch(`${API_URL}assetsapi/property_search`, {
     method: 'post',    

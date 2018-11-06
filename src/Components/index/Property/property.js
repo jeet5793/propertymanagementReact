@@ -64,8 +64,124 @@ updateProps(props){
 }
   componentDidMount(){
     if (this.props.location && this.props.location.state){
-      this.setState(this.props.location.state.state);
-    }
+      // this.setState(this.props.location.state.state);
+	  this.setState(this.props.location.state.state,function(){
+        var $=window.$;
+        setTimeout(function(){       
+          var jQuery=window.$;       
+          var tz_realestate_ResizeImage=function(obj){
+              'use strict';
+              var widthStage;
+              var heightStage;
+              var widthImage;
+              var heightImage;
+              var resizeImage=function(widthImage,heightImage,widthStage,heightStage){
+              var escImageX=widthStage/widthImage;
+              var escImageY=heightStage/heightImage;
+              var escalaImage=(escImageX>escImageY)?escImageX:escImageY;
+              var widthV=widthImage*escalaImage;
+              var heightV=heightImage*escalaImage;
+              var posImageY=0;
+              var posImageX=0;
+              if(heightV>heightStage){
+                  posImageY=(heightStage-heightV)/2;
+              }
+              if(widthV>widthStage){
+                  posImageX=(widthStage-widthV)/2;
+              }
+              return{top:posImageY,left:posImageX,width:widthV,height:heightV};
+              };
+                  obj.each(function(i,el){
+                  heightStage=jQuery(this).height();
+                  widthStage=jQuery(this).width();
+                  var img_url=jQuery(this).find('img').attr('src');
+                  var image=new Image();
+                  image.src=img_url;
+                  widthImage=image.naturalWidth;
+                  heightImage=image.naturalHeight;
+                  var tzimg=new resizeImage(widthImage,heightImage,widthStage,heightStage);
+                  jQuery(this).find('img').css({top:tzimg.top,left:tzimg.left,width:tzimg.width,height:tzimg.height});
+                  });
+              } 
+            
+            $('#tzloadding').remove();
+          var gapHorizontal,gapVertical;
+          if(jQuery(window).width() > 993 ){
+            gapHorizontal = 0;
+            gapVertical = 26;
+          }else{
+            gapHorizontal = 0;
+            gapVertical = 20;
+          }
+            
+          try{
+            if( jQuery('#js-grid-meet-the-team').length){
+              if(jQuery('#js-grid-meet-the-team').cubeportfolio!=undefined)
+              jQuery('#js-grid-meet-the-team').cubeportfolio({
+                defaultFilter: '*',
+                filters: '#js-filters-meet-the-team',
+                layoutMode: 'grid',
+                animationType: 'rotateRoom',
+                gapHorizontal: gapHorizontal,
+                gapVertical: gapVertical,
+                gridAdjustment: 'responsive',
+                mediaQueries: [{
+                  width: 1500,
+                  cols: 5
+                }, {
+                  width: 993,
+                  cols: 3       }, {
+                  width: 768,
+                  cols: 3       }, {
+                  width: 460,
+                  cols: 2
+                }, {
+                  width: 0,
+                  cols: 1
+                }],
+                caption: 'fadeIn',
+                displayType: 'lazyLoading',
+                displayTypeSpeed: 100
+              });
+              tz_realestate_ResizeImage(jQuery('.tz-property-thum'));
+            }
+          }   
+          catch(error){
+            if( jQuery('#js-grid-meet-the-team').length){
+              if(jQuery('#js-grid-meet-the-team').cubeportfolio!=undefined)
+              jQuery('#js-grid-meet-the-team').cubeportfolio('destroy')
+              jQuery('#js-grid-meet-the-team').cubeportfolio({
+                defaultFilter: '*',
+                filters: '#js-filters-meet-the-team',
+                layoutMode: 'grid',
+                animationType: 'rotateRoom',
+                gapHorizontal: gapHorizontal,
+                gapVertical: gapVertical,
+                gridAdjustment: 'responsive',
+                mediaQueries: [{
+                  width: 1500,
+                  cols: 5
+                }, {
+                  width: 993,
+                  cols: 3       }, {
+                  width: 768,
+                  cols: 3       }, {
+                  width: 460,
+                  cols: 2
+                }, {
+                  width: 0,
+                  cols: 1
+                }],
+                caption: 'fadeIn',
+                displayType: 'lazyLoading',
+                displayTypeSpeed: 100
+              });
+              tz_realestate_ResizeImage(jQuery('.tz-property-thum'));
+            }
+          }
+           }, 500);
+        })
+    }else{
 	 $("#loaderDiv").show();
   fetch(`${API_URL}assetsapi/property/`)
   .then((response)=> {        
@@ -198,8 +314,10 @@ updateProps(props){
       })      
 	});
 
-  this.handleSript  
+  this.handleSript 
+	}  
 	this.TopAgentList();
+	
   }
   TopAgentList(){
 	  fetch(`${API_URL}assetsapi/top_rating_agents`)
@@ -329,7 +447,7 @@ updateProps(props){
         $('html, body').animate({scrollTop: 0}, 500); 
   }
 	render(){ 
-	// console.log('props'+JSON.stringify(this.props))
+	 //console.log('state'+JSON.stringify(this.state))
 		return(
 			<div className="mg-top-129">
       {/* <Header actChild="Properties" loggedIn={this.props.login} />       */}

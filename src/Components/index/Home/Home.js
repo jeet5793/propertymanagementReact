@@ -259,10 +259,10 @@ class Home extends React.Component{
                                     for (var i = 0; i < data.length; i++)
                                         for (var j = 0; j < data[i].owner_details.length; j++)
                                             owners.push(data[i].owner_details[j])
-                                    propState = {owners: owners, properties: data, isPropertySearchEmpty: false};
+                                    propState = {owners:owners,properties: data.property_search, isPropertySearchEmpty: false};
 								}
-								// console.log('propState'+JSON.stringify(propState));
-								  this.props.history.replace('/properties', {state: propState});
+								 //console.log('propState'+JSON.stringify(propState));
+								   this.props.history.push('/properties', {state: propState});
 							  }} />
 				              </div>				       
 				            </div>

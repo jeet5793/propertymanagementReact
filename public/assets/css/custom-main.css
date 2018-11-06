@@ -830,7 +830,14 @@ body ul#price-t-5:hover ul li, body ul.price-t-5:hover ul li {
 	text-align: center;
 	    color: #333;
 }
-
+.product-img-popup .RowDialogBody {
+	max-width:560px;
+	
+}
+.product-img-popup .confirm-body {
+	padding:0;
+	border:0;
+}
 .row-dialog-hdr-success {
   /*   border-top: 4px solid #5cb85c; */
     border-bottom: 1px solid transparent;
