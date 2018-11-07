@@ -114,6 +114,90 @@ export default class ServiceNavitems extends Component{
                 </ul>
                 );
             }
+			else if(this.props.name==="agentprovider-notifications")
+            {
+            return( 
+                <ul className="navigation-menu">            
+                
+                <li>
+                    <Link to={{pathname:'/agent-serviceprovider'}}>
+                        <i className="fi-air-play"></i>Profile
+                    </Link>
+                </li>
+                <li>
+                    <Link to={{pathname:'/agentprovider-services'}}>
+                        <i className="fi-paper"></i>Service
+                    </Link>
+                </li>
+                <li>
+                    <Link to={{pathname:'/agentprovider-users'}}>
+                        <i className="fi-box"></i>Users
+                    </Link>
+                </li>
+                <li>
+                    <Link to={{pathname:'/agentprovider-settings'}}>
+                        <i className="fi-cog "></i>Settings
+                    </Link>
+                </li>                                                
+                </ul>
+                );
+            }
+			else if(this.props.name==="agentprovider-plan")
+            {
+            return( 
+                <ul className="navigation-menu">            
+                
+                <li>
+                    <Link to={{pathname:'/agent-serviceprovider'}}>
+                        <i className="fi-air-play"></i>Profile
+                    </Link>
+                </li>
+                <li>
+                    <Link to={{pathname:'/agentprovider-services'}}>
+                        <i className="fi-paper"></i>Service
+                    </Link>
+                </li>
+                <li>
+                    <Link to={{pathname:'/agentprovider-users'}}>
+                        <i className="fi-box"></i>Users
+                    </Link>
+                </li>
+                <li>
+                    <Link to={{pathname:'/agentprovider-settings'}}>
+                        <i className="fi-cog "></i>Settings
+                    </Link>
+                </li>                                                
+                </ul>
+                );
+            }
+			else if(this.props.name==="agentprovider-upgrade")
+            {
+            return( 
+                <ul className="navigation-menu">            
+                
+                <li>
+                    <Link to={{pathname:'/agent-serviceprovider'}}>
+                        <i className="fi-air-play"></i>Profile
+                    </Link>
+                </li>
+                <li>
+                    <Link to={{pathname:'/agentprovider-services'}}>
+                        <i className="fi-paper"></i>Service
+                    </Link>
+                </li>
+                <li>
+                    <Link to={{pathname:'/agentprovider-users'}}>
+                        <i className="fi-box"></i>Users
+                    </Link>
+                </li>
+                <li>
+                    <Link to={{pathname:'/agentprovider-settings'}}>
+                        <i className="fi-cog "></i>Settings
+                    </Link>
+                </li>                                                
+                </ul>
+                );
+            }
         
         
     }

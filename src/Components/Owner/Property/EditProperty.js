@@ -256,12 +256,12 @@ class EditProperty extends React.Component {
   editProperty() {
     var opts = this.state.formData
     opts.owner_details = this.state.shareholders
-     opts.img_path = this.state.images;
+      opts.img_path = this.state.images;
     opts.session_id = JSON.parse(this.state.userData).session_id;
     opts.owner_id = JSON.parse(this.state.userData).assets_id;
     opts.property_id = JSON.parse(this.state.propertyInfo).id;
 
-    // console.log("imgpathhh" + JSON.stringify(opts))
+     console.log("imgpathhh" + JSON.stringify(opts))
     $("#loaderDiv").show();
 
     fetch(`${API_URL}assetsapi/edit_property/`, {
@@ -278,6 +278,9 @@ class EditProperty extends React.Component {
         $("#hiddenURL").val("my-property");
         $(".confirm-body").html(data.msg);
         $("#BlockUIConfirm").show();
+		if(data.sucess===1){
+			this.props.history.push('/my-property');
+		}
       }
     }).catch((error) => {
       console.log('error: ', error);
@@ -293,7 +296,7 @@ class EditProperty extends React.Component {
         const fileAsBinaryString = reader.result;
         this.state.images.push(fileAsBinaryString)
         this.setState({ files: [file, ...this.state.files], images: this.state.images }, () => {
-          // console.log("helllllllllllllllo " + JSON.stringify(this.state.images))
+           //console.log("helllllllllllllllo " + JSON.stringify(this.state.images))
         })
       };
       reader.onerror = function (error) {
@@ -302,12 +305,37 @@ class EditProperty extends React.Component {
     })
   }
   removeImage(preview) {
-    let { images } = this.state;
-    var index = images.indexOf(preview);
-    if (index > -1) {
-      images.splice(index, 1);
-    }
-    this.setState({ images })
+    
+	// console.log(JSON.stringify(preview));
+	$("#loaderDiv").show();
+	
+	var opts = {image:preview};
+	fetch(`${API_URL}assetsapi/delete_image`, {
+      method: 'post',
+	  body: JSON.stringify(opts)
+		}, 
+		{ 'Content-type': 'multipart/form-data' })
+		.then((response) => {
+		  return response.json();
+		}).then((data) => {
+		  // console.log("responseeeee" + JSON.stringify(data));
+		  if (data) {
+			$("#loaderDiv").hide();
+			let { images } = this.state;
+				var index = images.indexOf(preview);
+				if (index > -1) {
+				  images.splice(index, 1);
+				}
+				this.setState({ images });
+			$("#actionType").val("Yes");
+			$("#hiddenURL").val("my-property");
+			$(".confirm-body").html(data.msg);
+			$("#BlockUIConfirm").show();
+			
+		  }
+		}).catch((error) => {
+		  console.log('error: ', error);
+		});
   }
 addDefaultSrc(ev){
 	  ev.target.src = img_not_available;

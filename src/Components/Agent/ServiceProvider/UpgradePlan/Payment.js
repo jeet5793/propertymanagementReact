@@ -1,11 +1,11 @@
 import React from 'react'
-import Header from '../Header/TenantHeader'
-import {Link} from 'react-router-dom'
-import API_URL from '../../../app-config';
+import Header from '../Header/ServiceHeader';
+import {Link,Redirect} from 'react-router-dom';
+import API_URL from '../../../../app-config';
 import Cookies from 'js-cookie';
 import { connect } from 'react-redux';
-//import '../../../css/theme.css'
-//import '../../../css/plans.css'
+//import '../../../../css/theme.css'
+//import '../../../../css/plans.css'
 import $ from 'jquery';
 import swal from 'sweetalert';
 
@@ -26,35 +26,37 @@ class Payment extends React.Component {
 			routingnumber:'',
 			
 		}
+		
     }
-      // this.userInfo = this.userInfo.bind(this);
-      // this.userDetails = this.userDetails.bind(this);
+      this.userInfo = this.userInfo.bind(this);
+      this.userDetails = this.userDetails.bind(this);
       this.paymentPage = this.paymentPage.bind(this);
       this.handleMonthChange=this.handleMonthChange.bind(this);
       this.handleYearChange=this.handleYearChange.bind(this);
 	  this.changeaccHandler=this.changeaccHandler.bind(this);
-      this.changecvvHandler=this.changecvvHandler.bind(this);
-	   this.onClickReturn = this.onClickReturn.bind(this);
-	   this.onChangeACH = this.onChangeACH.bind(this);
+      this.changecvvHandler=this.changecvvHandler.bind(this)
+	  this.onClickReturn = this.onClickReturn.bind(this);
+	  this.onChangeACH = this.onChangeACH.bind(this);
 	   this.changeNameHandler = this.changeNameHandler.bind(this)
   }
  componentDidMount() {
     // setTimeout(function(){ $('#tzloadding').remove(); }, 2000)
     // $('html, body').animate({scrollTop: 0}, 1500);
-    // this.userInfo();
-    // this.userDetails();
+    this.userInfo();
+    this.userDetails();
 
   }
+  changeNameHandler(e)
+	{
+		e.preventDefault()
+		this.setState({name:e.target.value});
+	}
   componentDidUpdate() {
 
     //setTimeout(function(){ $('#tzloadding').remove(); }, 2000)
     //$('html, body').animate({scrollTop: 0}, 1500);
   }
-changeNameHandler(e)
-{
-	e.preventDefault()
-    this.setState({name:e.target.value});
-}
+
   handleMonthChange(e){
     e.preventDefault()
     this.setState({month:e.target.value});
@@ -71,8 +73,8 @@ changeNameHandler(e)
     e.preventDefault()
     this.setState({cvv:e.target.value});
   }
-  /* userInfo() {
-	  const path = this.props.history.location.state;
+  userInfo() {
+	  let path = this.props.history.location.state;
     // var id=this.props.location.search.replace('?Id=','');
     fetch(`${API_URL}assetsapi/profile/${path.userId}`)
           .then(res => res.json())
@@ -94,7 +96,7 @@ changeNameHandler(e)
   }
   userDetails() {
 	  
-	  const path = this.props.history.location.state;
+	  let path = this.props.history.location.state;
 	  //const exactpath =path.substring(1);
     fetch(`${API_URL}assetsapi/payment/${path.userId}/${path.PlanId}/${path.Pay}`)
           .then(res => res.json())
@@ -121,8 +123,7 @@ changeNameHandler(e)
             }
           )
   }
- */
-  onChangeACH(e){
+onChangeACH(e){
 	var achField = this.state.achFields;
 	if(e.target.name=="name")
 		achField.name = e.target.value;
@@ -132,93 +133,38 @@ changeNameHandler(e)
 		achField.routingnumber = e.target.value;
 	this.setState({achFields:achField});
 }
+  
   paymentPage(paymentType) {
-  // event.preventDefault();
-  	// console.log(this.state);
-	var dealData = this.props.location.state;
-	if(dealData.paidFor==='Rent')
-	{
-		var transAmount = dealData.rent;
-	}else{
-		var transAmount = dealData.total_amount;
-	}
-	
-  /* var payment_Object={
-    "tokenizedaccountnumber":this.state.tokenizedaccountnumber,
-    "paymentmode": "card",
-    "expirymmyy": this.state.month+this.state.year,
-    "cvv": this.state.cvv,
-    "routingnumber": null,
-    "surchargeamount": null,
-    "transactionamount":transAmount,
-    "currency": "USD",
-    "transactionreference": null,
-    "payeeid": dealData.userId,
-    "notifypayee": null,
-    "profile": null,
-    "profileid": null,
-    "orderid":'',
-	"deal_id":dealData.deal_id,
-	"paid_for":dealData.paidFor,
-	"property_id":dealData.property_id
-  }
-  $("#loaderDiv").show();
-  // console.log(payment_Object);
-    fetch(`${API_URL}assetsapi/property_payment`,{
-      method: 'post',
-      body: JSON.stringify(payment_Object)
-    })
-          .then(res => res.json())
-          .then(
-            (result) => {
-				$("#loaderDiv").hide();
-					   
-					   $("#actionType").val("Yes");
-					   $("#hiddenURL").val("tenant-myproperty");
-					   $(".confirm-body").html(result.msg);
-					   $("#BlockUIConfirm").show();
-             
-              //this.props.updateInfo(result.profile);
-            },
-            // Note: it's important to handle errors here
-            // instead of a catch() block so that we don't swallow
-            // exceptions from actual bugs in components.
-            (error) => {
-              this.setState({
-                isLoaded: true,
-                error
-              });
-            }
-          )
-  }
-  // alert('dsawfh');
+	  // alert('dsawfh');
 	  // console.log(paymentType)
 	  // alert(paymentType);
 	  var user_detail = this.state.userDetails;
+	  var details = this.props.history.location.state;
+	
   // event.preventDefault();
-  	// console.log(this.state); */
+  	// console.log(this.state);
 	if(paymentType === 'CC'){
-		var TAmt = (Number(transAmount)+Number((transAmount*2.99)/100));
+		 let amountToSend = Number(details.Amount)+Number((details.Amount*2.99)/100);
 		var payment_Object={
+			"userid":user_detail.user_id,
 			"tokenizedaccountnumber":this.state.tokenizedaccountnumber,
 			"paymentmode": "card",
 			"expirymmyy": this.state.month+this.state.year,
 			"cvv": this.state.cvv,
 			"routingnumber": null,
 			"surchargeamount": null,
-			"transactionamount":TAmt,
+			"transactionamount":amountToSend,
 			"currency": "USD",
 			"transactionreference": null,
-			"payeeid": dealData.userId,
+			"payeeid": null,
 			"notifypayee": null,
 			"profile": null,
 			"profileid": null,
-			"orderid":'',
-			"deal_id":dealData.deal_id,
-			"paid_for":dealData.paidFor,
-			"property_id":dealData.property_id,
+			"orderid":user_detail.orderid,
+			"plan_id":details.PlanId,
+			"plan_type":details.Pay,
 			"type": paymentType,
-			  "name":this.state.name
+			"name":this.state.name
 			
 		}
 		if(!payment_Object.name){
@@ -243,7 +189,7 @@ changeNameHandler(e)
 		}else{
 			$("#loaderDiv").show();
 		  // console.log(payment_Object);
-			fetch(`${API_URL}assetsapi/property_payment`,{
+			fetch(`${API_URL}assetsapi/upgpaymentgateway`,{
 			  method: 'post',
 			  //headers: {'Content-Type':'application/json'},
 			  body: JSON.stringify(payment_Object)
@@ -255,7 +201,7 @@ changeNameHandler(e)
 						$("#loaderDiv").hide();
 							   
 							   $("#actionType").val("Yes");
-							   $("#hiddenURL").val("tenant-myproperty");
+							   $("#hiddenURL").val("agentprovider-plan");
 							   $(".confirm-body").html(result.msg);
 							   $("#BlockUIConfirm").show();
 					 
@@ -272,13 +218,13 @@ changeNameHandler(e)
 		}
 		 
 	}else if(paymentType === 'ACH'){
-		var TAmt = (Number(transAmount)+Number((transAmount*1.00)/100));
+		 let amountToSend = Number(details.Amount)+Number((details.Amount*1.00)/100);
 		var payment_Object={
-			
+			"userid":user_detail.user_id,
 			"tokenizedaccountnumber": this.state.achFields.tokenizedaccountnumber,
 			  "paymentmode": "check",
 			  "routingnumber": this.state.achFields.routingnumber,
-			  "transactionamount": TAmt,
+			  "transactionamount": amountToSend,
 			  "surchargeamount": null,
 			  "currency": null,
 			  "payeefirstname": "",
@@ -291,16 +237,16 @@ changeNameHandler(e)
 			  "email": "",
 			  "transactionreference": null,
 			  "orderid": null,
-			 "payeeid": dealData.userId,
+			  "payeeid": null,
 			  "udfield1": null,
 			  "udfield2": null,
 			  "udfield3": null,
 			  "notifypayee": null,
 			  "profile": null,
 			  "profileid": null,
-			"deal_id":dealData.deal_id,
-			"paid_for":dealData.paidFor,
-			"property_id":dealData.property_id,
+			  "orderid":user_detail.orderid,
+				"plan_id":details.PlanId,
+				"plan_type":details.Pay,
 			  "type": paymentType,
 			  "name":this.state.achFields.name
 		}
@@ -318,7 +264,7 @@ changeNameHandler(e)
 		}else{
 		 $("#loaderDiv").show();
 	  // console.log(payment_Object);
-		fetch(`${API_URL}assetsapi/property_payment`,{
+		fetch(`${API_URL}assetsapi/upgpaymentgateway`,{
 		  method: 'post',
 		  //headers: {'Content-Type':'application/json'},
 		  body: JSON.stringify(payment_Object)
@@ -330,7 +276,7 @@ changeNameHandler(e)
 					$("#loaderDiv").hide();
 						   
 						   $("#actionType").val("Yes");
-						   $("#hiddenURL").val("tenant-myproperty");
+						   $("#hiddenURL").val("agentprovider-plan");
 						   $(".confirm-body").html(result.msg);
 						   $("#BlockUIConfirm").show();
 				 
@@ -351,7 +297,7 @@ changeNameHandler(e)
   }
   onClickReturn()
   {
-	  window.location.href='/tenant-myproperty';
+	  window.location.href='/agentprovider-plan';
 	  // this.props.history.replace('/owner-plan');
   }
   changeTabs(id) {
@@ -371,12 +317,12 @@ changeNameHandler(e)
     }
 	let tempDate = new Date();
 	  var date = tempDate.toLocaleDateString();
-	  
-	  var dealData = this.props.location.state;
+	  var details = this.props.history.location.state;
+	  // console.log('details'+JSON.stringify(this.props));
 		return(
       <div>
-	  <Header name="tenant-myproperty"  first_name={window.localStorage.getItem('firstName')} 
-                last_name={window.localStorage.getItem('lastName')} />
+	  <Header name="agentprovider-upgrade"  first_name={window.localStorage.getItem('firstName')} 
+                last_name={window.localStorage.getItem('firstName')} />
          {/* Logo container*/}
          <div className="logo text-center">
            {/* Text Logo */}
@@ -385,7 +331,7 @@ changeNameHandler(e)
            {/*</a>*/}
            {/* Image Logo */}
            <a href="/" className="logo"> <img src="/assets/images/logo_dark.png" alt className="logo-lg" /></a></div>
-          <div className="payment-warp  paym-pay">
+         <div className="payment-warp  paym-pay">
            <div className="container">
              {/* end page title end breadcrumb */}
              <div className="row">
@@ -393,7 +339,7 @@ changeNameHandler(e)
                  <div className="row">
                    <div className="col-md-3" />
                    <div className="col-sm-6 pay-now">
-						<div className="card-box">
+									<div className="card-box">
                             <ul className="nav nav-tabs tabs-bordered nav-justified">
                                 <li className="nav-item"> <a href="#credit-card" data-toggle="tab" onClick={this.changeTabs.bind(this, "credit-card")} id="CCTab" aria-expanded="true" className="nav-link font-16 active">Credit Card  </a> </li>
 									<li className="nav-item"> <a href="#ach" data-toggle="tab" onClick={this.changeTabs.bind(this, "ach")} id="ACHTab" aria-expanded="false" className="nav-link font-16">ACH  </a> </li>
@@ -406,35 +352,35 @@ changeNameHandler(e)
 												<div className="row">
 													<div className="col-md-7">
 														<h5>Pay Now</h5>
-														 <p className="p-white">Property Payment</p>
+														<p>Upgrade Plan</p>
 													</div>
 													<div className="col-md-5 text-right">
 													<h5>Amount</h5>
-														 <h5>$ {dealData.paidFor==='Rent'?dealData.rent:dealData.total_amount}</h5>
+														<h5>$ {details.Amount}</h5>
 													</div>
 												</div>
-											<div className="row">
+												<div className="row">
 													<div className="col-md-7">
 														<p>CC Charges(2.99%)</p>
 													</div>
 													<div className="col-md-5 text-right">
-														<h5>$ {dealData.paidFor==='Rent'?((dealData.rent*2.99)/100):((dealData.total_amount*2.99)/100)}</h5>
+														<h5>$ {(details.Amount*2.99)/100}</h5>
 													</div>
 												</div>
 												<hr style={{backgroundColor:"#fff"}}/>
 												<div className="row">
 													<div className="col-md-7">
-														<p>Total Amount</p>
+														<h5>Total Amount</h5>
 													</div>
 													<div className="col-md-5 text-right">
-														<h5>$ {dealData.paidFor==='Rent'?(Number(dealData.rent)+Number((dealData.rent*2.99)/100)):(Number(dealData.total_amount)+Number((dealData.total_amount*2.99)/100)) }</h5>
+														<h5>$ {Number(details.Amount)+Number((details.Amount*2.99)/100)}</h5>
 													</div>
 												</div>
 											</div>
 											<div className="bref-detail">
 												<div className="row">
 													<div className="col-md-7">
-													<label>{window.localStorage.getItem('firstName').replace(/["']/g, "")+''+window.localStorage.getItem('lastName').replace(/["']/g, "")}</label>
+													{user.first_name+' '+user.last_name}
 													</div>
 													<div className="col-md-2">
 														<label>Date :</label>
@@ -515,19 +461,19 @@ changeNameHandler(e)
 												<div className="row">
 													<div className="col-md-7">
 														<h5>Pay Now</h5>
-														 <p className="p-white">Property Payment</p>
+														<p>Upgrade Plan</p>
 													</div>
 													<div className="col-md-5 text-right">
-													<h5>Total Amount</h5>
-														<h5>$ {dealData.paidFor==='Rent'?dealData.rent:dealData.total_amount}</h5>
+													<h5>Amount</h5>
+														<h5>$ {details.Amount}</h5>
 													</div>
 												</div>
-											<div className="row">
+												<div className="row">
 													<div className="col-md-7">
 														<p>ACH Charges(1.00%)</p>
 													</div>
 													<div className="col-md-5 text-right">
-														<h5>$ {dealData.paidFor==='Rent'?((dealData.rent*1.00)/100):((dealData.total_amount*1.00)/100)}</h5>
+														<h5>$ {(details.Amount*1.00)/100}</h5>
 													</div>
 												</div>
 												<hr style={{backgroundColor:"#fff"}}/>
@@ -536,14 +482,14 @@ changeNameHandler(e)
 														<p>Total Amount</p>
 													</div>
 													<div className="col-md-5 text-right">
-														<h5>$ {dealData.paidFor==='Rent'?(Number(dealData.rent)+Number((dealData.rent*1.00)/100)):(Number(dealData.total_amount)+Number((dealData.total_amount*1.00)/100)) }</h5>
+														<h5>$ {Number(details.Amount)+Number((details.Amount*1.00)/100)}</h5>
 													</div>
 												</div>
 											</div>
 											<div className="bref-detail">
 												<div className="row">
 													<div className="col-md-7">
-													<label>{window.localStorage.getItem('firstName').replace(/["']/g, "")+''+window.localStorage.getItem('lastName').replace(/["']/g, "")}</label>
+													{user.first_name+' '+user.last_name}
 													</div>
 													<div className="col-md-2">
 														<label>Date :</label>

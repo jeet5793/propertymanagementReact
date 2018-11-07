@@ -5,6 +5,7 @@ import avatar_1 from '../../../../images/Owner/users/avatar-1.jpg'
 import Cookies from 'js-cookie';
 import {Link} from 'react-router-dom'
 import img_not_available from '../../../../images/img_not_available.png'
+import $ from 'jquery'
 class ServiceProfie extends React.Component{
     constructor(props){
         // console.log('rifgwirgfwiugfweugfweifugw')
@@ -23,6 +24,7 @@ class ServiceProfie extends React.Component{
         const profile=JSON.parse(this.state.userData)
         if(profile)
         {
+			$("#loaderDiv").show();
           fetch(`${API_URL}assetsapi/profile/${profile.assets_id}/${profile.session_id}`, {
             method: 'get'
           })
@@ -30,6 +32,7 @@ class ServiceProfie extends React.Component{
         .then(
           (result) => {
             //console.log("data 2: "+JSON.stringify(result.profile))
+			$("#loaderDiv").hide();
             if (result.success) {
               this.setState({profileData:result.profile})
               
@@ -90,7 +93,7 @@ class ServiceProfie extends React.Component{
         render(){
           const profileInfo=this.state.profileData;
           const { userProfile: profile } = this.props;
-          const profile_pic = profile.profile_photo || avatar_1;
+          // const profile_pic = profile.profile_photo || avatar_1;
 		return(
 
 			 <div>
@@ -102,11 +105,11 @@ class ServiceProfie extends React.Component{
               <div className="col-sm-12">
                 <div className="row">
                   <div className="col-sm-4">
-                    <div className="profile-user-box1"> <span className="pull-left m-r-15"><img onError={this.addDefaultSrc} src={profileInfo.profile_photo!=''?API_URL+profileInfo.profile_photo:img_not_available} alt="" className="thumb-lg rounded-circle" /></span>
-                    <div className="media-body">
+                     <div className="profile-user-box1"> <span className="pull-left m-r-15"><img onError={this.addDefaultSrc} src={profileInfo.profile_photo!==''?API_URL+profileInfo.profile_photo:img_not_available} alt="" className="thumb-lg rounded-circle" /></span>
+                      <div className="media-body">
                         <h4 className="m-t-5 m-b-5 font-18 ellipsis">{profileInfo.first_name + '. '+ profileInfo.last_name}</h4>
-                        <p className="font-13"> User Experience Specialist</p>
                         <p className="text-muted m-b-0"><small>{profileInfo.city}, {profileInfo.country}</small></p>
+						 <p className="font-13" style={{visibility:'hidden'}}> Span</p>
                       </div>
                     </div>
                   </div>
@@ -139,7 +142,7 @@ class ServiceProfie extends React.Component{
                           <div id="dashboard-3" className="widget-box-four-chart" />
                           <div className="wigdet-four-content">
                             <h4 className="m-t-0 font-18 m-b-5" title="Tenant">Resolved Request</h4>
-                            <h3 className="m-b-0 m-t-35"><span>{this.state.statics.ResolvedRequest?this.state.statics.ResolvedRequest:''}</span> <span data-plugin="counterup" className="profile-icon"><i className="fi-head " /></span></h3>
+                            <h3 className="m-b-0 m-t-35"><span>{this.state.statics.ResolvedRequest?this.state.statics.ResolvedRequest:'0'}</span> <span data-plugin="counterup" className="profile-icon"><i className="fi-head " /></span></h3>
                           </div>
                           <div className="clearfix" />
                         </div>
@@ -166,9 +169,9 @@ class ServiceProfie extends React.Component{
                         <p className="text-muted font-13"><strong>Location :</strong> <span className="m-l-15">{profileInfo.country}</span></p>
                       </div>
                     <ul className="social-links list-inline m-t-20 m-b-0">
-                      <li className="list-inline-item"> <a title data-placement="top" data-toggle="tooltip" className="tooltips" href data-original-title="Facebook"><i className="fa fa-facebook" /></a> </li>
-                      <li className="list-inline-item"> <a title data-placement="top" data-toggle="tooltip" className="tooltips" href data-original-title="Twitter"><i className="fa fa-twitter" /></a> </li>
-                      <li className="list-inline-item"> <a title data-placement="top" data-toggle="tooltip" className="tooltips" href data-original-title="Skype"><i className="fa fa-skype" /></a> </li>
+                      {profileInfo.facebook_link?<li className="list-inline-item"> <a title="Facebook" data-placement="top" data-toggle="tooltip" className="tooltips" href={profileInfo.facebook_link} data-original-title="Facebook"><i className="fa fa-facebook"></i></a> </li>:''} 
+                         {profileInfo.twitter_link	?<li className="list-inline-item"> <a title="Twitter" data-placement="top" data-toggle="tooltip" className="tooltips" href={profileInfo.twitter_link} data-original-title="Twitter"><i className="fa fa-twitter"></i></a> </li>:''} 
+                         {profileInfo.linkedin_link?<li className="list-inline-item"> <a title="Linkedin" data-placement="top" data-toggle="tooltip" className="tooltips" href={profileInfo.linkedin_link}  data-original-title="Linkedin"><i className="fa fa-linkedin"></i></a> </li>:''} 
                     </ul>
                   </div>
                 </div>
@@ -212,13 +215,7 @@ class ServiceProfie extends React.Component{
         </div>
         {/* end wrapper */} 
         {/* Footer */}
-        <footer className="footer">
-          <div className="container">
-            <div className="row">
-              <div className="col-12 text-center"> © 2018 Assets Watch. All Rights Reserved </div>
-            </div>
-          </div>
-        </footer>
+       
         {/* End Footer */} 
         {/* jQuery  */} 
         {/* Tether for Bootstrap */} 

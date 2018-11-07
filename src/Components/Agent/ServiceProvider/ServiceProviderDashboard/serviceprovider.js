@@ -7,6 +7,9 @@ import ServiceProviderUsers from '../Users/ServiceProviderUsers';
 import Services from '../Service/ServiceProviderService';
 import Header from '../Header/ServiceHeader';
 import Footer from '../Footer/ServiceFooter';
+import ServiceProviderNotifications from '../Notifications/ServiceProviderNotifications';
+import Plan from '../UpgradePlan/Plan';
+import Upgrade from '../UpgradePlan/Payment';
 import Cookies from 'js-cookie';
 //import API_URL from '../../../app-config';
 
@@ -60,13 +63,16 @@ class AgentBrokerDashboard extends React.Component {
       return (
         <div>
           <link rel='stylesheet' href='../css/theme.css' type='text/css' media='all' />
-          <Header logoutLink={this.logoutLink} name={this.state.url} first_name={'jomin'} last_name={'john'} />
+          <Header logoutLink={this.logoutLink} name={this.state.url} first_name={''} last_name={''} />
 
           <Switch>
             <Route exact path='/agent-serviceprovider' component={Profile} />
             <Route exact path='/agentprovider-services' component={Services} />
             <Route exact path='/agentprovider-users' component={ServiceProviderUsers} />
             <Route exact path='/agentprovider-settings' component={Settings} />
+			<Route exact path='/agentprovider-notifications' component={ServiceProviderNotifications} />
+			<Route exact path='/agentprovider-plan' component={Plan} />
+			<Route exact path='/agentprovider-upgrade' component={Upgrade} />
           </Switch>
 
           <Footer />

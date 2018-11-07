@@ -22,7 +22,7 @@ export default class TenantFooter extends Component{
             <footer className="footer">
             <div className="container">
               <div className="row">
-                <div className="col-12 text-center"> © 2018 Assets Watch. All Rights Reserved. ( {APP_VERSION} ) </div>
+                <div className="col-12 text-center"> © {new Date().getFullYear()} Assets Watch. All Rights Reserved. ( {APP_VERSION} ) </div>
               </div>
             </div>
 			<div id="loaderDiv" className="preloader">

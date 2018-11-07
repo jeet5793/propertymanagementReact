@@ -38,15 +38,18 @@ import { Redirect } from 'react-router-dom';
 import Slider from './Slider'
 import API_URL from '../../../app-config';
 import $ from 'jquery';
-
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import img_not_available from '../../../images/img_not_available.png'
 class Home extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
     		properties:[],
-			testimonialDetail:[]
+			testimonialDetail:[],
+			showPopup: false
 		}
-		//this.getProperties=this.getProperties.bind(this)
+		this.onClickClose=this.onClickClose.bind(this)
 	}
 	
 	handleScriptLoad(){	
@@ -215,7 +218,34 @@ class Home extends React.Component{
 			document.getElementById('advertisement').src = `${API_URL}assetsadmin/`+img;
 		});
 	}
-
+onClickImagePreview(id,e){
+$("#loaderDiv").show();
+      fetch(`${API_URL}assetsapi/property_images/`+id, {
+        method: 'get'
+      })
+      .then(res => res.json())
+      .then(
+        (result) => {
+		  $("#loaderDiv").hide();
+          if (result.success==1) {
+			  
+			this.setState({propertiesImg:result.property_images,showPopup: !this.state.showPopup});
+			 // $('#proImageConfirmImg').show();
+          } 
+          
+        }),
+      (error) => {
+        console.log('error')
+      }
+}
+onClickClose() {
+	    
+		// $("#proImageConfirm").hide();
+		this.setState({showPopup: false});
+	}
+	addDefaultSrc(ev){
+	  ev.target.src = img_not_available;
+	}
 	render(){
 		// debugger;
 		return(
@@ -309,14 +339,35 @@ class Home extends React.Component{
 				                          <div id="tz-pro-slider-5ac1cdf22e330" className="cbp cbp-l-grid-team tz-property-slider false">
 				          					{
 				          						this.state.properties?this.state.properties.map((property, index) => (
-				          							<HomeProperty key={index} description={property.description}  Title={property.title} src={property.img_path.length>0?API_URL+property.img_path[0].img_path:''} Status={property.property_status} total_amount={property.total_amount} id = {property.id} />
+				          							<HomeProperty key={index} description={property.description}  Title={property.title} src={property.img_path.length>0?API_URL+property.img_path[0].img_path:''} Status={property.property_status} total_amount={property.total_amount} id = {property.id} onClickImagePreview={e => this.onClickImagePreview(property.id,e)}/>
 				          						)):<h3 style={{textAlign:'center'}}>No Property Available</h3>}
 				          					
 				                          </div>
 				                        </div>
 				                      </div>
 				                    </div>
-									
+									<div>
+					{(this.state.showPopup) ?
+						<div id="proImageConfirm" className="BlockUIConfirm product-img-popup" >
+							<div className="blockui-mask"></div>
+								<div className="RowDialogBody">
+									<div className="confirm-header row-dialog-hdr-success">
+										Property Image
+									<button type="button" className="close" onClick={this.onClickClose}>×</button>
+								</div>
+								<div className="confirm-body" >
+									<Carousel autoPlay showArrows={true} showThumbs={false} >
+									{this.state.propertiesImg?this.state.propertiesImg.map((item,index)=>(
+										<div>
+											<img onError={this.addDefaultSrc} src={API_URL+item.img_path}/>
+										</div>
+									)):''}	
+									</Carousel>		
+								</div>
+							</div>
+						</div>  
+					: ''}						
+					</div>
 				                    {/* <div className="tab-pane" id="tab_default_2">
 				                      <div className="wpb_wrapper">
 				                        <div className="tz-property-home vc_custom_1466569792560 tz-slider">
