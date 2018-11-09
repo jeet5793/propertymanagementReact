@@ -349,10 +349,10 @@ class BrokerTenant extends React.Component{
 		opts.invite_id = this.state.receive_user_id
 		// console.log(document.getElementsByName("invite_id")[0].value);
 		// console.log(opts);
-		if(!opts.property_id){
-        alert('Property should not be blank');
-        return;
-      }
+		// if(!opts.property_id){
+        // alert('Property should not be blank');
+        // return;
+      // }
 	  if(!opts.invite_id){
         alert('Tenant should not be blank');
         return;
@@ -371,7 +371,7 @@ class BrokerTenant extends React.Component{
         }).then((data) => {
           // console.log('dataaaa:  ', data); 
 		  $("#loaderDiv").hide();
-			 $("#actionType").val("Yes");
+			 $("#actionType").val("No");
 			 $("#hiddenURL").val("broker-tenant");
 			 $(".confirm-body").html(data.msg);
 			 $("#BlockUIConfirm").show();
@@ -624,7 +624,7 @@ class BrokerTenant extends React.Component{
 				<h4 className="modal-title">Send Invite</h4>
 			  </div>
 			  <div className="modal-body">
-				  <div className="row">
+			  { /* <div className="row">
 				  <div className="col-md-12">
 					<div className="form-group">
 					  <label for="field-1" className="control-label">Property<span className="required"/></label>
@@ -638,7 +638,7 @@ class BrokerTenant extends React.Component{
 					   </div>
 					</div>
 				  </div>
-				</div>
+			  </div> */}
 				<div className="row">
 				  <div className="col-md-12">
 					<div className="form-group">

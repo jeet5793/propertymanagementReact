@@ -4,6 +4,8 @@ import React from 'react'
 import $ from 'jquery';
 
 import API_URL from '../../../app-config';
+import Cookies from 'js-cookie';
+import { setUser } from '../../../actions';
 
 export default class Plans extends React.Component{
     constructor(props) {
@@ -107,10 +109,98 @@ export default class Plans extends React.Component{
 																  .then(
 																	(result) => {
 																	    $("#loaderDiv").hide();
-																		$("#actionType").val("Yes");
-																		$("#hiddenURL").val("/");
-																	   $(".confirm-body").html(result.msg);
-																	   $("#SBlockUIConfirm").show();
+																		// $("#actionType").val("Yes");
+																		// $("#hiddenURL").val("/");
+																	   // $(".confirm-body").html(result.msg);
+																	   // $("#SBlockUIConfirm").show();
+																	   fetch(`${API_URL}`+'assetsapi/payment/'+userid+'/'+getPlanId+'/basic')
+																		  .then(res => res.json())
+																		  .then(
+																			(response) => {
+											
+																			  if(response){
+																				var opts = {"email":response.user_detail.email,"password":response.user_detail.password,"assets_type":response.user_detail.assets_type};
+										// console.log(JSON.stringify(this.state.opts));
+										   fetch(`${API_URL}assetsapi/login/`, {
+													method: 'post',
+													body: JSON.stringify(opts)
+												})
+													  .then(res => res.json())
+													  .then(
+														(data) => {
+															setTimeout(()=>{
+
+																fetch(`${API_URL}assetsapi/profile/${data.userdata.assets_id}/${data.userdata.session_id}`, {
+																method: 'get'
+															})
+															.then(res => res.json())
+															.then(
+															  (result) => {
+																		//console.log("data 2: "+JSON.stringify(result))
+																		if (result.success) {
+																		   // alert('profile:'+JSON.stringify(result.profile)+""+JSON.stringify(data.userdata.agentType));
+																			localStorage.setItem('firstName',JSON.stringify(result.profile.first_name))
+																			localStorage.setItem('lastName',JSON.stringify(result.profile.last_name))
+																			localStorage.setItem('userType',JSON.stringify(result.profile.assets_type))
+																			//this.props.setUser(data.userdata, result.profile);
+																			Cookies.set("profile_data", data.userdata);
+
+																			if(result.profile.assets_type==="1"){
+																			 // this.props.history.push('/user')
+																						$("#actionType").val("Yes");
+																							$("#hiddenURL").val("/user");
+																						   $(".confirm-body").html("Registered Successfully");
+																						   $("#SBlockUIConfirm").show();
+																			}else if(result.profile.assets_type==="2"){
+																				if(data.userdata.agentType==="Broker")
+																				{
+																					// this.props.history.push('/agent-broker')
+																					$("#actionType").val("Yes");
+																							$("#hiddenURL").val("/agent-broker");
+																						   $(".confirm-body").html("Registered Successfully");
+																						   $("#SBlockUIConfirm").show();
+																				}
+																				else{
+																					// this.props.history.push('/agent-serviceprovider')
+																					$("#actionType").val("Yes");
+																							$("#hiddenURL").val("/agent-serviceprovider");
+																						   $(".confirm-body").html("Registered Successfully");
+																						   $("#SBlockUIConfirm").show();
+																				}
+																			   
+																			}else{
+																				
+																				// this.props.history.push('/tenant')
+																				$("#actionType").val("Yes");
+																							$("#hiddenURL").val("/tenant");
+																						   $(".confirm-body").html("Registered Successfully");
+																						   $("#SBlockUIConfirm").show();
+																			}
+																		} else {
+																			this.props.setUser(data.userdata, result.profile);
+																			// console.log(result.msg);
+																		}
+																		// this.props.updateInfo(result.profile)
+																	  },
+
+																  (error) => {
+																	console.log('error')
+																  }
+																)
+															}, 1000)
+														})
+																				
+																			  }
+																			 
+																			},
+																			
+																			(error) => {
+																			  this.setState({
+																				isLoaded: true,
+																				error
+																			  });
+																			}
+																		  )
 																	},
 																	
 																	(error) => {

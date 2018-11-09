@@ -341,10 +341,10 @@ class TenantOwner extends React.Component {
 	sendRequest(){
 		const opts = this.state.sendReq
 		opts.invite_id = this.state.receive_user_id
-		if(!opts.property_id){
+		/* if(!opts.property_id){
         alert('Property should not be blank');
         return;
-      }
+      } */
 	  if(!opts.invite_id){
         alert('Agent should not be blank');
         return;
@@ -353,7 +353,7 @@ class TenantOwner extends React.Component {
         alert('Message should not be blank');
         return;
       }
-	  if(!opts.property_id && !opts.invite_id && !opts.message){
+	  if(!opts.invite_id && !opts.message){
 		  return;
 	  }else{
 		  document.getElementById("notifyFormCancel").click();
@@ -366,7 +366,7 @@ class TenantOwner extends React.Component {
         }).then((data) => {
           // console.log('dataaaa:  ', data);
 		  $("#loaderDiv").hide();
-			 $("#actionType").val("Yes");
+			 $("#actionType").val("No");
 			 $("#hiddenURL").val("tenant-owner");
 			 $(".confirm-body").html(data.msg);
 			 $("#BlockUIConfirm").show();
@@ -763,7 +763,7 @@ class TenantOwner extends React.Component {
             <h4 className="modal-title">Send Invite</h4>
             </div>
             <div className="modal-body">
-          <div className="row">
+			{ /*  <div className="row">
           <div className="col-md-12">
             <div className="form-group">
               <label for="field-1" className="control-label">Property<span className="required"/></label>
@@ -777,7 +777,7 @@ class TenantOwner extends React.Component {
                </div>
             </div>
           </div>
-        </div>
+			</div> */}
 		<div className="row">
           <div className="col-md-12">
             <div className="form-group">

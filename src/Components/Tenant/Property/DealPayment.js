@@ -198,7 +198,7 @@ changeNameHandler(e)
   // event.preventDefault();
   	// console.log(this.state); */
 	if(paymentType === 'CC'){
-		var TAmt = (Number(transAmount)+Number((transAmount*2.99)/100));
+		// var TAmt = (Number(transAmount)+Number((transAmount*2.99)/100));
 		var payment_Object={
 			"tokenizedaccountnumber":this.state.tokenizedaccountnumber,
 			"paymentmode": "card",
@@ -206,7 +206,7 @@ changeNameHandler(e)
 			"cvv": this.state.cvv,
 			"routingnumber": null,
 			"surchargeamount": null,
-			"transactionamount":TAmt,
+			"transactionamount":transAmount,
 			"currency": "USD",
 			"transactionreference": null,
 			"payeeid": dealData.userId,
@@ -272,13 +272,13 @@ changeNameHandler(e)
 		}
 		 
 	}else if(paymentType === 'ACH'){
-		var TAmt = (Number(transAmount)+Number((transAmount*1.00)/100));
+		// var TAmt = (Number(transAmount)+Number((transAmount*1.00)/100));
 		var payment_Object={
 			
 			"tokenizedaccountnumber": this.state.achFields.tokenizedaccountnumber,
 			  "paymentmode": "check",
 			  "routingnumber": this.state.achFields.routingnumber,
-			  "transactionamount": TAmt,
+			  "transactionamount": transAmount,
 			  "surchargeamount": null,
 			  "currency": null,
 			  "payeefirstname": "",
