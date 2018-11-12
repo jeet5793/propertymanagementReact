@@ -54,7 +54,7 @@ $("#loaderDiv").show();
 											<div className="tz-property-box tz-property-author">
 												<div className="tz-property-author-left blog-img">
 													<a className="tz-property-thumbnail">
-														<img onError={this.addDefaultSrc} src={API_URL+'assetsadmin/' + blog.img_path} alt="" />
+														<img onError={this.addDefaultSrc} src={blog.img_path?API_URL+'assetsadmin/' + blog.img_path:img_not_available} alt="" />
 													</a>
 												</div>
 												<div className="tz-property-author-right">

@@ -18,6 +18,7 @@ export default class PropertyItems extends React.Component{
       {
        classs="for-rent" 
       }
+	  // console.log('chal pagal'+JSON.stringify(this.props));
         return(
             
             <div style={{width:"30%",marginRight:30}}    className={"tz-property-content filterDiv cbp-item "+classs}>

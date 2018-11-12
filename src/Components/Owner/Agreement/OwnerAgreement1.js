@@ -721,7 +721,11 @@ onClickCheckPermission(feature){
 						   $("#hiddenURL").val("agreement");
 						   $(".confirm-body").html(data.msg);
 						   $("#BlockUIConfirm").show();
-						   
+						  
+						  $(".row-dialog-btn").click(function(){
+							    $('#vcreatepermission').show()
+						   })
+							   
 				}else{
 					$("#loaderDiv").hide();
 				}

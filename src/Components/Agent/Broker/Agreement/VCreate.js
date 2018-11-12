@@ -518,7 +518,7 @@ editAgreement(){
        <button style={{float:"right",marginTop:10}} id="stepy-navigator" type="button" onClick={this.state.editAgreementStatus?this.editAgreement:this.createAgreement} className="btn btn-primary stepy-finish">Submit</button></fieldset>       
       </form>
     </div>
-     
+     <div id = "vcreatepermission" style={{position: 'absolute', top: 0, width: '100%', height: '100%', backgroundColor: '#333', opacity: 0.4, zIndex: 1000,display:'none'}}></div>
   </div>
   );}
   }

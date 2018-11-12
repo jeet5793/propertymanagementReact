@@ -18,6 +18,7 @@
     "react-fontawesome": "^1.6.1",
     "react-js-pagination": "^3.0.2",
     "react-load-script": "0.0.6",
+    "react-paginate": "^6.0.0",
     "react-radio-button-group": "^1.2.6",
     "react-redux": "^5.0.7",
     "react-responsive-carousel": "^3.1.43",

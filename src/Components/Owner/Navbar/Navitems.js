@@ -13,12 +13,9 @@ export default class Navitems extends Component{
                 </Link>
             </li>
             <li>
-			{/* <a href="/agreement">
+				<a href="/agreement">
                     <i className="fi-paper"></i>Agreement
-			</a> */}
-				<Link to={{pathname:'/agreement'}}>
-                    <i className="fi-air-play"></i>Agreement
-                </Link>
+				</a> 
             </li>
             <li>
                 <Link to={{pathname:'/my-property'}}>
@@ -67,9 +64,9 @@ export default class Navitems extends Component{
                         </Link>
                     </li>
                     <li className="has-submenu active">
-                        <Link to={{pathname:'/agreement'}}>
-							<i className="fi-air-play"></i>Agreement
-						</Link>
+                        <a href="/agreement">
+							<i className="fi-paper"></i>Agreement
+						</a> 
                     </li>
                     <li>
                         <Link to={{pathname:'/my-property'}}>
@@ -119,9 +116,10 @@ export default class Navitems extends Component{
                         </Link>
                     </li>
                     <li>
-						<Link to={{pathname:'/agreement'}}>
-							<i className="fi-air-play"></i>Agreement
-						</Link>                    </li>
+						<a href="/agreement">
+							<i className="fi-paper"></i>Agreement
+						</a>                  
+					</li>
                     <li className="has-submenu active">
                         <Link to={{pathname:'/my-property'}}>
                             <i className="fi-box"></i>My Property
@@ -170,9 +168,9 @@ export default class Navitems extends Component{
                         </Link>
                     </li>
                     <li>
-                        <Link to={{pathname:'/agreement'}}>
-							<i className="fi-air-play"></i>Agreement
-						</Link>   
+                        <a href="/agreement">
+							<i className="fi-paper"></i>Agreement
+						</a>  
                     </li>
                     <li>
                         <Link to={{pathname:'/my-property'}}>
@@ -222,9 +220,9 @@ export default class Navitems extends Component{
                         </Link>
                     </li>
                     <li>
-                        <Link to={{pathname:'/agreement'}}>
-							<i className="fi-air-play"></i>Agreement
-						</Link>   
+                        <a href="/agreement">
+							<i className="fi-paper"></i>Agreement
+						</a> 
                     </li>
                     <li>
                         <Link to={{pathname:'/my-property'}}>
@@ -275,9 +273,9 @@ export default class Navitems extends Component{
                         </Link>
                     </li>
                     <li>
-                        <Link to={{pathname:'/agreement'}}>
-							<i className="fi-air-play"></i>Agreement
-						</Link>   
+                        <a href="/agreement">
+							<i className="fi-paper"></i>Agreement
+						</a> 
                     </li>
                     <li>
                         <Link to={{pathname:'/my-property'}}>
@@ -328,9 +326,9 @@ export default class Navitems extends Component{
                         </Link>
                     </li>
                     <li>
-                       <Link to={{pathname:'/agreement'}}>
-							<i className="fi-air-play"></i>Agreement
-						</Link>   
+                       <a href="/agreement">
+							<i className="fi-paper"></i>Agreement
+						</a>   
                     </li>
                     <li>
                         <Link to={{pathname:'/my-property'}}>
@@ -381,9 +379,9 @@ export default class Navitems extends Component{
                         </Link>
                     </li>
                     <li>
-                        <Link to={{pathname:'/agreement'}}>
-							<i className="fi-air-play"></i>Agreement
-						</Link>   
+                        <a href="/agreement">
+							<i className="fi-paper"></i>Agreement
+						</a>  
                     </li>
                     <li>
                         <Link to={{pathname:'/my-property'}}>
@@ -434,9 +432,9 @@ export default class Navitems extends Component{
                         </Link>
                     </li>
                     <li>
-                        <Link to={{pathname:'/agreement'}}>
-							<i className="fi-air-play"></i>Agreement
-						</Link>   
+                        <a href="/agreement">
+							<i className="fi-paper"></i>Agreement
+						</a>  
                     </li>
                     <li>
                         <Link to={{pathname:'/my-property'}}>
@@ -487,9 +485,9 @@ export default class Navitems extends Component{
                         </Link>
                     </li>
                     <li>
-                       <Link to={{pathname:'/agreement'}}>
-							<i className="fi-air-play"></i>Agreement
-						</Link>   
+                       <a href="/agreement">
+							<i className="fi-paper"></i>Agreement
+						</a>  
                     </li>
                     <li>
                         <Link to={{pathname:'/my-property'}}>
@@ -540,9 +538,9 @@ export default class Navitems extends Component{
                         </Link>
                     </li>
                     <li>
-                       <Link to={{pathname:'/agreement'}}>
-							<i className="fi-air-play"></i>Agreement
-						</Link>   
+                       <a href="/agreement">
+							<i className="fi-paper"></i>Agreement
+						</a>   
                     </li>
                     <li>
                         <Link to={{pathname:'/my-property'}}>
@@ -593,9 +591,9 @@ export default class Navitems extends Component{
                         </Link>
                     </li>
                     <li>
-                        <Link to={{pathname:'/agreement'}}>
-							<i className="fi-air-play"></i>Agreement
-						</Link>   
+                        <a href="/agreement">
+							<i className="fi-paper"></i>Agreement
+						</a>  
                     </li>
                     <li>
                         <Link to={{pathname:'/my-property'}}>
@@ -646,9 +644,9 @@ export default class Navitems extends Component{
                         </Link>
                     </li>
                     <li>
-                        <Link to={{pathname:'/agreement'}}>
-							<i className="fi-air-play"></i>Agreement
-						</Link>   
+                        <a href="/agreement">
+							<i className="fi-paper"></i>Agreement
+						</a>  
                     </li>
                     <li>
                         <Link to={{pathname:'/my-property'}}>

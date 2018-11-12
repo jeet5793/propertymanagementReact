@@ -3,7 +3,8 @@ import $ from "jquery";
 // import RegistraionFormType from './RegistartionFormType'
 import RadiBtns from "react-radio-button-group";
 import API_URL from "../../../app-config";
-
+import Cookies from 'js-cookie';
+import { setUser } from '../../../actions';
 export default class RegistrationForm extends React.Component {
   constructor(props) {
     super(props);
@@ -140,7 +141,7 @@ export default class RegistrationForm extends React.Component {
 					var userid = data.user.assets_id
 					localStorage.setItem('userid',userid)
 				  }
-				  if(data.msg.indexOf("Registered Successfully")!=-1)
+				  if(data.msg==="Registered Successfully")
 				  {
 					  $("#loaderDiv").hide();
 					let userType = 'owner';
@@ -156,6 +157,79 @@ export default class RegistrationForm extends React.Component {
 						 this.props.history.replace(`/register-plans?Datatype=${userType}`);
 					}
 				   
+				  }else if(data.msg==="Registered Successfully. No plan available.!!!"){
+					  
+					  var opts1 = {"email":this.state.Registeration.email,"password":this.state.Registeration.password,"assets_type":this.state.RegType};
+				// console.log(JSON.stringify(this.state.opts));
+				   fetch(`${API_URL}assetsapi/login/`, {
+							method: 'post',
+							body: JSON.stringify(opts1)
+						})
+							  .then(res => res.json())
+							  .then(
+								(response) => {
+									setTimeout(()=>{
+
+										fetch(`${API_URL}assetsapi/profile/${response.userdata.assets_id}/${response.userdata.session_id}`, {
+										method: 'get'
+									})
+									.then(res => res.json())
+									.then(
+									  (result) => {
+												//console.log("data 2: "+JSON.stringify(result))
+												if (result.success) {
+													 $("#loaderDiv").hide();
+												   // alert('profile:'+JSON.stringify(result.profile)+""+JSON.stringify(data.userdata.agentType));
+													localStorage.setItem('firstName',JSON.stringify(result.profile.first_name))
+													localStorage.setItem('lastName',JSON.stringify(result.profile.last_name))
+													localStorage.setItem('userType',JSON.stringify(result.profile.assets_type))
+													//this.props.setUser(response.userdata, result.profile);
+													Cookies.set("profile_data", response.userdata);
+
+													if(result.profile.assets_type==="1"){
+													 // this.props.history.push('/user')
+																$("#actionType").val("Yes");
+																	$("#hiddenURL").val("/user");
+																   $(".confirm-body").html("Registered Successfully");
+																   $("#SBlockUIConfirm").show();
+													}else if(result.profile.assets_type==="2"){
+														if(response.userdata.agentType==="Broker")
+														{
+															// this.props.history.push('/agent-broker')
+															$("#actionType").val("Yes");
+																	$("#hiddenURL").val("/agent-broker");
+																   $(".confirm-body").html("Registered Successfully");
+																   $("#SBlockUIConfirm").show();
+														}
+														else{
+															// this.props.history.push('/agent-serviceprovider')
+															$("#actionType").val("Yes");
+																	$("#hiddenURL").val("/agent-serviceprovider");
+																   $(".confirm-body").html("Registered Successfully");
+																   $("#SBlockUIConfirm").show();
+														}
+													   
+													}else{
+														
+														// this.props.history.push('/tenant')
+														$("#actionType").val("Yes");
+																	$("#hiddenURL").val("/tenant");
+																   $(".confirm-body").html("Registered Successfully");
+																   $("#SBlockUIConfirm").show();
+													}
+												} else {
+													this.props.setUser(response.userdata, result.profile);
+													// console.log(result.msg);
+												}
+												// this.props.updateInfo(result.profile)
+											  },
+
+										  (error) => {
+											console.log('error')
+										  }
+										)
+									}, 1000)
+								})
 				  }
 				else alert(data.msg)
 				}).catch((error) => {

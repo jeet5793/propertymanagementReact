@@ -75,8 +75,8 @@ class Footer extends React.Component{
                   <div className="tzwidget-logo"> <a href="/"> <img src={img1} alt="Assets Watch" /> </a> </div>
                   <p> Assets Watch provides residential, commercial and rural property marketing solutions and search tools, plus information for buyers, investors, sellers, renters and agents United States wide. </p>
                   <span className="tzwidget-social"> 
-                  <Link className="facebook" to="#"  ><i className="fa fa-facebook" onClick={(e)=>this.openExternal(e,"http://www.facebook.com")}></i></Link> 
-                  <Link className="twitter" to="#" ><i className="fa fa-twitter" onClick={(e)=>this.openExternal(e,"http://www.twitter.com")}></i></Link> 
+                  <Link className="facebook" to="https://www.facebook.com/assetswatch/"  ><i className="fa fa-facebook" onClick={(e)=>this.openExternal(e,"https://www.facebook.com/assetswatch/")}></i></Link> 
+                  <Link className="twitter" to="https://twitter.com/assetswatch" ><i className="fa fa-twitter" onClick={(e)=>this.openExternal(e,"https://twitter.com/assetswatch")}></i></Link> 
                   <Link className="google" to="#" ><i className="fa fa-google-plus"  onClick={(e)=>this.openExternal(e,"https://plus.google.com")}></i></Link> 
                  
                   <Link className="linkedin"  to="#"><i className="fa fa-linkedin" onClick={(e)=>this.openExternal(e,"http://www.linkedin.com")}></i></Link> 
