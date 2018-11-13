@@ -748,8 +748,8 @@ updateProps(props){
                     </div>
                   </div> */}
               </div>
-              <div className='wp-pagenavi'> <span className='pages'>Page 1 of 4</span><span className='current'>1</span><a className="page larger" title="Page 2" href="#">2</a><a className="page larger" title="Page 3" href="#">3</a><a className="page larger" title="Page 4" href="#">4</a><a className="nextpostslink" rel="next" href="#"><i className="icon-arrow-right"></i></a> </div>
-            </div>
+			  { /*  <div className='wp-pagenavi'> <span className='pages'>Page 1 of 4</span><span className='current'>1</span><a className="page larger" title="Page 2" href="#">2</a><a className="page larger" title="Page 3" href="#">3</a><a className="page larger" title="Page 4" href="#">4</a><a className="nextpostslink" rel="next" href="#"><i className="icon-arrow-right"></i></a> </div>*/}
+			  </div> 
             <div className="auto-loading"> <img src="images/loading_blue_32x32.gif" width="32" height="32" /> </div>
           </div>
           {/*<!--END .navigation-links-->*/} 
