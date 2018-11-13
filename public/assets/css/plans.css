@@ -1,8 +1,8 @@
 body .tz-Breadcrumb .tzOverlayBreadcrumb {
-	padding-Top: '105px'
+	padding-top: 60px;
 }
 body .tz-Breadcrumb .tzOverlayBreadcrumb {
-	padding-bottom: 120px
+	padding-bottom: 60px
 }
 body .tz-Breadcrumb {
 	background-image: url("../images/breadcrumb.jpg")
