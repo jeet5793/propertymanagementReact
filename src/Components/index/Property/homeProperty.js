@@ -21,6 +21,7 @@ export default class Homeproperty extends React.Component{
 addDefaultSrc(ev){
 	  ev.target.src = img_not_available;
 	}
+	
 render(){
 		// console.log(JSON.stringify(this.state.propertiesImg))
 		return(
@@ -37,7 +38,7 @@ render(){
                             
 							<div className="cbp-l-caption-body"> 
 	                            
-								<Link to={{'pathname':"property-detail",state:this.props}} className="cbp-l-caption-buttonLeft" rel="nofollow"><i className="icon-link"></i> </Link> 
+								<Link to={{'pathname':"property-detail",state:this.props}} rel="nofollow"><i className="icon-link"></i> </Link> 
 	                           <a  className="cbp-l-caption-buttonRight"  onClick={this.props.onClickImagePreview.bind(this,this.props.id)} > <i className="icon-plus-circle" ></i> </a> 
                         	</div>
                     	</div>
@@ -45,7 +46,7 @@ render(){
 				</div>
 					
 					<div className="tz-property-des">
-						<h5><a href="">{this.props.Title}</a></h5>
+						<h5><Link to={{'pathname':"property-detail",state:this.props}}>{this.props.Title}</Link></h5>
 						<div className="tz-property-price"> ${this.props.total_amount}&nbsp;<span>/ Month</span> </div>
 						<div className="tz-property-excerpt"> {this.props.description} </div>
 					</div>

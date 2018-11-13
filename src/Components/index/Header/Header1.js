@@ -10,11 +10,28 @@ import $ from 'jquery'
 //import '../../../css/comp-main.css'
 import HeadrNav1 from '../Header/headerNav1'
 import HeadrNav from '../Header/headerNav'
+
+$(document).ready(function(){
+      $('body').append('<div id="toTop" class="btn btn-info"><span class="icon-arrow-up"></span></div>');
+    	$(window).scroll(function () {
+			if ($(this).scrollTop() != 0) {
+				$('#toTop').fadeIn();
+			} else {
+				$('#toTop').fadeOut();
+			}
+		}); 
+    $('#toTop').click(function(){
+        $("html, body").animate({ scrollTop: 0 }, 600);
+        return false;
+    });
+});
+
 export default class Header1 extends React.Component{
    componentDidMount(){
     $(document).ready(function() {
       $("#toggle").click(function() {
         var elem = $("#toggle").text();
+		// alert(elem);
         if (elem == "Advance Search") {
           //Stuff to do when btn is in the read more state
           $("#toggle").text("Normal Search");
@@ -30,8 +47,7 @@ export default class Header1 extends React.Component{
 	render(){
 		return(
       <div>
-<button id="btn_top"> <i className="icon-arrow-up" aria-hidden="true"></i> </button>
-  
+
   <div id="tzloadding"> <img className="loadding_img" src={img1} alt="loading..." width="32" height="39" /> </div>
   <div className="vc_row wpb_row vc_row-fluid">
     <div className="no_container">

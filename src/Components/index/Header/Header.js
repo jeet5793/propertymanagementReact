@@ -9,6 +9,21 @@ import $ from 'jquery'
 // import {Redirect} from 'react-router-dom'
 import HeadrNav from './headerNav'
 
+$(document).ready(function(){
+      $('body').append('<div id="toTop" class="btn btn-info"><span class="icon-arrow-up"></span></div>');
+    	$(window).scroll(function () {
+			if ($(this).scrollTop() != 0) {
+				$('#toTop').fadeIn();
+			} else {
+				$('#toTop').fadeOut();
+			}
+		}); 
+    $('#toTop').click(function(){
+        $("html, body").animate({ scrollTop: 0 }, 600);
+        return false;
+    });
+});
+
 export default class Header extends Component {
   constructor(props){
     super(props)
@@ -21,6 +36,7 @@ export default class Header extends Component {
     
             $("#toggle").click(function() {
               var elem = $("#toggle").text();
+			  // alert(elem);
               if (elem === "Advance Search") {
                 //Stuff to do when btn is in the read more state
                 $("#toggle").text("Normal Search");
@@ -34,6 +50,7 @@ export default class Header extends Component {
             
             },1500);
   }
+ 
   headerChange(){
     return(<div className="tz-header tz-header-type-1">
               <div className="row">
@@ -113,7 +130,7 @@ export default class Header extends Component {
   render() {
     return (
       <div className="">
-        <button id="btn_top"> <i className="icon-arrow-up" aria-hidden="true"></i> </button>
+      
           <div id="tzloadding"> <img className="loadding_img" src={Loading_blue_64x64} alt="loading..." width="32" height="39" /> </div>
           <div className="vc_row wpb_row vc_row-fluid">
             <div className="no_container">

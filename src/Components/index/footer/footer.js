@@ -9,7 +9,8 @@ class Footer extends React.Component{
 	constructor(){
 		super();
 		this.state = {
-			email:""
+			email:"",
+			errors:{}
 		}
 		this.onClickNewsLetter = this.onClickNewsLetter.bind(this);
 		this.onChangeNewsLetter = this.onChangeNewsLetter.bind(this);
@@ -39,10 +40,12 @@ class Footer extends React.Component{
 	}
 	onClickNewsLetter(e){
 		e.preventDefault();
-		
+		let errors = {};
 		var opts = this.state;
 		if(!opts.email){
-			return alert("Email should not be blank.!!!");
+			// return alert("Email should not be blank.!!!");
+			 errors["email"] = "Email should not be blank. !!!";
+			 this.setState({errors: errors});
 		}else{
 			$("#loaderDiv").show();
 		 fetch(`${API_URL}assetsapi/newsletter`, {
@@ -79,7 +82,7 @@ class Footer extends React.Component{
                   <Link className="twitter" to="https://twitter.com/assetswatch" ><i className="fa fa-twitter" onClick={(e)=>this.openExternal(e,"https://twitter.com/assetswatch")}></i></Link> 
                   <Link className="google" to="#" ><i className="fa fa-google-plus"  onClick={(e)=>this.openExternal(e,"https://plus.google.com")}></i></Link> 
                  
-                  <Link className="linkedin"  to="#"><i className="fa fa-linkedin" onClick={(e)=>this.openExternal(e,"http://www.linkedin.com")}></i></Link> 
+                  <Link className="linkedin"  to="https://www.linkedin.com/in/assets-watch-355127175/"><i className="fa fa-linkedin" onClick={(e)=>this.openExternal(e,"https://www.linkedin.com/in/assets-watch-355127175/")}></i></Link> 
 				  {/*  <Link className="pinterest" to="#"><i className="fa fa-pinterest"></i></Link> 
 	<Link className="flickr" to="#"><i className="fa fa-flickr"></i></Link> */}
                   </span> 
@@ -127,6 +130,7 @@ class Footer extends React.Component{
                     <div className="tnp-field tnp-field-email">
                       <label>Email</label>
                       <input className="tnp-email" type="email" onChange={this.onChangeNewsLetter} name="email" required />
+					   <span style={{color: "red"}}>{this.state.errors["email"]}</span>
                     </div>
                     <div className="tnp-field tnp-field-button">
                       <input className="tnp-submit" type="submit" value="Subscribe" onClick={this.onClickNewsLetter}/>

@@ -576,7 +576,7 @@ addDefaultSrc(ev){
           </div>
         </div>
         <div className="vc_row wpb_row vc_row-fluid">
-          <div className="no_container">
+          <div className="container">
             <div className="wpb_column vc_column_container vc_col-sm-12">
               <div className="vc_column-inner ">
                 <div className="wpb_wrapper">
@@ -589,11 +589,11 @@ addDefaultSrc(ev){
                     </div>
                   </div>
 
-                  <div className="tz-property-home  ">
+                  <div className="tz-property-home col-md-12 about-ouragents">
                     <div>
                       {this.state.agentList && this.state.agentList.length > 0 ? this.state.agentList.map((agent) => {
-                        return (<div className="tz-author-item cbp-item" key={agent.agent_id}>
-                          <div className="tz-thumbnail"> <a > <img onError={this.addDefaultSrc} style={{maxWidth:'68%'}} src={agent.profile_photo ? API_URL +agent.profile_photo:img_not_available} className="home-img wide tall" alt="" width="260" height="420" />  </a> </div>
+                        return (<div className="tz-author-item cbp-item col-md-3" key={agent.agent_id}>
+                          <div className="tz-thumbnail mxheight"> <a > <img onError={this.addDefaultSrc} src={agent.profile_photo ? API_URL +agent.profile_photo:img_not_available} className="home-img wide tall" alt="" />  </a> </div>
                           <div className="tz-author-content">
                             <h4> {agent.name} </h4>
                             

@@ -2,6 +2,7 @@ import React from 'react'
 import { Route } from 'react-router';
 // import jQuery from 'jquery'
 import API_URL from '../../../app-config';
+import $ from 'jquery';
 
 export default class FindYourProperty extends React.Component{
   constructor(props){
@@ -23,7 +24,7 @@ export default class FindYourProperty extends React.Component{
       this.setState({[e.target.name]:e.target.value})
   }
   searchPropertys(e){
-	 
+	$("#loaderDiv").show(); 
     var opts=this.state
     fetch(`${API_URL}assetsapi/property_search`, {
     method: 'post',    
@@ -33,15 +34,24 @@ export default class FindYourProperty extends React.Component{
   }).then(function(data) {
     if(data.success===1)
     {
+		$("#loaderDiv").hide();
       // console.log(data);    
       // window.location.href='http://'+window.location.hostname+':'+window.location.port+'/property-detail'
       // window.location.pathname="/property-detail"
       
       // <Redirect to={{pathname:'/property-detail'}} />
-    }
-    this.props.onUpdateHandler(data);
+	  this.props.onUpdateHandler(data);
+    }else{
+		$("#loaderDiv").hide();
+					$("#actionType").val("No");
+				    // $("#hiddenURL").val("owner-agent");
+					   $(".confirm-body").html(data.msg);
+					   $("#SBlockUIConfirm").show();
+	}
+    
   }.bind(this));
 }
+
  	render(){
  		return(
     <div className="form" action="property.html" method="POST" >
@@ -81,15 +91,17 @@ export default class FindYourProperty extends React.Component{
         <div  id="text">
           <div className="col-md-3 col-sm-3 col-xs-12 key">
             <label style={{border:'none'}}>Area</label>
-            <input type="text" onChange={this.onChangeHandler} className="cbp-search-input tz-pro-search-input" id="area" name="area" placeholder="Sq Ft" value="" />
+            <input type="text" onChange={this.onChangeHandler} className="cbp-search-input " id="area" name="area" placeholder="Sq Ft"  />
+			 
           </div>
           <div className="col-md-3 col-sm-3 col-xs-12 key">
             <label style={{border:'none'}}>Min Price</label>
-            <input type="text" className="cbp-search-input tz-pro-search-input" id="min_price" name="min_price" placeholder="Min Price" value="" />
+            <input type="text" className="cbp-search-input " onChange={this.onChangeHandler} id="min_price" name="min_price" placeholder="Min Price"  />
           </div>
           <div className="col-md-3 col-sm-3 col-xs-12 key">
             <label style={{border:'none'}}>Max Price</label>
-            <input type="text" className="cbp-search-input tz-pro-search-input" id="max_price" name="max_price" placeholder="Max Price" value="" />
+            <input type="text" className="cbp-search-input " onChange={this.onChangeHandler} id="max_price" name="max_price" placeholder="Max Price" />
+			 
           </div>
         </div>
        <div className="col-md-9 col-sm-8 col-xs-12"></div>
