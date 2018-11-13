@@ -63,9 +63,9 @@ class Footer extends React.Component{
 		})
 	}
 	}
-  openExternal(e,url){
-    window.open(url)
-  }
+  // openExternal(e,url){
+    // window.open(url)
+  // }
 	render(){
 		return( <footer className="tz-footer" style={{backgroundImage:'Url('+img2+')'}}>
     <div className="tz-footer-content">
@@ -78,11 +78,11 @@ class Footer extends React.Component{
                   <div className="tzwidget-logo"> <a href="/"> <img src={img1} alt="Assets Watch" /> </a> </div>
                   <p> Assets Watch provides residential, commercial and rural property marketing solutions and search tools, plus information for buyers, investors, sellers, renters and agents United States wide. </p>
                   <span className="tzwidget-social"> 
-                  <Link className="facebook" to="https://www.facebook.com/assetswatch/"  ><i className="fa fa-facebook" onClick={(e)=>this.openExternal(e,"https://www.facebook.com/assetswatch/")}></i></Link> 
-                  <Link className="twitter" to="https://twitter.com/assetswatch" ><i className="fa fa-twitter" onClick={(e)=>this.openExternal(e,"https://twitter.com/assetswatch")}></i></Link> 
-                  <Link className="google" to="#" ><i className="fa fa-google-plus"  onClick={(e)=>this.openExternal(e,"https://plus.google.com")}></i></Link> 
+                  <a className="facebook" href = "https://www.facebook.com/assetswatch/" target="_blank"><i className="fa fa-facebook"></i></a> 
+                  <a className="twitter" href = "https://twitter.com/assetswatch" target="_blank"><i className="fa fa-twitter"></i></a> 
+                  <a className="google" to="#" ><i className="fa fa-google-plus" ></i></a> 
                  
-                  <Link className="linkedin"  to="https://www.linkedin.com/in/assets-watch-355127175/"><i className="fa fa-linkedin" onClick={(e)=>this.openExternal(e,"https://www.linkedin.com/in/assets-watch-355127175/")}></i></Link> 
+                  <a className="linkedin" href = "https://www.linkedin.com/in/assets-watch-355127175/" target="_blank"><i className="fa fa-linkedin"></i></a> 
 				  {/*  <Link className="pinterest" to="#"><i className="fa fa-pinterest"></i></Link> 
 	<Link className="flickr" to="#"><i className="fa fa-flickr"></i></Link> */}
                   </span> 

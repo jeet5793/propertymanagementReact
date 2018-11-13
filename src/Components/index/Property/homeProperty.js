@@ -38,7 +38,7 @@ render(){
                             
 							<div className="cbp-l-caption-body"> 
 	                            
-								<Link to={{'pathname':"property-detail",state:this.props}} rel="nofollow"><i className="icon-link"></i> </Link> 
+								<Link to={{'pathname':"property-detail",state:this.props}} className = "cbp-l-caption-buttonLeft" rel="nofollow"><i className="icon-link"></i> </Link> 
 	                           <a  className="cbp-l-caption-buttonRight"  onClick={this.props.onClickImagePreview.bind(this,this.props.id)} > <i className="icon-plus-circle" ></i> </a> 
                         	</div>
                     	</div>
