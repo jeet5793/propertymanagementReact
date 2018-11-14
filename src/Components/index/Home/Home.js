@@ -50,6 +50,7 @@ class Home extends React.Component{
 			showPopup: false
 		}
 		this.onClickClose=this.onClickClose.bind(this)
+		this.onClickImagePreview = this.onClickImagePreview.bind(this)
 	}
 	
 	handleScriptLoad(){	
@@ -218,7 +219,7 @@ class Home extends React.Component{
 			document.getElementById('advertisement').src = `${API_URL}assetsadmin/`+img;
 		});
 	}
-onClickImagePreview(id,e){
+onClickImagePreview(id){
 $("#loaderDiv").show();
       fetch(`${API_URL}assetsapi/property_images/`+id, {
         method: 'get'
@@ -339,7 +340,7 @@ onClickClose() {
 				                          <div id="tz-pro-slider-5ac1cdf22e330" className="cbp cbp-l-grid-team tz-property-slider false">
 				          					{
 				          						this.state.properties?this.state.properties.map((property, index) => (
-				          							<HomeProperty key={index} description={property.description}  Title={property.title} src={property.img_path.length>0?API_URL+property.img_path[0].img_path:''} Status={property.property_status} total_amount={property.total_amount} id = {property.id} onClickImagePreview={e => this.onClickImagePreview(property.id,e)}/>
+				          							<HomeProperty description={property.description}  Title={property.title} src={property.img_path.length>0?API_URL+property.img_path[0].img_path:''} Status={property.property_status} total_amount={property.total_amount} id = {property.id} onClickImagePreview={this.onClickImagePreview}/>
 				          						)):<h3 style={{textAlign:'center'}}>No Property Available</h3>}
 				          					
 				                          </div>

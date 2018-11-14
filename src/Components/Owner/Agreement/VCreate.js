@@ -153,7 +153,7 @@ createAgreement(){
 			  // var userid = data.user.assets_id
 			  // localStorage.setItem('userid',userid)
 						$("#loaderDiv").hide();
-						$("#actionType").val("No");
+						$("#actionType").val("Yes");
 						   $("#hiddenURL").val("agreement");
 						   $(".confirm-body").html(data.msg);
 						   $("#BlockUIConfirm").show();

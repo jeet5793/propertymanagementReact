@@ -111,7 +111,14 @@ export default class ContactForm extends React.Component {
 		if(!fields["phone"]){
            formIsValid = false;
            errors["phone"] = "Cannot be empty";
+        }else if (typeof fields["phone"] !== "undefined") {
+        if (!fields["phone"].match(/^[0-9]{10}$/)) {
+			formIsValid = false;
+        errors["phone"] = "Please enter valid 10 digit Phone number";
+           
+          
         }
+      }
 		if(!fields["contactfor"]){
            formIsValid = false;
            errors["contactfor"] = "Cannot be empty";

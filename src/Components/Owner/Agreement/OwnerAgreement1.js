@@ -610,8 +610,9 @@ getPropertyList() {
       }
       else if(e.target.id==="create")
       { 
-			this.onClickCheckPermission('create_agreement');
-          document.getElementById(e.target.id).setAttribute('class',activeclassName)
+		  this.onClickCheckPermission('create_agreement');
+         
+		  document.getElementById(e.target.id).setAttribute('class',activeclassName)
           document.getElementById("saved").setAttribute('class',normalclassName)
           document.getElementById("request").setAttribute('class',normalclassName)
           document.getElementById("execute").setAttribute('class',normalclassName)
@@ -722,9 +723,9 @@ onClickCheckPermission(feature){
 						   $(".confirm-body").html(data.msg);
 						   $("#BlockUIConfirm").show();
 						  
-						  $(".row-dialog-btn").click(function(){
-							    $('#vcreatepermission').show()
-						   })
+						  // $(".row-dialog-btn").click(function(){
+							    // $('#vcreatepermission').show()
+						   // })
 							   
 				}else{
 					$("#loaderDiv").hide();

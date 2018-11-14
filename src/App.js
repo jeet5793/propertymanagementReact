@@ -60,7 +60,7 @@ export default class App extends Component {
       },
       loading: false
     };
-    this.homePaths = ["/", "/Home", "/index", "/AboutUs", "/aboutus", "about", "/property", "/properties", "/blog", "/blog-detail", "/plans", "/contact", "/contactus", "/registration", "/register", "/property-detail", "/register-plans", "/reset-password", "/privacy-policy", "/terms-condition"]
+    this.homePaths = ["/", "/Home", "/index", "/AboutUs", "/aboutus", "about", "/property", "/properties", "/blog", "/blog-detail", "/plans", "/contact", "/contactus", "/registration", "/register", "/property-detail", "/register-plans",  "/privacy-policy", "/terms-condition"]
     this.FtrCheck = this.FtrCheck.bind(this)
     this.LoggedIn = this.LoggedIn.bind(this)
     this.updateProfileInfo = this.updateProfileInfo.bind(this)
@@ -97,6 +97,7 @@ export default class App extends Component {
     loadFile('assets/css/plans1.css', 'css')
     loadFile('assets/css/theme.css', 'css')
     loadFile('assets/css/responsive_index.css', 'css')
+	
 
   }
   addUserDashboardFiles() {
@@ -243,7 +244,7 @@ export default class App extends Component {
             {/* <Route exact path='/contact' render={props=><ContactUs {...props} login={this.LoggedIn} />} /> */}
             <Route exact path='/registration' render={props => <Regisgtration {...props} login={this.LoggedIn} />} />
             <Route exact path='/register-plans' render={props => <PlansReg {...props} login={this.LoggedIn} />} />
-            <Route exact path='/reset-password' render={props => <ResetPassword {...props} login={this.LoggedIn} />} />
+            <Route exact path='/password-reset' render={props => <ResetPassword {...props} login={this.LoggedIn} />} />
             <Route exact path='/privacy-policy' render={props => <PrivacyPlans {...props} login={this.LoggedIn} />} />
             <Route exact path='/terms-condition' render={props => <TermsCondition {...props} login={this.LoggedIn} />} />
             {/* TermsCondition */}

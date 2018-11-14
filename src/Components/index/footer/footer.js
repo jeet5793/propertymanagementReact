@@ -46,7 +46,16 @@ class Footer extends React.Component{
 			// return alert("Email should not be blank.!!!");
 			 errors["email"] = "Email should not be blank. !!!";
 			 this.setState({errors: errors});
-		}else{
+		}else if(opts.email !== "undefined"){
+           let lastAtPos = opts.email.lastIndexOf('@');
+           let lastDotPos = opts.email.lastIndexOf('.');
+
+           if (!(lastAtPos < lastDotPos && lastAtPos > 0 && opts.email.indexOf('@@') == -1 && lastDotPos > 2 && (opts.email.length - lastDotPos) > 2)) {
+			 
+				errors["email"] = "Please enter a valid Email";
+				this.setState({errors: errors});
+            }
+       }else{
 			$("#loaderDiv").show();
 		 fetch(`${API_URL}assetsapi/newsletter`, {
             method: 'post',

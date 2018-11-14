@@ -88,8 +88,14 @@ export default class RegistrationForm extends React.Component {
         this.cityList(SelectStates);
       } else if (e.target.name === "city")
         registrationForm.city = e.target.value;
-      else if (e.target.name === "zip_code")
-        registrationForm.zip_code = e.target.value;
+      else if (e.target.name === "zip_code"){
+         registrationForm.zip_code = isNaN(e.target.value)
+          ? registrationForm.zip_code
+          : e.target.value;
+		if (!registrationForm.zip_code.match(/(^\d{5}$)|(^\d{5}-\d{4}$)/)) {
+			errors["zip_code"] = "Please enter valid zip code";  
+		}
+	  }
       else if (e.target.name === "mobile_no") {
         registrationForm.mobile_no = isNaN(e.target.value)
           ? registrationForm.mobile_no
@@ -327,7 +333,14 @@ export default class RegistrationForm extends React.Component {
 		formIsValid = false;
         errors["zip_code"] = "Zip Code should not be blank";
      
-    }
+    }else if (typeof opts.zip_code !== "undefined") {
+        if (!opts.zip_code.match(/(^\d{5}$)|(^\d{5}-\d{4}$)/)) {
+			formIsValid = false;
+        errors["mobile_no"] = "Please enter valid  zip code";
+           
+          
+        }
+      }
 	
     if (!opts.mobile_no) {
 		formIsValid = false;

@@ -11,20 +11,7 @@ import $ from 'jquery'
 import HeadrNav1 from '../Header/headerNav1'
 import HeadrNav from '../Header/headerNav'
 
-$(document).ready(function(){
-      $('body').append('<div id="toTop" class="btn btn-info"><span class="icon-arrow-up"></span></div>');
-    	$(window).scroll(function () {
-			if ($(this).scrollTop() != 0) {
-				$('#toTop').fadeIn();
-			} else {
-				$('#toTop').fadeOut();
-			}
-		}); 
-    $('#toTop').click(function(){
-        $("html, body").animate({ scrollTop: 0 }, 600);
-        return false;
-    });
-});
+
 
 export default class Header1 extends React.Component{
    componentDidMount(){
@@ -42,6 +29,18 @@ export default class Header1 extends React.Component{
           $("#text").slideUp();
         }
       });
+	  $('body').append('<div id="toTop" class="btn btn-info"><span class="icon-arrow-up"></span></div>');
+    	$(window).scroll(function () {
+			if ($(this).scrollTop() != 0) {
+				$('#toTop').fadeIn();
+			} else {
+				$('#toTop').fadeOut();
+			}
+		}); 
+    $('#toTop').click(function(){
+        $("html, body").animate({ scrollTop: 0 }, 600);
+        return false;
+    });
 }); 
   }
 	render(){
