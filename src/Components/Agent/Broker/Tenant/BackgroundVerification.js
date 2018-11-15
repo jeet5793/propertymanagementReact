@@ -144,7 +144,7 @@ export default class Agent extends React.Component{
 			 return;
 		 }
 		localStorage.setItem("opts", JSON.stringify(opts));
-		 window.location.href="/broker-owner-bgvpayment";
+		 window.location.href="/broker-tenant-bgvpayment";
 			 // console.log(opts);
 			/*  document.getElementById("bgvFormCancel").click();
 				 $("#loaderDiv").show();
@@ -203,7 +203,7 @@ export default class Agent extends React.Component{
 render(){
 
 	return(
-			<div id="background-verifi" className="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{display: "none"}}>
+			<div id="background-verifi"  className="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{display: "none ! important"}}>
 				<div className="modal-dialog modal-lg">
 				<div className="modal-content">
 				  <div className="modal-header">

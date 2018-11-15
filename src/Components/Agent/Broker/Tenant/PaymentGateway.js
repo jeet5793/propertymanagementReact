@@ -200,7 +200,7 @@ changeNameHandler(e)
 					    var removeOpts = localStorage.removeItem("opts");
 					    // console.log(JSON.stringify(check));
 					    $("#actionType").val("Yes");
-					    $("#hiddenURL").val("broker-owner");
+					    $("#hiddenURL").val("broker-tenant");
 					    $(".confirm-body").html(data.msg);
 					    $("#BlockUIConfirm").show();
 						// swal("Assets Watch", data.msg);
@@ -284,7 +284,7 @@ changeNameHandler(e)
 					    var removeOpts = localStorage.removeItem("opts");
 					    // console.log(JSON.stringify(check));
 					    $("#actionType").val("Yes");
-					    $("#hiddenURL").val("broker-owner");
+					    $("#hiddenURL").val("broker-tenant");
 					    $(".confirm-body").html(data.msg);
 					    $("#BlockUIConfirm").show();
 						// swal("Assets Watch", data.msg);
@@ -303,7 +303,7 @@ changeNameHandler(e)
   }
    onClickReturn()
   {
-	  window.location.href='/broker-owner';
+	  window.location.href='/broker-tenant';
 	  // this.props.history.replace('/owner-plan');
   }
   changeTabs(id) {
@@ -331,7 +331,7 @@ changeNameHandler(e)
 		return(
       <div>
          {/* Logo container*/}
-         <Header name="broker-owner"  first_name={window.localStorage.getItem('firstName')} 
+         <Header name="broker-tenant"  first_name={window.localStorage.getItem('firstName')} 
                 last_name={window.localStorage.getItem('firstName')} />
 	 <div  style={{marginTop:'3%',marginBottom:'3%'}} className="wrapper">
          <div className="payment-warp">

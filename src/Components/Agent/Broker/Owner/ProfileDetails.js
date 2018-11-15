@@ -23,7 +23,7 @@ class ProfileDetails extends React.Component{
 			}
 		}
 		this.onChangeHandler=this.onChangeHandler.bind(this);
-		this.BgvDownload = this.BgvDownload.bind(this);
+		
     }
 	onChangeHandler(e)
 	{
@@ -135,20 +135,8 @@ class ProfileDetails extends React.Component{
 		)
 	
 	}
-	BgvDownload(reportId){
-		window.open(`${API_URL}assetsapi/bgv_report/`+reportId,"_self")
-		
-	}
-	changeTabs(id) {
-        if (id == "bgv") {
-            $("#aboutTab").removeClass("active")
-
-        }
-        else {
-            $("#bgvTab").removeClass("active")
-           
-        }
-    }
+	
+	
 	addDefaultSrc(ev){
 	  ev.target.src = img_not_available;
 	}
@@ -216,58 +204,26 @@ class ProfileDetails extends React.Component{
                             </div>	
                             </div>	
                             <hr />
-                                 <ul className="nav nav-tabs tabs-bordered">
-								<li className="nav-item"> <a href="#about" data-toggle="tab" onClick={this.changeTabs.bind(this, "about")} id="aboutTab" aria-expanded="true" className="nav-link font-16 active">About  </a> </li>
-								<li className="nav-item"> <a href="#bgv" data-toggle="tab" onClick={this.changeTabs.bind(this, "bgv")} id="bgvTab" aria-expanded="false" className="nav-link font-16">BGV  </a> </li>
-								
-								
-                            </ul>
-							
-							<div className="tab-content">
-								<div className="tab-pane active" id="about">
-									<div className="row">
-										{this.state.profileData.about_us}
-									</div>
-						  
-								</div>
-								<div className="tab-pane" id="bgv">
-									<div className="row">
-									{this.state.bgvInfo && (this.state.bgvInfo).length>0?
-										<div className=" table-responsive">
-											<table id="" className="table table-bordered datatable">
-												<thead>
-													<tr>
-														<th>Report Type</th>
-														<th>Package Name</th>
-														<th>Date</th>
-														<th>Action</th>
-													</tr>
-												</thead>
-												<tbody>
-											  {this.state.bgvInfo?this.state.bgvInfo.map((item)=>(
-													<tr>
-														<td>{(item.selected_package==14)?"Credit Report":(item.selected_package==12)?"Credit Report, Eviction Report":(item.selected_package==13)?"County Criminal, Credit Report, Eviction Report":''}</td>
-														<td className="tbl-text-overflow">{(item.selected_package==14)?"Bronze Package":(item.selected_package==12)?"Silver Package":(item.selected_package==13)?"Gold Package":''} </td>
-														<td>{item.orderDate}</td>
-														<td className="text-center"><a style={{cursor:'pointer'}} className="table-action-btn view-rqu" onClick={this.BgvDownload.bind(this,item.reportId)}><i className="mdi mdi-download"></i></a></td>
-													</tr>)):<tr><td style={{textAlign:'center'}} colSpan={5}>No Report Available</td></tr>}
-												</tbody>
-											</table>
-									</div>:<div className=" table-responsive" style={{textAlign:'center'}}>No Report Available</div>}
-									</div>
-								</div>
-								
-							</div>
-							
+                              <div className="row">
+                            <div className="col-md-12">
+                                    <div className="col-md-8">
+                                        <h4>About:</h4>
+                                        <p>{this.state.profileData.about_us}</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     {/* <!-- end col --> */}
-				   </div>
+                   </div>
                     {/* <!-- end row --> */}
                     
                 </div>
                 {/* <!-- end container -->  */}
                 </div>
+				    
+							
+							
 				 
                 <div id="send-msg" className="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{display: 'none'}}>
                 <div className="modal-dialog">

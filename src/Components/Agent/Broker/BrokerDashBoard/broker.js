@@ -20,7 +20,7 @@ import Upgrade from '../UpgradePlan/Payment'
 import Notifications from '../Notifications/BrokerNotifications'
 import Report from '../Reports/Report'
 import ReportTable from '../Reports/ReporTable'
-import BGVPayment from '../Owner/PaymentGateway'
+import BGVPayment from '../Tenant/PaymentGateway'
 import $ from 'jquery';
 import API_URL from '../../../../app-config';
 class AgentBrokerDashboard extends React.Component {
@@ -117,7 +117,7 @@ class AgentBrokerDashboard extends React.Component {
 			<Route exact path='/broker-plan' component={BrokerPlan} />
 			<Route exact path='/broker-upgrade' component={Upgrade} />
 			<Route exact path='/broker-notifications' component={Notifications} />
-			<Route exact path='/broker-owner-bgvpayment' component={BGVPayment} />
+			<Route exact path='/broker-tenant-bgvpayment' component={BGVPayment} />
           </Switch>
 
           <Footer />

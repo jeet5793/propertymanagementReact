@@ -58,12 +58,13 @@ const VExecute=(props)=>{
               </tr>
               </thead>
               <tbody>
-              {props.ragreement && props.ragreement.length>0?props.agreement.map(element=>(
+            {props.ragreement.length>0?props.ragreement.map(element=>(
                   <tr>
                     <td>{element.agreement_title}</td>
                     <td>{element.initiated_date}</td>
-                    <td>{element.status==="Inprocess"?<a title="Edit" href="#executePreview" data-toggle="tab" onClick={() => props.selectedExecutedAgreement(element)} className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a>:(element.status==="Completed")?<a title="view" href="#" onClick={() => props.dealPdfView(element.deal_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a>:''}<a title="Send" href="#" className="table-action-btn view-rqu"><i className="mdi mdi-download" onClick={() => props.onClickDownload(element.deal_id)}></i></a><a title="Send" href="#" className="table-action-btn view-rqu" data-toggle="modal" onClick={() => props.selectedExecutedAgreement(element)} data-target="#send-msg"><i className="mdi mdi-redo-variant"></i></a></td>
-                  </tr>
+					 <td>{element.status}</td>
+                    <td><a title="view" href="#" onClick={() => props.dealPdfView(element.deal_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Download"  href="#" className="table-action-btn view-rqu"><i className="mdi mdi-download" onClick={() => props.onClickDownload(element.deal_id)}></i></a><a title="Send"  href="#" className="table-action-btn view-rqu" data-toggle="modal" onClick={() => props.selectedExecutedAgreement(element)} data-target="#send-msg"><i className="mdi mdi-redo-variant"></i></a></td>
+            </tr>
               )):<div>No data </div>}
               </tbody>
             </table>
@@ -104,7 +105,10 @@ export default class TenantAgreement extends React.Component {
     this.getRequestedAgreement();
 	 this.getSendedAgreement();
     this.getExecutedAgreement();
-	 this.dealPdfView = this.dealPdfView.bind(this);
+	 this.selectedExecutedAgreement = this.selectedExecutedAgreement.bind(this)
+	   this.onClickDownload = this.onClickDownload.bind(this)
+	    this.pdfViewAgreement = this.pdfViewAgreement.bind(this);
+		this.dealPdfView = this.dealPdfView.bind(this);
     // $('a[data-toggle="collapse"]').click(function (e) {
     //     console.log($(e.target).attr('aria-controls'))
     //     var element = $('#'+$(e.target).attr('aria-controls'));
@@ -142,10 +146,23 @@ export default class TenantAgreement extends React.Component {
                 }
             )
     }
+	onClickDownload(deal_id){
+		 // alert("dsahfh");
+		 // <a href={`${API_URL}assetsapi/download_agreement/`+deal_id}/>
+		  window.open(`${API_URL}assetsapi/download_agreement/`+deal_id,'_self')
+		//console.log("deal_id"+JSON.stringify(deal_id));
+		 
+			
+	 }
+	 pdfViewAgreement(agreement_id){
+		 let { user } = this.state;
+		  window.open(`${API_URL}assetsapi/agreement_pdf_view/`+agreement_id+`/${user.session_id}`, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
+	 }
 	 dealPdfView(deal_id){
 		 let { user } = this.state;
 		  window.open(`${API_URL}assetsapi/deal_agreement_pdf_view/`+deal_id+`/${user.session_id}`, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
 	 }
+	
 	getSendedAgreement(){
 	$("#loaderDiv").show();
       let { user } = this.state;
@@ -169,6 +186,27 @@ export default class TenantAgreement extends React.Component {
     }
     )
 }
+selectedExecutedAgreement(agreement) {
+        let data = {id: agreement.deal_id};
+        fetch(`${API_URL}assetsapi/view_submitted_deal`, {
+            method: 'post',
+            body: JSON.stringify(data)
+        })
+            .then(res => res.json())
+            .then(
+                ({success, data}) => {
+                    if (success) {
+                        $('#execute').parent().removeClass('active')
+                        $('#execute').removeClass('active');
+                        $('#executePreviewContainer').html(data.replaced_template);
+						this.setState({updatedAgreement: data});
+                    }
+                },
+                (error) => {
+                    console.log('error')
+                }
+            )
+    }
 	getExecutedAgreement() {
         let { user } = this.state;
 		$("#loaderDiv").show();
@@ -182,7 +220,7 @@ export default class TenantAgreement extends React.Component {
                     //console.log("data 2: "+JSON.stringify(result.profile))
 					$("#loaderDiv").hide();
                     if (data.success) {
-                        this.setState({executedAgreement:data.agreement_detail,agrLoaded:true})
+                        this.setState({executedAgreement:data.execute_agreements,agrLoaded:true})
                         // console.log(this.state.executedAgreement);
                     }
                     //console.log("set user data"+JSON.stringify(this.state.profileData))
@@ -261,6 +299,7 @@ export default class TenantAgreement extends React.Component {
         }
         else if(e.target.id==="execute")
         {
+			this.getExecutedAgreement();
             document.getElementById(e.target.id).setAttribute('class',activeclassName)
             // document.getElementById("saved").setAttribute('class',normalclassName)
             // document.getElementById("create").setAttribute('class',normalclassName)
@@ -355,12 +394,16 @@ export default class TenantAgreement extends React.Component {
                       <div className="col-md-10">
                         <div className="tab-content">
                           {<VRequested previewAgreement={this.previewAgreement} ragreement={this.state.requestedAgreement || []} sendedAgreement={this.state.sendedAgreement || []} dealPdfView={this.dealPdfView}/>}
-                          <VExecute ragreement={this.state.executedAgreement} dealPdfView={this.dealPdfView}/>
+                          <VExecute ragreement={this.state.executedAgreement} selectedExecutedAgreement={this.selectedExecutedAgreement} onClickDownload={this.onClickDownload} dealPdfView={this.dealPdfView}/>
+						   <div className="tab-pane" id="executePreview">
+                                      <div id="executePreviewContainer"></div>
+									
+                                  </div>
                           <div className="tab-pane" id="preview">
                             <div id="contentPreview"></div>
                             <div id="commentBox"></div>
                             <div id="signature"></div>
-                            <button type="button" onClick={this.submitAgreement} class="btn btn-primary stepy-finish">Accept</button>
+                            
                           </div>
                         </div>
                       </div>

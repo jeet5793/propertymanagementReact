@@ -15,6 +15,7 @@ import Cookies from 'js-cookie';
 import Pagination from 'react-js-pagination';
  import Select from 'react-select';
  import SendEmail from './SendEmail';
+  import BackgroundVerification from './BackgroundVerification';
  import $ from "jquery";
    import Autosuggest from 'react-autosuggest';
 const loadScript=function(url, callback){
@@ -90,7 +91,8 @@ class BrokerTenant extends React.Component{
         itemsCountPerPageJoined: 1,
 		autocompleteData: [],
 		selectedOption: null,
-		profileData:[]
+		profileData:[],
+		inviteStatus:[]
     };
 	this.onChangeHandler=this.onChangeHandler.bind(this)
 	this.acceptRequest=this.acceptRequest.bind(this)
@@ -100,6 +102,9 @@ class BrokerTenant extends React.Component{
     this.handlePageChangeJoinedList = this.handlePageChangeJoinedList.bind(this)
 
 		this.searchUser=this.searchUser.bind(this)
+		this.onClickProfile = this.onClickProfile.bind(this);
+		this.changeTabs = this.changeTabs.bind(this);
+		
   }
   hideModel()
 {
@@ -248,6 +253,62 @@ class BrokerTenant extends React.Component{
 	 }.bind(this));
 	 
   }
+   onClickProfile(id)
+	 {
+		  $("#background-verifi").hide();
+		$("#loaderDiv").show();
+			  fetch(`${API_URL}assetsapi/checkPermissions/${JSON.parse(this.state.userData).assets_id}/collect_payments`, {
+					  method: "GET"
+					})
+					  .then(response => {
+						return response.json();
+					  })
+					  .then((data) => {
+						//debugger;
+						//console.log('dataaaa:  ', data);
+						
+						if(data.success===1){
+							 $("#background-verifi").show();
+							$("#loaderDiv").hide();
+						  fetch(`${API_URL}assetsapi/profile/`+id+`/${JSON.parse(this.state.userData).session_id}`, {
+								method: 'get'
+							  })
+							.then(res => res.json())
+								.then(
+								  (result) => {
+									//console.log("data 2: "+JSON.stringify(result.profile))
+									if (result.success) {
+									  this.setState({profileData:result.profile})
+									  
+									} 
+									//console.log("set user data"+JSON.stringify(this.state.profileData))
+								  },
+									(error) => {
+									  console.log('error')
+									}
+								)
+									
+									   
+							}else if(data.success===0){
+								 $("#background-verifi").hide();
+								$("#loaderDiv").hide();
+								
+								 $(".modal-backdrop").hide();
+								 	$("#actionType").val("No");
+									   $("#hiddenURL").val("owner-agent");
+									   $(".confirm-body").html(data.msg);
+									   $("#BlockUIConfirm").show();
+									 
+									   
+									 
+							}
+					  }
+					).catch((error) => {
+						console.log('error: ', error);
+					  });
+		 
+	
+	 }
   handleChange = (selectedOption) => {
 
 		this.setState({ selectedOption });
@@ -460,14 +521,39 @@ class BrokerTenant extends React.Component{
 		}
 	}
 	changeTabs(id) {
-        if (id == "tenant-request") {
-            $("#joined").removeClass("active")
-
+		if(id == "agent-request") {
+            $("#joined").removeClass("active");
+			$("#invitestatusTab").removeClass("active");
         }
-        else {
-            $("#request").removeClass("active")
-           
-        }
+        else if (id == "invite-status") {
+            $("#joined").removeClass("active");
+			 $("#request").removeClass("active");  
+			 $("#loaderDiv").show();
+			fetch(`${API_URL}assetsapi/invite_status/${JSON.parse(this.state.userData).assets_id}/3/${JSON.parse(this.state.userData).session_id}/`, {
+			  method: 'get',
+			})
+			.then(res => res.json())
+			.then(
+			  (result) => {
+				  $("#loaderDiv").hide();
+				//console.log("data 2: "+JSON.stringify(profile))
+				//alert("data 2: "+JSON.stringify(result));
+				if (result.success) {
+				    this.setState({inviteStatus:result.invite_status_detail});
+				   // this.setState({user_list:result.invitation.users})
+				  
+				} 
+				// console.log("property_list"+JSON.stringify(this.state.property_list))
+				// console.log("user_list"+JSON.stringify(this.state.user_list))
+			  },
+			(error) => {
+			  console.log('error')
+			}
+		  )      
+        }else{
+			$("#request").removeClass("active");
+			$("#invitestatusTab").removeClass("active");
+		}
     }
 	addDefaultSrc(ev){
   ev.target.src = img_not_available;
@@ -508,6 +594,7 @@ class BrokerTenant extends React.Component{
               <ul className="nav nav-tabs tabs-bordered">
                 <li className="nav-item"> <a href="#joined-tenant" data-toggle="tab" aria-expanded="true" onClick={this.changeTabs.bind(this, "joined-tenant")} id="joined" className="nav-link active font-16">Joined Tenants <span className="badge badge-success m-l-10">{joinedUserList.length}</span> </a> </li>
                 <li className="nav-item"> <a href="#tenant-request" data-toggle="tab" onClick={this.changeTabs.bind(this, "tenant-request")} id="request" aria-expanded="false" className="nav-link font-16">Tenant Requested <span className="badge badge-danger m-l-10">{requestedUserList.length}</span> </a> </li>
+				<li className="nav-item"> <a href="#invite-status" onClick={this.changeTabs.bind(this, "invite-status")} id="invitestatusTab"  data-toggle="tab" aria-expanded="false" className="nav-link font-16">Invite Status </a> </li>
               </ul>
               <div className="tab-content">
                 <div className="tab-pane active" id="joined-tenant">
@@ -525,6 +612,7 @@ class BrokerTenant extends React.Component{
 									  <p className="text-muted m-b-3 "><i className="icon-envelope"></i>&nbsp; {item.email}</p>
 									  <p className="text-muted m-b-3 text-overflow"><i className="icon-location-pin"></i>&nbsp; {item.country}</p>
 									  <ul className="list-inline m-t-10 m-b-0 text-right">
+									  <li className="list-inline-item"> <a className="bgv-icon" data-toggle="modal" data-target="#background-verifi" title="background Verification" href="" onClick={this.onClickProfile.bind(this,item.profile_id)}><i className="icon-magnifier"></i></a> </li>
 										<li className="list-inline-item"> <a className="mesg-icon" data-toggle="modal" data-target="#send-msg" title="Message" href="#" onClick={this.messagerec.bind(this,item.profile_id,item.name)}><i className="icon-bubble" /></a> </li>
 										<li className="list-inline-item"> <Link to={{"pathname":"/broker-tenant-profile",state:{profileid:item.profile_id,session:JSON.parse(this.state.userData).session_id,loc: this.props.location}}} className="view-icon"><i className="icon-eye"></i></Link></li>
 									  </ul>
@@ -600,11 +688,44 @@ class BrokerTenant extends React.Component{
 
                 </div>
                 {/* end Users tab */} 
+							<div className="tab-pane" id="invite-status">
+									<div className="row">
+									{this.state.inviteStatus && (this.state.inviteStatus).length>0?
+										<div className=" table-responsive tickets-list">
+											<table id="" className="table table-bordered datatable">
+												<thead>
+													<tr>
+														<th>#</th>
+														<th>Name</th>
+														<th>Status</th>
+														<th>Date</th>
+													</tr>
+												</thead>
+												<tbody>
+											  {this.state.inviteStatus?this.state.inviteStatus.map((item,index)=>(
+													<tr>
+														<td>{index + 1}</td>
+														<td>
+															<a href="javascript: void(0);" className ="tickets-list">
+																<img onError={this.addDefaultSrc} src={item.profile_photo!=''?API_URL+item.profile_photo:img_not_available} alt="" title="contact-img" className="rounded-circle" />
+																<span className="m-l-5"><b>{item.Name}</b></span>
+															</a>
+														</td>
+														<td><span className={item.requestStatus=='Joined'?'label label-success':'label label-warning'}>{item.requestStatus}</span></td>
+														<td>{item.entry_date}</td>
+													</tr>)):<tr><td style={{textAlign:'center'}} colSpan={5}>No Report Available</td></tr>}
+												</tbody>
+											</table>
+									</div>:<div className=" table-responsive" style={{textAlign:'center'}}>No Report Available</div>}
+									</div>
+								</div>
               </div>
             </div>
           </div>
           {/* end container */} 
         </div>
+		{/* ========== BG Verification =====================*/}
+			  <BackgroundVerification profileData={this.state.profileData}  />
         {/* end wrapper */} 
         {/* Footer */}
         <footer className="footer">

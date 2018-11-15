@@ -18,7 +18,8 @@ export default class Header extends React.Component{
 			userData:Cookies.get('profile_data'),
 			notification:[],
 			userTypeList:[],
-			profileData:[]
+			profileData:[],
+			CntNotify:''
         }
         this.logout=this.logout.bind(this)
 		 this.getNotification = this.getNotification.bind(this)
@@ -28,6 +29,7 @@ export default class Header extends React.Component{
 	   this.profileToggle = this.profileToggle.bind(this)
 	   this.profileNoti = this.profileNoti.bind(this);
 	   this.profile = this.profile.bind(this)
+	   this.ToggleNoti = this.ToggleNoti.bind(this);
     }
 logout(id){
     localStorage.clear();
@@ -153,6 +155,7 @@ onHoverNoti()
 				 $('#notify').hide();
 			}
 	} 
+	
 	getNotification()
 	{
 		fetch(`${API_URL}assetsapi/notification_alert/${JSON.parse(this.state.userData).assets_id}/${JSON.parse(this.state.userData).session_id}/`, {
@@ -164,8 +167,29 @@ onHoverNoti()
 				
 				if (result.success) {
 				   this.setState({notification:result.notification});
+				    this.setState({CntNotify:result.notifyCnt[0]});
 				  } 
-				// console.log(this.state.notification)
+				  // console.log(this.state.CntNotify.CountNotify)
+			  },
+			(error) => {
+			  console.log('error')
+			}
+		  )    
+	}
+	ToggleNoti(){
+		
+		fetch(`${API_URL}assetsapi/notification_status_change/${JSON.parse(this.state.userData).assets_id}/${JSON.parse(this.state.userData).session_id}/`, {
+			  method: 'get',
+			})
+			.then(res => res.json())
+			.then(
+			  (result) => {
+				
+				if (result.success) {
+				   
+				    this.getNotification();
+				  } 
+				 
 			  },
 			(error) => {
 			  console.log('error')
@@ -276,11 +300,12 @@ onHoverNoti()
 						  <li className="list-inline-item">{this.state.profileData.planName?`${this.state.profileData.planName} plan`:''} 
 						  {this.state.profileData.planName && this.state.profileData.planName!='Basic'?` expire on ${this.state.profileData.expireDate}`:''}</li>
                          <li className="list-inline-item"> <button type="button" className="btn btn-warning  w-md waves-light"> <Link to = {{pathname:'/owner-plan'}} style={{color:'#fff'}}>Upgrade Plan</Link></button></li>
-                         <li className="list-inline-item dropdown notification-list"> <a className="nav-link dropdown-toggle arrow-none waves-light"  onClick = {this.ToggleNoti} data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false" > <i className="dripicons-bell noti-icon" /> <span className="badge badge-pink noti-icon-badge">{this.state.notification.length}</span> </a>
+                        
+						<li className="list-inline-item dropdown notification-list" onClick = {this.ToggleNoti}> <a className="nav-link dropdown-toggle arrow-none waves-light"   data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false" > <i className="dripicons-bell noti-icon" /> <span className="badge badge-pink noti-icon-badge">{(this.state.CntNotify && this.state.CntNotify.CountNotify>0)?this.state.CntNotify.CountNotify:'0'}</span> </a>
                             <div className="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-lg" aria-labelledby="Preview" id = "notify"> 
                             {/* item*/}
                             <div className="dropdown-item noti-title">
-                                <h5><span className="badge badge-danger float-right">{this.state.notification.length}</span>Notification</h5>
+                                <h5><span className="badge badge-danger float-right">{(this.state.CntNotify && this.state.CntNotify.CountNotify>0)?this.state.CntNotify.CountNotify:'0'}</span>Notification</h5>
                             </div>
                             {/* item*/} 
 							{this.state.notification.map((item,index)=>( 

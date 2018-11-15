@@ -89,7 +89,7 @@ class Footer extends React.Component{
                   <span className="tzwidget-social"> 
                   <a className="facebook" href = "https://www.facebook.com/assetswatch/" target="_blank"><i className="fa fa-facebook"></i></a> 
                   <a className="twitter" href = "https://twitter.com/assetswatch" target="_blank"><i className="fa fa-twitter"></i></a> 
-                  <a className="google" to="#" ><i className="fa fa-google-plus" ></i></a> 
+                  <a className="google" href ="https://plus.google.com/114551621110387328538" target="_blank" ><i className="fa fa-google-plus" ></i></a> 
                  
                   <a className="linkedin" href = "https://www.linkedin.com/in/assets-watch-355127175/" target="_blank"><i className="fa fa-linkedin"></i></a> 
 				  {/*  <Link className="pinterest" to="#"><i className="fa fa-pinterest"></i></Link> 
