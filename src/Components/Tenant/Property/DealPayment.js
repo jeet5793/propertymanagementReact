@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 //import '../../../css/plans.css'
 import $ from 'jquery';
 import swal from 'sweetalert';
-
+import NumberFormat from 'react-number-format';
 class Payment extends React.Component {
   constructor(props){
     super(props)
@@ -25,7 +25,18 @@ class Payment extends React.Component {
 			tokenizedaccountnumber:'',
 			routingnumber:'',
 			
-		}
+		},
+		checked: false,
+		splitShow:false,
+		checked1: false,
+		splitShow1:false,
+		spltAmt:'',
+		subAmt:'',
+		paybleAmt:'',
+		spltAmtAch:'',
+		subAmtAch:'',
+		paybleAmtAch:''
+		
     }
       // this.userInfo = this.userInfo.bind(this);
       // this.userDetails = this.userDetails.bind(this);
@@ -36,7 +47,10 @@ class Payment extends React.Component {
       this.changecvvHandler=this.changecvvHandler.bind(this);
 	   this.onClickReturn = this.onClickReturn.bind(this);
 	   this.onChangeACH = this.onChangeACH.bind(this);
-	   this.changeNameHandler = this.changeNameHandler.bind(this)
+	   this.changeNameHandler = this.changeNameHandler.bind(this);
+	   this.CheckBoxHandle = this.CheckBoxHandle.bind(this);
+	   this.splitAmtHandler = this.splitAmtHandler.bind(this);
+	     this.CheckBoxHandleAch = this.CheckBoxHandleAch.bind(this);
   }
  componentDidMount() {
     // setTimeout(function(){ $('#tzloadding').remove(); }, 2000)
@@ -71,57 +85,46 @@ changeNameHandler(e)
     e.preventDefault()
     this.setState({cvv:e.target.value});
   }
-  /* userInfo() {
-	  const path = this.props.history.location.state;
-    // var id=this.props.location.search.replace('?Id=','');
-    fetch(`${API_URL}assetsapi/profile/${path.userId}`)
-          .then(res => res.json())
-          .then(
-            (result) => {
-              // debugger;
-              this.props.updateInfo(result.profile);
-            },
-            // Note: it's important to handle errors here
-            // instead of a catch() block so that we don't swallow
-            // exceptions from actual bugs in components.//assetsapi/paymentgateway/`+54+`/`+2+`/per_annum`
-            (error) => {
-              this.setState({
-                isLoaded: true,
-                error
-              });
-            }
-          )
+  CheckBoxHandle(e){
+	
+	  if(!this.state.checked){
+		this.setState({splitShow: !this.state.splitShow});
+		this.setState({subAmt:'',paybleAmt:''})
+	  }else{
+		  this.setState({splitShow: this.state.splitShow});
+		  this.setState({subAmt:'',paybleAmt:''})
+		  
+	  }
   }
-  userDetails() {
-	  
-	  const path = this.props.history.location.state;
-	  //const exactpath =path.substring(1);
-    fetch(`${API_URL}assetsapi/payment/${path.userId}/${path.PlanId}/${path.Pay}`)
-          .then(res => res.json())
-          .then(
-            (result) => {
-              // debugger;
-              //alert(JSON.stringify(result))
-              if(result){
-                this.setState({
-                  userDetails:result.user_detail
-                })
-				// console.log(this.state.userDetails);
-              }
-              //this.props.updateInfo(result.profile);
-            },
-            // Note: it's important to handle errors here
-            // instead of a catch() block so that we don't swallow
-            // exceptions from actual bugs in components.
-            (error) => {
-              this.setState({
-                isLoaded: true,
-                error
-              });
-            }
-          )
+  CheckBoxHandleAch(e){
+	  if(!this.state.checked1){
+		this.setState({splitShow1: !this.state.splitShow1});
+		this.setState({subAmtAch:'',paybleAmtAch:''})
+	  }else{
+		  this.setState({splitShow1: this.state.splitShow1});
+		  this.setState({subAmtAch:'',paybleAmtAch:''})
+		  
+	  }
   }
- */
+	splitAmtHandler(cardType,e){
+		// console.log(cardType + ':'+e.target.name+'::'+e.target.value)
+		  
+		if(cardType=='CC'){
+			this.setState({spltAmt:e.target.value});
+			let subAmt = Number((e.target.value*2.99)/100);
+			let paybleAmt = Number(e.target.value) + subAmt;
+			// console.log(subAmt+'::'+paybleAmt);
+			this.setState({subAmt:subAmt,paybleAmt:paybleAmt})
+			// console.log(this.state.subAmt+':1:'+this.state.paybleAmt);
+		}
+		if(cardType=='ACH'){
+			this.setState({spltAmtAch:e.target.value});
+			let subAmtAch = Number((e.target.value*1.00)/100);
+			let paybleAmtAch = Number(e.target.value) + subAmtAch;
+			// console.log(subAmt+'::'+paybleAmt);
+			this.setState({subAmtAch:subAmtAch,paybleAmtAch:paybleAmtAch})
+		}
+	}
   onChangeACH(e){
 	var achField = this.state.achFields;
 	if(e.target.name=="name")
@@ -138,65 +141,12 @@ changeNameHandler(e)
 	var dealData = this.props.location.state;
 	if(dealData.paidFor==='Rent')
 	{
-		var transAmount = dealData.rent;
+		var totalAmt = dealData.rent;
 	}else{
-		var transAmount = dealData.total_amount;
+		var totalAmt = dealData.total_amount;
 	}
 	
-  /* var payment_Object={
-    "tokenizedaccountnumber":this.state.tokenizedaccountnumber,
-    "paymentmode": "card",
-    "expirymmyy": this.state.month+this.state.year,
-    "cvv": this.state.cvv,
-    "routingnumber": null,
-    "surchargeamount": null,
-    "transactionamount":transAmount,
-    "currency": "USD",
-    "transactionreference": null,
-    "payeeid": dealData.userId,
-    "notifypayee": null,
-    "profile": null,
-    "profileid": null,
-    "orderid":'',
-	"deal_id":dealData.deal_id,
-	"paid_for":dealData.paidFor,
-	"property_id":dealData.property_id
-  }
-  $("#loaderDiv").show();
-  // console.log(payment_Object);
-    fetch(`${API_URL}assetsapi/property_payment`,{
-      method: 'post',
-      body: JSON.stringify(payment_Object)
-    })
-          .then(res => res.json())
-          .then(
-            (result) => {
-				$("#loaderDiv").hide();
-					   
-					   $("#actionType").val("Yes");
-					   $("#hiddenURL").val("tenant-myproperty");
-					   $(".confirm-body").html(result.msg);
-					   $("#BlockUIConfirm").show();
-             
-              //this.props.updateInfo(result.profile);
-            },
-            // Note: it's important to handle errors here
-            // instead of a catch() block so that we don't swallow
-            // exceptions from actual bugs in components.
-            (error) => {
-              this.setState({
-                isLoaded: true,
-                error
-              });
-            }
-          )
-  }
-  // alert('dsawfh');
-	  // console.log(paymentType)
-	  // alert(paymentType);
-	  var user_detail = this.state.userDetails;
-  // event.preventDefault();
-  	// console.log(this.state); */
+  
 	if(paymentType === 'CC'){
 		// var TAmt = (Number(transAmount)+Number((transAmount*2.99)/100));
 		var payment_Object={
@@ -206,7 +156,7 @@ changeNameHandler(e)
 			"cvv": this.state.cvv,
 			"routingnumber": null,
 			"surchargeamount": null,
-			"transactionamount":transAmount,
+			"transactionamount":this.state.spltAmt,
 			"currency": "USD",
 			"transactionreference": null,
 			"payeeid": dealData.userId,
@@ -218,9 +168,11 @@ changeNameHandler(e)
 			"paid_for":dealData.paidFor,
 			"property_id":dealData.property_id,
 			"type": paymentType,
-			  "name":this.state.name
+			  "name":this.state.name,
+			  "totalAmt":totalAmt,
 			
 		}
+		
 		if(!payment_Object.name){
 			 alert("Full Name should not be blank");
 			return;
@@ -278,7 +230,7 @@ changeNameHandler(e)
 			"tokenizedaccountnumber": this.state.achFields.tokenizedaccountnumber,
 			  "paymentmode": "check",
 			  "routingnumber": this.state.achFields.routingnumber,
-			  "transactionamount": transAmount,
+			  "transactionamount": this.state.spltAmtAch,
 			  "surchargeamount": null,
 			  "currency": null,
 			  "payeefirstname": "",
@@ -302,8 +254,10 @@ changeNameHandler(e)
 			"paid_for":dealData.paidFor,
 			"property_id":dealData.property_id,
 			  "type": paymentType,
-			  "name":this.state.achFields.name
+			  "name":this.state.achFields.name,
+			   "totalAmt":totalAmt
 		}
+		
 		if(!payment_Object.name){
 			 alert("Name should not be blank");
 			return;
@@ -410,7 +364,7 @@ changeNameHandler(e)
 													</div>
 													<div className="col-md-5 text-right">
 													<h5>Amount</h5>
-														 <h5>$ {dealData.paidFor==='Rent'?dealData.rent:dealData.total_amount}</h5>
+														 <h5>{dealData.paidFor==='Rent'?<NumberFormat value={dealData.rent} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>:<NumberFormat value={dealData.total_amount} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/>}</h5>
 													</div>
 												</div>
 											<div className="row">
@@ -418,8 +372,9 @@ changeNameHandler(e)
 														<p>CC Charges(2.99%)</p>
 													</div>
 													<div className="col-md-5 text-right">
-														<h5>$ {dealData.paidFor==='Rent'?((dealData.rent*2.99)/100):((dealData.total_amount*2.99)/100)}</h5>
+														<h5>{dealData.paidFor==='Rent'?<NumberFormat value={(dealData.rent*2.99)/100} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>:<NumberFormat value={(dealData.total_amount*2.99)/100} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>}</h5>
 													</div>
+													
 												</div>
 												<hr style={{backgroundColor:"#fff"}}/>
 												<div className="row">
@@ -427,9 +382,37 @@ changeNameHandler(e)
 														<p>Total Amount</p>
 													</div>
 													<div className="col-md-5 text-right">
-														<h5>$ {dealData.paidFor==='Rent'?(Number(dealData.rent)+Number((dealData.rent*2.99)/100)):(Number(dealData.total_amount)+Number((dealData.total_amount*2.99)/100)) }</h5>
+														<h5>{dealData.paidFor==='Rent'?<NumberFormat value={(Number(dealData.rent)+Number((dealData.rent*2.99)/100))} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>:<NumberFormat value={(Number(dealData.total_amount)+Number((dealData.total_amount*2.99)/100))} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/> }</h5>
 													</div>
 												</div>
+												<div className="row">
+													<div className="col-md-7">
+														<input type="checkbox" defaultChecked={this.state.checked}  id="split" onChange = {this.CheckBoxHandle}/>
+														<label HTMLFor="split" style = {{color:'#fff'}}> Partial Amount </label>
+													</div>
+										{this.state.splitShow?<div className="col-md-5 text-right">
+														 <input type="text"  onChange = {this.splitAmtHandler.bind(this,'CC')} value={this.state.spltAmt} className="form-control"  name="split_amount" />
+													</div>:''}
+												</div>
+												{this.state.splitShow && this.state.subAmt?
+												<div className="row">
+													<div className="col-md-7">
+														<p>CC Charges(2.99%)</p>
+													</div>
+													<div className="col-md-5 text-right">
+														<p><NumberFormat value={this.state.subAmt} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/></p>
+													</div>
+												</div>:''}
+												{this.state.splitShow && this.state.paybleAmt?
+												<div className="row">
+													<div className="col-md-7">
+														Payble Amount
+													</div>
+													<div className="col-md-5 text-right">
+													<p><NumberFormat value={this.state.paybleAmt} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/></p>
+														
+													</div>
+												</div>:''}
 											</div>
 											<div className="bref-detail">
 												<div className="row">
@@ -518,17 +501,18 @@ changeNameHandler(e)
 														 <p className="p-white">Property Payment</p>
 													</div>
 													<div className="col-md-5 text-right">
-													<h5>Total Amount</h5>
-														<h5>$ {dealData.paidFor==='Rent'?dealData.rent:dealData.total_amount}</h5>
+													<h5>Amount</h5>
+														 <h5>{dealData.paidFor==='Rent'?<NumberFormat value={dealData.rent} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>:<NumberFormat value={dealData.total_amount} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/>}</h5>
 													</div>
 												</div>
 											<div className="row">
 													<div className="col-md-7">
-														<p>ACH Charges(1.00%)</p>
+														<p>CC Charges(1.00%)</p>
 													</div>
 													<div className="col-md-5 text-right">
-														<h5>$ {dealData.paidFor==='Rent'?((dealData.rent*1.00)/100):((dealData.total_amount*1.00)/100)}</h5>
+														<h5>{dealData.paidFor==='Rent'?<NumberFormat value={(dealData.rent*1.00)/100} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>:<NumberFormat value={(dealData.total_amount*1.00)/100} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>}</h5>
 													</div>
+													
 												</div>
 												<hr style={{backgroundColor:"#fff"}}/>
 												<div className="row">
@@ -536,9 +520,37 @@ changeNameHandler(e)
 														<p>Total Amount</p>
 													</div>
 													<div className="col-md-5 text-right">
-														<h5>$ {dealData.paidFor==='Rent'?(Number(dealData.rent)+Number((dealData.rent*1.00)/100)):(Number(dealData.total_amount)+Number((dealData.total_amount*1.00)/100)) }</h5>
+														<h5>{dealData.paidFor==='Rent'?<NumberFormat value={(Number(dealData.rent)+Number((dealData.rent*1.00)/100))} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>:<NumberFormat value={(Number(dealData.total_amount)+Number((dealData.total_amount*1.00)/100))} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/> }</h5>
 													</div>
 												</div>
+												<div className="row">
+													<div className="col-md-7">
+														<input type="checkbox" defaultChecked={this.state.checked1}  id="split" onChange = {this.CheckBoxHandleAch}/>
+														<label HTMLFor="split" style = {{color:'#fff'}}> Partial Amount </label>
+													</div>
+										{this.state.splitShow1?<div className="col-md-5 text-right">
+														 <input type="text"  onChange = {this.splitAmtHandler.bind(this,'ACH')} value={this.state.spltAmtAch} className="form-control"  name="split_amount" />
+													</div>:''}
+												</div>
+												{this.state.splitShow && this.state.subAmtAch?
+												<div className="row">
+													<div className="col-md-7">
+														<p>CC Charges(1.00%)</p>
+													</div>
+													<div className="col-md-5 text-right">
+														<p><NumberFormat value={this.state.subAmtAch} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/></p>
+													</div>
+												</div>:''}
+												{this.state.splitShow1 && this.state.paybleAmtAch?
+												<div className="row">
+													<div className="col-md-7">
+														Payble Amount
+													</div>
+													<div className="col-md-5 text-right">
+													<p><NumberFormat value={this.state.paybleAmtAch} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/></p>
+														
+													</div>
+												</div>:''}
 											</div>
 											<div className="bref-detail">
 												<div className="row">

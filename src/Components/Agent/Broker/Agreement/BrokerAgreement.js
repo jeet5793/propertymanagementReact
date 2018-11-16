@@ -757,7 +757,7 @@ onClickCheckPermission(){
                           <VExecute ragreement={this.state.executedAgreement} selectedExecutedAgreement={this.selectedExecutedAgreement} onClickDownload={this.onClickDownload} dealPdfView={this.dealPdfView}/>
 						  <div className="tab-pane" id="executePreview">
                                       <div id="executePreviewContainer"></div>
-									   {this.state.updatedAgreement && this.state.updatedAgreement.status==="Inprocess"?
+									   {this.state.updatedAgreement && this.state.updatedAgreement.status==="Inprocess" && (this.state.updatedAgreement.receiver_id!== JSON.parse(this.state.userData).assets_id)?
 									  <div className="row">
 									  {/* < select className="form-control" id="status">
 										  <option>Please Select</option>

@@ -12,8 +12,8 @@ export default class Footer extends Component{
 		else
 		{
 			var url = $("#hiddenURL").val();
-			$("#BlockUIConfirm").hide();
-			// window.location.href= url;
+			//$("#BlockUIConfirm").hide();
+			 window.location.href= url;
 			// HIT URL 
 		}
 	}

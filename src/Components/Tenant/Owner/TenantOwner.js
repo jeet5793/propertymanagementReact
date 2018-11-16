@@ -99,6 +99,7 @@ class TenantOwner extends React.Component {
 		// this.handleChange = this.handleChange.bind(this);
 		this.searchUser=this.searchUser.bind(this);
 		this.changeTabs = this.changeTabs.bind(this);
+		this.TerminateUser = this.TerminateUser.bind(this);
   }
    hideModel()
 {
@@ -511,6 +512,29 @@ class TenantOwner extends React.Component {
 	addDefaultSrc(ev){
 	  ev.target.src = img_not_available;
 	}
+	TerminateUser(id){
+		 $("#loaderDiv").show();
+			fetch(`${API_URL}assetsapi/terminate_user/${JSON.parse(this.state.userData).assets_id}/`+id+`/${JSON.parse(this.state.userData).session_id}/`, {
+			  method: 'get',
+			})
+			.then(res => res.json())
+			.then(
+			  (result) => {
+				  $("#loaderDiv").hide();
+				if (result.success) {
+				    $("#actionType").val("Yes");
+					 $("#hiddenURL").val("tenant-owner");
+					 $(".confirm-body").html(result.msg);
+					 $("#BlockUIConfirm").show();
+				  
+				} 
+				
+			  },
+			(error) => {
+			  console.log('error')
+			}
+		  ) 
+	}
     render() {
 		const { value, suggestions,selectedOption,property_list,autocompleteData } = this.state;
 			// Autosuggest will pass through all these props to the input.
@@ -565,6 +589,7 @@ class TenantOwner extends React.Component {
                       <ul className="list-inline m-t-10 m-b-0 text-right">
                        <li className="list-inline-item"> <a className="mesg-icon" data-toggle="modal" data-target="#send-msg" title="Message" href="#" onClick={this.messagerec.bind(this,item.profile_id,item.name)}><i className="icon-bubble" /></a> </li>
                          <li className="list-inline-item"> <Link to={{"pathname":"/tenant-owner-profile",state:{profileid:item.profile_id,session:JSON.parse(this.state.userData).session_id,loc: this.props.location}}} className="view-icon"><i className="icon-eye"></i></Link></li>
+						 <li className="list-inline-item"><a style={{cursor:'pointer'}} title="Terminate" onClick = {this.TerminateUser.bind(this,item.profile_id)} className="bgv-icon"><i className="mdi mdi-close"></i></a></li>
                       </ul>
                     </div>
                   </div>
@@ -669,12 +694,12 @@ class TenantOwner extends React.Component {
 																<span className="m-l-5"><b>{item.Name}</b></span>
 															</a>
 														</td>
-														<td><span className={item.requestStatus=='Joined'?'label label-success':'label label-warning'}>{item.requestStatus}</span></td>
+														<td><span className={item.requestStatus=='Joined'?'label label-success':(item.requestStatus=='Terminated')?'label label-danger':'label label-warning'}>{item.requestStatus}</span></td>
 														<td>{item.entry_date}</td>
-													</tr>)):<tr><td style={{textAlign:'center'}} colSpan={5}>No Report Available</td></tr>}
+													</tr>)):<tr><td style={{textAlign:'center'}} colSpan={5}>No Record Available.</td></tr>}
 												</tbody>
 											</table>
-									</div>:<div className=" table-responsive" style={{textAlign:'center'}}>No Report Available</div>}
+									</div>:<div className=" table-responsive" style={{textAlign:'center'}}>No Record Available.</div>}
 									</div>
 								</div>
             </div>
