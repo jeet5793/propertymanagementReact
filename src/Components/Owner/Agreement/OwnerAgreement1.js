@@ -142,7 +142,7 @@ const VExecute=(props)=>{
               <td>{element.agreement_title}</td>
               <td>{element.initiated_date}</td>
 			  <td>{element.status}</td>
-              <td>{element.status==="Inprocess"?<a title="Edit" href="#executePreview" data-toggle="tab" onClick={() => props.selectedExecutedAgreement(element)} className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a>:(element.status==="Completed")?<a title="view" href="#" onClick={() => props.dealPdfView(element.deal_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a>:''}<a title="Download"  href="#" className="table-action-btn view-rqu"><i className="mdi mdi-download" onClick={() => props.onClickDownload(element.deal_id)}></i></a><a title="Send"  href="#" className="table-action-btn view-rqu" data-toggle="modal" onClick={() => props.selectedExecutedAgreement(element)} data-target="#send-msg"><i className="mdi mdi-redo-variant"></i></a></td>
+              <td>{element.status==="Inprocess"?<a title="Edit" href="#executePreview" data-toggle="tab" onClick={() => props.selectedExecutedAgreement(element)} className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a>:(element.status==="Completed" || element.status==="Terminated")?<a title="view" href="#" onClick={() => props.dealPdfView(element.deal_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a>:''}<a title="Download"  href="#" className="table-action-btn view-rqu"><i className="mdi mdi-download" onClick={() => props.onClickDownload(element.deal_id)}></i></a><a title="Send"  href="#" className="table-action-btn view-rqu" data-toggle="modal" onClick={() => props.selectedExecutedAgreement(element)} data-target="#send-msg"><i className="mdi mdi-redo-variant"></i></a>{(element.sender_id==props.assetsId)?<a title="Terminate" href="#" onClick={() => props.terminateAgreement(element.deal_id)} className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a>:''}</td>
             </tr>
           )):<div>No data </div>}
       </tbody>
@@ -191,6 +191,7 @@ export default class container extends React.Component{
     this.submitAgreement=this.submitAgreement.bind(this);
 	this.onClickChangeStatus =this.onClickChangeStatus.bind(this);
 	this.onClickCheckPermission = this.onClickCheckPermission.bind(this);
+	this.terminateAgreement = this.terminateAgreement.bind(this);
   }
   componentWillMount(){
    
@@ -737,7 +738,38 @@ onClickCheckPermission(feature){
 	  
     
   }
-	
+	terminateAgreement(deal_id){
+		$("#loaderDiv").show();
+		  fetch(`${API_URL}assetsapi/agreement_terminate/${JSON.parse(this.state.userData).assets_id}/`+deal_id, {
+				  method: "GET"
+				})
+				  .then(response => {
+					return response.json();
+				  })
+				  .then((data) => {
+					//debugger;
+					//console.log('dataaaa:  ', data);
+					if(data.success===1){
+					  // var userid = data.user.assets_id
+					  // localStorage.setItem('userid',userid)
+								$("#loaderDiv").hide();
+								$("#actionType").val("Yes");
+								   $("#hiddenURL").val("agreement");
+								   $(".confirm-body").html(data.msg);
+								   $("#BlockUIConfirm").show();
+								  
+								  // $(".row-dialog-btn").click(function(){
+										// $('#vcreatepermission').show()
+								   // })
+									   
+						}else{
+							$("#loaderDiv").hide();
+						}
+				  }
+				).catch((error) => {
+					console.log('error: ', error);
+				  });
+	}
   render(){
       return(
     <div>
@@ -773,7 +805,7 @@ onClickCheckPermission(feature){
 						<Saved editAgreement={this.editAgreement} selectedAgreement={this.selectedAgreement} agreement={this.state.agreement} pdfViewAgreement={this.pdfViewAgreement} deleteAgreement={this.deleteAgreement} />
 						 <VCreate userData={this.state.userData} editAgreement={this.state.editAgreement}/>
                          {<VRequested previewAgreement={this.previewAgreement} ragreement={this.state.requestedAgreement || []} sendedAgreement={this.state.sendedAgreement || []} dealPdfView={this.dealPdfView} changeTabs = {this.changeTabs}/>}
-                          <VExecute ragreement={this.state.executedAgreement} selectedExecutedAgreement={this.selectedExecutedAgreement} onClickDownload={this.onClickDownload} dealPdfView={this.dealPdfView}/>
+                          <VExecute ragreement={this.state.executedAgreement} selectedExecutedAgreement={this.selectedExecutedAgreement} onClickDownload={this.onClickDownload} dealPdfView={this.dealPdfView} terminateAgreement={this.terminateAgreement} assetsId = {JSON.parse(this.state.userData).assets_id}/>
 						  <div className="tab-pane" id="executePreview">
                                       <div id="executePreviewContainer"></div>
 									  {this.state.updatedAgreement && this.state.updatedAgreement.status==="Inprocess" && (this.state.updatedAgreement.receiver_id!== JSON.parse(this.state.userData).assets_id)?

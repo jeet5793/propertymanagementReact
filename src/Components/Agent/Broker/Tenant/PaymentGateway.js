@@ -261,7 +261,7 @@ changeNameHandler(e)
 			// console.log(JSON.stringify(opts));
 			var Amount = (opts.packageid==14)?8.16:(opts.packageid==12)?18.14:(opts.packageid==13)?26.78:'';
 			
-			var TotAmt = Number(Amount)+Number((Amount*1.00)/100);
+			var TotAmt = Number(Amount)+Number(1.00);
 			payment_Object.amount = TotAmt;
 			payment_Object.transactionamount = TotAmt;
 			
@@ -473,10 +473,10 @@ changeNameHandler(e)
 												</div>
 												<div className="row">
 													<div className="col-md-7">
-														<p>ACH Charges(1.00%)</p>
+														<p>ACH Charges</p>
 													</div>
 													<div className="col-md-5 text-right">
-														<h5>$ {(Amount*1.00)/100}</h5>
+														<h5>$1.00</h5>
 													</div>
 												</div>
 												<hr style={{backgroundColor:"#fff"}}/>
@@ -485,7 +485,7 @@ changeNameHandler(e)
 														<p>Total Amount</p>
 													</div>
 													<div className="col-md-5 text-right">
-														<h5>$ {Number(Amount)+Number((Amount*1.00)/100)}</h5>
+														<h5>$ {Number(Amount)+Number(1.00)}</h5>
 													</div>
 												</div>
 											</div>

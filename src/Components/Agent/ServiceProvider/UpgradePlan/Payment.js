@@ -218,7 +218,7 @@ onChangeACH(e){
 		}
 		 
 	}else if(paymentType === 'ACH'){
-		 let amountToSend = Number(details.Amount)+Number((details.Amount*1.00)/100);
+		 let amountToSend = Number(details.Amount)+Number(1.00);
 		var payment_Object={
 			"userid":user_detail.user_id,
 			"tokenizedaccountnumber": this.state.achFields.tokenizedaccountnumber,
@@ -470,10 +470,10 @@ onChangeACH(e){
 												</div>
 												<div className="row">
 													<div className="col-md-7">
-														<p>ACH Charges(1.00%)</p>
+														<p>ACH Charges</p>
 													</div>
 													<div className="col-md-5 text-right">
-														<h5>$ {(details.Amount*1.00)/100}</h5>
+														<h5>$1.00</h5>
 													</div>
 												</div>
 												<hr style={{backgroundColor:"#fff"}}/>
@@ -482,7 +482,7 @@ onChangeACH(e){
 														<p>Total Amount</p>
 													</div>
 													<div className="col-md-5 text-right">
-														<h5>$ {Number(details.Amount)+Number((details.Amount*1.00)/100)}</h5>
+														<h5>$ {Number(details.Amount)+Number(1.00)}</h5>
 													</div>
 												</div>
 											</div>

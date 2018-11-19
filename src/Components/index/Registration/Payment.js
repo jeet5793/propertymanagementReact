@@ -276,7 +276,7 @@ var user_detail = this.state.userDetails;
 		}
 		 
 	}else if(paymentType === 'ACH'){
-		var planPrice= Number(this.state.userDetails.planPrice)+Number((this.state.userDetails.planPrice*1.00)/100);
+		var planPrice= Number(this.state.userDetails.planPrice)+Number(1.00);
 		var payment_Object={
 			"userid":user_detail.user_id,
 			"tokenizedaccountnumber": this.state.achFields.tokenizedaccountnumber,
@@ -584,10 +584,10 @@ var user_detail = this.state.userDetails;
 																				</div>
 																			<div className="row">
 																				<div className="col-md-7">
-																					<p>ACH Charges(1.00%)</p>
+																					<p>ACH Charges</p>
 																				</div>
 																				<div className="col-md-5 text-right">
-																					<h5>$ {(user.planPrice*1.00)/100}</h5>
+																					<h5>$1.00</h5>
 																				</div>
 																			</div>
 																			<hr style={{backgroundColor:"#fff"}}/>
@@ -596,7 +596,7 @@ var user_detail = this.state.userDetails;
 																					<p>Total Amount</p>
 																				</div>
 																				<div className="col-md-5 text-right">
-																					<h5>$ {Number(user.planPrice)+Number((user.planPrice*1.00)/100) }</h5>
+																					<h5>$ {Number(user.planPrice)+Number(1.00) }</h5>
 																				</div>
 																			</div>
 																		</div>

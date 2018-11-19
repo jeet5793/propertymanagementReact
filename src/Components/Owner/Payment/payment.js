@@ -5,6 +5,8 @@ import $ from 'jquery'
 import API_URL from "../../../app-config";
 import Cookies from 'js-cookie';
 import swal from 'sweetalert';
+import DatePicker from 'react-date-picker';
+import moment from 'moment';
 export default class Payment extends React.Component{
 
   constructor(props) {
@@ -69,7 +71,13 @@ export default class Payment extends React.Component{
 	this.singularFormDiv = this.singularFormDiv.bind(this);
 	this.SingularBillChange = this.SingularBillChange.bind(this);
 	this.ActiveDeactive = this.ActiveDeactive.bind(this);
+	this.handleDobChange = this.handleDobChange.bind(this);
   }
+  handleDobChange(date) {
+		this.setState({
+			singularEnrollForm: { principal_date_of_birth: date }
+		});
+	}
     componentDidMount(){
       this.userInfo();
       // if ( this.props.owner) {
@@ -311,6 +319,22 @@ export default class Payment extends React.Component{
 		}
 		if (!opts.business_address_line_1) {
 		  alert(" Address1 should not be blank");
+		  return;
+		}
+		if (!opts.business_city) {
+		  alert(" Business city should not be blank");
+		  return;
+		}
+		if (!opts.business_state_province) {
+		  alert(" Business city should not be blank");
+		  return;
+		}
+		if (!opts.business_postal_code) {
+		  alert(" Business postal code should not be blank");
+		  return;
+		}
+		if (!opts.business_phone_number) {
+		  alert(" Business phone should not be blank");
 		  return;
 		}
 		if (!opts.city) {
@@ -570,13 +594,13 @@ render(){
 								<div className="form-group">
 								  <div className="col-md-12">
 									<div className="row">
-									<div  className="col-md-2">
+									<div  className="col-md-2 required">
 										<label for="business-postal-code" >Business City</label>
 									  </div>
 									  <div className="col-md-4">
 										<input type="text" className="form-control" name="business_city" id="business_city" onChange={this.SingularBillChange} placeholder=""/>
 									  </div>
-									  <div  className="col-md-2">
+									  <div  className="col-md-2 required">
 										<label for="fed_tax_id">Business State Province</label>
 									  </div>
 									  <div className="col-md-4">
@@ -594,13 +618,13 @@ render(){
 								<div className="form-group">
 								  <div className="col-md-12">
 									<div className="row">
-									<div  className="col-md-2">
+									<div  className="col-md-2 required">
 										<label for="business-postal-code" >Business Postal Code</label>
 									  </div>
 									  <div className="col-md-4">
 										<input type="text" className="form-control" name="business_postal_code" id="business_postal_code" onChange={this.SingularBillChange} placeholder=""/>
 									  </div>
-									  <div  className="col-md-2">
+									  <div  className="col-md-2 required">
 										<label for="fed_tax_id">Business Phone Number</label>
 									  </div>
 									  <div className="col-md-4">
@@ -780,7 +804,11 @@ render(){
 										<label for="business-postal-code" >Principal DOB</label>
 									  </div>
 									  <div className="col-md-4">
-										<input type="text" className="form-control" name="principal_date_of_birth" id="principal_date_of_birth" onChange={this.SingularBillChange} placeholder=""/>
+									  <DatePicker className="form-control"
+												onChange={this.handleDobChange}
+												value={this.state.singularEnrollForm.principal_date_of_birth}
+											/>
+											{/* <input type="text" className="form-control" name="principal_date_of_birth" id="principal_date_of_birth" onChange={this.SingularBillChange} placeholder=""/> */}
 									  </div>
 									  <div  className="col-md-2">
 										<label for="fed_tax_id">Principal Ownership Percent</label>
