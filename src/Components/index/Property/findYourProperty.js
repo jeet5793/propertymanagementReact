@@ -65,7 +65,7 @@ export default class FindYourProperty extends React.Component{
         </div>
         <div className="col-md-3 col-sm-3 col-xs-12 location">
           <label style={{border:'none'}}>LOCATION</label>
-          <input type="text" onChange={this.onChangeHandler} className="cbp-search-input " id="address" name="city" placeholder="City"  />
+          <input type="text" onChange={this.onChangeHandler} className="cbp-search-input " id="address" name="city" placeholder="City or State"  />
           <input type="hidden" id="latitude" name="latitude" value="" />
           <input type="hidden" id="longitude" name="longitude" value="" />
         </div>

@@ -73,7 +73,7 @@ export default class PropertySearch extends React.Component{
                   <input onChange={this.onChangeHandler} type="text" className="cbp-search-input" id="keyword" name="keyword"  placeholder="Enter your keyword..." />
                 </div>
                 <div>
-                  <input onChange={this.onChangeHandler} type="text" className="cbp-search-input " id="city" name="city"  placeholder="City" />
+                  <input onChange={this.onChangeHandler} type="text" className="cbp-search-input " id="city" name="city"  placeholder="City or State" />
                   <input type="hidden" id="latitude" name="latitude" />
                   <input type="hidden" id="longitude" name="longitude" />
                 </div>
