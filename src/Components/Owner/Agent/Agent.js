@@ -471,7 +471,7 @@ class Agent extends React.Component{
         const { joinedList, itemsCountPerPageJoined } = this.state;
         let propData = joinedList.slice((itemsCountPerPageJoined * number), (itemsCountPerPageJoined * pageNum));
         this.setState({activePageJoined: pageNum, pagedJoinedList: propData })
-		
+		// console.log('activePageJoined'+pageNum+'::pagedJoinedList'+JSON.stringify(this.state.joinedList))
     }
 	messagerec(id,name)
 	{ //console.log(id+''+name);

@@ -90,7 +90,7 @@ constructor(props) {
 		activePageReq: 1,
         activePageJoined: 1,
         itemsCountPerPageReq: 3,
-        itemsCountPerPageJoined: 1,
+        itemsCountPerPageJoined: 3,
 		// value: "",
          autocompleteData: [],
 		selectedOption: null,
@@ -216,45 +216,8 @@ constructor(props) {
 	this.inviteDropdowns();
 	this.joinedList();
 	this.requestedList();
-	if (this.state.requestedList) {
-	    this.handlePageChangeRequestedList(this.state.activePageReq);
-    }
-    if (this.state.joinedList) {
-	    this.handlePageChangeJoinedList(this.state.activePageJoined);
-    }
-	var $=window.$;
-	 $('#react-select-2-input').keyup(function(e){
-
-		 const selVal = $('#react-select-2-input').val();
-		 
-		 // retrieveDataAsynchronously(selVal);
-		 let _this = this;
-
-       const opts ={assets_type:2,keyword:selVal,session_id:session}
-	   // console.log(opts);
-		fetch(`${API_URL}assetsapi/user_search`, {
-			  method: 'POST',
-			body: JSON.stringify(opts)
-			})
-			.then(res => res.json())
-			.then(
-			  (result) => {
-				//console.log("data 2: "+JSON.stringify(profile))
-				//alert("data 2: "+JSON.stringify(result));
-				if (result.success) {
-				  
-					    this.setState({autocompleteData:result.search_userlist})
-						
-						
-				} 
-				 //console.log("autocompleteData"+JSON.stringify(this.state.autocompleteData))
-				// console.log("user_list"+JSON.stringify(this.state.user_list))
-			  },
-			(error) => {
-			  console.log('error')
-			}
-		  ) 
-	 }.bind(this));
+	
+	
 	 
   }
   inviteDropdowns(){
@@ -305,6 +268,9 @@ constructor(props) {
 			$("#loaderDiv").hide();
 			if(result.success){
 				this.setState({joinedList:result.joined})
+				 if (this.state.joinedList) {
+					this.handlePageChangeJoinedList(this.state.activePageJoined);
+				}
 			}
 			//console.log(this.state.joinedTenant)
 		},
@@ -328,6 +294,10 @@ constructor(props) {
 			$("#loaderDiv").hide();
 			if(result.success){
 				this.setState({requestedList:result.requested})
+				if (this.state.requestedList) {
+					this.handlePageChangeRequestedList(this.state.activePageReq);
+				}
+   
 			}
 			//console.log(this.state.requestedTenant)
 		},
@@ -590,7 +560,7 @@ constructor(props) {
               <div className="tab-content">
                 <div className="tab-pane active" id="joined-agent">
                   <div className="row">
-                    {joinedUserList.map((item)=>(
+                    {pagedJoinedUserList.map((item)=>(
 							  <div className="col-lg-4 col-md-6 col-sm-6">
 								<div className="card-box">
 								  <div className="member-card-alt">
@@ -643,7 +613,7 @@ constructor(props) {
                 {/* Users tab */}
                 <div className="tab-pane" id="agent-request">
                   <div className="row">
-                    {requestedUserList.map((item)=> (
+                    {pagedRequestedUserList.map((item)=> (
 						  <div className="col-lg-4 col-md-6 col-sm-6">
 							<div className="card-box">
 							  <div className="member-card-alt">

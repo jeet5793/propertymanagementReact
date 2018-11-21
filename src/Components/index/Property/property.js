@@ -13,7 +13,7 @@ import ProppertSearchForm from './propertSearch'
 import API_URL from '../../../app-config';
 import PropertItem from './propertyItems'
 import $ from 'jquery'
-
+import Pagination from 'react-js-pagination';
 export default class Property extends React.Component{
   constructor(props)
   {
@@ -23,9 +23,12 @@ export default class Property extends React.Component{
     properties:[{}],
     owners:[{ }],
     isPropertySearchEmpty:false,propertySearchMsg:'',
-	agentList:[]
+	agentList:[],
+	 activePage: 1,
+     itemsCountPerPage: 3
     }    
     this.updateProps=this.updateProps.bind(this)
+	
   }
   updatePropertyGrid(property){
     // debugger;
@@ -181,6 +184,9 @@ updateProps(props){
           }
            }, 500);
         })
+		if (this.state.properties) {
+					this.handlePageChange(this.state.activePage);
+				}
     }else{
 	 $("#loaderDiv").show();
   fetch(`${API_URL}assetsapi/property/`)
@@ -310,6 +316,9 @@ updateProps(props){
           }
            }, 500);
         })
+		if (this.state.properties) {
+					this.handlePageChange(this.state.activePage);
+				}
 	}
       })      
 	});
@@ -319,6 +328,19 @@ updateProps(props){
 	this.TopAgentList();
 	
   }
+ 
+  handlePageChange = (pageNum) => {
+	  
+	let number = pageNum - 1;
+		 // console.log('pageNum'+pageNum+'::propData'+JSON.stringify(this.state.properties))
+        const { properties, itemsCountPerPage } = this.state;
+        let propData = properties.slice((itemsCountPerPage * number), (itemsCountPerPage * pageNum));
+        this.setState({activePage: pageNum, pagedList: propData })
+		// this.setState({activePage: pageNum })
+		 // console.log('activePage'+pageNum+'::pagedList'+JSON.stringify(propData))
+		 // alert(pageNum)
+  }
+  
   TopAgentList(){
 	  fetch(`${API_URL}assetsapi/top_rating_agents`)
 		.then((response)=> {
@@ -446,8 +468,11 @@ updateProps(props){
         var $=window.$;
         $('html, body').animate({scrollTop: 0}, 500); 
   }
+  
 	render(){ 
-	 //console.log('state'+JSON.stringify(this.state))
+	 //console.log('state'+JSON.stringify(this.state.properties))
+	 const propertieDetails= this.state.properties;
+	 const pagePropertyList= this.state.pagedList || this.state.properties;
 		return(
 			<div className="mg-top-129">
       {/* <Header actChild="Properties" loggedIn={this.props.login} />       */}
@@ -483,272 +508,22 @@ updateProps(props){
               </div>
 
               <div id="js-grid-meet-the-team" className="cbp cbp-l-grid-team grid" >
-              {this.state.properties.map(property=>(
+              {pagePropertyList.map(property=>(
                 <PropertItem  updatePropertyGrid={this.updatePropertyGrid} ownerDetails={this.state.owners} property={property} total_amount={property.total_amount}  Title={property.title} description={property.description} square_feet={property.square_feet} src={(property.img_path!=undefined&&property.img_path.length>0&&property.img_path[0].img_path!=undefined)?API_URL+property.img_path[0].img_path:''} PropertyStatus={property.property_status} />
               ))}            
-                  {/* <div className="tz-property-content cbp-item  for-rent "> 
-                    <a href="property-detail.html" className="tz-property-thum cbp-caption" rel="nofollow">
-                      <div className="cbp-caption-defaultWrap">
-                        <figure> 
-                        <img src={img1} alt="" />
-                          <figcaption className="for-sale sold"> SOLD </figcaption>
-                        </figure>
-                      </div>
-                      <div className="cbp-caption-activeWrap">
-                        <div className="cbp-l-caption-alignCenter">
-                          <div className="cbp-l-caption-body">
-                            <div className="cbp-l-caption-text">VIEW DETAIL</div>
-                          </div>
-                        </div>
-                      </div>
-                    </a>
-                    <div className="tz-property-des">
-                      <h5><a href="property-detail.html">Locke on Property</a></h5>
-                      <div className="tz-property-price"> $18,000&nbsp; </div>
-                      <div className="tz-property-info">
-                        <div className="pull-left"> <span> <i className="icon-frame-expand"> </i> 2300ft&nbsp; </span> </div>
-                        <div className="pull-right"> <span><i className="icon-car"> </i>2</span> <span><i className="icon-bathtub"> </i>3</span> <span><i className="icon-bed"> </i>3</span> </div>
-                      </div>
-                      <div className="tz-property-excerpt"> This owner built home was created to cater for every possible family need without quality compromise. Every living space has&hellip; </div>
-                      <div className="tz-property-views">
-                        <div className="pull-left">
-                          <div className="tz-property-share"> <a href="#"><i className="icon-share2"></i></a>
-                            <div className="tz-socia"> 
-                              <!-- Facebook Button --> 
-                              <a href="#" onclick="" className="tz_social facebook"><i className="fa fa-facebook"></i></a> 
-                              
-                              <!-- Twitter Button -->
-                              <a href="#" onclick="" className="tz_social twitter" ><i className="fa fa-twitter"></i></a> 
-                              
-                              <!-- Google +1 Button --> 
-                              <!-- Place this tag where you want the +1 button to render. --> 
-                              <a href="#" onclick="" className="tz_social google"><i className="fa fa-google-plus"></i></a> 
-                              
-                              <!-- Pinterest Button --> 
-                              <a href="#" onclick="" className="tz_social pinterest"><i className="fa fa-pinterest"></i></a> </div>
-                          </div>
-                          <span id="fav_dir654" > <a data-toggle="tooltip" data-placement="bottom" title="Add to Favorites" href="#" onclick="" > <i className="icon-heart"></i> </a> </span> </div>
-                        <a href="property-detail.html" className="pull-right tz-view" rel="nofollow">View Details </a> </div>
-                    </div>
-                  </div>
-                  <div className="tz-property-content cbp-item  for-rent "> <a href="property-detail.html" className="tz-property-thum cbp-caption" rel="nofollow">
-                    <div className="cbp-caption-defaultWrap">
-                      <figure> 
-                      <img src={img2} alt="" />
-                        <figcaption className="for-sale rented"> RENTED </figcaption>
-                      </figure>
-                    </div>
-                    <div className="cbp-caption-activeWrap">
-                      <div className="cbp-l-caption-alignCenter">
-                        <div className="cbp-l-caption-body">
-                          <div className="cbp-l-caption-text">VIEW DETAIL</div>
-                        </div>
-                      </div>
-                    </div>
-                    </a>
-                    <div className="tz-property-des">
-                      <h5><a href="property-detail.html">Luxury Mansion</a></h5>
-                      <div className="tz-property-price"> $23,000&nbsp; </div>
-                      <div className="tz-property-info">
-                        <div className="pull-left"> <span> <i className="icon-frame-expand"> </i> 1200ft&nbsp; </span> </div>
-                        <div className="pull-right"> <span><i className="icon-car"> </i>2</span> <span><i className="icon-bathtub"> </i>2</span> <span><i className="icon-bed"> </i>4</span> </div>
-                      </div>
-                      <div className="tz-property-excerpt"> This owner built home was created to cater for every possible family need without quality compromise. Every living space has&hellip; </div>
-                      <div className="tz-property-views">
-                        <div className="pull-left">
-                          <div className="tz-property-share"> <a href="#"><i className="icon-share2"></i></a>
-                            <div className="tz-socia"> 
-                              <!-- Facebook Button --> 
-                              <a href="#" onclick="" className="tz_social facebook"><i className="fa fa-facebook"></i></a> 
-                              
-                              <!-- Twitter Button --> 
-                              <a href="#" onclick="" className="tz_social twitter" ><i className="fa fa-twitter"></i></a> 
-                              
-                              <!-- Google +1 Button --> 
-                              <!-- Place this tag where you want the +1 button to render. -->
-                              <a href="#" onclick="" className="tz_social google"><i className="fa fa-google-plus"></i></a> 
-                              
-                              <!-- Pinterest Button --> 
-                              <a href="#" onclick="" className="tz_social pinterest"><i className="fa fa-pinterest"></i></a> </div>
-                          </div>
-                          <span id="fav_dir645" > <a data-toggle="tooltip" data-placement="bottom" title="Add to Favorites" href="#" onclick="" > <i className="icon-heart"></i> </a> </span> </div>
-                        <a href="property-detail.html" className="pull-right tz-view" rel="nofollow">View Details </a> </div>
-                    </div>
-                  </div>
-                  <div className="tz-property-content cbp-item  for-rent"> <a href="property-detail.html" className="tz-property-thum cbp-caption" rel="nofollow">
-                    <div className="cbp-caption-defaultWrap">
-                      <figure> <img src={img3} alt="" />
-                        <figcaption className="for-sale for-rent"> FOR RENT </figcaption>
-                      </figure>
-                    </div>
-                    <div className="cbp-caption-activeWrap">
-                      <div className="cbp-l-caption-alignCenter">
-                        <div className="cbp-l-caption-body">
-                          <div className="cbp-l-caption-text">VIEW DETAIL</div>
-                        </div>
-                      </div>
-                    </div>
-                    </a>
-                    <div className="tz-property-des">
-                      <h5><a href="property-detail.html">Stylish Apartment</a></h5>
-                      <div className="tz-property-price"> $18,000&nbsp;<span>/ Month</span> </div>
-                      <div className="tz-property-info">
-                        <div className="pull-left"> <span> <i className="icon-frame-expand"> </i> 2300ft&nbsp; </span> </div>
-                        <div className="pull-right"> <span><i className="icon-car"> </i>2</span> <span><i className="icon-bathtub"> </i>3</span> <span><i className="icon-bed"> </i>3</span> </div>
-                      </div>
-                      <div className="tz-property-excerpt"> This owner built home was created to cater for every possible family need without quality compromise. Every living space has&hellip; </div>
-                      <div className="tz-property-views">
-                        <div className="pull-left">
-                          <div className="tz-property-share"> <a href="#"><i className="icon-share2"></i></a>
-                            <div className="tz-socia"> 
-                              <!-- Facebook Button --> 
-                              <a href="#" onclick="" className="tz_social facebook"><i className="fa fa-facebook"></i></a> 
-                              
-                              <!-- Twitter Button --> 
-                              <a href="#" onclick="" className="tz_social twitter" ><i className="fa fa-twitter"></i></a> 
-                              
-                              <!-- Google +1 Button --> 
-                              <!-- Place this tag where you want the +1 button to render. --> 
-                              <a href="#" onclick="" className="tz_social google"><i className="fa fa-google-plus"></i></a> 
-                              
-                              <!-- Pinterest Button --> 
-                              <a href="#" onclick="" className="tz_social pinterest"><i className="fa fa-pinterest"></i></a> </div>
-                          </div>
-                          <span id="fav_dir644" > <a data-toggle="tooltip" data-placement="bottom" title="Add to Favorites" href="#" onclick="" > <i className="icon-heart"></i> </a> </span> </div>
-                        <a href="property-detail.html" className="pull-right tz-view" rel="nofollow">View Details </a> </div>
-                    </div>
-                  </div>
-                  <div className="tz-property-content cbp-item  for-sale "> <a href="property-detail.html" className="tz-property-thum cbp-caption" rel="nofollow">
-                    <div className="cbp-caption-defaultWrap">
-                      <figure> <img src={img4} alt=""/>
-                        <figcaption className="for-sale "> FOR SALE </figcaption>
-                      </figure>
-                    </div>
-                    <div className="cbp-caption-activeWrap">
-                      <div className="cbp-l-caption-alignCenter">
-                        <div className="cbp-l-caption-body">
-                          <div className="cbp-l-caption-text">VIEW DETAIL</div>
-                        </div>
-                      </div>
-                    </div>
-                    </a>
-                    <div className="tz-property-des">
-                      <h5><a href="property-detail.html">Modern Residence</a></h5>
-                      <div className="tz-property-price"> $28,000&nbsp; </div>
-                      <div className="tz-property-info">
-                        <div className="pull-left"> <span> <i className="icon-frame-expand"> </i> 2300ft&nbsp; </span> </div>
-                        <div className="pull-right"> <span><i className="icon-car"> </i>2</span> <span><i className="icon-bathtub"> </i>2</span> <span><i className="icon-bed"> </i>5</span> </div>
-                      </div>
-                      <div className="tz-property-excerpt"> This owner built home was created to cater for every possible family need without quality compromise. Every living space has&hellip; </div>
-                      <div className="tz-property-views">
-                        <div className="pull-left">
-                          <div className="tz-property-share"> <a href="#"><i className="icon-share2"></i></a>
-                            <div className="tz-socia"> 
-                              <!-- Facebook Button -->
-                              <a href="#" onclick="" className="tz_social facebook"><i className="fa fa-facebook"></i></a> 
-                              
-                              <!-- Twitter Button -->
-                              <a href="#" onclick="" className="tz_social twitter" ><i className="fa fa-twitter"></i></a> 
-                              
-                              <!-- Google +1 Button --
-                              <!-- Place this tag where you want the +1 button to render. -->
-                              <a href="#" onclick="" className="tz_social google"><i className="fa fa-google-plus"></i></a> 
-                              
-                              <!-- Pinterest Button --> 
-                              <a href="#" onclick="" className="tz_social pinterest"><i className="fa fa-pinterest"></i></a> </div>
-                          </div>
-                          <span id="fav_dir643" > <a data-toggle="tooltip" data-placement="bottom" title="Add to Favorites" href="#" onclick="" > <i className="icon-heart"></i> </a> </span> </div>
-                        <a href="property-detail.html" className="pull-right tz-view" rel="nofollow">View Details </a> </div>
-                    </div>
-                  </div>
-                  <div className="tz-property-content cbp-item  for-sale"> <a href="property-detail.html" className="tz-property-thum cbp-caption" rel="nofollow">
-                    <div className="cbp-caption-defaultWrap">
-                      <figure> <img src={img5} alt="" />
-                        <figcaption className="for-sale "> FOR SALE </figcaption>
-                      </figure>
-                    </div>
-                    <div className="cbp-caption-activeWrap">
-                      <div className="cbp-l-caption-alignCenter">
-                        <div className="cbp-l-caption-body">
-                          <div className="cbp-l-caption-text">VIEW DETAIL</div>
-                        </div>
-                      </div>
-                    </div>
-                    </a>
-                    <div className="tz-property-des">
-                      <h5><a href="property-detail.html">Elegant Apartment</a></h5>
-                      <div className="tz-property-price"> $30,000&nbsp; </div>
-                      <div className="tz-property-info">
-                        <div className="pull-left"> <span> <i className="icon-frame-expand"> </i> 2300ft&nbsp; </span> </div>
-                        <div className="pull-right"> <span><i className="icon-car"> </i>2</span> <span><i className="icon-bathtub"> </i>2</span> <span><i className="icon-bed"> </i>4</span> </div>
-                      </div>
-                      <div className="tz-property-excerpt"> This owner built home was created to cater for every possible family need without quality compromise. Every living space has&hellip; </div>
-                      <div className="tz-property-views">
-                        <div className="pull-left">
-                          <div className="tz-property-share"> <a href="#"><i className="icon-share2"></i></a>
-                            <div className="tz-socia"> 
-                              <!-- Facebook Button -->
-                              <a href="#" onclick="" className="tz_social facebook"><i className="fa fa-facebook"></i></a> 
-                              
-                              <!-- Twitter Button --> 
-                              <a href="#" onclick="" className="tz_social twitter" ><i className="fa fa-twitter"></i></a> 
-                              
-                              <!-- Google +1 Button -->
-                              <!-- Place this tag where you want the +1 button to render. -->
-                              <a href="#" onclick="" className="tz_social google"><i className="fa fa-google-plus"></i></a> 
-                              
-                              <!-- Pinterest Button -->
-                              <a href="#" onclick="" className="tz_social pinterest"><i className="fa fa-pinterest"></i></a> </div>
-                          </div>
-                          <span id="fav_dir642" > <a data-toggle="tooltip" data-placement="bottom" title="Add to Favorites" href="#" onclick="" > <i className="icon-heart"></i> </a> </span> </div>
-                        <a href="property-detail.html" className="pull-right tz-view" rel="nofollow">View Details </a> </div>
-                    </div>
-                  </div>
-                  <div className="tz-property-content cbp-item  for-rent "> <a href="property-detail.html" className="tz-property-thum cbp-caption" rel="nofollow">
-                    <div className="cbp-caption-defaultWrap">
-                      <figure> <img src={img6} alt=""/>
-                        <figcaption className="for-sale for-rent"> FOR RENT </figcaption>
-                      </figure>
-                    </div>
-                    <div className="cbp-caption-activeWrap">
-                      <div className="cbp-l-caption-alignCenter">
-                        <div className="cbp-l-caption-body">
-                          <div className="cbp-l-caption-text">VIEW DETAIL</div>
-                        </div>
-                      </div>
-                    </div>
-                    </a>
-                    <div className="tz-property-des">
-                      <h5><a href="property-detail.html">Luxury Mansion</a></h5>
-                      <div className="tz-property-price"> $23,000&nbsp;<span>/ Month</span> </div>
-                      <div className="tz-property-info">
-                        <div className="pull-left"> <span> <i className="icon-frame-expand"> </i> 1200ft&nbsp; </span> </div>
-                        <div className="pull-right"> <span><i className="icon-car"> </i>2</span> <span><i className="icon-bathtub"> </i>2</span> <span><i className="icon-bed"> </i>4</span> </div>
-                      </div>
-                      <div className="tz-property-excerpt"> This owner built home was created to cater for every possible family need without quality compromise. Every living space has&hellip; </div>
-                      <div className="tz-property-views">
-                        <div className="pull-left">
-                          <div className="tz-property-share"> <a href="#"><i className="icon-share2"></i></a>
-                            <div className="tz-socia"> 
-                              <!-- Facebook Button -->
-                              <a href="#" onclick="#" className="tz_social facebook"><i className="fa fa-facebook"></i></a> 
-                              
-                              <!-- Twitter Button --> 
-                              <a href="#" onclick="#" className="tz_social twitter" ><i className="fa fa-twitter"></i></a> 
-                              
-                              <!-- Google +1 Button -->
-                              <!-- Place this tag where you want the +1 button to render. -->
-                              <a href="#" onclick="#" className="tz_social google"><i className="fa fa-google-plus"></i></a> 
-                              
-                              <!-- Pinterest Button -->
-                              <a href="#" onclick="#" className="tz_social pinterest"><i className="fa fa-pinterest"></i></a> </div>
-                          </div>
-                          <span id="fav_dir641" > <a data-toggle="tooltip" data-placement="bottom" title="Add to Favorites" href="#" onclick="" > <i className="icon-heart"></i> </a> </span> </div>
-                        <a href="property-detail.html" className="pull-right tz-view" rel="nofollow">View Details </a> </div>
-                    </div>
-                  </div> */}
+                  
               </div>
-			  { /*  <div className='wp-pagenavi'> <span className='pages'>Page 1 of 4</span><span className='current'>1</span><a className="page larger" title="Page 2" href="#">2</a><a className="page larger" title="Page 3" href="#">3</a><a className="page larger" title="Page 4" href="#">4</a><a className="nextpostslink" rel="next" href="#"><i className="icon-arrow-right"></i></a> </div>*/}
+			    <div className='wp-pagenavi'> 
+					{(propertieDetails.length>0)?
+                          <Pagination
+                              activePage={this.state.activePage}
+                              itemsCountPerPage={this.state.itemsCountPerPage}
+                              totalItemsCount={propertieDetails.length}
+                              pageRangeDisplayed={5}
+                              activeLinkClass={'btn-success'}
+                              onChange={this.handlePageChange}
+                          />:''}
+				</div>
 			  </div> 
             <div className="auto-loading"> <img src="images/loading_blue_32x32.gif" width="32" height="32" /> </div>
           </div>
