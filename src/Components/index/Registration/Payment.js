@@ -584,7 +584,7 @@ var user_detail = this.state.userDetails;
 																				</div>
 																			<div className="row">
 																				<div className="col-md-7">
-																					<p>ACH Charges</p>
+																					<p>ACH Charges($1.00)</p>
 																				</div>
 																				<div className="col-md-5 text-right">
 																					<h5>$1.00</h5>

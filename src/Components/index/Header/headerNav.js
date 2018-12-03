@@ -804,6 +804,7 @@ class Headernav extends React.Component {
 				// console.log(rtn);
 				// console.log(window.location);
 				// alert(rtn);
+				
 				window.open(`${this.state.social_links.fbauthURL}`,"_self");
 				}
 				if(socialType=='twitter')
@@ -835,8 +836,12 @@ class Headernav extends React.Component {
 		 this.setState({fgtemail:e.target.value});
 	 }
 	sendForgetPassword = (assetsType)=>{
-		$("#loaderDiv").show();
 		const opts = {email:this.state.fgtemail,assets_type:assetsType}
+		if(!opts.email){
+			return alert("Can't be empty")
+		}else{
+		$("#loaderDiv").show();
+		
 		// console.log('this is:', opts);
 		fetch(`${API_URL}assetsapi/forgot_password`, {
 				  method: 'POST',
@@ -862,7 +867,8 @@ class Headernav extends React.Component {
 				(error) => {
 				  console.log('error')
 				}
-			  )     
+			  ) 
+		}			  
   }
   checkUser(){
 	  var profileArr = Cookies.get("profile_data");

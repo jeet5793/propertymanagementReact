@@ -440,7 +440,7 @@ changeNameHandler(e)
 												{this.state.splitShow && this.state.subAmt?
 												<div className="row">
 													<div className="col-md-7">
-														<p>ACH Charges($1)</p>
+														<p>CC Charges(2.99%)</p>
 													</div>
 													<div className="col-md-5 text-right">
 														<p><NumberFormat value={this.state.subAmt} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/></p>
@@ -586,7 +586,7 @@ changeNameHandler(e)
 												{this.state.splitShow && this.state.subAmtAch?
 												<div className="row">
 													<div className="col-md-7">
-														<p>ACH Charges</p>
+														<p>ACH Charges($1.00)</p>
 													</div>
 													<div className="col-md-5 text-right">
 														<p><NumberFormat value={this.state.subAmtAch} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/></p>

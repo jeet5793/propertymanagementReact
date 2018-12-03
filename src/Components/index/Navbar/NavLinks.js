@@ -12,6 +12,7 @@ export default class NavLinks extends React.Component{
             <li className={this.props.normalClass}><Link to={{pathname:'/plans'}}>Plans</Link></li>
             <li className={this.props.normalClass}><Link to={{pathname:'/blog'}}>Blog</Link> </li>
             <li className={this.props.normalClass}><Link to={{pathname:'/contactus'}}>Contact Us</Link></li>
+			
         </ul>
       )
 	}

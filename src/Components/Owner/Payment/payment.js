@@ -308,7 +308,7 @@ export default class Payment extends React.Component{
 	{
 		
 		var opts = Object.assign(this.state.singularEnrollForm,this.state.profileData);
-		// console.log(opts);
+		 // console.log(opts);
 		if (!opts.dba_name) {
 		  alert("DBA Name should not be blank");
 		  return;
@@ -326,7 +326,7 @@ export default class Payment extends React.Component{
 		  return;
 		}
 		if (!opts.business_state_province) {
-		  alert(" Business city should not be blank");
+		  alert(" Business state should not be blank");
 		  return;
 		}
 		if (!opts.business_postal_code) {
@@ -368,10 +368,8 @@ export default class Payment extends React.Component{
 		if (!opts.fed_tax_id) {
 		  alert("Fed Tax ID should not be blank");
 		  return;
-		}
-		
-		
-		$("#loaderDiv").show();
+		}else{
+			//$("#loaderDiv").show();
 		 fetch(`${API_URL}assetsapi/singularbill_enroll/`, {
         method: "post",
         body: JSON.stringify(opts)
@@ -382,7 +380,7 @@ export default class Payment extends React.Component{
         .then((data) => {
 			$("#loaderDiv").hide();
 			 $(".confirm-body").html(data.msg);
-			 $("#actionType").val("Yes");
+			 $("#actionType").val("No");
 			$("#hiddenURL").val("owner-payment");
 		   $("#BlockUIConfirm").show();
           /* if(data.success)
@@ -401,6 +399,10 @@ export default class Payment extends React.Component{
         }).catch((error) => {
           console.log('error: ', error);
         });
+		}
+		
+		
+		
 	}
 userInfo() {
 

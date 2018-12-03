@@ -32,6 +32,7 @@ import Report from '../Reports/Report'
 import ReportTable from '../Reports/ReporTable'
 import BGVPayment from '../Agent/PaymentGateway';
 import OTBGVPayment from '../Tenants/PaymentGateway';
+
 import $ from 'jquery';
 class UserDashboard extends React.Component {
 
@@ -128,6 +129,7 @@ class UserDashboard extends React.Component {
 			<Route exact path='/owner-upgrade' component={Upgrade} />
 			<Route exact path='/bgvpayment' component={BGVPayment} />
 			<Route exact path='/owner-tenant-bgvpayment' component={OTBGVPayment} />
+	
           </Switch>
           <Footer />
         </div>

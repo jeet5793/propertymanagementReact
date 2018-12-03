@@ -357,7 +357,7 @@ onChangeACH(e){
 												</div>
 												<div className="row">
 													<div className="col-md-7">
-														<p>CC Charges</p>
+														<p>CC Charges(2.99%)</p>
 													</div>
 													<div className="col-md-5 text-right">
 														<h5>$ {(details.Amount*2.99)/100}</h5>
@@ -466,7 +466,7 @@ onChangeACH(e){
 												</div>
 												<div className="row">
 													<div className="col-md-7">
-														<p>ACH Charges</p>
+														<p>ACH Charges($1.00)</p>
 													</div>
 													<div className="col-md-5 text-right">
 														<h5>$1.00</h5>

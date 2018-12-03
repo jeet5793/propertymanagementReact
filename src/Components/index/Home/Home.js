@@ -34,13 +34,14 @@ import FindYourProperty from '../Property/findYourProperty'
 import Testimonial from './testimonial.js'
 import HomeProperty from '../Property/homeProperty'
 import StaticCount from './staticCount'
-import { Redirect } from 'react-router-dom';
+import { Redirect,Link } from 'react-router-dom';
 import Slider from './Slider'
 import API_URL from '../../../app-config';
 import $ from 'jquery';
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import img_not_available from '../../../images/img_not_available.png'
+
 class Home extends React.Component{
 	constructor(props){
 		super(props);
@@ -338,178 +339,67 @@ onClickClose() {
 				                      <div className="wpb_wrapper">
 				                        <div className="tz-property-home vc_custom_1466569792560 tz-slider">
 				                          <div id="tz-pro-slider-5ac1cdf22e330" className="cbp cbp-l-grid-team tz-property-slider false">
-				          					{
+				          					{/*
 				          						this.state.properties?this.state.properties.map((property, index) => (
 				          							<HomeProperty description={property.description}  Title={property.title} src={property.img_path.length>0?API_URL+property.img_path[0].img_path:''} Status={property.property_status} total_amount={property.total_amount} id = {property.id} onClickImagePreview={this.onClickImagePreview}/>
-				          						)):<h3 style={{textAlign:'center'}}>No Property Available</h3>}
-				          					
+				          						)):<h3 style={{textAlign:'center'}}>No Property Available</h3>*/}
+											{this.state.properties?this.state.properties.map((property, index) => (
+												<div className="tz-property-content cbp-item  slider ">
+													<div className="tz-property-thum cbp-caption">
+														<div className="cbp-caption-defaultWrap">
+															<figure> 
+																 <img onError={this.addDefaultSrc} src={property.img_path.length>0?API_URL+property.img_path[0].img_path:img_not_available} alt="Assets Watch" width="900" height="328" />
+																 <figcaption className="for-sale for-rent"> {property.property_status} </figcaption>
+															</figure>
+														</div>
+														<div className="cbp-caption-activeWrap">
+															<div className="cbp-l-caption-alignCenter">
+																
+																<div className="cbp-l-caption-body"> 
+																	
+																	<Link to={{'pathname':"property-detail",state:property}} className = "cbp-l-caption-buttonLeft" rel="nofollow"><i className="icon-link"></i> </Link> 
+																   <a  className="cbp-l-caption-buttonRight"  onClick={this.onClickImagePreview.bind(this,property.id)} > <i className="icon-plus-circle" ></i> </a> 
+																</div>
+															</div>
+														</div>
+													</div>
+														
+														<div className="tz-property-des">
+															<h5><Link to={{'pathname':"property-detail",state:property}}>{property.title}</Link></h5>
+															<div className="tz-property-price"> ${property.total_amount}&nbsp;<span>/ Month</span> </div>
+															<div className="tz-property-excerpt"> {property.description} </div>
+														</div>
+														
+													</div> 
+				          					)):<h3 style={{textAlign:'center'}}>No Property Available</h3>}
 				                          </div>
 				                        </div>
 				                      </div>
 				                    </div>
 									<div>
-					{(this.state.showPopup) ?
-						<div id="proImageConfirm" className="BlockUIConfirm product-img-popup" >
-							<div className="blockui-mask"></div>
-								<div className="RowDialogBody">
-									<div className="confirm-header row-dialog-hdr-success">
-										Property Image
-									<button type="button" className="close" onClick={this.onClickClose}>×</button>
-								</div>
-								<div className="confirm-body" >
-									<Carousel autoPlay showArrows={true} showThumbs={false} >
-									{this.state.propertiesImg?this.state.propertiesImg.map((item,index)=>(
-										<div>
-											<img onError={this.addDefaultSrc} src={API_URL+item.img_path}/>
-										</div>
-									)):''}	
-									</Carousel>		
-								</div>
-							</div>
-						</div>  
-					: ''}						
-					</div>
-				                    {/* <div className="tab-pane" id="tab_default_2">
-				                      <div className="wpb_wrapper">
-				                        <div className="tz-property-home vc_custom_1466569792560 tz-slider">
-				                          <div id="tz-pro-slider-5ac1cdf22e331" className="cbp cbp-l-grid-team tz-property-slider false">
-				                            <div className="tz-property-content cbp-item  slider ">
-				                              <div className="tz-property-thum cbp-caption">
-				                                <div className="cbp-caption-defaultWrap">
-				                                  <figure> <img src={img12} alt="Assets Watch" width="900" height="328" />
-				                                    <figcaption className="for-sale for-rent"> FOR RENT </figcaption>
-				                                  </figure>
-				                                </div>
-				                                <div className="cbp-caption-activeWrap">
-				                                  <div className="cbp-l-caption-alignCenter">
-				                                    <div className="cbp-l-caption-body"> <a href="" className="cbp-l-caption-buttonLeft" rel="nofollow"> 
-				                                      <i className="icon-link"></i> </a> <a href={img12} className="cbp-lightbox cbp-l-caption-buttonRight" data-title="Stylish Apartment"> 
-				                                      <i className="icon-plus-circle"></i> </a> </div>
-				                                  </div>
-				                                </div>
-				                              </div>
-				                              <div className="tz-property-des">
-				                                <h5><a href="">Stylish Apartment</a></h5>
-				                                <div className="tz-property-price"> $18,000&nbsp;<span>/ Month</span> </div>
-				                                <div className="tz-property-excerpt"> This owner built home was created to cater for every possible family need without quality compromise. Every living space has&hellip; </div>
-				                              </div>
-				                            </div>
-				                            <div className="tz-property-content cbp-item  slider ">
-				                              <div className="tz-property-thum cbp-caption">
-				                                <div className="cbp-caption-defaultWrap">
-				                                  <figure> <img src={img13} alt="Assets Watch" width="900" height="328" />
-				                                    <figcaption className="for-sale rented"> RENTED </figcaption>
-				                                  </figure>
-				                                </div>
-				                                <div className="cbp-caption-activeWrap">
-				                                  <div className="cbp-l-caption-alignCenter">
-				                                    <div className="cbp-l-caption-body"> <a href="" className="cbp-l-caption-buttonLeft" rel="nofollow"> 
-				                                      <i className="icon-link"></i> </a> <a href={img13} className="cbp-lightbox cbp-l-caption-buttonRight" data-title="Sophisticated Residence" > 
-				                                      <i className="icon-plus-circle"></i> </a> </div>
-				                                  </div>
-				                                </div>
-				                              </div>
-				                              <div className="tz-property-des">
-				                                <h5><a href="">Sophisticated Residence</a></h5>
-				                                <div className="tz-property-price"> $16,000&nbsp; </div>
-				                                <div className="tz-property-excerpt"> This owner built home was created to cater for every possible family need without quality compromise. Every living space has&hellip; </div>
-				                              </div>
-				                            </div>
-				                            <div className="tz-property-content cbp-item  slider ">
-				                              <div className="tz-property-thum cbp-caption">
-				                                <div className="cbp-caption-defaultWrap">
-				                                  <figure> <img src={img14} alt="Assets Watch" width="900" height="328" />
-				                                    <figcaption className="for-sale for-rent"> FOR RENT </figcaption>
-				                                  </figure>
-				                                </div>
-				                                <div className="cbp-caption-activeWrap">
-				                                  <div className="cbp-l-caption-alignCenter">
-				                                    <div className="cbp-l-caption-body"> <a href="" className="cbp-l-caption-buttonLeft" rel="nofollow"> 
-				                                      <i className="icon-link"></i> </a> <a href={img14} className="cbp-lightbox cbp-l-caption-buttonRight" data-title="Luxury Mansion"> 
-				                                      <i className="icon-plus-circle"></i> </a> </div>
-				                                  </div>
-				                                </div>
-				                              </div>
-				                              <div className="tz-property-des">
-				                                <h5><a href="">Luxury Mansion</a></h5>
-				                                <div className="tz-property-price"> $30,000&nbsp;<span>/ Month</span> </div>
-				                                <div className="tz-property-excerpt"> This owner built home was created to cater for every possible family need without quality compromise. Every living space has&hellip; </div>
-				                              </div>
-				                            </div>
-				                            <div className="tz-property-content cbp-item  slider ">
-				                              <div className="tz-property-thum cbp-caption">
-				                                <div className="cbp-caption-defaultWrap">
-				                                  <figure> <img src={img15} alt="Assets Watch" width="900" height="328" />
-				                                    <figcaption className="for-sale "> FOR SALE </figcaption>
-				                                  </figure>
-				                                </div>
-				                                <div className="cbp-caption-activeWrap">
-				                                  <div className="cbp-l-caption-alignCenter">
-				                                    <div className="cbp-l-caption-body"> <a href="" className="cbp-l-caption-buttonLeft" rel="nofollow"> 
-				                                      <i className="icon-link"></i> </a> <a href={img15} className="cbp-lightbox cbp-l-caption-buttonRight" data-title="Elegant Apartment"> 
-				                                      <i className="icon-plus-circle"></i> </a> </div>
-				                                  </div>
-				                                </div>
-				                              </div>
-				                              <div className="tz-property-des">
-				                                <h5><a href="">Elegant Apartment</a></h5>
-				                                <div className="tz-property-price"> $26,000&nbsp; </div>
-				                                <div className="tz-property-excerpt"> &nbsp; This owner built home was created to cater for every possible family need without quality compromise. Every living space&hellip; </div>
-				                              </div>
-				                            </div>
-				                            <div className="tz-property-content cbp-item  slider ">
-				                              <div className="tz-property-thum cbp-caption">
-				                                <div className="cbp-caption-defaultWrap">
-				                                  <figure> <img src={img16} alt="Assets Watch" width="900" height="600" />
-				                                    <figcaption className="for-sale "> FOR SALE </figcaption>
-				                                  </figure>
-				                                </div>
-				                                <div className="cbp-caption-activeWrap">
-				                                  <div className="cbp-l-caption-alignCenter">
-				                                    <div className="cbp-l-caption-body"> <a href="" className="cbp-l-caption-buttonLeft" rel="nofollow"> 
-				                                      <i className="icon-link"></i> </a> <a href={img16} className="cbp-lightbox cbp-l-caption-buttonRight" data-title="Joint Tenancy"> 
-				                                      <i className="icon-plus-circle"></i> </a> </div>
-				                                  </div>
-				                                </div>
-				                              </div>
-				                              <div className="tz-property-des">
-				                                <h5><a href="">Joint Tenancy</a></h5>
-				                                <div className="tz-property-price"> $18,000&nbsp; </div>
-				                                <div className="tz-property-excerpt"> The advantage of this method is that the parties in the ownership need not be married or related. The downside&hellip; </div>
-				                              </div>
-				                            </div>
-				                            <div className="tz-property-content cbp-item  slider ">
-				                              <div className="tz-property-thum cbp-caption">
-				                                <div className="cbp-caption-defaultWrap">
-				                                  <figure> <img src={img17} alt="Assets Watch" width="900" height="598" />
-				                                    <figcaption className="for-sale rented"> RENTED </figcaption>
-				                                  </figure>
-				                                </div>
-				                                <div className="cbp-caption-activeWrap">
-				                                  <div className="cbp-l-caption-alignCenter">
-				                                    <div className="cbp-l-caption-body"> <a href="" className="cbp-l-caption-buttonLeft" rel="nofollow"> 
-				                                      <i className="icon-link"></i> </a> <a href={img17} className="cbp-lightbox cbp-l-caption-buttonRight" data-title="Stylish Apartment"> 
-				                                      <i className="icon-plus-circle"></i> </a> </div>
-				                                  </div>
-				                                </div>
-				                              </div>
-				                              <div className="tz-property-des">
-				                                <h5><a href="">Stylish Apartment</a></h5>
-				                                <div className="tz-property-price"> $18,000&nbsp; </div>
-				                                <div className="tz-property-excerpt"> This owner built home was created to cater for every possible family need without quality compromise. Every living space has&hellip; </div>
-				                              </div>
-				                            </div>
-				                          </div>
-				                        </div>
-				                      </div>
-							</div> */}
-							{/* <div className="tab-pane" id="tab_default_3">
-				                      <p> Howdy, I'm in Tab 3. </p>
-				                      <p> Duis autem vel eum iriure dolor in hendrerit in vulputate. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat </p>
-				                      <p> <a className="btn btn-info" href="#" target="_blank"> Learn more... </a> </p>
-				                    </div>
-						<div style={{marginLeft:'43%'}} className="button-holder center-block"> <a href="property.html" className="TzReadmore blog-read-more-btn"> <span>Read More</span> <span> </span> </a> </div> */}
-				      </div>
+										{(this.state.showPopup) ?
+											<div id="proImageConfirm" className="BlockUIConfirm product-img-popup" >
+												<div className="blockui-mask"></div>
+													<div className="RowDialogBody">
+														<div className="confirm-header row-dialog-hdr-success">
+															Property Image
+														<button type="button" className="close" onClick={this.onClickClose}>×</button>
+													</div>
+													<div className="confirm-body" >
+														<Carousel autoPlay showArrows={true} showThumbs={false} >
+														{this.state.propertiesImg?this.state.propertiesImg.map((item,index)=>(
+															<div>
+																<img onError={this.addDefaultSrc} src={API_URL+item.img_path}/>
+															</div>
+														)):''}	
+														</Carousel>		
+													</div>
+												</div>
+											</div>  
+										: ''}						
+									</div>
+				                   
+									</div>
 				                </div>
 				              
 							  </div>

@@ -1,7 +1,6 @@
 import React from 'react'
 import API_URL from '../../../app-config';
 import Cookies from 'js-cookie';
-
 import {loadFile} from '../../js/external'
 import VCreate from './VCreate'
 import $ from 'jquery'
