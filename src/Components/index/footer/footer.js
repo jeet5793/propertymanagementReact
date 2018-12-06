@@ -39,12 +39,37 @@ class Footer extends React.Component{
 		this.setState({[e.target.name]:e.target.value})
 	}
 	onClickNewsLetter(e){
-		e.preventDefault();
-		let errors = {};
+e.preventDefault();
+			var opts = this.state;
+		
+	   if(this.handleValidation()){
+		  $("#loaderDiv").show();
+		 fetch(`${API_URL}assetsapi/newsletter`, {
+            method: 'post',
+            body: JSON.stringify(opts)
+        }).then((response)=> {
+            response.json().then(data=>{
+				 $("#loaderDiv").hide();
+				 
+				$("#actionType").val("No");
+				$("#hiddenURL").val("/");
+				$(".confirm-body").html(data.msg);
+				$("#SBlockUIConfirm").show();
+			})
+		})
+	   }
+		   
+			
+	
+	}
+	  handleValidation(){
 		var opts = this.state;
+		let errors = {};
+        let formIsValid = true;
 		if(!opts.email){
 			// return alert("Email should not be blank.!!!");
 			 errors["email"] = "Email should not be blank. !!!";
+			 formIsValid = false;
 			 this.setState({errors: errors});
 		}else if(opts.email !== "undefined"){
            let lastAtPos = opts.email.lastIndexOf('@');
@@ -53,25 +78,17 @@ class Footer extends React.Component{
            if (!(lastAtPos < lastDotPos && lastAtPos > 0 && opts.email.indexOf('@@') == -1 && lastDotPos > 2 && (opts.email.length - lastDotPos) > 2)) {
 			 
 				errors["email"] = "Please enter a valid Email";
+				formIsValid = false;
 				this.setState({errors: errors});
             }
-       }else{
-			$("#loaderDiv").show();
-		 fetch(`${API_URL}assetsapi/newsletter`, {
-            method: 'post',
-            body: JSON.stringify(opts)
-        }).then((response)=> {
-            response.json().then(data=>{
-				 $("#loaderDiv").hide();
-				 
-				$("#actionType").val("Yes");
-				$("#hiddenURL").val("/");
-				$(".confirm-body").html(data.msg);
-				$("#SBlockUIConfirm").show();
-			})
-		})
-	}
-	}
+       } 
+	 this.setState({errors: errors});
+       return formIsValid;
+	 // else if (this.state.Registeration.assets_type) {
+      // {'email':'testnow1@yopmail.com','password':'test123'}
+	  
+    // }
+  }
   // openExternal(e,url){
     // window.open(url)
   // }
@@ -138,7 +155,7 @@ class Footer extends React.Component{
                     <input type='hidden' name='nl[]' value='0' />
                     <div className="tnp-field tnp-field-email">
                       <label>Email</label>
-                      <input className="tnp-email" type="email" onChange={this.onChangeNewsLetter} name="email" required />
+                      <input className="tnp-email" type="email" onChange={this.onChangeNewsLetter} name="email" />
 					   <span style={{color: "red"}}>{this.state.errors["email"]}</span>
                     </div>
                     <div className="tnp-field tnp-field-button">

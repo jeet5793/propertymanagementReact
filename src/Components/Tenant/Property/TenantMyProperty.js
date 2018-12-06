@@ -25,6 +25,7 @@ this.imgServer=API_URL,
 		}
 		this.onClickDownload = this.onClickDownload.bind(this);
 		this.viewProperty = this.viewProperty.bind(this);
+		this.onClickPay = this.onClickPay.bind(this);
 	}
 	componentDidMount(){
 		$("#loaderDiv").show();
@@ -103,6 +104,37 @@ this.imgServer=API_URL,
 	addDefaultSrc(ev){
 	  ev.target.src = img_not_available;
 	}
+	onClickPay(element){
+		//console.log(this.props);
+		let propId = element.property_id;
+		$("#loaderDiv").show();
+        fetch(`${API_URL}assetsapi/checkMerchant/`+propId, {
+          method: 'get'
+        })
+        .then(res => res.json())
+        .then(
+          (result) => {
+			$("#loaderDiv").hide();
+            if (result.success==1) {
+              this.props.history.push({
+			  pathname: '/tenant-deal-payment',
+			 state:{rent:element.rent,total_amount:element.total_amount,deal_id:element.deal_id,userId:JSON.parse(this.state.userData).assets_id,paidFor:element.property_status,property_id:element.property_id}
+			})
+				  
+            }else if(result.success==0){
+					$("#actionType").val("No");
+					   $("#hiddenURL").val("tenant-myproperty");
+					   $(".confirm-body").html(result.msg);
+					   $("#BlockUIConfirm").show();
+			}
+              // console.log("property##"+JSON.stringify(result.property[0].img_path))
+          },
+        (error) => {
+          console.log('error')
+        }
+      )
+		
+	}
     render() {
 		 const imgSer=this.imgServer;
 		 // console.log('this.state.userData'+JSON.stringify(this.state.userData));
@@ -154,9 +186,12 @@ this.imgServer=API_URL,
                                                 <i style={{cursor:'pointer'}} className="mdi mdi-eye"></i>
                                             </a>
 											<a title="Download"  href="#" className="table-action-btn view-rqu"><i className="mdi mdi-download" onClick={() => this.onClickDownload(element.deal_id)}></i></a>
-											<Link to={{pathname:'/tenant-deal-payment',state:{rent:element.rent,total_amount:element.total_amount,deal_id:element.deal_id,userId:JSON.parse(this.state.userData).assets_id,paidFor:element.property_status,property_id:element.property_id}}}  className="table-action-btn" >
+												{/* <Link to={{pathname:'/tenant-deal-payment',state:{rent:element.rent,total_amount:element.total_amount,deal_id:element.deal_id,userId:JSON.parse(this.state.userData).assets_id,paidFor:element.property_status,property_id:element.property_id}}}  className="table-action-btn" >
                                                 <button className="btn btn-success" style={{cursor:'pointer'}}>Pay</button>
-                                            </Link>
+												</Link> */}
+												<a onClick={this.onClickPay.bind(this,element)}  className="table-action-btn" >
+                                                <button className="btn btn-success" style={{cursor:'pointer'}}>Pay</button>
+												</a>
                                             
                                         </td>
                                     </tr>

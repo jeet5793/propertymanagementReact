@@ -121,6 +121,7 @@ class BrokerService extends React.Component{
             // buttons: ['copy', 'excel', 'pdf', 'colvis']
         // });  
 			this.getDropdownList();
+			this.getRequestedList();
     }
 	
 	getDropdownList(){

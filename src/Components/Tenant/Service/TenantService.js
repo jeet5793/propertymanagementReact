@@ -121,6 +121,7 @@ class TenantService extends React.Component {
             // buttons: ['copy', 'excel', 'pdf', 'colvis']
         // });  
 			this.getDropdownList();
+			this.getSendedList();
     }
 	
 	getDropdownList(){
@@ -258,11 +259,12 @@ class TenantService extends React.Component {
 		$(".modal-backdrop").hide();
 	}
 	changeTabs(id) {
-        if (id == "v-requested") {
-            $("#sendTab").removeClass("active")
-            $("#resolveTab").removeClass("active")
+        // if (id == "v-requested") {
+            // $("#sendTab").removeClass("active")
+            // $("#resolveTab").removeClass("active")
 
-        } else if (id == "v-send") {
+        // } else 
+			if (id == "v-send") {
             $("#requestedTab").removeClass("active")
             $("#resolveTab").removeClass("active")
         }
@@ -297,14 +299,14 @@ class TenantService extends React.Component {
                                         <div className="row">
                                             <div className="col-md-2">
                                                 <ul className="nav tabs-vertical">
-                                                    <li className="nav-item" onClick={this.changeTabs.bind(this, "v-requested")}> <a id="requestedTab" href="#v-requested" className="nav-link active" data-toggle="tab" aria-expanded="false" onClick={this.getRequestedList}>Requested</a> </li>
-                                                    <li className="nav-item" onClick={this.changeTabs.bind(this, "v-send")}> <a id="sendTab" href="#v-send" className="nav-link" data-toggle="tab" aria-expanded="true" onClick={this.getSendedList}>Send</a> </li>
+												{/*  <li className="nav-item" onClick={this.changeTabs.bind(this, "v-requested")}> <a id="requestedTab" href="#v-requested" className="nav-link active" data-toggle="tab" aria-expanded="false" onClick={this.getRequestedList}>Requested</a> </li> */}
+                                                    <li className="nav-item" onClick={this.changeTabs.bind(this, "v-send")}> <a id="sendTab" href="#v-send" className="nav-link active" data-toggle="tab" aria-expanded="true" onClick={this.getSendedList}>Send</a> </li>
                                                     <li className="nav-item" onClick={this.changeTabs.bind(this, "v-Resolve")}> <a id="resolveTab"  href="#v-Resolve" className="nav-link" data-toggle="tab" aria-expanded="false" onClick={this.getResolvedList}>Resolve</a> </li>
                                                 </ul>
                                             </div>
                                             <div className="col-md-10">
                                                 <div className="tab-content">
-                                                    <div className="tab-pane active" id="v-requested">
+                                                    <div className="tab-pane" id="v-requested">
 														{this.state.requestedList && (this.state.requestedList.length>0)?
                                                         <div className=" table-responsive">
 														
@@ -335,7 +337,7 @@ class TenantService extends React.Component {
 														
                                                          </div>:<div className=" table-responsive" style={{textAlign:'center'}}>No record available </div>}
                                                     </div>
-                                                    <div className="tab-pane" id="v-send">
+                                                    <div className="tab-pane active" id="v-send">
 													{this.state.sendedList && (this.state.sendedList.length>0)?
                                                         <div className=" table-responsive">
 														
