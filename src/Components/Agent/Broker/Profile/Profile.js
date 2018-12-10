@@ -74,7 +74,7 @@ class BrokerProfie extends React.Component{
 		  (data) => {
 			//console.log("data 2: "+JSON.stringify(result.profile))
 			if (data.success) {
-			  this.setState({property:data.property[0]})
+			  this.setState({property:data.property})
 			  //console.log(this.state.property);
 			} 
 			//console.log("set user data"+JSON.stringify(this.state.profileData))
@@ -214,11 +214,13 @@ class BrokerProfie extends React.Component{
 				{/* Personal-Information */}
                 <div className="card-box">
                   <h4 className="header-title mt-0 m-b-20">Recent Added Property</h4>
-				  {(this.state.property).length>0?
-                  <div className="panel-body"> <img onError={this.addDefaultSrc} id="single-image" src={this.state.property!==''?API_URL+this.state.property.img_path:img_not_available} alt="image-1" className="img-fluid" />
+				   {this.state.property && this.state.property.length>0?
+				   this.state.property.map((item)=>(
+                  <div className="panel-body"> <img onError={this.addDefaultSrc} id="single-image" src={item!==''?API_URL+item.img_path:img_not_available} alt="image-1" className="img-fluid" />
                       <hr/>
-                      <p className="text-muted font-13">{this.state.property.description} </p>
-				  <Link to={{"pathname":"/broker-property-detail",state:{propertyID:this.state.property.property_id,session:JSON.parse(this.state.userData).session_id}}}><a className="btn btn-custom waves-light waves-effect w-md">View</a></Link> </div>:<div>No Property Added</div>}
+					  <h3>{item.title}</h3>
+                      <p className="text-muted font-13">{item.description} </p>
+                   <Link to={{"pathname":"/broker-property"}}><a className="btn btn-custom waves-light waves-effect w-md">View more...</a></Link> </div>)):<div>No Property Added</div>}
                 </div>
                 {/* Personal-Information */}
               </div>

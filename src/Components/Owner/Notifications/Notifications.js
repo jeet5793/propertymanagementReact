@@ -219,7 +219,7 @@ class Notifications extends React.Component{
 							  <div className="timeline-box"> <span className="arrow"></span> <span className="timeline-icon"><i className="mdi mdi-checkbox-blank-circle-outline"></i></span>
 								<h4 className="">{item.sender}</h4>
 								<p className="timeline-date text-muted"><small>{item.date}</small></p>
-								<p>{item.message}</p>
+								 <p dangerouslySetInnerHTML={{__html: item.message}} />
 								<a href="#" className="delete-nitifi" onClick={this.functDelete.bind(this,item.notify_id)}><i className="fa fa-trash m-r-5"></i></a>
 							  </div>
 							</div>

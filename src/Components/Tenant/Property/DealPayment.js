@@ -195,7 +195,7 @@ changeNameHandler(e)
 			  "name":this.state.name
 			
 		}
-		console.log("trans_detail"+JSON.stringify(payment_Object))
+		//console.log("trans_detail"+JSON.stringify(payment_Object))
 		if(!payment_Object.name){
 			 alert("Full Name should not be blank");
 			return;

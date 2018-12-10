@@ -9,6 +9,8 @@ export default class TenantFooter extends Component{
 		if(actionType=="No")
 		{
 			$("#BlockUIConfirm").hide();
+			
+			//$("#TBlockUIConfirm").hide();
 		}
 		else
 		{

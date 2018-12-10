@@ -8,6 +8,7 @@ import img_not_available from '../../../images/img_not_available.png'
 import $ from 'jquery';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
+import NumberFormat from 'react-number-format';
 class TenantMyProperty extends React.Component {
 	constructor(props){
     super(props)
@@ -20,12 +21,22 @@ this.imgServer=API_URL,
           profileData:'',
           property:[],
 		  propertyImg:[],
-		   propertyDetail:[]
+		   propertyDetail:[],
+		   chequeForm:{
+			   chqno:'',
+			   amt:'',
+			   description:'',
+			   assets_id:'',
+			   deal_id:'',
+			   property_id:'',
+			   payFor:''
+		   }
 			
 		}
 		this.onClickDownload = this.onClickDownload.bind(this);
 		this.viewProperty = this.viewProperty.bind(this);
 		this.onClickPay = this.onClickPay.bind(this);
+		this.ChequePay = this.ChequePay.bind(this);
 	}
 	componentDidMount(){
 		$("#loaderDiv").show();
@@ -105,10 +116,11 @@ this.imgServer=API_URL,
 	  ev.target.src = img_not_available;
 	}
 	onClickPay(element){
-		//console.log(this.props);
+		const profile=JSON.parse(this.state.userData)
+		// console.log('prop outside '+JSON.stringify(this.props));
 		let propId = element.property_id;
 		$("#loaderDiv").show();
-        fetch(`${API_URL}assetsapi/checkMerchant/`+propId, {
+        fetch(`${API_URL}assetsapi/checkMerchant/${profile.assets_id}/`+propId, {
           method: 'get'
         })
         .then(res => res.json())
@@ -122,10 +134,68 @@ this.imgServer=API_URL,
 			})
 				  
             }else if(result.success==0){
+				 
+				// console.log('prop inside1 '+JSON.stringify(this.props));
 					$("#actionType").val("No");
 					   $("#hiddenURL").val("tenant-myproperty");
 					   $(".confirm-body").html(result.msg);
 					   $("#BlockUIConfirm").show();
+					   $(".row-dialog-btn").click(function(){
+							$(".confirm-body").html("Do you want pay by cheque?");
+							$("#TBlockUIConfirm").show();
+					   });
+					  
+					   
+					   $(".pay-btn").click(function(){
+							let pay = this.value
+							//alert(pay)
+							if(pay==='Yes')
+							{ 
+								//console.log('prop inside '+JSON.stringify(element));
+;
+								$("#ChequeBlockUIConfirm").show();
+								$("#TBlockUIConfirm").hide();
+								
+								if(element.property_status=='Sale')
+								{
+									var amt = element.total_amount;
+									var payFor = 'Sale'
+								}else if(element.property_status=='Rent'){
+									var amt = element.rent;
+									var payFor = 'Rent'
+								}
+								$('#TtlAmt').html('$'+amt);
+								$('#chequeBtn').val(element.deal_id);
+								$('#property_id').val(element.property_id);
+								$('#payFor').val(payFor);
+								
+								fetch(`${API_URL}assetsapi/getTransaction/`+element.deal_id, {
+									  method: 'get'
+									})
+									.then(res => res.json())
+									.then(
+									  (result) => {
+										if (result.success==1) {
+										
+										 var pendingAmt = amt - result.paidAmt;
+										 $('#pendingAmt').html('$'+pendingAmt);
+										}else{
+											 var pendingAmt = amt ;
+										 $('#pendingAmt').html('$'+pendingAmt);
+										} 
+										  // console.log("trans_detail"+JSON.stringify(this.state.trans_detail))
+									  },
+									(error) => {
+									  console.log('error')
+									}
+								  )
+								
+							}
+							if(pay==='No')
+							{
+								$("#TBlockUIConfirm").hide();
+							}
+					   });
 			}
               // console.log("property##"+JSON.stringify(result.property[0].img_path))
           },
@@ -135,8 +205,82 @@ this.imgServer=API_URL,
       )
 		
 	}
+	onChangeCheque=(e)=>{
+		var cheque = this.state.chequeForm;
+		if(e.target.name=='chqno'){
+			cheque.chqno=e.target.value;
+		}
+		if(e.target.name=='amt'){
+			cheque.amt=e.target.value;
+		}
+		if(e.target.name=='description'){
+			cheque.description=e.target.value;
+		}
+		cheque.deal_id = $('#chequeBtn').val();
+		cheque.property_id = $('#property_id').val();
+		cheque.payFor = $('#payFor').val();
+		cheque.assets_id = JSON.parse(this.state.userData).assets_id;
+		this.setState({chequeForm:cheque});
+		
+		//console.log(this.state.chequeForm)
+	}
+	ChequePay(){
+		$("#TBlockUIConfirm").hide();
+		var opts = this.state.chequeForm;
+		//console.log(opts)
+		if(!opts.chqno){
+			 alert("Cheque number should not be blank");
+			return;
+		}
+		if(!opts.amt){
+			 alert("Amount should not be blank");
+			return;
+		}
+		if(!opts.description){
+			 alert("Description should not be blank");
+			return;
+		}else{
+			$("#loaderDiv").show();
+			
+			$("#ChequeBlockUIConfirm").hide();
+			fetch(`${API_URL}assetsapi/payByCheque`,{
+			  method: 'post',
+			  body: JSON.stringify(opts)
+			})
+				  .then(res => res.json())
+				  .then(
+					(result) => {
+					   
+						$("#loaderDiv").hide();
+							 
+							   $("#actionType").val("No");
+							   $("#hiddenURL").val("tenant-myproperty");
+							   $(".confirm-body").html(result.msg);
+							   
+							    $("#BlockUIConfirm").show();
+						$(".row-dialog-btn").click(function(){
+							$("#TBlockUIConfirm").hide();
+					   });
+								
+					},
+					
+					(error) => {
+					  this.setState({
+						isLoaded: true,
+						error
+					  });
+					}
+				  )
+		}
+		
+	}
+	onClickClose() {
+		$("#ChequeBlockUIConfirm").hide();
+	}
     render() {
 		 const imgSer=this.imgServer;
+		 	let tempDate = new Date();
+	  var date = tempDate.toLocaleDateString();
 		 // console.log('this.state.userData'+JSON.stringify(this.state.userData));
         return (
             <div>
@@ -293,7 +437,101 @@ this.imgServer=API_URL,
             {/* Tether for Bootstrap */} 
             {/* Examples */} 
             {/* App js */} 
-			
+					<div id="TBlockUIConfirm" className="BlockUIConfirm" style={{display:"none"}}>
+						<div className="blockui-mask"></div>
+						<div className="RowDialogBody">
+							<div className="confirm-header row-dialog-hdr-success">
+								Notification
+							</div>
+							<div className="confirm-body">
+								
+							</div>
+							<div className="confirm-btn-panel text-center">
+								<div className="btn-holder">
+									<input type="hidden" id="hiddenURL" />
+									<input type="hidden" id="actionType" />
+									<input type="button" className="pay-btn btn btn-success" value="Yes" />
+									<input type="button" className="pay-btn btn btn-naked" value="No" />
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div id="ChequeBlockUIConfirm" className="BlockUIConfirm" style={{display:"none"}}>
+						<div className="blockui-mask"></div>
+						
+						<div className="RowDialogBody">
+							<div className="confirm-header row-dialog-hdr-success">
+								Cheque Submission
+								<button type="button" className="close" onClick={this.onClickClose}>×</button>
+							</div>
+							<div className="confirm-body1" id="confirm-body">
+								<div className="tab-pane">
+                                     <div className="widget-box-four">
+										<div className="card-body p-5">
+											<div className="amount-sec">
+												<div className="row">
+													<div className="col-md-7">
+														<h5>Total Amount</h5>	
+													</div>
+													<div className="col-md-5 text-right">
+														 <h5 id="TtlAmt"></h5>
+													</div>
+												</div>
+											<div className="row">
+													<div className="col-md-7">
+														<p>Pending Amount</p>
+													</div>
+													<div className="col-md-5 text-right">
+														<h5 id="pendingAmt"></h5>
+													</div>
+												</div>
+											
+												<hr style={{backgroundColor:"#fff"}}/>
+												
+											</div>
+											<div className="bref-detail">
+												<div className="row">
+													<div className="col-md-7">
+													<label>{window.localStorage.getItem('firstName').replace(/["']/g, "")+''+window.localStorage.getItem('lastName').replace(/["']/g, "")}</label>
+													</div>
+													<div className="col-md-2">
+														<label>Date :</label>
+													</div>
+													<div className="col-md-3">
+														<label>{date}</label>
+													</div>
+												</div>
+											</div>
+												<form role="form" className="card-dtl" >
+													<div className="form-group">
+													<label>Cheque Number<span className="required"/> </label>
+														<input type="text" className="form-control" onChange={this.onChangeCheque} name="chqno"  placeholder=""/>
+													</div> {/*<!-- form-group.// -->*/}
+
+													<div className="form-group">
+													<label>Amount<span className="required"/></label>
+														<input type="text" className="form-control" id ="amt" name="amt"  onChange={this.onChangeCheque} placeholder=""/>
+													</div> {/*<!-- form-group.// -->*/}
+													
+													<div className="form-group">
+													<label>Description<span className="required"/></label>
+														<textarea className="form-control" name="description"  onChange={this.onChangeCheque} placeholder=""/>
+													</div> 
+													<div className="col-md-12 text-center">
+													<input type="hidden" className="form-control" id ="property_id" name="property_id"   placeholder=""/>
+													<input type="hidden" className="form-control" id ="payFor" name="payFor"   placeholder=""/>
+													<button type="button"  id="chequeBtn" style={{cursor:"pointer"}} value="" className="btn btn-success uppercase" onClick={this.ChequePay}>Submit</button>
+													</div>
+												</form>
+											
+										</div>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+					</div>
 			
           </div>
         )
