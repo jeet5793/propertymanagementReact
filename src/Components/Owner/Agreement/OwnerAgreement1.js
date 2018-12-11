@@ -350,7 +350,7 @@ export default class container extends React.Component{
 
     editAgreement(agreement) {
        this.setState({editAgreement: agreement}, () => {
-           // console.log('editAgreement ', agreement)
+           console.log('editAgreement ', JSON.stringify(this.state.editAgreement));
            $('#create')[0].click();
        })
     }
@@ -705,7 +705,10 @@ getPropertyList() {
     }
 onClickCheckPermission(feature){
 	$("#loaderDiv").show();
-  fetch(`${API_URL}assetsapi/checkPermissions/${JSON.parse(this.state.userData).assets_id}/`+feature, {
+	
+	if(this.state.editAgreement==undefined){
+		
+		fetch(`${API_URL}assetsapi/checkPermissions/${JSON.parse(this.state.userData).assets_id}/`+feature, {
 		  method: "GET"
 		})
 		  .then(response => {
@@ -718,11 +721,11 @@ onClickCheckPermission(feature){
 			  // var userid = data.user.assets_id
 			  // localStorage.setItem('userid',userid)
 						$("#loaderDiv").hide();
-						$("#actionType").val("No");
-						   $("#hiddenURL").val("agreement");
+						$("#actionType").val("Click");
+						   $("#hiddenURL").val("saved");
 						   $(".confirm-body").html(data.msg);
 						   $("#BlockUIConfirm").show();
-						  
+						   
 						  // $(".row-dialog-btn").click(function(){
 							    // $('#vcreatepermission').show()
 						   // })
@@ -734,6 +737,14 @@ onClickCheckPermission(feature){
 		).catch((error) => {
 			console.log('error: ', error);
 		  });
+	}
+	 else{
+		 
+		 $("#loaderDiv").hide();
+		  this.setState({editAgreement: null});
+	 }
+	
+  
 	  
     
   }

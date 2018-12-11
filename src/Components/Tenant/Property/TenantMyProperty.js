@@ -128,10 +128,53 @@ this.imgServer=API_URL,
           (result) => {
 			$("#loaderDiv").hide();
             if (result.success==1) {
-              this.props.history.push({
-			  pathname: '/tenant-deal-payment',
-			 state:{rent:element.rent,total_amount:element.total_amount,deal_id:element.deal_id,userId:JSON.parse(this.state.userData).assets_id,paidFor:element.property_status,property_id:element.property_id}
-			})
+				fetch(`${API_URL}assetsapi/getTransaction/`+element.deal_id+`/`+element.property_status, {
+					  method: 'get'
+					})
+					.then(res => res.json())
+					.then(
+					  (response) => {
+
+						if (response.success==1) {
+							if(element.property_status=='Rent' || element.property_status=='Rented'){
+								var pendinAmt = (element.rent-response.paidAmt);
+							}else{
+								var pendinAmt = (element.total_amount-response.paidAmt);
+							}
+							
+							
+							if(pendinAmt>0){
+								
+								this.props.history.push({
+								  pathname: '/tenant-deal-payment',
+								 state:{rent:element.rent,total_amount:element.total_amount,deal_id:element.deal_id,userId:JSON.parse(this.state.userData).assets_id,paidFor:element.property_status,property_id:element.property_id}
+								})
+							}else{
+								if(element.property_status=='Rent' || element.property_status=='Rented'){
+									var msg = ('You already paid for this month');
+								}else{
+									var msg = ('You already paid');
+								}
+								$("#actionType").val("No");
+							   $("#hiddenURL").val("tenant-myproperty");
+							   $(".confirm-body").html(msg);
+							   $("#BlockUIConfirm").show()
+							}
+						   
+						  
+						}else{
+							this.props.history.push({
+								  pathname: '/tenant-deal-payment',
+								 state:{rent:element.rent,total_amount:element.total_amount,deal_id:element.deal_id,userId:JSON.parse(this.state.userData).assets_id,paidFor:element.property_status,property_id:element.property_id}
+								})
+						} 
+						  // console.log("trans_detail"+JSON.stringify(this.state.trans_detail))
+					  },
+					(error) => {
+					  console.log('error')
+					}
+				  )
+             
 				  
             }else if(result.success==0){
 				 
@@ -156,20 +199,20 @@ this.imgServer=API_URL,
 								$("#ChequeBlockUIConfirm").show();
 								$("#TBlockUIConfirm").hide();
 								
-								if(element.property_status=='Sale')
+								if(element.property_status=='Sale'|| element.property_status=='Sold')
 								{
 									var amt = element.total_amount;
-									var payFor = 'Sale'
-								}else if(element.property_status=='Rent'){
+									var payFor = element.property_status;
+								}else if(element.property_status=='Rent'||element.property_status=='Rented'){
 									var amt = element.rent;
-									var payFor = 'Rent'
+									var payFor = element.property_status;
 								}
 								$('#TtlAmt').html('$'+amt);
 								$('#chequeBtn').val(element.deal_id);
 								$('#property_id').val(element.property_id);
 								$('#payFor').val(payFor);
 								
-								fetch(`${API_URL}assetsapi/getTransaction/`+element.deal_id, {
+								fetch(`${API_URL}assetsapi/getTransaction/`+element.deal_id+`/`+payFor, {
 									  method: 'get'
 									})
 									.then(res => res.json())
@@ -183,6 +226,24 @@ this.imgServer=API_URL,
 											 var pendingAmt = amt ;
 										 $('#pendingAmt').html('$'+pendingAmt);
 										} 
+										
+										if(pendingAmt<0){
+											$("#ChequeBlockUIConfirm").hide();
+											if(element.property_status=='Rent' || element.property_status=='Rented'){
+												var msg = ('You already paid for this month');
+											}else{
+												var msg = ('You already paid');
+											}
+											
+											$("#actionType").val("No");
+											   $("#hiddenURL").val("tenant-myproperty");
+											   $(".confirm-body").html(msg);
+											   $("#BlockUIConfirm").show();
+											    $(".row-dialog-btn").click(function(){
+													$("#TBlockUIConfirm").hide();
+												$("#ChequeBlockUIConfirm").hide();
+												});
+										}
 										  // console.log("trans_detail"+JSON.stringify(this.state.trans_detail))
 									  },
 									(error) => {

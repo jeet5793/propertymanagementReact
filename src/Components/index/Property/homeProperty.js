@@ -47,7 +47,7 @@ render(){
 					
 					<div className="tz-property-des">
 						<h5><Link to={{'pathname':"property-detail",state:this.props}}>{this.props.Title}</Link></h5>
-						<div className="tz-property-price"> ${this.props.total_amount}&nbsp;<span>/ Month</span> </div>
+						<div className="tz-property-price"> ${this.props.Status=='Rent'?this.props.rent:this.props.total_amount}&nbsp;<span>/ Month</span> </div>
 						<div className="tz-property-excerpt"> {this.props.description} </div>
 					</div>
 					

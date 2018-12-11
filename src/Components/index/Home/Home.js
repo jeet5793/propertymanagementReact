@@ -366,7 +366,7 @@ onClickClose() {
 														
 														<div className="tz-property-des">
 															<h5><Link to={{'pathname':"property-detail",state:property}}>{property.title}</Link></h5>
-															<div className="tz-property-price"> ${property.total_amount}&nbsp;<span>/ Month</span> </div>
+															<div className="tz-property-price"> ${property.property_status=='Rent'?property.rent:property.total_amount}&nbsp;<span>/ Month</span> </div>
 															<div className="tz-property-excerpt"> {property.description} </div>
 														</div>
 														

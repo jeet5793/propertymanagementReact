@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 //import '../../../../css/plans.css'
 import $ from 'jquery';
 import swal from 'sweetalert';
-
+import NumberFormat from 'react-number-format';
 class Payment extends React.Component {
   constructor(props){
     super(props)
@@ -356,7 +356,7 @@ onChangeACH(e){
 													</div>
 													<div className="col-md-5 text-right">
 													<h5>Amount</h5>
-														<h5>$ {details.Amount}</h5>
+														<h5><NumberFormat value={details.Amount} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/></h5>
 													</div>
 												</div>
 												<div className="row">
@@ -364,7 +364,7 @@ onChangeACH(e){
 														<p>CC Charges(2.99%)</p>
 													</div>
 													<div className="col-md-5 text-right">
-														<h5>$ {(details.Amount*2.99)/100}</h5>
+														<h5><NumberFormat value={(details.Amount*2.99)/100} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/></h5>
 													</div>
 												</div>
 												<hr style={{backgroundColor:"#fff"}}/>
@@ -373,7 +373,7 @@ onChangeACH(e){
 														<h5>Total Amount</h5>
 													</div>
 													<div className="col-md-5 text-right">
-														<h5>$ {Number(details.Amount)+Number((details.Amount*2.99)/100)}</h5>
+														<h5><NumberFormat value={(Number(details.Amount)+Number((details.Amount*2.99)/100))} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/></h5>
 													</div>
 												</div>
 											</div>
@@ -465,7 +465,7 @@ onChangeACH(e){
 													</div>
 													<div className="col-md-5 text-right">
 													<h5>Amount</h5>
-														<h5>$ {details.Amount}</h5>
+														<h5><NumberFormat value={details.Amount} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/></h5>
 													</div>
 												</div>
 												<div className="row">
@@ -482,7 +482,7 @@ onChangeACH(e){
 														<p>Total Amount</p>
 													</div>
 													<div className="col-md-5 text-right">
-														<h5>$ {Number(details.Amount)+Number(1.00)}</h5>
+														<h5><NumberFormat value={Number(details.Amount)+Number(1.00)} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/></h5>
 													</div>
 												</div>
 											</div>

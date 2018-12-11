@@ -307,8 +307,8 @@ export default class Payment extends React.Component{
 	onSubmitSingular()
 	{
 		
-		var opts = Object.assign(this.state.singularEnrollForm,this.state.profileData);
-		 // console.log(opts);
+		var opts = Object.assign(this.state.profileData,this.state.singularEnrollForm);
+		  // console.log(opts);
 		if (!opts.dba_name) {
 		  alert("DBA Name should not be blank");
 		  return;

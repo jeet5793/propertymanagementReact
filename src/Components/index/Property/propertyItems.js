@@ -41,7 +41,7 @@ export default class PropertyItems extends React.Component{
             </Link>
             <div className="tz-property-des">
               <h5><Link to={{'pathname':"property-detail",state:this.props.property}}>{this.props.Title}</Link></h5>
-              <div className="tz-property-price"> $ {this.props.total_amount}&nbsp; </div>
+              <div className="tz-property-price"> $ {this.props.PropertyStatus=='Rent'?this.props.rent:this.props.total_amount}&nbsp; </div>
               <div className="tz-property-info">
                 <div className="pull-left"> 
                 <span> <i className="icon-frame-expand"> </i> {this.props.square_feet}ft&nbsp; </span> 

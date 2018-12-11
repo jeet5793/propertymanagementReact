@@ -7,6 +7,7 @@ import Cookies from 'js-cookie';
 // import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import DatePicker from 'react-date-picker';
+import NumberFormat from 'react-number-format';
 const TableReprt=(props)=>{
     // debugger;
     var expens=0;
@@ -36,14 +37,14 @@ const TableReprt=(props)=>{
 						  <td>{index + 1}</td>
                           <td className="tbl-text-overflow">{element.title}</td>
                           <td>{element.transactiondate}</td>
-                          <td>{element.transactionamount}</td>
+                          <td><NumberFormat value={element.transactionamount} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/></td>
                           <td> </td>
                         </tr>)}
 					</tbody>:'No Contact Available'}
 						<tfoot>
 						<tr>
 							<td colSpan={3} className="text-right"><b>Total :</b></td>
-							<td><b>{props.totalAmt}</b></td>
+							<td><b><NumberFormat value={props.totalAmt} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/></b></td>
 							<td><b></b></td>
 							</tr>
 						</tfoot>
@@ -70,14 +71,14 @@ const TableReprt=(props)=>{
                           <td className="tbl-text-overflow">{element.trans_for}</td>
                           <td>{element.transactiondate}</td>
                           
-                          <td>{element.transactionamount} </td>
+                          <td><NumberFormat value={element.transactionamount} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/> </td>
 						  <td><button className="btn-success" onClick={props.incoiceDownload.bind(this,element.invoice_number)}>{element.invoice_number}</button></td>
                         </tr>)}
 					</tbody>: <tbody><td colSpan={5}>'No transaction Available'</td> </tbody>}
 						<tfoot>
 						<tr>
 							<td colSpan={3} className="text-right"><b>Total :</b></td>
-							<td><b>{expens}</b></td>
+							<td><b><NumberFormat value={expens} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/></b></td>
 							<td><b></b></td>
 							</tr>
 						</tfoot>

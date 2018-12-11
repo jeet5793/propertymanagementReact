@@ -153,7 +153,7 @@ export default class PropertyDetails extends React.Component{
         <div className="col-lg-9 col-md-8 col-sm-8 col-xs-12 tz-has-sidebar">
           <div className="tz-property-top">
             <h1 className="cbp-l-project-title tz-property-title" > {proppertydetails.title} </h1>
-            <div className="tz-property-price"> ${proppertydetails.total_amount} </div>
+            <div className="tz-property-price"> ${proppertydetails.property_status=='Rent'?proppertydetails.rent:proppertydetails.total_amount} </div>
             <div className="tz-property-address"> <i className="icon-map-marker"></i> {proppertydetails.address}, {proppertydetails.city}, {proppertydetails.country} </div>
           </div>
           <div className="tz-property-content">
@@ -248,7 +248,7 @@ export default class PropertyDetails extends React.Component{
                 <div className="col-md-12">
                 <div className="row">
 				 <div className="col-md-4 col-sm-4 cbp-l-project-details-list">
-                    <p className="tz-property-detail"> Price:&nbsp; <strong> ${proppertydetails.total_amount} </strong> </p>
+                    <p className="tz-property-detail"> Price:&nbsp; <strong> ${proppertydetails.property_status=='Rent'?proppertydetails.rent:proppertydetails.total_amount} </strong> </p>
                     
                     
                     

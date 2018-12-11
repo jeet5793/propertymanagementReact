@@ -58,7 +58,7 @@ class Payment extends React.Component {
     // $('html, body').animate({scrollTop: 0}, 1500);
     // this.userInfo();
     // this.userDetails();
- fetch(`${API_URL}assetsapi/getTransaction/`+this.props.location.state.deal_id, {
+ fetch(`${API_URL}assetsapi/getTransaction/`+this.props.location.state.deal_id+`/`+this.props.location.state.paidFor, {
           method: 'get'
         })
         .then(res => res.json())
@@ -156,7 +156,7 @@ changeNameHandler(e)
   // event.preventDefault();
   	// console.log(this.state);
 	var dealData = this.props.location.state;
-	if(dealData.paidFor==='Rent')
+	if(dealData.paidFor==='Rent'||dealData.paidFor==='Rented')
 	{
 		var totalAmt = (Number(dealData.rent)-Number(this.state.paidAmt));
 		 
@@ -398,7 +398,7 @@ changeNameHandler(e)
 													</div>
 													<div className="col-md-5 text-right">
 													<h5>Amount</h5>
-														 <h5>{dealData.paidFor==='Rent'?<NumberFormat value={RentAmt} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>:<NumberFormat value={SellAmt} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/>}</h5>
+														 <h5>{(dealData.paidFor==='Rent'||dealData.paidFor==='Rented')?<NumberFormat value={RentAmt} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>:<NumberFormat value={SellAmt} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/>}</h5>
 													</div>
 												</div>
 												<div className="row">
@@ -406,7 +406,7 @@ changeNameHandler(e)
 														<p>Pending Amount</p>
 													</div>
 													<div className="col-md-5 text-right">
-														<h5>{dealData.paidFor==='Rent'?<NumberFormat value={Number(RentAmt)-Number(PaidAmount)} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>:<NumberFormat value={Number(SellAmt)-Number(PaidAmount)} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/> }</h5>
+														<h5>{(dealData.paidFor==='Rent'||dealData.paidFor==='Rented')?<NumberFormat value={Number(RentAmt)-Number(PaidAmount)} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>:<NumberFormat value={Number(SellAmt)-Number(PaidAmount)} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/> }</h5>
 													</div>
 												</div>
 											<div className="row">
@@ -414,7 +414,7 @@ changeNameHandler(e)
 														<p>CC Charges(2.99%)</p>
 													</div>
 													<div className="col-md-5 text-right">
-														<h5>{dealData.paidFor==='Rent'?<NumberFormat value={((Number(RentAmt)-Number(PaidAmount))*2.99)/100} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>:<NumberFormat value={(Number(SellAmt)-Number(PaidAmount)*2.99)/100} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>}</h5>
+														<h5>{(dealData.paidFor==='Rent'||dealData.paidFor==='Rented')?<NumberFormat value={((Number(RentAmt)-Number(PaidAmount))*2.99)/100} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>:<NumberFormat value={(Number(SellAmt)-Number(PaidAmount)*2.99)/100} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>}</h5>
 													</div>
 													
 												</div>
@@ -424,7 +424,7 @@ changeNameHandler(e)
 														<p>Total Amount</p>
 													</div>
 													<div className="col-md-5 text-right">
-														<h5>{dealData.paidFor==='Rent'?<NumberFormat value={((Number(RentAmt)-Number(PaidAmount))+ Number(((Number(RentAmt)-Number(PaidAmount))*2.99)/100))} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>:<NumberFormat value={((Number(SellAmt)-Number(PaidAmount))+ Number(((Number(SellAmt)-Number(PaidAmount))*2.99)/100))} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/> }</h5>
+														<h5>{(dealData.paidFor==='Rent'||dealData.paidFor==='Rented')?<NumberFormat value={((Number(RentAmt)-Number(PaidAmount))+ Number(((Number(RentAmt)-Number(PaidAmount))*2.99)/100))} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>:<NumberFormat value={((Number(SellAmt)-Number(PaidAmount))+ Number(((Number(SellAmt)-Number(PaidAmount))*2.99)/100))} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/> }</h5>
 													</div>
 												</div>
 												
@@ -545,7 +545,7 @@ changeNameHandler(e)
 													</div>
 													<div className="col-md-5 text-right">
 													<h5>Amount</h5>
-														 <h5>{dealData.paidFor==='Rent'?<NumberFormat value={RentAmt} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>:<NumberFormat value={SellAmt} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/>}</h5>
+														 <h5>{(dealData.paidFor==='Rent'||dealData.paidFor==='Rented')?<NumberFormat value={RentAmt} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>:<NumberFormat value={SellAmt} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/>}</h5>
 													</div>
 												</div>
 											<div className="row">
@@ -553,7 +553,7 @@ changeNameHandler(e)
 														<p>Pending Amount</p>
 													</div>
 													<div className="col-md-5 text-right">
-														<h5>{dealData.paidFor==='Rent'?<NumberFormat value={Number(RentAmt)-Number(PaidAmount)} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>:<NumberFormat value={Number(SellAmt)-Number(PaidAmount)} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/> }</h5>
+														<h5>{(dealData.paidFor==='Rent'||dealData.paidFor==='Rented')?<NumberFormat value={Number(RentAmt)-Number(PaidAmount)} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>:<NumberFormat value={Number(SellAmt)-Number(PaidAmount)} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/> }</h5>
 													</div>
 												</div>
 											<div className="row">
@@ -571,7 +571,7 @@ changeNameHandler(e)
 														<p>Total Amount</p>
 													</div>
 													<div className="col-md-5 text-right">
-														<h5>{dealData.paidFor==='Rent'?<NumberFormat value={((Number(RentAmt)-Number(PaidAmount))+1.00)} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>:<NumberFormat value={((Number(SellAmt)-Number(PaidAmount))+1.00)} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>}</h5>
+														<h5>{(dealData.paidFor==='Rent'||dealData.paidFor==='Rented')?<NumberFormat value={((Number(RentAmt)-Number(PaidAmount))+1.00)} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>:<NumberFormat value={((Number(SellAmt)-Number(PaidAmount))+1.00)} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>}</h5>
 													</div>
 												</div>
 												<div className="row">

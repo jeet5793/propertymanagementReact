@@ -587,7 +587,7 @@ getPropertyList() {
       var normalclassName="nav-link agreement-fa";
       if(e.target.id==="saved")
       {
-		  window.location.reload();
+		  //window.location.reload();
           document.getElementById(e.target.id).setAttribute('class',activeclassName)
           document.getElementById("create").setAttribute('class',normalclassName)
           document.getElementById("request").setAttribute('class',normalclassName)
@@ -689,7 +689,8 @@ getPropertyList() {
     }
 onClickCheckPermission(){
 	$("#loaderDiv").show();
-	fetch(`${API_URL}assetsapi/checkPermissions/${JSON.parse(this.state.userData).assets_id}/create_agreement`, {
+	if(this.state.editAgreement==undefined){
+		fetch(`${API_URL}assetsapi/checkPermissions/${JSON.parse(this.state.userData).assets_id}/create_agreement`, {
 		  method: "GET"
 		})
 		  .then(response => {
@@ -702,13 +703,14 @@ onClickCheckPermission(){
 			  // var userid = data.user.assets_id
 			  // localStorage.setItem('userid',userid)
 						$("#loaderDiv").hide();
-						$("#actionType").val("No");
-						   $("#hiddenURL").val("broker-agreement");
+						$("#loaderDiv").hide();
+						$("#actionType").val("Click");
+						   $("#hiddenURL").val("saved");
 						   $(".confirm-body").html(data.msg);
 						   $("#BlockUIConfirm").show();
-						   $(".row-dialog-btn").click(function(){
-							    $('#vcreatepermission').show()
-						   })
+						   // $(".row-dialog-btn").click(function(){
+							    // $('#vcreatepermission').show()
+						   // })
 						   
 				}else{
 					$("#loaderDiv").hide();
@@ -717,8 +719,11 @@ onClickCheckPermission(){
 		).catch((error) => {
 			console.log('error: ', error);
 		  });
+	}else{
+		$("#loaderDiv").hide();
+		  this.setState({editAgreement: null});
+	}
 	  
-    
   }	
   terminateAgreement(deal_id){
 		$("#loaderDiv").show();

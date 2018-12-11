@@ -7,6 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import swal from 'sweetalert';
 import Header from '../Header/Header'
 import $ from 'jquery';
+import NumberFormat from 'react-number-format';
 export default class PaymentGateway extends React.Component {
   constructor(props){
     super(props)
@@ -365,7 +366,7 @@ changeNameHandler(e)
 													</div>
 													<div className="col-md-5 text-right">
 													<h5>Amount</h5>
-														<h5>${Amount}</h5>
+														<h5><NumberFormat value={Amount} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/></h5>
 													</div>
 												</div>
 												<div className="row">
@@ -373,7 +374,7 @@ changeNameHandler(e)
 														<p>CC Charges(2.99%)</p>
 													</div>
 													<div className="col-md-5 text-right">
-														<h5>$ {(Amount*2.99)/100}</h5>
+														<h5><NumberFormat value={(Amount*2.99)/100} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/></h5>
 													</div>
 												</div>
 												<hr style={{backgroundColor:"#fff"}}/>
@@ -382,7 +383,7 @@ changeNameHandler(e)
 														<p>Total Amount</p>
 													</div>
 													<div className="col-md-5 text-right">
-														<h5>$ {Number(Amount)+Number((Amount*2.99)/100)}</h5>
+														<h5><NumberFormat value={(Number(Amount)+Number((Amount*2.99)/100))} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/></h5>
 													</div>
 												</div>
 											</div>
@@ -474,7 +475,7 @@ changeNameHandler(e)
 													</div>
 													<div className="col-md-5 text-right">
 													<h5>Amount</h5>
-														<h5> ${Amount}</h5>
+														<h5><NumberFormat value={Amount} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/></h5>
 													</div>
 												</div>
 												<div className="row">
@@ -491,7 +492,7 @@ changeNameHandler(e)
 														<p>Total Amount</p>
 													</div>
 													<div className="col-md-5 text-right">
-														<h5>$ {Number(Amount)+Number(1.00)}</h5>
+														<h5><NumberFormat value={(Number(Amount)+Number(1.00))} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/></h5>
 													</div>
 												</div>
 											</div>
