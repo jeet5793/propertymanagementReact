@@ -403,7 +403,7 @@ selectedExecutedAgreement(agreement) {
                             <div id="contentPreview"></div>
                             <div id="commentBox"></div>
                             <div id="signature"></div>
-                            
+                           <button type="button" onClick={this.submitAgreement} class="btn btn-primary stepy-finish">Accept</button> 
                           </div>
                         </div>
                       </div>

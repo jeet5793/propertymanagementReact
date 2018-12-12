@@ -490,16 +490,33 @@ editAgreement(){
                         <div id="collapseFour" className="collapse" role="tabpanel" aria-labelledby="headingFour">
                           <div className="card-block">
                             <div className="add-name">
-                                  <input type="button" value="Rent Amount" onClick={this.insertComponent.bind(this)} />
-                                <input type="button" value="Selling Amount" onClick={this.insertComponent.bind(this)} />
-                                <input type="button" value="Deposit Amount" onClick={this.insertComponent.bind(this)} />
-                              <input type="button" value="Owner Full Name" onClick={this.insertComponent.bind(this)} />
-                              <input type="button" value="Agent Full Name" onClick={this.insertComponent.bind(this)} />
-                              <input type="button" value="Tenant Full Name" onClick={this.insertComponent.bind(this)} />
-                                <input type="button" value="Agent Address" onClick={this.insertComponent.bind(this)} />
-                                <input type="button" value="Owner Address" onClick={this.insertComponent.bind(this)} />
-                                <input type="button" value="Tenant Address" onClick={this.insertComponent.bind(this)} />
-                              <input type="button" value="Property Address" onClick={this.insertComponent.bind(this)} />
+								<input type="button" value="Property Address" onClick={this.insertComponent.bind(this)} />
+                                <input type="button" value="Property Rent Amount" onClick={this.insertComponent.bind(this)} />
+                                <input type="button" value="Property Selling Amount" onClick={this.insertComponent.bind(this)} />
+                                <input type="button" value="Property Deposit Amount" onClick={this.insertComponent.bind(this)} />
+								<input type="button" value="Tenure Start Date" onClick={this.insertComponent.bind(this)} />
+								<input type="button" value="Tenure End Date" onClick={this.insertComponent.bind(this)} />
+								<input type="button" value="Property City" onClick={this.insertComponent.bind(this)} />
+								<input type="button" value="Property State" onClick={this.insertComponent.bind(this)} />
+								<input type="button" value="Owner Full Name" onClick={this.insertComponent.bind(this)} />
+								<input type="button" value="Owner Email" onClick={this.insertComponent.bind(this)} />
+								<input type="button" value="Owner Mobile" onClick={this.insertComponent.bind(this)} />
+								<input type="button" value="Owner Address" onClick={this.insertComponent.bind(this)} />
+								<input type="button" value="Owner City" onClick={this.insertComponent.bind(this)} />
+								<input type="button" value="Owner State" onClick={this.insertComponent.bind(this)} />
+								<input type="button" value="Agent Full Name" onClick={this.insertComponent.bind(this)} />
+								<input type="button" value="Agent Email" onClick={this.insertComponent.bind(this)} />
+								<input type="button" value="Agent Mobile" onClick={this.insertComponent.bind(this)} />
+								<input type="button" value="Agent Address" onClick={this.insertComponent.bind(this)} />
+								<input type="button" value="Agent City" onClick={this.insertComponent.bind(this)} />
+								<input type="button" value="Agent State" onClick={this.insertComponent.bind(this)} />
+								<input type="button" value="Tenant Full Name" onClick={this.insertComponent.bind(this)} />
+								<input type="button" value="Tenant Email" onClick={this.insertComponent.bind(this)} />
+								<input type="button" value="Tenant Mobile" onClick={this.insertComponent.bind(this)} />
+								<input type="button" value="Tenant Address" onClick={this.insertComponent.bind(this)} />
+								<input type="button" value="Tenant City" onClick={this.insertComponent.bind(this)} />
+								<input type="button" value="Tenant State" onClick={this.insertComponent.bind(this)} />
+                             
                             </div>
                           </div>
                         </div>

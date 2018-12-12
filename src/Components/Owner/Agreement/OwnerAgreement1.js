@@ -6,6 +6,7 @@ import VCreate from './VCreate'
 import $ from 'jquery'
 import CustomWithModal from './CustomWithModal'
 import SendMsg from './SendMSG'
+
 //import './bootstrap.min.css'
 //import './style.css'
 //import './icons.css'
@@ -180,7 +181,8 @@ export default class container extends React.Component{
       rLoaded:false,
       executedAgreement:[],
       refreshState:false,
-      user: JSON.parse(Cookies.get('profile_data'))
+      user: JSON.parse(Cookies.get('profile_data')),
+	  editFormDiv:false
     };
 	this.getRequestedAgreement=this.getRequestedAgreement.bind(this);
 	this.getSendedAgreement=this.getSendedAgreement.bind(this);
@@ -350,9 +352,11 @@ export default class container extends React.Component{
 
     editAgreement(agreement) {
        this.setState({editAgreement: agreement}, () => {
-           console.log('editAgreement ', JSON.stringify(this.state.editAgreement));
+           // console.log('editAgreement ', JSON.stringify(this.state.editAgreement));
            $('#create')[0].click();
        })
+	   
+	   // this.setState({editAgreement: agreement,editFormDiv:true});
     }
   getAgreement(){
 	  $("#loaderDiv").show();
@@ -705,8 +709,8 @@ getPropertyList() {
     }
 onClickCheckPermission(feature){
 	$("#loaderDiv").show();
-	
-	if(this.state.editAgreement==undefined){
+	console.log(JSON.stringify(this.state.editAgreement));
+	if(this.state.editAgreement==undefined ||this.state.editAgreement==''){
 		
 		fetch(`${API_URL}assetsapi/checkPermissions/${JSON.parse(this.state.userData).assets_id}/`+feature, {
 		  method: "GET"
@@ -720,11 +724,11 @@ onClickCheckPermission(feature){
 			if(data.success===1){
 			  // var userid = data.user.assets_id
 			  // localStorage.setItem('userid',userid)
-						$("#loaderDiv").hide();
-						$("#actionType").val("Click");
-						   $("#hiddenURL").val("saved");
-						   $(".confirm-body").html(data.msg);
-						   $("#BlockUIConfirm").show();
+						 $("#loaderDiv").hide();
+						// $("#actionType").val("No");
+						   // $("#hiddenURL").val("saved");
+						   $("#v-create").html(data.msg);
+						   // $("#BlockUIConfirm").show();
 						   
 						  // $(".row-dialog-btn").click(function(){
 							    // $('#vcreatepermission').show()
@@ -741,7 +745,7 @@ onClickCheckPermission(feature){
 	 else{
 		 
 		 $("#loaderDiv").hide();
-		  this.setState({editAgreement: null});
+		  // this.setState({editAgreement: ''});
 	 }
 	
   
@@ -816,6 +820,7 @@ onClickCheckPermission(feature){
 						 <VCreate userData={this.state.userData} editAgreement={this.state.editAgreement}/>
                          {<VRequested previewAgreement={this.previewAgreement} ragreement={this.state.requestedAgreement || []} sendedAgreement={this.state.sendedAgreement || []} dealPdfView={this.dealPdfView} changeTabs = {this.changeTabs}/>}
                           <VExecute ragreement={this.state.executedAgreement} selectedExecutedAgreement={this.selectedExecutedAgreement} onClickDownload={this.onClickDownload} dealPdfView={this.dealPdfView} terminateAgreement={this.terminateAgreement} assetsId = {JSON.parse(this.state.userData).assets_id}/>
+						  	
 						  <div className="tab-pane" id="executePreview">
                                       <div id="executePreviewContainer"></div>
 									  {this.state.updatedAgreement && this.state.updatedAgreement.status==="Inprocess" && (this.state.updatedAgreement.receiver_id!== JSON.parse(this.state.userData).assets_id)?
@@ -835,11 +840,14 @@ onClickCheckPermission(feature){
                             <div id="signature"></div>
                             <button type="button" onClick={this.submitAgreement} className="btn btn-primary stepy-finish">Accept</button>
                           </div>
+						  
                         </div>
                       </div>
                     </div>
                   </div>
                   <div className="clearfix" />
+				
+				  
                 </div>
               </div>
               {/* end Col */} 
@@ -945,6 +953,7 @@ onClickCheckPermission(feature){
         />
       
         <CustomWithModal/>
+	
 		<div id="DelBlockUIConfirm" className="BlockUIConfirm" style={{display:"none"}}>
 					<div className="blockui-mask"></div>
 						<div className="RowDialogBody">

@@ -4,6 +4,8 @@ import Cookies from 'js-cookie';
 import swal from 'sweetalert';
 import Autosuggest from 'react-autosuggest';
 	import $ from "jquery";
+		import moment from 'moment';
+import DatePicker from 'react-date-picker';
 export default class SendMSG extends React.Component{
   constructor(props){
     super(props);
@@ -15,12 +17,28 @@ export default class SendMSG extends React.Component{
 	suggestions: [],
 	searchValue:'',
 	searchInputData:[],
+		startDate: "",
+	endDate: "",
+	tenure_start_date:'',
+	tenure_end_date:''
     };
     this.sendAgreement = this.sendAgreement.bind(this);
     this.onChangeHandler = this.onChangeHandler.bind(this);
 	this.sendForwardedAgreement = this.sendForwardedAgreement.bind(this);
-	this.searchUser=this.searchUser.bind(this)
+	this.searchUser=this.searchUser.bind(this);
+		 this.handleSdChange = this.handleSdChange.bind(this);
+	this.handleEdChange =this.handleEdChange.bind(this);
   }
+  handleSdChange(date) {
+		this.setState({
+		  startDate: date
+		});
+	  }
+	handleEdChange(date){
+		this.setState({
+		  endDate: date
+		});
+	}
     onChangeHandler(e) {
         if (e.target.name === 'property_id') {
             this.setState({property_id: e.target.value})
@@ -97,6 +115,8 @@ export default class SendMSG extends React.Component{
           property_id: property_id,
           description: description,
           session_id: this.props.session_id,
+		  tenure_start_date :this.state.startDate,
+		  tenure_end_date :this.state.endDate
       };
 document.getElementById("FormCancel").click();
 			$("#loaderDiv").show();
@@ -171,6 +191,8 @@ document.getElementById("FormCancel").click();
           description: description,
           session_id: this.props.session_id,
 		  updatedTemplate: this.props.UpdAgreement.replaced_template,
+		  tenure_start_date :this.state.startDate,
+		  tenure_end_date :this.state.endDate
       };
 		document.getElementById("FormCancel").click();
 			$("#loaderDiv").show();
@@ -352,7 +374,26 @@ document.getElementById("FormCancel").click();
 									/>	
                   </div>
                 </div>		  
-              </div>        
+              </div> 
+				
+				<div className="col-md-12">
+                  <div className="form-group">
+                    <label for="tenure_start_date" className="control-label">Tenure Start Date<span className="required"/></label>
+                    <DatePicker className="form-control"
+                    onChange={this.handleSdChange}
+                    value={this.state.startDate}
+                />
+                  </div>
+                </div>  
+				<div className="col-md-12">
+                  <div className="form-group">
+                    <label for="tenure_end_date" className="control-label">Tenure End Date<span className="required"/></label>
+                    <DatePicker className="form-control"
+                    onChange={this.handleEdChange}
+                    value={this.state.endDate}
+                />
+                  </div>
+                </div>  
                   <div className="row">
                 <div className="col-md-12">
                   <div className="form-group no-margin">
