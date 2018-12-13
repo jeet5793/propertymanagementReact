@@ -3,6 +3,7 @@ import API_URL from '../../../app-config';
 import Cookies from 'js-cookie';
 import {loadFile} from '../../js/external'
 import VCreate from './VCreate'
+import VEdit from './VEdit'
 import $ from 'jquery'
 import CustomWithModal from './CustomWithModal'
 import SendMsg from './SendMSG'
@@ -32,12 +33,13 @@ const Saved=(props)=>{
             <tr>
               <td>{element.agreement_title}</td>
               <td>{element.created_date}</td>
-              <td><a title="Edit"  onClick={() => props.editAgreement(element)} href="#" className="table-action-btn view-rqu"><i className="mdi mdi-border-color"></i></a><a title="view" href="#" onClick={() => props.pdfViewAgreement(element.agreement_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Delete" href="#" onClick={() => props.deleteAgreement(element.agreement_id)} className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a><a title="Send"  href="#" className="table-action-btn view-rqu"   data-toggle="modal" data-target="#send-msg"><i className="mdi mdi-redo-variant" onClick={() => props.selectedAgreement(element)}></i></a></td>
+              <td><a title="Edit"  onClick={() => props.editAgreementHandle(element)} href="#" className="table-action-btn view-rqu"><i className="mdi mdi-border-color"></i></a><a title="view" href="#" onClick={() => props.pdfViewAgreement(element.agreement_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Delete" href="#" onClick={() => props.deleteAgreement(element.agreement_id)} className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a><a title="Send"  href="#" className="table-action-btn view-rqu"   data-toggle="modal" data-target="#send-msg"><i className="mdi mdi-redo-variant" onClick={() => props.selectedAgreement(element)}></i></a></td>
             </tr>
           )):<div>No data </div>}        
         </tbody>
       </table>
     </div>:<div className=" table-responsive" style={{textAlign:'center'}}>No record available </div>}
+	<VEdit editAgreement={props.editAgreement}/>
   </div>);
 }
 const VRequested=(props)=>{
@@ -249,7 +251,7 @@ export default class container extends React.Component{
       this.getExecuteAgreement();
       this.getPropertyList();
       this.selectedAgreement = this.selectedAgreement.bind(this)
-      this.editAgreement = this.editAgreement.bind(this)
+      this.editAgreementHandle = this.editAgreementHandle.bind(this)
       this.selectedExecutedAgreement = this.selectedExecutedAgreement.bind(this)
 	   this.onClickDownload = this.onClickDownload.bind(this)
 	    this.pdfViewAgreement = this.pdfViewAgreement.bind(this);
@@ -350,10 +352,11 @@ export default class container extends React.Component{
     }
 
 
-    editAgreement(agreement) {
+    editAgreementHandle(agreement) {
        this.setState({editAgreement: agreement}, () => {
            // console.log('editAgreement ', JSON.stringify(this.state.editAgreement));
-           $('#create')[0].click();
+           //$('#create')[0].click();
+		   $('#v-edit').show();
        })
 	   
 	   // this.setState({editAgreement: agreement,editFormDiv:true});
@@ -611,6 +614,7 @@ getPropertyList() {
           document.getElementById("create").setAttribute('class',normalclassName)
           document.getElementById("request").setAttribute('class',normalclassName)
           document.getElementById("execute").setAttribute('class',normalclassName)
+		  $('#v-edit').hide();
       }
       else if(e.target.id==="create")
       { 
@@ -709,8 +713,8 @@ getPropertyList() {
     }
 onClickCheckPermission(feature){
 	$("#loaderDiv").show();
-	console.log(JSON.stringify(this.state.editAgreement));
-	if(this.state.editAgreement==undefined ||this.state.editAgreement==''){
+	// console.log(JSON.stringify(this.state.editAgreement));
+	// if(this.state.editAgreement==undefined ||this.state.editAgreement==''){
 		
 		fetch(`${API_URL}assetsapi/checkPermissions/${JSON.parse(this.state.userData).assets_id}/`+feature, {
 		  method: "GET"
@@ -741,12 +745,12 @@ onClickCheckPermission(feature){
 		).catch((error) => {
 			console.log('error: ', error);
 		  });
-	}
-	 else{
+	// }
+	 // else{
 		 
-		 $("#loaderDiv").hide();
+		 // $("#loaderDiv").hide();
 		  // this.setState({editAgreement: ''});
-	 }
+	 // }
 	
   
 	  
@@ -816,8 +820,8 @@ onClickCheckPermission(feature){
                       </div>
                       <div className="col-md-10">
                         <div className="tab-content">
-						<Saved editAgreement={this.editAgreement} selectedAgreement={this.selectedAgreement} agreement={this.state.agreement} pdfViewAgreement={this.pdfViewAgreement} deleteAgreement={this.deleteAgreement} />
-						 <VCreate userData={this.state.userData} editAgreement={this.state.editAgreement}/>
+						<Saved editAgreementHandle={this.editAgreementHandle} selectedAgreement={this.selectedAgreement} agreement={this.state.agreement} pdfViewAgreement={this.pdfViewAgreement} deleteAgreement={this.deleteAgreement}  editAgreement={this.state.editAgreement}/>
+						 <VCreate userData={this.state.userData}/>
                          {<VRequested previewAgreement={this.previewAgreement} ragreement={this.state.requestedAgreement || []} sendedAgreement={this.state.sendedAgreement || []} dealPdfView={this.dealPdfView} changeTabs = {this.changeTabs}/>}
                           <VExecute ragreement={this.state.executedAgreement} selectedExecutedAgreement={this.selectedExecutedAgreement} onClickDownload={this.onClickDownload} dealPdfView={this.dealPdfView} terminateAgreement={this.terminateAgreement} assetsId = {JSON.parse(this.state.userData).assets_id}/>
 						  	
