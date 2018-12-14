@@ -60,7 +60,7 @@ export default class App extends Component {
       },
       loading: false
     };
-    this.homePaths = ["/", "/Home", "/index", "/AboutUs", "/aboutus", "about", "/property", "/properties", "/blog", "/blog-detail", "/plans", "/contact", "/contactus", "/registration", "/register", "/property-detail", "/register-plans",  "/privacy-policy", "/terms-condition"]
+    this.homePaths = ["/", "/Home", "/index", "/AboutUs", "/aboutus", "about", "/property", "/properties", "/blog", "/blog-detail", "/plans", "/contact", "/contactus", "/registration", "/register", "/property-detail", "/register-plans",  "/privacy-policy", "/terms-condition","/social","password-reset"]
     this.FtrCheck = this.FtrCheck.bind(this)
     this.LoggedIn = this.LoggedIn.bind(this)
     this.updateProfileInfo = this.updateProfileInfo.bind(this)
@@ -80,6 +80,7 @@ export default class App extends Component {
     if (window.location.pathname == "/agreement" || window.location.pathname == "/broker-agreement") {
       this.setState({ loading: true })
     }
+
     if (this.homePaths.indexOf(window.location.pathname) === -1) {
       this.addUserDashboardFiles()
       // this.removeMain();
@@ -115,6 +116,7 @@ export default class App extends Component {
     loadFile('assets/css/style.css', 'css')
     loadFile('assets/css/custom-style.css', 'css')
     loadFile('assets/css/responsive.css', 'css');
+	
 	
   }
   FtrCheck() {
@@ -185,6 +187,7 @@ export default class App extends Component {
             <Route exact path='/social-login' component={UserDashboard} />
             <Route exact path='/bgvpayment' component={UserDashboard} />
 			<Route path='/owner-tenant-bgvpayment' component={UserDashboard} />
+			<Route path='/owner-agreement-edit' component={UserDashboard} />
             {/* Broker Dashboard */}
             <Route path='/broker-tenant' component={AgentBrokerDashboard} />
             <Route path='/broker-profile' component={AgentBrokerDashboard} />

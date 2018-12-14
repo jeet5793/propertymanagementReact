@@ -1,4 +1,5 @@
 import React from 'react'
+import Header from '../Header/Header'
 import API_URL from '../../../app-config'
 import {loadFile} from '../../js/external'
 // import './style.css'
@@ -7,6 +8,7 @@ import $ from 'jquery'
 //import Customwithmodal from "./CustomWithModal";
 import swal from 'sweetalert';
 import { Editor } from '@tinymce/tinymce-react';
+import {Link} from 'react-router-dom'
 //var i
 var i =1;
 
@@ -38,8 +40,10 @@ export default class VEdit extends React.Component{
   }
 
   componentWillReceiveProps(nextProps) {
-    // console.log('nextProps ', nextProps)
+     // console.log('nextProps ', nextProps)
+	 
       if (nextProps.editAgreement) {
+		  
 		  var tinymce=window.tinyMCE;
 		  const agreementForm=this.state.createForm;
 		  let agreement = nextProps.editAgreement;
@@ -47,12 +51,28 @@ export default class VEdit extends React.Component{
 		  
           $('input[id="agreement_title"]').val(agreement.agreement_title);
           $('input[id="headerContent"]').val(agreement.header_content);
-		  tinymce.get("editor2").setContent(agreement.agreement_doc_content);
+		  if(agreement.agreement_doc_content!=null){
+			  tinymce.get("editor2").setContent('dfsafsdg');
+		  }
+		  
 		  
 		  
       }
   }
+   
   componentDidMount() {
+	 
+	  var tinymce=window.tinyMCE;
+		  const agreementForm=this.state.createForm;
+		  let agreement = this.props.location.state.editAgreement;
+		  this.setState({editAgreementStatus:true,agreement_id:agreement.agreement_id,createForm:{agreement_title:agreement.agreement_title,agreement_doc_content:agreement.agreement_doc_content,header_content:agreement.header_content}})
+		   //console.log(agreement)
+		    // console.log('tinymce ', tinymce)
+		   // console.log(agreement.agreement_doc_content)
+          $('input[id="agreement_title"]').val(agreement.agreement_title);
+          $('input[id="headerContent"]').val(agreement.header_content);
+		   tinymce.get("editor2").setContent(agreement.agreement_doc_content);
+		   // $('#editor2').val(agreement.agreement_doc_content);
 
       $(document).on('click', '#stepy-navigator',function () {
           this.updatePage();
@@ -131,7 +151,8 @@ export default class VEdit extends React.Component{
 			//easing: 'easeInOutBack'
 		});
 	});
-
+	
+	
   }
 	getTemplatesName(){
 	fetch(`${API_URL}assetsapi/agreement_template_name/${JSON.parse(this.state.userData).session_id}`, {
@@ -358,10 +379,27 @@ editAgreement(){
 		  // $('#previewDiv2').show();
 	  }
     render(){
+		//console.log(this.props)
     {window.tinyMCE.get("editor2") && window.$('#previewDiv2').html(window.tinyMCE.get("editor2").getContent())}
     return (
-		<div className="tab-pane" id="v-edit" style={{display:"none"}}>
-			<div className="bdr">
+		
+		
+		<div className="tab-pane" id="v-edit" >
+		<Header name="agreement"  first_name={window.localStorage.getItem('firstName')} 
+                last_name={window.localStorage.getItem('firstName')} />
+				 <div className="wrapper">
+                <div className="container"> 
+				<div className="page-title-box">
+                    <div className="btn-group pull-right">
+                        <ol className="breadcrumb hide-phone p-0 m-0">
+                        <li>
+						<Link to={'/agreement'}><span className="btn waves-light waves-effect w-md btn-custom"><i className="fi-reply"></i>&nbsp;&nbsp;Back</span></Link></li>
+                        </ol>
+                    </div>
+                   
+                    </div>
+				
+			<div className="bdr" style={{marginBottom: "30px;",padding: "20px",borderRadius: "10px",backgroundColor: "#f1f1f1"}}>
 				<form id="msform">
 					<ul id="progressbar">
 						<li className="active">Edit</li>
@@ -390,7 +428,7 @@ editAgreement(){
 									<a className="btn-floating btn-large teal" onClick={this.showSideOption1}> <i className="large fi-menu"></i> </a> 
 								</div>
 								<div className="custome-temp" id="sideTogle2" style={{display:"none"}}>
-									<div className="autohide1-scroll" style={{height: "100px"}}>
+									<div className="autohide1-scroll" style={{height: "282px",overflowY: "scroll"}}>
 										<div id="accordion"  className="m-b-10">
 											<div className="card m-b-5">
 												<div className="card-header  btn btn-success waves-effect w-md waves-light" role="tab" id="headingOne">
@@ -533,6 +571,7 @@ editAgreement(){
 												 onChange={this.onChangeHandlerEdit}
 												  init={{ 
 												theme: "modern",
+												
 												  plugins:[
 															"advlist autolink lists link image charmap print preview hr anchor pagebreak",
 															"searchreplace wordcount visualblocks visualchars code fullscreen",
@@ -545,6 +584,7 @@ editAgreement(){
 												/>
 												</div>
 											  </div>
+											  <br/>
 					<button type="button" name="next" className="btn btn-primary waves-effect waves-light next pull-right" value="" >Next</button>
 					</fieldset>
 
@@ -555,6 +595,7 @@ editAgreement(){
 								</div>
 							</div>
 						</div>
+						 <br/>
 						<button type="button" name="previous" className="previous button-back btn btn-default waves-effect pull-left" value="" >Back</button>
 						<button type="button" name="next" className="btn btn-primary waves-effect waves-light next  pull-right" value="" >Next</button>
 					</fieldset>
@@ -564,11 +605,13 @@ editAgreement(){
 						<fieldset>
 							<div className="row m-t-20 signature"> </div>
 							<button type="button" name="previous" className="previous button-back btn btn-default waves-effect pull-left" value="" >Back</button>
+							<div  style={{fontSize:14,fontWeight:500,textAlign:"center"}}>Click on submit to save the edited agreement.</div> 
 							<button type="button" name="submit" className="btn btn-primary waves-effect waves-light submit pull-right" value="" onClick={this.editAgreement}>Submit</button>
 						</fieldset>
 					</form>
 
-                      
+                 </div>
+</div>				 
                     </div>
 	</div>
   );}

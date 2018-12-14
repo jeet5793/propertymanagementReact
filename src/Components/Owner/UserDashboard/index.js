@@ -10,7 +10,7 @@ import API_URL from '../../../app-config';
 import { Switch, Route } from 'react-router';
 // import Agreement from '../Agreement/OwnerAgreement';
 import Agreement from '../Agreement/OwnerAgreement1';
-
+import VEdit from '../Agreement/VEdit';
 import Property from '../Property/Property';
 import AddProperty from '../Property/addProperty';
 import EditProperty from '../Property/EditProperty';
@@ -129,6 +129,7 @@ class UserDashboard extends React.Component {
 			<Route exact path='/owner-upgrade' component={Upgrade} />
 			<Route exact path='/bgvpayment' component={BGVPayment} />
 			<Route exact path='/owner-tenant-bgvpayment' component={OTBGVPayment} />
+			<Route exact path='/owner-agreement-edit' component={VEdit} />
 	
           </Switch>
           <Footer />

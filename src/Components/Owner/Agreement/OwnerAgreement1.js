@@ -13,9 +13,10 @@ import SendMsg from './SendMSG'
 //import './icons.css'
 import swal from 'sweetalert';
 import { withRouter } from "react-router";
-
+import {Link} from 'react-router-dom'
 
 const Saved=(props)=>{
+	//console.log(props);
   return(                                            
   <div className="tab-pane active" id="v-saved">
   {(props.agreement!=undefined && props.agreement.length>0)?
@@ -33,13 +34,15 @@ const Saved=(props)=>{
             <tr>
               <td>{element.agreement_title}</td>
               <td>{element.created_date}</td>
-              <td><a title="Edit"  onClick={() => props.editAgreementHandle(element)} href="#" className="table-action-btn view-rqu"><i className="mdi mdi-border-color"></i></a><a title="view" href="#" onClick={() => props.pdfViewAgreement(element.agreement_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Delete" href="#" onClick={() => props.deleteAgreement(element.agreement_id)} className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a><a title="Send"  href="#" className="table-action-btn view-rqu"   data-toggle="modal" data-target="#send-msg"><i className="mdi mdi-redo-variant" onClick={() => props.selectedAgreement(element)}></i></a></td>
+              <td><Link to={{"pathname":"/owner-agreement-edit",state:{editAgreement:element,loc: '/agreement'}}} title="Edit"   className="table-action-btn view-rqu"><i className="mdi mdi-border-color"></i></Link><a title="view" href="#" onClick={() => props.pdfViewAgreement(element.agreement_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Delete" href="#" onClick={() => props.deleteAgreement(element.agreement_id)} className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a><a title="Send"  href="#" className="table-action-btn view-rqu"   data-toggle="modal" data-target="#send-msg"><i className="mdi mdi-redo-variant" onClick={() => props.selectedAgreement(element)}></i></a></td>
             </tr>
           )):<div>No data </div>}        
         </tbody>
       </table>
     </div>:<div className=" table-responsive" style={{textAlign:'center'}}>No record available </div>}
-	<VEdit editAgreement={props.editAgreement}/>
+		
+	
+	
   </div>);
 }
 const VRequested=(props)=>{
@@ -251,7 +254,7 @@ export default class container extends React.Component{
       this.getExecuteAgreement();
       this.getPropertyList();
       this.selectedAgreement = this.selectedAgreement.bind(this)
-      this.editAgreementHandle = this.editAgreementHandle.bind(this)
+      // this.editAgreementHandle = this.editAgreementHandle.bind(this)
       this.selectedExecutedAgreement = this.selectedExecutedAgreement.bind(this)
 	   this.onClickDownload = this.onClickDownload.bind(this)
 	    this.pdfViewAgreement = this.pdfViewAgreement.bind(this);
@@ -352,15 +355,16 @@ export default class container extends React.Component{
     }
 
 
-    editAgreementHandle(agreement) {
-       this.setState({editAgreement: agreement}, () => {
+    /* editAgreementHandle(agreement) {
+		 
+       this.setState({editAgreement: agreement,editAgreementStatus:true}, () => {
            // console.log('editAgreement ', JSON.stringify(this.state.editAgreement));
            //$('#create')[0].click();
-		   $('#v-edit').show();
+		   //$('#v-edit').show();
        })
 	   
 	   // this.setState({editAgreement: agreement,editFormDiv:true});
-    }
+    } */
   getAgreement(){
 	  $("#loaderDiv").show();
     const { user } = this.state;
@@ -731,7 +735,8 @@ onClickCheckPermission(feature){
 						 $("#loaderDiv").hide();
 						// $("#actionType").val("No");
 						   // $("#hiddenURL").val("saved");
-						   $("#v-create").html(data.msg);
+						   var msg = "<div style='font-size:14;font-weight:500;text-align:center'>"+data.msg+"</div>"
+						   $("#v-create").html(msg);
 						   // $("#BlockUIConfirm").show();
 						   
 						  // $(".row-dialog-btn").click(function(){
@@ -820,7 +825,7 @@ onClickCheckPermission(feature){
                       </div>
                       <div className="col-md-10">
                         <div className="tab-content">
-						<Saved editAgreementHandle={this.editAgreementHandle} selectedAgreement={this.selectedAgreement} agreement={this.state.agreement} pdfViewAgreement={this.pdfViewAgreement} deleteAgreement={this.deleteAgreement}  editAgreement={this.state.editAgreement}/>
+						<Saved selectedAgreement={this.selectedAgreement} agreement={this.state.agreement} pdfViewAgreement={this.pdfViewAgreement} deleteAgreement={this.deleteAgreement}  />
 						 <VCreate userData={this.state.userData}/>
                          {<VRequested previewAgreement={this.previewAgreement} ragreement={this.state.requestedAgreement || []} sendedAgreement={this.state.sendedAgreement || []} dealPdfView={this.dealPdfView} changeTabs = {this.changeTabs}/>}
                           <VExecute ragreement={this.state.executedAgreement} selectedExecutedAgreement={this.selectedExecutedAgreement} onClickDownload={this.onClickDownload} dealPdfView={this.dealPdfView} terminateAgreement={this.terminateAgreement} assetsId = {JSON.parse(this.state.userData).assets_id}/>
