@@ -99,6 +99,7 @@ export default class TenantAgreement extends React.Component {
     this.verticalNavbar=this.verticalNavbar.bind(this);
     this.previewAgreement=this.previewAgreement.bind(this);
     this.submitAgreement=this.submitAgreement.bind(this);
+		this.onClickChangeStatus =this.onClickChangeStatus.bind(this);
   }
   componentDidMount() {
     $.getScript('assets/js/jquery.slimscroll.js', function () {
@@ -370,7 +371,45 @@ selectedExecutedAgreement(agreement) {
             $('#sideTogle').hide();
         }
     }
-
+	onClickChangeStatus(Status)
+	{
+		 let { user, selectedAgreement } = this.state;
+	
+		// console.log('dsafgas'+JSON.stringify(this.state));
+		// var status = $('#status').val();
+			 // console.log('dsafgas'+JSON.stringify(this.state));
+        let data = {
+           property_id:selectedAgreement.property_id,
+		   status:Status,
+           user_id: user.assets_id
+        };
+	// console.log('dsafgas'+JSON.stringify(data));
+		 $("#loaderDiv").show();
+		 
+		 fetch(`${API_URL}assetsapi/change_status_rejected`, {
+            method: 'post',
+            body:JSON.stringify(data)
+        })
+            .then(res => res.json())
+            .then(
+                (data) => {
+                    // debugger;
+                    //console.log("data 2: "+JSON.stringify(result.profile))
+                    if (data) {
+						$("#loaderDiv").hide();
+						 $("#actionType").val("Yes");
+						 $("#hiddenURL").val("tenant-agreement");
+						 $(".confirm-body").html(data.msg);
+						 $("#BlockUIConfirm").show();
+                        // console.log(data);
+                    }
+                    //console.log("set user data"+JSON.stringify(this.state.profileData))
+                },
+                (error) => {
+                    console.log('error')
+                }
+            ) 
+	}
     render() {
         return (
             <div>
@@ -405,7 +444,8 @@ selectedExecutedAgreement(agreement) {
                             <div id="contentPreview"></div>
                             <div id="commentBox"></div>
                             <div id="signature"></div>
-                           <button type="button" onClick={this.submitAgreement} class="btn btn-primary stepy-finish">Accept</button> 
+                           <button type="button" onClick={this.submitAgreement} class="btn btn-primary stepy-finish">Accept</button> &nbsp;
+						    <button type ="button" className="btn btn-warning" onClick={this.onClickChangeStatus.bind(this,'Rejected')} >Reject</button>
                           </div>
                         </div>
                       </div>

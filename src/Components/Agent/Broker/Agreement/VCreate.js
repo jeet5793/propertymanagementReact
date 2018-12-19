@@ -16,7 +16,6 @@ export default class VCreate extends React.Component{
     this.state={
       userData : Cookies.get('profile_data'),
       sectionOpenId:"",
-	  editAgreementStatus:false,
       collapseStatus:false,
 	  agreement_id:"",
       createForm:{
@@ -32,26 +31,12 @@ export default class VCreate extends React.Component{
     }
     this.onChangeHandler=this.onChangeHandler.bind(this)
     this.createAgreement=this.createAgreement.bind(this)
-	this.editAgreement=this.editAgreement.bind(this)
+	// this.editAgreement=this.editAgreement.bind(this)
     this.headerImage = React.createRef();
     this.waterMarkImage = React.createRef();
   }
 
-  componentWillReceiveProps(nextProps) {
-    // console.log('nextProps ', nextProps)
-      if (nextProps.editAgreement) {
-		  var tinymce=window.tinyMCE;
-		  const agreementForm=this.state.createForm;
-		  let agreement = nextProps.editAgreement;
-		  this.setState({editAgreementStatus:true,agreement_id:agreement.agreement_id,createForm:{agreement_title:agreement.agreement_title,agreement_doc_content:agreement.agreement_doc_content,header_content:agreement.header_content}})
-		  
-          $('input[name="agreement_title"]').val(agreement.agreement_title);
-          $('input[name="headerContent"]').val(agreement.header_content);
-		  tinymce.get("editor").setContent(agreement.agreement_doc_content);
-		  
-		  
-      }
-  }
+  
   componentDidMount() {
 
       $(document).on('click', '#stepy-navigator',function () {
@@ -198,47 +183,7 @@ createAgreement(){
     alert('Please add title and content to create agreement')
   }
 }
-editAgreement(){
-  // debugger;
-  var tinymce=window.tinyMCE,$=window.$
-  var content = tinymce.get("editor").getContent();
-  const agreementForm=this.state.createForm
-  agreementForm.agreement_doc_content=content
-  agreementForm.agreement_id=this.state.agreement_id
-  agreementForm.session_id=JSON.parse(this.state.userData).session_id
-  agreementForm.user_id=JSON.parse(this.state.userData).assets_id
-  //alert(JSON.stringify(agreementForm))
-  if(agreementForm.agreement_title!==''&&agreementForm.agreement_doc_content!=='')
-  {
-	$("#loaderDiv").show();
-    fetch(`${API_URL}assetsapi/edit_agreement/`, {
-      method: "post",
-      body: JSON.stringify(agreementForm)
-    })
-    .then((response) => {
-      return response.json()
-  }).then((data) => {
-    // console.log('EDDDDDIT'+JSON.stringify(data));
-        // alert(data)
-        if(data){
-		  // swal("Assets Watch", data.msg);
-         // window.location.reload()
-		 $("#loaderDiv").hide();
-			$("#actionType").val("Yes");
-					   $("#hiddenURL").val("broker-agreement");
-					   $(".confirm-body").html(data.msg);
-					   $("#BlockUIConfirm").show();
-        }
-      }
-    ).catch((error) => {
-      // swal("Assets Watch", "Agreement Edited Successfully");
-      // window.location.reload()
-      });
-  }
-  else{
-    alert('Please add title and content to create agreement')
-  }
-}
+
     demoTemplate(item)
 	  {
 		  // console.log(templateDescription);
@@ -531,7 +476,7 @@ editAgreement(){
           <div className="row m-t-20 signature"> </div>
         {/* <div className="stepy-navigator"> */}
         
-       <button style={{float:"right",marginTop:10}} id="stepy-navigator" type="button" onClick={this.state.editAgreementStatus?this.editAgreement:this.createAgreement} className="btn btn-primary stepy-finish">Submit</button></fieldset>       
+       <button style={{float:"right",marginTop:10}} id="stepy-navigator" type="button" onClick={this.createAgreement} className="btn btn-primary stepy-finish">Submit</button></fieldset>       
       </form>
     </div>
      <div id = "vcreatepermission" style={{position: 'absolute', top: 0, width: '100%', height: '100%', backgroundColor: '#333', opacity: 0.4, zIndex: 1000,display:'none'}}></div>

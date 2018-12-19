@@ -1,6 +1,7 @@
 import React from 'react'
 import Header from '../Header/TenantHeader'
 import {removejscssfile} from '../../js/external'
+import {Link} from 'react-router-dom'
 export default class Report extends React.Component{
   clickFuction(e){
 
@@ -28,14 +29,14 @@ export default class Report extends React.Component{
               <div className="card-box">
 				  <h4 className="m-b-5 m-t-0 font-18">Property Report</h4>
 				  <p className="text-muted m-b-15">Generate Property Report on Property or time interval based income and outcome.</p>
-				  <a className="btn btn-custom waves-light waves-effect w-md" href="tenant-report-table?property">View</a>
+				  <Link className="btn btn-custom waves-light waves-effect w-md" to={"/tenant-report-table?property"}>View</Link>
               </div>
             </div>
             <div className="col-md-12">
               <div className="card-box">
 				  <h4 className="m-b-5 m-t-0 font-18">Transaction Report</h4>
 				  <p className="text-muted m-b-15 ">Generate Transaction Report on Property or time interval based income and outcome.</p>
-				  <a className="btn btn-custom waves-light waves-effect w-md" href="tenant-report-table?Transaction">View</a>
+				  <Link className="btn btn-custom waves-light waves-effect w-md" to={"/tenant-report-table?Transaction"}>View</Link>
               </div>
             </div>
             {/* <!-- end col --> */}

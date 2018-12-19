@@ -139,6 +139,8 @@ const VExecute=(props)=>{
 			<th>Name</th>
                 <th>Date</th>
 				<th>Status</th>
+				<th>Tenure Start Date</th>
+				<th>Tenure End Date</th>
                 <th>Action</th>
           </tr>
         </thead>
@@ -149,7 +151,9 @@ const VExecute=(props)=>{
 			   <td>{element.first_name+' '+element.last_name}</td>
               <td>{element.initiated_date}</td>
 			  <td>{element.dealStatus}</td>
-              <td>{element.dealStatus==="Inprocess"?<a title="Edit" href="#executePreview" data-toggle="tab" onClick={() => props.selectedExecutedAgreement(element)} className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a>:(element.dealStatus==="Completed" || element.dealStatus==="Terminated")?<a title="view" href="#" onClick={() => props.dealPdfView(element.deal_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a>:''}<a title="Download"  href="#" className="table-action-btn view-rqu"><i className="mdi mdi-download" onClick={() => props.onClickDownload(element.deal_id)}></i></a><a title="Send"  href="#" className="table-action-btn view-rqu" data-toggle="modal" onClick={() => props.selectedExecutedAgreement(element)} data-target="#send-msg"><i className="mdi mdi-redo-variant"></i></a>{(element.sender_id==props.assetsId)?<a title="Terminate" href="#" onClick={() => props.terminateAgreement(element.deal_id)} className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a>:''}</td>
+			   <td>{element.tenure_start_date}</td>
+			    <td>{element.tenure_end_date}</td>
+              <td>{element.dealStatus==="Inprocess"?<a title="Edit" href="#executePreview" data-toggle="tab" onClick={() => props.selectedExecutedAgreement(element)} className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a>:(element.dealStatus==="Completed" || element.dealStatus==="Terminated" || element.dealStatus==="Rejected")?<a title="view" href="#" onClick={() => props.dealPdfView(element.deal_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a>:''}<a title="Download"  href="#" className="table-action-btn view-rqu"><i className="mdi mdi-download" onClick={() => props.onClickDownload(element.deal_id)}></i></a><a title="Send"  href="#" className="table-action-btn view-rqu" data-toggle="modal" onClick={() => props.selectedExecutedAgreement(element)} data-target="#send-msg"><i className="mdi mdi-redo-variant"></i></a>{(element.sender_id==props.assetsId)?<a title="Terminate" href="#" onClick={() => props.terminateAgreement(element.deal_id)} className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a>:''}</td>
             </tr>
           )):<div>No data </div>}
       </tbody>
@@ -198,6 +202,7 @@ export default class container extends React.Component{
     this.previewAgreement=this.previewAgreement.bind(this);
     this.submitAgreement=this.submitAgreement.bind(this);
 	this.onClickChangeStatus =this.onClickChangeStatus.bind(this);
+	this.onClickChangeStatusReject =this.onClickChangeStatusReject.bind(this);
 	this.onClickCheckPermission = this.onClickCheckPermission.bind(this);
 	this.terminateAgreement = this.terminateAgreement.bind(this);
   }
@@ -551,21 +556,59 @@ getSendedAgreement(){
                 }
             )
     } */
-	onClickChangeStatus()
+	onClickChangeStatus(Status)
 	{
-		 let { user, updatedAgreement } = this.state;
+		 let { user, selectedAgreement } = this.state;
 	
 		// console.log('dsafgas'+JSON.stringify(this.state));
 		// var status = $('#status').val();
         let data = {
-          property_id:updatedAgreement.property_id,
-		  // status:status,
+          property_id:selectedAgreement.property_id,
+		   status:Status,
            user_id: user.assets_id
         };
 		 //console.log('dsafgas'+JSON.stringify(data));
 		 $("#loaderDiv").show();
 		 
 		fetch(`${API_URL}assetsapi/change_status_execute`, {
+            method: 'post',
+            body:JSON.stringify(data)
+        })
+            .then(res => res.json())
+            .then(
+                (data) => {
+                    // debugger;
+                    //console.log("data 2: "+JSON.stringify(result.profile))
+                    if (data) {
+						$("#loaderDiv").hide();
+						 $("#actionType").val("Yes");
+						 $("#hiddenURL").val("agreement");
+						 $(".confirm-body").html(data.msg);
+						 $("#BlockUIConfirm").show();
+                        // console.log(data);
+                    }
+                    //console.log("set user data"+JSON.stringify(this.state.profileData))
+                },
+                (error) => {
+                    console.log('error')
+                }
+            )
+	}
+	onClickChangeStatusReject(Status)
+	{
+		 let { user, selectedAgreement } = this.state;
+	
+		// console.log('dsafgas'+JSON.stringify(this.state));
+		// var status = $('#status').val();
+        let data = {
+          property_id:selectedAgreement.property_id,
+		   status:Status,
+           user_id: user.assets_id
+        };
+		 //console.log('dsafgas'+JSON.stringify(data));
+		 $("#loaderDiv").show();
+		 
+		fetch(`${API_URL}assetsapi/change_status_rejected`, {
             method: 'post',
             body:JSON.stringify(data)
         })
@@ -841,7 +884,8 @@ onClickCheckPermission(feature){
 											<option value="Inprocess">Inprocess</option>
 											<option value="Completed">Completed</option>
 									  </select> */}
-										   <button type ="button" className="btn btn-success" onClick={this.onClickChangeStatus} >Execute</button>
+										   <button type ="button" className="btn btn-success" onClick={this.onClickChangeStatus.bind(this,'Completed')} >Execute</button> 
+										   
 									   </div>: ''
 									   }
                                   </div>
@@ -849,7 +893,8 @@ onClickCheckPermission(feature){
                             <div id="contentPreview"></div>
                             <div id="commentBox"></div>
                             <div id="signature"></div>
-                            <button type="button" onClick={this.submitAgreement} className="btn btn-primary stepy-finish">Accept</button>
+                            <button type="button" onClick={this.submitAgreement} className="btn btn-primary stepy-finish">Accept</button> &nbsp;
+							<button type ="button" className="btn btn-warning" onClick={this.onClickChangeStatusReject.bind(this,'Rejected')} >Reject</button>
                           </div>
 						  
                         </div>

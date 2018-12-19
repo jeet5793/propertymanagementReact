@@ -110,19 +110,19 @@ import $ from 'jquery';
 							  <label for="old-password">Old Password</label>
 							</div>
 							<div className="col-lg-2 col-md-3 col-sm-3 ">
-							  <input type="password" name="old_password" className="form-control" id="old-password" onChange={this.onChangeHandler} placeholder="" required />
+							  <input type="password" name="old_password" className="form-control" id="old-password" onChange={this.onChangeHandler} placeholder=""  />
 							</div>
 							<div className="col-lg-2 col-md-3 col-sm-3 required">
 							  <label for="new-password">New Password</label>
 							</div>
 							<div className="col-lg-2 col-md-3 col-sm-3 ">
-							  <input type="password" name="new_password" className="form-control" id="new-password" onChange={this.onChangeHandler} placeholder="" required />
+							  <input type="password" name="new_password" className="form-control" id="new-password" onChange={this.onChangeHandler} placeholder=""  />
 							</div>
 							<div className="col-lg-2 col-md-3 col-sm-3 required">
 							  <label for="confirm-password">Confirm Password</label>
 							</div>
 							<div className="col-lg-2 col-md-3 col-sm-3 ">
-							  <input type="password" name="confirm_password" className="form-control" id="confirm-password" onChange={this.onChangeHandler} placeholder="" required />
+							  <input type="password" name="confirm_password" className="form-control" id="confirm-password" onChange={this.onChangeHandler} placeholder=""  />
 							</div>
 						 </div>
 				</div>

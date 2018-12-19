@@ -4,10 +4,12 @@ import API_URL from '../../../../app-config';
 import Cookies from 'js-cookie';
 import $ from 'jquery';
 import Customwithmodal from '../../../Owner/Agreement/CustomWithModal';
-import VCreate from './VCreate'
+import VCreate from './VCreate';
+import VEdit from './VEdit'
 import {loadFile} from '../../../js/external'
 import SendMsg from './SendMSG'
 import swal from 'sweetalert';
+	import {Link} from 'react-router-dom'
 //import '../../../Owner/Agreement/style.css'
 //import './icons.css'
 // import SendMsgExecute from './SendMsgExecute';
@@ -29,7 +31,7 @@ const Saved=(props)=>{
             <tr>
               <td>{element.agreement_title}</td>
               <td>{element.created_date}</td>
-              <td><a title="Edit"  onClick={() => props.editAgreement(element)} href="#" className="table-action-btn view-rqu"><i className="mdi mdi-border-color"></i></a><a title="view" href="#" onClick={() => props.pdfViewAgreement(element.agreement_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Delete" href="#" onClick={() => props.deleteAgreement(element.agreement_id)} className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a><a title="Send"  href="#" className="table-action-btn view-rqu" data-toggle="modal" data-target="#send-msg"><i className="mdi mdi-redo-variant" onClick={() => props.selectedAgreement(element)}></i></a></td>
+              <td><Link to={{"pathname":"/broker-agreement-edit",state:{editAgreement:element,loc: '/broker-agreement'}}} title="Edit"   className="table-action-btn view-rqu"><i className="mdi mdi-border-color"></i></Link><a title="view" href="#" onClick={() => props.pdfViewAgreement(element.agreement_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Delete" href="#" onClick={() => props.deleteAgreement(element.agreement_id)} className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a><a title="Send"  href="#" className="table-action-btn view-rqu" data-toggle="modal" data-target="#send-msg"><i className="mdi mdi-redo-variant" onClick={() => props.selectedAgreement(element)}></i></a></td>
             </tr>
           )):<div>No data </div>}        
         </tbody>
@@ -139,7 +141,7 @@ const VExecute=(props)=>{
 			  <td>{element.name}</td>
               <td>{element.initiated_date}</td>
 			  <td>{element.dealStatus}</td>
-              <td>{element.dealStatus==="Inprocess"?<a title="Edit" href="#executePreview" data-toggle="tab" onClick={() => props.selectedExecutedAgreement(element)} className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a>:(element.dealStatus==="Completed" || element.dealStatus==="Terminated")?<a title="view" href="#" onClick={() => props.dealPdfView(element.deal_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a>:''}<a title="Download"  href="#" className="table-action-btn view-rqu"><i className="mdi mdi-download" onClick={() => props.onClickDownload(element.deal_id)}></i></a><a title="Send"  href="#" className="table-action-btn view-rqu" data-toggle="modal" onClick={() => props.selectedExecutedAgreement(element)} data-target="#send-msg"><i className="mdi mdi-redo-variant"></i></a>{(element.sender_id==props.assetsId)?<a title="Terminate" href="#" onClick={() => props.terminateAgreement(element.deal_id)} className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a>:''}</td>
+              <td>{element.dealStatus==="Inprocess"?<a title="Edit" href="#executePreview" data-toggle="tab" onClick={() => props.selectedExecutedAgreement(element)} className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a>:(element.dealStatus==="Completed" || element.dealStatus==="Terminated" || element.dealStatus==="Rejected")?<a title="view" href="#" onClick={() => props.dealPdfView(element.deal_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a>:''}<a title="Download"  href="#" className="table-action-btn view-rqu"><i className="mdi mdi-download" onClick={() => props.onClickDownload(element.deal_id)}></i></a><a title="Send"  href="#" className="table-action-btn view-rqu" data-toggle="modal" onClick={() => props.selectedExecutedAgreement(element)} data-target="#send-msg"><i className="mdi mdi-redo-variant"></i></a>{(element.sender_id==props.assetsId)?<a title="Terminate" href="#" onClick={() => props.terminateAgreement(element.deal_id)} className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a>:''}</td>
             </tr>
           )):<div>No data </div>}
       </tbody>
@@ -189,6 +191,7 @@ export default class container extends React.Component{
 	this.onClickChangeStatus =this.onClickChangeStatus.bind(this);
 	this.onClickCheckPermission = this.onClickCheckPermission.bind(this);
 	this.terminateAgreement = this.terminateAgreement.bind(this);
+		this.onClickChangeStatusReject =this.onClickChangeStatusReject.bind(this);
   }
   componentWillMount(){
    
@@ -245,7 +248,7 @@ export default class container extends React.Component{
       this.getExecuteAgreement();
       this.getPropertyList();
       this.selectedAgreement = this.selectedAgreement.bind(this)
-      this.editAgreement = this.editAgreement.bind(this)
+      //this.editAgreement = this.editAgreement.bind(this)
       this.selectedExecutedAgreement = this.selectedExecutedAgreement.bind(this)
 	   this.onClickDownload = this.onClickDownload.bind(this)
 	    this.pdfViewAgreement = this.pdfViewAgreement.bind(this);
@@ -334,12 +337,12 @@ export default class container extends React.Component{
     }
 
 
-    editAgreement(agreement) {
+   /*  editAgreement(agreement) {
        this.setState({editAgreement: agreement}, () => {
            // console.log('editAgreement ', agreement)
            $('#create')[0].click();
        })
-    }
+    } */
   getAgreement(){
 	  $("#loaderDiv").show();
     const { user } = this.state;
@@ -524,7 +527,7 @@ getSendedAgreement(){
                 }
             )
     } */
-	onClickChangeStatus()
+	onClickChangeStatus(Status)
 	{
 		 let { user, updatedAgreement } = this.state;
 	
@@ -532,7 +535,7 @@ getSendedAgreement(){
 		// var status = $('#status').val();
         let data = {
           property_id:updatedAgreement.property_id,
-		  // status:status,
+		   status:Status,
            user_id: user.assets_id
         };
 		// console.log('dsafgas'+JSON.stringify(data));
@@ -582,6 +585,44 @@ getPropertyList() {
                 }
             )
     }
+	onClickChangeStatusReject(Status)
+	{
+		 let { user, selectedAgreement } = this.state;
+	
+		// console.log('dsafgas'+JSON.stringify(this.state));
+		// var status = $('#status').val();
+        let data = {
+          property_id:selectedAgreement.property_id,
+		   status:Status,
+           user_id: user.assets_id
+        };
+		 //console.log('dsafgas'+JSON.stringify(data));
+		 $("#loaderDiv").show();
+		 
+		fetch(`${API_URL}assetsapi/change_status_rejected`, {
+            method: 'post',
+            body:JSON.stringify(data)
+        })
+            .then(res => res.json())
+            .then(
+                (data) => {
+                    // debugger;
+                    //console.log("data 2: "+JSON.stringify(result.profile))
+                    if (data) {
+						$("#loaderDiv").hide();
+						 $("#actionType").val("Yes");
+						 $("#hiddenURL").val("agreement");
+						 $(".confirm-body").html(data.msg);
+						 $("#BlockUIConfirm").show();
+                        // console.log(data);
+                    }
+                    //console.log("set user data"+JSON.stringify(this.state.profileData))
+                },
+                (error) => {
+                    console.log('error')
+                }
+            )
+	}
   verticalNavbar(value,e)
   {
       var activeclassName="nav-link agreement-fa active";
@@ -690,7 +731,7 @@ getPropertyList() {
     }
 onClickCheckPermission(){
 	$("#loaderDiv").show();
-	if(this.state.editAgreement==undefined){
+	// if(this.state.editAgreement==undefined){
 		fetch(`${API_URL}assetsapi/checkPermissions/${JSON.parse(this.state.userData).assets_id}/create_agreement`, {
 		  method: "GET"
 		})
@@ -703,12 +744,14 @@ onClickCheckPermission(){
 			if(data.success===1){
 			  // var userid = data.user.assets_id
 			  // localStorage.setItem('userid',userid)
+						
 						$("#loaderDiv").hide();
-						$("#loaderDiv").hide();
-						$("#actionType").val("Click");
-						   $("#hiddenURL").val("saved");
-						   $(".confirm-body").html(data.msg);
-						   $("#BlockUIConfirm").show();
+						var msg = "<div style='font-size:14;font-weight:500;text-align:center'>"+data.msg+"</div>"
+						   $("#v-create").html(msg);
+						// $("#actionType").val("Click");
+						   // $("#hiddenURL").val("saved");
+						   // $(".confirm-body").html(data.msg);
+						   // $("#BlockUIConfirm").show();
 						   // $(".row-dialog-btn").click(function(){
 							    // $('#vcreatepermission').show()
 						   // })
@@ -720,10 +763,10 @@ onClickCheckPermission(){
 		).catch((error) => {
 			console.log('error: ', error);
 		  });
-	}else{
-		$("#loaderDiv").hide();
-		  this.setState({editAgreement: null});
-	}
+	// }else{
+		// $("#loaderDiv").hide();
+		  // this.setState({editAgreement: null});
+	// }
 	  
   }	
   terminateAgreement(deal_id){
@@ -790,8 +833,8 @@ onClickCheckPermission(){
                       </div>
                       <div className="col-md-10">
                         <div className="tab-content">
-						<Saved editAgreement={this.editAgreement} selectedAgreement={this.selectedAgreement} agreement={this.state.agreement} pdfViewAgreement={this.pdfViewAgreement} deleteAgreement={this.deleteAgreement}/>
-						 <VCreate userData={this.state.userData} editAgreement={this.state.editAgreement} />
+						<Saved  selectedAgreement={this.selectedAgreement} agreement={this.state.agreement} pdfViewAgreement={this.pdfViewAgreement} deleteAgreement={this.deleteAgreement}/>
+						 <VCreate userData={this.state.userData} />
                          {<VRequested previewAgreement={this.previewAgreement} ragreement={this.state.requestedAgreement || []} sendedAgreement={this.state.sendedAgreement || []} dealPdfView={this.dealPdfView} changeTabs = {this.changeTabs}/>}
                           <VExecute ragreement={this.state.executedAgreement} selectedExecutedAgreement={this.selectedExecutedAgreement} onClickDownload={this.onClickDownload} dealPdfView={this.dealPdfView} terminateAgreement={this.terminateAgreement} assetsId = {JSON.parse(this.state.userData).assets_id}/>
 						  <div className="tab-pane" id="executePreview">
@@ -803,7 +846,8 @@ onClickCheckPermission(){
 											<option value="Inprocess">Inprocess</option>
 											<option value="Completed">Completed</option>
 									  </select> */}
-										   <button type ="button" className="btn btn-success" onClick={this.onClickChangeStatus} >Execute</button>
+										   <button type ="button" className="btn btn-success" onClick={this.onClickChangeStatus.bind(this,'Completed')} >Execute</button> 
+										   
 									   </div>: ''
 									   }
                                   </div>
@@ -811,7 +855,8 @@ onClickCheckPermission(){
                             <div id="contentPreview"></div>
                             <div id="commentBox"></div>
                             <div id="signature"></div>
-                            <button type="button" onClick={this.submitAgreement} className="btn btn-primary stepy-finish">Accept</button>
+                            <button type="button" onClick={this.submitAgreement} className="btn btn-primary stepy-finish">Accept</button>&nbsp;
+							<button type ="button" className="btn btn-warning" onClick={this.onClickChangeStatusReject.bind(this,'Rejected')} >Reject</button>
                           </div>
                         </div>
                       </div>

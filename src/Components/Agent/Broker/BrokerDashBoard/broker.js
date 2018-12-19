@@ -6,6 +6,7 @@ import { Switch, Route } from 'react-router';
 import Header from '../Header/BrokerHeader';
 import Footer from '../Footer/BrokerFooter';
 import Agreement from '../Agreement/BrokerAgreement';
+import VEdit from '../Agreement/VEdit';
 import Property from '../MyProperty/BrokerMyProperty';
 import Settings from '../Settings/BrokerSettings';
 import Payment from '../Payment/BrokerPayment';
@@ -118,6 +119,7 @@ class AgentBrokerDashboard extends React.Component {
 			<Route exact path='/broker-upgrade' component={Upgrade} />
 			<Route exact path='/broker-notifications' component={Notifications} />
 			<Route exact path='/broker-tenant-bgvpayment' component={BGVPayment} />
+			<Route exact path='/broker-agreement-edit' component={VEdit} />
           </Switch>
 
           <Footer />

@@ -307,8 +307,8 @@ export default class Payment extends React.Component{
 	onSubmitSingular()
 	{
 		
-		var opts = Object.assign(this.state.profileData,this.state.singularEnrollForm);
-		  // console.log(opts);
+		var opts = Object.assign(this.state.singularEnrollForm,this.state.profileData);
+		 // console.log(opts);
 		if (!opts.dba_name) {
 		  alert("DBA Name should not be blank");
 		  return;
@@ -681,8 +681,8 @@ render(){
 										<label for="business city" >City</label>
 									  </div>
 									  <div className="col-md-4">
-										<select className="form-control" name="city" onChange={this.SingularBillChange} >
-										  <option>{this.state.profileData.city}</option>
+										<select className="form-control" name="city" value={this.state.singularEnrollForm.city || this.state.profileData.city} onChange={this.SingularBillChange} >
+										  <option value={this.state.profileData.city}>{this.state.profileData.city}</option>
 										  {this.state.cities?this.state.cities.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>)):''}
 										 
 										</select>
@@ -764,7 +764,7 @@ render(){
 								<div className="form-group">
 								  <div className="col-md-12">
 									<div className="row">
-									<div  className="col-md-2">
+									<div  className="col-md-2 required">
 										<label for="business-postal-code" >Principal Address Line 1</label>
 									  </div>
 									  <div className="col-md-4">
@@ -799,7 +799,7 @@ render(){
 									</div>
 								  </div>
 								</div>
-								<div className="form-group">
+								{/*<div className="form-group">
 								  <div className="col-md-12">
 									<div className="row">
 									<div  className="col-md-2">
@@ -810,7 +810,7 @@ render(){
 												onChange={this.handleDobChange}
 												value={this.state.singularEnrollForm.principal_date_of_birth}
 											/>
-											{/* <input type="text" className="form-control" name="principal_date_of_birth" id="principal_date_of_birth" onChange={this.SingularBillChange} placeholder=""/> */}
+											
 									  </div>
 									  <div  className="col-md-2">
 										<label for="fed_tax_id">Principal Ownership Percent</label>
@@ -822,7 +822,7 @@ render(){
 									</div>
 								  </div>
 								</div>
-								<div className="form-group">
+									<div className="form-group">
 								  <div className="col-md-12">
 									<div className="row">
 									<div  className="col-md-2">
@@ -842,7 +842,7 @@ render(){
 								  </div>
 								</div>
 								
-								<div className="form-group">
+							<div className="form-group">
 								  <div className="col-md-12">
 									<div className="row">
 									<div  className="col-md-2">
@@ -974,7 +974,7 @@ render(){
 									  
 									</div>
 								  </div>
-								</div>
+							</div>*/}
 								<div className="">
 								  <div className="col-md-12 text-right"> <a type="" className="btn btn-primary stepy-finish text-right" data-toggle="modal" data-target="#send-request" onClick={this.onSubmitSingular}>Submit</a> </div>
 								</div>

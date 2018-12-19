@@ -284,7 +284,7 @@ export default class BrokerPayment extends React.Component{
 	onSubmitSingular()
 	{
 		
-		var opts = Object.assign(this.state.profileData,this.state.singularEnrollForm);
+		var opts = Object.assign(this.state.singularEnrollForm,this.state.profileData);
 		// console.log(opts);
 		if (!opts.dba_name) {
 		  alert("DBA Name should not be blank");
@@ -550,13 +550,13 @@ ActiveDeactive(id,status){
 								<div className="form-group">
 								  <div className="col-md-12">
 									<div className="row">
-									<div  className="col-md-2">
+									<div  className="col-md-2 required">
 										<label for="business-postal-code" >Business City</label>
 									  </div>
 									  <div className="col-md-4">
 										<input type="text" className="form-control" name="business_city" id="business_city" onChange={this.SingularBillChange} placeholder=""/>
 									  </div>
-									  <div  className="col-md-2">
+									  <div  className="col-md-2 required">
 										<label for="fed_tax_id">Business State Province</label>
 									  </div>
 									  <div className="col-md-4">
@@ -574,13 +574,13 @@ ActiveDeactive(id,status){
 								<div className="form-group">
 								  <div className="col-md-12">
 									<div className="row">
-									<div  className="col-md-2">
+									<div  className="col-md-2 required">
 										<label for="business-postal-code" >Business Postal Code</label>
 									  </div>
 									  <div className="col-md-4">
 										<input type="text" className="form-control" name="business_postal_code" id="business_postal_code" onChange={this.SingularBillChange} placeholder=""/>
 									  </div>
-									  <div  className="col-md-2">
+									  <div  className="col-md-2 required">
 										<label for="fed_tax_id">Business Phone Number</label>
 									  </div>
 									  <div className="col-md-4">
@@ -718,13 +718,13 @@ ActiveDeactive(id,status){
 								<div className="form-group">
 								  <div className="col-md-12">
 									<div className="row">
-									<div  className="col-md-2">
+									<div  className="col-md-2 required">
 										<label for="business-postal-code" >Principal Address Line 1</label>
 									  </div>
 									  <div className="col-md-4">
 										<input type="text" className="form-control" name="principal_address_line_1" id="principal_address_line_1" onChange={this.SingularBillChange} placeholder=""/>
 									  </div>
-									  <div  className="col-md-2">
+									  <div  className="col-md-2 ">
 										<label for="fed_tax_id">Principal Address Line 2</label>
 									  </div>
 									  <div className="col-md-4">
@@ -753,7 +753,7 @@ ActiveDeactive(id,status){
 									</div>
 								  </div>
 								</div>
-								<div className="form-group">
+								{/* <div className="form-group">
 								  <div className="col-md-12">
 									<div className="row">
 									<div  className="col-md-2">
@@ -911,7 +911,7 @@ ActiveDeactive(id,status){
 									  
 									</div>
 								  </div>
-								</div>
+								</div> 
 								<div className="form-group">
 								  <div className="col-md-12">
 									<div className="row">
@@ -924,7 +924,7 @@ ActiveDeactive(id,status){
 									  
 									</div>
 								  </div>
-								</div>
+							</div>*/}
 								<div className="">
 								  <div className="col-md-12 text-right"> <a type="" className="btn btn-primary stepy-finish text-right" data-toggle="modal" data-target="#send-request" onClick={this.onSubmitSingular}>Submit</a> </div>
 								</div>

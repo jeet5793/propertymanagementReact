@@ -7,6 +7,8 @@ import Cookies from 'js-cookie';
 // import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import DatePicker from 'react-date-picker';
+import {Link} from 'react-router-dom'
+import NumberFormat from 'react-number-format';
 const TableReprt=(props)=>{
     // debugger;
     var expens=0;
@@ -37,14 +39,14 @@ const TableReprt=(props)=>{
                           <td className="tbl-text-overflow">{element.title}</td>
                           <td>{element.transactiondate}</td>
                           <td></td>
-                          <td>{element.transactionamount} </td>
+                          <td><NumberFormat value={element.transactionamount} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/> </td>
                         </tr>)}
 					</tbody>:'No Contact Available'}
 						<tfoot>
 						<tr>
 							<td colSpan={3} className="text-right"><b>Total :</b></td>
 							<td><b></b></td>
-							<td><b>{expens}</b></td>
+							<td><b><NumberFormat value={props.totalAmt} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/></b></td>
 							</tr>
 						</tfoot>
                     </table>
@@ -70,7 +72,7 @@ const TableReprt=(props)=>{
                           <td className="tbl-text-overflow">{element.trans_for}</td>
                           <td>{element.transactiondate}</td>
                           
-                          <td>{element.transactionamount} </td>
+                          <td><NumberFormat value={element.transactionamount} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/> </td>
 						  <td><button className="btn-success" onClick={props.incoiceDownload.bind(this,element.invoice_number)}>{element.invoice_number}</button></td>
                         </tr>)}
 					</tbody>: <tbody><td colSpan={5}>'No transaction Available'</td> </tbody>}
@@ -139,8 +141,8 @@ const ReportTableHeader=(props)=>{
         <div className="page-title-box">
                 <div className="btn-group pull-right">
             <ol className="breadcrumb hide-phone p-0 m-0">
-                <li><a href="broker-report" className="btn btn-custom waves-light waves-effect w-md">
-                    <i className="fi-reply"></i>&nbsp;&nbsp;Back</a>
+                <li><Link to={"/broker-report"} className="btn btn-custom waves-light waves-effect w-md">
+                    <i className="fi-reply"></i>&nbsp;&nbsp;Back</Link>
                 </li>
             </ol>
             </div>

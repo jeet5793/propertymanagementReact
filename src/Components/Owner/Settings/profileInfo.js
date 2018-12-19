@@ -148,15 +148,17 @@ import $ from 'jquery';
   }
 	profileSubmit(e)
 	{
-		e.preventDefault();
+		//e.preventDefault();
 		// console.log(this.state.profileSetting)
 		// console.log(this.state.profile)
-		var opts= Object.assign(this.state.profile, this.state.profileSetting);
-		opts.session_id = JSON.parse(this.state.userData).session_id
-	  $("#loaderDiv").show();
+		var settingOpts= Object.assign(this.state.profile, this.state.profileSetting);
+		
+		settingOpts.session_id = JSON.parse(this.state.userData).session_id
+	   $("#loaderDiv").show();
+
       fetch(`${API_URL}assetsapi/setting_profile/`, {
         method: 'post',        
-        body: JSON.stringify(opts)
+        body: JSON.stringify(settingOpts)
         }).then((response) => {
           return response.json();
         }).then((data) => {
@@ -168,7 +170,7 @@ import $ from 'jquery';
 					   $("#BlockUIConfirm").show();
         }).catch((error) => {
           console.log('error: ', error);
-        });
+        }); 
       }
 	   componentDidMount(){
 			// $("#date").change(function() 
@@ -410,7 +412,7 @@ Countries() {
 						</fieldset>
 						   <div > {/*style={{display: '-webkit-box'}} */}
 						<div className="col-md-12 text-right">
-						  <button type="submit" className="btn btn-primary stepy-finish text-right" onClick={this.profileSubmit}>Submit </button>
+						  <button type="button" className="btn btn-primary stepy-finish text-right" onClick={this.profileSubmit}>Submit </button>
 						</div>
 						</div>
 					  </div>

@@ -8,6 +8,7 @@ import Cookies from 'js-cookie';
 import moment from 'moment';
 import DatePicker from 'react-date-picker';
 import NumberFormat from 'react-number-format';
+import {Link} from 'react-router-dom'
 const TableReprt=(props)=>{
     // debugger;
     var expens=0;
@@ -140,8 +141,8 @@ const ReportTableHeader=(props)=>{
         <div className="page-title-box">
                 <div className="btn-group pull-right">
             <ol className="breadcrumb hide-phone p-0 m-0">
-                <li><a href="owner-report" className="btn btn-custom waves-light waves-effect w-md">
-                    <i className="fi-reply"></i>&nbsp;&nbsp;Back</a>
+                <li><Link to={"/owner-report"} className="btn btn-custom waves-light waves-effect w-md">
+                    <i className="fi-reply"></i>&nbsp;&nbsp;Back</Link>
                 </li>
             </ol>
             </div>
