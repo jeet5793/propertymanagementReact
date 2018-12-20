@@ -51,8 +51,17 @@ export default class VEdit extends React.Component{
 		  // console.log(agreement.agreement_doc_content)
           $('input[id="agreement_title"]').val(agreement.agreement_title);
           $('input[id="headerContent"]').val(agreement.header_content);
+			
+			var activeEditor = tinymce.get('tinymce');
+			var content = agreement.agreement_doc_content;
+			if(activeEditor!==null){
+				activeEditor.setContent(content);
+			} else {
 
-		   tinymce.get("editor2").setContent(agreement.agreement_doc_content);
+				$('#editor2').val(content);
+			}
+
+		   // tinymce.get("editor2").setContent(agreement.agreement_doc_content);
 
 		   // $('#editor2').val(agreement.agreement_doc_content);
 
@@ -227,7 +236,7 @@ editAgreement(){
          // window.location.reload()
 		 $("#loaderDiv").hide();
 			$("#actionType").val("Yes");
-					   $("#hiddenURL").val("agreement");
+					   $("#hiddenURL").val("broker-agreement");
 					   $(".confirm-body").html(data.msg);
 					   $("#BlockUIConfirm").show();
         }
@@ -548,6 +557,7 @@ editAgreement(){
 												
 												{/*  <textarea name="editor" id="editor2" className="tinymce"></textarea> */}
 												 <Editor 
+												 initialValue={this.props.location.state.editAgreement.agreement_doc_content || this.state.createForm.agreement_doc_content}
 												 name="agreement_doc_content"
 												 id="editor2"
 												 onChange={this.onChangeHandlerEdit}

@@ -368,6 +368,14 @@ export default class Payment extends React.Component{
 		if (!opts.fed_tax_id) {
 		  alert("Fed Tax ID should not be blank");
 		  return;
+		}
+		if (!opts.routing_number) {
+		  alert("Routing number should not be blank");
+		  return;
+		}
+		if (!opts.account_number) {
+		  alert("Account number should not be blank");
+		  return;
 		}else{
 			//$("#loaderDiv").show();
 		 fetch(`${API_URL}assetsapi/singularbill_enroll/`, {
@@ -937,7 +945,7 @@ render(){
 									</div>
 								  </div>
 								</div>
-								
+								*/}
 								
 								
 								
@@ -946,7 +954,7 @@ render(){
 								<div className="form-group">
 								  <div className="col-md-12">
 									<div className="row">
-									<div  className="col-md-2">
+									<div  className="col-md-2 required">
 										<label for="business-postal-code" >Routing Number</label>
 									  </div>
 									  <div className="col-md-4">
@@ -965,7 +973,7 @@ render(){
 								<div className="form-group">
 								  <div className="col-md-12">
 									<div className="row">
-									<div  className="col-md-2">
+									<div  className="col-md-2 required">
 										<label for="fed_tax_id">Account Number</label>
 									  </div>
 									  <div className="col-md-4">
@@ -974,7 +982,7 @@ render(){
 									  
 									</div>
 								  </div>
-							</div>*/}
+							</div>
 								<div className="">
 								  <div className="col-md-12 text-right"> <a type="" className="btn btn-primary stepy-finish text-right" data-toggle="modal" data-target="#send-request" onClick={this.onSubmitSingular}>Submit</a> </div>
 								</div>

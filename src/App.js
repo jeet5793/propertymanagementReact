@@ -206,6 +206,7 @@ export default class App extends Component {
             <Route path='/broker-report' component={AgentBrokerDashboard} />
             <Route path='/broker-report-table' component={AgentBrokerDashboard} />
             <Route path='/broker-tenant-bgvpayment' component={AgentBrokerDashboard} />
+			<Route path='/broker-agreement-edit' component={AgentBrokerDashboard} />
 
             {/* Service Provider Dashboard */}
             <Route path='/agent-serviceprovider' component={AgentServiceProviderDashboard} />

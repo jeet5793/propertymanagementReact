@@ -29,7 +29,8 @@ this.imgServer=API_URL,
 			   assets_id:'',
 			   deal_id:'',
 			   property_id:'',
-			   payFor:''
+			   payFor:'',
+			   paid_month:''
 		   }
 			
 		}
@@ -206,6 +207,8 @@ this.imgServer=API_URL,
 								}else if(element.property_status=='Rent'||element.property_status=='Rented'){
 									var amt = element.rent;
 									var payFor = element.property_status;
+									$("#paidMonth").show();
+									
 								}
 								$('#TtlAmt').html('$'+amt);
 								$('#chequeBtn').val(element.deal_id);
@@ -277,6 +280,9 @@ this.imgServer=API_URL,
 		if(e.target.name=='description'){
 			cheque.description=e.target.value;
 		}
+		if(e.target.name=='paid_month'){
+			cheque.paid_month=e.target.value;
+		}
 		cheque.deal_id = $('#chequeBtn').val();
 		cheque.property_id = $('#property_id').val();
 		cheque.payFor = $('#payFor').val();
@@ -311,7 +317,7 @@ this.imgServer=API_URL,
 				  .then(res => res.json())
 				  .then(
 					(result) => {
-					   
+					    
 						$("#loaderDiv").hide();
 							 
 							   $("#actionType").val("No");
@@ -319,7 +325,9 @@ this.imgServer=API_URL,
 							   $(".confirm-body").html(result.msg);
 							   
 							    $("#BlockUIConfirm").show();
+								
 						$(".row-dialog-btn").click(function(){
+							
 							$("#TBlockUIConfirm").hide();
 					   });
 								
@@ -574,7 +582,24 @@ this.imgServer=API_URL,
 													<label>Amount<span className="required"/></label>
 														<input type="text" className="form-control" id ="amt" name="amt"  onChange={this.onChangeCheque} placeholder=""/>
 													</div> {/*<!-- form-group.// -->*/}
-													
+													<div className="form-group" id="paidMonth" style={{display:'none'}}>
+														 <label htmlFor="paid_month">Paid for month<span className="required"/></label>
+														<select className="form-control"  name = "paid_month"  onChange={this.onChangeCheque}>
+															<option value="">Please Select</option>
+															<option value="January">January</option>
+															<option value="February">February</option>
+															<option value="March">March</option>
+															<option value="April">April</option>
+															<option value="May">May</option>
+															<option value="June">June</option>
+															<option value="July">July</option>
+															<option value="August">August</option>
+															<option value="September">September</option>
+															<option value="October">October</option>
+															<option value="November">November</option>
+															<option value="December">December</option>
+												   </select>
+													</div> 
 													<div className="form-group">
 													<label>Description<span className="required"/></label>
 														<textarea className="form-control" name="description"  onChange={this.onChangeCheque} placeholder=""/>

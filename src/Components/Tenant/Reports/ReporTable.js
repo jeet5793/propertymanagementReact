@@ -14,9 +14,9 @@ const TableReprt=(props)=>{
     var expens=0;
    for(var i=0;i<props.report.length;i++){
 	    // console.log('transactionamount '+ JSON.stringify(props.report[i].transactionamount));
-
+	if(props.report[i].responsestatus=='APPROVED'){
 	    expens = expens + props.report[i].transactionamount.toLocaleString(navigator.language, { minimumFractionDigits: 2 });
-	   
+	}
    }
    // console.log(props);
     return(
@@ -66,6 +66,7 @@ const TableReprt=(props)=>{
                           <th>Transaction For</th>
                           <th>Date</th>
                           <th>Transaction Amount</th>
+						    <th>Status</th>
                           <th>Invoice Number</th>
                         </tr>
                       </thead>
@@ -77,7 +78,8 @@ const TableReprt=(props)=>{
                           <td><NumberFormat value={element.transactionamount} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/></td>
                           
                           <td>{element.transactionamount} </td>
-						  <td><button className="btn-success" onClick={props.incoiceDownload.bind(this,element.invoice_number)}>{element.invoice_number}</button></td>
+						  <td>{element.responsestatus}</td>
+						  <td>{element.responsestatus=='APPROVED' && <button className="btn-success" onClick={props.incoiceDownload.bind(this,element.invoice_number)}>{element.invoice_number}</button>}</td>
                         </tr>)}
 					</tbody>: <tbody><td colSpan={5}>'No transaction Available'</td> </tbody>}
 						<tfoot>

@@ -39,26 +39,7 @@ export default class VEdit extends React.Component{
     this.waterMarkImage = React.createRef();
   }
 
-  componentWillReceiveProps(nextProps) {
-     // console.log('nextProps ', nextProps)
-	 
-      if (nextProps.editAgreement) {
-		  
-		  var tinymce=window.tinyMCE;
-		  const agreementForm=this.state.createForm;
-		  let agreement = nextProps.editAgreement;
-		  this.setState({editAgreementStatus:true,agreement_id:agreement.agreement_id,createForm:{agreement_title:agreement.agreement_title,agreement_doc_content:agreement.agreement_doc_content,header_content:agreement.header_content}})
-		  
-          $('input[id="agreement_title"]').val(agreement.agreement_title);
-          $('input[id="headerContent"]').val(agreement.header_content);
-		  if(agreement.agreement_doc_content!=null){
-			  tinymce.get("editor2").setContent('dfsafsdg');
-		  }
-		  
-		  
-		  
-      }
-  }
+  
    
   componentDidMount() {
 	 
@@ -71,7 +52,15 @@ export default class VEdit extends React.Component{
 		   // console.log(agreement.agreement_doc_content)
           $('input[id="agreement_title"]').val(agreement.agreement_title);
           $('input[id="headerContent"]').val(agreement.header_content);
-		   tinymce.get("editor2").setContent(agreement.agreement_doc_content);
+		   // tinymce.get("editor2").setContent(agreement.agreement_doc_content);
+		   var activeEditor = tinymce.get('tinymce');
+			var content = agreement.agreement_doc_content;
+			if(activeEditor!==null){
+				activeEditor.setContent(content);
+			} else {
+
+				$('#editor2').val(content);
+			}
 		   // $('#editor2').val(agreement.agreement_doc_content);
 
       $(document).on('click', '#stepy-navigator',function () {
@@ -566,6 +555,7 @@ editAgreement(){
 												
 												{/*  <textarea name="editor" id="editor2" className="tinymce"></textarea> */}
 												 <Editor 
+												 initialValue={this.props.location.state.editAgreement.agreement_doc_content || this.state.createForm.agreement_doc_content}
 												 name="agreement_doc_content"
 												 id="editor2"
 												 onChange={this.onChangeHandlerEdit}

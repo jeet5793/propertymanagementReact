@@ -13,7 +13,9 @@ const TableReprt=(props)=>{
     // debugger;
     var expens=0;
    for(var i=0;i<props.report.length;i++){
-       expens=Number(expens)+Number(props.report[i].transactionamount)
+       if(props.report[i].responsestatus=='APPROVED'){
+		    expens=Number(expens)+Number(props.report[i].transactionamount)
+	   }
    }
    // console.log(props);
     return(
@@ -62,6 +64,7 @@ const TableReprt=(props)=>{
                           <th>Transaction For</th>
                           <th>Date</th>
                           <th>Transaction Amount</th>
+						  <th>Status</th>
                           <th>Invoice Number</th>
                         </tr>
                       </thead>
@@ -73,7 +76,8 @@ const TableReprt=(props)=>{
                           <td>{element.transactiondate}</td>
                           
                           <td><NumberFormat value={element.transactionamount} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/> </td>
-						  <td><button className="btn-success" onClick={props.incoiceDownload.bind(this,element.invoice_number)}>{element.invoice_number}</button></td>
+						  <td>{element.responsestatus}</td>
+						  <td>{element.responsestatus=='APPROVED' && <button className="btn-success" onClick={props.incoiceDownload.bind(this,element.invoice_number)}>{element.invoice_number}</button>}</td>
                         </tr>)}
 					</tbody>: <tbody><td colSpan={5}>'No transaction Available'</td> </tbody>}
 						<tfoot>

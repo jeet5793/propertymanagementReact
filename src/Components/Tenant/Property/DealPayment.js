@@ -24,7 +24,7 @@ class Payment extends React.Component {
 			name:'',
 			tokenizedaccountnumber:'',
 			routingnumber:'',
-			
+			paidmonthACH:''
 		},
 		checked: false,
 		splitShow:false,
@@ -36,7 +36,9 @@ class Payment extends React.Component {
 		spltAmtAch:'',
 		subAmtAch:'',
 		paybleAmtAch:'',
-		paidAmt:''
+		paidAmt:'',
+		paidmonthCC:'',
+		
 		
     }
       // this.userInfo = this.userInfo.bind(this);
@@ -52,6 +54,7 @@ class Payment extends React.Component {
 	   this.CheckBoxHandle = this.CheckBoxHandle.bind(this);
 	   this.splitAmtHandler = this.splitAmtHandler.bind(this);
 	     this.CheckBoxHandleAch = this.CheckBoxHandleAch.bind(this);
+		 this.changepaidMonthCCHandler = this.changepaidMonthCCHandler.bind(this);
   }
  componentDidMount() {
     // setTimeout(function(){ $('#tzloadding').remove(); }, 2000)
@@ -102,6 +105,10 @@ changeNameHandler(e)
     e.preventDefault()
     this.setState({cvv:e.target.value});
   }
+  changepaidMonthCCHandler(e){
+    e.preventDefault()
+    this.setState({paidmonthCC:e.target.value});
+  }
   CheckBoxHandle(e){
 	
 	  if(!this.state.checked){
@@ -150,6 +157,8 @@ changeNameHandler(e)
 		achField.tokenizedaccountnumber = e.target.value;
 	if(e.target.name=="routingnumber")
 		achField.routingnumber = e.target.value;
+	if(e.target.name=="paid_month")
+		achField.paidmonthACH = e.target.value;
 	this.setState({achFields:achField});
 }
   paymentPage(paymentType) {
@@ -192,7 +201,8 @@ changeNameHandler(e)
 			"paid_for":dealData.paidFor,
 			"property_id":dealData.property_id,
 			"type": paymentType,
-			  "name":this.state.name
+			  "name":this.state.name,
+			  'paid_month':this.state.paidmonthCC
 			
 		}
 		//console.log("trans_detail"+JSON.stringify(payment_Object))
@@ -282,7 +292,8 @@ changeNameHandler(e)
 			"paid_for":dealData.paidFor,
 			"property_id":dealData.property_id,
 			  "type": paymentType,
-			  "name":this.state.achFields.name
+			  "name":this.state.achFields.name,
+			   'paid_month':this.state.paidmonthACH
 		}
 		
 		if(!payment_Object.name){
@@ -479,7 +490,24 @@ changeNameHandler(e)
 										 <label htmlFor="cardNumber">Card Number<span className="required"/></label>
 										 <input type="text" ref="cardNumber" className="form-control" name="tokenizedaccountnumber" onChange={this.changeaccHandler} placeholder />
 									   </div> {/* form-group.// */}
-
+									{(dealData.paidFor==='Rent'||dealData.paidFor==='Rented') && <div className="form-group">
+										 <label htmlFor="paid_month">Paid for month<span className="required"/></label>
+										<select className="form-control"  name = "paid_month" value={this.state.paidmonthCC} onChange={this.changepaidMonthCCHandler}>
+													 <option value="">Please Select</option>
+													<option value="January">January</option>
+													<option value="February">February</option>
+													<option value="March">March</option>
+													<option value="April">April</option>
+													<option value="May">May</option>
+													<option value="June">June</option>
+													<option value="July">July</option>
+													<option value="August">August</option>
+													<option value="September">September</option>
+													<option value="October">October</option>
+													<option value="November">November</option>
+													<option value="December">December</option>
+												   </select>
+									</div> }
 									<div className="row">
 										 <div className="col-sm-8">
 											   <div className="form-group">
@@ -630,6 +658,24 @@ changeNameHandler(e)
 									<label>Routing Number<span className="required"/></label>
 										<input type="text" className="form-control" name="routingnumber" onChange = {this.onChangeACH}placeholder=""/>
 									</div> {/*<!-- form-group.// -->*/}
+									{(dealData.paidFor==='Rent'||dealData.paidFor==='Rented') && <div className="form-group">
+										 <label htmlFor="paid_month">Paid for month<span className="required"/></label>
+										<select className="form-control"  name = "paid_month" value={this.state.paidmonthACH} onChange={this.onChangeACH}>
+													 <option value="">Please Select</option>
+													<option value="January">January</option>
+													<option value="February">February</option>
+													<option value="March">March</option>
+													<option value="April">April</option>
+													<option value="May">May</option>
+													<option value="June">June</option>
+													<option value="July">July</option>
+													<option value="August">August</option>
+													<option value="September">September</option>
+													<option value="October">October</option>
+													<option value="November">November</option>
+													<option value="December">December</option>
+												   </select>
+									</div>}
 									<div className="col-md-12 text-center">
 									<button type="button" onClick={this.paymentPage.bind(this,'ACH')} className="btn btn-success uppercase">Pay Now</button>
 									</div>

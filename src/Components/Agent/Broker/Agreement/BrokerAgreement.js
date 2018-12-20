@@ -131,6 +131,8 @@ const VExecute=(props)=>{
             <th>Title</th>
                 <th>Date</th>
 				<th>Status</th>
+				<th>Tenure Start Date</th>
+				<th>Tenure End Date</th>
                 <th>Action</th>
           </tr>
         </thead>
@@ -141,6 +143,8 @@ const VExecute=(props)=>{
 			  <td>{element.name}</td>
               <td>{element.initiated_date}</td>
 			  <td>{element.dealStatus}</td>
+			  <td>{element.tenure_start_date}</td>
+			    <td>{element.tenure_end_date}</td>
               <td>{element.dealStatus==="Inprocess"?<a title="Edit" href="#executePreview" data-toggle="tab" onClick={() => props.selectedExecutedAgreement(element)} className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a>:(element.dealStatus==="Completed" || element.dealStatus==="Terminated" || element.dealStatus==="Rejected")?<a title="view" href="#" onClick={() => props.dealPdfView(element.deal_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a>:''}<a title="Download"  href="#" className="table-action-btn view-rqu"><i className="mdi mdi-download" onClick={() => props.onClickDownload(element.deal_id)}></i></a><a title="Send"  href="#" className="table-action-btn view-rqu" data-toggle="modal" onClick={() => props.selectedExecutedAgreement(element)} data-target="#send-msg"><i className="mdi mdi-redo-variant"></i></a>{(element.sender_id==props.assetsId)?<a title="Terminate" href="#" onClick={() => props.terminateAgreement(element.deal_id)} className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a>:''}</td>
             </tr>
           )):<div>No data </div>}

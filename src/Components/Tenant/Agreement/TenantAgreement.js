@@ -55,6 +55,8 @@ const VExecute=(props)=>{
 				<th>Name</th>
                 <th>Date</th>
 				<th>Status</th>
+				<th>Tenure Start Date</th>
+				<th>Tenure End Date</th>
                 <th>Action</th>
               </tr>
               </thead>
@@ -65,6 +67,8 @@ const VExecute=(props)=>{
 					<td>{element.first_name+' '+element.last_name}</td>
                     <td>{element.initiated_date}</td>
 					 <td>{element.dealStatus}</td>
+					  <td>{element.tenure_start_date}</td>
+			    <td>{element.tenure_end_date}</td>
                     <td><a title="view" href="#" onClick={() => props.dealPdfView(element.deal_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Download"  href="#" className="table-action-btn view-rqu"><i className="mdi mdi-download" onClick={() => props.onClickDownload(element.deal_id)}></i></a></td>
             </tr>
               )):<div>No data </div>}

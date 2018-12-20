@@ -330,6 +330,15 @@ export default class BrokerPayment extends React.Component{
 		  alert("Fed Tax ID should not be blank");
 		  return;
 		}
+		if (!opts.routing_number) {
+		  alert("Routing number should not be blank");
+		  return;
+		}
+		if (!opts.account_number) {
+		  alert("Account number should not be blank");
+		  return;
+		}
+		
 		
 		
 		$("#loaderDiv").show();
@@ -892,18 +901,18 @@ ActiveDeactive(id,status){
 								
 								
 								
-								
+								*/}
 								<div className="form-group">
 								  <div className="col-md-12">
 									<div className="row">
-									<div  className="col-md-2">
-										<label for="business-postal-code" >Routing Number</label>
+									<div  className="col-md-2 required">
+										<label for="routing_number" >Routing Number</label>
 									  </div>
 									  <div className="col-md-4">
 										<input type="text" className="form-control" name="routing_number" id="routing_number" onChange={this.SingularBillChange} placeholder=""/>
 									  </div>
 									  <div  className="col-md-2">
-										<label for="fed_tax_id">Account Holder Name</label>
+										<label for="account_holder_name">Account Holder Name</label>
 									  </div>
 									  <div className="col-md-4">
 										<input type="text" className="form-control" id="account_holder_name" onChange={this.SingularBillChange} name="account_holder_name" placeholder=""/>
@@ -915,8 +924,8 @@ ActiveDeactive(id,status){
 								<div className="form-group">
 								  <div className="col-md-12">
 									<div className="row">
-									<div  className="col-md-2">
-										<label for="fed_tax_id">Account Number</label>
+									<div  className="col-md-2 required">
+										<label for="account_number">Account Number</label>
 									  </div>
 									  <div className="col-md-4">
 										<input type="text" className="form-control" id="account_number" onChange={this.SingularBillChange} name="account_holder_name" placeholder=""/>
@@ -924,7 +933,7 @@ ActiveDeactive(id,status){
 									  
 									</div>
 								  </div>
-							</div>*/}
+							</div>
 								<div className="">
 								  <div className="col-md-12 text-right"> <a type="" className="btn btn-primary stepy-finish text-right" data-toggle="modal" data-target="#send-request" onClick={this.onSubmitSingular}>Submit</a> </div>
 								</div>
