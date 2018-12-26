@@ -17,6 +17,7 @@ class Plan extends React.Component{
 			userInfo:props.userData,
 			profileData:'',
 			userData:Cookies.get('profile_data'),
+			reportStatus:false
 			
 			
 		},
@@ -91,6 +92,30 @@ unsubscribe()
 		  }
 		)
 	}
+	report(){
+		$("#loaderDiv").show();
+			 fetch(`${API_URL}assetsapi/plan_upgrade_report/${JSON.parse(this.state.userData).assets_id}`, {
+			method: 'get'
+		  })
+		  .then(res => res.json())
+		  .then(
+			(result) => {
+			  //console.log("data 2: "+JSON.stringify(result.profile))
+			  $("#loaderDiv").hide();
+			  if (result.success==1) {
+				this.setState({report:result.plan_upgrade_report,reportStatus:true});
+				
+			  }
+			  //console.log("set user data"+JSON.stringify(this.state.profileData))
+			},
+		  (error) => {
+			console.log('error')
+		  }
+		)
+	}
+	back(){
+		this.setState({reportStatus:false});
+	}
 	render(){
 		// console.log(this.state.userData);
     // var userid = localStorage.getItem('userid')
@@ -117,7 +142,8 @@ unsubscribe()
                 <div className="page-title-box">
                     <div className="btn-group pull-right">
 					<ol className="breadcrumb hide-phone p-0 m-0">
-					<li>
+					<li>	
+					{this.state.reportStatus?<button type="button"  onClick={()=>this.back()} name="report" className="btn btn-default stepy-finish">Back</button>:<button type="button" onClick={()=>this.report()} name="report" className="btn btn-primary stepy-finish">Subscribe History</button>} &nbsp;
 					<button name="unsubscribe" className="btn btn-success waves-effect waves-light" style={{float:"right"}} onClick={this.unsubscribe}>Unsubscribe</button>
 					</li>
 					</ol>
@@ -130,6 +156,35 @@ unsubscribe()
     <div className="post-1081 page type-page status-publish hentry">
 		
         <div className="bootstrap-wrapper">
+		{this.state.reportStatus?
+					<div className="row">
+									{this.state.report && (this.state.report).length>0?
+										<div className=" table-responsive">
+											<table id="" className="table table-bordered datatable">
+												<thead>
+													<tr>
+														<th>#</th>
+														<th>Plan</th>
+														<th>Plan Type</th>
+														<th>Upgrade Reason</th>
+														<th>Upgrade Date</th>
+														<th>Expire Date</th>
+													</tr>
+												</thead>
+												<tbody>
+											  {this.state.report?this.state.report.map((item,index)=>(
+													<tr>
+														<td>{index+1}</td>
+														<td>{item.plan}</td>
+														<td>{item.plan_type=='per_annum'?'Per Annum':(item.plan_type=='per_month')?'Per Month':''}</td>
+														<td>{item.upgrade_reason}</td>
+														<td>{item.upgrade_date}</td>
+														<td>{item.expire_date}</td>
+													</tr>)):<tr><td style={{textAlign:'center'}} colSpan={5}>No Report Available</td></tr>}
+												</tbody>
+											</table>
+										</div>:<div className=" table-responsive" style={{textAlign:'center'}}>No Report Available</div>}
+									</div>:
         <div className="text-center">
               {
 				planData  ? (
@@ -387,7 +442,7 @@ unsubscribe()
                             ) :  'No Plan Exists'
                         }          
                            
-        </div>
+        </div>}
         </div>
     </div>
     </div>

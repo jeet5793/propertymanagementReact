@@ -79,7 +79,8 @@ const TableReprt=(props)=>{
                           
                           <td>{element.transactionamount} </td>
 						  <td>{element.responsestatus}</td>
-						  <td>{element.responsestatus=='APPROVED' && <button className="btn-success" onClick={props.incoiceDownload.bind(this,element.invoice_number)}>{element.invoice_number}</button>}</td>
+						  <td>{element.responsestatus=='APPROVED'?<button className="btn-success" onClick={props.incoiceDownload.bind(this,element.invoice_number)}>{element.invoice_number}</button>:'Not Generated'}</td>
+						  <td>{element.responsestatus=='APPROVED'?<button className="btn-success" onClick={props.incoiceDownload.bind(this,element.invoice_number)}>Download</button>:'Not Generated'}</td>
                         </tr>)}
 					</tbody>: <tbody><td colSpan={5}>'No transaction Available'</td> </tbody>}
 						<tfoot>
@@ -109,7 +110,7 @@ const FilterCriteria=(props)=>{
 				 {props.formType==='?property'?
 				  <div className="col-md-3">
 					<select name="property_id" className="form-control" id="paymentmode" onChange={props.change}>
-					  <option>All</option>
+					  <option>Select Report For</option>
 					  {props.property.map(element=>(
 						  <option value={element.property_id}>{element.property_name}</option>
 					  ))}
@@ -133,6 +134,18 @@ const FilterCriteria=(props)=>{
                     value={props.endDate}
                 />
               </div>
+			  	 {props.formType==='?Transaction' &&
+			 <div className="col-md-2">
+			  <select name="trans_for" className="form-control" id="trans_for" onChange={props.change}>
+					  <option>Select Report For</option>
+						  <option value="BGV">BGV</option>
+						  <option value="Register">Registration</option>
+						  <option value="Upgrade">Upgrade</option>
+						  <option value="Agreement Purchase">Agreement Purchase</option>
+					</select>
+                
+              </div>
+			 }
               <div className="col-md-1">
                 <button type="button" onClick={props.submit} className="btn btn-icon waves-effect waves-light btn-success"> Go </button>
               </div>
@@ -177,7 +190,8 @@ export default class ReportTable extends React.Component{
                 user_id:"",
                 from_date:"",
                 to_date:"",
-				session_id:""
+				session_id:"",
+				trans_for:""
             },
             // createForm1:{
                 // user_id:"",
@@ -228,9 +242,12 @@ export default class ReportTable extends React.Component{
             .then((data)=>{
                 // debugger;
                 // console.log(data)
-                if(data.success){
+               if(data.success==1){
+					
                     this.setState({reports:data.report})
-                }
+                }else{
+					this.setState({reports:''})
+				}
             })  
         }
         else if(this.state.formType==='?Contact'){
@@ -330,6 +347,11 @@ export default class ReportTable extends React.Component{
           else if(e.target.name==="to_date")
           {
             ReportTable.to_date=e.target.value
+          }
+		   else if(e.target.name==="trans_for")
+          {
+            ReportTable.trans_for=e.target.value
+			
           }
 		  
 		  ReportTable.user_id = JSON.parse(this.state.userData).assets_id;

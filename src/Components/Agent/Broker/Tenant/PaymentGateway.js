@@ -152,7 +152,9 @@ changeNameHandler(e)
 			"orderid":'',
 			"amount":'',
 			"type": paymentType,
-			"name":this.state.name
+			"name":this.state.name,
+			"extraAmt":'',
+			"actual_amt":''
 		  }
 			if(!payment_Object.name){
 			 alert("Full Name should not be blank");
@@ -182,6 +184,9 @@ changeNameHandler(e)
 			var TotAmt = Number(Amount)+Number((Amount*2.99)/100);
 			payment_Object.amount = TotAmt;
 			payment_Object.transactionamount = TotAmt;
+			payment_Object.actual_amt = Number(Amount);
+			payment_Object.extraAmt = Number((Amount*2.99)/100);
+			
 			 var dataToPost = Object.assign(payment_Object,opts);
 			  // console.log(JSON.stringify(dataToPost));
 			  // alert(dataToPost);
@@ -242,7 +247,9 @@ changeNameHandler(e)
 			  "profileid": null,
 			  "orderid":'',
 			  "type": paymentType,
-			  "name":this.state.achFields.name
+			  "name":this.state.achFields.name,
+			  "extraAmt":'',
+			"actual_amt":''
 		}
 		if(!payment_Object.name){
 			 alert("Name should not be blank");
@@ -265,7 +272,8 @@ changeNameHandler(e)
 			var TotAmt = Number(Amount)+Number(1.00);
 			payment_Object.amount = TotAmt;
 			payment_Object.transactionamount = TotAmt;
-			
+			payment_Object.actual_amt = Number(Amount);
+			payment_Object.extraAmt = Number(1.00);
 			 var dataToPost = Object.assign(payment_Object,opts);
 			  // console.log(JSON.stringify(dataToPost));
 			  // alert(dataToPost);

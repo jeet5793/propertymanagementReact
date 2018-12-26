@@ -343,7 +343,7 @@ this.imgServer=API_URL,
 		}
 		
 	}
-	onClickClose() {
+	onClickChequeClose() {
 		$("#ChequeBlockUIConfirm").hide();
 	}
     render() {
@@ -532,7 +532,7 @@ this.imgServer=API_URL,
 						<div className="RowDialogBody">
 							<div className="confirm-header row-dialog-hdr-success">
 								Cheque Submission
-								<button type="button" className="close" onClick={this.onClickClose}>×</button>
+								<button type="button" className="close" onClick={this.onClickChequeClose}>×</button>
 							</div>
 							<div className="confirm-body1" id="confirm-body">
 								<div className="tab-pane">

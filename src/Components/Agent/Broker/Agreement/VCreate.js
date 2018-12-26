@@ -3,6 +3,9 @@ import API_URL from '../../../../app-config'
 import {loadFile} from '../../../js/external'
 // import './style.css'
 import Cookies from 'js-cookie';
+import {Link} from 'react-router-dom'
+import { Redirect } from 'react-router';
+import { Editor } from '@tinymce/tinymce-react';
 import $ from 'jquery'
 //import Customwithmodal from "./CustomWithModal";
 import swal from 'sweetalert';
@@ -27,13 +30,16 @@ export default class VCreate extends React.Component{
 		
       },
 		templateList:[],
-		templateDetails:[]
+		templateDetails:[],
+		redirect: false,
+		itemDetails:''
     }
     this.onChangeHandler=this.onChangeHandler.bind(this)
     this.createAgreement=this.createAgreement.bind(this)
 	// this.editAgreement=this.editAgreement.bind(this)
     this.headerImage = React.createRef();
     this.waterMarkImage = React.createRef();
+	this.demoTemplate = this.demoTemplate.bind(this);
   }
 
   
@@ -139,7 +145,7 @@ createAgreement(){
 			  // localStorage.setItem('userid',userid)
 						$("#loaderDiv").hide();
 						$("#actionType").val("No");
-						   $("#hiddenURL").val("agreement");
+						   $("#hiddenURL").val("/broker-agreement");
 						   $(".confirm-body").html(data.msg);
 						   $("#BlockUIConfirm").show();
 						   
@@ -186,12 +192,48 @@ createAgreement(){
 
     demoTemplate(item)
 	  {
+		   if(item.paytype=='Paid'){
+			  // this.props.history.push('/owner-agreement-payment')
+			  fetch(`${API_URL}assetsapi/check_agreement_payment/${JSON.parse(this.state.userData).assets_id}/`+item.templateId, {
+						  method: "GET"
+						})
+						  .then(response => {
+							return response.json();
+						  })
+						  .then((data) => {
+							//debugger;
+							//console.log('dataaaa:  ', data);
+							if(data.success==1){
+							  var tinymce=window.tinyMCE,$=window.$
+								tinymce.get("editor").setContent(item.templateDescription);
+								$('input[name="agreement_title"]').val(item.templateTitle)
+								$('input[name="headerContent"]').val(item.header_content);
+								$('textArea[name="footerContent"]').val(item.footer_content);
+							}else{
+								  // this.context.router.history.pushState('/owner-agreement-payment');
+								    this.setState({itemDetails:item,redirect: true})
+							}
+						  
+						  }
+						).catch((error) => {
+							console.log('error: ', error);
+						  });
+			   
+				
+		  }else{
+			  
+				var tinymce=window.tinyMCE,$=window.$
+				tinymce.get("editor").setContent(item.templateDescription);
+				$('input[name="agreement_title"]').val(item.templateTitle)
+				$('input[name="headerContent"]').val(item.header_content);
+				$('textArea[name="footerContent"]').val(item.footer_content);
+		   }
 		  // console.log(templateDescription);
-		  var tinymce=window.tinyMCE,$=window.$
+		 /*  var tinymce=window.tinyMCE,$=window.$
 		 tinymce.get("editor").setContent(item.templateDescription);
 		 $('input[name="agreement_title"]').val(item.templateTitle)
 		  $('input[name="headerContent"]').val(item.header_content);
-		  $('textArea[name="footerContent"]').val(item.footer_content);
+		  $('textArea[name="footerContent"]').val(item.footer_content); */
 		   // $('input[name="headerImage"]').val(item.header_image);
 		  // $('input[name="waterMarkImage"]').val(item.footer_image);
 		  
@@ -298,6 +340,13 @@ createAgreement(){
       }
     render(){
     {window.tinyMCE.get("editor") && window.$('#previewDiv').html(window.tinyMCE.get("editor").getContent())}
+	if (this.state.redirect){
+			let item = this.state.itemDetails;
+            return (<Redirect to={{
+                pathname: '/broker-agreement-payment',
+                state: {payType:item.paytype, Amount:item.amount,Currency:item.currency, templateId:item.templateId,userId:JSON.parse(this.state.userData).assets_id, loc: '/broker-agreement' }
+            }} />)
+		}
     return (
     <div className="tab-pane" id="v-create">
       <div className="bdr">      

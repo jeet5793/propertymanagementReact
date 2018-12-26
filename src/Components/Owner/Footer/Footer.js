@@ -9,18 +9,18 @@ export default class Footer extends Component{
 		{
 			$("#BlockUIConfirm").hide();
 		}
-		else if(actionType=="Yes")
+		else 
 		{
 			var url = $("#hiddenURL").val();
 			//$("#BlockUIConfirm").hide();
 			 window.location.href= url;
 			// HIT URL 
 		}
-		else{
-			var compId = $("#hiddenURL").val();
-			$('#'+compId)[0].click();
-			$("#BlockUIConfirm").hide();
-		}
+		// else{
+			// var compId = $("#hiddenURL").val();
+			// $('#'+compId)[0].click();
+			// $("#BlockUIConfirm").hide();
+		// }
 	}
     render(){
         return(

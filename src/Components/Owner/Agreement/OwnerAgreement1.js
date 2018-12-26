@@ -558,12 +558,12 @@ getSendedAgreement(){
     } */
 	onClickChangeStatus(Status)
 	{
-		 let { user, selectedAgreement } = this.state;
+		 let { user, updatedAgreement } = this.state;
 	
 		// console.log('dsafgas'+JSON.stringify(this.state));
 		// var status = $('#status').val();
         let data = {
-          property_id:selectedAgreement.property_id,
+          property_id:updatedAgreement.property_id,
 		   status:Status,
            user_id: user.assets_id
         };

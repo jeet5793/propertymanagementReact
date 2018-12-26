@@ -52,7 +52,8 @@ class EditProperty extends React.Component {
         "advance": "",
         "owner_details": [],
         "img_path": [],
-        "session_id": ""
+        "session_id": "",
+		"property_access":""
       },
       owner_name: '',
       shareholders: [{
@@ -77,7 +78,7 @@ class EditProperty extends React.Component {
       const propertyDetails = JSON.parse(this.state.propertyInfo)
       // console.log("receeeeeived123456..."+ JSON.stringify(propertyDetails))
       this.setState({
-        formData: { property_id: propertyDetails.id, title: propertyDetails.title, address: propertyDetails.address, address2: propertyDetails.address2, country: propertyDetails.country, state: propertyDetails.state, city: propertyDetails.city, zip_code: propertyDetails.zip_code, property_type: propertyDetails.property_type, property_status: propertyDetails.property_status, geo_location: propertyDetails.geo_location, square_feet: propertyDetails.square_feet, agent_perc: propertyDetails.agent_perc, description: propertyDetails.description, bedroom: propertyDetails.bedroom, bathroom: propertyDetails.bathroom, total_amount: propertyDetails.total_amount, rent: propertyDetails.rent, advance: propertyDetails.advance, advance: propertyDetails.advance }, base64images: propertyDetails.img_path, shareholders: propertyDetails.owner_details
+        formData: { property_id: propertyDetails.id, title: propertyDetails.title, address: propertyDetails.address, address2: propertyDetails.address2, country: propertyDetails.country, state: propertyDetails.state, city: propertyDetails.city, zip_code: propertyDetails.zip_code, property_type: propertyDetails.property_type, property_status: propertyDetails.property_status, geo_location: propertyDetails.geo_location, square_feet: propertyDetails.square_feet, agent_perc: propertyDetails.agent_perc, description: propertyDetails.description, bedroom: propertyDetails.bedroom, bathroom: propertyDetails.bathroom, total_amount: propertyDetails.total_amount, rent: propertyDetails.rent, advance: propertyDetails.advance, advance: propertyDetails.advance,property_access: propertyDetails.property_access }, base64images: propertyDetails.img_path, shareholders: propertyDetails.owner_details
       }, () => {
         this.stateLists(propertyDetails.country);
         this.cityList(propertyDetails.state);
@@ -205,6 +206,8 @@ class EditProperty extends React.Component {
         formData.description = e.target.value
       else if (e.target.name == "geo_location")
         formData.geo_location = e.target.value
+	else if (e.target.name == "property_access")
+        formData.property_access = e.target.value
       else if (e.target.name == "square_feet")
         formData.square_feet = e.target.value
       else if (e.target.name == "agent_perc")
@@ -511,7 +514,6 @@ addDefaultSrc(ev){
                             <option value="Sale">Sale</option>
                             <option value="Rented">Rented</option>
                             <option value="Sold">Sold</option>
-                            <option value="Private">Private</option>
                           </select>
                         </div>
                       </div>
@@ -551,14 +553,26 @@ addDefaultSrc(ev){
                           <input value={editPropertyInfo.bathroom} type="text" name="bathroom" className="form-control" onChange={this.onChangeHandler} />
                         </div>
                       </div>
+					    <div className="form-group row">
+                        <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">Property access</label>
+                        <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl">
+                          <select className="form-control" value={editPropertyInfo.property_access} name="property_access" onChange={this.onChangeHandler}>
+                            <option>Please Select</option>
+                            <option value="Public ">Public </option>
+							<option value="Private">Private</option>
+                           
+                          </select>
+                        </div>
+						
+                      </div>
                       <div className="form-group row">
-					  {editPropertyInfo.property_status==="Sale" || editPropertyInfo.property_status==="Sold" || editPropertyInfo.property_status==="Private"? 
+					  {editPropertyInfo.property_status==="Sale" || editPropertyInfo.property_status==="Sold"? 
                         <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl" id="total_amount">
 						<label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">Total Amount</label>
                           <input value={editPropertyInfo.total_amount} type="text" className="form-control" name="total_amount" onChange={this.onChangeHandler} />
                         </div>:''
 					  }
-					   {editPropertyInfo.property_status==="Rent" || editPropertyInfo.property_status==="Rented" || editPropertyInfo.property_status==="Private"? 
+					   {editPropertyInfo.property_status==="Rent" || editPropertyInfo.property_status==="Rented"? 
 						<div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl" id="rent">
 						<label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">Rent</label>
                           <input value={editPropertyInfo.rent} type="text" className="form-control" name="rent" onChange={this.onChangeHandler} />

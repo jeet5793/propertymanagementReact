@@ -47,7 +47,8 @@ class AddProperty extends React.Component {
         "advance": "",
         "owner_details": [],
         "img_path": [],
-        "session_id": ""
+        "session_id": "",
+		"property_access":""
       },
       owner_name: '',
       shareholders: [{
@@ -172,15 +173,13 @@ class AddProperty extends React.Component {
 				$('#total_amount').show();
 				$('#advance').show();
 				$('#rent').hide();
-		  }else if(e.target.value==="Private"){
-			   $('#total_amount').show();
-				$('#rent').show();
-				$('#advance').show();
 		  }
 		  formData.property_status = e.target.value
 	  }
        else if (e.target.name == "description")
         formData.description = e.target.value
+	else if (e.target.name == "property_access")
+        formData.property_access = e.target.value
       else if (e.target.name == "geo_location")
         formData.geo_location = e.target.value
       else if (e.target.name == "square_feet")
@@ -488,7 +487,6 @@ class AddProperty extends React.Component {
                             <option value="Sale">Sale</option>
 							<option value="Rented">Rented</option>
                             <option value="Sold">Sold</option>
-							<option value="Private">Private</option>
                            
                           </select>
                         </div>
@@ -519,6 +517,7 @@ class AddProperty extends React.Component {
                           <input name="agent_perc" onChange={this.onChangeHandler} type="text" className="form-control" />
                         </div>
                       </div>
+				
                       <div className="form-group row">
                         <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">Bedrooms</label>
                         <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl">
@@ -528,6 +527,18 @@ class AddProperty extends React.Component {
                         <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl">
                           <input type="text" name="bathroom" className="form-control" onChange={this.onChangeHandler} />
                         </div>
+                      </div>
+					  <div className="form-group row">
+                        <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">Property access</label>
+                        <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl">
+                          <select className="form-control" name="property_access" onChange={this.onChangeHandler}>
+                            <option>Please Select</option>
+                            <option value="Public ">Public </option>
+							<option value="Private">Private</option>
+                           
+                          </select>
+                        </div>
+						
                       </div>
                       <div className="form-group row">
                        

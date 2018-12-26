@@ -134,6 +134,7 @@ onChangeACH(e){
   paymentPage(paymentType) {
 var user_detail = this.state.userDetails;
 	if(paymentType === 'CC'){
+		let extraAmt = Number((this.state.userDetails.planPrice*2.99))/100;
 		var planPrice= Number(this.state.userDetails.planPrice)+Number((this.state.userDetails.planPrice*2.99)/100)
 		var payment_Object={
 			"userid":user_detail.user_id,
@@ -154,7 +155,9 @@ var user_detail = this.state.userDetails;
 			"plan_id":user_detail.plan_id,
 			"plan_type":user_detail.plan_month_year,
 			"type": paymentType,
-			"name":this.state.name
+			"name":this.state.name,
+			"extraAmt":extraAmt,
+			"actual_amt":Number(this.state.userDetails.planPrice)
 			
 		}
 		if(!payment_Object.name){
@@ -306,7 +309,9 @@ var user_detail = this.state.userDetails;
 				"plan_id":user_detail.plan_id,
 				"plan_type":user_detail.plan_month_year,
 			  "type": paymentType,
-			  "name":this.state.achFields.name
+			  "name":this.state.achFields.name,
+			  "extraAmt":Number(1.00),
+			"actual_amt":Number(this.state.userDetails.planPrice)
 		}
 		if(!payment_Object.name){
 			 alert("Name should not be blank");

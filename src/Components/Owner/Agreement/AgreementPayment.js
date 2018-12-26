@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import $ from 'jquery';
 import swal from 'sweetalert';
 import NumberFormat from 'react-number-format';
-class Payment extends React.Component {
+class AgreementPayment extends React.Component {
   constructor(props){
     super(props)
 
@@ -152,7 +152,7 @@ onChangeACH(e){
 			"routingnumber": null,
 			"surchargeamount": null,
 			"transactionamount":amountToSend,
-			"currency": "USD",
+			"currency": this.props.history.location.state.Currency,
 			"transactionreference": null,
 			"payeeid": null,
 			"notifypayee": null,
@@ -163,6 +163,8 @@ onChangeACH(e){
 			"plan_type":details.Pay,
 			"type": paymentType,
 			"name":this.state.name,
+			"payType":this.props.history.location.state.payType,
+			"templateId":this.props.history.location.state.templateId,
 			"extraAmt":extraAmt,
 			"actual_amt":Number(details.Amount)
 			
@@ -189,7 +191,7 @@ onChangeACH(e){
 		}else{
 			$("#loaderDiv").show();
 		  // console.log(payment_Object);
-			fetch(`${API_URL}assetsapi/upgpaymentgateway`,{
+			fetch(`${API_URL}assetsapi/agreement_payment`,{
 			  method: 'post',
 			  //headers: {'Content-Type':'application/json'},
 			  body: JSON.stringify(payment_Object)
@@ -201,7 +203,7 @@ onChangeACH(e){
 						$("#loaderDiv").hide();
 							   
 							   $("#actionType").val("Yes");
-							   $("#hiddenURL").val("owner-plan");
+							   $("#hiddenURL").val("/agreement");
 							   $(".confirm-body").html(result.msg);
 							   $("#BlockUIConfirm").show();
 					 
@@ -250,7 +252,9 @@ onChangeACH(e){
 			"plan_type":details.Pay,
 			  "type": paymentType,
 			  "name":this.state.achFields.name,
-			  "extraAmt":extraAmt,
+			  "payType":this.props.history.location.state.payType,
+			"templateId":this.props.history.location.state.templateId,
+			"extraAmt":extraAmt,
 			"actual_amt":Number(details.Amount)
 		}
 		if(!payment_Object.name){
@@ -267,7 +271,7 @@ onChangeACH(e){
 		}else{
 		 $("#loaderDiv").show();
 	  // console.log(payment_Object);
-		fetch(`${API_URL}assetsapi/upgpaymentgateway`,{
+		fetch(`${API_URL}assetsapi/agreement_payment`,{
 		  method: 'post',
 		  //headers: {'Content-Type':'application/json'},
 		  body: JSON.stringify(payment_Object)
@@ -279,7 +283,7 @@ onChangeACH(e){
 					$("#loaderDiv").hide();
 						   
 						   $("#actionType").val("Yes");
-						   $("#hiddenURL").val("owner-plan");
+						   $("#hiddenURL").val("/agreement");
 						   $(".confirm-body").html(result.msg);
 						   $("#BlockUIConfirm").show();
 				 
@@ -300,7 +304,7 @@ onChangeACH(e){
   }
   onClickReturn()
   {
-	  window.location.href='/owner-plan';
+	  window.location.href='/agreement';
 	  // this.props.history.replace('/owner-plan');
   }
   changeTabs(id) {
@@ -323,7 +327,7 @@ onChangeACH(e){
 	   var details = this.props.history.location.state;
 		return(
       <div>
-	  <Header name="owner-upgrade"  first_name={window.localStorage.getItem('firstName')} 
+	  <Header name="agreement"  first_name={window.localStorage.getItem('firstName')} 
                 last_name={window.localStorage.getItem('firstName')} />
          {/* Logo container*/}
          <div className="logo text-center">
@@ -335,6 +339,15 @@ onChangeACH(e){
            <a href="/" className="logo"> <img src="/assets/images/logo_dark.png" alt className="logo-lg" /></a></div>
          <div className="payment-warp  paym-pay">
            <div className="container">
+		   <div className="page-title-box">
+                    <div className="btn-group pull-right">
+                        <ol className="breadcrumb hide-phone p-0 m-0">
+                        <li>
+						<Link to={'/agreement'}><span className="btn waves-light waves-effect w-md btn-custom"><i className="fi-reply"></i>&nbsp;&nbsp;Back</span></Link></li>
+                        </ol>
+                    </div>
+                   
+                    </div>
              {/* end page title end breadcrumb */}
              <div className="row">
                <div className="col-sm-12">
@@ -354,7 +367,7 @@ onChangeACH(e){
 												<div className="row">
 													<div className="col-md-7">
 														<h5>Pay Now</h5>
-														<p>Upgrade Plan</p>
+														<p>Agreement Purchase</p>
 													</div>
 													<div className="col-md-5 text-right">
 													<h5>Amount</h5>
@@ -463,7 +476,7 @@ onChangeACH(e){
 												<div className="row">
 													<div className="col-md-7">
 														<h5>Pay Now</h5>
-														<p>Upgrade Plan</p>
+														<p>Agreement Purchase</p>
 													</div>
 													<div className="col-md-5 text-right">
 													<h5>Amount</h5>
@@ -545,4 +558,4 @@ onChangeACH(e){
     );
 	}
 }
-export default connect(state=>({ userData: state.userData, userProfile: state.userProfile }))(Payment)
+export default connect(state=>({ userData: state.userData, userProfile: state.userProfile }))(AgreementPayment)

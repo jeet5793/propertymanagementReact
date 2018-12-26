@@ -144,6 +144,7 @@ onChangeACH(e){
   // event.preventDefault();
   	// console.log(this.state);
 	if(paymentType === 'CC'){
+		let extraAmt = Number((details.Amount*2.99)/100);
 		 let amountToSend = Number(details.Amount)+Number((details.Amount*2.99)/100);
 		var payment_Object={
 			"userid":user_detail.user_id,
@@ -164,8 +165,9 @@ onChangeACH(e){
 			"plan_id":details.PlanId,
 			"plan_type":details.Pay,
 			"type": paymentType,
-			"name":this.state.name
-			
+			"name":this.state.name,
+			"extraAmt":extraAmt,
+			"actual_amt":Number(details.Amount)
 		}
 		if(!payment_Object.name){
 			 alert("Full Name should not be blank");
@@ -218,6 +220,7 @@ onChangeACH(e){
 		}
 		 
 	}else if(paymentType === 'ACH'){
+		let extraAmt = Number(1.00);
 		 let amountToSend = Number(details.Amount)+Number(1.00);
 		var payment_Object={
 			"userid":user_detail.user_id,
@@ -248,7 +251,9 @@ onChangeACH(e){
 				"plan_id":details.PlanId,
 				"plan_type":details.Pay,
 			  "type": paymentType,
-			  "name":this.state.achFields.name
+			  "name":this.state.achFields.name,
+			  "extraAmt":extraAmt,
+			"actual_amt":Number(details.Amount)
 		}
 		if(!payment_Object.name){
 			 alert("Name should not be blank");

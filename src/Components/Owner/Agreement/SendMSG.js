@@ -20,7 +20,8 @@ export default class SendMSG extends React.Component{
 	startDate: "",
 	endDate: "",
 	tenure_start_date:'',
-	tenure_end_date:''
+	tenure_end_date:'',
+	paid_to:''
     };
     this.sendAgreement = this.sendAgreement.bind(this);
     this.onChangeHandler = this.onChangeHandler.bind(this);
@@ -51,6 +52,9 @@ export default class SendMSG extends React.Component{
             this.setState({user_id: e.target.value})
         }else if (e.target.name === 'description') {
             this.setState({description: e.target.value})
+        }
+		else if (e.target.name === 'paid_to') {
+            this.setState({paid_to: e.target.value})
         }
 
     }
@@ -100,7 +104,7 @@ userlist(assets_type){
 		
       const profile=JSON.parse(this.state.userData)
     //  console.log("user id"+JSON.stringify(profile))
-      let { property_id, sender_id, receive_user_id, description } = this.state;
+      let { property_id, sender_id, receive_user_id, description,paid_to } = this.state;
       if (!property_id || !sender_id || !receive_user_id || !description) {
         return;
       }
@@ -112,7 +116,8 @@ userlist(assets_type){
           description: description,
           session_id: this.props.session_id,
 		  tenure_start_date :this.state.startDate,
-		  tenure_end_date :this.state.endDate
+		  tenure_end_date :this.state.endDate,
+		  paid_to:paid_to
       };
 // console.log("hello"+data);
 		document.getElementById("FormCancel").click();
@@ -384,25 +389,41 @@ userlist(assets_type){
                 </div>		  
               </div> 
 				
-				<div className="col-md-12">
-                  <div className="form-group">
-                    <label for="tenure_start_date" className="control-label">Tenure Start Date<span className="required"/></label>
-                    <DatePicker className="form-control"
-                    onChange={this.handleSdChange}
-                    value={this.state.startDate}
-                />
-                  </div>
-                </div>  
-				<div className="col-md-12">
-                  <div className="form-group">
-                    <label for="tenure_end_date" className="control-label">Tenure End Date<span className="required"/></label>
-                    <DatePicker className="form-control"
-                    onChange={this.handleEdChange}
-                    value={this.state.endDate}
-                />
-                  </div>
-                </div>  
-				
+
+				<div className="row">
+					<div className="col-md-6">
+						<div className="form-group">
+							<label for="tenure_start_date" className="control-label">Tenure Start Date<span className="required"/></label>
+							<DatePicker className="form-control"
+							onChange={this.handleSdChange}
+							value={this.state.startDate}
+							/>
+						</div>
+					</div>
+					<div className="col-md-6">
+						<div className="form-group">
+							<label for="tenure_end_date" className="control-label">Tenure End Date<span className="required"/></label>
+							<DatePicker className="form-control"
+							onChange={this.handleEdChange}
+							value={this.state.endDate}
+						/>
+						</div>
+					</div>
+					</div>
+ 
+				 
+				 {!this.props.UpdAgreement && 
+
+						<div className="form-group">
+							<label for="paid_to" className="control-label">Rent Paid To<span className="required"/></label>
+							<select  className="form-control" name="paid_to" id = "paid_to" onChange={this.onChangeHandler}>
+							  <option>Please Select</option>
+							  <option value="Owner">Owner</option>
+							  <option value="Agent">Agent</option>
+							</select>
+						</div>
+  
+					}
                   <div className="row">
                 <div className="col-md-12">
                   <div className="form-group no-margin">

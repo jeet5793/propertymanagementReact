@@ -108,6 +108,7 @@ export default class SendMSG extends React.Component{
       if (!property_id || !sender_id || !receive_user_id || !description) {
         return;
       }
+	 
       let dataToSend = {
           sender_id: profile.assets_id,
           receiver_id: receive_user_id, // agent_id
@@ -376,24 +377,26 @@ document.getElementById("FormCancel").click();
                 </div>		  
               </div> 
 				
-				<div className="col-md-12">
-                  <div className="form-group">
-                    <label for="tenure_start_date" className="control-label">Tenure Start Date<span className="required"/></label>
-                    <DatePicker className="form-control"
-                    onChange={this.handleSdChange}
-                    value={this.state.startDate}
-                />
-                  </div>
-                </div>  
-				<div className="col-md-12">
-                  <div className="form-group">
-                    <label for="tenure_end_date" className="control-label">Tenure End Date<span className="required"/></label>
-                    <DatePicker className="form-control"
-                    onChange={this.handleEdChange}
-                    value={this.state.endDate}
-                />
-                  </div>
-                </div>  
+				<div className="row">
+					<div className="col-md-6">
+						<div className="form-group">
+							<label for="tenure_start_date" className="control-label">Tenure Start Date<span className="required"/></label>
+							<DatePicker className="form-control"
+							onChange={this.handleSdChange}
+							value={this.state.startDate}
+							/>
+						</div>
+					</div>
+					<div className="col-md-6">
+						<div className="form-group">
+							<label for="tenure_end_date" className="control-label">Tenure End Date<span className="required"/></label>
+							<DatePicker className="form-control"
+							onChange={this.handleEdChange}
+							value={this.state.endDate}
+						/>
+						</div>
+					</div>
+					</div> 
                   <div className="row">
                 <div className="col-md-12">
                   <div className="form-group no-margin">

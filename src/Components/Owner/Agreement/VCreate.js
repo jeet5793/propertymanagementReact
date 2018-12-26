@@ -2,6 +2,8 @@ import React from 'react'
 import API_URL from '../../../app-config'
 import {loadFile} from '../../js/external'
 // import './style.css'
+import {Link} from 'react-router-dom'
+import { Redirect } from 'react-router';
 import Cookies from 'js-cookie';
 import $ from 'jquery'
 //import Customwithmodal from "./CustomWithModal";
@@ -17,7 +19,6 @@ export default class VCreate extends React.Component{
     this.state={
       userData : Cookies.get('profile_data'),
       sectionOpenId:"",
-	  editAgreementStatus:false,
       collapseStatus:false,
 	  agreement_id:"",
       createForm:{
@@ -29,12 +30,15 @@ export default class VCreate extends React.Component{
 		
       },
 		templateList:[],
-		templateDetails:[]
+		templateDetails:[],
+		redirect: false,
+		itemDetails:''
     }
     this.onChangeHandler=this.onChangeHandler.bind(this)
     this.createAgreement=this.createAgreement.bind(this)
     this.headerImage = React.createRef();
     this.waterMarkImage = React.createRef();
+	this.demoTemplate = this.demoTemplate.bind(this);
   }
 
   
@@ -187,12 +191,44 @@ createAgreement(){
 
     demoTemplate(item)
 	  {
-		  // console.log(templateDescription);
-		  var tinymce=window.tinyMCE,$=window.$
-		 tinymce.get("editor").setContent(item.templateDescription);
-		 $('input[name="agreement_title"]').val(item.templateTitle)
-		  $('input[name="headerContent"]').val(item.header_content);
-		  $('textArea[name="footerContent"]').val(item.footer_content);
+		   // console.log(this.props);
+		  if(item.paytype=='Paid'){
+			  // this.props.history.push('/owner-agreement-payment')
+			  fetch(`${API_URL}assetsapi/check_agreement_payment/${JSON.parse(this.state.userData).assets_id}/`+item.templateId, {
+						  method: "GET"
+						})
+						  .then(response => {
+							return response.json();
+						  })
+						  .then((data) => {
+							//debugger;
+							//console.log('dataaaa:  ', data);
+							if(data.success==1){
+							  var tinymce=window.tinyMCE,$=window.$
+								tinymce.get("editor").setContent(item.templateDescription);
+								$('input[name="agreement_title"]').val(item.templateTitle)
+								$('input[name="headerContent"]').val(item.header_content);
+								$('textArea[name="footerContent"]').val(item.footer_content);
+							}else{
+								  // this.context.router.history.pushState('/owner-agreement-payment');
+								  // return <Redirect to='/owner-agreement-payment' />
+								  this.setState({itemDetails:item,redirect: true})
+							}
+						  
+						  }
+						).catch((error) => {
+							console.log('error: ', error);
+						  });
+			   
+				
+		  }else{
+				var tinymce=window.tinyMCE,$=window.$
+				tinymce.get("editor").setContent(item.templateDescription);
+				$('input[name="agreement_title"]').val(item.templateTitle)
+				$('input[name="headerContent"]').val(item.header_content);
+				$('textArea[name="footerContent"]').val(item.footer_content);
+		   }
+		  
 		   // $('input[name="headerImage"]').val(item.header_image);
 		  // $('input[name="waterMarkImage"]').val(item.footer_image);
 		  
@@ -300,6 +336,15 @@ createAgreement(){
       }
     render(){
     {window.tinyMCE.get("editor") && window.$('#previewDiv').html(window.tinyMCE.get("editor").getContent())}
+
+
+        if (this.state.redirect){
+			let item = this.state.itemDetails;
+            return (<Redirect to={{
+                pathname: '/owner-agreement-payment',
+                state: {payType:item.paytype, Amount:item.amount,Currency:item.currency, templateId:item.templateId,userId:JSON.parse(this.state.userData).assets_id, loc: '/agreement' }
+            }} />)
+		}
     return (
     <div className="tab-pane" id="v-create">
       <div className="bdr">      
@@ -421,10 +466,10 @@ createAgreement(){
                         <div id="collapseThree" className="collapse" role="tabpanel" aria-labelledby="headingThree">
                           <div className="card-block">
 						  {this.state.templateList?this.state.templateList.map((item)=>( 
-                            <div className="add-name">
-							<a href="#" onClick={this.demoTemplate.bind(this,item)} key={item.templateId}>{item.templateTitle}</a>
-								{/* <a href="#" onClick={this.demoTemplate}>Template 2</a><br />
-								<a href="#" onClick={this.demoTemplate}>Template 3</a>  */ }                  
+                            <div className="add-name" style={{textAlign:'left'}}>
+							
+						  <a href="#" onClick={this.demoTemplate.bind(this,item)} key={item.templateId}>{item.templateTitle} - {item.paytype=='Paid'?(item.paytype+' : $'+item.amount):item.paytype}</a>
+								               
                             </div>)):''}
                           </div>
                         </div>

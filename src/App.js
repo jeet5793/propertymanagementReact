@@ -188,6 +188,7 @@ export default class App extends Component {
             <Route exact path='/bgvpayment' component={UserDashboard} />
 			<Route path='/owner-tenant-bgvpayment' component={UserDashboard} />
 			<Route path='/owner-agreement-edit' component={UserDashboard} />
+			<Route path='/owner-agreement-payment' component={UserDashboard} />
             {/* Broker Dashboard */}
             <Route path='/broker-tenant' component={AgentBrokerDashboard} />
             <Route path='/broker-profile' component={AgentBrokerDashboard} />
@@ -207,6 +208,7 @@ export default class App extends Component {
             <Route path='/broker-report-table' component={AgentBrokerDashboard} />
             <Route path='/broker-tenant-bgvpayment' component={AgentBrokerDashboard} />
 			<Route path='/broker-agreement-edit' component={AgentBrokerDashboard} />
+			<Route path='/broker-agreement-payment' component={AgentBrokerDashboard} />
 
             {/* Service Provider Dashboard */}
             <Route path='/agent-serviceprovider' component={AgentServiceProviderDashboard} />
