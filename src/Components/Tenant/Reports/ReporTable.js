@@ -28,11 +28,13 @@ const TableReprt=(props)=>{
                     <table id="" className="table">
                       <thead>
                         <tr>
-						<th>Sl.No</th>
-                          <th>Property Name</th>
-                          <th>Date</th>
-                          <th>Expenses</th>
+							<th>Sl.No</th>
+							<th>Property Name</th>
+							<th>Paid Date</th>
+							<th>Amount</th>
+							<th>Rent paid By</th>
 						   <th>Invoice Number</th>
+						   <th>Download</th>
                         </tr>
                       </thead>
 					{ props.report?
@@ -43,13 +45,14 @@ const TableReprt=(props)=>{
                           <td className="tbl-text-overflow">{element.title}</td>
                           <td>{element.transactiondate}</td>
                           <td><NumberFormat value={element.transactionamount} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/> </td>
-						   <td><button className="btn-success" onClick={props.propIncoiceDownload.bind(this,element.invoice_number)}>{element.invoice_number}</button></td>
+						  <td>{element.Name} </td>
+						   <td>{element.responsestatus=='APPROVED'?<button style={{cursor:'pointer'}} className="btn-success" onClick={props.propIncoiceDownload.bind(this,element.invoice_number)}>{element.invoice_number}</button>:'Not Generated'}</td>
+						   <td>{element.responsestatus=='APPROVED'?<span style={{cursor:'pointer'}} onClick={props.propIncoiceDownload.bind(this,element.invoice_number)}><i className="mdi mdi-download"/></span>:''}</td>
                         </tr>)}
 					</tbody>:'No record available'}
 						<tfoot>
 						<tr>
 							<td colSpan={3} className="text-right"><b>Total :</b></td>
-							<td><b></b></td>
 							<td><b><NumberFormat value={props.totalAmt} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/></b></td>
 							</tr>
 						</tfoot>
@@ -62,12 +65,47 @@ const TableReprt=(props)=>{
 					<table id="" className="table">
                       <thead>
                         <tr>
-						<th>Sl.No</th>
-                          <th>Transaction For</th>
-                          <th>Date</th>
-                          <th>Transaction Amount</th>
-						    <th>Status</th>
-                          <th>Invoice Number</th>
+							<th>Sl.No</th>
+							<th>User Type</th>
+							<th>User Name</th>
+							<th>BGV date</th>
+							<th>Report type</th>
+							<th>Amount</th>
+							<th>Invoice Number</th>
+							<th>Download</th>
+                        </tr>
+                      </thead>
+					{ props.report?
+                      <tbody>
+						{props.report.map((element,index)=><tr it = {element.invoice_number}>
+						  <td>{index + 1}</td>
+                          <td className="tbl-text-overflow">{element.assets_id=='1'?'Owner':(element.assets_id=='2')?'Agent':(element.assets_id=='3')?'Tenant':''}</td>
+						   <td>{element.first_name+' '+element.last_name}</td>
+                          <td><NumberFormat value={element.transactionamount} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/></td>
+                          
+                          <td>{element.transactionamount} </td>
+						  <td>{element.responsestatus}</td>
+						  <td>{element.responsestatus=='APPROVED'?<button className="btn-success" onClick={props.incoiceDownload.bind(this,element.invoice_number)}>{element.invoice_number}</button>:'Not Generated'}</td>
+						  <td>{element.responsestatus=='APPROVED'?<button  onClick={props.incoiceDownload.bind(this,element.invoice_number)}><i className="mdi mdi-download"/></button>:''}</td>
+                        </tr>)}
+					</tbody>: <tbody><td colSpan={5}>'No transaction Available'</td> </tbody>}
+						<tfoot>
+						<tr>
+							<td colSpan={3} className="text-right"><b>Total :</b></td>
+							<td><b><NumberFormat value={expens} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/></b></td>
+							<td><b></b></td>
+							</tr>
+						</tfoot>
+                    </table>
+					<table id="" className="table">
+                      <thead>
+                        <tr>
+							<th>Sl.No</th>
+							<th>Template Name</th>
+							<th>Amount</th>
+							<th>Purchase Date</th>
+							<th>Invoice Number</th>
+							<th>Download</th>
                         </tr>
                       </thead>
 					{ props.report?
@@ -80,7 +118,41 @@ const TableReprt=(props)=>{
                           <td>{element.transactionamount} </td>
 						  <td>{element.responsestatus}</td>
 						  <td>{element.responsestatus=='APPROVED'?<button className="btn-success" onClick={props.incoiceDownload.bind(this,element.invoice_number)}>{element.invoice_number}</button>:'Not Generated'}</td>
-						  <td>{element.responsestatus=='APPROVED'?<button className="btn-success" onClick={props.incoiceDownload.bind(this,element.invoice_number)}>Download</button>:'Not Generated'}</td>
+						  <td>{element.responsestatus=='APPROVED'?<button  onClick={props.incoiceDownload.bind(this,element.invoice_number)}><i className="mdi mdi-download"/></button>:''}</td>
+                        </tr>)}
+					</tbody>: <tbody><td colSpan={5}>'No transaction Available'</td> </tbody>}
+						<tfoot>
+						<tr>
+							<td colSpan={3} className="text-right"><b>Total :</b></td>
+							<td><b><NumberFormat value={expens} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/></b></td>
+							<td><b></b></td>
+							</tr>
+						</tfoot>
+                    </table>
+					<table id="" className="table">
+                      <thead>
+                        <tr>
+							<th>Sl.No</th>
+							<th>Plan Name</th>
+							<th>Subscribe at</th>
+							<th>Amount</th>
+							<th>Subscribe Date</th>
+							
+						    <th>Status</th>
+							<th>Invoice Number</th>
+                        </tr>
+                      </thead>
+					{ props.report?
+                      <tbody>
+						{props.report.map((element,index)=><tr it = {element.invoice_number}>
+						  <td>{index + 1}</td>
+                          <td className="tbl-text-overflow">{element.trans_for}</td>
+                          <td><NumberFormat value={element.transactionamount} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/></td>
+                          
+                          <td>{element.transactionamount} </td>
+						  <td>{element.responsestatus}</td>
+						  <td>{element.responsestatus=='APPROVED'?<button className="btn-success" onClick={props.incoiceDownload.bind(this,element.invoice_number)}>{element.invoice_number}</button>:'Not Generated'}</td>
+						  <td>{element.responsestatus=='APPROVED'?<button  onClick={props.incoiceDownload.bind(this,element.invoice_number)}><i className="mdi mdi-download"/></button>:''}</td>
                         </tr>)}
 					</tbody>: <tbody><td colSpan={5}>'No transaction Available'</td> </tbody>}
 						<tfoot>
@@ -139,8 +211,7 @@ const FilterCriteria=(props)=>{
 			  <select name="trans_for" className="form-control" id="trans_for" onChange={props.change}>
 					  <option>Select Report For</option>
 						  <option value="BGV">BGV</option>
-						  <option value="Register">Registration</option>
-						  <option value="Upgrade">Upgrade</option>
+						  <option value="Plan Subscription">Plan Subscription</option>
 						  <option value="Agreement Purchase">Agreement Purchase</option>
 					</select>
                 

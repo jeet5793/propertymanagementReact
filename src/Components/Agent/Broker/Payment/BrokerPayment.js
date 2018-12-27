@@ -407,6 +407,7 @@ enrollInfo()
 			// this.setState({profileData:result.profile});
 			//console.log(result);
 			this.setState({enrollInfo:result.enroll_info});
+			this.setState({merchantAccount:result.merchantAccount});
           },
           (error) => {
             this.setState({
@@ -495,15 +496,15 @@ ActiveDeactive(id,status){
 									
 									<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">
 									  <div className="dayandtime-clp-batch col-lg-3 col-md-3 col-sm-6 col-xs-12 no-padding">
-										<div className="days-time-table no-padding day border-right-day"> <span id="days_9226"><span className="time-change-wrapper">Created Date</span> </span> ({this.state.enrollInfo.map((item)=>( item.created_on))} ) </div>
+										<div className="days-time-table no-padding day border-right-day"> <span id="days_9226"><span className="time-change-wrapper">Created Date</span> </span> <br/>({this.state.enrollInfo.map((item)=>( item.created_on))} ) </div>
 										
 									  </div>
 									  <div className="dayandtime-clp-batch col-lg-3 col-md-3 col-sm-6 col-xs-12 no-padding">
-										<div className="days-time-table no-padding day border-right-day"> <span id="days_9226"><span className="time-change-wrapper">DBA/Nick name</span> </span> ( {this.state.enrollInfo.map((item)=>( item.dba_name))} ) </div>
+										<div className="days-time-table no-padding day border-right-day"> <span id="days_9226"><span className="time-change-wrapper">DBA/Nick name</span> </span> <br/>( {this.state.enrollInfo.map((item)=>( item.dba_name))} ) </div>
 										
 									  </div>
 									  <div className="dayandtime-clp-batch col-lg-4 col-md-4 col-sm-6 col-xs-12 no-padding">
-										<div className="days-time-table no-padding day border-right-day"> <span id="days_9226"><span className="time-change-wrapper">Merchant Account</span> </span> (  ) </div>
+										<div className="days-time-table no-padding day border-right-day"> <span id="days_9226"><span className="time-change-wrapper">Merchant Account</span> </span> <br/>( {this.state.merchantAccount} ) </div>
 										
 									  </div>
 									  <div className="dayandtime-clp-batch col-lg-2 col-md-2 col-sm-6 col-xs-12 no-padding">

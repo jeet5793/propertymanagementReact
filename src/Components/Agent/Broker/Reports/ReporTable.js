@@ -18,7 +18,7 @@ const TableReprt=(props)=>{
 	   }
       
    }
-   // console.log(props);
+    console.log(props);
     return(
 	<div>
         
@@ -28,27 +28,32 @@ const TableReprt=(props)=>{
                     <table id="" className="table">
                       <thead>
                         <tr>
-						<th>Sl.No</th>
-                          <th>Property Name</th>
-                          <th>Date</th>
-                          <th>Income</th>
-                          <th>Expenses</th>
+							<th>Sl.No</th>
+							<th>Property Name</th>
+							<th>Paid Date</th>
+							<th>Amount</th>
+							<th>Rent paid By</th>
+						   <th>Invoice Number</th>
+						   <th>Download</th>
                         </tr>
                       </thead>
 					{ props.report?
                       <tbody>
-						{props.report.map((element,index)=><tr>
+						{props.report.map((element,index)=>
+						<tr id = {element.title}>
 						  <td>{index + 1}</td>
-                          <td className="tbl-text-overflow">{element.title}</td>
+                          <td className="tbl-text-overflow">{element.title+element.transactionamount}</td>
                           <td>{element.transactiondate}</td>
-                          <td></td>
                           <td><NumberFormat value={element.transactionamount} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/> </td>
+						  <td>{element.Name} </td>
+						   <td>{element.responsestatus=='APPROVED'?<button style={{cursor:'pointer'}} className="btn-success" onClick={props.propIncoiceDownload.bind(this,element.invoice_number)}>{element.invoice_number}</button>:'Not Generated'}</td>
+						   <td>{element.responsestatus=='APPROVED'?<span style={{cursor:'pointer'}} onClick={props.propIncoiceDownload.bind(this,element.invoice_number)}><i className="mdi mdi-download"/></span>:''}</td>
                         </tr>)}
-					</tbody>:'No Contact Available'}
+					</tbody>:'No record Available'}
 						<tfoot>
 						<tr>
 							<td colSpan={3} className="text-right"><b>Total :</b></td>
-							<td><b></b></td>
+
 							<td><b><NumberFormat value={props.totalAmt} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/></b></td>
 							</tr>
 						</tfoot>
@@ -61,7 +66,7 @@ const TableReprt=(props)=>{
 					<table id="" className="table">
                       <thead>
                         <tr>
-						<th>Sl.No</th>
+							<th>Sl.No</th>
                           <th>Transaction For</th>
                           <th>Date</th>
                           <th>Transaction Amount</th>
@@ -112,7 +117,7 @@ const FilterCriteria=(props)=>{
 					<select name="property_id" className="form-control" id="paymentmode" onChange={props.change}>
 					  <option>Select Report For</option>
 					  {props.property.map(element=>(
-						  <option value={element.id}>{element.title}</option>
+						  <option value={element.property_id}>{element.property_name}</option>
 					  ))}
 					</select>
 				  </div>
@@ -139,8 +144,7 @@ const FilterCriteria=(props)=>{
 			  <select name="trans_for" className="form-control" id="trans_for" onChange={props.change}>
 					  <option>Select Report For</option>
 						  <option value="BGV">BGV</option>
-						  <option value="Register">Registration</option>
-						  <option value="Upgrade">Upgrade</option>
+						 <option value="Plan Subscription">Plan Subscription</option>
 						  <option value="Agreement Purchase">Agreement Purchase</option>
 					</select>
                 
@@ -207,7 +211,8 @@ export default class ReportTable extends React.Component{
 			 this.handleEdChange =this.handleEdChange.bind(this);
             this.onChangeHandler=this.onChangeHandler.bind(this)
             this.submit=this.submit.bind(this);
-			this.incoiceDownload = this.incoiceDownload.bind(this)
+			this.incoiceDownload = this.incoiceDownload.bind(this);
+			this.propIncoiceDownload = this.propIncoiceDownload.bind(this);
     }
     submit(){
 		
@@ -229,6 +234,7 @@ export default class ReportTable extends React.Component{
             // console.log(data)
             if(data.success){
                 this.setState({reports:data.report})
+				this.setState({totalAmt:data.totalAmt})
             }
         })}        
         else if(this.state.formType==='?Transaction'){
@@ -296,7 +302,7 @@ export default class ReportTable extends React.Component{
     }
     loadPropertyList(){
         // debugger;
-		fetch(`${API_URL}assetsapi/property_by/${JSON.parse(this.state.userData).assets_id}/${JSON.parse(this.state.userData).session_id}`, {
+		fetch(`${API_URL}assetsapi/service_request/${JSON.parse(this.state.userData).assets_id}/${JSON.parse(this.state.userData).session_id}`, {
 		  method: 'get'
 		})
 		.then(res => res.json())
@@ -305,7 +311,7 @@ export default class ReportTable extends React.Component{
             //console.log("data 2: "+JSON.stringify(result.profile))
             debugger;
 			if (data.success) {
-			  this.setState({property:data.property})
+			  this.setState({property:data.service.property_list})
 			  //console.log(this.state.statics);
 			} 
 			//console.log("set user data"+JSON.stringify(this.state.profileData))
@@ -374,6 +380,9 @@ export default class ReportTable extends React.Component{
   incoiceDownload(invoiceNumber){
 	 window.open(`${API_URL}assetsapi/download_trans_invoice_report/`+invoiceNumber,'_self');
   }
+   propIncoiceDownload(invoiceNumber){
+	 window.open(`${API_URL}assetsapi/download_property_invoice_report/`+invoiceNumber,'_self');
+  }
     render(){
         // debugger;
         const Report=this.state.reports
@@ -391,7 +400,7 @@ export default class ReportTable extends React.Component{
                 <div className="form-group search-sec">
                     <FilterCriteria property={this.state.property} submit={this.submit} formType = {this.state.formType} change={this.onChangeHandler} startDate = {this.state.startDate} endDate = {this.state.endDate} handleStChange={this.handleChange} handleEdChange={this.handleEdChange}/>
                 </div>
-                <TableReprt report={Report}  incoiceDownload = {this.incoiceDownload} formType = {this.state.formType}/>
+              <TableReprt report={Report}  totalAmt={this.state.totalAmt} incoiceDownload = {this.incoiceDownload} propIncoiceDownload = {this.propIncoiceDownload} formType = {this.state.formType}/>
             </div>
         </div>
     </div>
