@@ -188,6 +188,7 @@ export default class App extends Component {
             <Route exact path='/bgvpayment' component={UserDashboard} />
 			<Route path='/owner-tenant-bgvpayment' component={UserDashboard} />
 			<Route path='/owner-agreement-edit' component={UserDashboard} />
+			 {/*<Route path='/owner-agreement-create' component={UserDashboard} />*/}
 			<Route path='/owner-agreement-payment' component={UserDashboard} />
             {/* Broker Dashboard */}
             <Route path='/broker-tenant' component={AgentBrokerDashboard} />

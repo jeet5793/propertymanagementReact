@@ -380,7 +380,7 @@ editAgreement(){
                 last_name={window.localStorage.getItem('firstName')} />
 				 <div className="wrapper">
                 <div className="container"> 
-				<div className="page-title-box">
+				<div className="page-title-box" style={{marginBottom: "24px"}}>
                     <div className="btn-group pull-right">
                         <ol className="breadcrumb hide-phone p-0 m-0">
                         <li>

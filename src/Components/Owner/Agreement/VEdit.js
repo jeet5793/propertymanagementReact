@@ -378,7 +378,7 @@ editAgreement(){
                 last_name={window.localStorage.getItem('firstName')} />
 				 <div className="wrapper">
                 <div className="container"> 
-				<div className="page-title-box">
+				<div className="page-title-box" style={{marginBottom: "24px"}}>
                     <div className="btn-group pull-right">
                         <ol className="breadcrumb hide-phone p-0 m-0">
                         <li>
@@ -477,11 +477,11 @@ editAgreement(){
 														  </div>
 														  <div id="collapseThree2" className="collapse" role="tabpanel" aria-labelledby="headingThree">
 															<div className="card-block">
-															 {this.state.templateList?this.state.templateList.map((item)=>( 
-																<div className="add-name">
-																<a href="#" onClick={this.demoTemplate2.bind(this,item)} key={item.templateId}>{item.templateTitle}</a>
-																	{/* <a href="#" onClick={this.demoTemplate}>Template 2</a><br />
-																	<a href="#" onClick={this.demoTemplate}>Template 3</a>  */ }                  
+															{this.state.templateList?this.state.templateList.map((item)=>( 
+																<div className="add-name" style={{textAlign:'left'}}>
+																
+															  <a href="#" onClick={this.demoTemplate2.bind(this,item)} key={item.templateId}>{item.templateTitle} - {item.paytype=='Paid'?(item.paytype+' : $'+item.amount):item.paytype}</a>
+																				   
 																</div>)):''}
 															</div>
 														  </div>

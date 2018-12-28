@@ -1,19 +1,21 @@
 import React from 'react'
+import Header from '../Header/Header'
 import API_URL from '../../../app-config'
 import {loadFile} from '../../js/external'
-// import './style.css'
 import {Link} from 'react-router-dom'
 import { Redirect } from 'react-router';
+// import './style.css'
 import Cookies from 'js-cookie';
 import $ from 'jquery'
 //import Customwithmodal from "./CustomWithModal";
 import swal from 'sweetalert';
-//var i
 import { Editor } from '@tinymce/tinymce-react';
+
+//var i
 var i =1;
 
 export default class VCreate extends React.Component{
-  constructor(props){
+   constructor(props){
     super(props)
     // console.log('props ', props);
     this.state={
@@ -42,13 +44,90 @@ export default class VCreate extends React.Component{
   }
 
   
+   
   componentDidMount() {
+	 
+
 
       $(document).on('click', '#stepy-navigator',function () {
           this.updatePage();
       }.bind(this));
      
 	this.getTemplatesName();
+	
+	var current_fs, next_fs, previous_fs; //fieldsets
+	var left, opacity, scale; //fieldset properties which we will animate
+	var animating; //flag to prevent quick multi-click glitches
+
+	$(".next").click(function(){
+		if(animating) return false;
+		animating = true;
+		
+		current_fs = $(this).parent();
+		next_fs = $(this).parent().next();
+		
+		//activate next step on progressbar using the index of next_fs
+		$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+		
+		//show the next fieldset
+		next_fs.show(); 
+		//hide the current fieldset with style
+		current_fs.animate({opacity: 0}, {
+			step: function(now, mx) {
+				//as the opacity of current_fs reduces to 0 - stored in "now"
+				//1. scale current_fs down to 80%
+				scale = 1 - (1 - now) * 0.2;
+				//2. bring next_fs from the right(50%)
+				left = (now * 50)+"%";
+				//3. increase opacity of next_fs to 1 as it moves in
+				opacity = 1 - now;
+				current_fs.css({'transform': 'scale('+scale+')'});
+				next_fs.css({'left': left, 'opacity': opacity});
+			}, 
+			complete: function(){
+				current_fs.hide();
+				animating = false;
+			}, 
+			//this comes from the custom easing plugin
+			//easing: 'easeInOutBack'
+		});
+	});
+
+	$(".previous").click(function(){
+		if(animating) return false;
+		animating = true;
+		
+		current_fs = $(this).parent();
+		previous_fs = $(this).parent().prev();
+		
+		//de-activate current step on progressbar
+		$("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+		
+		//show the previous fieldset
+		previous_fs.show(); 
+		//hide the current fieldset with style
+		current_fs.animate({opacity: 0}, {
+			step: function(now, mx) {
+				//as the opacity of current_fs reduces to 0 - stored in "now"
+				//1. scale previous_fs from 80% to 100%
+				scale = 0.8 + (1 - now) * 0.2;
+				//2. take current_fs to the right(50%) - from 0%
+				left = ((1-now) * 50)+"%";
+				//3. increase opacity of previous_fs to 1 as it moves in
+				opacity = 1 - now;
+				current_fs.css({'left': left});
+				previous_fs.css({'transform': 'scale('+scale+')', 'opacity': opacity});
+			}, 
+			complete: function(){
+				current_fs.hide();
+				animating = false;
+			}, 
+			//this comes from the custom easing plugin
+			//easing: 'easeInOutBack'
+		});
+	});
+	
+	
   }
 	getTemplatesName(){
 	fetch(`${API_URL}assetsapi/agreement_template_name/${JSON.parse(this.state.userData).session_id}`, {
@@ -113,6 +192,7 @@ export default class VCreate extends React.Component{
       this.setState({createForm:agreementForm})
       // this.setState({[e.target.name]:e.target.value})    
   }
+
 createAgreement(){
   // debugger;
   var tinymce=window.tinyMCE,$=window.$
@@ -143,7 +223,7 @@ createAgreement(){
 			  // var userid = data.user.assets_id
 			  // localStorage.setItem('userid',userid)
 						$("#loaderDiv").hide();
-						$("#actionType").val("Yes");
+						$("#actionType").val("No");
 						   $("#hiddenURL").val("agreement");
 						   $(".confirm-body").html(data.msg);
 						   $("#BlockUIConfirm").show();
@@ -164,11 +244,12 @@ createAgreement(){
 							  // var userid = data.user.assets_id
 							  // localStorage.setItem('userid',userid)
 							  $("#loaderDiv").hide();
-								$("#actionType").val("Yes");
+								$("#actionType").val("No");
 										   $("#hiddenURL").val("agreement");
 										   $(".confirm-body").html(data.msg);
 										   $("#BlockUIConfirm").show();
-										   
+										   console.log(JSON.stringify(this.props));
+										   this.props.history.push('/owner-agreement-create');
 							}
 						  
 						  }
@@ -188,7 +269,6 @@ createAgreement(){
     alert('Please add title and content to create agreement')
   }
 }
-
     demoTemplate(item)
 	  {
 		   // console.log(this.props);
@@ -247,7 +327,7 @@ createAgreement(){
         
 		//alert(i);
 		
-        var content = tinymce.get("editor").getContent();
+        // var content = tinymce.get("editor").getContent();
           
           if(compName=='Insert Signature Block')
             {
@@ -318,7 +398,7 @@ createAgreement(){
         }
       }
     }
-    showSideOption()
+     showSideOption()
       {
           var $=window.$
           // debugger;
@@ -334,11 +414,11 @@ createAgreement(){
       saveAgreementRemainder(){
         swal("Assets Watch","Please submit to save the agreement");
       }
+	  
     render(){
+		//console.log(this.props)
     {window.tinyMCE.get("editor") && window.$('#previewDiv').html(window.tinyMCE.get("editor").getContent())}
-
-
-        if (this.state.redirect){
+	if (this.state.redirect){
 			let item = this.state.itemDetails;
             return (<Redirect to={{
                 pathname: '/owner-agreement-payment',
@@ -346,244 +426,238 @@ createAgreement(){
             }} />)
 		}
     return (
-    <div className="tab-pane" id="v-create">
-      <div className="bdr">      
-      <form id="default-wizard">
-        <fieldset title="1" id="default-wizard-step-0" className="stepy-step">
-          <legend style={{display: 'none'}}>Create</legend>
-          <div className="form-group">
-            <div className="col-md-12">
-              <div className="row m-t-10">
-                <div className=" col-sm-2">
-                 <label><b>Title<span className="required"/> :</b></label>
-                </div>
-                <div className="col-sm-10">
-                  <input type="text" onChange={this.onChangeHandler} name="agreement_title" className="form-control" />
-                </div>
-              </div>
-            </div>
-          </div>
-		  {/*<div className="form-group">
-            <div className="col-md-12">
-              <div className="row ">
-                <div className=" col-sm-2">
-                 <label><b>Header Content :</b></label>
-                </div>
-                <div className="col-sm-10">
-                 <input type="text" name="headerContent" onChange={this.onChangeHandler} className="form-control" maxlength="15" />
-                </div>
-              </div>
-            </div>
-          </div>
-		   <div className="form-group">
-            <div className="col-md-12">
-              <div className="row">
-				<div className=" col-sm-2">
-                 <label><b>Header Image :</b></label>
-                </div>
-                <div className="col-sm-4">
-                   <input type="file" name="headerImage" onChange={this.onChangeHandler} ref={this.headerImage} className="form-control" />
-                </div>
-                <div className=" col-sm-2">
-                 <label><b>Water Mark Image :</b></label>
-                </div>
-                <div className="col-sm-4">
-                  <input type="file" name="waterMarkImage" onChange={this.onChangeHandler} ref={this.waterMarkImage} className="form-control" />
-                </div>
-              </div>
-            </div>
-          </div>
-		  <div className="form-group">
-            <div className="col-md-12">
-              <div className="row">
-                <div className=" col-sm-2">
-                 <label><b>Footer Content :</b></label>
-                </div>
-                <div className="col-sm-10">
-                 <input className="form-control" name="footerContent" onChange={this.onChangeHandler} maxlength="30" />
-                </div>
-              </div>
-            </div>
-          </div>*/}
-          <div className="row" >
-            <div className="col-md-12">                               
-              {/* <!-- sample modal content -->                             */}
-              <div className="fixed-action-btn hide-on-large-only">
-              <a className="btn-floating btn-large teal" onClick={this.showSideOption}>
-                <i className="large fi-menu"></i> </a>               
-              </div>
-              <div className="custome-temp" id="sideTogle" style={{display: 'none'}}>                              
-                <div className="slimScrollDiv" style={{position: 'relative', overflow: 'hidden', width: 'auto', height:' 282px'}}>
-                  <div className="autohide1-scroll" style={{height: '282px',"overflow-x": 'none',"overflow-y": 'scroll', width: 'auto'}}>
-                    <div id="accordion" className="m-b-10">
-                      <div className="card m-b-5">
-                        <div onClick={this.handleSectionOpen.bind(this,"collapseOne")} className="card-header  btn btn-success" role="tab" id="headingOne">
-                          <h5 className="mb-0 mt-0"> <a className="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"> Header Section </a> </h5>
-                        </div>
-                        <div id="collapseOne" className="collapse" role="tabpanel" aria-labelledby="headingOne">
-                          <div className="card-block">
-                            <div className="row">
-                              <div className="col-sm-12">
-                                <label><b>Header Content</b></label>
-                                <input type="text" name="headerContent" onChange={this.onChangeHandler} className="form-control" maxlength="15" />
-                              </div>
-                            </div>
-                            <div className="row">
-                              <div className="col-sm-12">
-                                <label><b>Header Image</b></label>
-                                <input type="file" name="headerImage" onChange={this.onChangeHandler} ref={this.headerImage} className="form-control" />
-                              </div>
-                            </div>
-                            <div className="row">
-                              <div className="col-sm-12">
-                                <label><b>Water Mark Image</b></label>
-                                <input type="file" name="waterMarkImage" onChange={this.onChangeHandler} ref={this.waterMarkImage} className="form-control" />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="card m-b-5">
-                        <div onClick={this.handleSectionOpen.bind(this,"collapseTwo")} className="card-header  btn btn-success waves-effect w-md waves-light" role="tab" id="headingTwo">
-                          <h5 className="mb-0 mt-0"> <a className="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"> Footer Section </a> </h5>
-                        </div>
-                        <div id="collapseTwo" className="collapse" role="tabpanel" aria-labelledby="headingTwo">
-                          <div className="card-block">
-                            <div className="row">
-                              <div className="col-sm-12">
-                                <label><b>Footer Content</b></label>
-                                <textarea className="form-control" name="footerContent" onChange={this.onChangeHandler} maxlength="30"></textarea>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="card m-b-5">
-                        <div onClick={this.handleSectionOpen.bind(this,"collapseThree")} className="card-header  btn btn-success waves-effect w-md waves-light" role="tab" id="headingThree">
-                          <h5 className="mb-0 mt-0">
-                            <a className="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree"> Agreement Template </a> </h5>
-                        </div>
-                        <div id="collapseThree" className="collapse" role="tabpanel" aria-labelledby="headingThree">
-                          <div className="card-block">
-						  {this.state.templateList?this.state.templateList.map((item)=>( 
-                            <div className="add-name" style={{textAlign:'left'}}>
-							
-						  <a href="#" onClick={this.demoTemplate.bind(this,item)} key={item.templateId}>{item.templateTitle} - {item.paytype=='Paid'?(item.paytype+' : $'+item.amount):item.paytype}</a>
-								               
-                            </div>)):''}
-                          </div>
-                        </div>
-                      </div>  
-                      <div className="card m-b-5">
-                        <div  onClick={this.handleSectionOpen.bind(this,"collapseFour")}className="card-header btn btn-success waves-effect w-md waves-light" role="tab" id="headingFour">
-                          <h5 className="mb-0 mt-0"> <a className="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour"> Insert Dynamic Value </a> </h5>
-                        </div>
-                        <div id="collapseFour" className="collapse" role="tabpanel" aria-labelledby="headingFour">
-                          <div className="card-block">
-                            <div className="add-name">
-								<input type="button" value="Property Address" onClick={this.insertComponent.bind(this)} />
-                                <input type="button" value="Property Rent Amount" onClick={this.insertComponent.bind(this)} />
-                                <input type="button" value="Property Selling Amount" onClick={this.insertComponent.bind(this)} />
-                                <input type="button" value="Property Deposit Amount" onClick={this.insertComponent.bind(this)} />
-								<input type="button" value="Tenure Start Date" onClick={this.insertComponent.bind(this)} />
-								<input type="button" value="Tenure End Date" onClick={this.insertComponent.bind(this)} />
-								<input type="button" value="Property City" onClick={this.insertComponent.bind(this)} />
-								<input type="button" value="Property State" onClick={this.insertComponent.bind(this)} />
-								<input type="button" value="Owner Full Name" onClick={this.insertComponent.bind(this)} />
-								<input type="button" value="Owner Email" onClick={this.insertComponent.bind(this)} />
-								<input type="button" value="Owner Mobile" onClick={this.insertComponent.bind(this)} />
-								<input type="button" value="Owner Address" onClick={this.insertComponent.bind(this)} />
-								<input type="button" value="Owner City" onClick={this.insertComponent.bind(this)} />
-								<input type="button" value="Owner State" onClick={this.insertComponent.bind(this)} />
-								<input type="button" value="Agent Full Name" onClick={this.insertComponent.bind(this)} />
-								<input type="button" value="Agent Email" onClick={this.insertComponent.bind(this)} />
-								<input type="button" value="Agent Mobile" onClick={this.insertComponent.bind(this)} />
-								<input type="button" value="Agent Address" onClick={this.insertComponent.bind(this)} />
-								<input type="button" value="Agent City" onClick={this.insertComponent.bind(this)} />
-								<input type="button" value="Agent State" onClick={this.insertComponent.bind(this)} />
-								<input type="button" value="Tenant Full Name" onClick={this.insertComponent.bind(this)} />
-								<input type="button" value="Tenant Email" onClick={this.insertComponent.bind(this)} />
-								<input type="button" value="Tenant Mobile" onClick={this.insertComponent.bind(this)} />
-								<input type="button" value="Tenant Address" onClick={this.insertComponent.bind(this)} />
-								<input type="button" value="Tenant City" onClick={this.insertComponent.bind(this)} />
-								<input type="button" value="Tenant State" onClick={this.insertComponent.bind(this)} />
-                             
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="card">
-                        <div  onClick={this.handleSectionOpen.bind(this,"collapseFive")} className="card-header btn btn-success waves-effect w-md waves-light" role="tab" id="headingFive">
-                          <h5 className="mb-0 mt-0"> <a className="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive"> Insert Components </a> </h5>
-                        </div>
-                        <div id="collapseFive" className="collapse" role="tabpanel" aria-labelledby="headingFive">
-                          <div className="card-block">
-                            <div className="add-name">
-                              <input type="button" value="Insert Signature Block" onClick={this.insertComponent.bind(this)} />
-                                      <input type="button" value="Insert Text Box" onClick={this.insertComponent.bind(this)} />
-                                      <input type="button" value="Insert Date Box" onClick={this.insertComponent.bind(this)} />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>      
-                  </div>
-                  <div className="slimScrollBar" style={{background: 'rgb(158, 165, 171)', width:' 5px', position: 'absolute', top: '0px', opacity: '1', display: 'block', borderRadius: '7px', zIndex: '99', right: '1px'}}></div>
-                  <div className="slimScrollRail" style={{width: '5px', height: '100%', position: 'absolute', top: '0px', display: 'none', borderRadius: '7px', background: 'rgb(51, 51, 51)', opacity: '0.2', zIndex: '90', right: '1px'}}>
-                </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="row ">
-          <div className="col-sm-12">
-		  {/* <textarea name="agreement_doc_content" onChange={this.onChangeHandler} id="editor" style={{position:'absolute',left:'0'}} className="tinymce"></textarea>   */ }
-			<Editor name="agreement_doc_content" id="editor" onChange={this.onChangeHandler}
-				init={{ 
-					theme: "modern",
-					plugins:[
-								"advlist autolink lists link image charmap print preview hr anchor pagebreak",
-								"searchreplace wordcount visualblocks visualchars code fullscreen",
-								"insertdatetime media nonbreaking save table contextmenu directionality",
-								"emoticons template paste textcolor colorpicker textpattern imagetools"
-							],
-					 toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media | forecolor backcolor emoticons",
-					image_advtab: true, height : "300" }}
-					/>		  
-          </div>
-          </div>
-        
-          
-        </fieldset>
-        <fieldset title="2"  id="default-wizard-step-1" className="stepy-step" style={{display: 'none'}}>
-          <legend style={{display: 'none'}}>Preview</legend>
-          <div className="row m-t-20">
-            {/* <div className="row">*/}
-              <div className="col-sm-12"> 
-                <div className="slimScrollDiv" style={{position: 'relative', "overflow-x": 'hidden',"overflow-y": 'scroll', height: '780px'}}>
-                <div id="previewDiv" className="row m-t-20 signature  autohide-scroll" style={{height: '300px', width: '100%', padding: '12px'}}>
-                </div>
-                <div className="slimScrollBar" style={{background: 'rgb(158, 165, 171)', width:' 5px', position:' absolute', top: '0px', opacity: '0.4', display: 'block', borderRadius: '7px', zIndex: '99', right: '1px'}}>
-                </div>
-                <div className="slimScrollRail" style={{width:' 5px', height: '100%', position: 'absolute', top:' 0px', display: 'none', borderRadius: '7px', background: 'rgb(51, 51, 51)', opacity: '0.2', zIndex: '90', right:' 1px'}}>
-                </div></div>
-              {/* </div> */}
-            </div>
-          </div>
-        
-        </fieldset>
-        <fieldset   title="3" id="default-wizard-step-2" className="stepy-step" style={{display:' none'}}>
-        <div  style={{fontSize:14,fontWeight:500,textAlign:"center"}}>Please submit to save the agreement</div> 
-          <legend style={{display: 'none'}}>Save</legend>
-          <div className="row m-t-20 signature"> </div>
-        {/* <div className="stepy-navigator"> */}
-        
-       <button style={{float:"right",marginTop:10}} id="stepy-navigator" type="button" onClick={this.createAgreement} className="btn btn-primary stepy-finish">Submit</button></fieldset>       
-      </form>
-    </div>
-     <div id = "vcreatepermission" style={{position: 'absolute', top: 0, width: '100%', height: '100%', backgroundColor: '#333', opacity: 0.4, zIndex: 1000,display:'none'}}>
+		
+		
+		<div className="tab-pane" id="v-create" >
+		<Header name="agreement"  first_name={window.localStorage.getItem('firstName')} 
+                last_name={window.localStorage.getItem('firstName')} />
+				 <div className="wrapper">
+                <div className="container"> 
+				<div className="page-title-box" style={{marginBottom: "24px"}}>
+                    <div className="btn-group pull-right">
+                        <ol className="breadcrumb hide-phone p-0 m-0">
+                        <li>
+						<Link to={'/agreement'}><span className="btn waves-light waves-effect w-md btn-custom"><i className="fi-reply"></i>&nbsp;&nbsp;Back</span></Link></li>
+                        </ol>
+                    </div>
+                   
+                    </div>
+				
+			<div className="bdr" style={{marginBottom: "30px;",padding: "20px",borderRadius: "10px",backgroundColor: "#f1f1f1"}}>
+				<form id="msform">
+					<ul id="progressbar">
+						<li className="active">create</li>
+						<li>Preview</li>
+						<li>Save</li>
+					</ul>
+					
+					<fieldset>
+					
+						<div className="form-group">
+							<div className="col-md-12">
+								<div className="row m-t-20">
+									<div className=" col-sm-2">
+										<label><b>Agreement Title:</b></label>
+									</div>
+									<div className="col-sm-10">
+										<input type="text" id="agreement_title" onChange={this.onChangeHandler} name="agreement_title" className="form-control" />
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div className="row">
+							<div className="col-md-12">
+								<div className="fixed-action-btn hide-on-large-only">
+									<a className="btn-floating btn-large teal" onClick={this.showSideOption}> <i className="large fi-menu"></i> </a> 
+								</div>
+								<div className="custome-temp" id="sideTogle" style={{display:"none"}}>
+									<div className="autohide1-scroll" style={{height: "282px",overflowY: "scroll"}}>
+										<div id="accordion"  className="m-b-10">
+											<div className="card m-b-5">
+												<div className="card-header  btn btn-success waves-effect w-md waves-light" role="tab" id="headingOne">
+													<h5 className="mb-0 mt-0"> <a className="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"> Header Section </a> </h5>
+												</div>
+												
+												<div id="collapseOne" className="collapse" role="tabpanel" aria-labelledby="headingOne">
+													<div className="card-block">
+													
+														<div className="row">
+															<div className="col-sm-12">
+																<label><b>Header Content</b></label>
+																	<input type="text" id="headerContent" name="headerContent" onChange={this.onChangeHandler} className="form-control" maxlength="15" />
+															</div>
+														</div>
+														
+														<div className="row">
+															<div className="col-sm-12">
+																<label><b>Header Image</b></label>
+																	<input type="file" name="headerImage" onChange={this.onChangeHandler} ref={this.headerImage} className="form-control" />
+															</div>
+														</div>
+														
+														<div className="row">
+															<div className="col-sm-12">
+																<label><b>Water Mark Image</b></label>
+																	<input type="file" name="waterMarkImage" onChange={this.onChangeHandler} ref={this.waterMarkImage} className="form-control" />
+															</div>
+														</div>
+														
+													</div>
+												</div>
+												
+											</div>
+														
+														
+														<div className="card m-b-5">
+														  <div className="card-header  btn btn-success waves-effect w-md waves-light" role="tab" id="headingTwo">
+															<h5 className="mb-0 mt-0"> <a className="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"> Footer Section </a> </h5>
+														  </div>
+														  <div id="collapseTwo" className="collapse" role="tabpanel" aria-labelledby="headingTwo">
+															<div className="card-block">
+															  <div className="row">
+																<div className="col-sm-12">
+																  <label><b>Footer Content</b></label>
+																  <textarea className="form-control" name="footerContent" onChange={this.onChangeHandler} maxlength="30"></textarea>
+																</div>
+															  </div>
+															</div>
+														  </div>
+														</div>
+													   
+													   
+													   <div className="card m-b-5">
+														  <div className="card-header  btn btn-success waves-effect w-md waves-light" role="tab" id="headingThree">
+															<h5 className="mb-0 mt-0"> <a className="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree"> Agreement Template </a> </h5>
+														  </div>
+														  <div id="collapseThree" className="collapse" role="tabpanel" aria-labelledby="headingThree">
+															<div className="card-block">
+															{this.state.templateList?this.state.templateList.map((item)=>( 
+																<div className="add-name" style={{textAlign:'left'}}>
+																
+															  <a href="#" onClick={this.demoTemplate.bind(this,item)} key={item.templateId}>{item.templateTitle} - {item.paytype=='Paid'?(item.paytype+' : $'+item.amount):item.paytype}</a>
+																				   
+																</div>)):''}
+															</div>
+														  </div>
+														</div>
+														
+														
+														<div className="card m-b-5">
+														  <div className="card-header btn btn-success waves-effect w-md waves-light" role="tab" id="headingFour">
+															<h5 className="mb-0 mt-0"> <a className="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour"> Insert Dynamic Value </a> </h5>
+														  </div>
+														  <div id="collapseFour" className="collapse" role="tabpanel" aria-labelledby="headingFour">
+															<div className="card-block">
+															  <div className="add-name">
+																<input type="button" value="Property Address" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Property Rent Amount" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Property Selling Amount" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Property Deposit Amount" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Tenure Start Date" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Tenure End Date" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Property City" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Property State" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Owner Full Name" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Owner Email" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Owner Mobile" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Owner Address" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Owner City" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Owner State" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Agent Full Name" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Agent Email" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Agent Mobile" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Agent Address" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Agent City" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Agent State" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Tenant Full Name" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Tenant Email" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Tenant Mobile" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Tenant Address" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Tenant City" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Tenant State" onClick={this.insertComponent.bind(this)} />
+															</div>
+															</div>
+														  </div>
+														</div>
+														
+														
+														<div className="card">
+														  <div className="card-header btn btn-success waves-effect w-md waves-light" role="tab" id="headingFive">
+															<h5 className="mb-0 mt-0"> <a className="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive"> Insert Components </a> </h5>
+														  </div>
+														  <div id="collapseFive" className="collapse" role="tabpanel" aria-labelledby="headingFive">
+															<div className="card-block">
+															  <div className="add-name">
+																<input type="button" value="Insert Signature Block" onClick={this.insertComponent.bind(this)} />
+																  <input type="button" value="Insert Text Box" onClick={this.insertComponent.bind(this)} />
+																  <input type="button" value="Insert Date Box" onClick={this.insertComponent.bind(this)} />
+															 </div>
+															</div>
+														  </div>
+														</div>
+														
+														
+														
+													  </div>
+													  
+													</div>
+												  </div>
+												</div>
+											  </div>
+											  <div className="row m-t-20">
+												<div className="col-sm-12">
+												
+												{/*  <textarea name="editor" id="editor2" className="tinymce"></textarea> */}
+												 <Editor 
+												 // initialValue={this.props.location.state.editAgreement.agreement_doc_content || this.state.createForm.agreement_doc_content}
+												 name="agreement_doc_content"
+												 id="editor"
+												 onChange={this.onChangeHandler}
+												  init={{ 
+												theme: "modern",
+												
+												  plugins:[
+															"advlist autolink lists link image charmap print preview hr anchor pagebreak",
+															"searchreplace wordcount visualblocks visualchars code fullscreen",
+															"insertdatetime media nonbreaking save table contextmenu directionality",
+															"emoticons template paste textcolor colorpicker textpattern imagetools"
+														],
+												  toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media | forecolor backcolor emoticons",
+												
+												image_advtab: true, height : "300" }}
+												/>
+												</div>
+											  </div>
+											  <br/>
+					<button type="button" name="next" className="btn btn-primary waves-effect waves-light next pull-right" value="" >Next</button>
+					</fieldset>
 
-</div>
-  </div>
+					<fieldset>
+						<div className="row">
+							 <div className="col-sm-12" >
+								<div id="previewDiv" className="row m-t-20 signature  autohide-scroll" style={{height:"600px",width:"100%",padding: "12px",overflow: "hidden",overflowY: "scroll"}}>
+								</div>
+							</div>
+						</div>
+						 <br/>
+						<button type="button" name="previous" className="previous button-back btn btn-default waves-effect pull-left" value="" >Back</button>
+						<button type="button" name="next" className="btn btn-primary waves-effect waves-light next  pull-right" value="" >Next</button>
+					</fieldset>
+
+
+
+						<fieldset>
+							<div className="row m-t-20 signature"> </div>
+							<button type="button" name="previous" className="previous button-back btn btn-default waves-effect pull-left" value="" >Back</button>
+							<div  style={{fontSize:14,fontWeight:500,textAlign:"center"}}>Click on submit to save the agreement.</div> 
+							<button type="button" name="submit" className="btn btn-primary waves-effect waves-light submit pull-right" value="" onClick={this.createAgreement}>Submit</button>
+						</fieldset>
+					</form>
+
+                 </div>
+</div>				 
+                    </div>
+	</div>
   );}
   }

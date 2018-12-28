@@ -129,6 +129,7 @@ const VExecute=(props)=>{
         <thead>
           <tr>
             <th>Title</th>
+			<th>Name</th>
                 <th>Date</th>
 				<th>Status</th>
 				<th>Tenure Start Date</th>

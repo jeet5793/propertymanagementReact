@@ -82,7 +82,7 @@ const TableReprt=(props)=>{
                       <tbody>
 						{props.report.map((element,index)=><tr>
 						  <td>{index + 1}</td>
-                           <td className="tbl-text-overflow">{element.assets_id=='1'?'Owner':(element.assets_id=='2')?'Agent':(element.assets_id=='3')?'Tenant':''}</td>
+                           <td className="tbl-text-overflow">{element.assets_type=='1'?'Owner':(element.assets_type=='2')?'Agent':(element.assets_type=='3')?'Tenant':''}</td>
 						   <td>{element.first_name+' '+element.last_name}</td>
                           <td>{element.transactiondate}</td>
                           <td>{(element.selected_package==14)?"Credit Report":(element.selected_package==12)?"Credit Report, Eviction Report":(element.selected_package==13)?"County Criminal, Credit Report, Eviction Report":''}</td>
@@ -94,7 +94,7 @@ const TableReprt=(props)=>{
 					</tbody>: <tbody><td colSpan={5}>'No transaction Available'</td> </tbody>}
 						<tfoot>
 						<tr>
-							<td colSpan={3} className="text-right"><b>Total :</b></td>
+							<td colSpan={5} className="text-right"><b>Total :</b></td>
 							<td><b><NumberFormat value={expens} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/></b></td>
 							<td><b></b></td>
 							</tr>

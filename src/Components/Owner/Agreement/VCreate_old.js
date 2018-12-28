@@ -1,15 +1,15 @@
 import React from 'react'
-import API_URL from '../../../../app-config'
-import {loadFile} from '../../../js/external'
+import API_URL from '../../../app-config'
+import {loadFile} from '../../js/external'
 // import './style.css'
-import Cookies from 'js-cookie';
 import {Link} from 'react-router-dom'
 import { Redirect } from 'react-router';
-import { Editor } from '@tinymce/tinymce-react';
+import Cookies from 'js-cookie';
 import $ from 'jquery'
 //import Customwithmodal from "./CustomWithModal";
 import swal from 'sweetalert';
 //var i
+import { Editor } from '@tinymce/tinymce-react';
 var i =1;
 
 export default class VCreate extends React.Component{
@@ -36,7 +36,6 @@ export default class VCreate extends React.Component{
     }
     this.onChangeHandler=this.onChangeHandler.bind(this)
     this.createAgreement=this.createAgreement.bind(this)
-	// this.editAgreement=this.editAgreement.bind(this)
     this.headerImage = React.createRef();
     this.waterMarkImage = React.createRef();
 	this.demoTemplate = this.demoTemplate.bind(this);
@@ -129,7 +128,7 @@ createAgreement(){
 	// console.log('agreementForm'+JSON.stringify(agreementForm))
   if(agreementForm.agreement_title!==''&&agreementForm.agreement_doc_content!=='')
   {
-	 
+	  
 	  $("#loaderDiv").show();
   fetch(`${API_URL}assetsapi/checkPermissions/${JSON.parse(this.state.userData).assets_id}/create_agreement`, {
 		  method: "GET"
@@ -144,8 +143,8 @@ createAgreement(){
 			  // var userid = data.user.assets_id
 			  // localStorage.setItem('userid',userid)
 						$("#loaderDiv").hide();
-						$("#actionType").val("No");
-						   $("#hiddenURL").val("/broker-agreement");
+						$("#actionType").val("Yes");
+						   $("#hiddenURL").val("agreement");
 						   $(".confirm-body").html(data.msg);
 						   $("#BlockUIConfirm").show();
 						   
@@ -166,7 +165,7 @@ createAgreement(){
 							  // localStorage.setItem('userid',userid)
 							  $("#loaderDiv").hide();
 								$("#actionType").val("Yes");
-										   $("#hiddenURL").val("broker-agreement");
+										   $("#hiddenURL").val("agreement");
 										   $(".confirm-body").html(data.msg);
 										   $("#BlockUIConfirm").show();
 										   
@@ -192,7 +191,8 @@ createAgreement(){
 
     demoTemplate(item)
 	  {
-		   if(item.paytype=='Paid'){
+		   // console.log(this.props);
+		  if(item.paytype=='Paid'){
 			  // this.props.history.push('/owner-agreement-payment')
 			  fetch(`${API_URL}assetsapi/check_agreement_payment/${JSON.parse(this.state.userData).assets_id}/`+item.templateId, {
 						  method: "GET"
@@ -211,7 +211,8 @@ createAgreement(){
 								$('textArea[name="footerContent"]').val(item.footer_content);
 							}else{
 								  // this.context.router.history.pushState('/owner-agreement-payment');
-								    this.setState({itemDetails:item,redirect: true})
+								  // return <Redirect to='/owner-agreement-payment' />
+								  this.setState({itemDetails:item,redirect: true})
 							}
 						  
 						  }
@@ -221,19 +222,13 @@ createAgreement(){
 			   
 				
 		  }else{
-			  
 				var tinymce=window.tinyMCE,$=window.$
 				tinymce.get("editor").setContent(item.templateDescription);
 				$('input[name="agreement_title"]').val(item.templateTitle)
 				$('input[name="headerContent"]').val(item.header_content);
 				$('textArea[name="footerContent"]').val(item.footer_content);
 		   }
-		  // console.log(templateDescription);
-		 /*  var tinymce=window.tinyMCE,$=window.$
-		 tinymce.get("editor").setContent(item.templateDescription);
-		 $('input[name="agreement_title"]').val(item.templateTitle)
-		  $('input[name="headerContent"]').val(item.header_content);
-		  $('textArea[name="footerContent"]').val(item.footer_content); */
+		  
 		   // $('input[name="headerImage"]').val(item.header_image);
 		  // $('input[name="waterMarkImage"]').val(item.footer_image);
 		  
@@ -258,6 +253,7 @@ createAgreement(){
             {
 				tinymce.activeEditor.execCommand('mceInsertContent', false, "&nbsp;<span contenteditable='false' class='sigDiv' id='sigId"+i+"' style='width:222px;height:40px;border-radius: 4px;padding:10px;border:1px solid #57bb57;background-color:#f2f3f2;color:#ea1010;' data-toggle='modal' data-target='#custom-width-modal' onclick='addplaceId(this.id)'>"+compName+"</span>&nbsp;"); 		
           }
+
           else if(compName=='Insert Text Box')
           {
             tinymce.activeEditor.execCommand('mceInsertContent', false, "&nbsp;<span id='textDivId"+i+"' class='textDiv'><input class='inner' type='text' id='textId"+i+"'  style='width:300px;padding-left:2px;height:22px;margin-right:3px;border:1px solid #57bb57;' placeholder='Enter text value' /></span>&nbsp;");
@@ -340,11 +336,13 @@ createAgreement(){
       }
     render(){
     {window.tinyMCE.get("editor") && window.$('#previewDiv').html(window.tinyMCE.get("editor").getContent())}
-	if (this.state.redirect){
+
+
+        if (this.state.redirect){
 			let item = this.state.itemDetails;
             return (<Redirect to={{
-                pathname: '/broker-agreement-payment',
-                state: {payType:item.paytype, Amount:item.amount,Currency:item.currency, templateId:item.templateId,userId:JSON.parse(this.state.userData).assets_id, loc: '/broker-agreement' }
+                pathname: '/owner-agreement-payment',
+                state: {payType:item.paytype, Amount:item.amount,Currency:item.currency, templateId:item.templateId,userId:JSON.parse(this.state.userData).assets_id, loc: '/agreement' }
             }} />)
 		}
     return (
@@ -355,7 +353,7 @@ createAgreement(){
           <legend style={{display: 'none'}}>Create</legend>
           <div className="form-group">
             <div className="col-md-12">
-              <div className="row m-t-20">
+              <div className="row m-t-10">
                 <div className=" col-sm-2">
                  <label><b>Title<span className="required"/> :</b></label>
                 </div>
@@ -365,6 +363,48 @@ createAgreement(){
               </div>
             </div>
           </div>
+		  {/*<div className="form-group">
+            <div className="col-md-12">
+              <div className="row ">
+                <div className=" col-sm-2">
+                 <label><b>Header Content :</b></label>
+                </div>
+                <div className="col-sm-10">
+                 <input type="text" name="headerContent" onChange={this.onChangeHandler} className="form-control" maxlength="15" />
+                </div>
+              </div>
+            </div>
+          </div>
+		   <div className="form-group">
+            <div className="col-md-12">
+              <div className="row">
+				<div className=" col-sm-2">
+                 <label><b>Header Image :</b></label>
+                </div>
+                <div className="col-sm-4">
+                   <input type="file" name="headerImage" onChange={this.onChangeHandler} ref={this.headerImage} className="form-control" />
+                </div>
+                <div className=" col-sm-2">
+                 <label><b>Water Mark Image :</b></label>
+                </div>
+                <div className="col-sm-4">
+                  <input type="file" name="waterMarkImage" onChange={this.onChangeHandler} ref={this.waterMarkImage} className="form-control" />
+                </div>
+              </div>
+            </div>
+          </div>
+		  <div className="form-group">
+            <div className="col-md-12">
+              <div className="row">
+                <div className=" col-sm-2">
+                 <label><b>Footer Content :</b></label>
+                </div>
+                <div className="col-sm-10">
+                 <input className="form-control" name="footerContent" onChange={this.onChangeHandler} maxlength="30" />
+                </div>
+              </div>
+            </div>
+          </div>*/}
           <div className="row" >
             <div className="col-md-12">                               
               {/* <!-- sample modal content -->                             */}
@@ -426,10 +466,10 @@ createAgreement(){
                         <div id="collapseThree" className="collapse" role="tabpanel" aria-labelledby="headingThree">
                           <div className="card-block">
 						  {this.state.templateList?this.state.templateList.map((item)=>( 
-                            <div className="add-name">
-							<a href="#" onClick={this.demoTemplate.bind(this,item)} key={item.templateId}>{item.templateTitle}</a>
-								{/* <a href="#" onClick={this.demoTemplate}>Template 2</a><br />
-								<a href="#" onClick={this.demoTemplate}>Template 3</a>  */ }                  
+                            <div className="add-name" style={{textAlign:'left'}}>
+							
+						  <a href="#" onClick={this.demoTemplate.bind(this,item)} key={item.templateId}>{item.templateTitle} - {item.paytype=='Paid'?(item.paytype+' : $'+item.amount):item.paytype}</a>
+								               
                             </div>)):''}
                           </div>
                         </div>
@@ -441,7 +481,7 @@ createAgreement(){
                         <div id="collapseFour" className="collapse" role="tabpanel" aria-labelledby="headingFour">
                           <div className="card-block">
                             <div className="add-name">
-                                <input type="button" value="Property Address" onClick={this.insertComponent.bind(this)} />
+								<input type="button" value="Property Address" onClick={this.insertComponent.bind(this)} />
                                 <input type="button" value="Property Rent Amount" onClick={this.insertComponent.bind(this)} />
                                 <input type="button" value="Property Selling Amount" onClick={this.insertComponent.bind(this)} />
                                 <input type="button" value="Property Deposit Amount" onClick={this.insertComponent.bind(this)} />
@@ -467,6 +507,7 @@ createAgreement(){
 								<input type="button" value="Tenant Address" onClick={this.insertComponent.bind(this)} />
 								<input type="button" value="Tenant City" onClick={this.insertComponent.bind(this)} />
 								<input type="button" value="Tenant State" onClick={this.insertComponent.bind(this)} />
+                             
                             </div>
                           </div>
                         </div>
@@ -481,7 +522,6 @@ createAgreement(){
                               <input type="button" value="Insert Signature Block" onClick={this.insertComponent.bind(this)} />
                                       <input type="button" value="Insert Text Box" onClick={this.insertComponent.bind(this)} />
                                       <input type="button" value="Insert Date Box" onClick={this.insertComponent.bind(this)} />
-                                    
                             </div>
                           </div>
                         </div>
@@ -495,9 +535,9 @@ createAgreement(){
               </div>
             </div>
           </div>
-          <div className="row" >
+          <div className="row ">
           <div className="col-sm-12">
-		  {/*  <textarea name="agreement_doc_content" onChange={this.onChangeHandler} id="editor" style={{position:'absolute',left:'0'}} className="tinymce"></textarea> */}
+		  {/* <textarea name="agreement_doc_content" onChange={this.onChangeHandler} id="editor" style={{position:'absolute',left:'0'}} className="tinymce"></textarea>   */ }
 			<Editor name="agreement_doc_content" id="editor" onChange={this.onChangeHandler}
 				init={{ 
 					theme: "modern",
@@ -509,9 +549,10 @@ createAgreement(){
 							],
 					 toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media | forecolor backcolor emoticons",
 					image_advtab: true, height : "300" }}
-					/>			  
+					/>		  
           </div>
           </div>
+        
           
         </fieldset>
         <fieldset title="2"  id="default-wizard-step-1" className="stepy-step" style={{display: 'none'}}>
@@ -540,7 +581,9 @@ createAgreement(){
        <button style={{float:"right",marginTop:10}} id="stepy-navigator" type="button" onClick={this.createAgreement} className="btn btn-primary stepy-finish">Submit</button></fieldset>       
       </form>
     </div>
-     <div id = "vcreatepermission" style={{position: 'absolute', top: 0, width: '100%', height: '100%', backgroundColor: '#333', opacity: 0.4, zIndex: 1000,display:'none'}}></div>
+     <div id = "vcreatepermission" style={{position: 'absolute', top: 0, width: '100%', height: '100%', backgroundColor: '#333', opacity: 0.4, zIndex: 1000,display:'none'}}>
+
+</div>
   </div>
   );}
   }
