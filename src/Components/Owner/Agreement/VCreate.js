@@ -245,11 +245,11 @@ createAgreement(){
 							  // localStorage.setItem('userid',userid)
 							  $("#loaderDiv").hide();
 								$("#actionType").val("No");
-										   $("#hiddenURL").val("agreement");
+										   //$("#hiddenURL").val("agreement");
 										   $(".confirm-body").html(data.msg);
 										   $("#BlockUIConfirm").show();
 										   console.log(JSON.stringify(this.props));
-										   this.props.history.push('/owner-agreement-create');
+										   this.props.history.push('/agreement');
 							}
 						  
 						  }

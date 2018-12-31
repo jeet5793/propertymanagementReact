@@ -203,7 +203,7 @@ onChangeACH(e){
 						$("#loaderDiv").hide();
 							   
 							   $("#actionType").val("Yes");
-							   $("#hiddenURL").val("/agreement");
+							   $("#hiddenURL").val("/owner-agreement-create");
 							   $(".confirm-body").html(result.msg);
 							   $("#BlockUIConfirm").show();
 					 
@@ -283,7 +283,7 @@ onChangeACH(e){
 					$("#loaderDiv").hide();
 						   
 						   $("#actionType").val("Yes");
-						   $("#hiddenURL").val("/agreement");
+						   $("#hiddenURL").val("/owner-agreement-create");
 						   $(".confirm-body").html(result.msg);
 						   $("#BlockUIConfirm").show();
 				 
@@ -304,7 +304,7 @@ onChangeACH(e){
   }
   onClickReturn()
   {
-	  window.location.href='/agreement';
+	  this.props.history.push('/owner-agreement-create');
 	  // this.props.history.replace('/owner-plan');
   }
   changeTabs(id) {
@@ -343,7 +343,7 @@ onChangeACH(e){
                     <div className="btn-group pull-right">
                         <ol className="breadcrumb hide-phone p-0 m-0">
                         <li>
-						<Link to={'/agreement'}><span className="btn waves-light waves-effect w-md btn-custom"><i className="fi-reply"></i>&nbsp;&nbsp;Back</span></Link></li>
+						<Link to={'/owner-agreement-create'}><span className="btn waves-light waves-effect w-md btn-custom"><i className="fi-reply"></i>&nbsp;&nbsp;Back</span></Link></li>
                         </ol>
                     </div>
                    

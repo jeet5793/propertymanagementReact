@@ -316,7 +316,7 @@ export default class container extends React.Component{
 											   $(".confirm-body").html(data.msg);
 											   $("#BlockUIConfirm").show();
 											   $("#DelBlockUIConfirm").hide();
-											   // this.props.push('/agreement')
+											    // this.props.history.push('/agreement')
 											   // Router.refresh()
 											    propsroute.history.push('/agreement')
 										}else{
@@ -790,6 +790,7 @@ onClickCheckPermission(feature){
 							   
 				}else{
 					$("#loaderDiv").hide();
+					this.props.history.push('/owner-agreement-create');
 				}
 		  }
 		).catch((error) => {

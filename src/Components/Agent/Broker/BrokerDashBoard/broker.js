@@ -8,6 +8,7 @@ import Footer from '../Footer/BrokerFooter';
 import Agreement from '../Agreement/BrokerAgreement';
 import AgreementPayment from '../Agreement/AgreementPayment';
 import VEdit from '../Agreement/VEdit';
+ import VCreate from '../Agreement/VCreate';
 import Property from '../MyProperty/BrokerMyProperty';
 import Settings from '../Settings/BrokerSettings';
 import Payment from '../Payment/BrokerPayment';
@@ -121,6 +122,7 @@ class AgentBrokerDashboard extends React.Component {
 			<Route exact path='/broker-notifications' component={Notifications} />
 			<Route exact path='/broker-tenant-bgvpayment' component={BGVPayment} />
 			<Route exact path='/broker-agreement-edit' component={VEdit} />
+			<Route exact path='/broker-agreement-create' component={VCreate} />
 			<Route exact path='/broker-agreement-payment' component={AgreementPayment} />
           </Switch>
 

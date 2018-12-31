@@ -14,9 +14,9 @@ export default class BrokerNavitems extends Component{
                 </Link>
             </li>
             <li>
-				<a href="/broker-agreement">
-                    <i className="fi-paper"></i>Agreement
-                </a>
+				<Link to={{pathname:'/broker-agreement'}}>
+						<i className="fi-paper"></i>Agreement
+				</Link> 
             </li>
             <li>
                 <Link to={{pathname:'/broker-property'}}>
@@ -66,9 +66,9 @@ export default class BrokerNavitems extends Component{
                     </Link>
                 </li>
                 <li className="has-submenu active">
-                    <a href="/broker-agreement">
+                   <Link to={{pathname:'/broker-agreement'}}>
 						<i className="fi-paper"></i>Agreement
-					</a>
+				</Link> 
                 </li>
                 <li>
                     <Link to={{pathname:'/broker-property'}}>
@@ -119,9 +119,9 @@ export default class BrokerNavitems extends Component{
                     </Link>
                 </li>
                 <li>
-                   <a href="/broker-agreement">
+                   <Link to={{pathname:'/broker-agreement'}}>
 						<i className="fi-paper"></i>Agreement
-					</a>
+					</Link> 
                 </li>
                 <li>
                     <Link className="has-submenu active" to={{pathname:'/broker-property'}}>
@@ -172,9 +172,9 @@ export default class BrokerNavitems extends Component{
                     </Link>
                 </li>
                 <li>
-                    <a href="/broker-agreement">
+                    <Link to={{pathname:'/broker-agreement'}}>
 						<i className="fi-paper"></i>Agreement
-					</a>
+					</Link> 
                 </li>
                 <li>
                     <Link  to={{pathname:'/broker-property'}}>
@@ -225,9 +225,9 @@ export default class BrokerNavitems extends Component{
                     </Link>
                 </li>
                 <li>
-					<a href="/broker-agreement">
+					 <Link to={{pathname:'/broker-agreement'}}>
 						<i className="fi-paper"></i>Agreement
-					</a>
+					</Link> 
                 </li>
                 <li>
                     <Link  to={{pathname:'/broker-property'}}>
@@ -278,9 +278,9 @@ export default class BrokerNavitems extends Component{
                     </Link>
                 </li>
                 <li>
-                    <a href="/broker-agreement">
+                    <Link to={{pathname:'/broker-agreement'}}>
 						<i className="fi-paper"></i>Agreement
-					</a>
+					</Link> 
                 </li>
                 <li>
                     <Link  to={{pathname:'/broker-property'}}>
@@ -331,9 +331,9 @@ export default class BrokerNavitems extends Component{
                     </Link>
                 </li>
                 <li>
-                   <a href="/broker-agreement">
+                   <Link to={{pathname:'/broker-agreement'}}>
 						<i className="fi-paper"></i>Agreement
-					</a>
+					</Link> 
                 </li>
                 <li>
                     <Link  to={{pathname:'/broker-property'}}>
@@ -384,9 +384,9 @@ export default class BrokerNavitems extends Component{
                     </Link>
                 </li>
                 <li>
-                    <a href="/broker-agreement">
+                     <Link to={{pathname:'/broker-agreement'}}>
 						<i className="fi-paper"></i>Agreement
-					</a>
+					</Link> 
                 </li>
                 <li>
                     <Link  to={{pathname:'/broker-property'}}>
@@ -437,9 +437,9 @@ export default class BrokerNavitems extends Component{
                     </Link>
                 </li>
                 <li>
-                    <a href="/broker-agreement">
+                     <Link to={{pathname:'/broker-agreement'}}>
 						<i className="fi-paper"></i>Agreement
-					</a>
+					</Link> 
                 </li>
                 <li>
                     <Link  to={{pathname:'/broker-property'}}>
@@ -490,9 +490,9 @@ export default class BrokerNavitems extends Component{
                     </Link>
                 </li>
                 <li>
-                   <a href="/broker-agreement">
+                    <Link to={{pathname:'/broker-agreement'}}>
 						<i className="fi-paper"></i>Agreement
-					</a>
+					</Link> 
                 </li>
                 <li>
                     <Link  to={{pathname:'/broker-property'}}>
@@ -543,9 +543,9 @@ export default class BrokerNavitems extends Component{
                     </Link>
                 </li>
                 <li>
-                    <a href="/broker-agreement">
+                    <Link to={{pathname:'/broker-agreement'}}>
 						<i className="fi-paper"></i>Agreement
-					</a>
+					</Link> 
                 </li>
                 <li>
                     <Link  to={{pathname:'/broker-property'}}>
@@ -596,9 +596,9 @@ export default class BrokerNavitems extends Component{
                     </Link>
                 </li>
                 <li>
-                    <a href="/broker-agreement">
+                     <Link to={{pathname:'/broker-agreement'}}>
 						<i className="fi-paper"></i>Agreement
-					</a>
+					</Link> 
                 </li>
                 <li>
                     <Link  to={{pathname:'/broker-property'}}>

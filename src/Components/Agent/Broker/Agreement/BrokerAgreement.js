@@ -763,6 +763,7 @@ onClickCheckPermission(){
 						   
 				}else{
 					$("#loaderDiv").hide();
+					this.props.history.push('/broker-agreement-create');
 				}
 		  }
 		).catch((error) => {
@@ -839,7 +840,7 @@ onClickCheckPermission(){
                       <div className="col-md-10">
                         <div className="tab-content">
 						<Saved  selectedAgreement={this.selectedAgreement} agreement={this.state.agreement} pdfViewAgreement={this.pdfViewAgreement} deleteAgreement={this.deleteAgreement}/>
-						 <VCreate userData={this.state.userData} />
+						 {/*<VCreate userData={this.state.userData} />*/}
                          {<VRequested previewAgreement={this.previewAgreement} ragreement={this.state.requestedAgreement || []} sendedAgreement={this.state.sendedAgreement || []} dealPdfView={this.dealPdfView} changeTabs = {this.changeTabs}/>}
                           <VExecute ragreement={this.state.executedAgreement} selectedExecutedAgreement={this.selectedExecutedAgreement} onClickDownload={this.onClickDownload} dealPdfView={this.dealPdfView} terminateAgreement={this.terminateAgreement} assetsId = {JSON.parse(this.state.userData).assets_id}/>
 						  <div className="tab-pane" id="executePreview">
