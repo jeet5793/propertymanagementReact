@@ -19,6 +19,7 @@ const Saved=(props)=>{
 	//console.log(props);
   return(                                            
   <div className="tab-pane active" id="v-saved">
+  
   {(props.agreement!=undefined && props.agreement.length>0)?
     <div className=" table-responsive">
       <table className="table	bdr">

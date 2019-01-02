@@ -9,6 +9,7 @@ import React from 'react'
 // import img8 from '../../../images/young-businessman-2.png'
 // import Header from '../Header/Header1'  
 import ProppertSearchForm from './propertSearch'
+import {Link} from 'react-router-dom'
 // import $ from 'jquery'
 import API_URL from '../../../app-config';
 import PropertItem from './propertyItems'
@@ -330,11 +331,19 @@ updateProps(props){
   }
  
   handlePageChange = (pageNum) => {
-	  
+
 	let number = pageNum - 1;
 		 // console.log('pageNum'+pageNum+'::propData'+JSON.stringify(this.state.properties))
         const { properties, itemsCountPerPage } = this.state;
-        let propData = properties.slice((itemsCountPerPage * number), (itemsCountPerPage * pageNum));
+		 var propData = '';
+		 if (this.props.location && this.props.location.state){
+			
+			   var propData =  this.props.location.state.state.properties.slice((itemsCountPerPage * number), (itemsCountPerPage * pageNum));
+		 }else{
+			   var propData = properties.slice((itemsCountPerPage * number), (itemsCountPerPage * pageNum));
+		 }
+				
+      
         this.setState({activePage: pageNum, pagedList: propData })
 		// this.setState({activePage: pageNum })
 		 // console.log('activePage'+pageNum+'::pagedList'+JSON.stringify(propData))
@@ -470,7 +479,7 @@ updateProps(props){
   }
   
 	render(){ 
-	 //console.log('state'+JSON.stringify(this.state.properties))
+	 console.log('state'+JSON.stringify(this.props))
 	 const propertieDetails= this.state.properties;
 	 const pagePropertyList= this.state.pagedList || this.state.properties;
 		return(
@@ -492,6 +501,7 @@ updateProps(props){
     <div className="container">
       <div className="row">
         <div className="col-lg-9 col-md-8 col-sm-8 col-xs-12 tz-has-sidebar">
+				
           <div className="tz-list-grid">
             <div className="tz-content-ajax">
              
