@@ -581,7 +581,7 @@ editAgreement(){
 					<fieldset>
 						<div className="row">
 							 <div className="col-sm-12" >
-								<div id="previewDiv2" className="row m-t-20 signature  autohide-scroll" style={{height:"600px",width:"100%",padding: "12px",overflow: "hidden",overflowY: "scroll"}}>
+								<div id="previewDiv2" className="row m-t-20 signature  autohide-scroll" style={{height:"600px",width:"100%",padding: "12px",overflow: "hidden",overflowY: "scroll",display: "block"}}>
 								</div>
 							</div>
 						</div>

@@ -752,11 +752,12 @@ onClickCheckPermission(){
 						
 						$("#loaderDiv").hide();
 						var msg = "<div style='font-size:14;font-weight:500;text-align:center'>"+data.msg+"</div>"
-						   $("#v-create").html(msg);
-						// $("#actionType").val("Click");
+						    //$("#v-create").html(msg);
+							
+						 $("#actionType").val("No");
 						   // $("#hiddenURL").val("saved");
-						   // $(".confirm-body").html(data.msg);
-						   // $("#BlockUIConfirm").show();
+						     $(".confirm-body").html(msg);
+						     $("#BlockUIConfirm").show();
 						   // $(".row-dialog-btn").click(function(){
 							    // $('#vcreatepermission').show()
 						   // })

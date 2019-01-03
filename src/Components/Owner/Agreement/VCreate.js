@@ -248,7 +248,7 @@ createAgreement(){
 										   //$("#hiddenURL").val("agreement");
 										   $(".confirm-body").html(data.msg);
 										   $("#BlockUIConfirm").show();
-										   console.log(JSON.stringify(this.props));
+										   //console.log(JSON.stringify(this.props));
 										   this.props.history.push('/agreement');
 							}
 						  
