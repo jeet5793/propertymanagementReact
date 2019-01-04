@@ -752,12 +752,12 @@ onClickCheckPermission(){
 						
 						$("#loaderDiv").hide();
 						var msg = "<div style='font-size:14;font-weight:500;text-align:center'>"+data.msg+"</div>"
-						    //$("#v-create").html(msg);
-							
-						 $("#actionType").val("No");
+						    $("#v-create").html(msg);
+							 $('#v-create').show()
+						 // $("#actionType").val("No");
 						   // $("#hiddenURL").val("saved");
-						     $(".confirm-body").html(msg);
-						     $("#BlockUIConfirm").show();
+						     // $(".confirm-body").html(msg);
+						     // $("#BlockUIConfirm").show();
 						   // $(".row-dialog-btn").click(function(){
 							    // $('#vcreatepermission').show()
 						   // })
@@ -842,6 +842,7 @@ onClickCheckPermission(){
                         <div className="tab-content">
 						<Saved  selectedAgreement={this.selectedAgreement} agreement={this.state.agreement} pdfViewAgreement={this.pdfViewAgreement} deleteAgreement={this.deleteAgreement}/>
 						 {/*<VCreate userData={this.state.userData} />*/}
+						 <div className="tab-pane" id="v-create" style={{display:'none'}}></div>
                          {<VRequested previewAgreement={this.previewAgreement} ragreement={this.state.requestedAgreement || []} sendedAgreement={this.state.sendedAgreement || []} dealPdfView={this.dealPdfView} changeTabs = {this.changeTabs}/>}
                           <VExecute ragreement={this.state.executedAgreement} selectedExecutedAgreement={this.selectedExecutedAgreement} onClickDownload={this.onClickDownload} dealPdfView={this.dealPdfView} terminateAgreement={this.terminateAgreement} assetsId = {JSON.parse(this.state.userData).assets_id}/>
 						  <div className="tab-pane" id="executePreview">

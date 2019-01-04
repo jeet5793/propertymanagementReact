@@ -298,18 +298,28 @@ export default class ReportTable extends React.Component{
 		 // formData.trans_for = this.state.trans_for;
         
         if(this.state.formType==='?property'){
-        fetch(`${API_URL}assetsapi/property_report`,{
-            method:'post',
-            body: JSON.stringify(formData)
-        }).then(res=>res.json())
-        .then((data)=>{
-            // debugger;
-            // console.log(data)
-            if(data.success){
-                this.setState({reports:data.report})
-				this.setState({totalAmt:data.totalAmt})
-            }
-        })}        
+			if(!formData.property_id){
+				return alert('Choose atleast one from dropdown...');
+			}
+			if(!formData.from_date){
+				return alert('Choose Dates...');
+			}
+			if(!formData.to_date){
+				return alert('Choose Dates...');
+			}
+			
+			fetch(`${API_URL}assetsapi/property_report`,{
+				method:'post',
+				body: JSON.stringify(formData)
+			}).then(res=>res.json())
+			.then((data)=>{
+				// debugger;
+				// console.log(data)
+				if(data.success){
+					this.setState({reports:data.report})
+					this.setState({totalAmt:data.totalAmt})
+				}
+			})}        
         else if(this.state.formType==='?Transaction'){
 			if(!formData.from_date){
 				return alert('Choose Dates...');

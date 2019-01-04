@@ -368,7 +368,7 @@ addDefaultSrc(ev){
             <div className="page-title-box">
               <div className="btn-group pull-right">
                 <ol className="breadcrumb hide-phone p-0 m-0">
-                  <li> <Link to={{ pathname: '/my-property' }} className="btn btn-custom waves-light waves-effect w-md"><i className="fi-reply"></i>&nbsp;&nbsp;My Propertys</Link></li>
+                  <li> <Link to={{ pathname: '/my-property' }} className="btn btn-custom waves-light waves-effect w-md"><i className="fi-reply"></i>&nbsp;&nbsp;My Property</Link></li>
                 </ol>
               </div>
               <h4 className="page-title">Add Property</h4>

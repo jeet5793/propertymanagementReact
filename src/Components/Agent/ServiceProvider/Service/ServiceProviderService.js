@@ -23,16 +23,21 @@ constructor(props){
 
 	 this.onClickView = this.onClickView.bind(this)
 	}
+	componentDidMount(){
+		this.getRequestedList();
+	}
 	getRequestedList()
 	{
 		var $=window.$
-		$(".view-reslt").hide(); 
+		$(".view-reslt").hide();
+$("#loaderDiv").show();		
 		fetch(`${API_URL}assetsapi/service_requested/${JSON.parse(this.state.userData).assets_id}/${JSON.parse(this.state.userData).session_id}/`, {
 			  method: 'get',
 			})
 			.then(res => res.json())
 			.then(
 			  (result) => {
+				  $("#loaderDiv").hide();
 				//console.log("data 2: "+JSON.stringify(profile))
 				//alert("data 2: "+JSON.stringify(result));
 				if (result.success) {
@@ -52,13 +57,14 @@ constructor(props){
 	{
 		var $=window.$
 		 $(".view-reslt").hide();
-		 
+		 $("#loaderDiv").show();	
 		fetch(`${API_URL}assetsapi/service_resolve/${JSON.parse(this.state.userData).assets_id}/${JSON.parse(this.state.userData).session_id}/`, {
 			  method: 'get',
 			})
 			.then(res => res.json())
 			.then(
 			  (result) => {
+				  $("#loaderDiv").hide();	
 				//console.log("data 2: "+JSON.stringify(profile))
 				//alert("data 2: "+JSON.stringify(result));
 				if (result.success) {
@@ -82,7 +88,7 @@ constructor(props){
 					
 					// $(".view-reslt").toggle();
 				// });
-		fetch(`${API_URL}assetsapi/service_detail/`+serviceid+`/${JSON.parse(this.state.userData).session_id}/`, {
+		fetch(`${API_URL}assetsapi/service_detail/${JSON.parse(this.state.userData).assets_id}/`+serviceid+`/${JSON.parse(this.state.userData).session_id}/`, {
 			  method: 'get',
 			})
 			.then(res => res.json())
@@ -96,7 +102,7 @@ constructor(props){
 				  /*  const elmnt = document.getElementsByClassName("view-reslt");
 				   alert(elmnt);
 				   elmnt.style.display='block'; */
-				   $(".view-reslt").toggle();
+				   $(".view-reslt").show();
 				} 
 				// console.log("property_list"+JSON.stringify(this.state.property_list))
 				// console.log("user_list"+JSON.stringify(this.state.user_list))
@@ -160,7 +166,7 @@ constructor(props){
                                         {(this.state.requestedList.length>0)?this.state.requestedList.map((item)=>( 
                                             <tr>
                                                 <td className="tbl-text-overflow">{item.property_name}</td>
-                                                <td>{item.first_name+''+item.last_name}</td>
+                                                <td>{item.first_name+' '+item.last_name}</td>
                                                 <td>{item.entry_date}</td>
                                                 <td>{item.service_status==1?'Resolved':'Pending'}</td>
                                                 <td className="text-center"><a style={{cursor: "pointer"}} className="table-action-btn view-rqu" onClick={this.onClickView.bind(this,item.service_id)}><i className="mdi mdi-eye"></i></a></td>
@@ -189,7 +195,7 @@ constructor(props){
 															{(this.state.resolvedList.length>0)?this.state.resolvedList.map((item)=>(
                                                                 <tr>
                                                                     <td className="tbl-text-overflow">{item.property_name}</td>
-                                                                    <td>{item.first_name+''+item.last_name}</td>
+                                                                    <td>{item.first_name+' '+item.last_name}</td>
                                                                     <td>{item.entry_date}</td>
                                                                     <td>{item.service_status==1?'Resolved':'Pending'}</td>
                                                                     <td className="text-center"><a href="#" className="table-action-btn view-rqu" onClick={this.onClickView.bind(this,item.service_id)}><i className="mdi mdi-eye"></i></a></td>
@@ -218,7 +224,7 @@ constructor(props){
                                                     <img onError={this.addDefaultSrc} className="d-flex mr-3 rounded-circle" src={item.profile_photo!=''?API_URL+item.profile_photo:img_not_available} alt="Generic placeholder image" height="54" />
                                                     <div className="media-body">
                                                         <h5 className="media-heading">
-                                                            <a href="#" className="text-dark">{item.first_name + item.last_name}</a>
+                                                            <a href="#" className="text-dark">{item.first_name +' '+  item.last_name}</a>
                                                         </h5>
                                                         <p className="m-b-5 font-14">
                                                         <span> <b>Status:</b>

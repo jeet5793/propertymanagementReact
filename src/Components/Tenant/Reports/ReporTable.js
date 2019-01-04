@@ -297,6 +297,15 @@ export default class ReportTable extends React.Component{
 		 formData.to_date = this.state.endDate;
         
         if(this.state.formType==='?property'){
+			if(!formData.property_id){
+				return alert('Choose atleast one from dropdown...');
+			}
+			if(!formData.from_date){
+				return alert('Choose Dates...');
+			}
+			if(!formData.to_date){
+				return alert('Choose Dates...');
+			}
         fetch(`${API_URL}assetsapi/property_report`,{
             method:'post',
             body: JSON.stringify(formData)

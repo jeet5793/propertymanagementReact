@@ -169,6 +169,7 @@ unsubscribe()
 														<th>Upgrade Reason</th>
 														<th>Upgrade Date</th>
 														<th>Expire Date</th>
+														<th>Plan Duration</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -180,6 +181,7 @@ unsubscribe()
 														<td>{item.upgrade_reason}</td>
 														<td>{item.upgrade_date}</td>
 														<td>{item.expire_date}</td>
+														<td>{item.duration} Days</td>
 													</tr>)):<tr><td style={{textAlign:'center'}} colSpan={5}>No Report Available</td></tr>}
 												</tbody>
 											</table>

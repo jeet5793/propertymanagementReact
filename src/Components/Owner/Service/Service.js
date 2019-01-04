@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import API_URL from "../../../app-config";
 import swal from 'sweetalert';
 import $ from 'jquery';
+import Autosuggest from 'react-autosuggest';
 class Service extends React.Component {
     constructor(props) {
         super(props);
@@ -31,12 +32,107 @@ class Service extends React.Component {
             sendedList: [],
             resolvedList: [],
             requestedList: [],
-            serviceDetail: []
+            serviceDetail: [],
+			value: '',
+			 suggestions: [],
+			 searchValue:'',
+			 searchInputData:[],
         }
         this.onChangeHandler = this.onChangeHandler.bind(this)
         this.fileInput = React.createRef();
         this.onClickView = this.onClickView.bind(this)
     }
+	getSuggestions() {
+			 return this.state.propertyByUser.filter(lang =>
+				 lang.label
+			 );
+	 };
+
+	 getSuggestionValue(suggestion) {
+		// console.log("onSuggestionSelected",suggestion)
+		 this.setState({
+			 searchValue: suggestion.label,
+			 receive_user_id: suggestion.value
+		 },()=>{
+			 this.onSuggestionSelected()
+		 })
+		 return suggestion.label!="No Results Found"?suggestion.label:""
+	 }
+	 renderSuggestion(suggestion) {
+		 return (
+			 <span>
+				 <i style={{marginRight:10}}  aria-hidden="true"></i>
+				 {suggestion.label!="No Results Found"?suggestion.label:"No records found.!!!"}
+			 </span>
+		 )
+	 }
+
+	 onChange = (event, { newValue }) => {
+	// console.log("onChange ",newValue)
+		 this.setState({
+			 value: newValue
+		 },()=>{
+			this.searchUser()
+		 });
+	 };
+
+	 onSuggestionSelected = () => {
+		var searchValue = $('.react-autosuggest__input').val()
+		this.setState({
+			searchInputData:searchValue
+		})
+	};
+
+	onSuggestionsFetchRequested = () => {
+		this.searchUser()
+	};
+
+	onSuggestionsClearRequested = () => {
+		// console.log("onSuggestionsClearRequested ")
+		this.setState({
+			suggestions: []
+		});
+	};
+	searchUser() {
+		var searchValue = $('.react-autosuggest__input').val()
+		const session = JSON.parse(this.state.userData).session_id;  
+		// console.log("selVal"+searchValue);
+		const opts ={keyword:searchValue,session_id:session}
+		// console.log("optsssss1111"+JSON.stringify(opts));
+		fetch(`${API_URL}assetsapi/service_provider_search`, {
+			method: 'POST',
+		body: JSON.stringify(opts)
+		})
+		.then(res => res.json())
+		.then(
+			(result) => {
+			// console.log("data22222: "+JSON.stringify(result))
+			if (result.success) {
+			
+				// console.log("ifffff: "+JSON.stringify(result))
+						this.setState({propertyByUser:result.search_userlist},()=>{
+							this.setState({
+								suggestions: this.getSuggestions()
+							});
+						})
+					
+			} else{
+				// console.log("elseee"+JSON.stringify(result))
+				this.setState({propertyByUser:[{"value":"","label":"No Results Found"}]},()=>{
+					this.setState({
+						suggestions: this.getSuggestions()
+					});
+				})
+			}
+			// console.log("autocompleteData"+JSON.stringify(this.state.propertyByUser))
+			},
+		(error) => {
+			console.log('error',error)
+		}
+		) 
+
+	}
+	
     onChangeHandler(e) {
         let formData = new FormData();
         const requestForm = this.state.sendReq;
@@ -70,7 +166,8 @@ class Service extends React.Component {
         // console.log(this.state.sendReq)
     }
     sendRequest() {
-        const opts = this.state.sendReq
+        const opts = this.state.sendReq;
+		opts.service_provider = this.state.receive_user_id;
         if (!opts.property_id) {
             alert('Property should not be blank');
             return;
@@ -102,7 +199,7 @@ class Service extends React.Component {
                  m.style.display='none';
                  window.location.reload(); */
                 $("#loaderDiv").hide();
-                $("#actionType").val("Yes");
+                $("#actionType").val("No");
                 $("#hiddenURL").val("service");
                 $(".confirm-body").html(data.msg);
                 $("#BlockUIConfirm").show();
@@ -152,6 +249,7 @@ class Service extends React.Component {
             )
     }
     getSendedList() {
+		$("#loaderDiv").show();
         fetch(`${API_URL}assetsapi/service_send/${JSON.parse(this.state.userData).assets_id}/${JSON.parse(this.state.userData).session_id}/`, {
             method: 'get',
         })
@@ -160,7 +258,9 @@ class Service extends React.Component {
                 (result) => {
                     //console.log("data 2: "+JSON.stringify(profile))
                     //alert("data 2: "+JSON.stringify(result));
+					$("#loaderDiv").hide();
                     if (result.success) {
+
                         this.setState({ sendedList: result.service });
                         // console.log(this.state.sendedList)
 
@@ -176,6 +276,7 @@ class Service extends React.Component {
     getRequestedList() {
         var $ = window.$
         $(".view-reslt").hide();
+		$("#loaderDiv").show();
         fetch(`${API_URL}assetsapi/service_requested/${JSON.parse(this.state.userData).assets_id}/${JSON.parse(this.state.userData).session_id}/`, {
             method: 'get',
         })
@@ -184,6 +285,7 @@ class Service extends React.Component {
                 (result) => {
                     //console.log("data 2: "+JSON.stringify(profile))
                     //alert("data 2: "+JSON.stringify(result));
+					$("#loaderDiv").hide();
                     if (result.success) {
                         this.setState({ requestedList: result.service });
                         // console.log(this.state.requestedList)
@@ -200,16 +302,18 @@ class Service extends React.Component {
     getResolvedList() {
         var $ = window.$
         $(".view-reslt").hide();
-
+$("#loaderDiv").show();
         fetch(`${API_URL}assetsapi/service_resolve/${JSON.parse(this.state.userData).assets_id}/${JSON.parse(this.state.userData).session_id}/`, {
             method: 'get',
         })
             .then(res => res.json())
             .then(
                 (result) => {
+					$("#loaderDiv").hide();
                     //console.log("data 2: "+JSON.stringify(profile))
                     //alert("data 2: "+JSON.stringify(result));
                     if (result.success) {
+						
                         this.setState({ resolvedList: result.service });
                         // console.log(this.state.resolvedList)
 
@@ -229,7 +333,8 @@ class Service extends React.Component {
 
         // $(".view-reslt").toggle();
         // });
-        fetch(`${API_URL}assetsapi/service_detail/` + serviceid + `/${JSON.parse(this.state.userData).session_id}/`, {
+		$("#loaderDiv").show();
+        fetch(`${API_URL}assetsapi/service_detail/${JSON.parse(this.state.userData).assets_id}/` + serviceid + `/${JSON.parse(this.state.userData).session_id}/`, {
             method: 'get',
         })
             .then(res => res.json())
@@ -237,13 +342,15 @@ class Service extends React.Component {
                 (result) => {
                     //console.log("data 2: "+JSON.stringify(profile))
                     //alert("data 2: "+JSON.stringify(result));
+					$("#loaderDiv").hide();
                     if (result.success) {
+
                         this.setState({ serviceDetail: result.service });
                         // console.log(this.state.serviceDetail)
                         /*  const elmnt = document.getElementsByClassName("view-reslt");
                          alert(elmnt);
                          elmnt.style.display='block'; */
-                        $(".view-reslt").toggle();
+                        $(".view-reslt").show();
                     }
                     // console.log("property_list"+JSON.stringify(this.state.property_list))
                     // console.log("user_list"+JSON.stringify(this.state.user_list))
@@ -281,6 +388,12 @@ class Service extends React.Component {
         // window.location.href='http://'+window.location.host
         const propertyList = this.state.property_list;
         const userList = this.state.user_list;
+		  const { value, suggestions,selectedOption,property_list,autocompleteData } = this.state;
+		  const inputProps = {
+				placeholder: 'Search',
+				value,
+				onChange: this.onChange
+			};
 
         return (
             <div>
@@ -493,11 +606,21 @@ class Service extends React.Component {
                                         <div className="col-md-12">
                                             <div className="form-group no-margin">
                                                 <label for="service_provider" className="control-label">Name<span className="required" /></label>
-                                                <select className="form-control" name="service_provider" onChange={this.onChangeHandler}>
+												{ /* <select className="form-control" name="service_provider" onChange={this.onChangeHandler}>
                                                     <option>Please Select</option>
                                                     {userList.map((option, key) => (<option key={key.assets_id} value={option.profile_id}>{option.name}</option>))}
 
-                                                </select>
+												</select> */}
+												<Autosuggest className="form-control"
+												  suggestions={suggestions}
+												  onSuggestionsFetchRequested={this.onSuggestionsFetchRequested.bind(this)}
+												  onSuggestionsClearRequested={this.onSuggestionsClearRequested.bind(this)}
+												  getSuggestionValue={this.getSuggestionValue.bind(this)}
+												  renderSuggestion={this.renderSuggestion.bind(this)}
+												  onSuggestionSelected={this.onSuggestionSelected.bind(this)}
+												  inputProps={inputProps}
+												  alwaysRenderSuggestions={true}
+												/>	
                                             </div>
                                         </div>
                                     </div>
