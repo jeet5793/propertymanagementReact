@@ -32,7 +32,7 @@ import OwnerPayment1 from './Components/Owner/Payment/payment'
 import OwnerHeader from './Components/Owner/Header/Header'
 // import Footer from './Components/Owner/Footer/Footer'
 
-// import OwnerAgreement from './Components/Owner/Agreement/OwnerAgreement'
+ import OwnerAgreement from './Components/Owner/Agreement/OwnerAgreement1'
 import OwnerProperty from './Components/Owner/Property/Property'
 import OwnerService from './Components/Owner/Service/Service'
 import OwnerSettings from './Components/Owner/Settings/Settings'
@@ -262,10 +262,10 @@ export default class App extends Component {
               this.state.user.isLoggedIn ?
                 (<OwnerProfile {...props} logOut={this.logOut} updateInfo={this.updateProfileInfo} user={this.state.profile} />)
                 : (<Redirect to="/" />))} />
-            {/* <Route exact path="/agreement" render={(props)=>(
+             <Route exact path="/agreement" render={(props)=>(
           this.state.user.isLoggedIn?
           (<OwnerAgreement owner_id={this.state.owner_id} updateInfo={this.updateProfileInfo} logOut={this.logOut} {...props} logoutLink={this.logoutLink} owner={this.state.profile} />)
-          :(<Redirect to="/" />))} /> */}
+          :(<Redirect to="/" />))} /> 
             <Route exact path="/planPayment" render={(props) => (
               this.state.user.isLoggedIn ?
                 (<PlanPayment owner_id={this.state.owner_id} updateInfo={this.updateProfileInfo} logOut={this.logOut} {...props} logoutLink={this.logoutLink} owner={this.state.profile} />)
