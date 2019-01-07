@@ -164,8 +164,10 @@ class Profile extends React.Component {
           <div  className="wrapper">
             <div className="container"> 
               <div className="page-title-box">
-    <h4 className="page-title">Profile</h4>
-  </div>
+					<h4 className="page-title">Profile <Link to={{ pathname: '/owner-profile-edit' }} className="btn btn-custom waves-light waves-effect w-md btn-group pull-right"><i className="fa fa-edit"></i>&nbsp;&nbsp;Edit Profile</Link></h4>
+					
+			
+				</div>
               {/* <!-- end page title end breadcrumb --> */}
               
               <div className="row">

@@ -190,6 +190,7 @@ export default class App extends Component {
 			<Route path='/owner-agreement-edit' component={UserDashboard} />
 			<Route path='/owner-agreement-create' component={UserDashboard} />
 			<Route path='/owner-agreement-payment' component={UserDashboard} />
+			<Route path='/owner-profile-edit' component={UserDashboard} />
             {/* Broker Dashboard */}
             <Route path='/broker-tenant' component={AgentBrokerDashboard} />
             <Route path='/broker-profile' component={AgentBrokerDashboard} />
@@ -211,6 +212,7 @@ export default class App extends Component {
 			<Route path='/broker-agreement-edit' component={AgentBrokerDashboard} />
 			<Route path='/broker-agreement-payment' component={AgentBrokerDashboard} />
 			<Route path='/broker-agreement-create' component={AgentBrokerDashboard} />
+			<Route path='/broker-profile-edit' component={AgentBrokerDashboard} />
 			
             {/* Service Provider Dashboard */}
             <Route path='/agent-serviceprovider' component={AgentServiceProviderDashboard} />
@@ -237,6 +239,7 @@ export default class App extends Component {
             <Route path='/tenant-report' component={TenantDashboard} />
             <Route path='/tenant-report-table' component={TenantDashboard} />
             <Route path='/tenant-deal-payment' component={TenantDashboard} />
+			<Route path='/tenant-profile-edit' component={TenantDashboard} />
 
             <Route path='/' component={DashBoardIndex} />
             <Route exact path='/plans' render={props => <Plans {...props} login={this.LoggedIn} />} />

@@ -22,6 +22,7 @@ import ReportTable from '../Reports/ReporTable'
 import DealPayment from '../Property/DealPayment'
 import $ from 'jquery';
 import API_URL from '../../../app-config';
+import ProfileEdit from '../Setting/profileInfo';
 class TenantDashboard extends React.Component {
 
   constructor(props) {
@@ -118,6 +119,7 @@ class TenantDashboard extends React.Component {
 			<Route  path='/tenant-upgrade' component={Upgrade} />
 			<Route  path='/tenant-notifications' component={Notification} />
       <Route  path='/tenant-deal-payment' component={DealPayment} />
+	  <Route exact path='/tenant-profile-edit' component={ProfileEdit} />
           </Switch>
 
           <Footer />

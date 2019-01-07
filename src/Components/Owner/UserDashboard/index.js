@@ -16,6 +16,7 @@ import Property from '../Property/Property';
 import AddProperty from '../Property/addProperty';
 import EditProperty from '../Property/EditProperty';
 import Settings from '../Settings/Settings';
+import ProfileEdit from '../Settings/profileInfo';
 import Payment from '../Payment/payment';
 import Services from '../Service/Service';
 import Agent from '../Agent/Agent';
@@ -134,6 +135,7 @@ class UserDashboard extends React.Component {
 			<Route exact path='/owner-agreement-edit' component={VEdit} />
 			<Route exact path='/owner-agreement-create' component={VCreate} />
 			<Route exact path='/owner-agreement-payment' component={AgreementPayment} />
+			<Route exact path='/owner-profile-edit' component={ProfileEdit} />
           </Switch>
           <Footer />
         </div>

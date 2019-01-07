@@ -24,6 +24,7 @@ import Notifications from '../Notifications/BrokerNotifications'
 import Report from '../Reports/Report'
 import ReportTable from '../Reports/ReporTable'
 import BGVPayment from '../Tenant/PaymentGateway'
+import ProfileEdit from '../Settings/profileInfo';
 import $ from 'jquery';
 import API_URL from '../../../../app-config';
 class AgentBrokerDashboard extends React.Component {
@@ -124,6 +125,7 @@ class AgentBrokerDashboard extends React.Component {
 			<Route exact path='/broker-agreement-edit' component={VEdit} />
 			<Route exact path='/broker-agreement-create' component={VCreate} />
 			<Route exact path='/broker-agreement-payment' component={AgreementPayment} />
+			<Route exact path='/broker-profile-edit' component={ProfileEdit} />
           </Switch>
 
           <Footer />

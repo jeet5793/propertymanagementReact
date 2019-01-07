@@ -1,8 +1,10 @@
 import React from 'react'
+import Header from '../Header/Header'
 import { connect } from 'react-redux';
 import API_URL from "../../../app-config";
 import Cookies from 'js-cookie';
 import moment from 'moment';
+import {Link} from 'react-router-dom'
 // import 'react-datepicker/dist/react-datepicker.css';
 // import DatePicker from 'react-datetime-picker';
 import 'react-date-picker/dist/DatePicker.css';
@@ -53,9 +55,11 @@ import $ from 'jquery';
 	}
 	
 	onChange(date){
+		
 		this.setState({
 			profileSetting:{dob:date}
 		 });
+		 //console.log(this.state.profileSetting)
 		}
 
 	onChangeHandler(e){
@@ -164,10 +168,13 @@ import $ from 'jquery';
         }).then((data) => {
           //console.log('dataaaa:  ', data);
 						$("#loaderDiv").hide();
-						$("#actionType").val("Yes");
+						$("#actionType").val("No");
 					   $("#hiddenURL").val("settings");
 					   $(".confirm-body").html(data.msg);
 					   $("#BlockUIConfirm").show();
+					   //this.setState({profile:this.state.profile})
+					   this.props.history.push('/profile');
+					   
         }).catch((error) => {
           console.log('error: ', error);
         }); 
@@ -230,44 +237,67 @@ Countries() {
     render(){
 		//console.log(this.state.profile);
         return(
-				
-					  <div className="tab-pane fade show active" style={{width:"100%"}} id="profile-info">
+		<div>
+				<Header name="profile" first_name={window.localStorage.getItem('firstName')}
+          last_name={window.localStorage.getItem('firstName')} />
+				<div className="wrapper">
+                  <div className="container"> 
+                    <div className="row">
+                      <div className="col-sm-12">
+                        <div className="page-title-box">
+                          <h4 className="page-title">Edit Profile</h4>
+						  <div className="btn-group pull-right" style={{marginBottom:"10px"}}>
+							<ol className="breadcrumb hide-phone p-0 m-0">
+							<li>
+							<Link to={'/profile'}><span className="btn waves-light waves-effect w-md btn-custom"><i className="fi-reply"></i>&nbsp;&nbsp;Back</span></Link></li>
+							</ol>
+						</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="row">
+                      <div className="col-md-12">
+                        <div className="card-box">
+                          <form id="default-wizard" encType="multipart/form-data">
+							<div className="tab-content">
+                               <div className="tab-pane fade show active" style={{width:"100%"}} id="profile-info">
 						<fieldset title="1">
 						 
-						  <div className="form-group">
-							<div className="row">
-							  <div className="col-lg-1 col-md-2 col-sm-2 required">
-								<label htmlFor="first_name">First Name</label>
+							  <div className="form-group">
+								<div className="row">
+								  <div className="col-lg-1 col-md-2 col-sm-2 required">
+									<label htmlFor="first_name">First Name</label>
+								  </div>
+								  <div className="col-lg-5 col-md-4 col-sm-4">
+									<input type="text" className="form-control" id="first_name" name="first_name"  value={this.state.profileSetting.first_name || this.state.profile.first_name || ''} onChange={this.onChangeHandler} placeholder="" />
+								  </div>
+								  <div className="col-lg-1 col-md-2 col-sm-2 required">
+									<label htmlFor="last_name">Last Name</label>
+								  </div>
+								  <div className="col-lg-5 col-md-4 col-sm-4">
+									<input type="text" className="form-control" id="last_name" name="last_name"  value={this.state.profileSetting.last_name || this.state.profile.last_name || ''} onChange={this.onChangeHandler} placeholder=""  />
+								  </div>
+								</div>
 							  </div>
-							  <div className="col-lg-5 col-md-4 col-sm-4">
-								<input type="text" className="form-control" id="first_name" name="first_name"  value={this.state.profileSetting.first_name || this.state.profile.first_name || ''} onChange={this.onChangeHandler} placeholder="" />
-							  </div>
-							  <div className="col-lg-1 col-md-2 col-sm-2 required">
-								<label htmlFor="last_name">Last Name</label>
-							  </div>
-							  <div className="col-lg-5 col-md-4 col-sm-4">
-								<input type="text" className="form-control" id="last_name" name="last_name"  value={this.state.profileSetting.last_name || this.state.profile.last_name || ''} onChange={this.onChangeHandler} placeholder=""  />
-							  </div>
-							</div>
-						  </div>
-						  <div className="form-group">
-							<div className="row">
-							  <div className="col-lg-1 col-md-2 col-sm-2 required">
-								<label htmlFor="dob">D.O.B</label>
-							  </div>
-							  <div className="col-lg-2 col-md-4 col-sm-4">
-								{/* <input value={this.state.profileSetting.dob.slice(0,10)} className="form-control" id="dobDate" name="date" placeholder="MM/DD/YYYY" type="text"/> */}
-									{/* <DatePicker className="form-control"
-												disableClock={true}
-												locale="en-US"
-												onChange={this.onChange}
-												value={this.state.profileSetting.dob}
-									/> */}
-											<DatePicker className="form-control"
-											  onChange={this.onChange}
-											 value={this.state.profileSetting.dob}
-											/>
-							  </div>
+								  <div className="form-group">
+									<div className="row">
+									  <div className="col-lg-1 col-md-2 col-sm-2 required">
+										<label htmlFor="dob">D.O.B</label>
+									  </div>
+									  <div className="col-lg-2 col-md-4 col-sm-4">
+										{/* <input value={this.state.profileSetting.dob.slice(0,10)} className="form-control" id="dobDate" name="date" placeholder="MM/DD/YYYY" type="text"/> */}
+											{/* <DatePicker className="form-control"
+														disableClock={true}
+														locale="en-US"
+														onChange={this.onChange}
+														value={this.state.profileSetting.dob}
+											/> */}
+													<DatePicker className="form-control"
+													  onChange={this.onChange.bind(this)}
+													 value={this.state.profileSetting.dob}
+													/>
+									  </div>
 							  <div className="col-lg-1 col-md-2 col-sm-2 required">
 								<label htmlFor="gender">Gender</label>
 							  </div>
@@ -416,7 +446,16 @@ Countries() {
 						</div>
 						</div>
 					  </div>
-	
+                            </div>                            
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+					 
+	</div>
         );
     }
 }
