@@ -1,8 +1,10 @@
 import React from 'react'
+
 import EmailSMSSettings from './EmailSMSSettings'
-import PasswordSettings from './passwordSetting'
+//import PasswordSettings from './passwordSetting'
 import { connect } from 'react-redux';
 import $ from 'jquery'
+
  class Settings extends React.Component{
 	constructor(props){
     super(props)
@@ -11,13 +13,13 @@ import $ from 'jquery'
       }
  
   }
-  changeTabs(id){
-    if(id=="email-sms-settings"){
-      $("#passwordTab").removeClass("active")
-    }else{
-      $("#emailSmsTab").removeClass("active")
-    }
-  }
+  // changeTabs(id){
+    // if(id=="email-sms-settings"){
+      // $("#passwordTab").removeClass("active")
+    // }else{
+      // $("#emailSmsTab").removeClass("active")
+    // }
+  // }
     render(){
         return(
             <div>
@@ -35,14 +37,14 @@ import $ from 'jquery'
                       <div className="col-md-12">
                         <div className="card-box">
                           <form id="default-wizard" encType="multipart/form-data">
-                          <ul className="nav nav-pills navtab-bg "> {/*nav-justified */}
+                          {/* <ul className="nav nav-pills navtab-bg "> 
                               <li className="nav-item"> <a id="emailSmsTab" onClick={this.changeTabs.bind(this,"email-sms-settings")} href="#email-sms-settings" data-toggle="tab" aria-expanded="false" className="nav-link active"> Settings </a> </li>
                               
                               <li className="nav-item" id="passNavItem"> <a id="passwordTab" onClick={this.changeTabs.bind(this,"password-settings")} href="#password-settings" data-toggle="tab" aria-expanded="false" className="nav-link"> Change Password </a> </li>
-                            </ul>
+							</ul> */}
                             <div className="tab-content">
 							  <EmailSMSSettings /> 
-                              <PasswordSettings />
+                              
                             </div>                            
                           </form>
                         </div>

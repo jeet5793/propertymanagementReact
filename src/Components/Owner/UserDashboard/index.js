@@ -17,6 +17,7 @@ import AddProperty from '../Property/addProperty';
 import EditProperty from '../Property/EditProperty';
 import Settings from '../Settings/Settings';
 import ProfileEdit from '../Settings/profileInfo';
+import ChangePassword from '../Settings/passwordSetting';
 import Payment from '../Payment/payment';
 import Services from '../Service/Service';
 import Agent from '../Agent/Agent';
@@ -35,7 +36,7 @@ import ReportTable from '../Reports/ReporTable'
 import BGVPayment from '../Agent/PaymentGateway';
 import OTBGVPayment from '../Tenants/PaymentGateway';
 import AgreementPayment from '../Agreement/AgreementPayment';
-
+import ManageBranding from '../Settings/ManageBranding';
 import $ from 'jquery';
 class UserDashboard extends React.Component {
 
@@ -136,6 +137,8 @@ class UserDashboard extends React.Component {
 			<Route exact path='/owner-agreement-create' component={VCreate} />
 			<Route exact path='/owner-agreement-payment' component={AgreementPayment} />
 			<Route exact path='/owner-profile-edit' component={ProfileEdit} />
+			<Route exact path='/owner-change-password' component={ChangePassword} />
+			<Route exact path='/owner-branding' component={ManageBranding} />
           </Switch>
           <Footer />
         </div>

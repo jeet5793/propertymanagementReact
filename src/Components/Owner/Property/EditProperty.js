@@ -195,10 +195,6 @@ class EditProperty extends React.Component {
 		  }else if(e.target.value==="Sold"){
 				$('#total_amount').show();
 				$('#rent').hide();
-		  }else if(e.target.value==="Private"){
-			   $('#total_amount').show();
-				$('#rent').show();
-				
 		  }
         formData.property_status = e.target.value
 	  }
@@ -218,6 +214,8 @@ class EditProperty extends React.Component {
         formData.bathroom = e.target.value
       else if (e.target.name == "total_amount")
         formData.total_amount = e.target.value
+	else if (e.target.name == "rent")
+        formData.rent = e.target.value
       else if (e.target.name == "advance")
         formData.advance = e.target.value
       else if (e.target.name === 'owner_name' + count) {
@@ -573,8 +571,8 @@ addDefaultSrc(ev){
                         </div>:''
 					  }
 					   {editPropertyInfo.property_status==="Rent" || editPropertyInfo.property_status==="Rented"? 
-						<div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl" id="rent">
-						<label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">Rent</label>
+						<div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl">
+						 <label className="col-lg-2 col-md-3 col-sm-3 col-form-label">Rent</label>
                           <input value={editPropertyInfo.rent} type="text" className="form-control" name="rent" onChange={this.onChangeHandler} />
                         </div>:''
                        }

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Cookies from 'js-cookie';
 import swal from 'sweetalert';
 import $ from 'jquery';
+import {Link} from 'react-router-dom'
  class EmailSMSSettings extends React.Component{
 	constructor(props){
     super(props)
@@ -181,11 +182,18 @@ import $ from 'jquery';
 							
 						 </div>
 				</div>
+			
+				
                  <div> {/* style={{display: '-webkit-box'}}} */}
                     <div className="col-md-12 text-right">
 						  <button type="button" className="btn btn-primary stepy-finish text-right" onClick={this.formSubmitEmailSms}>Submit</button>
 				    </div>
                 </div>
+				<hr/>
+				<Link to={'/owner-branding'}><span className="">&nbsp;&nbsp;Manage Branding</span></Link>
+				<hr/>
+				
+				<Link to={'/owner-change-password'}><span className="">&nbsp;&nbsp;Change Password</span></Link>
             </div>
         );
     }

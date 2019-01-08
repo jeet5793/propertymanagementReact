@@ -1,9 +1,11 @@
 import React from 'react'
+import Header from '../Header/TenantHeader'
 import API_URL from "../../../app-config";
 import { connect } from 'react-redux';
 import Cookies from 'js-cookie';
 import swal from 'sweetalert';
 import $ from 'jquery';
+import {Link} from 'react-router-dom'
  class PasswordSettings extends React.Component{
 	constructor(props){
     super(props)
@@ -103,35 +105,69 @@ import $ from 'jquery';
     // console.log(this.props);
         return(
 		
-            <div className="tab-pane fade" style={{width:"100%"}} id="password-settings">
-						<div className="form-group">
-						  <div className="row">
-							<div className="col-lg-2 col-md-3 col-sm-3 required">
-							  <label for="old-password">Old Password</label>
+             <div>
+				<Header name="tenant-settings" first_name={window.localStorage.getItem('firstName')}
+          last_name={window.localStorage.getItem('firstName')} />
+				<div className="wrapper">
+                  <div className="container"> 
+                    <div className="row">
+                      <div className="col-sm-12">
+                        <div className="page-title-box">
+                          <h4 className="page-title">Change Password</h4>
+						  <div className="btn-group pull-right" style={{marginBottom:"10px"}}>
+							<ol className="breadcrumb hide-phone p-0 m-0">
+							<li>
+							<Link to={'/tenant-settings'}><span className="btn waves-light waves-effect w-md btn-custom"><i className="fi-reply"></i>&nbsp;&nbsp;Back</span></Link></li>
+							</ol>
+						</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="row">
+                      <div className="col-md-12">
+                        <div className="card-box">
+                          <form id="default-wizard" encType="multipart/form-data">
+							<div className="tab-content">
+								<div className="tab-pane fade show active" style={{width:"100%"}} id="password-settings">
+									<div className="form-group">
+									  <div className="row">
+										<div className="col-lg-2 col-md-3 col-sm-3 required">
+										  <label htmlFor="old-password">Old Password</label>
+										</div>
+										<div className="col-lg-2 col-md-3 col-sm-3">
+										  <input type="password" name="old_password" className="form-control" id="old-password" onChange={this.onChangeHandler} placeholder=""  />
+										</div>
+										<div className="col-lg-2 col-md-3 col-sm-3 required">
+										  <label htmlFor="new-password">New Password</label>
+										</div>
+										<div className="col-lg-2 col-md-3 col-sm-3">
+										  <input type="password" name="new_password" className="form-control" id="new-password" onChange={this.onChangeHandler} placeholder=""  />
+										</div>
+										<div className="col-lg-2 col-md-3 col-sm-3 required">
+										  <label htmlFor="confirm-password">Confirm Password</label>
+										</div>
+										<div className="col-lg-2 col-md-3 col-sm-3 snv">
+										  <input type="password" name="confirm_password" className="form-control" id="confirm-password" onChange={this.onChangeHandler} placeholder=""  />
+										</div>
+									 </div>
 							</div>
-							<div className="col-lg-2 col-md-3 col-sm-3 ">
-							  <input type="password" name="old_password" className="form-control" id="old-password" onChange={this.onChangeHandler} placeholder=""  />
+							 <div> {/* style={{display: '-webkit-box'}}} */}
+								<div className="col-md-12 text-right">
+									  <button type="button" className="btn btn-primary stepy-finish text-right" onClick={this.formSubmit}>Submit</button>
+								</div>
 							</div>
-							<div className="col-lg-2 col-md-3 col-sm-3 required">
-							  <label for="new-password">New Password</label>
-							</div>
-							<div className="col-lg-2 col-md-3 col-sm-3 ">
-							  <input type="password" name="new_password" className="form-control" id="new-password" onChange={this.onChangeHandler} placeholder=""  />
-							</div>
-							<div className="col-lg-2 col-md-3 col-sm-3 required">
-							  <label for="confirm-password">Confirm Password</label>
-							</div>
-							<div className="col-lg-2 col-md-3 col-sm-3 ">
-							  <input type="password" name="confirm_password" className="form-control" id="confirm-password" onChange={this.onChangeHandler} placeholder=""  />
-							</div>
-						 </div>
-				</div>
-                <div> {/* style={{display: '-webkit-box'}}} */}
-                    <div className="col-md-12 text-right">
-						  <button type="button" className="btn btn-primary stepy-finish text-right" onClick={this.formSubmit}>Submit</button>
-				    </div>
+						</div>
+                            </div>                            
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
                 </div>
-            </div>
+					 
+		</div>
         );
     }
 }
