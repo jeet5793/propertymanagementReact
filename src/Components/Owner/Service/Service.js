@@ -1,6 +1,5 @@
 import React from 'react'
 import Header from '../Header/Header'
-import avatar_1 from '../../../images/Owner/users/avatar-1.jpg'
 import img_not_available from '../../../images/img_not_available.png'
 import Cookies from 'js-cookie';
 import { Link } from 'react-router-dom'
@@ -8,7 +7,10 @@ import { connect } from 'react-redux';
 import API_URL from "../../../app-config";
 import swal from 'sweetalert';
 import $ from 'jquery';
-import Autosuggest from 'react-autosuggest';
+
+import ServiceRequested from './ServiceRequested';
+import ServiceCreate from './ServiceCreate';
+import ServiceResolved from './ServiceResolved';
 class Service extends React.Component {
     constructor(props) {
         super(props);
@@ -40,7 +42,10 @@ class Service extends React.Component {
         }
         this.onChangeHandler = this.onChangeHandler.bind(this)
         this.fileInput = React.createRef();
-        this.onClickView = this.onClickView.bind(this)
+        this.onClickView = this.onClickView.bind(this);
+		  this.getSuggestionValue = this.getSuggestionValue.bind(this);
+		    this.onSuggestionSelected = this.onSuggestionSelected.bind(this);
+
     }
 	getSuggestions() {
 			 return this.state.propertyByUser.filter(lang =>
@@ -54,7 +59,7 @@ class Service extends React.Component {
 			 searchValue: suggestion.label,
 			 receive_user_id: suggestion.value
 		 },()=>{
-			 this.onSuggestionSelected()
+			  this.onSuggestionSelected();
 		 })
 		 return suggestion.label!="No Results Found"?suggestion.label:""
 	 }
@@ -168,6 +173,7 @@ class Service extends React.Component {
     sendRequest() {
         const opts = this.state.sendReq;
 		opts.service_provider = this.state.receive_user_id;
+		 // console.log(JSON.stringify(opts));
         if (!opts.property_id) {
             alert('Property should not be blank');
             return;
@@ -182,7 +188,7 @@ class Service extends React.Component {
         }
 
 
-        document.getElementById("FormCancel").click();
+        // document.getElementById("FormCancel").click();
         $("#loaderDiv").show();
 
         fetch(`${API_URL}assetsapi/service_request_send/`, {
@@ -203,6 +209,7 @@ class Service extends React.Component {
                 $("#hiddenURL").val("service");
                 $(".confirm-body").html(data.msg);
                 $("#BlockUIConfirm").show();
+				this.componentDidMount();
                 //alert(m);
             }
 
@@ -223,7 +230,8 @@ class Service extends React.Component {
         // buttons: ['copy', 'excel', 'pdf', 'colvis']
         // });  
         this.getDropdownList();
-		this.getRequestedList()
+		this.getRequestedList();
+		this.getSendedList();
     }
 
     getDropdownList() {
@@ -367,22 +375,33 @@ $("#loaderDiv").show();
     }
 
     changeTabs(id) {
-        if (id == "v-requested") {
-            $("#sendTab").removeClass("active")
-            $("#resolveTab").removeClass("active")
-
-        } else if (id == "v-send") {
+		 if (id == "v-create") {
             $("#requestedTab").removeClass("active")
             $("#resolveTab").removeClass("active")
         }
-        else {
-            $("#sendTab").removeClass("active")
+        else if (id == "v-requested") {
+            $("#createTab").removeClass("active")
+            $("#resolveTab").removeClass("active")
+
+        } 
+      else if (id == "v-Resolve") {
+            $("#createTab").removeClass("active")
             $("#requestedTab").removeClass("active")
         }
     }
 	addDefaultSrc(ev){
 	  ev.target.src = img_not_available;
 	}
+	changeTabs2(id) {
+        if (id == "received") {
+            $("#sentTab").removeClass("active")
+
+        }
+        else {
+            $("#receivedTab").removeClass("active")
+           
+        }
+    }
     render() {
         // if(this.props.owner===undefined)
         // window.location.href='http://'+window.location.host
@@ -404,11 +423,11 @@ $("#loaderDiv").show();
                 <div className="wrapper">
                     <div className="container">
                         <div className="page-title-box">
-                            <div className="btn-group pull-right">
+						{ /* <div className="btn-group pull-right">
                                 <ol className="breadcrumb hide-phone p-0 m-0">
                                     <li><a href="#" data-toggle="modal" data-target="#send-request" className="btn btn-custom waves-light waves-effect w-md"><i className="fi-outbox"></i>&nbsp;&nbsp;Send Request</a></li>
                                 </ol>
-                            </div>
+	</div> */}
                             <h4 className="page-title">Services</h4>
                         </div>
                         <div className="row">
@@ -418,236 +437,43 @@ $("#loaderDiv").show();
                                         <div className="row">
                                             <div className="col-md-2">
                                                 <ul className="nav tabs-vertical">
-                                                    <li className="nav-item" onClick={this.changeTabs.bind(this, "v-requested")}> <a id="requestedTab" href="#v-requested" className="nav-link active" data-toggle="tab" aria-expanded="false" onClick={this.getRequestedList}>Requested</a> </li>
-                                                    <li className="nav-item" onClick={this.changeTabs.bind(this, "v-send")}> <a id="sendTab" href="#v-send" className="nav-link" data-toggle="tab" aria-expanded="true" onClick={this.getSendedList}>Send</a> </li>
-                                                    <li className="nav-item" onClick={this.changeTabs.bind(this, "v-Resolve")}> <a id="resolveTab"  href="#v-Resolve" className="nav-link" data-toggle="tab" aria-expanded="false" onClick={this.getResolvedList}>Resolve</a> </li>
+													<li className="nav-item" onClick={this.changeTabs.bind(this, "v-create")}> <a id="createTab" href="#v-create" className="nav-link active" data-toggle="tab" aria-expanded="true" onClick={this.getSendedList}>Create</a> </li>
+                                                    <li className="nav-item" onClick={this.changeTabs.bind(this, "v-requested")}> <a id="requestedTab" href="#v-requested" className="nav-link" data-toggle="tab" aria-expanded="false" onClick={this.getRequestedList}>Requested</a> </li>
+                                                    <li className="nav-item" onClick={this.changeTabs.bind(this, "v-Resolve")}> <a id="resolveTab"  href="#v-Resolve" className="nav-link" data-toggle="tab" aria-expanded="false" onClick={this.getResolvedList}>Resolved</a> </li>
                                                 </ul>
                                             </div>
                                             <div className="col-md-10">
                                                 <div className="tab-content">
-                                                    <div className="tab-pane active" id="v-requested">
-                                                        {this.state.requestedList && (this.state.requestedList.length > 0) ?
-                                                            <div className=" table-responsive">
-
-                                                                <table id="" className="table table-bordered datatable">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>Property Title</th>
-                                                                            <th>Name</th>
-                                                                            <th>Date</th>
-                                                                            <th>Status</th>
-                                                                            <th>Action</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        {(this.state.requestedList.length > 0) ? this.state.requestedList.map((item) => (
-                                                                            <tr>
-                                                                                <td className="tbl-text-overflow">{item.property_name}</td>
-                                                                                <td>{item.first_name + '' + item.last_name}</td>
-                                                                                <td>{item.entry_date}</td>
-                                                                                <td>{item.service_status == 1 ? 'Resolved' : 'Pending'}</td>
-                                                                                <td className="text-center"><a href="#" className="table-action-btn view-rqu" onClick={this.onClickView.bind(this, item.service_id)}><i className="mdi mdi-eye"></i></a></td>
-                                                                            </tr>))
-                                                                            : <tr><td style={{ textAlign: 'center' }} colSpan={5}>No Request Available</td></tr>}
-
-
-                                                                    </tbody>
-                                                                </table>
-
-                                                            </div> : <div className=" table-responsive" style={{ textAlign: 'center' }}>No data available </div>}
-                                                    </div>
-                                                    <div className="tab-pane" id="v-send">
-                                                        {this.state.sendedList && (this.state.sendedList.length > 0) ?
-                                                            <div className=" table-responsive">
-
-                                                                <table id="" className="table table-bordered datatable">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>Property Title</th>
-                                                                            <th>Name</th>
-                                                                            <th>Date</th>
-                                                                            <th>Status</th>
-                                                                            <th>Action</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        {(this.state.sendedList.length > 0) ? this.state.sendedList.map((item) => (
-                                                                            <tr>
-                                                                                <td className="tbl-text-overflow">{item.property_name}</td>
-                                                                                <td>{item.first_name + '' + item.last_name}</td>
-                                                                                <td>{item.entry_date}</td>
-                                                                                <td>{item.service_status == 1 ? 'Resolved' : 'Pending'}</td>
-                                                                                <td className="text-center"><a href="#" className="table-action-btn view-rqu" onClick={this.onClickView.bind(this, item.service_id)}><i className="mdi mdi-eye"></i></a></td>
-                                                                            </tr>))
-                                                                            : <tr><td style={{ textAlign: 'center' }} colSpan={5}>No Request Send</td></tr>}
-                                                                    </tbody>
-                                                                </table>
-                                                            </div> : <div className=" table-responsive" style={{ textAlign: 'center' }}>No record available </div>}
-                                                    </div>
-                                                    <div className="tab-pane" id="v-Resolve">
-                                                        {this.state.resolvedList && (this.state.resolvedList.length > 0) ?
-                                                            <div className=" table-responsive">
-
-                                                                <table id="" className="table table-bordered datatable">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>Property Title</th>
-                                                                            <th>Name</th>
-                                                                            <th>Date</th>
-                                                                            <th>Status</th>
-                                                                            <th>Action</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        {(this.state.resolvedList.length > 0) ? this.state.resolvedList.map((item) => (
-                                                                            <tr>
-                                                                                <td className="tbl-text-overflow">{item.property_name}</td>
-                                                                                <td>{item.first_name + '' + item.last_name}</td>
-                                                                                <td>{item.entry_date}</td>
-                                                                                <td>{item.service_status == 1 ? 'Resolved' : 'Pending'}</td>
-                                                                                <td className="text-center"><a href="#" className="table-action-btn view-rqu" onClick={this.onClickView.bind(this, item.service_id)}><i className="mdi mdi-eye"></i></a></td>
-                                                                            </tr>))
-                                                                            : <tr><td style={{ textAlign: 'center' }} colSpan={5}>No Service Resolved</td></tr>}
-
-                                                                    </tbody>
-                                                                </table>
-                                                            </div> : <div className=" table-responsive" style={{ textAlign: 'center' }}>No information available </div>}
-                                                    </div>
+                                                    
+                                                    
+                                                    <ServiceCreate 
+														propertyList={propertyList} 
+														inputProps={inputProps} 
+														suggestions={suggestions} 
+														renderSuggestion={this.renderSuggestion}  
+														onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+														onSuggestionsClearRequested={this.onSuggestionsClearRequested} 
+														getSuggestionValue={this.getSuggestionValue} 
+														onSuggestionSelected={this.onSuggestionSelected}
+														sendRequest={this.sendRequest}
+														onChangeHandler={this.onChangeHandler}
+														 fileInput={ this.fileInput}
+														/>
+													<ServiceRequested requestedList={this.state.requestedList} sendedList={this.state.sendedList} changeTabs2={this.changeTabs2} onClickView = {this.onClickView}/>
+													<ServiceResolved resolvedList={this.state.resolvedList}/>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            {/* <!-- end row --> */}
-
-                            <div className="view-reslt" style={{ display: 'none' }}>
-                                {this.state.serviceDetail.map((item) => (
-                                    <div className="row">
-                                        <div className="col-12">
-                                            <div className="card-box">
-                                                <h4 className="m-t-0 header-title">Service Details </h4>
-                                                <div className="search-item">
-                                                    <div className="media">
-                                                        <img onError={this.addDefaultSrc} className="d-flex mr-3 rounded-circle" src={item.profile_photo != '' ? API_URL + item.profile_photo : img_not_available} alt="Generic placeholder image" height="54" />
-                                                        <div className="media-body">
-                                                            <h5 className="media-heading">
-                                                                <a href="#" className="text-dark">{item.first_name + item.last_name}</a>
-                                                            </h5>
-                                                            <p className="m-b-5 font-14">
-                                                                <span> <b>Status:</b>
-                                                                    <span>{item.service_status == 1 ? 'Resolved' : 'Pending'}</span>
-                                                                </span>
-                                                                <span>|</span>
-                                                                <span>
-                                                                    <b>Requested Date:</b>
-                                                                    <span>{item.entry_date}</span>
-                                                                </span>
-                                                                <span>|</span>
-                                                                <span>
-                                                                    <b>Resolve Date:</b>
-                                                                    <span>10-05-2018</span>
-                                                                </span>
-                                                            </p>
-                                                            <p className="m-b-5 font-14">
-                                                                <b>Property Title:</b>
-                                                                <span className="text-muted">{item.property_name}</span>
-                                                            </p>
-                                                            <p className="font-14">
-                                                                <b>Discription:</b>
-                                                                <br />
-                                                                <span className="text-muted">{item.description}</span>
-                                                            </p>
-                                                            <p className="m-b-0">
-                                                                <ul className="serv-fil-down">
-                                                                    <li><a href=""><span>File Name</span>&nbsp; <i className="fi fi-inbox m-r-5"></i> </a></li>
-                                                                    <li><a href=""><span>File Name</span>&nbsp; <i className="fi fi-inbox m-r-5"></i> </a></li>
-                                                                </ul>
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-
-                            {/* <!-- end row -->  */}
-
+                            
                         </div>
                         {/* <!-- end container -->  */}
                     </div>
                 </div>
                 <div>
-                    {/* modal body start */}
-                    <div id="send-request" className="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{ display: 'none' }}>
-
-                        <div className="modal-dialog">
-                            <div className="modal-content" id="hidemodal">
-                                <div className="modal-header">
-                                    <button type="button" onClick={this.hideModel} className="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                    <h4 className="modal-title">Send Request</h4>
-                                </div>
-                                <div className="modal-body">
-                                    <div className="row">
-                                        <div className="col-md-12">
-                                            <div className="form-group">
-                                                <label for="property_id" className="control-label">Property<span className="required" /> </label>
-                                                <select className="form-control" name="property_id" onChange={this.onChangeHandler}>
-                                                    <option>Please Select</option>
-                                                    {propertyList.map((option, key) => (<option key={key.property_id} value={option.property_id}>{option.property_name}</option>))}
-
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-md-12">
-                                            <div className="form-group no-margin">
-                                                <label for="service_provider" className="control-label">Name<span className="required" /></label>
-												{ /* <select className="form-control" name="service_provider" onChange={this.onChangeHandler}>
-                                                    <option>Please Select</option>
-                                                    {userList.map((option, key) => (<option key={key.assets_id} value={option.profile_id}>{option.name}</option>))}
-
-												</select> */}
-												<Autosuggest className="form-control"
-												  suggestions={suggestions}
-												  onSuggestionsFetchRequested={this.onSuggestionsFetchRequested.bind(this)}
-												  onSuggestionsClearRequested={this.onSuggestionsClearRequested.bind(this)}
-												  getSuggestionValue={this.getSuggestionValue.bind(this)}
-												  renderSuggestion={this.renderSuggestion.bind(this)}
-												  onSuggestionSelected={this.onSuggestionSelected.bind(this)}
-												  inputProps={inputProps}
-												  alwaysRenderSuggestions={true}
-												/>	
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-md-12">
-                                            <div className="form-group no-margin">
-                                                <label for="service_msg" className="control-label">Description<span className="required" /></label>
-                                                <textarea className="form-control" id="field-7" placeholder="" name="service_msg" onChange={this.onChangeHandler}></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-md-12">
-                                            <div className="form-group">
-                                                <input type="file" name="service_photo" onChange={this.onChangeHandler} id="u" placeholder="" ref={this.fileInput} />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="modal-footer">
-                                    <button type="button" id="FormCancel" className="btn btn-secondary waves-effect" data-dismiss="modal" onClick={this.hideModel}>Close</button>
-                                    <button type="button" className="btn btn-success waves-effect waves-light" onClick={this.sendRequest}>Save changes</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {/* modal body end */}
+                   
                 </div>
             </div>
         );

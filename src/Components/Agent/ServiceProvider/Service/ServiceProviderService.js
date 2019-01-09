@@ -144,7 +144,7 @@ $("#loaderDiv").show();
                       <div className="col-md-2">
                         <ul className="nav tabs-vertical">
                           <li className="nav-item" onClick={this.changeTabs.bind(this, "v-requested")}> <a id="requestedTab" href="#v-requested" className="nav-link active" data-toggle="tab" aria-expanded="false" onClick={this.getRequestedList}>Requested</a> </li>
-                           <li className="nav-item" onClick={this.changeTabs.bind(this, "v-Resolve")}> <a id="resolveTab"  href="#v-Resolve" className="nav-link" data-toggle="tab" aria-expanded="false" onClick={this.getResolvedList}>Resolve</a> </li>
+							  {/* <li className="nav-item" onClick={this.changeTabs.bind(this, "v-Resolve")}> <a id="resolveTab"  href="#v-Resolve" className="nav-link" data-toggle="tab" aria-expanded="false" onClick={this.getResolvedList}>Resolve</a> </li> */}
                         </ul>
                       </div>
                       <div className="col-md-10">

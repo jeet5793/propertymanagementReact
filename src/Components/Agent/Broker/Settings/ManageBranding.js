@@ -1,12 +1,12 @@
 import React from 'react'
-import Header from '../Header/Header'
-import API_URL from "../../../app-config";
+import Header from '../Header/BrokerHeader'
+import API_URL from "../../../../app-config";
 import { connect } from 'react-redux';
 import Cookies from 'js-cookie';
 import swal from 'sweetalert';
 import $ from 'jquery';
 import {Link} from 'react-router-dom'
-import img_not_available from '../../../images/img_not_available.png'
+import img_not_available from '../../../../images/img_not_available.png'
  class ManageBranding extends React.Component{
 	constructor(props){
     super(props)
@@ -178,7 +178,7 @@ import img_not_available from '../../../images/img_not_available.png'
     // console.log(this.props);
         return(
 				<div>
-				<Header name="settings" first_name={window.localStorage.getItem('firstName')}
+				<Header name="broker-settings" first_name={window.localStorage.getItem('firstName')}
           last_name={window.localStorage.getItem('firstName')} />
 				<div className="wrapper">
                   <div className="container"> 
@@ -189,7 +189,7 @@ import img_not_available from '../../../images/img_not_available.png'
 						  <div className="btn-group pull-right" style={{marginBottom:"10px"}}>
 							<ol className="breadcrumb hide-phone p-0 m-0">
 							<li>
-							<Link to={'/settings'}><span className="btn waves-light waves-effect w-md btn-custom"><i className="fi-reply"></i>&nbsp;&nbsp;Back</span></Link></li>
+							<Link to={'/broker-settings'}><span className="btn waves-light waves-effect w-md btn-custom"><i className="fi-reply"></i>&nbsp;&nbsp;Back</span></Link></li>
 							</ol>
 						</div>
                         </div>
@@ -248,7 +248,7 @@ import img_not_available from '../../../images/img_not_available.png'
 										</div>
 										<div className="col-lg-3 col-md-3 col-sm-3">
 											 <input type="file" ref={this.fileInput} className="form-control"  onChange={this.onChangeHandlerBrand} id="logo" name="logo"/>
-												 {this.state.brandingInfo && <img onError={this.addDefaultSrc} src={API_URL+this.state.brandingInfo.branding_logo} style={{width:'100px',height:'100px'}}/>}
+												 {this.state.brandingInfo && <img src={API_URL+this.state.brandingInfo.branding_logo} style={{width:'100px',height:'100px'}}/>}
 										</div>
 									</div>
 								</div>
@@ -259,7 +259,7 @@ import img_not_available from '../../../images/img_not_available.png'
 										</div>
 										<div className="col-lg-3 col-md-3 col-sm-3">
 											 <input type="file" ref={this.watermark} className="form-control"  onChange={this.onChangeHandlerBrand} id="watermark" name="watermark"/>
-											  {this.state.brandingInfo && <img onError={this.addDefaultSrc} src={API_URL+this.state.brandingInfo.branding_watermark} style={{width:'100px',height:'100px'}}/>}
+											  {this.state.brandingInfo && <img src={API_URL+this.state.brandingInfo.branding_watermark} style={{width:'100px',height:'100px'}}/>}
 										</div>
 									</div>
 								</div>

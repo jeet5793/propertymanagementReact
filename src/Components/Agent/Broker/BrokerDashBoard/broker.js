@@ -26,6 +26,7 @@ import ReportTable from '../Reports/ReporTable'
 import BGVPayment from '../Tenant/PaymentGateway'
 import ProfileEdit from '../Settings/profileInfo';
 import ChangePassword from '../Settings/passwordSetting';
+import ManageBranding from '../Settings/ManageBranding';
 import $ from 'jquery';
 import API_URL from '../../../../app-config';
 class AgentBrokerDashboard extends React.Component {
@@ -128,6 +129,7 @@ class AgentBrokerDashboard extends React.Component {
 			<Route exact path='/broker-agreement-payment' component={AgreementPayment} />
 			<Route exact path='/broker-profile-edit' component={ProfileEdit} />
 			<Route exact path='/broker-change-password' component={ChangePassword} />
+			<Route exact path='/broker-branding' component={ManageBranding} />
           </Switch>
 
           <Footer />

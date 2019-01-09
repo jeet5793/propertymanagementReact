@@ -188,6 +188,8 @@ import {Link} from 'react-router-dom'
 				    </div>
                 </div>
 				<hr/>
+				<Link to={'/broker-branding'}><span className="">&nbsp;&nbsp;Manage Branding</span></Link>
+				<hr/>
 				<Link to={'/broker-change-password'}><span className="">&nbsp;&nbsp;Change Password</span></Link>
             </div>
         );
