@@ -8,6 +8,7 @@ import img_not_available from '../../../../images/img_not_available.png'
 import $ from 'jquery';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
+import PropertyHistory from './PropertyHistory'
 export default class BrokerMyProperty extends React.Component{
 	constructor(props){
     super(props)
@@ -19,11 +20,14 @@ this.imgServer=API_URL,
           profileData:'',
           property:[],
 		  propertyImg:[],
-		   propertyDetail:[]
+		   propertyDetail:[],
+		    reportStatus:false,
+			propertyHistoryList:[]
 			
 		}
 		this.onClickDownload = this.onClickDownload.bind(this);
 		this.viewProperty = this.viewProperty.bind(this);
+		this.propertyHistory = this.propertyHistory.bind(this);
 	}
 	componentDidMount(){
 		const profile=JSON.parse(this.state.userData)
@@ -102,6 +106,38 @@ this.imgServer=API_URL,
 	addDefaultSrc(ev){
 	  ev.target.src = img_not_available;
 	}
+	propertyHistory(){
+		 $("#loaderDiv").show();
+		$(".proeprty-sec").hide(); 
+		  $("#table").hide();
+		  fetch(`${API_URL}assetsapi/property_history/${JSON.parse(this.state.userData).assets_id}/${JSON.parse(this.state.userData).session_id}`, {
+				  method: "GET"
+				})
+				  .then(response => {
+					return response.json();
+				  })
+				  .then((data) => {
+					//debugger;
+					//console.log('dataaaa:  ', data);
+					$("#loaderDiv").hide();
+					if(data.success===1){
+					  // var userid = data.user.assets_id
+					  // localStorage.setItem('userid',userid)
+								
+							 this.setState({propertyHistoryList:data.property_history,reportStatus:true});	
+								   
+						}
+				  }
+				).catch((error) => {
+					console.log('error: ', error);
+				  });
+		 
+	}
+	back(){
+		
+		this.setState({reportStatus:false});
+		$("#table").show();
+	}
 	render(){
 		const imgSer=this.imgServer
 		return(
@@ -112,7 +148,15 @@ this.imgServer=API_URL,
         <div className="wrapper">
                 <div className="container">                     
                 <div className="page-title-box">
-              
+              <div className="btn-group pull-right">
+                    <ol className="breadcrumb hide-phone p-0 m-0">
+                    <li>
+					{this.state.reportStatus?<button type="button"  onClick={()=>this.back()} name="report" className="btn btn-default stepy-finish">Back</button>:<button  className="btn btn-success waves-effect waves-light"  onClick={this.propertyHistory}>Property History</button>} &nbsp;
+					
+					</li>
+					
+                    </ol>
+                </div>
                 <h4 className="page-title">My Properties</h4>
                 </div>
                 {this.state.property.length>0?
@@ -176,6 +220,7 @@ this.imgServer=API_URL,
                     <div className="col-sm-12"> </div>
                     </div>
                     {/* <!-- end Panel -->  */}
+							{this.state.reportStatus && <PropertyHistory propertyHistoryList={this.state.propertyHistoryList}/>}
 					{/* =========================property view==========================================*/}
 				
 				

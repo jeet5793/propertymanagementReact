@@ -24,7 +24,7 @@ class Payment extends React.Component {
 			name:'',
 			tokenizedaccountnumber:'',
 			routingnumber:'',
-			paidmonthACH:''
+			paid_month:''
 		},
 		checked: false,
 		splitShow:false,
@@ -158,7 +158,7 @@ changeNameHandler(e)
 	if(e.target.name=="routingnumber")
 		achField.routingnumber = e.target.value;
 	if(e.target.name=="paid_month")
-		achField.paidmonthACH = e.target.value;
+		achField.paid_month = e.target.value;
 	this.setState({achFields:achField});
 }
   paymentPage(paymentType) {
@@ -205,7 +205,7 @@ changeNameHandler(e)
 			  'paid_month':this.state.paidmonthCC
 			
 		}
-		//console.log("trans_detail"+JSON.stringify(payment_Object))
+	// console.log("trans_detail"+JSON.stringify(payment_Object))
 		if(!payment_Object.name){
 			 alert("Full Name should not be blank");
 			return;
@@ -227,8 +227,8 @@ changeNameHandler(e)
 			return;
 		}else{
 			$("#loaderDiv").show();
-		  // console.log(payment_Object);
-			fetch(`${API_URL}assetsapi/property_payment`,{
+		   // console.log(payment_Object);
+			 fetch(`${API_URL}assetsapi/property_payment`,{
 			  method: 'post',
 			  //headers: {'Content-Type':'application/json'},
 			  body: JSON.stringify(payment_Object)
@@ -253,7 +253,7 @@ changeNameHandler(e)
 						error
 					  });
 					}
-				  )
+				  ) 
 		}
 		 
 	}else if(paymentType === 'ACH'){
@@ -293,9 +293,9 @@ changeNameHandler(e)
 			"property_id":dealData.property_id,
 			  "type": paymentType,
 			  "name":this.state.achFields.name,
-			   'paid_month':this.state.paidmonthACH
+			   'paid_month':this.state.achFields.paid_month
 		}
-		
+		console.log(JSON.stringify(payment_Object));
 		if(!payment_Object.name){
 			 alert("Name should not be blank");
 			return;
@@ -310,7 +310,7 @@ changeNameHandler(e)
 		}else{
 		 $("#loaderDiv").show();
 	  // console.log(payment_Object);
-		fetch(`${API_URL}assetsapi/property_payment`,{
+		 fetch(`${API_URL}assetsapi/property_payment`,{
 		  method: 'post',
 		  //headers: {'Content-Type':'application/json'},
 		  body: JSON.stringify(payment_Object)
@@ -336,7 +336,7 @@ changeNameHandler(e)
 				  });
 				}
 			  )
-		
+		 
 		}
   
 	}

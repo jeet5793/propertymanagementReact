@@ -93,10 +93,13 @@ class BrokerOwner extends React.Component{
         activePageJoined: 1,
         itemsCountPerPageReq: 3,
         itemsCountPerPageJoined: 3,
+		activePageHistory: 1,
+		 itemsCountPerPageHistory: 10,
 		 autocompleteData: [],
 		selectedOption: null,
 		profileData:[],
-		inviteStatus:[]
+		inviteStatus:[],
+		connectionHistory:[]
 		
     };
 	this.onChangeHandler=this.onChangeHandler.bind(this)
@@ -105,6 +108,7 @@ class BrokerOwner extends React.Component{
 	this.onChangeSMHandler = this.onChangeSMHandler.bind(this)
 	this.handlePageChangeRequestedList = this.handlePageChangeRequestedList.bind(this);
 	this.handlePageChangeJoinedList = this.handlePageChangeJoinedList.bind(this);
+	this.handlePageChangeHistory = this.handlePageChangeHistory.bind(this);
 
 		// this.handleChange = this.handleChange.bind(this);
 
@@ -416,6 +420,14 @@ class BrokerOwner extends React.Component{
         let propData = joinedList.slice((itemsCountPerPageJoined * number), (itemsCountPerPageJoined * pageNum));
         this.setState({activePageJoined: pageNum, pagedJoinedList: propData })
     }
+	handlePageChangeHistory(pageNum) {
+        let number = pageNum - 1;
+		// console.log('pageNum'+pageNum+'::propData'+JSON.stringify(this.state.joinedList))
+       const { connectionHistory, itemsCountPerPageHistory } = this.state;;
+        let propData = connectionHistory.slice((itemsCountPerPageHistory * number), (itemsCountPerPageHistory * pageNum));
+        this.setState({activePageHistory: pageNum, pagedHistory: propData })
+		 console.log('activePageHistory'+this.state.activePageHistory+'::pagedHistory'+JSON.stringify(this.state.pagedHistory))
+    }
 	messagerec(id,name)
 	{ //console.log(id+''+name);
 		document.getElementById('receiver').value= id;
@@ -481,10 +493,12 @@ class BrokerOwner extends React.Component{
 		if(id == "agent-request") {
             $("#joined").removeClass("active");
 			$("#invitestatusTab").removeClass("active");
+			$("#connTab").removeClass("active");
         }
         else if (id == "invite-status") {
             $("#joined").removeClass("active");
 			 $("#request").removeClass("active");  
+			 $("#connTab").removeClass("active");
 			 $("#loaderDiv").show();
 			fetch(`${API_URL}assetsapi/invite_status/${JSON.parse(this.state.userData).assets_id}/1/${JSON.parse(this.state.userData).session_id}/`, {
 			  method: 'get',
@@ -507,9 +521,40 @@ class BrokerOwner extends React.Component{
 			  console.log('error')
 			}
 		  )      
+        }else if (id == "connection-history") {
+            $("#joined").removeClass("active");
+			 $("#request").removeClass("active");  
+			 $("#invitestatusTab").removeClass("active");
+			 $("#loaderDiv").show();
+			fetch(`${API_URL}assetsapi/connection_history/${JSON.parse(this.state.userData).assets_id}/1/${JSON.parse(this.state.userData).session_id}/`, {
+			  method: 'get',
+			})
+			.then(res => res.json())
+			.then(
+			  (result) => {
+				  $("#loaderDiv").hide();
+				//console.log("data 2: "+JSON.stringify(profile))
+				//alert("data 2: "+JSON.stringify(result));
+				if (result.success) {
+				    this.setState({connectionHistory:result.connection_history});
+					if (this.state.connectionHistory) {
+					// console.log('::propData'+JSON.stringify(this.state.joinedList))
+					this.handlePageChangeHistory(this.state.activePageHistory);
+					}
+				   // this.setState({user_list:result.invitation.users})
+				  
+				} 
+				// console.log("property_list"+JSON.stringify(this.state.property_list))
+				// console.log("user_list"+JSON.stringify(this.state.user_list))
+			  },
+			(error) => {
+			  console.log('error')
+			}
+		  )      
         }else{
 			$("#request").removeClass("active");
 			$("#invitestatusTab").removeClass("active");
+			$("#connTab").removeClass("active");
 		}
     }
 	addDefaultSrc(ev){
@@ -555,6 +600,7 @@ class BrokerOwner extends React.Component{
 	const joinedUserList= this.state.joinedList;
 	const pagedRequestedUserList= this.state.pagedRequestedList || this.state.requestedList;
 	const pagedJoinedUserList= this.state.pagedJoinedList || this.state.joinedList;
+	const pagedHistoryList = this.state.pagedHistory || this.state.connectionHistory;
         return(
             <div>
             {/* <Header logoutLink={this.logoutLink} 
@@ -587,7 +633,8 @@ class BrokerOwner extends React.Component{
                       <ul className="nav nav-tabs tabs-bordered">
                         <li className="nav-item"> <a href="#joined-agent" onClick={this.changeTabs.bind(this, "joined-agent")} id="joined" data-toggle="tab" aria-expanded="true" className="nav-link font-16 active">Joined Owner <span className="badge badge-success m-l-10">{joinedUserList.length}</span> </a> </li>
                         <li className="nav-item"> <a href="#agent-request" onClick={this.changeTabs.bind(this, "agent-request")} id="request"  data-toggle="tab" aria-expanded="false" className="nav-link font-16">Owner Requested <span className="badge badge-danger m-l-10">{requestedUserList.length}</span> </a> </li>
-						<li className="nav-item"> <a href="#invite-status" onClick={this.changeTabs.bind(this, "invite-status")} id="invitestatusTab"  data-toggle="tab" aria-expanded="false" className="nav-link font-16">Invite Status </a> </li>
+						<li className="nav-item"> <a href="#invite-status" onClick={this.changeTabs.bind(this, "invite-status")} id="invitestatusTab"  data-toggle="tab" aria-expanded="false" className="nav-link font-16">Invited Owner </a> </li>
+						<li className="nav-item"> <a href="#connection-history" onClick={this.changeTabs.bind(this, "connection-history")} id="connTab"  data-toggle="tab" aria-expanded="false" className="nav-link font-16">Connection History </a> </li>
                       </ul>
                       <div className="tab-content">
 						  <div className="tab-pane active" id="joined-agent">
@@ -703,6 +750,49 @@ class BrokerOwner extends React.Component{
 												</tbody>
 											</table>
 									</div>:<div className=" table-responsive" style={{textAlign:'center'}}>No Record Available.</div>}
+									</div>
+								</div>
+								
+								<div className="tab-pane" id="connection-history">
+									<div className="row">
+									{pagedHistoryList?
+										<div className=" table-responsive tickets-list">
+											<table id="" className="table table-bordered datatable">
+												<thead>
+													<tr>
+														<th>#</th>
+														<th>Name</th>
+														<th>Status</th>
+														<th>Joined Date</th>
+														<th>Terminated Date</th>
+													</tr>
+												</thead>
+												<tbody>
+											  {pagedHistoryList.map((item,index)=>(
+													<tr>
+														<td>{((this.state.itemsCountPerPageHistory * this.state.activePageHistory)-(this.state.itemsCountPerPageHistory))+(index+1)}</td>
+														<td>
+															<a href="javascript: void(0);" className ="tickets-list">
+																<img onError={this.addDefaultSrc} src={item.profile_photo!=''?API_URL+item.profile_photo:img_not_available} alt="" title="contact-img" className="rounded-circle" />
+																<span className="m-l-5"><b>{item.name}</b></span>
+															</a>
+														</td>
+														<td><span className={item.request_status=='Joined'?'label label-success':(item.request_status=='Terminated')?'label label-danger':'label label-warning'}>{item.request_status}</span></td>
+														<td>{item.EntryDate}</td>
+														<td>{(item.TerminationDate && item.TerminationDate!="00/00/0000 00:00:00")?item.TerminationDate:''}</td>
+													</tr>))}
+												</tbody>
+											</table>
+									</div>:<div className=" table-responsive" style={{textAlign:'center'}}>No Record Available.</div>}
+									 <Pagination
+										activePage={this.state.activePageHistory}
+										itemsCountPerPage={this.state.itemsCountPerPageHistory}
+										totalItemsCount={this.state.connectionHistory.length}
+										pageRangeDisplayed={5}
+										activeLinkClass={'btn-success'}
+										onChange={this.handlePageChangeHistory}
+
+									/>
 									</div>
 								</div>
                       </div>

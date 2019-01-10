@@ -9,6 +9,7 @@ import img_not_available from '../../../images/img_not_available.png'
 import $ from 'jquery';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
+import PropertyHistory from './PropertyHistory'
 class Property extends React.Component{
     constructor(props){
         super(props)
@@ -23,13 +24,15 @@ class Property extends React.Component{
 			propertyImg:[],
 			 propertyDetail:[],
             loggedOwner:props.owner,
-            owner_id:props.owner_id
-            
+            owner_id:props.owner_id,
+            reportStatus:false,
+			propertyHistoryList:[]
             }
         this.getPropertiesByType=this.getPropertiesByType.bind(this)
         this.deleteProperty=this.deleteProperty.bind(this);
 		this.viewProperty = this.viewProperty.bind(this);
 		this.checkPermissions = this.checkPermissions.bind(this);
+		this.propertyHistory = this.propertyHistory.bind(this);
     }
     componentDidMount(){
         if(this.state.flag)
@@ -233,6 +236,38 @@ class Property extends React.Component{
 				  });
 	 
 	}
+	propertyHistory(){
+		 $("#loaderDiv").show();
+		$(".proeprty-sec").hide(); 
+		  $("#table").hide();
+		  fetch(`${API_URL}assetsapi/property_history/${JSON.parse(this.state.userData).assets_id}/${JSON.parse(this.state.userData).session_id}`, {
+				  method: "GET"
+				})
+				  .then(response => {
+					return response.json();
+				  })
+				  .then((data) => {
+					//debugger;
+					//console.log('dataaaa:  ', data);
+					$("#loaderDiv").hide();
+					if(data.success===1){
+					  // var userid = data.user.assets_id
+					  // localStorage.setItem('userid',userid)
+								
+							 this.setState({propertyHistoryList:data.property_history,reportStatus:true});	
+								   
+						}
+				  }
+				).catch((error) => {
+					console.log('error: ', error);
+				  });
+		 
+	}
+	back(){
+		
+		this.setState({reportStatus:false});
+		$("#table").show();
+	}
     render(){
         const imgSer=this.imgServer
         // console.log("propertyloading..."+JSON.stringify(this.state.propertiesLoading))
@@ -250,7 +285,11 @@ class Property extends React.Component{
                 <div className="page-title-box">
                 <div className="btn-group pull-right">
                     <ol className="breadcrumb hide-phone p-0 m-0">
-                    <li><a onClick = {this.checkPermissions} className="btn btn-custom waves-light waves-effect w-md"><i className="fi fi-circle-plus"></i>&nbsp;&nbsp;Add Property</a></li>
+                    <li>
+					{this.state.reportStatus?<button type="button"  onClick={()=>this.back()} name="report" className="btn btn-default stepy-finish">Back</button>:<button  className="btn btn-success waves-effect waves-light"  onClick={this.propertyHistory}>Property History</button>} &nbsp;
+					
+					<a onClick = {this.checkPermissions} className="btn btn-custom waves-light waves-effect w-md"><i className="fi fi-circle-plus"></i>&nbsp;&nbsp;Add Property</a></li>
+					
                     </ol>
                 </div>
                 <h4 className="page-title">My Properties</h4>
@@ -312,7 +351,7 @@ class Property extends React.Component{
                     :<div className="container"><div style={{textAlign:'center'}} colSpan={7}>No Property Added</div></div>
                 }
                     {/* <!-- end row --> */}
-                    
+						{this.state.reportStatus && <PropertyHistory propertyHistoryList={this.state.propertyHistoryList}/>}
 					{/* =========================property view==========================================*/}
 				
 				
