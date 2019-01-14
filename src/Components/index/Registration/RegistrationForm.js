@@ -158,6 +158,9 @@ export default class RegistrationForm extends React.Component {
 					}
 					if(data.user.agentType!='' && data.user.agentType=='Service Provider')
 					{
+						$("#actionType").val("No");
+						  $(".confirm-body").html("Registered Successfully");
+						$("#SBlockUIConfirm").show();
 						this.props.history.replace(`/`);
 					}else{
 						 this.props.history.replace(`/register-plans?Datatype=${userType}`);

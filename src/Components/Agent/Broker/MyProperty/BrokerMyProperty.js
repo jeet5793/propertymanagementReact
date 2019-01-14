@@ -8,7 +8,8 @@ import img_not_available from '../../../../images/img_not_available.png'
 import $ from 'jquery';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
-import PropertyHistory from './PropertyHistory'
+import PropertyHistory from '../../../Owner/Property/PropertyHistory'
+
 export default class BrokerMyProperty extends React.Component{
 	constructor(props){
     super(props)

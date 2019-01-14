@@ -9,7 +9,7 @@ import $ from 'jquery';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 import NumberFormat from 'react-number-format';
-import PropertyHistory from './PropertyHistory'
+import PropertyHistory from '../../Owner/Property/PropertyHistory'
 class TenantMyProperty extends React.Component {
 	constructor(props){
     super(props)

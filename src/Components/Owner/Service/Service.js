@@ -11,6 +11,7 @@ import $ from 'jquery';
 import ServiceRequested from './ServiceRequested';
 import ServiceCreate from './ServiceCreate';
 import ServiceResolved from './ServiceResolved';
+import ServiceView from './ServiceView';
 class Service extends React.Component {
     constructor(props) {
         super(props);
@@ -472,6 +473,7 @@ $("#loaderDiv").show();
                         {/* <!-- end container -->  */}
                     </div>
                 </div>
+				<ServiceView serviceDetail={this.state.serviceDetail}/>
                 <div>
                    
                 </div>

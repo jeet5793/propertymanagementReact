@@ -565,8 +565,134 @@ render(){
 								  </div>
 								</div>
 							</div>:<div>
+							<div className="form-group">
+								  <div className="col-md-12">
+								  <h3><u>Personal  Information</u></h3>
+									<div className="row">
+									  <div  className="col-md-2 required">
+										<label for="principal-first-name"> First Name </label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" id="principal-first-name"  name="first_name"  value={this.state.singularEnrollForm.first_name || this.state.profileData.first_name} onChange={this.SingularBillChange} placeholder=""/>
+										
+									  </div>
+									  <div  className="col-md-2 required">
+										<label for="principal-last-name"> Last Name</label>
+									  </div>
+									  <div className="col-md-4">
+									  <input type="text" className="form-control" id="principal-last-name"  name="last_name" value={this.state.singularEnrollForm.last_name || this.state.profileData.last_name}  onChange={this.SingularBillChange} placeholder=""/>
+									  </div>
+									</div>
+								  </div>
+								</div>
 								<div className="form-group">
 								  <div className="col-md-12">
+									<div className="row">
+									<div  className="col-md-2">
+										<label for="business-postal-code" > Middle Name</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" name="principal_middle_name" id="principal_middle_name" onChange={this.SingularBillChange} placeholder=""/>
+									  </div>
+									  <div  className="col-md-2">
+										<label for="fed_tax_id"> Title</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" id="principal_title" onChange={this.SingularBillChange} name="principal_title" placeholder=""/>
+									  </div>
+									  
+									  
+									</div>
+								  </div>
+								</div>
+								<div className="form-group">
+								  <div className="col-md-12">
+								  <div className="row">
+								  <div  className="col-md-2 required">
+										<label for="business-state-province">State</label>
+									  </div>
+									  <div className="col-md-4">
+										<select className="form-control"  value={this.state.singularEnrollForm.state || this.state.profileData.state} name="state"  onChange={this.SingularBillChange} >
+											
+											{this.state.states?this.state.states.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>)):this.state.profileData.state}
+								 
+										</select>
+										
+									  </div>
+								   <div  className="col-md-2 required">
+										<label for="business city" >City</label>
+									  </div>
+									  <div className="col-md-4">
+										<select className="form-control" name="city" value={this.state.singularEnrollForm.city || this.state.profileData.city} onChange={this.SingularBillChange} >
+										  <option value={this.state.profileData.city}>{this.state.profileData.city}</option>
+										  {this.state.cities?this.state.cities.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>)):''}
+										 
+										</select>
+									  </div>
+								   
+									</div>
+								  </div>
+								</div>
+								<div className="form-group">
+								  <div className="col-md-12">
+									<div className="row">
+									  <div  className="col-md-2 required">
+										<label for="business-phone-number">Phone Number</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" name="mobile_no" id="business-phone-number" value={this.state.singularEnrollForm.mobile_no || this.state.profileData.mobile_no} onChange={this.SingularBillChange} placeholder=""/>
+									  </div>
+									  <div  className="col-md-2 required">
+										<label for="email">E-Mail </label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="email" className="form-control" value={this.state.singularEnrollForm.email || this.state.profileData.email}id="email"  name="email"  onChange={this.SingularBillChange} placeholder=""/>
+									  </div>
+									</div>
+								  </div>
+								</div>
+								<div className="form-group">
+								  <div className="col-md-12">
+									<div className="row">
+									<div  className="col-md-2 required">
+										<label for="business-postal-code" >Principal Address Line 1</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" name="principal_address_line_1" id="principal_address_line_1" onChange={this.SingularBillChange} placeholder=""/>
+									  </div>
+									  <div  className="col-md-2">
+										<label for="fed_tax_id">Principal Address Line 2</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" id="principal_address_line_2" onChange={this.SingularBillChange} name="principal_address_line_2" placeholder=""/>
+									  </div>
+									  
+									</div>
+								  </div>
+								</div>
+								<div className="form-group">
+								  <div className="col-md-12">
+									<div className="row">
+									<div  className="col-md-2 required">
+										<label for="business-postal-code" >Zip Code</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" name="zip_code" id="business-postal-code" value={this.state.singularEnrollForm.zip_code || this.state.profileData.zip_code} onChange={this.SingularBillChange} placeholder=""/>
+									  </div>
+									  <div  className="col-md-2 required">
+										<label for="fed_tax_id">Fed Tax ID</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" id="fed_tax_id" onChange={this.SingularBillChange} name="fed_tax_id" placeholder=""/>
+									  </div>
+									  
+									</div>
+								  </div>
+								</div>
+								<hr/>
+								<div className="form-group">
+								  <div className="col-md-12">
+								  <h3><u>Business Information</u></h3>
 									<div className="row">
 									  <div  className="col-md-2 required">
 										<label for="dba-name">DBA/Nick name</label>
@@ -606,12 +732,6 @@ render(){
 								  <div className="col-md-12">
 									<div className="row">
 									<div  className="col-md-2 required">
-										<label for="business-postal-code" >Business City</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" name="business_city" id="business_city" onChange={this.SingularBillChange} placeholder=""/>
-									  </div>
-									  <div  className="col-md-2 required">
 										<label for="fed_tax_id">Business State Province</label>
 									  </div>
 									  <div className="col-md-4">
@@ -621,7 +741,12 @@ render(){
 								 
 										</select>
 									  </div>
-									  
+									<div  className="col-md-2 required">
+										<label for="business-postal-code" >Business City</label>
+									  </div>
+									  <div className="col-md-4">
+										<input type="text" className="form-control" name="business_city" id="business_city" onChange={this.SingularBillChange} placeholder=""/>
+									  </div>
 									  
 									</div>
 								  </div>
@@ -683,131 +808,9 @@ render(){
 									</div>
 								  </div>
 								</div>
-								<div className="form-group">
-								  <div className="col-md-12">
-								  <div className="row">
-								   <div  className="col-md-2 required">
-										<label for="business city" >City</label>
-									  </div>
-									  <div className="col-md-4">
-										<select className="form-control" name="city" value={this.state.singularEnrollForm.city || this.state.profileData.city} onChange={this.SingularBillChange} >
-										  <option value={this.state.profileData.city}>{this.state.profileData.city}</option>
-										  {this.state.cities?this.state.cities.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>)):''}
-										 
-										</select>
-									  </div>
-								   <div  className="col-md-2 required">
-										<label for="business-state-province">State</label>
-									  </div>
-									  <div className="col-md-4">
-										<select className="form-control"  value={this.state.singularEnrollForm.state || this.state.profileData.state} name="state"  onChange={this.SingularBillChange} >
-											
-											{this.state.states?this.state.states.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>)):this.state.profileData.state}
-								 
-										</select>
-										
-									  </div>
-									
-									 
-									  
-									</div>
-								  </div>
-								</div>
-								<div className="form-group">
-								  <div className="col-md-12">
-									<div className="row">
-									  <div  className="col-md-2 required">
-										<label for="business-phone-number">Phone Number</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" name="mobile_no" id="business-phone-number" value={this.state.singularEnrollForm.mobile_no || this.state.profileData.mobile_no} onChange={this.SingularBillChange} placeholder=""/>
-									  </div>
-									  <div  className="col-md-2 required">
-										<label for="email">E-Mail </label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="email" className="form-control" value={this.state.singularEnrollForm.email || this.state.profileData.email}id="email"  name="email"  onChange={this.SingularBillChange} placeholder=""/>
-									  </div>
-									</div>
-								  </div>
-								</div>
-								<div className="form-group">
-								  <div className="col-md-12">
-									<div className="row">
-									  <div  className="col-md-2 required">
-										<label for="principal-first-name">Principal First Name </label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" id="principal-first-name"  name="first_name"  value={this.state.singularEnrollForm.first_name || this.state.profileData.first_name} onChange={this.SingularBillChange} placeholder=""/>
-										
-									  </div>
-									  <div  className="col-md-2 required">
-										<label for="principal-last-name">Principal Last Name</label>
-									  </div>
-									  <div className="col-md-4">
-									  <input type="text" className="form-control" id="principal-last-name"  name="last_name" value={this.state.singularEnrollForm.last_name || this.state.profileData.last_name}  onChange={this.SingularBillChange} placeholder=""/>
-									  </div>
-									</div>
-								  </div>
-								</div>
-								<div className="form-group">
-								  <div className="col-md-12">
-									<div className="row">
-									<div  className="col-md-2">
-										<label for="business-postal-code" >Principal Middle Name</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" name="principal_middle_name" id="principal_middle_name" onChange={this.SingularBillChange} placeholder=""/>
-									  </div>
-									  <div  className="col-md-2">
-										<label for="fed_tax_id">Principal Title</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" id="principal_title" onChange={this.SingularBillChange} name="principal_title" placeholder=""/>
-									  </div>
-									  
-									  
-									</div>
-								  </div>
-								</div>
-								<div className="form-group">
-								  <div className="col-md-12">
-									<div className="row">
-									<div  className="col-md-2 required">
-										<label for="business-postal-code" >Principal Address Line 1</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" name="principal_address_line_1" id="principal_address_line_1" onChange={this.SingularBillChange} placeholder=""/>
-									  </div>
-									  <div  className="col-md-2">
-										<label for="fed_tax_id">Principal Address Line 2</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" id="principal_address_line_2" onChange={this.SingularBillChange} name="principal_address_line_2" placeholder=""/>
-									  </div>
-									  
-									</div>
-								  </div>
-								</div>
-								<div className="form-group">
-								  <div className="col-md-12">
-									<div className="row">
-									<div  className="col-md-2 required">
-										<label for="business-postal-code" >Zip Code</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" name="zip_code" id="business-postal-code" value={this.state.singularEnrollForm.zip_code || this.state.profileData.zip_code} onChange={this.SingularBillChange} placeholder=""/>
-									  </div>
-									  <div  className="col-md-2 required">
-										<label for="fed_tax_id">Fed Tax ID</label>
-									  </div>
-									  <div className="col-md-4">
-										<input type="text" className="form-control" id="fed_tax_id" onChange={this.SingularBillChange} name="fed_tax_id" placeholder=""/>
-									  </div>
-									  
-									</div>
-								  </div>
-								</div>
+								
+								
+								
 								{/*<div className="form-group">
 								  <div className="col-md-12">
 									<div className="row">
@@ -951,9 +954,10 @@ render(){
 								
 								
 								
-								
+								<hr/>
 								<div className="form-group">
 								  <div className="col-md-12">
+								  <h3><u>Bank  Information</u></h3>
 									<div className="row">
 									<div  className="col-md-2 required">
 										<label for="business-postal-code" >Routing Number</label>

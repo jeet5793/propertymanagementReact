@@ -292,7 +292,7 @@ class Agent extends React.Component{
 						//console.log('dataaaa:  ', data);
 						
 						if(data.success===1){
-							$("#loaderDiv").hide();
+							
 						  fetch(`${API_URL}assetsapi/profile/`+id+`/${JSON.parse(this.state.userData).session_id}`, {
 								method: 'get'
 							  })
@@ -301,18 +301,25 @@ class Agent extends React.Component{
 								  (result) => {
 									//console.log("data 2: "+JSON.stringify(result.profile))
 									if (result.success) {
-									  this.setState({profileData:result.profile})
-									  
+										$("#loaderDiv").hide();
+										$("#background-verifi").show();
+										$(".modal-backdrop").show();
+										$("#bgvbackground").show();
+								  	  this.setState({profileData:result.profile})
+									   
 									} 
 									//console.log("set user data"+JSON.stringify(this.state.profileData))
 								  },
 									(error) => {
+										$("#loaderDiv").hide();
+										$("#bgvbackground").hide();
 									  console.log('error')
 									}
 								)
 									
 									   
 							}else if(data.success===0){
+								$("#bgvbackground").hide();
 								$("#loaderDiv").hide();
 								 $("#background-verifi").hide();
 								 $(".modal-backdrop").hide();
@@ -736,7 +743,7 @@ class Agent extends React.Component{
 									  <p className="text-muted m-b-3 text-overflow"><i className="icon-location-pin"></i>&nbsp; {item.country}</p>
 									  <ul className="list-inline m-t-10 m-b-0 text-right">
 									   {/* item.reportId>0?<li className="bgv-download"><a className="bgv-icon bgv-bg" title="Download" href="#" onClick = {this.BgvDownload.bind(this,item.reportId)}><i className="icon-cloud-download"></i></a> </li>:'' */} 
-									   <li className="list-inline-item"> <a className="bgv-icon" data-toggle="modal" data-target="#background-verifi" title="background Verification" href="" onClick={this.onClickProfile.bind(this,item.profile_id)}><i className="icon-magnifier"></i></a> </li>
+									   <li className="list-inline-item"> <a className="bgv-icon"  title="background Verification" href="#" onClick={this.onClickProfile.bind(this,item.profile_id)}><i className="icon-magnifier"></i></a> </li>
 										<li className="list-inline-item"> <a className="mesg-icon" data-toggle="modal" data-target="#send-msg" title="Message" href="#" onClick={this.messagerec.bind(this,item.profile_id,item.name)}><i className="icon-bubble" /></a> </li>
 										<li className="list-inline-item"> <Link to={{"pathname":"/owner-agent-profile",state:{profileid:item.profile_id,session:JSON.parse(this.state.userData).session_id,loc: this.props.location}}} className="view-icon"><i className="icon-eye"></i></Link></li>
 										<li className="list-inline-item"><a style={{cursor:'pointer'}} title="Terminate" onClick = {this.TerminateUser.bind(this,item.profile_id)} className="bgv-icon"><i className="mdi mdi-close"></i></a></li>

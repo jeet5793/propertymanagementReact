@@ -196,11 +196,15 @@ export default class Agent extends React.Component{
 		{
 			var $=window.$;
 			$(".modal-backdrop").hide();
+			$("#background-verifi").hide();
+			$("#bgvbackground").hide();
 		}
 render(){
 
 	return(
-			<div id="background-verifi" className="modal fade" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{display: "none"}}>
+		<div>
+			<div className="blockui-mask-aws" id="bgvbackground" style={{display: "none"}}></div>
+			<div id="background-verifi"  className="modal fade show in" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{display: "none"}}>
 				<div className="modal-dialog modal-lg">
 				<div className="modal-content">
 				  <div className="modal-header">
@@ -363,6 +367,7 @@ render(){
 				  </div>
 				</div>
 			  </div>
+			</div>
 			</div>
 		);		
 	}
