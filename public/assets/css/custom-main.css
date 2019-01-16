@@ -1239,3 +1239,10 @@ position: fixed;
     background: #57bb57;
     border-color: #57bb57;
 }
+
+.btn-login{
+	margin-right: 20px;
+    padding: 5px 18px;
+    color: #4390a0 ! important;
+    height: 34px;
+}

@@ -2,6 +2,7 @@ import React from 'react'
 import API_URL from "../../../app-config";
 import Cookies from 'js-cookie';
 import DatePicker from 'react-datepicker';
+
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 import swal from 'sweetalert';
@@ -181,16 +182,16 @@ changeNameHandler(e)
 			var retrievedData = localStorage.getItem("opts");
 			var opts = JSON.parse(retrievedData);
 			// console.log(JSON.stringify(opts));
-			var Amount = (opts.packageid==14)?8.16:(opts.packageid==12)?18.14:(opts.packageid==13)?26.78:'';
+			var Amount = opts.packageid;
 			var TotAmt = Number(Amount)+Number((Amount*2.99)/100);
 			payment_Object.amount = TotAmt;
 			payment_Object.transactionamount = TotAmt;
 			payment_Object.actual_amt = Number(Amount);
 			payment_Object.extraAmt = Number((Amount*2.99)/100);
 			 var dataToPost = Object.assign(payment_Object,opts);
-			  // console.log(JSON.stringify(dataToPost));
+			   // console.log('dataToPost'+JSON.stringify(dataToPost));
 			  // alert(dataToPost);
-			  $("#loaderDiv").show();
+			   $("#loaderDiv").show();
 			fetch(`${API_URL}assetsapi/background_verification`, {
 				method: 'post',        
 				body: JSON.stringify(dataToPost)
@@ -217,7 +218,7 @@ changeNameHandler(e)
 				
 				}).catch((error) => {
 				  console.log('error: ', error);
-				}); 
+				});  
 		}
 	}else if(paymentType === 'ACH'){
 		var payment_Object={
@@ -267,7 +268,7 @@ changeNameHandler(e)
 			var retrievedData = localStorage.getItem("opts");
 			var opts = JSON.parse(retrievedData);
 			// console.log(JSON.stringify(opts));
-			var Amount = (opts.packageid==14)?8.16:(opts.packageid==12)?18.14:(opts.packageid==13)?26.78:'';
+			var Amount = opts.packageid;
 			var TotAmt = Number(Amount)+Number(1.00);
 			payment_Object.amount = TotAmt;
 			payment_Object.transactionamount = TotAmt;
@@ -311,8 +312,8 @@ changeNameHandler(e)
   }
    onClickReturn()
   {
-	  window.location.href='/owner-agent';
-	  // this.props.history.replace('/owner-plan');
+	  //window.location.href='/owner-agent';
+	   this.props.history.push('/owner-agent');
   }
   changeTabs(id) {
         if (id == "ach") {
@@ -328,7 +329,7 @@ changeNameHandler(e)
 		var retrievedData = localStorage.getItem("opts");
 		var opts = JSON.parse(retrievedData);
 		// console.log(JSON.stringify(opts));
-		var Amount = (opts.packageid==14)?8.16:(opts.packageid==12)?18.14:(opts.packageid==13)?26.78:'';
+		var Amount = opts.packageid;
 		// var check = localStorage.removeItem("opts");
 		// console.log(JSON.stringify(check));
     // if(this.state.userDetails){

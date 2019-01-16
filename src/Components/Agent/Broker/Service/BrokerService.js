@@ -9,9 +9,10 @@ import API_URL from "../../../../app-config";
 import swal from 'sweetalert';
 import $ from 'jquery';
 
-import ServiceRequested from './ServiceRequested';
-import ServiceCreate from './ServiceCreate';
-import ServiceResolved from './ServiceResolved';
+import ServiceRequested from '../../../Owner/Service/ServiceRequested';
+import ServiceCreate from '../../../Owner/Service/ServiceCreate';
+import ServiceResolved from '../../../Owner/Service/ServiceResolved';
+import ServiceView from '../../../Owner/Service/ServiceView';
 class BrokerService extends React.Component {
     constructor(props) {
         super(props);
@@ -46,6 +47,7 @@ class BrokerService extends React.Component {
         this.onClickView = this.onClickView.bind(this);
 		  this.getSuggestionValue = this.getSuggestionValue.bind(this);
 		    this.onSuggestionSelected = this.onSuggestionSelected.bind(this);
+			this.onClickClear = this.onClickClear.bind(this);
 
     }
 	getSuggestions() {
@@ -210,8 +212,10 @@ class BrokerService extends React.Component {
                 $("#hiddenURL").val("service");
                 $(".confirm-body").html(data.msg);
                 $("#BlockUIConfirm").show();
-				this.componentDidMount();
-                //alert(m);
+				document.getElementById('ServiceView').reset();
+				this.setState({
+						value: ''
+					});
             }
 
         }).catch((error) => {
@@ -283,6 +287,7 @@ class BrokerService extends React.Component {
             )
     }
     getRequestedList() {
+		this.getSendedList();
         var $ = window.$
         $(".view-reslt").hide();
 		$("#loaderDiv").show();
@@ -403,6 +408,12 @@ $("#loaderDiv").show();
            
         }
     }
+	onClickClear(){
+		document.getElementById('ServiceView').reset();
+				this.setState({
+						value: ''
+					});
+	}
     render() {
         // if(this.props.owner===undefined)
         // window.location.href='http://'+window.location.host
@@ -459,6 +470,7 @@ $("#loaderDiv").show();
 														sendRequest={this.sendRequest}
 														onChangeHandler={this.onChangeHandler}
 														 fileInput={ this.fileInput}
+														  onClickClear = {this.onClickClear}
 														/>
 													<ServiceRequested requestedList={this.state.requestedList} sendedList={this.state.sendedList} changeTabs2={this.changeTabs2} onClickView = {this.onClickView}/>
 													<ServiceResolved resolvedList={this.state.resolvedList}/>
@@ -467,6 +479,7 @@ $("#loaderDiv").show();
                                         </div>
                                     </div>
                                 </div>
+								<ServiceView serviceDetail={this.state.serviceDetail}/>
                             </div>
                             
                         </div>

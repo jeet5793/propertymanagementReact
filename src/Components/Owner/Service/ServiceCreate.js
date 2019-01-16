@@ -15,6 +15,7 @@ class ServiceCreate extends React.Component {
         
         return (
 			<div className="tab-pane active" id="v-create">
+			<form id="ServiceView">
 									<div className="row">
                                         <div className="col-md-12">
                                             <div className="form-group">
@@ -65,9 +66,10 @@ class ServiceCreate extends React.Component {
                                         </div>
                                     </div>
 									<div className="">
-										<button type="reset"  className="btn btn-secondary waves-effect" data-dismiss="modal" >Clear</button>
+										<button type="reset"  className="btn btn-secondary waves-effect" data-dismiss="modal" onClick={this.props.onClickClear}>Clear</button>&nbsp;
 										<button type="button" className="btn btn-success waves-effect waves-light" onClick={this.props.sendRequest}>Save changes</button>
 									</div>
+									</form>
                                 </div>
         );
     }

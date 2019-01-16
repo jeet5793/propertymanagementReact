@@ -26,26 +26,26 @@ class ServiceView extends React.Component {
                                                                 <a href="#" className="text-dark">{item.first_name + item.last_name}</a>
                                                             </h5>
                                                             <p className="m-b-5 font-14">
-                                                                <span> <b>Status:</b>
+                                                                <span> <b>Status : </b>
                                                                     <span>{item.service_status == 1 ? 'Resolved' : 'Pending'}</span>
-                                                                </span>
-                                                                <span>|</span>
+                                                                </span>&nbsp;
+                                                                <span>|</span>&nbsp;
                                                                 <span>
-                                                                    <b>Requested Date:</b>
-                                                                    <span>{item.entry_date}</span>
-                                                                </span>
-                                                                <span>|</span>
+                                                                    <b>Requested Date : </b>
+                                                                    <span>{item.initiatedDate}</span>
+                                                                </span>&nbsp;
+                                                                <span>|</span>&nbsp;
                                                                 <span>
-                                                                    <b>Resolve Date:</b>
-                                                                    <span>10-05-2018</span>
+                                                                    <b>Resolve Date : </b>
+                                                                    <span>{item.resolvedDate?item.resolvedDate:''}</span>
                                                                 </span>
                                                             </p>
                                                             <p className="m-b-5 font-14">
-                                                                <b>Property Title:</b>
+                                                                <b>Property Title : </b>
                                                                 <span className="text-muted">{item.property_name}</span>
                                                             </p>
                                                             <p className="font-14">
-                                                                <b>Discription:</b>
+                                                                <b>Discription : </b>
                                                                 <br />
                                                                 <span className="text-muted">{item.description}</span>
                                                             </p>

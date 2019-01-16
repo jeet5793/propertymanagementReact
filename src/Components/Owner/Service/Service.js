@@ -46,6 +46,7 @@ class Service extends React.Component {
         this.onClickView = this.onClickView.bind(this);
 		  this.getSuggestionValue = this.getSuggestionValue.bind(this);
 		    this.onSuggestionSelected = this.onSuggestionSelected.bind(this);
+		this.onClickClear = this.onClickClear.bind(this);
 
     }
 	getSuggestions() {
@@ -210,7 +211,10 @@ class Service extends React.Component {
                 $("#hiddenURL").val("service");
                 $(".confirm-body").html(data.msg);
                 $("#BlockUIConfirm").show();
-				this.componentDidMount();
+				document.getElementById('ServiceView').reset();
+				this.setState({
+						value: ''
+					});
                 //alert(m);
             }
 
@@ -283,6 +287,7 @@ class Service extends React.Component {
             )
     }
     getRequestedList() {
+		this.getSendedList();
         var $ = window.$
         $(".view-reslt").hide();
 		$("#loaderDiv").show();
@@ -403,6 +408,12 @@ $("#loaderDiv").show();
            
         }
     }
+	onClickClear(){
+		document.getElementById('ServiceView').reset();
+				this.setState({
+						value: ''
+					});
+	}
     render() {
         // if(this.props.owner===undefined)
         // window.location.href='http://'+window.location.host
@@ -459,6 +470,7 @@ $("#loaderDiv").show();
 														sendRequest={this.sendRequest}
 														onChangeHandler={this.onChangeHandler}
 														 fileInput={ this.fileInput}
+														 onClickClear = {this.onClickClear}
 														/>
 													<ServiceRequested requestedList={this.state.requestedList} sendedList={this.state.sendedList} changeTabs2={this.changeTabs2} onClickView = {this.onClickView}/>
 													<ServiceResolved resolvedList={this.state.resolvedList}/>
@@ -467,13 +479,14 @@ $("#loaderDiv").show();
                                         </div>
                                     </div>
                                 </div>
+								<ServiceView serviceDetail={this.state.serviceDetail}/>
                             </div>
                             
                         </div>
                         {/* <!-- end container -->  */}
                     </div>
                 </div>
-				<ServiceView serviceDetail={this.state.serviceDetail}/>
+				
                 <div>
                    
                 </div>

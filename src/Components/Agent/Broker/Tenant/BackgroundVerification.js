@@ -5,6 +5,7 @@ import moment from 'moment';
 import DatePicker from 'react-date-picker';
 import swal from 'sweetalert';
 import $ from 'jquery'
+import { Redirect } from 'react-router';
 export default class Agent extends React.Component{
 	constructor(props){
 		super(props);
@@ -27,7 +28,8 @@ export default class Agent extends React.Component{
 				user_id:'',
 				login_user_id:''
 				
-			}
+			},
+			redirect:false
 				
 		};
 		 this.onChangeBGVHandler=this.onChangeBGVHandler.bind(this);
@@ -144,7 +146,7 @@ export default class Agent extends React.Component{
 			 return;
 		 }
 		localStorage.setItem("opts", JSON.stringify(opts));
-		 window.location.href="/broker-tenant-bgvpayment";
+		this.setState({redirect: true})
 			 // console.log(opts);
 			/*  document.getElementById("bgvFormCancel").click();
 				 $("#loaderDiv").show();
@@ -202,7 +204,13 @@ export default class Agent extends React.Component{
 			$("#bgvbackground").hide();
 		}
 render(){
+if (this.state.redirect){
 
+            return (<Redirect to={{
+                pathname: '/broker-tenant-bgvpayment',
+                
+            }} />)
+		}
 	return(
 		<div>
 			<div className="blockui-mask-aws" id="bgvbackground" style={{display: "none"}}></div>
@@ -320,7 +328,23 @@ render(){
 					  <div className="col-md-12">
 						<div className="form-group no-margin">
 						 <h5>Packages<span className="required"/></h5>
-						  <div className="col-md-10">
+						 {this.props.bgvInfo && this.props.bgvInfo.map((item)=>(
+							 <div className="col-md-10" key={item.packageId}>
+									<div className="radio radio-custom">
+									
+									  <input
+										type="radio"
+										name="packageid"
+										id={item.packageId}
+										value={item.amount}
+										onChange={this.onChangeBGVHandler}
+									  />
+									   
+									<label htmlFor = {item.packageId}> {item.package} - ${item.amount} : {item.report} </label>
+									</div>
+								  </div>
+								 ))} 
+								 {/* <div className="col-md-10">
 									<div className="radio radio-custom">
 									  <input
 										type="radio"
@@ -357,7 +381,7 @@ render(){
 								  />
 								  <label htmlFor="Gold">Gold Package - $26.78 : 1 County Criminal + 1 Credit Report + 1 Eviction Report </label>
 								</div>
-							  </div>  
+								 </div>   */}
 						</div>
 					  </div>
 					</div>

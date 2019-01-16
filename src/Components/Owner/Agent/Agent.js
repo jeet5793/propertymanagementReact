@@ -301,12 +301,26 @@ class Agent extends React.Component{
 								  (result) => {
 									//console.log("data 2: "+JSON.stringify(result.profile))
 									if (result.success) {
-										$("#loaderDiv").hide();
+										
 										$("#background-verifi").show();
 										$(".modal-backdrop").show();
 										$("#bgvbackground").show();
 								  	  this.setState({profileData:result.profile})
-									   
+
+										//==================== BGV Info ============================
+										  fetch(`${API_URL}assetsapi/getBgvCharges`,{})
+										  .then((response1)=>{
+											  return response1.json();
+										  }).then((data1)=>{
+											  $("#loaderDiv").hide();
+											  if(data1.success){
+												 //console.log(JSON.stringify(data1)); 
+												  this.setState({bgvInfo:data1.bgvInfo})
+											  }
+										  }).catch((error)=>{
+											  console.log('error: ',error);
+										  });
+										//==================== BGV Info End============================
 									} 
 									//console.log("set user data"+JSON.stringify(this.state.profileData))
 								  },
@@ -911,7 +925,7 @@ class Agent extends React.Component{
               <div>
 			  
 			{/* ========== BG Verification =====================*/}
-			  <BackgroundVerification profileData={this.state.profileData}  />
+			  <BackgroundVerification profileData={this.state.profileData} bgvInfo={this.state.bgvInfo} />
 			{/*<!-- Modal --> */}
               <div id="send-invite" className="modal fade" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{display:'none'}}>
 			  <div className="modal-dialog">

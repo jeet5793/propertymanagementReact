@@ -181,7 +181,7 @@ changeNameHandler(e)
 			var retrievedData = localStorage.getItem("opts");
 			var opts = JSON.parse(retrievedData);
 			// console.log(JSON.stringify(opts));
-			var Amount = (opts.packageid==14)?8.16:(opts.packageid==12)?18.14:(opts.packageid==13)?26.78:'';
+			var Amount = opts.packageid;
 			var TotAmt = Number(Amount)+Number((Amount*2.99)/100);
 			payment_Object.amount = TotAmt;
 			payment_Object.transactionamount = TotAmt;
@@ -267,7 +267,7 @@ changeNameHandler(e)
 			var retrievedData = localStorage.getItem("opts");
 			var opts = JSON.parse(retrievedData);
 			// console.log(JSON.stringify(opts));
-			var Amount = (opts.packageid==14)?8.16:(opts.packageid==12)?18.14:(opts.packageid==13)?26.78:'';
+			var Amount = opts.packageid;
 			var TotAmt = Number(Amount)+Number(1.00);
 			payment_Object.amount = TotAmt;
 			payment_Object.transactionamount = TotAmt;
@@ -328,7 +328,7 @@ changeNameHandler(e)
 		var retrievedData = localStorage.getItem("opts");
 		var opts = JSON.parse(retrievedData);
 		// console.log(JSON.stringify(opts));
-		var Amount = (opts.packageid==14)?8.16:(opts.packageid==12)?18.14:(opts.packageid==13)?26.78:'';
+		var Amount = opts.packageid;
 		// var check = localStorage.removeItem("opts");
 		// console.log(JSON.stringify(check));
     // if(this.state.userDetails){

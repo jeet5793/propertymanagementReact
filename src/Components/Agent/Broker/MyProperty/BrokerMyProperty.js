@@ -269,7 +269,7 @@ this.imgServer=API_URL,
 								
 							<div className="tab-pane" id="details">
 								
-									<p className="tz-property-detail"> Price:&nbsp; <strong> ${item.total_amount} </strong> </p>
+									<p className="tz-property-detail"> Price:&nbsp; <strong> ${(item.property_status=='Rent' || item.property_status=='Rented')?item.rent:(item.property_status=='Sale' || item.property_status=='Sold')?item.total_amount:0} </strong> </p>
 										<p className="tz-property-detail"> Area:&nbsp; <strong> {item.square_feet}&nbsp; </strong> </p>
 										<p className="tz-property-detail"> Type:&nbsp; <strong> {item.property_type} </strong> </p>
 										<p className="tz-property-detail"> Bedrooms:&nbsp; <strong>  {item.bedroom} </strong> </p>

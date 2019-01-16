@@ -40,7 +40,7 @@ class Headernav extends React.Component {
 		this.socialLogin = this.socialLogin.bind(this);
 		 this.sendForgetPassword = this.sendForgetPassword.bind(this);
 		 this.onChangeEmail = this.onChangeEmail.bind(this);
-		 
+		
 		 this.checkUser();
 		 this.profileDetail();
     }
@@ -59,7 +59,8 @@ class Headernav extends React.Component {
 	  gotoRegistrationPage(){
         $(".login-open").hide();
      }
-    Login(type) {
+    Login(type,e) {
+		 e.preventDefault();
 		const assetstype = type;
 		// alert(assetstype);
 		// console.log(assetstype)
@@ -943,6 +944,7 @@ class Headernav extends React.Component {
   addDefaultSrc(ev){
 	  ev.target.src = img_not_available;
 	}
+	
     render(){
 		
 		/* var profileArr = Cookies.get("profile_data");
@@ -960,7 +962,7 @@ class Headernav extends React.Component {
         <div className="login-cont">
         <a className= "typeli login" id="owner"   onMouseEnter={()=>this.activeSignIn("owner")} onMouseLeave={this.leaveButton}>Owners<span></span></a>
             <div ref={this.loginDiv} id="loginDiv" className="login-1 text-left  login-open">
-            <form className="form-signin">
+            <form className="form-signin" onSubmit={this.Login.bind(this, this.state.assetsType)}>
                 <div className="form-group">
                 <label>Username</label>
                 <input type="text" className="form-control" onChange={this.onChangeHandler} name="email" id="email" placeholder="Email Address"/>
@@ -973,9 +975,17 @@ class Headernav extends React.Component {
                 <input type="checkbox" name="one" id="one" />
                 <label className="remember" htmlFor="one">Remember me</label>
                 </div>
-                <a onClick={this.Login.bind(this, this.state.assetsType)} className="button"> <span>Login</span> </a> <span>-or-</span>
-                {/*need to add router link*/}
-                <Link to={{pathname:'/register'}} className="button button-grey"> <span onClick={this.gotoRegistrationPage.bind(this)}>Register</span> </Link>
+				
+
+				<div className="form-group">
+					<input type="submit" className="button btn-login" name="login" value="Login" />
+					
+					{/*  <a onClick={this.Login.bind(this, this.state.assetsType)} className="button"> <span>Login</span> </a> <span>-or-</span> */}
+					{/*need to add router link*/}
+					<Link to={{pathname:'/register'}} className="button button-grey"> <span onClick={this.gotoRegistrationPage.bind(this)}>Register</span> </Link>
+					
+				</div>
+				
                 <a style ={{ cursor: 'pointer'}} onClick={this.forgetPassword}>Forgot password ?</a>
             </form>
 			<br/>

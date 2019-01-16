@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import API_URL from "../../../../app-config";
 import swal from 'sweetalert';
 import $ from 'jquery';
+import ServiceView from '../../../Owner/Service/ServiceView';
 export default class ServiceProviderService extends React.Component{
 constructor(props){
     super(props);
@@ -211,9 +212,10 @@ $("#loaderDiv").show();
                                         </div>
                                     </div>
                                 </div>
+								<ServiceView serviceDetail={this.state.serviceDetail}/>
                             </div>
               {/* end row */}
-               <div className="view-reslt" style={{display:'none'}}>
+				  {/*<div className="view-reslt" style={{display:'none'}}>
 							{this.state.serviceDetail.map((item)=>( 
                                 <div className="row">
                                     <div className="col-12">
@@ -263,7 +265,7 @@ $("#loaderDiv").show();
                                     </div>
                                 </div>
 								))}
-                            </div>
+	</div>*/}
 							
                             {/* <!-- end row -->  */}
                             

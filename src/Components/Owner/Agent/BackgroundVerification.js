@@ -5,6 +5,7 @@ import DatePicker from 'react-date-picker';
 import moment from 'moment';
 import swal from 'sweetalert';
 import $ from 'jquery'
+import { Redirect } from 'react-router';
 export default class Agent extends React.Component{
 	constructor(props){
 		super(props);
@@ -26,7 +27,8 @@ export default class Agent extends React.Component{
 				session_id:'',
 				user_id:'',
 				login_user_id:''
-			}
+			},
+			redirect:false
 				
 		};
 		 this.onChangeBGVHandler=this.onChangeBGVHandler.bind(this);
@@ -49,6 +51,7 @@ export default class Agent extends React.Component{
 		}
 	}
 	 onChangeBGVHandler(e){
+		 //alert(JSON.stringify(e.target.name))
 		 const bgFields = this.state.bgForm;
 		 if (e.target.name === "first_name")
 			bgFields.first_name = e.target.value;
@@ -145,7 +148,9 @@ export default class Agent extends React.Component{
 			 return;
 		 }
 		localStorage.setItem("opts", JSON.stringify(opts));
-		 window.location.href="/bgvpayment";
+		this.setState({redirect: true})
+		// this.props.history.push('/bgvpayment');
+		 // window.location.href="/bgvpayment";
 			 // console.log(opts);
 			 /* document.getElementById("bgvFormCancel").click();
 				 $("#loaderDiv").show();
@@ -177,7 +182,7 @@ export default class Agent extends React.Component{
 		 
 		 
       }
-	 
+	
 	
 	  hideModel()
 	  {
@@ -187,7 +192,13 @@ export default class Agent extends React.Component{
 			$("#bgvbackground").hide();
 		}
 render(){
+if (this.state.redirect){
 
+            return (<Redirect to={{
+                pathname: '/bgvpayment',
+                
+            }} />)
+		}
 	return(
 			
 			<div>
@@ -307,20 +318,23 @@ render(){
 					  <div className="col-md-12">
 						<div className="form-group no-margin">
 						 <h5>Packages<span className="required"/></h5>
-							 <div className="col-md-10">
+						 {this.props.bgvInfo && this.props.bgvInfo.map((item)=>(
+							 <div className="col-md-10" key={item.packageId}>
 									<div className="radio radio-custom">
+									
 									  <input
 										type="radio"
 										name="packageid"
-										 id="Bronze"
-										value="14"
+										id={item.packageId}
+										value={item.amount}
 										onChange={this.onChangeBGVHandler}
 									  />
-									  <label htmlFor="Bronze"> Bronze Package - $8.16 : 1 Credit Report </label>
+									   
+									<label htmlFor = {item.packageId}> {item.package} - ${item.amount} : {item.report} </label>
 									</div>
 								  </div>
-								  
-								  <div className="col-md-10">
+								 ))} 
+								  {/*  <div className="col-md-10">
 										<div className="radio radio-custom">
 										  <input
 											type="radio"
@@ -344,7 +358,7 @@ render(){
 								  />
 								  <label htmlFor="Gold">Gold Package - $26.78 : 1 County Criminal + 1 Credit Report + 1 Eviction Report </label>
 								</div>
-							  </div>  
+								  </div>   */}
 						</div>
 					  </div>
 					</div>
