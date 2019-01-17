@@ -3,22 +3,25 @@ import $ from 'jquery';
 import APP_VERSION from "../../../app-version";
 export default class TenantFooter extends Component{
 
-         submitAlert()
-		{		
-		var actionType = $("#actionType").val();
-		if(actionType=="No")
-		{
-			$("#BlockUIConfirm").hide();
-			
-			//$("#TBlockUIConfirm").hide();
-		}
-		else
-		{
-			var url = $("#hiddenURL").val();
-			window.location.href= url;
-			// HIT URL 
-		}
-	}
+        submitAlert(e)
+		{				
+			var actionType = $("#actionType").val();
+			if(actionType=="No")
+			{
+				$("#BlockUIConfirm").hide();
+				
+				//$("#TBlockUIConfirm").hide();
+			}
+			else if(actionType=="Yes")
+			{
+				var url = $("#hiddenURL").val();
+				window.location.href= url;
+			}	
+			else
+			{
+				$("#BlockUIConfirm").hide();
+			}
+	    }
     render(){
         return(
             <footer className="footer">
@@ -48,7 +51,7 @@ export default class TenantFooter extends Component{
 						<div className="btn-holder">
 							<input type="hidden" id="hiddenURL" />
 							<input type="hidden" id="actionType" />
-							<input type="button" className="row-dialog-btn btn btn-success" value="Ok" onClick={this.submitAlert} />
+							<input type="button" className="btn btn-success" value="Ok" onClick={this.submitAlert} />
 							{/*<!-- <input type="button" className="row-dialog-btn btn btn-naked" value="No, Cancel" onclick="$('#BlockUIConfirm').hide();" /> -->*/}
 						</div>
 					</div>

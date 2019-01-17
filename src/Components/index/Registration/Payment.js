@@ -8,6 +8,7 @@ import swal from 'sweetalert';
 import Cookies from 'js-cookie';
 import { setUser } from '../../../actions';
 import { withRouter } from 'react-router-dom';
+import NumberFormat from 'react-number-format';
 class PlanPayment extends React.Component {
   constructor(props){
     super(props)
@@ -24,7 +25,8 @@ class PlanPayment extends React.Component {
 			tokenizedaccountnumber:'',
 			routingnumber:'',
 			
-		}
+		},
+		paymentCharges:[]
 		
     }
       this.userInfo = this.userInfo.bind(this);
@@ -36,13 +38,15 @@ class PlanPayment extends React.Component {
       this.changecvvHandler=this.changecvvHandler.bind(this);
 	  this.onClickReturn = this.onClickReturn.bind(this);
 	   this.onChangeACH = this.onChangeACH.bind(this);
-	   this.changeNameHandler = this.changeNameHandler.bind(this)
+	   this.changeNameHandler = this.changeNameHandler.bind(this);
+	   this.paymentCharges = this.paymentCharges.bind(this)
   }
  componentDidMount() {
     // setTimeout(function(){ $('#tzloadding').remove(); }, 2000)
     // $('html, body').animate({scrollTop: 0}, 1500);
     this.userInfo();
     this.userDetails();
+	this.paymentCharges('CC');
 
   }
   componentDidUpdate() {
@@ -134,8 +138,17 @@ onChangeACH(e){
   paymentPage(paymentType) {
 var user_detail = this.state.userDetails;
 	if(paymentType === 'CC'){
-		let extraAmt = Number((this.state.userDetails.planPrice*2.99))/100;
-		var planPrice= Number(this.state.userDetails.planPrice)+Number((this.state.userDetails.planPrice*2.99)/100)
+		if(this.state.paymentCharges.pay_mode=="Percentage")
+		{
+			var extraAmt = Number((this.state.userDetails.planPrice*this.state.paymentCharges.charges)/100);
+			var planPrice= Number(this.state.userDetails.planPrice)+Number(extraAmt)
+		}
+	   if(this.state.paymentCharges.pay_mode=="Amount")
+		{
+			var extraAmt = Number(this.state.paymentCharges.charges);
+			var planPrice = Number(this.state.userDetails.planPrice);
+		}
+	
 		var payment_Object={
 			"userid":user_detail.user_id,
 			"tokenizedaccountnumber":this.state.tokenizedaccountnumber,
@@ -279,7 +292,17 @@ var user_detail = this.state.userDetails;
 		}
 		 
 	}else if(paymentType === 'ACH'){
-		var planPrice= Number(this.state.userDetails.planPrice)+Number(1.00);
+		if(this.state.paymentCharges.pay_mode=="Percentage")
+		{
+			var extraAmt = Number((this.state.userDetails.planPrice*this.state.paymentCharges.charges)/100);
+			var planPrice= Number(this.state.userDetails.planPrice)+Number(extraAmt)
+		}
+	   if(this.state.paymentCharges.pay_mode=="Amount")
+		{
+			var extraAmt = Number(this.state.paymentCharges.charges);
+			var planPrice = Number(this.state.userDetails.planPrice);
+		}
+		// var planPrice= Number(this.state.userDetails.planPrice)+Number(1.00);
 		var payment_Object={
 			"userid":user_detail.user_id,
 			"tokenizedaccountnumber": this.state.achFields.tokenizedaccountnumber,
@@ -310,7 +333,7 @@ var user_detail = this.state.userDetails;
 				"plan_type":user_detail.plan_month_year,
 			  "type": paymentType,
 			  "name":this.state.achFields.name,
-			  "extraAmt":Number(1.00),
+			  "extraAmt":Number(extraAmt),
 			"actual_amt":Number(this.state.userDetails.planPrice)
 		}
 		if(!payment_Object.name){
@@ -434,13 +457,34 @@ var user_detail = this.state.userDetails;
   changeTabs(id) {
         if (id == "ach") {
             $("#CCTab").removeClass("active");
+			this.paymentCharges('ACH');
 		}
         else {
             $("#ACHTab").removeClass("active");
 			
-			
+			this.paymentCharges('CC');
         }
     }
+	paymentCharges(Type){
+		$("#loaderDiv").show();
+		fetch(`${API_URL}assetsapi/getPaymentCharges/`+Type,{
+			  method: 'get',
+			})
+				  .then(res => res.json())
+				  .then(
+					(result) => {
+						$("#loaderDiv").hide();
+					 this.setState({paymentCharges:result.paymentCharges});
+					},
+					
+					(error) => {
+					  this.setState({
+						isLoaded: true,
+						error
+					  });
+					}
+				  )
+	}
 	render(){  
 
     if(this.state.userDetails){
@@ -483,10 +527,14 @@ var user_detail = this.state.userDetails;
 																				</div>
 																			<div className="row">
 																			<div className="col-md-7">
-																				<p>CC Charges(2.99%)</p>
+																				<p>CC Charges( {this.state.paymentCharges.pay_mode=="Amount"?"$":''}{this.state.paymentCharges.charges}{this.state.paymentCharges.pay_mode=="Percentage"?"%":''} )</p>
 																			</div>
 																			<div className="col-md-5 text-right">
-																				<h5>$ {(user.planPrice*2.99)/100}</h5>
+																			{this.state.paymentCharges.pay_mode=="Percentage" &&
+													<h5><NumberFormat value={(user.planPrice*this.state.paymentCharges.charges)/100} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/></h5>}
+													{this.state.paymentCharges.pay_mode=="Amount" &&
+													<h5><NumberFormat value={this.state.paymentCharges.charges} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/></h5>}
+																				
 																			</div>
 																			</div>
 																			<hr style={{backgroundColor:"#fff"}}/>
@@ -495,7 +543,13 @@ var user_detail = this.state.userDetails;
 																					<p>Total Amount</p>
 																				</div>
 																				<div className="col-md-5 text-right">
-																					<h5>$ {Number(user.planPrice)+Number((user.planPrice*2.99)/100) }</h5>
+																				{this.state.paymentCharges.pay_mode=="Percentage" &&
+																			<h5><NumberFormat value={(Number(user.planPrice)+Number((user.planPrice*this.state.paymentCharges.charges)/100))} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/> </h5>
+																		}
+																		{this.state.paymentCharges.pay_mode=="Amount" &&
+																			<h5><NumberFormat value={(Number(user.planPrice)+Number(this.state.paymentCharges.charges))} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/> </h5>
+																		}
+																					
 																				</div>
 																			</div>
 																		</div>
@@ -589,10 +643,16 @@ var user_detail = this.state.userDetails;
 																				</div>
 																			<div className="row">
 																				<div className="col-md-7">
-																					<p>ACH Charges($1.00)</p>
+																					<p>ACH Charges({this.state.paymentCharges.pay_mode=="Amount"?"$":''}{this.state.paymentCharges.charges}{this.state.paymentCharges.pay_mode=="Percentage"?"%":''} )</p>
 																				</div>
 																				<div className="col-md-5 text-right">
-																					<h5>$1.00</h5>
+																				{this.state.paymentCharges.pay_mode=="Percentage" &&
+																			<h5><NumberFormat value={(Number(user.planPrice)+Number((user.planPrice.Amount*this.state.paymentCharges.charges)/100))} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/> </h5>
+																		}
+																		{this.state.paymentCharges.pay_mode=="Amount" &&
+																			<h5><NumberFormat value={(Number(user.planPrice)+Number(this.state.paymentCharges.charges))} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/> </h5>
+																		}
+																					
 																				</div>
 																			</div>
 																			<hr style={{backgroundColor:"#fff"}}/>
@@ -601,7 +661,13 @@ var user_detail = this.state.userDetails;
 																					<p>Total Amount</p>
 																				</div>
 																				<div className="col-md-5 text-right">
-																					<h5>$ {Number(user.planPrice)+Number(1.00) }</h5>
+																				{this.state.paymentCharges.pay_mode=="Percentage" &&
+														<h5><NumberFormat value={(Number(user.planPrice)+Number((user.planPrice*this.state.paymentCharges.charges)/100))} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/> </h5>
+													}
+													{this.state.paymentCharges.pay_mode=="Amount" &&
+														<h5><NumberFormat value={(Number(user.planPrice)+Number(this.state.paymentCharges.charges))} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/> </h5>
+													}
+																					
 																				</div>
 																			</div>
 																		</div>

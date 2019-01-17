@@ -34,6 +34,7 @@ export default class Agent extends React.Component{
 		 this.onChangeBGVHandler=this.onChangeBGVHandler.bind(this);
 	   this.onClickBGVFormSubmit = this.onClickBGVFormSubmit.bind(this);
 	   this.handleDobChange = this.handleDobChange.bind(this);
+	   this.bgvChargeInfo = this.bgvChargeInfo.bind(this);
 	}
 	handleDobChange(date) {
 		this.setState({
@@ -75,8 +76,11 @@ export default class Agent extends React.Component{
 			 bgFields.email=e.target.value;
 		 if(e.target.name=='SSN_EIN')
 			 bgFields.SSN_EIN=e.target.value;
-		 if(e.target.name=='packageid')
-			 bgFields.packageid=e.target.value;
+		 if(e.target.name=='packageid'){
+			  bgFields.packageid=e.target.value;
+			  this.bgvChargeInfo(bgFields.packageid);
+		 }
+			
 		 
 	     bgFields.user_id=this.props.profileData.assets_id;
 		 bgFields.login_user_id = JSON.parse(this.state.userData).assets_id;
@@ -84,10 +88,31 @@ export default class Agent extends React.Component{
 			this.setState({bgForm:bgFields});
 		 // console.log(this.state.bgForm);
 	 }
+	 bgvChargeInfo(pkgId){
+		 // $("#loaderDiv").show();
+				fetch(`${API_URL}assetsapi/bgv_info_by/`+pkgId, {
+				method: 'get',        
+				}).then((response) => {
+				  return response.json();
+				}).then((data) => {
+				  //console.log('dataaaa:  ', data);
+				  if(data)
+				  {
+					    // $("#loaderDiv").hide();
+						
+					   this.setState({bgvPkgInfo:data.bgvPkgInfo});
+					   
+								
+				  }
+				
+				}).catch((error) => {
+				  console.log('error: ', error);
+				}); 
+	 }
 	 onClickBGVFormSubmit(){
 		 // console.log('opts'+JSON.stringify(this.state.bgForm))
 		 var opts = Object.assign(this.props.profileData,this.state.bgForm);
-		
+		opts.bgvAmt = this.state.bgvPkgInfo.amount;
 		 // this.props.history.push('/')
 		 // console.log('opts'+JSON.stringify(opts))
 		 if(!opts.first_name)
@@ -147,11 +172,11 @@ export default class Agent extends React.Component{
 			 alert('Package must be selected');
 			 return;
 		 }
-		localStorage.setItem("opts", JSON.stringify(opts));
-		this.setState({redirect: true})
+		 localStorage.setItem("opts", JSON.stringify(opts));
+		 this.setState({redirect: true})
 		// this.props.history.push('/bgvpayment');
 		 // window.location.href="/bgvpayment";
-			 // console.log(opts);
+			 // console.log(JSON.stringify(opts));
 			 /* document.getElementById("bgvFormCancel").click();
 				 $("#loaderDiv").show();
 				fetch(`${API_URL}assetsapi/background_verification`, {
@@ -326,7 +351,7 @@ if (this.state.redirect){
 										type="radio"
 										name="packageid"
 										id={item.packageId}
-										value={item.amount}
+										value={item.packageId}
 										onChange={this.onChangeBGVHandler}
 									  />
 									   

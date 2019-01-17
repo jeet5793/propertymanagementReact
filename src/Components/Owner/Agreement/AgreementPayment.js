@@ -25,7 +25,8 @@ class AgreementPayment extends React.Component {
 			tokenizedaccountnumber:'',
 			routingnumber:'',
 			
-		}
+		},
+		paymentCharges:[]
 		
     }
       this.userInfo = this.userInfo.bind(this);
@@ -38,12 +39,14 @@ class AgreementPayment extends React.Component {
 	   this.onClickReturn = this.onClickReturn.bind(this);
 	   this.onChangeACH = this.onChangeACH.bind(this);
 	   this.changeNameHandler = this.changeNameHandler.bind(this)
+	    this.paymentCharges = this.paymentCharges.bind(this)
   }
  componentDidMount() {
     // setTimeout(function(){ $('#tzloadding').remove(); }, 2000)
     // $('html, body').animate({scrollTop: 0}, 1500);
     this.userInfo();
     this.userDetails();
+	this.paymentCharges('CC');
 
   }
   componentDidUpdate() {
@@ -141,8 +144,18 @@ onChangeACH(e){
   // event.preventDefault();
   	// console.log(this.state);
 	if(paymentType === 'CC'){
-		let extraAmt = Number((details.Amount*2.99)/100);
-		let amountToSend = Number(details.Amount)+Number((details.Amount*2.99)/100);
+		if(this.state.paymentCharges.pay_mode=="Percentage")
+		{
+			var extraAmt = Number((details.Amount*this.state.paymentCharges.charges)/100);
+			var amountToSend = Number(details.Amount)+Number(extraAmt);
+		}
+	   if(this.state.paymentCharges.pay_mode=="Amount")
+		{
+			var extraAmt = Number(this.state.paymentCharges.charges);
+			var amountToSend = Number(details.Amount)+Number(extraAmt);
+		}
+
+		
 		var payment_Object={
 			"userid":user_detail.user_id,
 			"tokenizedaccountnumber":this.state.tokenizedaccountnumber,
@@ -202,11 +215,11 @@ onChangeACH(e){
 					 
 						$("#loaderDiv").hide();
 							   
-							   $("#actionType").val("Yes");
+							   $("#actionType").val("No");
 							   $("#hiddenURL").val("/owner-agreement-create");
 							   $(".confirm-body").html(result.msg);
 							   $("#BlockUIConfirm").show();
-					 
+					  this.props.history.push('/owner-agreement-create');
 					  //this.props.updateInfo(result.profile);
 					},
 					
@@ -220,8 +233,17 @@ onChangeACH(e){
 		}
 		 
 	}else if(paymentType === 'ACH'){
-		let extraAmt = Number(1.00);
-		let amountToSend = Number(details.Amount)+Number(1.00);
+		if(this.state.paymentCharges.pay_mode=="Percentage")
+		{
+			var extraAmt = Number((details.Amount*this.state.paymentCharges.charges)/100);
+			var amountToSend = Number(details.Amount)+Number(extraAmt);
+		}
+	   if(this.state.paymentCharges.pay_mode=="Amount")
+		{
+			var extraAmt = Number(this.state.paymentCharges.charges);
+			var amountToSend = Number(details.Amount)+Number(extraAmt);
+		}
+
 		var payment_Object={
 			"userid":user_detail.user_id,
 			"tokenizedaccountnumber": this.state.achFields.tokenizedaccountnumber,
@@ -282,11 +304,11 @@ onChangeACH(e){
 				 
 					$("#loaderDiv").hide();
 						   
-						   $("#actionType").val("Yes");
-						   $("#hiddenURL").val("/owner-agreement-create");
+						   $("#actionType").val("No");
+						   // $("#hiddenURL").val("/owner-agreement-create");
 						   $(".confirm-body").html(result.msg);
 						   $("#BlockUIConfirm").show();
-				 
+				 this.props.history.push('/owner-agreement-create');
 				  //this.props.updateInfo(result.profile);
 				},
 				
@@ -310,13 +332,34 @@ onChangeACH(e){
   changeTabs(id) {
         if (id == "ach") {
             $("#CCTab").removeClass("active");
+			this.paymentCharges('ACH');
 		}
         else {
             $("#ACHTab").removeClass("active");
-			
+			this.paymentCharges('CC');
 			
         }
     }
+	paymentCharges(Type){
+		$("#loaderDiv").show();
+		fetch(`${API_URL}assetsapi/getPaymentCharges/`+Type,{
+			  method: 'get',
+			})
+				  .then(res => res.json())
+				  .then(
+					(result) => {
+						$("#loaderDiv").hide();
+					 this.setState({paymentCharges:result.paymentCharges});
+					},
+					
+					(error) => {
+					  this.setState({
+						isLoaded: true,
+						error
+					  });
+					}
+				  )
+	}
 	render(){  
 	// console.log(this.props.history);
     if(this.state.userDetails){
@@ -376,10 +419,13 @@ onChangeACH(e){
 												</div>
 												<div className="row">
 													<div className="col-md-7">
-														<p>CC Charges(2.99%)</p>
+														<p>CC Charges( {this.state.paymentCharges.pay_mode=="Amount"?"$":''}{this.state.paymentCharges.charges}{this.state.paymentCharges.pay_mode=="Percentage"?"%":''} )</p>
 													</div>
 													<div className="col-md-5 text-right">
-														<h5><NumberFormat value={(details.Amount*2.99)/100} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/></h5>
+													{this.state.paymentCharges.pay_mode=="Percentage" &&
+													<h5><NumberFormat value={(details.Amount*this.state.paymentCharges.charges)/100} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/></h5>}
+													{this.state.paymentCharges.pay_mode=="Amount" &&
+													<h5><NumberFormat value={this.state.paymentCharges.charges} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/></h5>}
 													</div>
 												</div>
 												<hr style={{backgroundColor:"#fff"}}/>
@@ -388,7 +434,12 @@ onChangeACH(e){
 														<h5>Total Amount</h5>
 													</div>
 													<div className="col-md-5 text-right">
-														<h5><NumberFormat value={(Number(details.Amount)+Number((details.Amount*2.99)/100))} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/> </h5>
+													{this.state.paymentCharges.pay_mode=="Percentage" &&
+														<h5><NumberFormat value={(Number(details.Amount)+Number((details.Amount*this.state.paymentCharges.charges)/100))} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/> </h5>
+													}
+													{this.state.paymentCharges.pay_mode=="Amount" &&
+														<h5><NumberFormat value={(Number(details.Amount)+Number(this.state.paymentCharges.charges))} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/> </h5>
+													}
 													</div>
 												</div>
 											</div>
@@ -485,10 +536,15 @@ onChangeACH(e){
 												</div>
 												<div className="row">
 													<div className="col-md-7">
-														<p>ACH Charges($1.00)</p>
+														<p>ACH Charges({this.state.paymentCharges.pay_mode=="Amount"?"$":''}{this.state.paymentCharges.charges}{this.state.paymentCharges.pay_mode=="Percentage"?"%":''} )</p>
 													</div>
 													<div className="col-md-5 text-right">
-														<h5>$1.00</h5>
+													{this.state.paymentCharges.pay_mode=="Percentage" &&
+														<h5><NumberFormat value={(Number(details.Amount)+Number((details.Amount*this.state.paymentCharges.charges)/100))} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/> </h5>
+													}
+													{this.state.paymentCharges.pay_mode=="Amount" &&
+														<h5><NumberFormat value={(Number(details.Amount)+Number(this.state.paymentCharges.charges))} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/> </h5>
+													}
 													</div>
 												</div>
 												<hr style={{backgroundColor:"#fff"}}/>
@@ -497,7 +553,13 @@ onChangeACH(e){
 														<p>Total Amount</p>
 													</div>
 													<div className="col-md-5 text-right">
-														<h5><NumberFormat value={Number(details.Amount)+Number(1.00)} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/></h5>
+													{this.state.paymentCharges.pay_mode=="Percentage" &&
+														<h5><NumberFormat value={(Number(details.Amount)+Number((details.Amount*this.state.paymentCharges.charges)/100))} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/> </h5>
+													}
+													{this.state.paymentCharges.pay_mode=="Amount" &&
+														<h5><NumberFormat value={(Number(details.Amount)+Number(this.state.paymentCharges.charges))} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2}  fixedDecimalScale={true}/> </h5>
+													}
+														
 													</div>
 												</div>
 											</div>

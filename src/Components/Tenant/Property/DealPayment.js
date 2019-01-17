@@ -38,6 +38,7 @@ class Payment extends React.Component {
 		paybleAmtAch:'',
 		paidAmt:'',
 		paidmonthCC:'',
+		paymentCharges:[]
 		
 		
     }
@@ -55,6 +56,7 @@ class Payment extends React.Component {
 	   this.splitAmtHandler = this.splitAmtHandler.bind(this);
 	     this.CheckBoxHandleAch = this.CheckBoxHandleAch.bind(this);
 		 this.changepaidMonthCCHandler = this.changepaidMonthCCHandler.bind(this);
+		 this.paymentCharges = this.paymentCharges.bind(this)
   }
  componentDidMount() {
     // setTimeout(function(){ $('#tzloadding').remove(); }, 2000)
@@ -77,7 +79,7 @@ class Payment extends React.Component {
           console.log('error')
         }
       )
-
+this.paymentCharges('CC');
   }
   componentDidUpdate() {
 
@@ -135,16 +137,39 @@ changeNameHandler(e)
 		  
 		if(cardType=='CC'){
 			this.setState({spltAmt:e.target.value});
-			let subAmt = Number((e.target.value*2.99)/100);
-			let paybleAmt = Number(e.target.value) + subAmt;
+			if(this.state.paymentCharges.pay_mode=="Percentage")
+			{
+				var subAmt = Number((e.target.value*this.state.paymentCharges.charges)/100);
+				var paybleAmt = Number(e.target.value)+Number(subAmt);
+			}
+		   if(this.state.paymentCharges.pay_mode=="Amount")
+			{
+				var subAmt = Number(this.state.paymentCharges.charges);
+				var paybleAmt = Number(e.target.value)+Number(subAmt);
+			}
+
+			
+			// let subAmt = Number((e.target.value*2.99)/100);
+			// let paybleAmt = Number(e.target.value) + subAmt;
 			// console.log(subAmt+'::'+paybleAmt);
 			this.setState({subAmt:subAmt,paybleAmt:paybleAmt})
 			// console.log(this.state.subAmt+':1:'+this.state.paybleAmt);
 		}
 		if(cardType=='ACH'){
 			this.setState({spltAmtAch:e.target.value});
-			let subAmtAch = Number(1.00);
-			let paybleAmtAch = Number(e.target.value) + subAmtAch;
+			
+			if(this.state.paymentCharges.pay_mode=="Percentage")
+			{
+				var subAmtAch = Number((e.target.value*this.state.paymentCharges.charges)/100);
+				var paybleAmtAch = Number(e.target.value)+Number(subAmtAch);
+			}
+		   if(this.state.paymentCharges.pay_mode=="Amount")
+			{
+				var subAmtAch = Number(this.state.paymentCharges.charges);
+				var paybleAmtAch = Number(e.target.value)+Number(subAmtAch);
+			}
+			// let subAmtAch = Number(1.00);
+			// let paybleAmtAch = Number(e.target.value) + subAmtAch;
 			// console.log(subAmt+'::'+paybleAmt);
 			this.setState({subAmtAch:subAmtAch,paybleAmtAch:paybleAmtAch})
 		}
@@ -239,11 +264,11 @@ changeNameHandler(e)
 					 
 						$("#loaderDiv").hide();
 							   
-							   $("#actionType").val("Yes");
-							   $("#hiddenURL").val("tenant-myproperty");
+							   $("#actionType").val("No");
+							   // $("#hiddenURL").val("tenant-myproperty");
 							   $(".confirm-body").html(result.msg);
 							   $("#BlockUIConfirm").show();
-					 
+					  this.props.history.push('/tenant-myproperty');
 					  //this.props.updateInfo(result.profile);
 					},
 					
@@ -295,7 +320,7 @@ changeNameHandler(e)
 			  "name":this.state.achFields.name,
 			   'paid_month':this.state.achFields.paid_month
 		}
-		console.log(JSON.stringify(payment_Object));
+		// console.log(JSON.stringify(payment_Object));
 		if(!payment_Object.name){
 			 alert("Name should not be blank");
 			return;
@@ -321,11 +346,11 @@ changeNameHandler(e)
 				 
 					$("#loaderDiv").hide();
 						   
-						   $("#actionType").val("Yes");
-						   $("#hiddenURL").val("tenant-myproperty");
+						   $("#actionType").val("No");
+						   // $("#hiddenURL").val("tenant-myproperty");
 						   $(".confirm-body").html(result.msg);
 						   $("#BlockUIConfirm").show();
-				 
+				 this.props.history.push('/tenant-myproperty');
 				  //this.props.updateInfo(result.profile);
 				},
 				
@@ -343,19 +368,42 @@ changeNameHandler(e)
   }
   onClickReturn()
   {
-	  window.location.href='/tenant-myproperty';
+	   this.props.history.push('/tenant-myproperty');
+	  // window.location.href='/tenant-myproperty';
 	  // this.props.history.replace('/owner-plan');
   }
   changeTabs(id) {
         if (id == "ach") {
             $("#CCTab").removeClass("active");
+			this.paymentCharges('ACH');
 		}
         else {
             $("#ACHTab").removeClass("active");
+			this.paymentCharges('CC');
 			
 			
         }
     }
+	paymentCharges(Type){
+		$("#loaderDiv").show();
+		fetch(`${API_URL}assetsapi/getPaymentCharges/`+Type,{
+			  method: 'get',
+			})
+				  .then(res => res.json())
+				  .then(
+					(result) => {
+						$("#loaderDiv").hide();
+					 this.setState({paymentCharges:result.paymentCharges});
+					},
+					
+					(error) => {
+					  this.setState({
+						isLoaded: true,
+						error
+					  });
+					}
+				  )
+	}
 	render(){  
 	// console.log(this.props.history);
 	
@@ -422,10 +470,17 @@ changeNameHandler(e)
 												</div>
 											<div className="row">
 													<div className="col-md-7">
-														<p>CC Charges(2.99%)</p>
+														<p>CC Charges( {this.state.paymentCharges.pay_mode=="Amount"?"$":''}{this.state.paymentCharges.charges}{this.state.paymentCharges.pay_mode=="Percentage"?"%":''} )</p>
 													</div>
 													<div className="col-md-5 text-right">
-														<h5>{(dealData.paidFor==='Rent'||dealData.paidFor==='Rented')?<NumberFormat value={((Number(RentAmt)-Number(PaidAmount))*2.99)/100} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>:<NumberFormat value={(Number(SellAmt)-Number(PaidAmount)*2.99)/100} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>}</h5>
+													{this.state.paymentCharges.pay_mode=="Percentage" &&
+													<h5>{(dealData.paidFor==='Rent'||dealData.paidFor==='Rented')?<NumberFormat value={((Number(RentAmt)-Number(PaidAmount))*this.state.paymentCharges.charges)/100} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>:<NumberFormat value={(Number(SellAmt)-Number(PaidAmount)*this.state.paymentCharges.charges)/100} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>}</h5>}
+													
+													{this.state.paymentCharges.pay_mode=="Amount" &&
+													<h5><NumberFormat value={this.state.paymentCharges.charges} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/></h5>}
+													
+													
+														
 													</div>
 													
 												</div>
@@ -435,7 +490,14 @@ changeNameHandler(e)
 														<p>Total Amount</p>
 													</div>
 													<div className="col-md-5 text-right">
-														<h5>{(dealData.paidFor==='Rent'||dealData.paidFor==='Rented')?<NumberFormat value={((Number(RentAmt)-Number(PaidAmount))+ Number(((Number(RentAmt)-Number(PaidAmount))*2.99)/100))} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>:<NumberFormat value={((Number(SellAmt)-Number(PaidAmount))+ Number(((Number(SellAmt)-Number(PaidAmount))*2.99)/100))} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/> }</h5>
+													{this.state.paymentCharges.pay_mode=="Percentage" &&
+															<h5>{(dealData.paidFor==='Rent'||dealData.paidFor==='Rented')?<NumberFormat value={((Number(RentAmt)-Number(PaidAmount))+ Number(((Number(RentAmt)-Number(PaidAmount))*this.state.paymentCharges.charges)/100))} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>:<NumberFormat value={((Number(SellAmt)-Number(PaidAmount))+ Number(((Number(SellAmt)-Number(PaidAmount))*this.state.paymentCharges.charges)/100))} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/> }</h5>
+													}
+													{this.state.paymentCharges.pay_mode=="Amount" &&
+															<h5>{(dealData.paidFor==='Rent'||dealData.paidFor==='Rented')?<NumberFormat value={((Number(RentAmt)-Number(PaidAmount))+ Number(this.state.paymentCharges.charges))} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>:<NumberFormat value={((Number(SellAmt)-Number(PaidAmount))+ Number(this.state.paymentCharges.charges))} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/> }</h5>
+													}
+													
+													
 													</div>
 												</div>
 												
@@ -451,7 +513,7 @@ changeNameHandler(e)
 												{this.state.splitShow && this.state.subAmt?
 												<div className="row">
 													<div className="col-md-7">
-														<p>CC Charges(2.99%)</p>
+														<p>CC Charges( {this.state.paymentCharges.pay_mode=="Amount"?"$":''}{this.state.paymentCharges.charges}{this.state.paymentCharges.pay_mode=="Percentage"?"%":''} )</p>
 													</div>
 													<div className="col-md-5 text-right">
 														<p><NumberFormat value={this.state.subAmt} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/></p>
@@ -586,10 +648,14 @@ changeNameHandler(e)
 												</div>
 											<div className="row">
 													<div className="col-md-7">
-														<p>ACH Charges($1.00)</p>
+														<p>ACH Charges( {this.state.paymentCharges.pay_mode=="Amount"?"$":''}{this.state.paymentCharges.charges}{this.state.paymentCharges.pay_mode=="Percentage"?"%":''} )</p>
 													</div>
 													<div className="col-md-5 text-right">
-														<h5>$1</h5>
+														{this.state.paymentCharges.pay_mode=="Percentage" &&
+													<h5>{(dealData.paidFor==='Rent'||dealData.paidFor==='Rented')?<NumberFormat value={((Number(RentAmt)-Number(PaidAmount))*this.state.paymentCharges.charges)/100} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>:<NumberFormat value={(Number(SellAmt)-Number(PaidAmount)*this.state.paymentCharges.charges)/100} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>}</h5>}
+													
+													{this.state.paymentCharges.pay_mode=="Amount" &&
+													<h5><NumberFormat value={this.state.paymentCharges.charges} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/></h5>}
 													</div>
 													
 												</div>
@@ -599,7 +665,12 @@ changeNameHandler(e)
 														<p>Total Amount</p>
 													</div>
 													<div className="col-md-5 text-right">
-														<h5>{(dealData.paidFor==='Rent'||dealData.paidFor==='Rented')?<NumberFormat value={((Number(RentAmt)-Number(PaidAmount))+1.00)} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>:<NumberFormat value={((Number(SellAmt)-Number(PaidAmount))+1.00)} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>}</h5>
+														{this.state.paymentCharges.pay_mode=="Percentage" &&
+															<h5>{(dealData.paidFor==='Rent'||dealData.paidFor==='Rented')?<NumberFormat value={((Number(RentAmt)-Number(PaidAmount))+ Number(((Number(RentAmt)-Number(PaidAmount))*this.state.paymentCharges.charges)/100))} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>:<NumberFormat value={((Number(SellAmt)-Number(PaidAmount))+ Number(((Number(SellAmt)-Number(PaidAmount))*this.state.paymentCharges.charges)/100))} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/> }</h5>
+													}
+													{this.state.paymentCharges.pay_mode=="Amount" &&
+															<h5>{(dealData.paidFor==='Rent'||dealData.paidFor==='Rented')?<NumberFormat value={((Number(RentAmt)-Number(PaidAmount))+ Number(this.state.paymentCharges.charges))} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/>:<NumberFormat value={((Number(SellAmt)-Number(PaidAmount))+ Number(this.state.paymentCharges.charges))} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/> }</h5>
+													}
 													</div>
 												</div>
 												<div className="row">
@@ -614,7 +685,7 @@ changeNameHandler(e)
 												{this.state.splitShow && this.state.subAmtAch?
 												<div className="row">
 													<div className="col-md-7">
-														<p>ACH Charges($1.00)</p>
+														<p>ACH Charges( {this.state.paymentCharges.pay_mode=="Amount"?"$":''}{this.state.paymentCharges.charges}{this.state.paymentCharges.pay_mode=="Percentage"?"%":''} )</p>
 													</div>
 													<div className="col-md-5 text-right">
 														<p><NumberFormat value={this.state.subAmtAch} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/></p>
