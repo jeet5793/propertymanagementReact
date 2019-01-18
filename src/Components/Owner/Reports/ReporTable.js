@@ -13,11 +13,12 @@ const TableReprt=(props)=>{
     // debugger;
     var expens=0;
    for(var i=0;i<props.report.length;i++){
-       if(props.report[i].responsestatus=='APPROVED'){
-		    expens=Number(expens)+Number(props.report[i].transactionamount)
-	   }
+        if(props.report[i].responsestatus=='APPROVED'){
+		   console.log(props.report[i].transactionamount);
+		    expens=Number(expens)+Number(parseFloat(props.report[i].transactionamount.replace(/,/g, '')))
+	    }
    }
-    console.log(props);
+     // console.log(expens);
     return(
 		<div>
         
@@ -54,7 +55,7 @@ const TableReprt=(props)=>{
 						<tfoot>
 						<tr>
 							<td colSpan={3} className="text-right"><b>Total :</b></td>
-							<td><b><NumberFormat value={props.totalAmt} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/></b></td>
+							<td><b><NumberFormat value={expens} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/></b></td>
 							<td><b></b></td>
 							</tr>
 						</tfoot>

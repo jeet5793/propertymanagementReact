@@ -29,6 +29,7 @@ import ChangePassword from '../Settings/passwordSetting';
 import ManageBranding from '../Settings/ManageBranding';
 import $ from 'jquery';
 import API_URL from '../../../../app-config';
+import ConnectedOwnerProperty from '../MyProperty/ConnectedOwnerProperty';
 class AgentBrokerDashboard extends React.Component {
 
   constructor(props) {
@@ -130,6 +131,7 @@ class AgentBrokerDashboard extends React.Component {
 			<Route exact path='/broker-profile-edit' component={ProfileEdit} />
 			<Route exact path='/broker-change-password' component={ChangePassword} />
 			<Route exact path='/broker-branding' component={ManageBranding} />
+			<Route exact path='/connected-owner-property' component={ConnectedOwnerProperty} />
           </Switch>
 
           <Footer />

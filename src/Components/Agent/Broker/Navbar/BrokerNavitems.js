@@ -18,11 +18,22 @@ export default class BrokerNavitems extends Component{
 						<i className="fi-paper"></i>Agreement
 				</Link> 
             </li>
-            <li>
-                <Link to={{pathname:'/broker-property'}}>
-                    <i className="fi-box"></i>My Property
-                </Link>
-            </li>
+           <li className="has-submenu">
+						<a href="#"><i className="fi-box"></i>My Property</a> 
+					
+						<ul className="submenu">
+							<li>
+								 <Link to={{pathname:'/broker-property'}}>
+									<i className="fi-box"></i> Assigned Property
+								</Link>
+							 </li>
+							<li>
+								<Link to={{pathname:'/connected-owner-property'}}>
+									<i className="fi-box"></i> Joined Owner's Property
+								</Link>
+							 </li>
+						</ul>
+					</li>
             <li>
                 <Link to={{pathname:'/broker-service'}}>
                     <i className="fi-tag "></i>Services                
@@ -70,11 +81,22 @@ export default class BrokerNavitems extends Component{
 						<i className="fi-paper"></i>Agreement
 				</Link> 
                 </li>
-                <li>
-                    <Link to={{pathname:'/broker-property'}}>
-                        <i className="fi-box"></i>My Property
-                    </Link>
-                </li>
+                <li className="has-submenu">
+						<a href="#"><i className="fi-box"></i>My Property</a> 
+					
+						<ul className="submenu">
+							<li>
+								 <Link to={{pathname:'/broker-property'}}>
+									<i className="fi-box"></i> Assigned Property
+								</Link>
+							 </li>
+							<li>
+								<Link to={{pathname:'/connected-owner-property'}}>
+									<i className="fi-box"></i> Joined Owner's Property
+								</Link>
+							 </li>
+						</ul>
+					</li>
                 <li>
                     <Link to={{pathname:'/broker-service'}}>
                         <i className="fi-tag "></i>Services                
@@ -123,11 +145,27 @@ export default class BrokerNavitems extends Component{
 						<i className="fi-paper"></i>Agreement
 					</Link> 
                 </li>
-                <li>
+				<li className="has-submenu active">
+						<a href="#"><i className="fi-box"></i>My Property</a> 
+					
+						<ul className="submenu">
+							<li>
+								 <Link to={{pathname:'/broker-property'}}>
+									<i className="fi-box"></i> Assigned Property
+								</Link>
+							 </li>
+							<li>
+								<Link to={{pathname:'/connected-owner-property'}}>
+									<i className="fi-box"></i> Joined Owner's Property
+								</Link>
+							 </li>
+						</ul>
+					</li>
+					{/*  <li>
                     <Link className="has-submenu active" to={{pathname:'/broker-property'}}>
                         <i className="fi-box"></i>My Property
                     </Link>
-                </li>
+					</li> */}
                 <li>
                     <Link to={{pathname:'/broker-service'}}>
                         <i className="fi-tag "></i>Services                
@@ -176,11 +214,22 @@ export default class BrokerNavitems extends Component{
 						<i className="fi-paper"></i>Agreement
 					</Link> 
                 </li>
-                <li>
-                    <Link  to={{pathname:'/broker-property'}}>
-                        <i className="fi-box"></i>My Property
-                    </Link>
-                </li>
+                <li className="has-submenu">
+						<a href="#"><i className="fi-box"></i>My Property</a> 
+					
+						<ul className="submenu">
+							<li>
+								 <Link to={{pathname:'/broker-property'}}>
+									<i className="fi-box"></i> Assigned Property
+								</Link>
+							 </li>
+							<li>
+								<Link to={{pathname:'/connected-owner-property'}}>
+									<i className="fi-box"></i> Joined Owner's Property
+								</Link>
+							 </li>
+						</ul>
+					</li>
                 <li className="has-submenu active">
                     <Link to={{pathname:'/broker-service'}}>
                         <i className="fi-tag "></i>Services                
@@ -229,11 +278,22 @@ export default class BrokerNavitems extends Component{
 						<i className="fi-paper"></i>Agreement
 					</Link> 
                 </li>
-                <li>
-                    <Link  to={{pathname:'/broker-property'}}>
-                        <i className="fi-box"></i>My Property
-                    </Link>
-                </li>
+                 <li className="has-submenu">
+						<a href="#"><i className="fi-box"></i>My Property</a> 
+					
+						<ul className="submenu">
+							<li>
+								 <Link to={{pathname:'/broker-property'}}>
+									<i className="fi-box"></i> Assigned Property
+								</Link>
+							 </li>
+							<li>
+								<Link to={{pathname:'/connected-owner-property'}}>
+									<i className="fi-box"></i> Joined Owner's Property
+								</Link>
+							 </li>
+						</ul>
+					</li>
                 <li>
                     <Link to={{pathname:'/broker-service'}}>
                         <i className="fi-tag "></i>Services                
@@ -282,11 +342,22 @@ export default class BrokerNavitems extends Component{
 						<i className="fi-paper"></i>Agreement
 					</Link> 
                 </li>
-                <li>
-                    <Link  to={{pathname:'/broker-property'}}>
-                        <i className="fi-box"></i>My Property
-                    </Link>
-                </li>
+                <li className="has-submenu">
+						<a href="#"><i className="fi-box"></i>My Property</a> 
+					
+						<ul className="submenu">
+							<li>
+								 <Link to={{pathname:'/broker-property'}}>
+									<i className="fi-box"></i> Assigned Property
+								</Link>
+							 </li>
+							<li>
+								<Link to={{pathname:'/connected-owner-property'}}>
+									<i className="fi-box"></i> Joined Owner's Property
+								</Link>
+							 </li>
+						</ul>
+					</li>
                 <li>
                     <Link to={{pathname:'/broker-service'}}>
                         <i className="fi-tag "></i>Services                
@@ -335,11 +406,22 @@ export default class BrokerNavitems extends Component{
 						<i className="fi-paper"></i>Agreement
 					</Link> 
                 </li>
-                <li>
-                    <Link  to={{pathname:'/broker-property'}}>
-                        <i className="fi-box"></i>My Property
-                    </Link>
-                </li>
+                 <li className="has-submenu">
+						<a href="#"><i className="fi-box"></i>My Property</a> 
+					
+						<ul className="submenu">
+							<li>
+								 <Link to={{pathname:'/broker-property'}}>
+									<i className="fi-box"></i> Assigned Property
+								</Link>
+							 </li>
+							<li>
+								<Link to={{pathname:'/connected-owner-property'}}>
+									<i className="fi-box"></i> Joined Owner's Property
+								</Link>
+							 </li>
+						</ul>
+					</li>
                 <li>
                     <Link to={{pathname:'/broker-service'}}>
                         <i className="fi-tag "></i>Services                
@@ -388,11 +470,22 @@ export default class BrokerNavitems extends Component{
 						<i className="fi-paper"></i>Agreement
 					</Link> 
                 </li>
-                <li>
-                    <Link  to={{pathname:'/broker-property'}}>
-                        <i className="fi-box"></i>My Property
-                    </Link>
-                </li>
+                <li className="has-submenu">
+						<a href="#"><i className="fi-box"></i>My Property</a> 
+					
+						<ul className="submenu">
+							<li>
+								 <Link to={{pathname:'/broker-property'}}>
+									<i className="fi-box"></i> Assigned Property
+								</Link>
+							 </li>
+							<li>
+								<Link to={{pathname:'/connected-owner-property'}}>
+									<i className="fi-box"></i> Joined Owner's Property
+								</Link>
+							 </li>
+						</ul>
+					</li>
                 <li>
                     <Link to={{pathname:'/broker-service'}}>
                         <i className="fi-tag "></i>Services                
@@ -441,11 +534,22 @@ export default class BrokerNavitems extends Component{
 						<i className="fi-paper"></i>Agreement
 					</Link> 
                 </li>
-                <li>
-                    <Link  to={{pathname:'/broker-property'}}>
-                        <i className="fi-box"></i>My Property
-                    </Link>
-                </li>
+                <li className="has-submenu">
+						<a href="#"><i className="fi-box"></i>My Property</a> 
+					
+						<ul className="submenu">
+							<li>
+								 <Link to={{pathname:'/broker-property'}}>
+									<i className="fi-box"></i> Assigned Property
+								</Link>
+							 </li>
+							<li>
+								<Link to={{pathname:'/connected-owner-property'}}>
+									<i className="fi-box"></i> Joined Owner's Property
+								</Link>
+							 </li>
+						</ul>
+					</li>
                 <li>
                     <Link to={{pathname:'/broker-service'}}>
                         <i className="fi-tag "></i>Services                
@@ -494,11 +598,22 @@ export default class BrokerNavitems extends Component{
 						<i className="fi-paper"></i>Agreement
 					</Link> 
                 </li>
-                <li>
-                    <Link  to={{pathname:'/broker-property'}}>
-                        <i className="fi-box"></i>My Property
-                    </Link>
-                </li>
+                <li className="has-submenu">
+						<a href="#"><i className="fi-box"></i>My Property</a> 
+					
+						<ul className="submenu">
+							<li>
+								 <Link to={{pathname:'/broker-property'}}>
+									<i className="fi-box"></i> Assigned Property
+								</Link>
+							 </li>
+							<li>
+								<Link to={{pathname:'/connected-owner-property'}}>
+									<i className="fi-box"></i> Joined Owner's Property
+								</Link>
+							 </li>
+						</ul>
+					</li>
                 <li>
                     <Link to={{pathname:'/broker-service'}}>
                         <i className="fi-tag "></i>Services                
@@ -547,11 +662,22 @@ export default class BrokerNavitems extends Component{
 						<i className="fi-paper"></i>Agreement
 					</Link> 
                 </li>
-                <li>
-                    <Link  to={{pathname:'/broker-property'}}>
-                        <i className="fi-box"></i>My Property
-                    </Link>
-                </li>
+                 <li className="has-submenu">
+						<a href="#"><i className="fi-box"></i>My Property</a> 
+					
+						<ul className="submenu">
+							<li>
+								 <Link to={{pathname:'/broker-property'}}>
+									<i className="fi-box"></i> Assigned Property
+								</Link>
+							 </li>
+							<li>
+								<Link to={{pathname:'/connected-owner-property'}}>
+									<i className="fi-box"></i> Joined Owner's Property
+								</Link>
+							 </li>
+						</ul>
+					</li>
                 <li>
                     <Link to={{pathname:'/broker-service'}}>
                         <i className="fi-tag "></i>Services                
@@ -600,11 +726,22 @@ export default class BrokerNavitems extends Component{
 						<i className="fi-paper"></i>Agreement
 					</Link> 
                 </li>
-                <li>
-                    <Link  to={{pathname:'/broker-property'}}>
-                        <i className="fi-box"></i>My Property
-                    </Link>
-                </li>
+                <li className="has-submenu">
+						<a href="#"><i className="fi-box"></i>My Property</a> 
+					
+						<ul className="submenu">
+							<li>
+								 <Link to={{pathname:'/broker-property'}}>
+									<i className="fi-box"></i> Assigned Property
+								</Link>
+							 </li>
+							<li>
+								<Link to={{pathname:'/connected-owner-property'}}>
+									<i className="fi-box"></i> Joined Owner's Property
+								</Link>
+							 </li>
+						</ul>
+					</li>
                 <li>
                     <Link to={{pathname:'/broker-service'}}>
                         <i className="fi-tag "></i>Services                
@@ -638,6 +775,7 @@ export default class BrokerNavitems extends Component{
                 </ul>
                 );
             }
+			
         
         
         

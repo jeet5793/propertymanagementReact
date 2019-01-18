@@ -20,7 +20,8 @@ export default class SendMSG extends React.Component{
 		startDate: "",
 	endDate: "",
 	tenure_start_date:'',
-	tenure_end_date:''
+	tenure_end_date:'',
+	userProperty:[]
     };
     this.sendAgreement = this.sendAgreement.bind(this);
     this.onChangeHandler = this.onChangeHandler.bind(this);
@@ -28,6 +29,7 @@ export default class SendMSG extends React.Component{
 	this.searchUser=this.searchUser.bind(this);
 		 this.handleSdChange = this.handleSdChange.bind(this);
 	this.handleEdChange =this.handleEdChange.bind(this);
+	this.PropertyListOption = this.PropertyListOption.bind(this);
   }
   handleSdChange(date) {
 		this.setState({
@@ -103,7 +105,12 @@ export default class SendMSG extends React.Component{
     sendAgreement() {
 		
       const profile=JSON.parse(this.state.userData)
-      
+	  if(!this.state.property_option){
+		  return alert("Choose atleast one from deal or from connected owners's.!!!");
+	  }
+      if(!this.state.property_id){
+		  return alert('Property must be selected.!!!');
+	  }
       let { property_id, sender_id, receive_user_id, description } = this.state;
       if (!property_id || !sender_id || !receive_user_id || !description) {
         return;
@@ -318,6 +325,36 @@ document.getElementById("FormCancel").click();
 		) 
 
 	}
+	PropertyListOption(optionName){
+		this.setState({property_option:optionName});
+		$("#loaderDiv").show();
+		fetch(`${API_URL}assetsapi/property_list_broker_agreement/${JSON.parse(this.state.userData).assets_id}/`+optionName, {
+            method: 'GET'
+        })
+            .then(res => res.json())
+            .then(
+                (data) => {
+                    //console.log("data 2: "+JSON.stringify(result.profile))
+                    if (data) {
+                        $("#loaderDiv").hide();
+						this.setState({userProperty: data.property_list_broker_agreement});
+					   if(!this.state.userProperty){
+						   document.getElementById("FormCancel").click();
+						    $("#actionType").val("No");
+						   $("#hiddenURL").val("broker-agreement");
+						   $(".confirm-body").html("You don't have property to send agreement.");
+						   $("#BlockUIConfirm").show();
+					   }
+					  
+                    }
+                    //console.log("set user data"+JSON.stringify(this.state.profileData))
+                },
+                (error) => {
+                  alert('Error sending data')
+                    console.log('error')
+                }
+            );
+	}
     render(){
 		const { value, suggestions,selectedOption,property_list,autocompleteData } = this.state;
 			// Autosuggest will pass through all these props to the input.
@@ -330,7 +367,7 @@ document.getElementById("FormCancel").click();
         // console.log('props'+JSON.stringify(this.props))
         return(
 		<div id="send-msg" className="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{display: 'none'}}>
-		{ this.props.userProperty && this.props.userProperty.length > 0?
+		{/* this.state.userProperty && this.state.userProperty.length > 0?*/}
             <div className="modal-dialog">
               <div className="modal-content">      
                 <div className="modal-header">        
@@ -339,13 +376,26 @@ document.getElementById("FormCancel").click();
                 </div>      
                 <div className="modal-body">        
                   <div className="row">
-                      { this.props.userProperty && this.props.userProperty.length > 0 &&
+					<div className="col-md-12">
+				
+							<div className="radio radio-custom">
+								<input type="radio" name="property_option" id="fromDeal" value="deal" onChange={this.PropertyListOption.bind(this,'deal')}/>
+								<label htmlFor="fromDeal"> Property from Deal </label>
+							</div>
+
+							<div className="radio radio-custom">
+								<input type="radio" name="property_option" id="fromConnected" value="connected" onChange={this.PropertyListOption.bind(this,'connected')}/>
+								<label htmlFor="fromConnected"> Property from Connected Owners's </label>
+							</div>
+					
+					</div>
+                      { this.state.userProperty && this.state.userProperty.length > 0 &&
                         <div className="col-md-12">
                           <div className="form-group">
                             <label for="nme" className="control-label">Property<span className="required"/></label>
                             <select  className="form-control" name="property_id" onChange={this.onChangeHandler}>
                               <option>Please Select</option>
-                                {this.props.userProperty.map(prp => <option value={prp.property_id}>{prp.property_name}</option>)}
+                                {this.state.userProperty.map(prp => <option value={prp.property_id}>{prp.property_name}</option>)}
                             </select>
                           </div>
                         </div>
@@ -412,7 +462,7 @@ document.getElementById("FormCancel").click();
               </div>  
               </div>
             </div>
-				:
+			{/*:
 				<div className="modal-dialog">
 					<div className="modal-content"> 
 							
@@ -429,7 +479,7 @@ document.getElementById("FormCancel").click();
 							
 						</div>					  
 					</div>
-				</div>}
+			</div>*/}
 		</div>
         );
     }

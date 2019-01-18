@@ -38,6 +38,7 @@ import OTBGVPayment from '../Tenants/PaymentGateway';
 import AgreementPayment from '../Agreement/AgreementPayment';
 import ManageBranding from '../Settings/ManageBranding';
 import $ from 'jquery';
+ import MyDocuments from '../Agreement/MyDocuments';
 class UserDashboard extends React.Component {
 
   constructor(props) {
@@ -139,6 +140,7 @@ class UserDashboard extends React.Component {
 			<Route exact path='/owner-profile-edit' component={ProfileEdit} />
 			<Route exact path='/owner-change-password' component={ChangePassword} />
 			<Route exact path='/owner-branding' component={ManageBranding} />
+			<Route exact path='/my-documents' component={MyDocuments} />
           </Switch>
           <Footer />
         </div>

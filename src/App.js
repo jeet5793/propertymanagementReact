@@ -193,6 +193,7 @@ export default class App extends Component {
 			<Route path='/owner-profile-edit' component={UserDashboard} />
 			<Route path='/owner-change-password' component={UserDashboard} />
 			<Route path='/owner-branding' component={UserDashboard} />
+			<Route path='/my-documents' component={UserDashboard} />
             {/* Broker Dashboard */}
             <Route path='/broker-tenant' component={AgentBrokerDashboard} />
             <Route path='/broker-profile' component={AgentBrokerDashboard} />
@@ -217,7 +218,7 @@ export default class App extends Component {
 			<Route path='/broker-profile-edit' component={AgentBrokerDashboard} />
 			<Route path='/broker-change-password' component={AgentBrokerDashboard} />
 			<Route path='/broker-branding' component={AgentBrokerDashboard} />
-			
+			<Route path='/connected-owner-property' component={AgentBrokerDashboard} />
             {/* Service Provider Dashboard */}
             <Route path='/agent-serviceprovider' component={AgentServiceProviderDashboard} />
             <Route path='/agentprovider-services' component={AgentServiceProviderDashboard} />

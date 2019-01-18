@@ -15,7 +15,7 @@ const TableReprt=(props)=>{
    for(var i=0;i<props.report.length;i++){
 	    // console.log('transactionamount '+ JSON.stringify(props.report[i].transactionamount));
 	if(props.report[i].responsestatus=='APPROVED'){
-	    expens = expens + props.report[i].transactionamount.toLocaleString(navigator.language, { minimumFractionDigits: 2 });
+	    expens=Number(expens)+Number(parseFloat(props.report[i].transactionamount.replace(/,/g, '')))
 	}
    }
    // console.log(props);
@@ -55,7 +55,7 @@ const TableReprt=(props)=>{
 						<tfoot>
 						<tr>
 							<td colSpan={3} className="text-right"><b>Total :</b></td>
-							<td><b><NumberFormat value={props.totalAmt} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/></b></td>
+							<td><b><NumberFormat value={expens} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/></b></td>
 							</tr>
 						</tfoot>
                     </table>
