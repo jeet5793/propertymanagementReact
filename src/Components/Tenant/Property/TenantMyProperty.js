@@ -121,6 +121,7 @@ this.imgServer=API_URL,
 	  ev.target.src = img_not_available;
 	}
 	onClickPay(element){
+		 $("#TBlockUIConfirm").hide();
 		const profile=JSON.parse(this.state.userData)
 		// console.log('prop outside '+JSON.stringify(this.props));
 		let propId = element.property_id;
@@ -182,13 +183,13 @@ this.imgServer=API_URL,
              
 				  
             }else if(result.success==0){
-				 
+				
 				// console.log('prop inside1 '+JSON.stringify(this.props));
 					$("#actionType").val("No");
 					   $("#hiddenURL").val("tenant-myproperty");
 					   $(".confirm-body").html(result.msg);
 					   $("#BlockUIConfirm").show();
-					   $(".row-dialog-btn").click(function(){
+					   $(".btn").click(function(){
 							$(".confirm-body").html("Do you want pay by cheque?");
 							$("#TBlockUIConfirm").show();
 					   });
@@ -246,7 +247,7 @@ this.imgServer=API_URL,
 											   $("#hiddenURL").val("tenant-myproperty");
 											   $(".confirm-body").html(msg);
 											   $("#BlockUIConfirm").show();
-											    $(".row-dialog-btn").click(function(){
+											    $(".btn").click(function(){
 													$("#TBlockUIConfirm").hide();
 												$("#ChequeBlockUIConfirm").hide();
 												});
@@ -330,7 +331,7 @@ this.imgServer=API_URL,
 							   
 							    $("#BlockUIConfirm").show();
 								
-						$(".row-dialog-btn").click(function(){
+						$(".btn").click(function(){
 							
 							$("#TBlockUIConfirm").hide();
 					   });

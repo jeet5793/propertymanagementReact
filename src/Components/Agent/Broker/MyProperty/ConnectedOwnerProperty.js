@@ -9,8 +9,9 @@ import img_not_available from '../../../../images/img_not_available.png'
 import $ from 'jquery';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
+ import Select from 'react-select';
 
-
+ 
 export default class ConnectedOwnerProperty extends React.Component{
 	constructor(props){
     super(props)
@@ -24,12 +25,13 @@ this.imgServer=API_URL,
 		  propertyImg:[],
 		   propertyDetail:[],
 		    reportStatus:false,
-			
+			selectedOption: null,
+			propertyOwnerList:[]
 			
 		}
 		this.onClickDownload = this.onClickDownload.bind(this);
 		this.viewProperty = this.viewProperty.bind(this);
-		
+		this.userList =this.userList.bind(this);
 	}
 	componentDidMount(){
 		const profile=JSON.parse(this.state.userData)
@@ -53,6 +55,30 @@ this.imgServer=API_URL,
           console.log('error')
         }
       )
+	  this.userList();
+	}
+	userList(){
+		
+		$("#loaderDiv").show();
+        fetch(`${API_URL}assetsapi/propertyOwnerList/${JSON.parse(this.state.userData).assets_id}/`, {
+          method: 'get'
+        })
+        .then(res => res.json())
+        .then(
+          (result) => {
+			  $("#loaderDiv").hide();
+            //console.log("data 2: "+JSON.stringify(result.profile))
+            if (result.success) {
+              this.setState({propertyOwnerList:result.propertyOwnerList})
+              
+            } 
+              console.log("set user data"+JSON.stringify(this.state.propertyOwnerList))
+          },
+        (error) => {
+          console.log('error')
+        }
+      )
+		
 	}
 	onClickDownload(deal_id){
 		 // alert("dsahfh");
@@ -114,9 +140,43 @@ this.imgServer=API_URL,
 		this.setState({reportStatus:false});
 		$("#table").show();
 	}
+	handleChange=(selectedOption,e)=>{
+		this.setState({ selectedOption });
+		console.log(`Option selected:`, selectedOption);
+		
+		if(selectedOption != null){
+			$("#loaderDiv").show();
+			fetch(`${API_URL}assetsapi/filterowner_property/`+selectedOption.value, {
+			  method: 'get'
+			})
+			.then(res => res.json())
+			.then(
+			  (result) => {
+				  $("#loaderDiv").hide();
+				//console.log("data 2: "+JSON.stringify(result.profile))
+				if (result.success) {
+				  this.setState({property:result.filterowner_property})
+				  
+				} 
+				  console.log("set user data"+JSON.stringify(this.state.propertyOwnerList))
+			  },
+			(error) => {
+			  console.log('error')
+			}
+		  )
+		}else{
+			this.componentDidMount();
+		}
+		
+		
+	
+		
+	}
+	
 	render(){
 const imgSer=this.imgServer
-// console.log(JSON.stringify(this.state.property));
+
+
 		return(
 			<div>
         {/* Navigation Bar*/}
@@ -125,12 +185,36 @@ const imgSer=this.imgServer
                 last_name={window.localStorage.getItem('firstName')} />
         <div className="wrapper">
                 <div className="container">                     
-                <div className="page-title-box">
-              
+               
+			   <div className="page-title-box">
+					
                 <h4 className="page-title">Joined Owner's Properties</h4>
+					
+					
+					
                 </div>
-                {(this.state.property && this.state.property.length>0)?
-                                  
+               
+
+			   {(this.state.property && this.state.property.length>0)?
+                    
+					
+					<div>
+					{this.state.propertyOwnerList &&
+						<div className="row">
+						
+							<div className="col-md-4"></div>
+							<div className="col-md-4"></div>
+						
+							<div className="col-md-4">
+								<Select
+								  isClearable
+									value={this.state.selectedOption}
+									onChange={(e)=>this.handleChange(e)}
+									options={this.state.propertyOwnerList}
+								  />
+							</div>
+					
+					</div> }
                     <div className="row" id="table">
                     <div className="col-sm-12">
                         <div className="card-box">
@@ -141,6 +225,7 @@ const imgSer=this.imgServer
                                 <tr>
                                 <th> <i className="fi fi-image"></i> </th>
                                 <th>Title</th>
+								<th>Owner Name</th>
                                 <th>Location</th>
                                 <th>Property Type</th>                                
                                 <th>Status</th>
@@ -155,6 +240,7 @@ const imgSer=this.imgServer
                                             <img onError={this.addDefaultSrc} src={(element.img_path && element.img_path.length>0)?imgSer+element.img_path:img_not_available} alt="contact-img" title="contact-img" className="rounded-circle property-img" />
                                         </td>
                                         <td><h5 className="m-b-0 m-t-0 font-600">{element.title}</h5></td>
+										<td><h5 className="m-b-0 m-t-0 font-600">{element.OwnerName}</h5></td>
                                         {/* <td><i className="mdi mdi-map-marker text-primary"></i> #0,22ndFloor,27th Main NewYork </td> */}
                                         <td><i className="mdi mdi-map-marker text-primary"></i>{element.address}</td>
                                         {/*<td><i className="mdi mdi-currency-usd text-warning"></i> 2333 </td>*/}
@@ -179,6 +265,7 @@ const imgSer=this.imgServer
                         </div>
                     </div>
                     </div>
+					</div>
                     :<div className="container"><div style={{textAlign:'center'}} colSpan={7}>No Property Added</div></div>
                 }
                     {/* <!-- end row --> */}

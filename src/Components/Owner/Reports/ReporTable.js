@@ -54,7 +54,7 @@ const TableReprt=(props)=>{
 					</tbody>:'No record Available'}
 						<tfoot>
 						<tr>
-							<td colSpan={3} className="text-right"><b>Total :</b></td>
+							<td colSpan={3} className="text-right"><b>Total Approved Amount :</b></td>
 							<td><b><NumberFormat value={expens} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/></b></td>
 							<td><b></b></td>
 							</tr>
@@ -95,7 +95,7 @@ const TableReprt=(props)=>{
 					</tbody>: <tbody><td colSpan={5}>'No transaction Available'</td> </tbody>}
 						<tfoot>
 						<tr>
-							<td colSpan={5} className="text-right"><b>Total :</b></td>
+							<td colSpan={5} className="text-right"><b>Total Approved Amount :</b></td>
 							<td><b><NumberFormat value={expens} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/></b></td>
 							<td><b></b></td>
 							</tr>
@@ -127,7 +127,7 @@ const TableReprt=(props)=>{
 					</tbody>: <tbody><td colSpan={5}>'No transaction Available'</td> </tbody>}
 						<tfoot>
 						<tr>
-							<td colSpan={2} className="text-right"><b>Total :</b></td>
+							<td colSpan={2} className="text-right"><b>Total Approved Amount :</b></td>
 							<td><b><NumberFormat value={expens} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/></b></td>
 							<td><b></b></td>
 							</tr>
@@ -163,7 +163,7 @@ const TableReprt=(props)=>{
 					</tbody>: <tbody><td colSpan={5}>'No transaction Available'</td> </tbody>}
 						<tfoot>
 						<tr>
-							<td colSpan={3} className="text-right"><b>Total :</b></td>
+							<td colSpan={3} className="text-right"><b>Total Approved Amount :</b></td>
 							<td><b><NumberFormat value={expens} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/></b></td>
 							<td><b></b></td>
 							</tr>
