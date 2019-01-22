@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from '../Header/Header'
+
 import API_URL from "../../../app-config";
 import { connect } from 'react-redux';
 import Cookies from 'js-cookie';
@@ -178,8 +178,7 @@ import img_not_available from '../../../images/img_not_available.png'
     // console.log(this.props);
         return(
 				<div>
-				<Header name="settings" first_name={window.localStorage.getItem('firstName')}
-          last_name={window.localStorage.getItem('firstName')} />
+				
 				<div className="wrapper">
                   <div className="container"> 
                     <div className="row">

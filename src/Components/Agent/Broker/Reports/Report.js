@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from '../Header/BrokerHeader'
+
 import {removejscssfile} from '../../../js/external'
 import {Link} from 'react-router-dom'
 export default class Report extends React.Component{
@@ -15,10 +15,7 @@ export default class Report extends React.Component{
 
 
   <div>
-  <Header logoutLink={this.logoutLink} 
-  name="report" 
-  first_name={window.localStorage.getItem('firstName')} 
-  last_name={window.localStorage.getItem('firstName')} />
+
   <div className="wrapper">
   <div className="container agentdis">
     <div className="page-title-box">

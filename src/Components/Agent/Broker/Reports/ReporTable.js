@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from '../Header/BrokerHeader'
+
 //import './style.css'
 import {loadFile,removejscssfile} from '../../../js/external'
 import API_URL from '../../../../app-config';
@@ -401,7 +401,7 @@ export default class ReportTable extends React.Component{
 		.then(
 		  (data) => {
             //console.log("data 2: "+JSON.stringify(result.profile))
-            debugger;
+            // debugger;
 			if (data.success) {
 			  this.setState({property:data.service.property_list})
 			  //console.log(this.state.statics);
@@ -481,10 +481,7 @@ export default class ReportTable extends React.Component{
         return(
 
 <div>
-    <Header logoutLink={this.logoutLink} 
-    name="broker-report" 
-    first_name={window.localStorage.getItem('firstName')} 
-    last_name={window.localStorage.getItem('firstName')} />
+    
     <div className="wrapper">
         <div className="container agentdis">
             <ReportTableHeader formType = {this.state.formType}/>

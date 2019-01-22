@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from '../Header/Header'
+
 import avatar_1 from '../../../images/Owner/users/avatar-1.jpg'
 import API_URL from "../../../app-config";
 import img_not_available from '../../../images/img_not_available.png'
@@ -249,8 +249,7 @@ class ProfileDetails extends React.Component{
 	// ))
         return(
             <div>
-                <Header name="owner-agent"  first_name={window.localStorage.getItem('firstName')} 
-                last_name={window.localStorage.getItem('firstName')} />
+                
                 <div className="wrapper">
                 <div className="container"> 
                     

@@ -1,5 +1,4 @@
 import React from 'react'
-import Header from '../Header/Header';
 import {Link,Redirect} from 'react-router-dom';
 import API_URL from '../../../app-config';
 import Cookies from 'js-cookie';
@@ -134,8 +133,7 @@ unsubscribe()
 		return(
 <div>
 {this.plansStyle}
-<Header name="broker-plan"  first_name={window.localStorage.getItem('firstName')} 
-                last_name={window.localStorage.getItem('firstName')} />
+
             <div className="wrapper">
               <div className="container">                     
                 <div className="page-title-box">

@@ -194,6 +194,7 @@ export default class App extends Component {
 			<Route path='/owner-change-password' component={UserDashboard} />
 			<Route path='/owner-branding' component={UserDashboard} />
 			<Route path='/my-documents' component={UserDashboard} />
+			<Route path='/agreement-templates' component={UserDashboard} />
             {/* Broker Dashboard */}
             <Route path='/broker-tenant' component={AgentBrokerDashboard} />
             <Route path='/broker-profile' component={AgentBrokerDashboard} />

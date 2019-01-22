@@ -1,5 +1,4 @@
 import React from 'react'
-import Header from '../Header/Header'
 import {Link} from 'react-router-dom'
 import API_URL from '../../../app-config';
 import Cookies from 'js-cookie';
@@ -364,8 +363,7 @@ onChangeACH(e){
 	   var details = this.props.history.location.state;
 		return(
       <div>
-	  <Header name="owner-upgrade"  first_name={window.localStorage.getItem('firstName')} 
-                last_name={window.localStorage.getItem('firstName')} />
+	 
          {/* Logo container*/}
          <div className="logo text-center">
            {/* Text Logo */}

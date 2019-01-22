@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from '../Header/Header'
+
 import API_URL from '../../../app-config'
 import {loadFile} from '../../js/external'
 // import './style.css'
@@ -374,8 +374,7 @@ editAgreement(){
 		
 		
 		<div className="tab-pane" id="v-edit" >
-		<Header name="agreement"  first_name={window.localStorage.getItem('firstName')} 
-                last_name={window.localStorage.getItem('firstName')} />
+		
 				 <div className="wrapper">
                 <div className="container"> 
 				<div className="page-title-box" style={{marginBottom: "24px"}}>

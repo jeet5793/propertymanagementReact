@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
-import Header from '../Header/BrokerHeader';
+
 import API_URL from '../../../../app-config';
 import Cookies from 'js-cookie';
 import { connect } from 'react-redux';
@@ -181,8 +181,7 @@ const imgSer=this.imgServer
 			<div>
         {/* Navigation Bar*/}
         {/* End Navigation Bar*/}
-		<Header name="broker-property"  first_name={window.localStorage.getItem('firstName')} 
-                last_name={window.localStorage.getItem('firstName')} />
+		
         <div className="wrapper">
                 <div className="container">                     
                

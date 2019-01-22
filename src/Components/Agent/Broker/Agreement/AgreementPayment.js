@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from '../Header/BrokerHeader'
+
 import {Link} from 'react-router-dom'
 import API_URL from '../../../../app-config'
 
@@ -368,8 +368,7 @@ onChangeACH(e){
 	   var details = this.props.history.location.state;
 		return(
       <div>
-	  <Header name="broker-agreement"  first_name={window.localStorage.getItem('firstName')} 
-                last_name={window.localStorage.getItem('firstName')} />
+	  
          {/* Logo container*/}
          <div className="logo text-center">
            {/* Text Logo */}

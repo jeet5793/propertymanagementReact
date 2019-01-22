@@ -1,5 +1,4 @@
 import React from 'react'
-import Header from '../Header/Header'
 import { Link } from 'react-router-dom'
 import API_URL from '../../../app-config';
 import Cookies from 'js-cookie';
@@ -359,8 +358,7 @@ addDefaultSrc(ev){
 
     return (
       <div>
-        <Header name="property" first_name={window.localStorage.getItem('firstName')}
-          last_name={window.localStorage.getItem('firstName')} />
+        
         <div className="wrapper">
           <div className="container">
             <div className="page-title-box">

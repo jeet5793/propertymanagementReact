@@ -30,6 +30,7 @@ export default class Header extends React.Component{
 	   this.profileNoti = this.profileNoti.bind(this);
 	   this.profile = this.profile.bind(this)
 	   this.ToggleNoti = this.ToggleNoti.bind(this);
+	   this.mobileView = this.mobileView.bind(this);
     }
 logout(id){
     localStorage.clear();
@@ -55,6 +56,22 @@ logout(id){
     window.location.href='/'
 	
 }
+mobileView() {
+        	
+		var className = $('#mobile-navbar').attr('class');
+		// alert(className);
+		if(className=='navbar-toggle nav-link')
+		{
+			$("#navigation").css("display","block");
+			$('#mobile-navbar').addClass('open');
+		}
+		else
+		{
+			$("#navigation").css("display","none");
+			$('#mobile-navbar').removeClass('open');
+		}
+		
+		}
 /* onHover()
 {
 	// alert("hover");
@@ -292,7 +309,7 @@ onHoverNoti()
                          <ul className="list-inline float-right mb-0">
                          <li className="menu-item list-inline-item"> 
                             {/*<!-- Mobile menu toggle--> */}
-                            <a className="navbar-toggle nav-link">
+                            <a id ="mobile-navbar" className="navbar-toggle nav-link" onClick={this.mobileView}>
                             <div className="lines"> <span></span> <span></span> <span></span> </div>
                             </a> 
                             {/*<!-- End mobile menu toggle--> */}

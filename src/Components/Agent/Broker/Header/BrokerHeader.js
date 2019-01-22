@@ -27,6 +27,7 @@ export default class BrokerHeader extends React.Component{
 	   this.profileNoti = this.profileNoti.bind(this)
 	    this.profile = this.profile.bind(this);
 		this.ToggleNoti = this.ToggleNoti.bind(this);
+		 this.mobileView = this.mobileView.bind(this);
         //localStorage.setItem(MyData)
        // alert("I am working now")
     }
@@ -54,6 +55,22 @@ logout(id){
     window.location.href='/'
 	
 }
+mobileView() {
+        	
+		var className = $('#mobile-navbar').attr('class');
+		// alert(className);
+		if(className=='navbar-toggle nav-link')
+		{
+			$("#navigation").css("display","block");
+			$('#mobile-navbar').addClass('open');
+		}
+		else
+		{
+			$("#navigation").css("display","none");
+			$('#mobile-navbar').removeClass('open');
+		}
+		
+		}
  componentDidMount(){
 		this.getNotification();
 		const opts = {email:JSON.parse(this.state.userData).email,assets_type:JSON.parse(this.state.userData).assetsTypeId}
@@ -263,7 +280,7 @@ this.profile();
                      <ul className="list-inline float-right mb-0">
                      <li className="menu-item list-inline-item"> 
                         {/*<!-- Mobile menu toggle--> */}
-                        <a className="navbar-toggle nav-link">
+                        <a id ="mobile-navbar" className="navbar-toggle nav-link">
                         <div className="lines"> <span></span> <span></span> <span></span> </div>
                         </a> 
                         {/*<!-- End mobile menu toggle--> */}

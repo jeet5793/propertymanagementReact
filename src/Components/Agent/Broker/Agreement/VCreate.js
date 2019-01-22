@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from '../Header/BrokerHeader'
+
 import API_URL from '../../../../app-config'
 import {loadFile} from '../../../js/external'
 import {Link} from 'react-router-dom'
@@ -429,8 +429,7 @@ createAgreement(){
 		
 		
 		<div className="tab-pane" id="v-create" >
-		<Header name="broker-agreement"  first_name={window.localStorage.getItem('firstName')} 
-                last_name={window.localStorage.getItem('firstName')} />
+		
 				 <div className="wrapper">
                 <div className="container"> 
 				<div className="page-title-box" style={{marginBottom: "24px"}}>

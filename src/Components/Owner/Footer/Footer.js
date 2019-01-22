@@ -2,6 +2,10 @@ import React, {Component} from 'react'
 import $ from 'jquery'
 import APP_VERSION from "../../../app-version";
 export default class Footer extends Component{
+	
+		
+		
+	
 	submitAlert()
 	{		
 		var actionType = $("#actionType").val();

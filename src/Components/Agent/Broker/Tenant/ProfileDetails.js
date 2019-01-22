@@ -1,5 +1,4 @@
 import React from 'react'
-import Header from '../Header/BrokerHeader'
 import avatar_1 from '../../../../images/Owner/users/avatar-1.jpg'
 import API_URL from "../../../../app-config";
 import img_not_available from '../../../../images/img_not_available.png'
@@ -138,8 +137,7 @@ BgvDownload(reportId){
 	//console.log(this.props.location.state)
         return(
             <div>
-                <Header name="broker-tenant"  first_name={window.localStorage.getItem('firstName')} 
-                last_name={window.localStorage.getItem('firstName')} />
+               
                 <div className="wrapper">
                 <div className="container"> 
                     

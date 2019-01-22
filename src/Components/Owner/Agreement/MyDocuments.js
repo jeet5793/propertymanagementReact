@@ -16,8 +16,6 @@ export default class MyDocuments extends React.Component{
 
 		return(
 			<div>
-                <Header name="agreement"  first_name={window.localStorage.getItem('firstName')} 
-                last_name={window.localStorage.getItem('firstName')} />
                 <div className="wrapper">
 					<div className="container"> 
 						<h1 style={{textAlign:"center", textTransform:"uppercase"}}>Comming Soon...</h1>

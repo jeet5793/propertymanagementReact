@@ -5,7 +5,7 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 import swal from 'sweetalert';
-import Header from '../Header/Header'
+
 import $ from 'jquery';
 import NumberFormat from 'react-number-format';
 export default class PaymentGateway extends React.Component {
@@ -386,8 +386,7 @@ changeNameHandler(e)
 		return(
       <div>
          {/* Logo container*/}
-         <Header name="owner-tenant"  first_name={window.localStorage.getItem('firstName')} 
-                last_name={window.localStorage.getItem('firstName')} />
+         
 	 <div  style={{marginTop:'3%',marginBottom:'3%'}} className="wrapper">
          <div className="payment-warp">
            <div className="container">

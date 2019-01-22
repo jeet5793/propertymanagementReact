@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../Header/BrokerHeader'
+
 import { connect } from 'react-redux';
 import API_URL from "../../../../app-config";
 import Cookies from 'js-cookie';
@@ -175,8 +175,7 @@ class BrokerNotifications extends React.Component{
 	render(){
 		return(
 			 <div>
-				<Header name="broker-notifications"  first_name={window.localStorage.getItem('firstName')} 
-                last_name={window.localStorage.getItem('firstName')} />
+				
 		<div className="wrapper">
 			  <div className="container">
 				<div className="page-title-box">

@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from '../Header/Header'
+
 import { connect } from 'react-redux';
 import API_URL from "../../../app-config";
 import Cookies from 'js-cookie';
@@ -238,8 +238,7 @@ Countries() {
 		//console.log(this.state.profile);
         return(
 		<div>
-				<Header name="profile" first_name={window.localStorage.getItem('firstName')}
-          last_name={window.localStorage.getItem('firstName')} />
+				
 				<div className="wrapper">
                   <div className="container"> 
                     <div className="row">

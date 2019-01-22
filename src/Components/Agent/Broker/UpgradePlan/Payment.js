@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from '../Header/BrokerHeader';
+
 import {Link,Redirect} from 'react-router-dom';
 import API_URL from '../../../../app-config';
 import Cookies from 'js-cookie';
@@ -367,8 +367,7 @@ onChangeACH(e){
 	  // console.log('details'+JSON.stringify(this.props));
 		return(
       <div>
-	  <Header name="broker-upgrade"  first_name={window.localStorage.getItem('firstName')} 
-                last_name={window.localStorage.getItem('firstName')} />
+	  
          {/* Logo container*/}
          <div className="logo text-center">
            {/* Text Logo */}
