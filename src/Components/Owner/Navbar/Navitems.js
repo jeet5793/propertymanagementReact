@@ -72,7 +72,7 @@ export default class Navitems extends Component{
             </li>                                                
             </ul>);
             }
-        else if(this.props.name==="agreement" || this.props.name==="my-documents" || this.props.name==="agreement-templates" || this.props.name==="owner-agreement-create" || this.props.name==="owner-agreement-edit" || this.props.name==="owner-agreement-payment")
+        else if(this.props.name==="agreement" || this.props.name==="my-documents" || this.props.name==="agreement-templates" || this.props.name==="owner-agreement-create" || this.props.name==="owner-agreement-edit" || this.props.name==="owner-agreement-payment"|| this.props.name==="add-document")
             {
             return( 
                 <ul className="navigation-menu">
@@ -482,7 +482,7 @@ export default class Navitems extends Component{
                 </ul>
                 );
             }
-        else if(this.props.name==="owner-report" || this.props.name==="owner-report-table?property" || this.props.name==="owner-report-table?Transaction")
+        else if(this.props.name==="owner-report" || this.props.name==="owner-report-table" || this.props.name==="owner-report-table?property" || this.props.name==="owner-report-table?Transaction")
             {
             return( 
                 <ul className="navigation-menu">

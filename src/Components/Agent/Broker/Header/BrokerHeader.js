@@ -280,7 +280,7 @@ this.profile();
                      <ul className="list-inline float-right mb-0">
                      <li className="menu-item list-inline-item"> 
                         {/*<!-- Mobile menu toggle--> */}
-                        <a id ="mobile-navbar" className="navbar-toggle nav-link">
+                        <a id ="mobile-navbar" className="navbar-toggle nav-link" onClick={this.mobileView}>
                         <div className="lines"> <span></span> <span></span> <span></span> </div>
                         </a> 
                         {/*<!-- End mobile menu toggle--> */}

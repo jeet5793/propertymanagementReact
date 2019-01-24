@@ -38,8 +38,10 @@ import OTBGVPayment from '../Tenants/PaymentGateway';
 import AgreementPayment from '../Agreement/AgreementPayment';
 import ManageBranding from '../Settings/ManageBranding';
 import $ from 'jquery';
- import MyDocuments from '../Agreement/MyDocuments';
-  import AgreementTemplates from '../Agreement/AgreementTemplates';
+import MyDocuments from '../Agreement/MyDocuments';
+import AgreementTemplates from '../Agreement/AgreementTemplates';
+import AddDocument from '../Agreement/AddDocument';
+
 class UserDashboard extends React.Component {
 
   constructor(props) {
@@ -143,6 +145,7 @@ class UserDashboard extends React.Component {
 			<Route exact path='/owner-branding' component={ManageBranding} />
 			<Route exact path='/my-documents' component={MyDocuments} />
 			<Route exact path='/agreement-templates' component={AgreementTemplates} />
+			<Route exact path='/add-document' component={AddDocument} />
           </Switch>
           <Footer />
         </div>

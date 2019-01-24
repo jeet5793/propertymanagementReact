@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from '../Header/TenantHeader'
+
 //import './style.css'
 import {loadFile,removejscssfile} from '../../js/external'
 import API_URL from '../../../app-config';
@@ -480,10 +480,7 @@ export default class ReportTable extends React.Component{
         return(
 
 <div>
-    <Header logoutLink={this.logoutLink} 
-    name="tenant-report" 
-    first_name={window.localStorage.getItem('firstName')} 
-    last_name={window.localStorage.getItem('firstName')} />
+    
     <div className="wrapper">
         <div className="container agentdis">
             <ReportTableHeader formType = {this.state.formType}/>

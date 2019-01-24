@@ -1,5 +1,4 @@
 import React from 'react'
-import Header from '../Header/TenantHeader'
 import {Link} from 'react-router-dom'
 import API_URL from '../../../app-config';
 import Cookies from 'js-cookie';
@@ -422,8 +421,7 @@ changeNameHandler(e)
 	
 		return(
       <div>
-	  <Header name="tenant-myproperty"  first_name={window.localStorage.getItem('firstName')} 
-                last_name={window.localStorage.getItem('lastName')} />
+	 
          {/* Logo container*/}
          <div className="logo text-center">
            {/* Text Logo */}

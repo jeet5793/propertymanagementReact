@@ -212,7 +212,7 @@ import img_not_available from '../../../images/img_not_available.png'
 											 <select className="form-control" value={this.state.selectedOption || (this.state.brandingInfo && this.state.brandingInfo.branding)} onChange={this.onChangeHandler}>
 												<option value="">Please Select...</option>
 												<option value="No">No Branding</option>
-												<option value="Default">Default Assetswatch Branding</option>
+												<option value="Default">Default Branding</option>
 												{this.state.ownBranding && <option value="Own">Own Branding</option>}
 											 </select>
 										</div>

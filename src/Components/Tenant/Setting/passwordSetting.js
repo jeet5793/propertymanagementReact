@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from '../Header/TenantHeader'
+
 import API_URL from "../../../app-config";
 import { connect } from 'react-redux';
 import Cookies from 'js-cookie';
@@ -106,8 +106,7 @@ import {Link} from 'react-router-dom'
         return(
 		
              <div>
-				<Header name="tenant-settings" first_name={window.localStorage.getItem('firstName')}
-          last_name={window.localStorage.getItem('firstName')} />
+				
 				<div className="wrapper">
                   <div className="container"> 
                     <div className="row">

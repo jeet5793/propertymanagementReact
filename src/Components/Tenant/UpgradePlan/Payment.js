@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from '../Header/TenantHeader'
+
 import {Link} from 'react-router-dom'
 import API_URL from '../../../app-config';
 import Cookies from 'js-cookie';
@@ -181,8 +181,7 @@ class Payment extends React.Component {
 	  var date = tempDate.toLocaleDateString();
 		return(
       <div>
-	  <Header name="tenant-upgrade"  first_name={window.localStorage.getItem('firstName')} 
-                last_name={window.localStorage.getItem('firstName')} />
+	  
          {/* Logo container*/}
          <div className="logo text-center">
            {/* Text Logo */}

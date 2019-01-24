@@ -1,6 +1,6 @@
 import React from 'react'
 import avatar_1 from '../../../images/Owner/users/avatar-1.jpg'
-import Header from '../Header/TenantHeader'
+
 import { connect } from 'react-redux';
 import API_URL from '../../../app-config'
 import Cookies from 'js-cookie';
@@ -180,8 +180,7 @@ class TenantNotification extends React.Component {
 	
         return(
             <div>
-				<Header name="tenant-notifications"  first_name={window.localStorage.getItem('firstName')} 
-                last_name={window.localStorage.getItem('firstName')} />
+				
 		<div className="wrapper">
 			  <div className="container">
 				<div className="page-title-box">

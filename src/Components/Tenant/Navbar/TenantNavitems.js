@@ -4,7 +4,7 @@ import Link from 'react-router-dom/Link';
 
 export default class TenantNavitems extends Component{
     GetItems(){
-        if(this.props.name==="tenant" || this.props.name==="tenant-profile")
+        if(this.props.name==="tenant" || this.props.name==="tenant-profile" || this.props.name==="tenant-profile-edit")
             {
             return( 
                 <ul className="navigation-menu">
@@ -103,7 +103,7 @@ export default class TenantNavitems extends Component{
                 </ul>
             );
             }
-        else if(this.props.name==="tenant-myproperty")
+        else if(this.props.name==="tenant-myproperty" || this.props.name==="tenant-deal-payment")
             {
             return( 
                 <ul className="navigation-menu">
@@ -202,7 +202,7 @@ export default class TenantNavitems extends Component{
                 );
             }
         
-        else if(this.props.name==="tenant-agent")
+        else if(this.props.name==="tenant-agent" || this.props.name==="tenant-agent-profile")
             {
             return( 
                 <ul className="navigation-menu">
@@ -251,7 +251,7 @@ export default class TenantNavitems extends Component{
                 </ul>
                 );
             }
-        else if(this.props.name==="tenant-owner")
+        else if(this.props.name==="tenant-owner" || this.props.name==="tenant-owner-profile")
             {
             return( 
                 <ul className="navigation-menu">
@@ -300,7 +300,7 @@ export default class TenantNavitems extends Component{
                 </ul>
                 );
             }
-			else if(this.props.name==="tenant-report")
+			else if(this.props.name==="tenant-report" || this.props.name==="tenant-report-table?property" || this.props.name==="tenant-report-table?Transaction" || this.props.name==="tenant-report-table")
             {
             return( 
                 <ul className="navigation-menu">
@@ -349,7 +349,7 @@ export default class TenantNavitems extends Component{
                 </ul>
                 );
             }
-        else if(this.props.name==="tenant-settings")
+        else if(this.props.name==="tenant-settings" || this.props.name==="tenant-change-password")
             {
             return( 
                 <ul className="navigation-menu">

@@ -339,7 +339,7 @@ export default class RegistrationForm extends React.Component {
     }else if (typeof opts.zip_code !== "undefined") {
         if (!opts.zip_code.match(/(^\d{5}$)|(^\d{5}-\d{4}$)/)) {
 			formIsValid = false;
-        errors["mobile_no"] = "Please enter valid  zip code";
+        errors["zip_code"] = "Please enter valid  zip code";
            
           
         }

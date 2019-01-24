@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import Header from '../Header/TenantHeader'
+
 import API_URL from "../../../app-config";
 import Cookies from 'js-cookie';
 import moment from 'moment';
@@ -231,8 +231,7 @@ Countries() {
 		//console.log(this.state.profile);
         return(
 			<div>
-					 <Header name="tenant-profile" first_name={window.localStorage.getItem('firstName')}
-          last_name={window.localStorage.getItem('firstName')} />
+					
 				<div className="wrapper">
                   <div className="container"> 
                     <div className="row">

@@ -222,7 +222,7 @@ class BrokerTenant extends React.Component{
 	 {
 		  
 		$("#loaderDiv").show();
-			  fetch(`${API_URL}assetsapi/checkPermissions/${JSON.parse(this.state.userData).assets_id}/collect_payments`, {
+			  fetch(`${API_URL}assetsapi/checkPermissions/${JSON.parse(this.state.userData).assets_id}/bgv_screening`, {
 					  method: "GET"
 					})
 					  .then(response => {
