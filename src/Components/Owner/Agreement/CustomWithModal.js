@@ -90,6 +90,8 @@ export default class Customwithmodal extends React.Component{
 					var value = $("#"+compId).val();
 					var seqId = compId.replace('textId','');
 					
+					//alert(value);
+					
 					if(value=='')
 					{
 						$("#textDivId"+seqId).html("<input class='inner' type='text' id='textId"+seqId+"' value='' style='width:300px;height:22px;border:1px solid #eee;' placeholder='Enter text value'>");
@@ -97,8 +99,7 @@ export default class Customwithmodal extends React.Component{
 					else
 					{
 						$("#textDivId"+seqId).html("<span class='textClass' id='"+seqId+"'><u><b>&nbsp; "+value+" &nbsp;</b></u></span>")
-					}
-					
+					}					
 				}
 				
 			});

@@ -41,7 +41,8 @@ import $ from 'jquery';
 import MyDocuments from '../Agreement/MyDocuments';
 import AgreementTemplates from '../Agreement/AgreementTemplates';
 import AddDocument from '../Agreement/AddDocument';
-
+import AgreementSendTemplate from '../Agreement/AgreementSendTemplate';
+import AgreementPreview from '../Agreement/AgreementPreview';
 class UserDashboard extends React.Component {
 
   constructor(props) {
@@ -146,6 +147,8 @@ class UserDashboard extends React.Component {
 			<Route exact path='/my-documents' component={MyDocuments} />
 			<Route exact path='/agreement-templates' component={AgreementTemplates} />
 			<Route exact path='/add-document' component={AddDocument} />
+			<Route exact path='/owner-agreement-send' component={AgreementSendTemplate} />
+			<Route exact path='/owner-agreement-preview' component={AgreementPreview} />
           </Switch>
           <Footer />
         </div>

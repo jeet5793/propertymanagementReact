@@ -179,7 +179,8 @@ onChangeACH(e){
 			"payType":this.props.history.location.state.payType,
 			"templateId":this.props.history.location.state.templateId,
 			"extraAmt":extraAmt,
-			"actual_amt":Number(details.Amount)
+			"actual_amt":Number(details.Amount),
+			"validity":this.props.history.location.state.Validity
 			
 		}
 		if(!payment_Object.name){
@@ -219,7 +220,8 @@ onChangeACH(e){
 							   $("#hiddenURL").val("/owner-agreement-create");
 							   $(".confirm-body").html(result.msg);
 							   $("#BlockUIConfirm").show();
-					  this.props.history.push('/owner-agreement-create');
+					      let path = this.props.history.location.state.loc;
+				 this.props.history.push(path);
 					  //this.props.updateInfo(result.profile);
 					},
 					
@@ -277,7 +279,8 @@ onChangeACH(e){
 			  "payType":this.props.history.location.state.payType,
 			"templateId":this.props.history.location.state.templateId,
 			"extraAmt":extraAmt,
-			"actual_amt":Number(details.Amount)
+			"actual_amt":Number(details.Amount),
+			"validity":this.props.history.location.state.Validity
 		}
 		if(!payment_Object.name){
 			 alert("Name should not be blank");
@@ -308,7 +311,8 @@ onChangeACH(e){
 						   // $("#hiddenURL").val("/owner-agreement-create");
 						   $(".confirm-body").html(result.msg);
 						   $("#BlockUIConfirm").show();
-				 this.props.history.push('/owner-agreement-create');
+						    let path = this.props.history.location.state.loc;
+				 this.props.history.push(path);
 				  //this.props.updateInfo(result.profile);
 				},
 				
@@ -326,7 +330,8 @@ onChangeACH(e){
   }
   onClickReturn()
   {
-	  this.props.history.push('/owner-agreement-create');
+	  let path = this.props.history.location.state.loc;
+	  this.props.history.push(path);
 	  // this.props.history.replace('/owner-plan');
   }
   changeTabs(id) {
@@ -385,7 +390,7 @@ onChangeACH(e){
                     <div className="btn-group pull-right">
                         <ol className="breadcrumb hide-phone p-0 m-0">
                         <li>
-						<Link to={'/owner-agreement-create'}><span className="btn waves-light waves-effect w-md btn-custom"><i className="fi-reply"></i>&nbsp;&nbsp;Back</span></Link></li>
+						<Link to={details.loc}><span className="btn waves-light waves-effect w-md btn-custom"><i className="fi-reply"></i>&nbsp;&nbsp;Back</span></Link></li>
                         </ol>
                     </div>
                    

@@ -154,11 +154,13 @@ this.imgServer=API_URL,
 			  (result) => {
 				  $("#loaderDiv").hide();
 				//console.log("data 2: "+JSON.stringify(result.profile))
-				if (result.success) {
+				if (result.success=='1') {
 				  this.setState({property:result.filterowner_property})
 				  
+				}else{
+					 this.setState({property:[]})
 				} 
-				  console.log("set user data"+JSON.stringify(this.state.propertyOwnerList))
+				  console.log("set user data"+JSON.stringify(this.state.property))
 			  },
 			(error) => {
 			  console.log('error')
@@ -192,13 +194,7 @@ const imgSer=this.imgServer
 					
 					
                 </div>
-               
-
-			   {(this.state.property && this.state.property.length>0)?
-                    
-					
-					<div>
-					{this.state.propertyOwnerList &&
+               {this.state.propertyOwnerList &&
 						<div className="row">
 						
 							<div className="col-md-4"></div>
@@ -214,6 +210,12 @@ const imgSer=this.imgServer
 							</div>
 					
 					</div> }
+
+			   {this.state.property && this.state.property.length>0?
+                    
+					
+					<div>
+					
                     <div className="row" id="table">
                     <div className="col-sm-12">
                         <div className="card-box">

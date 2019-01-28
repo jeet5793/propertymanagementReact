@@ -133,7 +133,7 @@ export default class ContactForm extends React.Component {
         }
 		 if(fields.attachement!==''){
 			  let file = this.fileInput.current.files[0];
-			 const fileMaxSize = 100;//1048576; // 1MB
+			 const fileMaxSize = 1048576;//1048576; // 1MB
 		   if(file.size!=undefined && file.size>fileMaxSize){
 			   formIsValid = false;
 				errors["attachement"] = "Document size should be less than 1MB !";

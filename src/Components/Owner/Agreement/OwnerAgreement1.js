@@ -1,9 +1,9 @@
 import React from 'react'
 import API_URL from '../../../app-config';
 import Cookies from 'js-cookie';
-import {loadFile} from '../../js/external'
-import VCreate from './VCreate'
-import VEdit from './VEdit'
+//import {loadFile} from '../../js/external'
+//import VCreate from './VCreate'
+//import VEdit from './VEdit'
 import $ from 'jquery'
 import CustomWithModal from './CustomWithModal'
 import SendMsg from './SendMSG'
@@ -11,8 +11,8 @@ import SendMsg from './SendMSG'
 //import './bootstrap.min.css'
 //import './style.css'
 //import './icons.css'
-import swal from 'sweetalert';
-import { withRouter } from "react-router";
+//import swal from 'sweetalert';
+//import { withRouter } from "react-router";
 import {Link} from 'react-router-dom'
 
 const Saved=(props)=>{
@@ -35,7 +35,8 @@ const Saved=(props)=>{
             <tr>
               <td>{element.agreement_title}</td>
               <td>{element.created_date}</td>
-              <td><Link to={{"pathname":"/owner-agreement-edit",state:{editAgreement:element,loc: '/agreement'}}} title="Edit"   className="table-action-btn view-rqu"><i className="mdi mdi-border-color"></i></Link><a title="view" href="#" onClick={() => props.pdfViewAgreement(element.agreement_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Delete" href="#" onClick={() => props.deleteAgreement(element.agreement_id)} className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a><a title="Send"  href="#" className="table-action-btn view-rqu"   data-toggle="modal" data-target="#send-msg"><i className="mdi mdi-redo-variant" onClick={() => props.selectedAgreement(element)}></i></a></td>
+              <td><Link to={{"pathname":"/owner-agreement-edit",state:{editAgreement:element,loc: '/agreement'}}} title="Edit"   className="table-action-btn view-rqu"><i className="mdi mdi-border-color"></i></Link><a title="view" href="#" onClick={() => props.pdfViewAgreement(element.agreement_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Delete" href="#" onClick={() => props.deleteAgreement(element.agreement_id)} className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a>
+              <Link to={{pathname:'/owner-agreement-send',state:{TemplateId:element.agreement_id,templateDescription:element.agreement_doc_content,agreement_type:'Custom',loc:'/agreement'}}} title="Send" className="table-action-btn view-rqu" ><i className="mdi mdi-redo-variant"></i></Link></td>
             </tr>
           )):<div>No data </div>}        
         </tbody>

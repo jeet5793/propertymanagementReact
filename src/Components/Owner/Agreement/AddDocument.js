@@ -47,6 +47,7 @@ export default class AddDocument extends React.Component{
 	this.handleChange = this.handleChange.bind(this);
 	this.handleStChange = this.handleStChange.bind(this);
 	this.handleEdChange =this.handleEdChange.bind(this);
+	this.fileInput = React.createRef();
   }
   componentDidMount(){
 	  
@@ -97,6 +98,7 @@ export default class AddDocument extends React.Component{
 				 $("#hiddenURL").val("add-document");
 				 $(".confirm-body").html(data.msg);
 				 $("#BlockUIConfirm").show();
+				 this.componentDidMount();
 				 
 			}).catch((error) => {
 			  console.log('error: ', error);
@@ -146,15 +148,18 @@ export default class AddDocument extends React.Component{
 			let file = e.target.files[0];
 
 			reader.onloadend = () => {
+				var extension = this.fileInput.current.files[0].name.split('.').pop().toLowerCase();
 			  this.setState({
 				file: file,
-				imagePreviewUrl: reader.result
+				imagePreviewUrl: reader.result,
+				extensionName:extension
 			  });
 			  docForm.doc_path=reader.result
 			}
 			
 			reader.readAsDataURL(file)
-			 
+			  
+		  
 		}
 		
 		docForm.userId = JSON.parse(this.state.userData).assets_id;
@@ -185,7 +190,22 @@ export default class AddDocument extends React.Component{
           errors["document_type"] = "Document type must be selected.";
         
     }
-	
+	if(opts.doc_path!='') {
+		let file = this.fileInput.current.files[0];
+		const fileMaxSize = (1024 * 1024 * 2);//1048576; // 1MB
+			    
+		   if(file.size!=undefined && file.size>fileMaxSize){
+			    formIsValid = false;
+				 errors["doc_path"] = "Document size should be less than 2MB !!!";
+		   }
+		   // var extension = this.fileInput.current.files[0].name.split('.').pop().toLowerCase(),
+		   // console.log(file.size); 
+		   // if(extension!=undefined && file.size>fileMaxSize){
+			    // formIsValid = false;
+				 // errors["doc_path"] = "Document size should be less than 2MB !!!";
+		   // }
+	}
+	 
    /*  if (!opts.issue_date) {
 		formIsValid = false;
         errors["issue_date"] = "Issue date should not be blank";
@@ -274,9 +294,15 @@ export default class AddDocument extends React.Component{
 	let {imagePreviewUrl} = this.state;
     let $imagePreview = null;
     if (imagePreviewUrl) {
-      $imagePreview = (<img src={imagePreviewUrl} />);
+		console.log(this.state.extensionName)
+		if(this.state.extensionName=='pdf'){
+			 $imagePreview = (<embed src={imagePreviewUrl} width="100%" className="img-responsive"/>);
+		}else{
+			 $imagePreview = (<img src={imagePreviewUrl} />);
+		}
+     
     } else {
-      $imagePreview = (<div className="previewText">Please select an Image for Preview</div>);
+      $imagePreview = (<div className="previewText">Please select an Image/Document for Preview</div>);
     }
 	
 
@@ -466,9 +492,9 @@ export default class AddDocument extends React.Component{
 											<div className="imgPreview">
 											  {$imagePreview}
 											</div>
-											<input className="form-control" type="file" name = "doc_path" onChange={this.handleChange}  />
+											<input className="form-control" type="file" ref={this.fileInput} name = "doc_path" onChange={this.handleChange}  />
+											<small style={{color: "red"}}><span>Note : Only Image and PDF can applicable.</span></small><br/>
 											<span style={{color: "red"}}>{this.state.errors["doc_path"]}</span>
-											<small style={{color: "red"}}><span>Note : Only Image and PDF can applicable.</span></small>
 										</div>
 										</div>
 										 

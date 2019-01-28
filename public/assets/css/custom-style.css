@@ -601,10 +601,10 @@ color: #32c861;
 background: #51bea8
 }
 .fixed-action-btn {
-   position: fixed;
-    right: 6%;
-    top: 68%;
-    padding-top: 15px;
+    position: fixed;
+    left: 8%;
+    top: 18%;
+    padding-top: 141px;
     margin-bottom: 0;
     z-index: 998;
 }
@@ -647,17 +647,17 @@ background: #51bea8
     line-height: 40px;
 }
 .custome-temp {
-    position: fixed;
+     position: fixed;
     z-index: 999;
     background: rgb(255, 255, 255);
-    right: 9%;
-    display: block;
+    left: 11%;
     padding: 10px;
     margin-bottom: 20px;
     border: 1px solid rgb(227, 236, 238);
     border-radius: 3px;
-    top: 50%;
-	width: 25%;
+    top: 40%;
+    width: 25%;
+
 }
 .custome-temp .card .card-header {
 padding: 7px;
@@ -1727,3 +1727,12 @@ content: none;
 /*marking active/completed steps green*/
 /*The number of the step and the connector before it = green*/
 #progressbar li.active:before, #progressbar li.active:after {background: #57bb57;color: white;border: 0;}
+
+.dl-horizontal dt{
+	float: left;
+    overflow: hidden;
+    clear: left;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
