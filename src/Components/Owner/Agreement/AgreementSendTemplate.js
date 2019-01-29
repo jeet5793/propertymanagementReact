@@ -250,7 +250,7 @@ export default class AgreementSendTemplate extends React.Component{
 		//
 	}
     render(){
-			console.log(JSON.stringify(this.props));
+			console.log('send '+JSON.stringify(this.props.location.state));
 		const { value, suggestions } = this.state;
 			// Autosuggest will pass through all these props to the input.
 			const inputProps = {

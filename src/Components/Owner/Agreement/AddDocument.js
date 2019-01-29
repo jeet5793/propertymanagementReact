@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom'
 import API_URL from '../../../app-config';
 import Cookies from 'js-cookie';
-import img_not_available from '../../../images/img_not_available.png'
+//import img_not_available from '../../../images/img_not_available.png'
 import DatePicker from 'react-date-picker';
 // import Select from 'react-select';
 import $ from "jquery";

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import API_URL from '../../../app-config'
-import {loadFile} from '../../js/external'
+//import {loadFile} from '../../js/external'
 // import './style.css'
 import Cookies from 'js-cookie';
 import $ from 'jquery'
@@ -10,7 +10,7 @@ import swal from 'sweetalert';
 import { Editor } from '@tinymce/tinymce-react';
 import {Link} from 'react-router-dom'
 //var i
-var i =1;
+//var i =1;
 
 export default class VEdit extends React.Component{
   constructor(props){
@@ -44,7 +44,7 @@ export default class VEdit extends React.Component{
   componentDidMount() {
 	 
 	  var tinymce=window.tinyMCE;
-		  const agreementForm=this.state.createForm;
+		  //const agreementForm=this.state.createForm;
 		  let agreement = this.props.location.state.editAgreement;
 		  this.setState({editAgreementStatus:true,agreement_id:agreement.agreement_id,createForm:{agreement_title:agreement.agreement_title,agreement_doc_content:agreement.agreement_doc_content,header_content:agreement.header_content}})
 		   //console.log(agreement)
@@ -267,8 +267,8 @@ editAgreement(){
       {
         //i = parseInt(i, 10) ? i+1 : 0;
 		
-		i = i+1;
-		
+		//i = i+1;
+		var i = Math.floor((Math.random() * 100000000) + 1);
         var compName=e.target.value,tinymce=window.tinyMCE;
         var ed = tinymce.get('editor2');     
         

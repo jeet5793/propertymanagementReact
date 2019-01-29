@@ -1,10 +1,10 @@
 import React from 'react'
 import API_URL from '../../../app-config';
 import Cookies from 'js-cookie';
-import swal from 'sweetalert';
+//import swal from 'sweetalert';
 import Autosuggest from 'react-autosuggest';
 	import $ from "jquery";
-	import moment from 'moment';
+	//import moment from 'moment';
 import DatePicker from 'react-date-picker';
 export default class SendMSG extends React.Component{
   constructor(props){
@@ -325,7 +325,7 @@ userlist(assets_type){
 
 	}
     render(){
-		const { value, suggestions,selectedOption,property_list,autocompleteData } = this.state;
+		const { value, suggestions } = this.state;
 			// Autosuggest will pass through all these props to the input.
 			const inputProps = {
 				placeholder: 'Search',

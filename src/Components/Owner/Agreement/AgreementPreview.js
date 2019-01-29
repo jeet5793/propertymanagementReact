@@ -82,7 +82,7 @@ export default class AgreementPreview extends React.Component{
 	
 
     render(){
-		//console.log(JSON.stringify(this.props.location.state));
+		console.log('preview '+JSON.stringify(this.props.location.state));
 		
 			const propsData = this.props.location.state;
     return (
@@ -93,7 +93,7 @@ export default class AgreementPreview extends React.Component{
 					<div className="btn-group pull-right">
                         	<ol className="breadcrumb hide-phone p-0 m-0">
                        		 	<li>
-									<Link to={{pathname:propsData.loc,state:{loc:propsData.locCommon,TemplateId:this.props.location.state.dataToSend.agreement_id,templateDescription:propsData.PreviewAgreement}}}><span className="btn waves-light waves-effect w-md btn-custom"><i className="fi-reply"></i>&nbsp;&nbsp;Back</span></Link>
+									<Link to={{pathname:propsData.loc,state:{loc:propsData.locCommon,TemplateId:this.props.location.state.dataToSend.agreement_id,templateDescription:propsData.PreviewAgreement,agreement_type:this.props.location.state.dataToSend.agreement_type}}}><span className="btn waves-light waves-effect w-md btn-custom"><i className="fi-reply"></i>&nbsp;&nbsp;Back</span></Link>
 								</li>
                         	</ol>
                     	</div>

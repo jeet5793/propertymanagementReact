@@ -66,6 +66,7 @@ const VRequested=(props)=>{
 											<thead>
 											  <tr>
 												<th>Title</th>
+                        <th>Agreement Type</th>
 												<th>Date</th>
 												<th>Sent To</th>
 												<th>Assets Type</th>
@@ -77,10 +78,13 @@ const VRequested=(props)=>{
 										{(props.sendedAgreement!=undefined)?props.sendedAgreement.map(element=>(
 												<tr>
 												  <td>{element.agreement_title}</td>
+                          <td>{element.agreement_type}</td>
 												  <td>{element.initiated_date}</td>
 												  <td>{element.sentTo}</td>
 												  <td>{element.assets_type==1?'Owner':(element.assets_type==2?'Agent':(element.assets_type==3)?'Tenant':'')}</td>
-												  <td><a title="Edit" href="#" onClick={() => props.dealPdfView(element.deal_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a></td>
+												  <td><a title="Edit" href="#" onClick={() => props.dealPdfView(element.deal_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a>
+                          <Link to={{pathname:'/owner-agreement-partner',state:{deal_id:element.deal_id,agreement_title:element.agreement_title,sentTo:element.sentTo,property:element.property,propertyAddress:element.propertyAddress,loc:'/agreement'}}} title="Send" className="table-action-btn view-rqu" ><i className="mdi mdi-redo-variant"></i></Link>
+                          </td>
 												</tr>
 											  )):<div>No record available </div>}
 											

@@ -72,7 +72,7 @@ export default class Navitems extends Component{
             </li>                                                
             </ul>);
             }
-        else if(this.props.name==="agreement" || this.props.name==="my-documents" || this.props.name==="agreement-templates" || this.props.name==="owner-agreement-create" || this.props.name==="owner-agreement-edit" || this.props.name==="owner-agreement-payment"|| this.props.name==="add-document" || this.props.name==="owner-agreement-send" || this.props.name==="owner-agreement-preview")
+        else if(this.props.name==="agreement" || this.props.name==="my-documents" || this.props.name==="agreement-templates" || this.props.name==="owner-agreement-create" || this.props.name==="owner-agreement-edit" || this.props.name==="owner-agreement-payment"|| this.props.name==="add-document" || this.props.name==="owner-agreement-send" || this.props.name==="owner-agreement-preview" || this.props.name==="owner-agreement-partner")
             {
             return( 
                 <ul className="navigation-menu">

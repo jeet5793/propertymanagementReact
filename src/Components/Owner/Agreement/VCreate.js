@@ -1,7 +1,7 @@
 import React from 'react'
 
 import API_URL from '../../../app-config'
-import {loadFile} from '../../js/external'
+//import {loadFile} from '../../js/external'
 import {Link} from 'react-router-dom'
 import { Redirect } from 'react-router';
 // import './style.css'
@@ -12,7 +12,7 @@ import swal from 'sweetalert';
 import { Editor } from '@tinymce/tinymce-react';
 
 //var i
-var i =1;
+//var i =1;
 
 export default class VCreate extends React.Component{
    constructor(props){
@@ -320,7 +320,8 @@ createAgreement(){
       {
         //i = parseInt(i, 10) ? i+1 : 0;
 		
-		i = i+1;
+		//i = i+1;
+		var i = Math.floor((Math.random() * 100000000) + 1);
 		
         var compName=e.target.value,tinymce=window.tinyMCE;
         var ed = tinymce.get('editor');     
@@ -676,11 +677,15 @@ createAgreement(){
 															"advlist autolink lists link image charmap print preview hr anchor pagebreak",
 															"searchreplace wordcount visualblocks visualchars code fullscreen",
 															"insertdatetime media nonbreaking save table contextmenu directionality",
-															"emoticons template paste textcolor colorpicker textpattern imagetools"
+															"emoticons template paste textcolor colorpicker textpattern imagetools",
+															"paste"
 														],
 												  toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media | forecolor backcolor emoticons",
 												
-												image_advtab: true, height : "300" }}
+												image_advtab: true, height : "300"
+											
+												
+											}}
 												/>
 												</div>
 											  </div>
