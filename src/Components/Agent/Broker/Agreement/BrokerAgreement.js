@@ -31,7 +31,8 @@ const Saved=(props)=>{
             <tr>
               <td>{element.agreement_title}</td>
               <td>{element.created_date}</td>
-              <td><Link to={{"pathname":"/broker-agreement-edit",state:{editAgreement:element,loc: '/broker-agreement'}}} title="Edit"   className="table-action-btn view-rqu"><i className="mdi mdi-border-color"></i></Link><a title="view" href="#" onClick={() => props.pdfViewAgreement(element.agreement_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Delete" href="#" onClick={() => props.deleteAgreement(element.agreement_id)} className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a><a title="Send"  href="#" className="table-action-btn view-rqu" data-toggle="modal" data-target="#send-msg"><i className="mdi mdi-redo-variant" onClick={() => props.selectedAgreement(element)}></i></a></td>
+              <td><Link to={{"pathname":"/broker-agreement-edit",state:{editAgreement:element,loc: '/broker-agreement'}}} title="Edit"   className="table-action-btn view-rqu"><i className="mdi mdi-border-color"></i></Link><a title="view" href="#" onClick={() => props.pdfViewAgreement(element.agreement_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Delete" href="#" onClick={() => props.deleteAgreement(element.agreement_id)} className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a>
+              <Link to={{pathname:'/broker-agreement-send',state:{TemplateId:element.agreement_id,templateDescription:element.agreement_doc_content,agreement_type:'Custom',loc:'/broker-agreement'}}} title="Send" className="table-action-btn view-rqu" ><i className="mdi mdi-redo-variant"></i></Link></td>
             </tr>
           )):<div>No data </div>}        
         </tbody>
@@ -129,7 +130,7 @@ const VExecute=(props)=>{
         <thead>
           <tr>
             <th>Title</th>
-			<th>Name</th>
+            <th>Property Name</th>
                 <th>Date</th>
 				<th>Status</th>
 				<th>Tenure Start Date</th>
@@ -141,13 +142,18 @@ const VExecute=(props)=>{
         {props.ragreement.length>0?props.ragreement.map(element=>(
             <tr>
               <td>{element.agreement_title}</td>
-			  <td>{element.name}</td>
+              <td>{element.property}</td>
               <td>{element.initiated_date}</td>
-			  <td>{element.dealStatus}</td>
-			  <td>{element.tenure_start_date}</td>
-			    <td>{element.tenure_end_date}</td>
-              <td>{element.dealStatus==="Inprocess"?<a title="Edit" href="#executePreview" data-toggle="tab" onClick={() => props.selectedExecutedAgreement(element)} className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a>:(element.dealStatus==="Completed" || element.dealStatus==="Terminated" || element.dealStatus==="Rejected")?<a title="view" href="#" onClick={() => props.dealPdfView(element.deal_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a>:''}<a title="Download"  href="#" className="table-action-btn view-rqu"><i className="mdi mdi-download" onClick={() => props.onClickDownload(element.deal_id)}></i></a><a title="Send"  href="#" className="table-action-btn view-rqu" data-toggle="modal" onClick={() => props.selectedExecutedAgreement(element)} data-target="#send-msg"><i className="mdi mdi-redo-variant"></i></a>{(element.sender_id==props.assetsId)?<a title="Terminate" href="#" onClick={() => props.terminateAgreement(element.deal_id)} className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a>:''}</td>
-            </tr>
+			        <td>{element.dealStatus}</td>
+			       <td>{element.tenure_start_date}</td>
+             <td>{element.tenure_end_date}</td>
+			       <td>{element.dealStatus==="Inprocess"?
+             <span>
+              <a title="Edit" href="#executePreview" data-toggle="tab" onClick={() => props.selectedExecutedAgreement(element)} className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><Link to={{pathname:'/broker-agreement-partner',state:{deal_id:element.deal_id,agreement_title:element.agreement_title,property:element.property,propertyAddress:element.propertyAddress,loc:'/broker-agreement'}}} title="Send" className="btn btn-primary" >Partner Sign</Link>
+                        </span>:(element.dealStatus==="Completed" || element.dealStatus==="Terminated" || element.dealStatus==="Rejected")?
+						<span> <a title="view" href="#" onClick={() => props.dealPdfView(element.deal_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><Link to={{pathname:'/broker-agreement-partner',state:{deal_id:element.deal_id,agreement_title:element.agreement_title,property:element.property,propertyAddress:element.propertyAddress,loc:'/broker-agreement'}}} title="Send" className="btn btn-primary" >Partner Sign</Link>
+                        </span>:''}<a title="Download"  href="#" className="table-action-btn view-rqu"><i className="mdi mdi-download" onClick={() => props.onClickDownload(element.deal_id)}></i></a><a title="Send"  href="#" className="table-action-btn view-rqu" data-toggle="modal" onClick={() => props.selectedExecutedAgreement(element)} data-target="#send-msg"><i className="mdi mdi-redo-variant"></i></a>{(element.sender_id==props.assetsId)?<a title="Terminate" href="#" onClick={() => props.terminateAgreement(element.deal_id)} className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a>:''}</td> 
+              </tr>
           )):<div>No data </div>}
       </tbody>
     </table>

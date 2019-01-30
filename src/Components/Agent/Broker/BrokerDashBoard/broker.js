@@ -6,7 +6,7 @@ import { Switch, Route } from 'react-router';
 import Header from '../Header/BrokerHeader';
 import Footer from '../Footer/BrokerFooter';
 import Agreement from '../Agreement/BrokerAgreement';
-import AgreementPayment from '../Agreement/AgreementPayment';
+import AgreementPayment from '../../../Owner/Agreement/AgreementPayment';
 import VEdit from '../Agreement/VEdit';
  import VCreate from '../Agreement/VCreate';
 import Property from '../MyProperty/BrokerMyProperty';
@@ -30,6 +30,10 @@ import ManageBranding from '../Settings/ManageBranding';
 import $ from 'jquery';
 import API_URL from '../../../../app-config';
 import ConnectedOwnerProperty from '../MyProperty/ConnectedOwnerProperty';
+import AgreementTemplates from '../Agreement/AgreementTemplates';
+import AgreementSendTemplate from '../Agreement/AgreementSendTemplate';
+import AgreementPartner from '../../../Owner/Agreement/AgreementPartner';
+import AgreementPreview from  '../../../Owner/Agreement/AgreementPreview'
 class AgentBrokerDashboard extends React.Component {
 
   constructor(props) {
@@ -132,6 +136,10 @@ class AgentBrokerDashboard extends React.Component {
 			<Route exact path='/broker-change-password' component={ChangePassword} />
 			<Route exact path='/broker-branding' component={ManageBranding} />
 			<Route exact path='/connected-owner-property' component={ConnectedOwnerProperty} />
+      <Route exact path='/broker-agreement-templates' component={AgreementTemplates} />
+			<Route exact path='/broker-agreement-send' component={AgreementSendTemplate} />
+			<Route exact path='/broker-agreement-preview' component={AgreementPreview} />
+      <Route exact path='/broker-agreement-partner' component={AgreementPartner} />
           </Switch>
 
           <Footer />

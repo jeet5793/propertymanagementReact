@@ -83,7 +83,7 @@ const VRequested=(props)=>{
 												  <td>{element.sentTo}</td>
 												  <td>{element.assets_type==1?'Owner':(element.assets_type==2?'Agent':(element.assets_type==3)?'Tenant':'')}</td>
 												  <td><a title="Edit" href="#" onClick={() => props.dealPdfView(element.deal_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a>
-                          <Link to={{pathname:'/owner-agreement-partner',state:{deal_id:element.deal_id,agreement_title:element.agreement_title,sentTo:element.sentTo,property:element.property,propertyAddress:element.propertyAddress,loc:'/agreement'}}} title="Send" className="table-action-btn view-rqu" ><i className="mdi mdi-redo-variant"></i></Link>
+                          
                           </td>
 												</tr>
 											  )):<div>No record available </div>}
@@ -142,7 +142,7 @@ const VExecute=(props)=>{
         <thead>
           <tr>
             <th>Title</th>
-			<th>Name</th>
+			<th>Property Name</th>
                 <th>Date</th>
 				<th>Status</th>
 				<th>Tenure Start Date</th>
@@ -154,12 +154,21 @@ const VExecute=(props)=>{
         {props.ragreement.length>0?props.ragreement.map(element=>(
             <tr>
               <td>{element.agreement_title}</td>
-			   <td>{element.first_name+' '+element.last_name}</td>
+			   <td>{element.property}</td>
               <td>{element.initiated_date}</td>
 			  <td>{element.dealStatus}</td>
 			   <td>{element.tenure_start_date}</td>
 			    <td>{element.tenure_end_date}</td>
-              <td>{element.dealStatus==="Inprocess"?<a title="Edit" href="#executePreview" data-toggle="tab" onClick={() => props.selectedExecutedAgreement(element)} className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a>:(element.dealStatus==="Completed" || element.dealStatus==="Terminated" || element.dealStatus==="Rejected")?<a title="view" href="#" onClick={() => props.dealPdfView(element.deal_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a>:''}<a title="Download"  href="#" className="table-action-btn view-rqu"><i className="mdi mdi-download" onClick={() => props.onClickDownload(element.deal_id)}></i></a><a title="Send"  href="#" className="table-action-btn view-rqu" data-toggle="modal" onClick={() => props.selectedExecutedAgreement(element)} data-target="#send-msg"><i className="mdi mdi-redo-variant"></i></a>{(element.sender_id==props.assetsId)?<a title="Terminate" href="#" onClick={() => props.terminateAgreement(element.deal_id)} className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a>:''}</td>
+              <td>{element.dealStatus==="Inprocess"?
+              <span>
+                  <a title="Edit" href="#executePreview" data-toggle="tab" onClick={() => props.selectedExecutedAgreement(element)} className="table-action-btn view-rqu">
+                    <i className="mdi mdi-eye"></i></a> <Link to={{pathname:'/owner-agreement-partner',state:{deal_id:element.deal_id,agreement_title:element.agreement_title,property:element.property,propertyAddress:element.propertyAddress,loc:'/agreement'}}} title="Send" className="btn btn-primary" >Partner Sign</Link>
+                        </span>:
+                    (element.dealStatus==="Completed" || element.dealStatus==="Terminated" || element.dealStatus==="Rejected")?
+                     <span> <a title="view" href="#" onClick={() => props.dealPdfView(element.deal_id)} data-toggle="tab" className="table-action-btn view-rqu">
+                        <i className="mdi mdi-eye"></i></a>
+                        <Link to={{pathname:'/owner-agreement-partner',state:{deal_id:element.deal_id,agreement_title:element.agreement_title,property:element.property,propertyAddress:element.propertyAddress,loc:'/agreement'}}} title="Send" className="btn btn-primary" >Partner Sign</Link>
+                        </span>:''}<a title="Download"  href="#" className="table-action-btn view-rqu"><i className="mdi mdi-download" onClick={() => props.onClickDownload(element.deal_id)}></i></a><a title="Send"  href="#" className="table-action-btn view-rqu" data-toggle="modal" onClick={() => props.selectedExecutedAgreement(element)} data-target="#send-msg"><i className="mdi mdi-redo-variant"></i></a>{(element.sender_id==props.assetsId)?<a title="Terminate" href="#" onClick={() => props.terminateAgreement(element.deal_id)} className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a>:''}</td>
             </tr>
           )):<div>No data </div>}
       </tbody>

@@ -15,11 +15,23 @@ export default class BrokerNavitems extends Component{
                     <i className="fi-air-play"></i>Profile
                 </Link>
             </li>
-            <li>
-				<Link to={{pathname:'/broker-agreement'}}>
-						<i className="fi-paper"></i>Agreement
-				</Link> 
-            </li>
+            <li className="has-submenu">
+						<a href="#"><i className="fi-paper"></i> Agreement</a> 
+					
+						<ul className="submenu">
+							<li>
+								 <Link to={{pathname:'/broker-agreement'}}>
+									<i className="fi-paper"></i> My Agreement
+								</Link>
+							 </li>
+							
+							 <li>
+								<Link to={{pathname:'/broker-agreement-templates'}}>
+									<i className="fi-paper"></i> Agreement Templates
+								</Link>
+							 </li>
+						</ul>
+			</li>
            <li className="has-submenu">
 						<a href="#"><i className="fi-box"></i>My Property</a> 
 					
@@ -68,7 +80,7 @@ export default class BrokerNavitems extends Component{
             </li>                                                
             </ul>);
             }
-        else if(this.props.name==="broker-agreement" || this.props.name==="broker-agreement-create" || this.props.name==="broker-agreement-edit" || this.props.name==="broker-agreement-payment")
+        else if(this.props.name==="broker-agreement" || this.props.name==="broker-agreement-create" || this.props.name==="broker-agreement-edit" || this.props.name==="broker-agreement-payment" || this.props.name==="broker-agreement-send" || this.props.name==="broker-agreement-preview" || this.props.name==="broker-agreement-partner"  || this.props.name==="broker-agreement-templates")
             {
             return( 
                 <ul className="navigation-menu">            
@@ -79,10 +91,22 @@ export default class BrokerNavitems extends Component{
                     </Link>
                 </li>
                 <li className="has-submenu active">
-                   <Link to={{pathname:'/broker-agreement'}}>
-						<i className="fi-paper"></i>Agreement
-				</Link> 
-                </li>
+						<a href="#"><i className="fi-paper"></i> Agreement</a> 
+					
+						<ul className="submenu">
+							<li>
+								 <Link to={{pathname:'/broker-agreement'}}>
+									<i className="fi-paper"></i> My Agreement
+								</Link>
+							 </li>
+							
+							 <li>
+								<Link to={{pathname:'/broker-agreement-templates'}}>
+									<i className="fi-paper"></i> Agreement Templates
+								</Link>
+							 </li>
+						</ul>
+			</li>
                 <li className="has-submenu">
 						<a href="#"><i className="fi-box"></i>My Property</a> 
 					
@@ -142,11 +166,23 @@ export default class BrokerNavitems extends Component{
                         <i className="fi-air-play"></i>Profile
                     </Link>
                 </li>
-                <li>
-                   <Link to={{pathname:'/broker-agreement'}}>
-						<i className="fi-paper"></i>Agreement
-					</Link> 
-                </li>
+                <li className="has-submenu">
+						<a href="#"><i className="fi-paper"></i> Agreement</a> 
+					
+						<ul className="submenu">
+							<li>
+								 <Link to={{pathname:'/broker-agreement'}}>
+									<i className="fi-paper"></i> My Agreement
+								</Link>
+							 </li>
+							
+							 <li>
+								<Link to={{pathname:'/broker-agreement-templates'}}>
+									<i className="fi-paper"></i> Agreement Templates
+								</Link>
+							 </li>
+						</ul>
+			</li>
 				<li className="has-submenu active">
 						<a href="#"><i className="fi-box"></i>My Property</a> 
 					
@@ -211,11 +247,23 @@ export default class BrokerNavitems extends Component{
                         <i className="fi-air-play"></i>Profile
                     </Link>
                 </li>
-                <li>
-                    <Link to={{pathname:'/broker-agreement'}}>
-						<i className="fi-paper"></i>Agreement
-					</Link> 
-                </li>
+                <li className="has-submenu">
+						<a href="#"><i className="fi-paper"></i> Agreement</a> 
+					
+						<ul className="submenu">
+							<li>
+								 <Link to={{pathname:'/broker-agreement'}}>
+									<i className="fi-paper"></i> My Agreement
+								</Link>
+							 </li>
+							
+							 <li>
+								<Link to={{pathname:'/broker-agreement-templates'}}>
+									<i className="fi-paper"></i> Agreement Templates
+								</Link>
+							 </li>
+						</ul>
+			</li>
                 <li className="has-submenu">
 						<a href="#"><i className="fi-box"></i>My Property</a> 
 					
@@ -275,11 +323,23 @@ export default class BrokerNavitems extends Component{
                         <i className="fi-air-play"></i>Profile
                     </Link>
                 </li>
-                <li>
-					 <Link to={{pathname:'/broker-agreement'}}>
-						<i className="fi-paper"></i>Agreement
-					</Link> 
-                </li>
+                <li className="has-submenu">
+						<a href="#"><i className="fi-paper"></i> Agreement</a> 
+					
+						<ul className="submenu">
+							<li>
+								 <Link to={{pathname:'/broker-agreement'}}>
+									<i className="fi-paper"></i> My Agreement
+								</Link>
+							 </li>
+							
+							 <li>
+								<Link to={{pathname:'/broker-agreement-templates'}}>
+									<i className="fi-paper"></i> Agreement Templates
+								</Link>
+							 </li>
+						</ul>
+			</li>
                  <li className="has-submenu">
 						<a href="#"><i className="fi-box"></i>My Property</a> 
 					
@@ -339,11 +399,23 @@ export default class BrokerNavitems extends Component{
                         <i className="fi-air-play"></i>Profile
                     </Link>
                 </li>
-                <li>
-                    <Link to={{pathname:'/broker-agreement'}}>
-						<i className="fi-paper"></i>Agreement
-					</Link> 
-                </li>
+                <li className="has-submenu">
+						<a href="#"><i className="fi-paper"></i> Agreement</a> 
+					
+						<ul className="submenu">
+							<li>
+								 <Link to={{pathname:'/broker-agreement'}}>
+									<i className="fi-paper"></i> My Agreement
+								</Link>
+							 </li>
+							
+							 <li>
+								<Link to={{pathname:'/broker-agreement-templates'}}>
+									<i className="fi-paper"></i> Agreement Templates
+								</Link>
+							 </li>
+						</ul>
+			</li>
                 <li className="has-submenu">
 						<a href="#"><i className="fi-box"></i>My Property</a> 
 					
@@ -403,11 +475,23 @@ export default class BrokerNavitems extends Component{
                         <i className="fi-air-play"></i>Profile
                     </Link>
                 </li>
-                <li>
-                   <Link to={{pathname:'/broker-agreement'}}>
-						<i className="fi-paper"></i>Agreement
-					</Link> 
-                </li>
+                <li className="has-submenu">
+						<a href="#"><i className="fi-paper"></i> Agreement</a> 
+					
+						<ul className="submenu">
+							<li>
+								 <Link to={{pathname:'/broker-agreement'}}>
+									<i className="fi-paper"></i> My Agreement
+								</Link>
+							 </li>
+							
+							 <li>
+								<Link to={{pathname:'/broker-agreement-templates'}}>
+									<i className="fi-paper"></i> Agreement Templates
+								</Link>
+							 </li>
+						</ul>
+			</li>
                  <li className="has-submenu">
 						<a href="#"><i className="fi-box"></i>My Property</a> 
 					
@@ -467,11 +551,23 @@ export default class BrokerNavitems extends Component{
                         <i className="fi-air-play"></i>Profile
                     </Link>
                 </li>
-                <li>
-                     <Link to={{pathname:'/broker-agreement'}}>
-						<i className="fi-paper"></i>Agreement
-					</Link> 
-                </li>
+                <li className="has-submenu">
+						<a href="#"><i className="fi-paper"></i> Agreement</a> 
+					
+						<ul className="submenu">
+							<li>
+								 <Link to={{pathname:'/broker-agreement'}}>
+									<i className="fi-paper"></i> My Agreement
+								</Link>
+							 </li>
+							
+							 <li>
+								<Link to={{pathname:'/broker-agreement-templates'}}>
+									<i className="fi-paper"></i> Agreement Templates
+								</Link>
+							 </li>
+						</ul>
+			</li>
                 <li className="has-submenu">
 						<a href="#"><i className="fi-box"></i>My Property</a> 
 					
@@ -531,11 +627,23 @@ export default class BrokerNavitems extends Component{
                         <i className="fi-air-play"></i>Profile
                     </Link>
                 </li>
-                <li>
-                     <Link to={{pathname:'/broker-agreement'}}>
-						<i className="fi-paper"></i>Agreement
-					</Link> 
-                </li>
+                <li className="has-submenu">
+						<a href="#"><i className="fi-paper"></i> Agreement</a> 
+					
+						<ul className="submenu">
+							<li>
+								 <Link to={{pathname:'/broker-agreement'}}>
+									<i className="fi-paper"></i> My Agreement
+								</Link>
+							 </li>
+							
+							 <li>
+								<Link to={{pathname:'/broker-agreement-templates'}}>
+									<i className="fi-paper"></i> Agreement Templates
+								</Link>
+							 </li>
+						</ul>
+			</li>
                 <li className="has-submenu">
 						<a href="#"><i className="fi-box"></i>My Property</a> 
 					
@@ -595,11 +703,23 @@ export default class BrokerNavitems extends Component{
                         <i className="fi-air-play"></i>Profile
                     </Link>
                 </li>
-                <li>
-                    <Link to={{pathname:'/broker-agreement'}}>
-						<i className="fi-paper"></i>Agreement
-					</Link> 
-                </li>
+                <li className="has-submenu">
+						<a href="#"><i className="fi-paper"></i> Agreement</a> 
+					
+						<ul className="submenu">
+							<li>
+								 <Link to={{pathname:'/broker-agreement'}}>
+									<i className="fi-paper"></i> My Agreement
+								</Link>
+							 </li>
+							
+							 <li>
+								<Link to={{pathname:'/broker-agreement-templates'}}>
+									<i className="fi-paper"></i> Agreement Templates
+								</Link>
+							 </li>
+						</ul>
+			</li>
                 <li className="has-submenu">
 						<a href="#"><i className="fi-box"></i>My Property</a> 
 					
@@ -659,11 +779,23 @@ export default class BrokerNavitems extends Component{
                         <i className="fi-air-play"></i>Profile
                     </Link>
                 </li>
-                <li>
-                     <Link to={{pathname:'/broker-agreement'}}>
-						<i className="fi-paper"></i>Agreement
-					</Link> 
-                </li>
+                <li className="has-submenu">
+						<a href="#"><i className="fi-paper"></i> Agreement</a> 
+					
+						<ul className="submenu">
+							<li>
+								 <Link to={{pathname:'/broker-agreement'}}>
+									<i className="fi-paper"></i> My Agreement
+								</Link>
+							 </li>
+							
+							 <li>
+								<Link to={{pathname:'/broker-agreement-templates'}}>
+									<i className="fi-paper"></i> Agreement Templates
+								</Link>
+							 </li>
+						</ul>
+			</li>
                 <li className="has-submenu">
 						<a href="#"><i className="fi-box"></i>My Property</a> 
 					

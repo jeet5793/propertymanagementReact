@@ -420,80 +420,86 @@ editAgreement(){
 								<div className="custome-temp" id="sideTogle2" style={{display:"none"}}>
 									<div className="autohide1-scroll" style={{height: "282px",overflowY: "scroll"}}>
 										<div id="accordion"  className="m-b-10">
-											<div className="card m-b-5">
+													{/* =================== Owner Start==========================================*/}
+										<div className="card m-b-5">
 												<div className="card-header  btn btn-success waves-effect w-md waves-light" role="tab" id="headingOne">
-													<h5 className="mb-0 mt-0"> <a className="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseOne2" aria-expanded="false" aria-controls="collapseOne2"> Header Section </a> </h5>
+													<h5 className="mb-0 mt-0"> <a className="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"> Owner Section </a> </h5>
 												</div>
 												
-												<div id="collapseOne2" className="collapse" role="tabpanel" aria-labelledby="headingOne">
+												<div id="collapseOne" className="collapse" role="tabpanel" aria-labelledby="headingOne">
 													<div className="card-block">
-													
-														<div className="row">
-															<div className="col-sm-12">
-																<label><b>Header Content</b></label>
-																	<input type="text" id="headerContent" name="headerContent" onChange={this.onChangeHandlerEdit} className="form-control" maxlength="15" />
-															</div>
+														<div className="add-name">
+															
+																<input type="button" value="Owner Full Name" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Second Owner Full Name" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Third Owner Full Name" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Owner Email" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Owner Mobile" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Owner Address" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Owner City" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Owner State" onClick={this.insertComponent.bind(this)} />
+																
 														</div>
-														
-														<div className="row">
-															<div className="col-sm-12">
-																<label><b>Header Image</b></label>
-																	<input type="file" name="headerImage" onChange={this.onChangeHandlerEdit} ref={this.headerImage} className="form-control" />
-															</div>
-														</div>
-														
-														<div className="row">
-															<div className="col-sm-12">
-																<label><b>Water Mark Image</b></label>
-																	<input type="file" name="waterMarkImage" onChange={this.onChangeHandlerEdit} ref={this.waterMarkImage} className="form-control" />
-															</div>
-														</div>
-														
 													</div>
 												</div>
 												
+										</div>	
+						{/* =================== Owner End==========================================*/}	
+						
+						{/* =================== Agent Start==========================================*/}
+
+										<div className="card m-b-5">
+											<div className="card-header  btn btn-success waves-effect w-md waves-light" role="tab" id="headingTwo">
+												<h5 className="mb-0 mt-0"> <a className="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"> Agent Section </a> </h5>
 											</div>
-														
-														
-														<div className="card m-b-5">
-														  <div className="card-header  btn btn-success waves-effect w-md waves-light" role="tab" id="headingTwo">
-															<h5 className="mb-0 mt-0"> <a className="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo2" aria-expanded="false" aria-controls="collapseTwo2"> Footer Section </a> </h5>
-														  </div>
-														  <div id="collapseTwo2" className="collapse" role="tabpanel" aria-labelledby="headingTwo">
-															<div className="card-block">
-															  <div className="row">
-																<div className="col-sm-12">
-																  <label><b>Footer Content</b></label>
-																  <textarea className="form-control" name="footerContent" onChange={this.onChangeHandlerEdit} maxlength="30"></textarea>
-																</div>
-															  </div>
-															</div>
-														  </div>
-														</div>
-													   
-													   
-													   <div className="card m-b-5">
-														  <div className="card-header  btn btn-success waves-effect w-md waves-light" role="tab" id="headingThree">
-															<h5 className="mb-0 mt-0"> <a className="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseThree2" aria-expanded="false" aria-controls="collapseThree2"> Agreement Template </a> </h5>
-														  </div>
-														  <div id="collapseThree2" className="collapse" role="tabpanel" aria-labelledby="headingThree">
-															<div className="card-block">
-															 {this.state.templateList?this.state.templateList.map((item)=>( 
-																<div className="add-name">
-																<a href="#" onClick={this.demoTemplate2.bind(this,item)} key={item.templateId}>{item.templateTitle}</a>
-																	{/* <a href="#" onClick={this.demoTemplate}>Template 2</a><br />
-																	<a href="#" onClick={this.demoTemplate}>Template 3</a>  */ }                  
-																</div>)):''}
-															</div>
-														  </div>
-														</div>
+											<div id="collapseTwo" className="collapse" role="tabpanel" aria-labelledby="headingTwo">
+												<div className="card-block">
+													<div className="add-name">
+															<input type="button" value="Agent Full Name" onClick={this.insertComponent.bind(this)} />
+															<input type="button" value="Agent Email" onClick={this.insertComponent.bind(this)} />
+															<input type="button" value="Agent Mobile" onClick={this.insertComponent.bind(this)} />
+															<input type="button" value="Agent Address" onClick={this.insertComponent.bind(this)} />
+															<input type="button" value="Agent City" onClick={this.insertComponent.bind(this)} />
+															<input type="button" value="Agent State" onClick={this.insertComponent.bind(this)} />
+													</div>
+												</div>
+											</div>
+										</div>
+
+
+
+						{/* =================== Agent End==========================================*/}		
+
+						{/* =================== Tenant Start==========================================*/}
+
+									<div className="card m-b-5">
+										<div className="card-header  btn btn-success waves-effect w-md waves-light" role="tab" id="headingThree">
+											<h5 className="mb-0 mt-0"> <a className="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree"> Tenant Section </a> </h5>
+										</div>
+										<div id="collapseThree" className="collapse" role="tabpanel" aria-labelledby="headingThree">
+											<div className="card-block">
+												<div className="add-name">
+													<input type="button" value="Tenant Full Name" onClick={this.insertComponent.bind(this)} />
+													<input type="button" value="Second Tenant Full Name" onClick={this.insertComponent.bind(this)} />
+													<input type="button" value="Third Tenant Full Name" onClick={this.insertComponent.bind(this)} />
+													<input type="button" value="Tenant Email" onClick={this.insertComponent.bind(this)} />
+													<input type="button" value="Tenant Mobile" onClick={this.insertComponent.bind(this)} />
+													<input type="button" value="Tenant Address" onClick={this.insertComponent.bind(this)} />
+													<input type="button" value="Tenant City" onClick={this.insertComponent.bind(this)} />
+													<input type="button" value="Tenant State" onClick={this.insertComponent.bind(this)} />
+												</div>
+											</div>
+										</div>
+									</div>
+
+						{/* =================== Tenant End==========================================*/}
 														
 														
 														<div className="card m-b-5">
 														  <div className="card-header btn btn-success waves-effect w-md waves-light" role="tab" id="headingFour">
-															<h5 className="mb-0 mt-0"> <a className="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseFour2" aria-expanded="false" aria-controls="collapseFour2"> Insert Dynamic Value </a> </h5>
+															<h5 className="mb-0 mt-0"> <a className="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour"> Property Section </a> </h5>
 														  </div>
-														  <div id="collapseFour2" className="collapse" role="tabpanel" aria-labelledby="headingFour">
+														  <div id="collapseFour" className="collapse" role="tabpanel" aria-labelledby="headingFour">
 															<div className="card-block">
 															  <div className="add-name">
 																<input type="button" value="Property Address" onClick={this.insertComponent.bind(this)} />
@@ -504,28 +510,12 @@ editAgreement(){
 																<input type="button" value="Tenure End Date" onClick={this.insertComponent.bind(this)} />
 																<input type="button" value="Property City" onClick={this.insertComponent.bind(this)} />
 																<input type="button" value="Property State" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Owner Full Name" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Owner Email" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Owner Mobile" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Owner Address" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Owner City" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Owner State" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Agent Full Name" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Agent Email" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Agent Mobile" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Agent Address" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Agent City" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Agent State" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Tenant Full Name" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Tenant Email" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Tenant Mobile" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Tenant Address" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Tenant City" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Tenant State" onClick={this.insertComponent.bind(this)} />
+																
 															</div>
 															</div>
 														  </div>
 														</div>
+														
 														
 														
 														<div className="card">

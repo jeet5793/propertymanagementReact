@@ -90,9 +90,10 @@ TenantList(){
             session_id : JSON.parse(this.state.userData).session_id,
             Owners : Owners,
             Tenants : Tenants,
-            deal_id : this.props.location.state.deal_id,
+            deal_id : this.props.location.state.deal_id
+        
         }
-        $("#loaderDiv").show();
+        //$("#loaderDiv").show();
         fetch(`${API_URL}assetsapi/agreement_partner_signature`, {
           method: 'POST',
           body:JSON.stringify(dataToSend)
@@ -100,7 +101,7 @@ TenantList(){
         .then(res => res.json())
         .then(
           (result) => {
-              $("#loaderDiv").hide();
+              //$("#loaderDiv").hide();
             //console.log("data 2: "+JSON.stringify(result.profile))
             if (result.success) {
               //this.setState({tenantList:result.tenantList})
@@ -186,7 +187,7 @@ TenantList(){
 								<div className="row">
 									<div className="col-md-5">
 										<div className="form-group">
-											<label for="owner" className="control-label">Owner<span className="required"/></label>
+											<label for="owner" className="control-label">Owner<span /></label>
 											<Select
                                                 //defaultValue={[colourOptions[2], colourOptions[3]]}
                                                 isMulti
@@ -206,7 +207,7 @@ TenantList(){
 								
 									<div className="col-md-5">
 										<div className="form-group">
-											<label for="tenant" className="control-label">Tenant<span className="required"/></label>
+											<label for="tenant" className="control-label">Tenant<span /></label>
 											<Select
                                                 //defaultValue={[colourOptions[2], colourOptions[3]]}
                                                 isMulti
