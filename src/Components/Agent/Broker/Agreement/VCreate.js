@@ -12,7 +12,7 @@ import swal from 'sweetalert';
 import { Editor } from '@tinymce/tinymce-react';
 
 //var i
-var i =1;
+//var i =1;
 
 export default class VCreate extends React.Component{
    constructor(props){
@@ -320,7 +320,8 @@ createAgreement(){
       {
         //i = parseInt(i, 10) ? i+1 : 0;
 		
-		i = i+1;
+		//i = i+1;
+		var i = Math.floor((Math.random() * 100000000) + 1);
 		
         var compName=e.target.value,tinymce=window.tinyMCE;
         var ed = tinymce.get('editor');     
@@ -484,14 +485,14 @@ createAgreement(){
 													<div className="card-block">
 														<div className="add-name">
 															
-																<input type="button" value="Owner Full Name" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Primary Owner Full Name" onClick={this.insertComponent.bind(this)} />
 																<input type="button" value="Second Owner Full Name" onClick={this.insertComponent.bind(this)} />
 																<input type="button" value="Third Owner Full Name" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Owner Email" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Owner Mobile" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Owner Address" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Owner City" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Owner State" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Primary Owner Email" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Primary Owner Mobile" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Primary Owner Address" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Primary Owner City" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Primary Owner State" onClick={this.insertComponent.bind(this)} />
 																
 														</div>
 													</div>
@@ -533,14 +534,14 @@ createAgreement(){
 										<div id="collapseThree" className="collapse" role="tabpanel" aria-labelledby="headingThree">
 											<div className="card-block">
 												<div className="add-name">
-													<input type="button" value="Tenant Full Name" onClick={this.insertComponent.bind(this)} />
-													<input type="button" value="Second Tenant Full Name" onClick={this.insertComponent.bind(this)} />
-													<input type="button" value="Third Tenant Full Name" onClick={this.insertComponent.bind(this)} />
-													<input type="button" value="Tenant Email" onClick={this.insertComponent.bind(this)} />
-													<input type="button" value="Tenant Mobile" onClick={this.insertComponent.bind(this)} />
-													<input type="button" value="Tenant Address" onClick={this.insertComponent.bind(this)} />
-													<input type="button" value="Tenant City" onClick={this.insertComponent.bind(this)} />
-													<input type="button" value="Tenant State" onClick={this.insertComponent.bind(this)} />
+													<input type="button" value="Primary Tenant Full Name" onClick={this.insertComponent.bind(this)} />
+													<input type="button" value="Primary Second Tenant Full Name" onClick={this.insertComponent.bind(this)} />
+													<input type="button" value="Primary Third Tenant Full Name" onClick={this.insertComponent.bind(this)} />
+													<input type="button" value="Primary Tenant Email" onClick={this.insertComponent.bind(this)} />
+													<input type="button" value="Primary Tenant Mobile" onClick={this.insertComponent.bind(this)} />
+													<input type="button" value="Primary Tenant Address" onClick={this.insertComponent.bind(this)} />
+													<input type="button" value="Primary Tenant City" onClick={this.insertComponent.bind(this)} />
+													<input type="button" value="Primary Tenant State" onClick={this.insertComponent.bind(this)} />
 												</div>
 											</div>
 										</div>

@@ -428,14 +428,14 @@ editAgreement(){
 													<div className="card-block">
 														<div className="add-name">
 															
-																<input type="button" value="Owner Full Name" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Primary Owner Full Name" onClick={this.insertComponent.bind(this)} />
 																<input type="button" value="Second Owner Full Name" onClick={this.insertComponent.bind(this)} />
 																<input type="button" value="Third Owner Full Name" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Owner Email" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Owner Mobile" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Owner Address" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Owner City" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Owner State" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Primary Owner Email" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Primary Owner Mobile" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Primary Owner Address" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Primary Owner City" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Primary Owner State" onClick={this.insertComponent.bind(this)} />
 																
 														</div>
 													</div>

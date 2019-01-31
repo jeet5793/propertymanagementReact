@@ -199,7 +199,7 @@ export default class App extends Component {
 			<Route path='/owner-agreement-send' component={UserDashboard} />
 			<Route path='/owner-agreement-preview' component={UserDashboard} />
       <Route path='/owner-agreement-partner' component={UserDashboard} />
-
+      <Route path='/owner-partner-sign' component={UserDashboard} />
             {/* Broker Dashboard */}
             <Route path='/broker-tenant' component={AgentBrokerDashboard} />
             <Route path='/broker-profile' component={AgentBrokerDashboard} />
@@ -257,6 +257,7 @@ export default class App extends Component {
             <Route path='/tenant-deal-payment' component={TenantDashboard} />
 			<Route path='/tenant-profile-edit' component={TenantDashboard} />
 			<Route path='/tenant-change-password' component={TenantDashboard} />
+      <Route path='/tenant-partner-sign' component={TenantDashboard} />
 
             <Route path='/' component={DashBoardIndex} />
             <Route exact path='/plans' render={props => <Plans {...props} login={this.LoggedIn} />} />

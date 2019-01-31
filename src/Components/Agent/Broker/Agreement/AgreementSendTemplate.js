@@ -50,7 +50,7 @@ export default class AgreementSendTemplate extends React.Component{
 	}
    
   componentDidMount() {
-	 this.getPropertyList()
+	 //this.getPropertyList()
   }
   userlist(assets_type){
 	const assetstype = assets_type;
@@ -74,7 +74,7 @@ export default class AgreementSendTemplate extends React.Component{
 		}
 	  )     
 }
-   getPropertyList() {
+   /* getPropertyList() {
         fetch(`${API_URL}assetsapi/service_request/${JSON.parse(this.state.userData).assets_id}/${JSON.parse(this.state.userData).session_id}`, {
             method: 'get'
         })
@@ -93,14 +93,14 @@ export default class AgreementSendTemplate extends React.Component{
                     console.log('error')
                 }
             )
-    }
+    } */
 	onChangeHandler(e){
 		e.preventDefault();
 		if (e.target.name === 'property_id') {
             this.setState({property_id: e.target.value})
         } else if (e.target.name === 'sender_id') {
             this.setState({sender_id: e.target.value},()=>{
-              this.getPropertyList()
+              //this.getPropertyList()
             })
 			this.userlist(e.target.value);
         } else if (e.target.name === 'user_id') {
@@ -207,6 +207,12 @@ export default class AgreementSendTemplate extends React.Component{
 	onSubmitHandle(e){
 		e.preventDefault();
 		const profile=JSON.parse(this.state.userData)
+		if(!this.state.property_option){
+		  return alert("Choose atleast one Property from deal or Property from connected owners's.!!!");
+	  }
+      if(!this.state.property_id){
+		  return alert('Property must be selected.!!!');
+	  }
     //  console.log("user id"+JSON.stringify(profile))
       let { property_id, sender_id, receive_user_id, description,paid_to } = this.state;
       if (!property_id || !sender_id || !receive_user_id || !description) {
@@ -227,7 +233,8 @@ export default class AgreementSendTemplate extends React.Component{
 					loginUserId:JSON.parse(this.state.userData).assets_id,
 					agreement_type:this.props.location.state.agreement_type,
 		};
-		$("#loaderDiv").show();
+		//console.log(JSON.stringify(dataToSend))
+		 $("#loaderDiv").show();
 	  fetch(`${API_URL}assetsapi/agreement_replace_values`, {
 		method: 'post',
 		body: JSON.stringify(dataToSend)
@@ -244,7 +251,7 @@ export default class AgreementSendTemplate extends React.Component{
 			(error) => {
 				console.log('error')
 			}
-		)
+		) 
 	  //console.log(JSON.stringify(this.props));
 	  //console.log(JSON.stringify(dataToSend));
 		//this.props.history.push({pathname:'/owner-agreement-preview',state:{dataToSend}});
@@ -376,7 +383,7 @@ export default class AgreementSendTemplate extends React.Component{
 								<div className="row">
 									<div className="col-md-5">
 										<div className="form-group">
-											<label for="tenure_start_date" className="control-label">Tenure Start Date<span className="required"/></label>
+											<label for="tenure_start_date" className="control-label">Tenure End Date<span className="required"/></label>
 											<DatePicker className="form-control"
 											onChange={this.handleEdChange}
 											value={this.state.endDate}

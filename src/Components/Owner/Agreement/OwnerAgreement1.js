@@ -54,6 +54,7 @@ const VRequested=(props)=>{
 						<ul className="nav nav-tabs tabs-bordered">
 								<li className="nav-item"> <a href="#sent" data-toggle="tab" onClick={props.changeTabs.bind(this, "sent")} id="sentTab" aria-expanded="true" className="nav-link font-16 active">Sent  </a> </li>
 								<li className="nav-item"> <a href="#received" data-toggle="tab" onClick={props.changeTabs.bind(this, "received")} id="receivedTab" aria-expanded="false" className="nav-link font-16">Received  </a> </li>
+                <li className="nav-item"> <a href="#partnerSign" data-toggle="tab" onClick={props.changeTabs.bind(this, "partnerSign")} id="partnerSignTab" aria-expanded="false" className="nav-link font-16">Partner Sign  </a> </li>
                             </ul>
 							
 							<div className="tab-content">
@@ -127,6 +128,40 @@ const VRequested=(props)=>{
 									</div>:<div className=" table-responsive" style={{textAlign:'center'}}>No record available </div>}
 								</div>
 						   </div>
+
+               <div className="tab-pane" id="partnerSign">
+                                <div className="row">
+								{(props.partnerSignInfo!=undefined && props.partnerSignInfo.length>0)?
+									<div className=" table-responsive">
+										  <table className="table bdr">
+											<thead>
+											  <tr>
+												<th>Agreement title</th>
+												<th>Property Title </th>
+												<th>Sent Date</th>
+												<th>Status</th>
+												<th>Manage</th>
+											  </tr>
+											</thead>
+											<tbody>                                    
+											 
+										   {(props.partnerSignInfo!=undefined)?props.partnerSignInfo.map(element=>(
+												<tr>
+												  <td>{element.agreement_title}</td>
+												  <td>{element.property}</td>
+												   <td>{element.SentDate}</td>
+												  <td>{element.status}</td>
+												  <td>{element.status=='Pending'  && <Link to={{pathname:'/owner-partner-sign',state:{deal_id:element.deal_id,loc:'/agreement',PreviewAgreement:element.replaced_template}}} title="Send" className="btn btn-primary" >Partner Sign</Link>}{element.status=='Completed' && <a title="Edit" href="#"  onClick={() => props.dealPdfView(element.deal_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a>}</td>
+												</tr>
+											  )):<div>No record available </div>}
+											
+										  </tbody>
+										</table>
+									</div>:<div className=" table-responsive" style={{textAlign:'center'}}>No record available </div>}
+				                </div>
+						  
+								</div>
+
 						</div>
 	
   </div>
@@ -162,12 +197,12 @@ const VExecute=(props)=>{
               <td>{element.dealStatus==="Inprocess"?
               <span>
                   <a title="Edit" href="#executePreview" data-toggle="tab" onClick={() => props.selectedExecutedAgreement(element)} className="table-action-btn view-rqu">
-                    <i className="mdi mdi-eye"></i></a> <Link to={{pathname:'/owner-agreement-partner',state:{deal_id:element.deal_id,agreement_title:element.agreement_title,property:element.property,propertyAddress:element.propertyAddress,loc:'/agreement'}}} title="Send" className="btn btn-primary" >Partner Sign</Link>
+                    <i className="mdi mdi-eye"></i></a> {(element.sender_id==props.assetsId) && <a href = "#" title="Send" onClick={()=>props.checkPartnerInfo(element)} className="btn btn-primary" >Partner Sign</a>}
                         </span>:
                     (element.dealStatus==="Completed" || element.dealStatus==="Terminated" || element.dealStatus==="Rejected")?
                      <span> <a title="view" href="#" onClick={() => props.dealPdfView(element.deal_id)} data-toggle="tab" className="table-action-btn view-rqu">
                         <i className="mdi mdi-eye"></i></a>
-                        <Link to={{pathname:'/owner-agreement-partner',state:{deal_id:element.deal_id,agreement_title:element.agreement_title,property:element.property,propertyAddress:element.propertyAddress,loc:'/agreement'}}} title="Send" className="btn btn-primary" >Partner Sign</Link>
+                        {(element.sender_id==props.assetsId) && <a href = "#" title="Send" onClick={()=>props.checkPartnerInfo(element)} className="btn btn-primary" >Partner Sign</a>}
                         </span>:''}<a title="Download"  href="#" className="table-action-btn view-rqu"><i className="mdi mdi-download" onClick={() => props.onClickDownload(element.deal_id)}></i></a><a title="Send"  href="#" className="table-action-btn view-rqu" data-toggle="modal" onClick={() => props.selectedExecutedAgreement(element)} data-target="#send-msg"><i className="mdi mdi-redo-variant"></i></a>{(element.sender_id==props.assetsId)?<a title="Terminate" href="#" onClick={() => props.terminateAgreement(element.deal_id)} className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a>:''}</td>
             </tr>
           )):<div>No data </div>}
@@ -219,7 +254,10 @@ export default class container extends React.Component{
 	this.onClickChangeStatus =this.onClickChangeStatus.bind(this);
 	this.onClickChangeStatusReject =this.onClickChangeStatusReject.bind(this);
 	this.onClickCheckPermission = this.onClickCheckPermission.bind(this);
-	this.terminateAgreement = this.terminateAgreement.bind(this);
+  this.terminateAgreement = this.terminateAgreement.bind(this);
+  this.changeTabs = this.changeTabs.bind(this);
+  this.partnerDetail = this.partnerDetail.bind(this);
+  this.checkPartnerInfo = this.checkPartnerInfo.bind(this)
   }
   componentWillMount(){
    
@@ -768,10 +806,16 @@ getPropertyList() {
 	changeTabs(id) {
         if (id == "received") {
             $("#sentTab").removeClass("active")
-
-        }
-        else {
+            $("#partnerSignTab").removeClass("active")
+            
+        }else if (id == "partnerSign") {
+          $("#sentTab").removeClass("active")
+          $("#receivedTab").removeClass("active")
+          this.partnerDetail();
+          
+      }else {
             $("#receivedTab").removeClass("active")
+            $("#partnerSignTab").removeClass("active")
            
         }
     }
@@ -854,7 +898,65 @@ onClickCheckPermission(feature){
 				).catch((error) => {
 					console.log('error: ', error);
 				  });
-	}
+  }
+  partnerDetail(){
+    $("#loaderDiv").show();
+   
+    fetch(`${API_URL}assetsapi/get_partner_detail_by/${JSON.parse(this.state.userData).assets_id}/${JSON.parse(this.state.userData).session_id}`, {
+       method: 'GET'
+   })
+       .then(res => res.json())
+       .then(
+           (data) => {
+               // debugger;
+               //console.log("data 2: "+JSON.stringify(result.profile))
+               if (data) {
+                   $("#loaderDiv").hide();
+                   this.setState({partnerSignInfo:data.partnerSignInfo})
+                   // console.log(data);
+               }
+               //console.log("set user data"+JSON.stringify(this.state.profileData))
+           },
+           (error) => {
+               console.log('error')
+           }
+       )
+}
+checkPartnerInfo(element){
+  //console.log(JSON.stringify(element))
+  $("#loaderDiv").show();
+   
+    fetch(`${API_URL}assetsapi/partenerinfo_by_deal/`+element.deal_id, {
+       method: 'GET'
+   })
+       .then(res => res.json())
+       .then(
+           (data) => {
+               // debugger;
+               //console.log("data 2: "+JSON.stringify(result.profile))
+               if (data) {
+                   $("#loaderDiv").hide();
+                   if(data.success=='1'){
+                    $("#actionType").val("No");
+                    $("#hiddenURL").val("agreement");
+                    $(".confirm-body").html(data.msg);
+                    $("#BlockUIConfirm").show();
+                    
+                   }else{
+                    this.props.history.push({pathname:'/owner-agreement-partner',state:{deal_id:element.deal_id,agreement_title:element.agreement_title,property:element.property,propertyAddress:element.propertyAddress,loc:'/agreement'}});
+                   }
+                  
+                   // console.log(data);
+               }
+               //console.log("set user data"+JSON.stringify(this.state.profileData))
+           },
+           (error) => {
+               console.log('error')
+           }
+       )
+  
+
+}
   render(){
       return(
     <div>
@@ -890,8 +992,8 @@ onClickCheckPermission(feature){
 						<Saved selectedAgreement={this.selectedAgreement} agreement={this.state.agreement} pdfViewAgreement={this.pdfViewAgreement} deleteAgreement={this.deleteAgreement}  />
 							{/*  <VCreate userData={this.state.userData}/>  */}
 						<div className="tab-pane" id="v-create" style={{display:'none'}}></div>
-                         {<VRequested previewAgreement={this.previewAgreement} ragreement={this.state.requestedAgreement || []} sendedAgreement={this.state.sendedAgreement || []} dealPdfView={this.dealPdfView} changeTabs = {this.changeTabs}/>}
-                          <VExecute ragreement={this.state.executedAgreement} selectedExecutedAgreement={this.selectedExecutedAgreement} onClickDownload={this.onClickDownload} dealPdfView={this.dealPdfView} terminateAgreement={this.terminateAgreement} assetsId = {JSON.parse(this.state.userData).assets_id}/>
+                         {<VRequested previewAgreement={this.previewAgreement} ragreement={this.state.requestedAgreement || []} sendedAgreement={this.state.sendedAgreement || []} dealPdfView={this.dealPdfView} changeTabs = {this.changeTabs} partnerSignInfo={this.state.partnerSignInfo}/>}
+                          <VExecute ragreement={this.state.executedAgreement} selectedExecutedAgreement={this.selectedExecutedAgreement} onClickDownload={this.onClickDownload} dealPdfView={this.dealPdfView} terminateAgreement={this.terminateAgreement} assetsId = {JSON.parse(this.state.userData).assets_id} checkPartnerInfo={this.checkPartnerInfo}/>
 						  	
 						  <div className="tab-pane" id="executePreview">
                                       <div id="executePreviewContainer"></div>

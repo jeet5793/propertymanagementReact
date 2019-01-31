@@ -3,12 +3,54 @@ import API_URL from '../../../app-config';
 import Cookies from 'js-cookie';
 import $ from 'jquery';
 import Customwithmodal from "../../Owner/Agreement/CustomWithModal";
-import swal from 'sweetalert';
+//import swal from 'sweetalert';
+import {Link} from 'react-router-dom'
 const VRequested=(props)=>{
     return(
         <div className="tab-pane active" id="v-requested">
-		
-			<div className="row">
+            <ul className="nav nav-tabs tabs-bordered">
+								
+								<li className="nav-item"> <a href="#received" data-toggle="tab" onClick={props.changeTabs.bind(this, "received")} id="receivedTab" aria-expanded="false" className="nav-link font-16 active">Received  </a> </li>
+                                <li className="nav-item"> <a href="#sent" data-toggle="tab" onClick={props.changeTabs.bind(this, "sent")} id="sentTab" aria-expanded="true" className="nav-link font-16">Partner Sign  </a> </li>
+                            </ul>
+							
+							<div className="tab-content">
+								<div className="tab-pane" id="sent">
+                                <div className="row">
+								{(props.partnerSignInfo!=undefined && props.partnerSignInfo.length>0)?
+									<div className=" table-responsive">
+										  <table className="table bdr">
+											<thead>
+											  <tr>
+												<th>Agreement title</th>
+												<th>Property Title </th>
+												<th>Sent Date</th>
+												<th>Status</th>
+												<th>Manage</th>
+											  </tr>
+											</thead>
+											<tbody>                                    
+											 
+										   {(props.partnerSignInfo!=undefined)?props.partnerSignInfo.map(element=>(
+												<tr>
+												  <td>{element.agreement_title}</td>
+												  <td>{element.property}</td>
+												   <td>{element.SentDate}</td>
+												  <td>{element.status}</td>
+												  <td>{element.status=='Pending'  && <Link to={{pathname:'/tenant-partner-sign',state:{deal_id:element.deal_id,loc:'/tenant-agreement',PreviewAgreement:element.replaced_template}}} title="Send" className="btn btn-primary" >Partner Sign</Link>}{element.status=='Completed' && <a title="Edit" href="#"  onClick={() => props.dealPdfView(element.deal_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a>}</td>
+												</tr>
+											  )):<div>No record available </div>}
+											
+										  </tbody>
+										</table>
+									</div>:<div className=" table-responsive" style={{textAlign:'center'}}>No record available </div>}
+				                </div>
+						  
+								</div>
+
+
+							<div className="tab-pane active" id="received">
+                            <div className="row">
 								{(props.ragreement!=undefined && props.ragreement.length>0)?
 									<div className=" table-responsive">
 										  <table className="table bdr">
@@ -36,7 +78,10 @@ const VRequested=(props)=>{
 										  </tbody>
 										</table>
 									</div>:<div className=" table-responsive" style={{textAlign:'center'}}>No record available </div>}
-				</div>
+				                </div>
+						   </div>
+						</div>
+			
 		</div>
 						
 
@@ -103,7 +148,9 @@ export default class TenantAgreement extends React.Component {
     this.verticalNavbar=this.verticalNavbar.bind(this);
     this.previewAgreement=this.previewAgreement.bind(this);
     this.submitAgreement=this.submitAgreement.bind(this);
-		this.onClickChangeStatus =this.onClickChangeStatus.bind(this);
+        this.onClickChangeStatus =this.onClickChangeStatus.bind(this);
+        this.changeTabs = this.changeTabs.bind(this);
+        this.partnerDetail = this.partnerDetail.bind(this);
   }
   componentDidMount() {
     $.getScript('assets/js/jquery.slimscroll.js', function () {
@@ -413,7 +460,42 @@ selectedExecutedAgreement(agreement) {
                     console.log('error')
                 }
             ) 
-	}
+    }
+    changeTabs(id) {
+        if (id == "sent") {
+            $("#receivedTab").removeClass("active");
+            this.partnerDetail();
+
+        }
+        else {
+            $("#sentTab").removeClass("active")
+           
+           
+        }
+    }
+    partnerDetail(){
+        $("#loaderDiv").show();
+        let { user } = this.state;
+        fetch(`${API_URL}assetsapi/get_partner_detail_by/${user.assets_id}/${user.session_id}`, {
+           method: 'GET'
+       })
+           .then(res => res.json())
+           .then(
+               (data) => {
+                   // debugger;
+                   //console.log("data 2: "+JSON.stringify(result.profile))
+                   if (data) {
+                       $("#loaderDiv").hide();
+                       this.setState({partnerSignInfo:data.partnerSignInfo})
+                       // console.log(data);
+                   }
+                   //console.log("set user data"+JSON.stringify(this.state.profileData))
+               },
+               (error) => {
+                   console.log('error')
+               }
+           )
+}
     render() {
         return (
             <div>
@@ -438,7 +520,7 @@ selectedExecutedAgreement(agreement) {
                       </div>
                       <div className="col-md-10">
                         <div className="tab-content">
-                          {<VRequested previewAgreement={this.previewAgreement} ragreement={this.state.requestedAgreement || []} sendedAgreement={this.state.sendedAgreement || []} dealPdfView={this.dealPdfView}/>}
+                          {<VRequested previewAgreement={this.previewAgreement} ragreement={this.state.requestedAgreement || []} sendedAgreement={this.state.sendedAgreement || []} dealPdfView={this.dealPdfView} changeTabs = {this.changeTabs} partnerSignInfo={this.state.partnerSignInfo}/>}
                           <VExecute ragreement={this.state.executedAgreement} selectedExecutedAgreement={this.selectedExecutedAgreement} onClickDownload={this.onClickDownload} dealPdfView={this.dealPdfView}/>
 						   <div className="tab-pane" id="executePreview">
                                       <div id="executePreviewContainer"></div>

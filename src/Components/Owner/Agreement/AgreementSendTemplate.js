@@ -332,7 +332,7 @@ export default class AgreementSendTemplate extends React.Component{
 								<div className="row">
 									<div className="col-md-5">
 										<div className="form-group">
-											<label for="tenure_start_date" className="control-label">Tenure Start Date<span className="required"/></label>
+											<label for="tenure_start_date" className="control-label">Tenure End Date<span className="required"/></label>
 											<DatePicker className="form-control"
 											onChange={this.handleEdChange}
 											value={this.state.endDate}

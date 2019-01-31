@@ -337,6 +337,7 @@ export default class AddDocument extends React.Component{
 										<div className="row">
 											<div className="col-md-6">
 												<div className="form-group">
+												<label>Issue Date</label>
 													<DatePicker  name = "issue_date" className="form-control"  onChange={this.handleStChange}
                     value={this.state.startDate} placeholder="Issue Date"/>
 													 <span style={{color: "red"}}>{this.state.errors["issue_date"]}</span>
@@ -344,6 +345,7 @@ export default class AddDocument extends React.Component{
 											</div>
 											<div className="col-md-6">
 												<div className="form-group">
+												<label>Expires Date</label>
 													<DatePicker placeholder = "Expires Date" className="form-control" onChange={this.handleEdChange}  name = "expires_date" value={this.state.endDate} />
 													<span style={{color: "red"}}>{this.state.errors["expires_date"]}</span>
 												</div>

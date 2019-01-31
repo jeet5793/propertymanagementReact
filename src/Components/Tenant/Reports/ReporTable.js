@@ -32,8 +32,10 @@ const TableReprt=(props)=>{
 							<th>Property Name</th>
 							<th>Paid Date</th>
 							<th>Amount</th>
-							<th>Rent paid By</th>
+							<th>Property Status</th>
+                            <th> Paid Month</th>
 							<th>Status</th>
+                            
 						   <th>Invoice Number</th>
 						   <th>Download</th>
                         </tr>
@@ -46,8 +48,9 @@ const TableReprt=(props)=>{
                           <td className="tbl-text-overflow">{element.title}</td>
                           <td>{element.transactiondate}</td>
                           <td><NumberFormat value={element.transactionamount} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/> </td>
-						  <td>{element.Name} </td>
-						   <td>{element.responsestatus} </td>
+						  <td>{element.propertyStatus} </td>
+						   <td>{(element.propertyStatus=="Rent" || element.propertyStatus=="Rented")?element.paid_for_month:element.month} </td>
+                           <td>{element.responsestatus} </td>
 						   <td>{element.responsestatus=='APPROVED'?<button style={{cursor:'pointer'}} className="btn-success" onClick={props.propIncoiceDownload.bind(this,element.invoice_number)}>{element.invoice_number}</button>:'Not Generated'}</td>
 						   <td>{element.responsestatus=='APPROVED'?<span style={{cursor:'pointer'}} onClick={props.propIncoiceDownload.bind(this,element.invoice_number)}><i className="mdi mdi-download"/></span>:''}</td>
                         </tr>)}

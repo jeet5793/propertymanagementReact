@@ -149,10 +149,12 @@ const VExecute=(props)=>{
              <td>{element.tenure_end_date}</td>
 			       <td>{element.dealStatus==="Inprocess"?
              <span>
-              <a title="Edit" href="#executePreview" data-toggle="tab" onClick={() => props.selectedExecutedAgreement(element)} className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><Link to={{pathname:'/broker-agreement-partner',state:{deal_id:element.deal_id,agreement_title:element.agreement_title,property:element.property,propertyAddress:element.propertyAddress,loc:'/broker-agreement'}}} title="Send" className="btn btn-primary" >Partner Sign</Link>
+              <a title="Edit" href="#executePreview" data-toggle="tab" onClick={() => props.selectedExecutedAgreement(element)} className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a>
+              {(element.sender_id==props.assetsId) && <a href = "#" title="Send" onClick={()=>props.checkPartnerInfo(element)} className="btn btn-primary" >Partner Sign</a>}
                         </span>:(element.dealStatus==="Completed" || element.dealStatus==="Terminated" || element.dealStatus==="Rejected")?
-						<span> <a title="view" href="#" onClick={() => props.dealPdfView(element.deal_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><Link to={{pathname:'/broker-agreement-partner',state:{deal_id:element.deal_id,agreement_title:element.agreement_title,property:element.property,propertyAddress:element.propertyAddress,loc:'/broker-agreement'}}} title="Send" className="btn btn-primary" >Partner Sign</Link>
-                        </span>:''}<a title="Download"  href="#" className="table-action-btn view-rqu"><i className="mdi mdi-download" onClick={() => props.onClickDownload(element.deal_id)}></i></a><a title="Send"  href="#" className="table-action-btn view-rqu" data-toggle="modal" onClick={() => props.selectedExecutedAgreement(element)} data-target="#send-msg"><i className="mdi mdi-redo-variant"></i></a>{(element.sender_id==props.assetsId)?<a title="Terminate" href="#" onClick={() => props.terminateAgreement(element.deal_id)} className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a>:''}</td> 
+						<span> <a title="view" href="#" onClick={() => props.dealPdfView(element.deal_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a>
+             {(element.sender_id==props.assetsId) && <a href = "#" title="Send" onClick={()=>props.checkPartnerInfo(element)} className="btn btn-primary" >Partner Sign</a>}
+                        </span>:''}<a title="Download"  href="#" className="table-action-btn view-rqu"><i className="mdi mdi-download" onClick={() => props.onClickDownload(element.deal_id)}></i></a><a title="Send"  className="table-action-btn view-rqu"  onClick={() => props.forwardAgreement(element)} ><i className="mdi mdi-redo-variant"></i></a>{(element.sender_id==props.assetsId)?<a title="Terminate" href="#" onClick={() => props.terminateAgreement(element.deal_id)} className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a>:''}</td> 
               </tr>
           )):<div>No data </div>}
       </tbody>
@@ -202,7 +204,9 @@ export default class container extends React.Component{
 	this.onClickChangeStatus =this.onClickChangeStatus.bind(this);
 	this.onClickCheckPermission = this.onClickCheckPermission.bind(this);
 	this.terminateAgreement = this.terminateAgreement.bind(this);
-		this.onClickChangeStatusReject =this.onClickChangeStatusReject.bind(this);
+    this.onClickChangeStatusReject =this.onClickChangeStatusReject.bind(this);
+    this.checkPartnerInfo = this.checkPartnerInfo.bind(this);
+    this.forwardAgreement =this.forwardAgreement.bind(this)
   }
   componentWillMount(){
    
@@ -813,7 +817,47 @@ onClickCheckPermission(){
 				).catch((error) => {
 					console.log('error: ', error);
 				  });
-	}
+  }
+  checkPartnerInfo(element){
+    //console.log(JSON.stringify(element))
+    $("#loaderDiv").show();
+     
+      fetch(`${API_URL}assetsapi/partenerinfo_by_deal/`+element.deal_id, {
+         method: 'GET'
+     })
+         .then(res => res.json())
+         .then(
+             (data) => {
+                 // debugger;
+                 //console.log("data 2: "+JSON.stringify(result.profile))
+                 if (data) {
+                     $("#loaderDiv").hide();
+                     if(data.success=='1'){
+                      $("#actionType").val("No");
+                      $("#hiddenURL").val("broker-agreement");
+                      $(".confirm-body").html(data.msg);
+                      $("#BlockUIConfirm").show();
+                      
+                     }else{
+                      this.props.history.push({pathname:'/broker-agreement-partner',state:{deal_id:element.deal_id,agreement_title:element.agreement_title,property:element.property,propertyAddress:element.propertyAddress,loc:'/broker-agreement'}});
+                     }
+                    
+                     // console.log(data);
+                 }
+                 //console.log("set user data"+JSON.stringify(this.state.profileData))
+             },
+             (error) => {
+                 console.log('error')
+             }
+         )
+    
+  
+  }
+  forwardAgreement(element){
+    console.log(element.replaced_template);
+    this.props.history.push({pathname:'/broker-agreement-send',state:{TemplateId:element.agreement_id,templateDescription:element.replaced_template,agreement_type:element.agreement_type,loc:'/broker-agreement'}});
+    
+  }
   render(){
       return(
     <div>
@@ -850,7 +894,7 @@ onClickCheckPermission(){
 						 {/*<VCreate userData={this.state.userData} />*/}
 						 <div className="tab-pane" id="v-create" style={{display:'none'}}></div>
                          {<VRequested previewAgreement={this.previewAgreement} ragreement={this.state.requestedAgreement || []} sendedAgreement={this.state.sendedAgreement || []} dealPdfView={this.dealPdfView} changeTabs = {this.changeTabs}/>}
-                          <VExecute ragreement={this.state.executedAgreement} selectedExecutedAgreement={this.selectedExecutedAgreement} onClickDownload={this.onClickDownload} dealPdfView={this.dealPdfView} terminateAgreement={this.terminateAgreement} assetsId = {JSON.parse(this.state.userData).assets_id}/>
+                          <VExecute ragreement={this.state.executedAgreement} selectedExecutedAgreement={this.selectedExecutedAgreement} onClickDownload={this.onClickDownload} dealPdfView={this.dealPdfView} terminateAgreement={this.terminateAgreement} assetsId = {JSON.parse(this.state.userData).assets_id} checkPartnerInfo={this.checkPartnerInfo} forwardAgreement={this.forwardAgreement}/>
 						  <div className="tab-pane" id="executePreview">
                                       <div id="executePreviewContainer"></div>
 									   {this.state.updatedAgreement && this.state.updatedAgreement.status==="Inprocess" && (this.state.updatedAgreement.receiver_id!== JSON.parse(this.state.userData).assets_id)?

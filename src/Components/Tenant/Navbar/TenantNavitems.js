@@ -54,7 +54,7 @@ export default class TenantNavitems extends Component{
             
             );
             }
-        else if(this.props.name==="tenant-agreement")
+        else if(this.props.name==="tenant-agreement" || this.props.name==="tenant-partner-sign")
             {
             return( 
                 <ul className="navigation-menu">

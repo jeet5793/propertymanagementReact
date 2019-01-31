@@ -24,6 +24,7 @@ import $ from 'jquery';
 import API_URL from '../../../app-config';
 import ProfileEdit from '../Setting/profileInfo';
 import ChangePassword from '../Setting/passwordSetting';
+import TenantPartnerSign from '../Agreement/TenantPartnerSign';
 class TenantDashboard extends React.Component {
 
   constructor(props) {
@@ -122,6 +123,7 @@ class TenantDashboard extends React.Component {
 			<Route  path='/tenant-deal-payment' component={DealPayment} />
 			<Route exact path='/tenant-profile-edit' component={ProfileEdit} />
 			<Route exact path='/tenant-change-password' component={ChangePassword} />
+      <Route exact path='/tenant-partner-sign' component={TenantPartnerSign} />
           </Switch>
 
           <Footer />

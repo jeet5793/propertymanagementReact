@@ -17,8 +17,6 @@ export default class BrokerFooter extends Component{
 			// HIT URL 
 		}
 		else{
-			var compId = $("#hiddenURL").val();
-			$('#'+compId)[0].click();
 			$("#BlockUIConfirm").hide();
 		}
 	}

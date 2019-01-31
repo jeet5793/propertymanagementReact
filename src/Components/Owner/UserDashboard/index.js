@@ -44,6 +44,7 @@ import AddDocument from '../Agreement/AddDocument';
 import AgreementSendTemplate from '../Agreement/AgreementSendTemplate';
 import AgreementPreview from '../Agreement/AgreementPreview';
 import AgreementPartner from '../Agreement/AgreementPartner';
+import OwnerPartnerSign from '../Agreement/OwnerPartnerSign';
 class UserDashboard extends React.Component {
 
   constructor(props) {
@@ -151,6 +152,7 @@ class UserDashboard extends React.Component {
 			<Route exact path='/owner-agreement-send' component={AgreementSendTemplate} />
 			<Route exact path='/owner-agreement-preview' component={AgreementPreview} />
       <Route exact path='/owner-agreement-partner' component={AgreementPartner} />
+      <Route exact path='/owner-partner-sign' component={OwnerPartnerSign} />
           </Switch>
           <Footer />
         </div>
