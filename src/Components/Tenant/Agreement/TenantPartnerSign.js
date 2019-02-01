@@ -74,7 +74,7 @@ export default class TenantPartnerSign extends React.Component{
 	
 
     render(){
-		console.log('preview '+JSON.stringify(this.props.location.state));
+		//console.log('preview '+JSON.stringify(this.props.location.state));
 		
 			const propsData = this.props.location.state;
     return (

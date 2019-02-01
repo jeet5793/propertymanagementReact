@@ -1,10 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
-import API_URL from '../../../app-config';
+import API_URL from '../../../../app-config';
 import Cookies from 'js-cookie';
 //import img_not_available from '../../../images/img_not_available.png'
 import $ from 'jquery';
-
+import  { Redirect } from 'react-router-dom'
 
 
 export default class MyDocuments extends React.Component{
@@ -15,11 +15,12 @@ export default class MyDocuments extends React.Component{
 			ListofDoc:[],
 			docListStatus:false,
 			viewStatus:false,
-			docInfo:[]
+			docInfo:[],
+			redirect:false
 		}
 		this.onClickDelete = this.onClickDelete.bind(this);
 		this.onClickView = this.onClickView.bind(this);
-		
+	
 	}		
 	componentDidMount(){
 		this.documentList();
@@ -79,7 +80,7 @@ export default class MyDocuments extends React.Component{
 									 if(data){
 										 
 										 $("#actionType").val("Yes");
-										 $("#hiddenURL").val("my-documents");
+										 $("#hiddenURL").val("broker-documents");
 										 $(".confirm-body").html(data.msg);
 										 $("#BlockUIConfirm").show();
 										this.documentList();
@@ -93,18 +94,18 @@ export default class MyDocuments extends React.Component{
 		});
 		
 	}
-	back(){
+	 back(){
 		this.setState({docListStatus:!this.state.docListStatus,viewStatus:!this.state.viewStatus});
 		 $('#table').show();
-	}
+	} 
 	permissionCheck(){
 		//alert('fsfgt')
 		//console.log(JSON.stringify(this.state))
 		
 		$("#loaderDiv").show();
-		fetch(`${API_URL}assetsapi/checkPermissions/${JSON.parse(this.state.userData).assets_id}/document_upload`, {
-			method: "GET"
-		  })
+			fetch(`${API_URL}assetsapi/checkPermissions/${JSON.parse(this.state.userData).assets_id}/document_upload`, {
+			  method: "GET"
+			})
 			  .then(response => {
 				return response.json();
 			  })
@@ -121,7 +122,8 @@ export default class MyDocuments extends React.Component{
 							   
 					}else{
 						$("#loaderDiv").hide();
-						this.props.history.push('/add-document');
+						//this.setState({redirect: true})
+						this.props.history.push('/broker-document-add');
 					}
 			  }
 			).catch((error) => {
@@ -130,7 +132,7 @@ export default class MyDocuments extends React.Component{
 		  
 	  }	
 	render(){
-
+		
 		return(
 				<div className="wrapper">
                     <div className="container">
@@ -139,7 +141,7 @@ export default class MyDocuments extends React.Component{
                                 <ol className="breadcrumb hide-phone p-0 m-0">
 									 <li>
 									{this.state.viewStatus && <button type="button"  onClick={()=>this.back()}  className="btn btn-default stepy-finish">Back</button>} &nbsp;
-                                    <a  onClick = {()=>this.permissionCheck()} className="btn btn-custom waves-light waves-effect w-md"> Add a document</a></li>
+									<a  onClick = {()=>this.permissionCheck()} className="btn btn-custom waves-light waves-effect w-md"> Add a document</a></li>
                                 </ol>
 							</div>
                             <h4 className="page-title">My Documents</h4>

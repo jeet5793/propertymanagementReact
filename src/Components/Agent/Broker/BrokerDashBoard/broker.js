@@ -33,7 +33,9 @@ import ConnectedOwnerProperty from '../MyProperty/ConnectedOwnerProperty';
 import AgreementTemplates from '../Agreement/AgreementTemplates';
 import AgreementSendTemplate from '../Agreement/AgreementSendTemplate';
 import AgreementPartner from '../../../Owner/Agreement/AgreementPartner';
-import AgreementPreview from  '../../../Owner/Agreement/AgreementPreview'
+import AgreementPreview from  '../../../Owner/Agreement/AgreementPreview';
+import MyDocuments from '../Agreement/MyDocuments';
+import AddDocument from '../Agreement/AddDocument';
 class AgentBrokerDashboard extends React.Component {
 
   constructor(props) {
@@ -140,6 +142,8 @@ class AgentBrokerDashboard extends React.Component {
 			<Route exact path='/broker-agreement-send' component={AgreementSendTemplate} />
 			<Route exact path='/broker-agreement-preview' component={AgreementPreview} />
       <Route exact path='/broker-agreement-partner' component={AgreementPartner} />
+      <Route exact path='/broker-documents' component={MyDocuments} />
+      <Route exact path='/broker-document-add' component={AddDocument} />
           </Switch>
 
           <Footer />

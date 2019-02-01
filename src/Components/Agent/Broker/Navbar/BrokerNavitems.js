@@ -24,6 +24,11 @@ export default class BrokerNavitems extends Component{
 									<i className="fi-paper"></i> My Agreement
 								</Link>
 							 </li>
+                             <li>
+								 <Link to={{pathname:'/broker-documents'}}>
+									<i className="fi-paper"></i> My Documents
+								</Link>
+							 </li>
 							
 							 <li>
 								<Link to={{pathname:'/broker-agreement-templates'}}>
@@ -80,7 +85,7 @@ export default class BrokerNavitems extends Component{
             </li>                                                
             </ul>);
             }
-        else if(this.props.name==="broker-agreement" || this.props.name==="broker-agreement-create" || this.props.name==="broker-agreement-edit" || this.props.name==="broker-agreement-payment" || this.props.name==="broker-agreement-send" || this.props.name==="broker-agreement-preview" || this.props.name==="broker-agreement-partner"  || this.props.name==="broker-agreement-templates")
+        else if(this.props.name==="broker-agreement" || this.props.name==="broker-agreement-create" || this.props.name==="broker-agreement-edit" || this.props.name==="broker-agreement-payment" || this.props.name==="broker-agreement-send" || this.props.name==="broker-agreement-preview" || this.props.name==="broker-agreement-partner"  || this.props.name==="broker-agreement-templates" || this.props.name==="broker-documents" || this.props.name==="broker-document-add")
             {
             return( 
                 <ul className="navigation-menu">            
@@ -99,7 +104,11 @@ export default class BrokerNavitems extends Component{
 									<i className="fi-paper"></i> My Agreement
 								</Link>
 							 </li>
-							
+                             <li>
+								 <Link to={{pathname:'/broker-documents'}}>
+									<i className="fi-paper"></i> My Documents
+								</Link>
+							 </li>
 							 <li>
 								<Link to={{pathname:'/broker-agreement-templates'}}>
 									<i className="fi-paper"></i> Agreement Templates
@@ -175,7 +184,11 @@ export default class BrokerNavitems extends Component{
 									<i className="fi-paper"></i> My Agreement
 								</Link>
 							 </li>
-							
+                             <li>
+								 <Link to={{pathname:'/broker-documents'}}>
+									<i className="fi-paper"></i> My Documents
+								</Link>
+							 </li>
 							 <li>
 								<Link to={{pathname:'/broker-agreement-templates'}}>
 									<i className="fi-paper"></i> Agreement Templates
@@ -256,7 +269,11 @@ export default class BrokerNavitems extends Component{
 									<i className="fi-paper"></i> My Agreement
 								</Link>
 							 </li>
-							
+                             <li>
+								 <Link to={{pathname:'/broker-documents'}}>
+									<i className="fi-paper"></i> My Documents
+								</Link>
+							 </li>
 							 <li>
 								<Link to={{pathname:'/broker-agreement-templates'}}>
 									<i className="fi-paper"></i> Agreement Templates
@@ -332,7 +349,11 @@ export default class BrokerNavitems extends Component{
 									<i className="fi-paper"></i> My Agreement
 								</Link>
 							 </li>
-							
+                             <li>
+								 <Link to={{pathname:'/broker-documents'}}>
+									<i className="fi-paper"></i> My Documents
+								</Link>
+							 </li>
 							 <li>
 								<Link to={{pathname:'/broker-agreement-templates'}}>
 									<i className="fi-paper"></i> Agreement Templates
@@ -408,7 +429,11 @@ export default class BrokerNavitems extends Component{
 									<i className="fi-paper"></i> My Agreement
 								</Link>
 							 </li>
-							
+                             <li>
+								 <Link to={{pathname:'/broker-documents'}}>
+									<i className="fi-paper"></i> My Documents
+								</Link>
+							 </li>
 							 <li>
 								<Link to={{pathname:'/broker-agreement-templates'}}>
 									<i className="fi-paper"></i> Agreement Templates
@@ -484,7 +509,11 @@ export default class BrokerNavitems extends Component{
 									<i className="fi-paper"></i> My Agreement
 								</Link>
 							 </li>
-							
+                             <li>
+								 <Link to={{pathname:'/broker-documents'}}>
+									<i className="fi-paper"></i> My Documents
+								</Link>
+							 </li>
 							 <li>
 								<Link to={{pathname:'/broker-agreement-templates'}}>
 									<i className="fi-paper"></i> Agreement Templates
@@ -560,7 +589,11 @@ export default class BrokerNavitems extends Component{
 									<i className="fi-paper"></i> My Agreement
 								</Link>
 							 </li>
-							
+                             <li>
+								 <Link to={{pathname:'/broker-documents'}}>
+									<i className="fi-paper"></i> My Documents
+								</Link>
+							 </li>
 							 <li>
 								<Link to={{pathname:'/broker-agreement-templates'}}>
 									<i className="fi-paper"></i> Agreement Templates
@@ -636,7 +669,11 @@ export default class BrokerNavitems extends Component{
 									<i className="fi-paper"></i> My Agreement
 								</Link>
 							 </li>
-							
+                             <li>
+								 <Link to={{pathname:'/broker-documents'}}>
+									<i className="fi-paper"></i> My Documents
+								</Link>
+							 </li>
 							 <li>
 								<Link to={{pathname:'/broker-agreement-templates'}}>
 									<i className="fi-paper"></i> Agreement Templates
@@ -712,7 +749,11 @@ export default class BrokerNavitems extends Component{
 									<i className="fi-paper"></i> My Agreement
 								</Link>
 							 </li>
-							
+                             <li>
+								 <Link to={{pathname:'/broker-documents'}}>
+									<i className="fi-paper"></i> My Documents
+								</Link>
+							 </li>
 							 <li>
 								<Link to={{pathname:'/broker-agreement-templates'}}>
 									<i className="fi-paper"></i> Agreement Templates
@@ -788,7 +829,11 @@ export default class BrokerNavitems extends Component{
 									<i className="fi-paper"></i> My Agreement
 								</Link>
 							 </li>
-							
+                             <li>
+								 <Link to={{pathname:'/broker-documents'}}>
+									<i className="fi-paper"></i> My Documents
+								</Link>
+							 </li>
 							 <li>
 								<Link to={{pathname:'/broker-agreement-templates'}}>
 									<i className="fi-paper"></i> Agreement Templates

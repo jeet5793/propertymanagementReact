@@ -147,13 +147,16 @@ const VExecute=(props)=>{
 			        <td>{element.dealStatus}</td>
 			       <td>{element.tenure_start_date}</td>
              <td>{element.tenure_end_date}</td>
-			       <td>{element.dealStatus==="Inprocess"?
-             <span>
-              <a title="Edit" href="#executePreview" data-toggle="tab" onClick={() => props.selectedExecutedAgreement(element)} className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a>
-              {(element.sender_id==props.assetsId) && <a href = "#" title="Send" onClick={()=>props.checkPartnerInfo(element)} className="btn btn-primary" >Partner Sign</a>}
-                        </span>:(element.dealStatus==="Completed" || element.dealStatus==="Terminated" || element.dealStatus==="Rejected")?
-						<span> <a title="view" href="#" onClick={() => props.dealPdfView(element.deal_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a>
-             {(element.sender_id==props.assetsId) && <a href = "#" title="Send" onClick={()=>props.checkPartnerInfo(element)} className="btn btn-primary" >Partner Sign</a>}
+             <td>
+             {element.dealStatus==="Inprocess"?
+                <span>
+                  <a title="Edit" href="#executePreview" data-toggle="tab" onClick={() => props.selectedExecutedAgreement(element)} className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a>
+                  {(element.sender_id==props.assetsId) && <a href = "#" title="Send" onClick={()=>props.checkPartnerInfo(element)} className="btn btn-primary" >Partner Sign</a>}
+                </span>
+            :(element.dealStatus==="Completed" || element.dealStatus==="Terminated" || element.dealStatus==="Rejected")?
+					    	<span> 
+                    <a title="view" href="#" onClick={() => props.dealPdfView(element.deal_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a>
+                     {(element.sender_id==props.assetsId && element.dealStatus==="Completed") && <a href = "#" title="Send" onClick={()=>props.checkPartnerInfo(element)} className="btn btn-primary" >Partner Sign</a>}
                         </span>:''}<a title="Download"  href="#" className="table-action-btn view-rqu"><i className="mdi mdi-download" onClick={() => props.onClickDownload(element.deal_id)}></i></a><a title="Send"  className="table-action-btn view-rqu"  onClick={() => props.forwardAgreement(element)} ><i className="mdi mdi-redo-variant"></i></a>{(element.sender_id==props.assetsId)?<a title="Terminate" href="#" onClick={() => props.terminateAgreement(element.deal_id)} className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a>:''}</td> 
               </tr>
           )):<div>No data </div>}
@@ -591,7 +594,7 @@ getPropertyList() {
                     if (data.success) {
                         // debugger;
                         this.setState({propertyByUser: data.service.property_list})
-                        console.log('pp'+JSON.stringify(this.state.propertyByUser));
+                        //console.log('pp'+JSON.stringify(this.state.propertyByUser));
                     }
                     //console.log("set user data"+JSON.stringify(this.state.profileData))
                 },
@@ -854,7 +857,7 @@ onClickCheckPermission(){
   
   }
   forwardAgreement(element){
-    console.log(element.replaced_template);
+    // console.log(element.replaced_template);
     this.props.history.push({pathname:'/broker-agreement-send',state:{TemplateId:element.agreement_id,templateDescription:element.replaced_template,agreement_type:element.agreement_type,loc:'/broker-agreement'}});
     
   }

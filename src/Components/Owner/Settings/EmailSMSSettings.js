@@ -66,7 +66,7 @@ import {Link} from 'react-router-dom'
 		 }
 		 ObjectToSend.assets_id= JSON.parse(this.state.userData).assets_id;
 		ObjectToSend.session_id= JSON.parse(this.state.userData).session_id;
-		    console.log('ObjectToSend'+JSON.stringify(ObjectToSend));
+		    //console.log('ObjectToSend'+JSON.stringify(ObjectToSend));
        //var ObjectToSend=Object.assign(this.state.settingInfo,this.state.EmailSmsSettings);
 // var ObjectToSend=this.state.EmailSmsSettings;
 

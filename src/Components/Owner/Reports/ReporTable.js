@@ -14,7 +14,7 @@ const TableReprt=(props)=>{
     var expens=0;
    for(var i=0;i<props.report.length;i++){
         if(props.report[i].responsestatus=='APPROVED'){
-		   console.log(props.report[i].transactionamount);
+		   //console.log(props.report[i].transactionamount);
 		    expens=Number(expens)+Number(parseFloat(props.report[i].transactionamount.replace(/,/g, '')))
 	    }
    }

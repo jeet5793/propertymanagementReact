@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
-import API_URL from '../../../app-config';
+import API_URL from '../../../../app-config';
 import Cookies from 'js-cookie';
 //import img_not_available from '../../../images/img_not_available.png'
 import DatePicker from 'react-date-picker';
@@ -95,7 +95,7 @@ export default class AddDocument extends React.Component{
 			  // console.log('dataaaa:  ', data);
 			  $("#loaderDiv").hide();
 				 $("#actionType").val("Yes");
-				 $("#hiddenURL").val("add-document");
+				 $("#hiddenURL").val("broker-document-add");
 				 $(".confirm-body").html(data.msg);
 				 $("#BlockUIConfirm").show();
 				 this.componentDidMount();
@@ -312,7 +312,7 @@ export default class AddDocument extends React.Component{
                         <div className="page-title-box">
 							<div className="btn-group pull-right">
                                 <ol className="breadcrumb hide-phone p-0 m-0">
-                                    <li><Link to='/my-documents' className="btn btn-custom waves-light waves-effect w-md"> BACK</Link></li>
+                                    <li><Link to='/broker-documents' className="btn btn-custom waves-light waves-effect w-md"> BACK</Link></li>
                                 </ol>
 							</div>
                             <h4 className="page-title">Add Document</h4>

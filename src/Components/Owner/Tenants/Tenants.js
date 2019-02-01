@@ -469,7 +469,7 @@ class Tenants extends React.Component{
        const { connectionHistory, itemsCountPerPageHistory } = this.state;;
         let propData = connectionHistory.slice((itemsCountPerPageHistory * number), (itemsCountPerPageHistory * pageNum));
         this.setState({activePageHistory: pageNum, pagedHistory: propData })
-		 console.log('activePageHistory'+this.state.activePageHistory+'::pagedHistory'+JSON.stringify(this.state.pagedHistory))
+		 //console.log('activePageHistory'+this.state.activePageHistory+'::pagedHistory'+JSON.stringify(this.state.pagedHistory))
     }
 	messagerec(id,name)
 	{ 
@@ -485,7 +485,7 @@ class Tenants extends React.Component{
 		sendFrm.sender=JSON.parse(this.state.userData).assets_id
 		sendFrm.session_id=JSON.parse(this.state.userData).session_id
 		// this.setState({sendForm:sendFrm})
-		console.log(this.state.sendForm);
+		// console.log(this.state.sendForm);
 	}
 	sendMessage(){
 		

@@ -111,7 +111,7 @@ import img_not_available from '../../../../images/img_not_available.png'
   
   formSubmit(e){
 	  e.preventDefault()
-	  console.log('brandingInfo'+JSON.stringify(this.state));
+	  // console.log('brandingInfo'+JSON.stringify(this.state));
 	     //console.log('brandingInfo'+this.state.brandingInfo);
 		 
 		 if(this.state.brandingInfo==undefined){
@@ -174,7 +174,7 @@ import img_not_available from '../../../../images/img_not_available.png'
 	}
     render(){
 
-	  console.log(this.state);
+	  // console.log(this.state);
     // console.log(this.props);
         return(
 				<div>

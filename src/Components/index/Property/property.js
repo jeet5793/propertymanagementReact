@@ -479,7 +479,7 @@ updateProps(props){
   }
   
 	render(){ 
-	 console.log('state'+JSON.stringify(this.props))
+	 //console.log('state'+JSON.stringify(this.props))
 	 const propertieDetails= this.state.properties;
 	 const pagePropertyList= this.state.pagedList || this.state.properties;
 		return(

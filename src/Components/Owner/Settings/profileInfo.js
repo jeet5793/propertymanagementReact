@@ -43,7 +43,8 @@ import $ from 'jquery';
 			linkedin_link:"",
 			SSN_EIN:"",
 			dob:"",
-			gender:""
+			gender:"",
+			assets_address:""
       },
 	  countries: [{ name: "Afghanistan" }],
       states: [],
@@ -118,6 +119,8 @@ import $ from 'jquery';
 			// const formData = new FormData();
 			 // profileForm.profile_photo=formData.append(e.target.name,e.target.files[0]);
 		}
+		else if(e.target.name==='assets_address')
+			profileForm.assets_address=e.target.value
 		else if(e.target.name==='about_us')
 			profileForm.about_us=e.target.value
 		else if(e.target.name==='facebook_link')
@@ -399,10 +402,10 @@ Countries() {
 						  <div className="form-group">
 							<div className="row">
 							  <div className="col-lg-1 col-md-2 col-sm-2 required">
-								<label htmlFor="profile_photo">Profile Img</label>
+								<label htmlFor="profile_photo">Address</label>
 							  </div>
 							  <div className="col-lg-5 col-md-4 col-sm-4">
-								<input type="file" className="form-control" name="profile_photo"  id="u"  placeholder="" onChange={this.onChangeHandler} ref={this.fileInput} />
+								<textarea type="text" className="form-control" name="assets_address"  value={this.state.profileSetting.assets_address || this.state.profile.assets_address || ''} id="assets_address-no"  placeholder="" onChange={this.onChangeHandler}></textarea>
 							  </div>
 							  <div className="col-lg-1 col-md-2 col-sm-2 required">
 								<label htmlFor="about_us">About Me</label>
@@ -410,6 +413,17 @@ Countries() {
 							  <div className="col-lg-5 col-md-4 col-sm-4">
 								<textarea type="text" className="form-control" name="about_us"  value={this.state.profileSetting.about_us || this.state.profile.about_us || ''} id="about_us-no"  placeholder="" onChange={this.onChangeHandler}></textarea>
 							  </div>
+							</div>
+						  </div>
+							<div className="form-group">
+							<div className="row">
+							  <div className="col-lg-1 col-md-2 col-sm-2 required">
+								<label htmlFor="profile_photo">Profile Img</label>
+							  </div>
+							  <div className="col-lg-5 col-md-4 col-sm-4">
+								<input type="file" className="form-control" name="profile_photo"  id="u"  placeholder="" onChange={this.onChangeHandler} ref={this.fileInput} />
+							  </div>
+							  
 							</div>
 						  </div>
 						</fieldset>

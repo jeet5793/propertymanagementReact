@@ -142,7 +142,7 @@ this.imgServer=API_URL,
 	}
 	handleChange=(selectedOption,e)=>{
 		this.setState({ selectedOption });
-		console.log(`Option selected:`, selectedOption);
+		// console.log(`Option selected:`, selectedOption);
 		
 		if(selectedOption != null){
 			$("#loaderDiv").show();

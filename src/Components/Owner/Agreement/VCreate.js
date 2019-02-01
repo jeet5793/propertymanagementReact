@@ -553,14 +553,14 @@ createAgreement(){
 													<div className="card-block">
 														<div className="add-name">
 															
-																<input type="button" value="Primary Owner Full Name" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Second Owner Full Name" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Third Owner Full Name" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Primary Owner Email" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Primary Owner Mobile" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Primary Owner Address" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Primary Owner City" onClick={this.insertComponent.bind(this)} />
-																<input type="button" value="Primary Owner State" onClick={this.insertComponent.bind(this)} />
+														<input type="button" value="Primary_Owner_Full_Name" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Second_Owner_Full_Name" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Third_Owner_Full_Name" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Primary_Owner_Email" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Primary_Owner_Mobile" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Primary_Owner_Address" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Primary_Owner_City" onClick={this.insertComponent.bind(this)} />
+																<input type="button" value="Primary_Owner_State" onClick={this.insertComponent.bind(this)} />
 																
 														</div>
 													</div>
@@ -602,14 +602,14 @@ createAgreement(){
 										<div id="collapseThree" className="collapse" role="tabpanel" aria-labelledby="headingThree">
 											<div className="card-block">
 												<div className="add-name">
-													<input type="button" value="Primary Tenant Full Name" onClick={this.insertComponent.bind(this)} />
-													<input type="button" value="Second Tenant Full Name" onClick={this.insertComponent.bind(this)} />
-													<input type="button" value="Third Tenant Full Name" onClick={this.insertComponent.bind(this)} />
-													<input type="button" value="Primary Tenant Email" onClick={this.insertComponent.bind(this)} />
-													<input type="button" value="Primary Tenant Mobile" onClick={this.insertComponent.bind(this)} />
-													<input type="button" value="Primary Tenant Address" onClick={this.insertComponent.bind(this)} />
-													<input type="button" value="Primary Tenant City" onClick={this.insertComponent.bind(this)} />
-													<input type="button" value="Primary Tenant State" onClick={this.insertComponent.bind(this)} />
+												<input type="button" value="Primary_Tenant_Full_Name" onClick={this.insertComponent.bind(this)} />
+													<input type="button" value="Second_Tenant_Full_Name" onClick={this.insertComponent.bind(this)} />
+													<input type="button" value="Third_Tenant_Full_Name" onClick={this.insertComponent.bind(this)} />
+													<input type="button" value="Primary_Tenant_Email" onClick={this.insertComponent.bind(this)} />
+													<input type="button" value="Primary_Tenant_Mobile" onClick={this.insertComponent.bind(this)} />
+													<input type="button" value="Primary_Tenant_Address" onClick={this.insertComponent.bind(this)} />
+													<input type="button" value="Primary_Tenant_City" onClick={this.insertComponent.bind(this)} />
+													<input type="button" value="Primary_Tenant_State" onClick={this.insertComponent.bind(this)} />
 												</div>
 											</div>
 										</div>

@@ -261,7 +261,7 @@ class EditProperty extends React.Component {
     opts.owner_id = JSON.parse(this.state.userData).assets_id;
     opts.property_id = JSON.parse(this.state.propertyInfo).id;
 
-     console.log("imgpathhh" + JSON.stringify(opts))
+     //console.log("imgpathhh" + JSON.stringify(opts))
     $("#loaderDiv").show();
 
     fetch(`${API_URL}assetsapi/edit_property/`, {

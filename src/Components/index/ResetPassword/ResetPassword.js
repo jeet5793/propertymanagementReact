@@ -68,7 +68,7 @@ export default class ResetPassword extends React.Component{
 	resetPassword()
 	{
 		const opts = this.state.resetPass;
-		console.log(opts);
+		//console.log(opts);
 		if (!opts.password) {
 		  alert("Password should not be blank");
 		  return;

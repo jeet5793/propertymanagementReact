@@ -32,7 +32,7 @@ export default class AgreementPreview extends React.Component{
   onClickSend(e){
 	  e.preventDefault();
 	  const templateData = document.getElementById("contentPreview").innerHTML;//this.templateRef.current;
-	  console.log(templateData);
+	  //console.log(templateData);
 	  //alert(templateData);
 	  let dataProps = this.props.location.state.dataToSend;
 
@@ -50,7 +50,7 @@ export default class AgreementPreview extends React.Component{
 		tenure_start_date: dataProps.tenure_start_date,
 		agreement_type:dataProps.agreement_type,
 	  }
-	  console.log(objToSend);
+	  //console.log(objToSend);
 	  $("#loaderDiv").show();
 	  fetch(`${API_URL}assetsapi/template_agreement_send`, {
 		method: 'post',
@@ -82,7 +82,7 @@ export default class AgreementPreview extends React.Component{
 	
 
     render(){
-		console.log('preview '+JSON.stringify(this.props.location.state));
+		//console.log('preview '+JSON.stringify(this.props.location.state));
 		
 			const propsData = this.props.location.state;
     return (

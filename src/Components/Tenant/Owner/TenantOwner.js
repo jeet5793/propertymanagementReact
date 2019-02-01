@@ -414,7 +414,7 @@ class TenantOwner extends React.Component {
        const { connectionHistory, itemsCountPerPageHistory } = this.state;;
         let propData = connectionHistory.slice((itemsCountPerPageHistory * number), (itemsCountPerPageHistory * pageNum));
         this.setState({activePageHistory: pageNum, pagedHistory: propData })
-		 console.log('activePageHistory'+this.state.activePageHistory+'::pagedHistory'+JSON.stringify(this.state.pagedHistory))
+		 //console.log('activePageHistory'+this.state.activePageHistory+'::pagedHistory'+JSON.stringify(this.state.pagedHistory))
     }
 	messagerec(id,name)
 	{ 
