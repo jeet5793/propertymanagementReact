@@ -34,7 +34,8 @@ export default class AgreementPartner extends React.Component{
   OwnerList(){
 		
     $("#loaderDiv").show();
-    fetch(`${API_URL}assetsapi/owner_list/${JSON.parse(this.state.userData).assets_id}/${JSON.parse(this.state.userData).session_id}`, {
+    let propertyId = this.props.location.state.propertyId;
+    fetch(`${API_URL}assetsapi/owner_list/${JSON.parse(this.state.userData).assets_id}/`+propertyId+`/${JSON.parse(this.state.userData).session_id}`, {
       method: 'get'
     })
     .then(res => res.json())

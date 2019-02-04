@@ -214,7 +214,7 @@ export default class TenantAgreement extends React.Component {
 	 }
 	 dealPdfView(deal_id){
 		 let { user } = this.state;
-		  window.open(`${API_URL}assetsapi/deal_agreement_pdf_view/`+deal_id+`/${user.session_id}`, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
+		  window.open(`${API_URL}assetsapi/deal_agreement_pdf_view/${user.assets_id}/`+deal_id+`/${user.session_id}`, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
 	 }
 	
 	getSendedAgreement(){

@@ -62,7 +62,9 @@ class EditProperty extends React.Component {
         city: "",
         state: "",
         country: "",
-        zip_code: ""
+        zip_code: "",
+        email:"",
+        mobile_no:""
       }]
     }
     this.editProperty = this.editProperty.bind(this)
@@ -111,7 +113,9 @@ class EditProperty extends React.Component {
         city: "",
         state: "",
         country: "",
-        zip_code: ""
+        zip_code: "",
+        email:"",
+        mobile_no:""
       }])
     }, () => {
       // console.log("shareholdersList" + JSON.stringify(this.state.shareholders))
@@ -152,6 +156,43 @@ class EditProperty extends React.Component {
     fetch(`${API_URL}assetsapi/city/` + SelectState).then(response => {
       response.json().then(data => {
         this.setState({ cities: data.cities });
+      });
+    });
+  }
+  stateListsShare(SelectCountry,cnt) {
+    //alert(cnt)
+    fetch(`${API_URL}assetsapi/state/` + SelectCountry).then(response => {
+      response.json().then(data => {
+        //this.setState({ shareStates: data.states });
+        //console.log(this.state.shareStates);
+       // ('#state'+cnt).html( this.state.shareStates.filter( '[value="' + this.value + '"]' ) );
+       //
+       //$("#state"+cnt).html(<option value="hdftyhfuj">dsfgdhfgj</option>);
+       $('#state'+cnt).html("");
+       $.each(data.states, function (j, item) {
+        $('#state'+cnt).append($('<option>', {
+            value: item.name,
+            text: item.name,
+        }, '</option>'));
+    });
+       //let opt = this.state.shareStates.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>));
+       //console.log(opt);
+       //$("#state"+cnt).html(opt);
+      });
+    });
+  }
+  cityListShare(SelectState,cnt) {
+  
+    fetch(`${API_URL}assetsapi/city/` + SelectState).then(response => {
+      response.json().then(data => {
+        //this.setState({ cities: data.cities });
+        $('#city'+cnt).html("");
+        $.each(data.cities, function (j, item) {
+          $('#city'+cnt).append($('<option>', {
+              value: item.name,
+              text: item.name,
+          }, '</option>'));
+      });
       });
     });
   }
@@ -223,7 +264,8 @@ class EditProperty extends React.Component {
       else if (e.target.name === 'country' + count) {
         this.state.shareholders[count].country = e.target.value
         var SelectCountry = e.target.value;
-        this.stateLists(SelectCountry);
+       
+        this.stateListsShare(SelectCountry,count);
       }
       else if (e.target.name === 'address' + count) {
         this.state.shareholders[count].address = e.target.value
@@ -235,11 +277,18 @@ class EditProperty extends React.Component {
       else if (e.target.name === 'state' + count) {
         this.state.shareholders[count].state = e.target.value
         var SelectState = e.target.value;
-        this.cityList(SelectState);
+       
+        this.cityListShare(SelectState,count);
       }
 
       else if (e.target.name === 'zip_code' + count) {
         this.state.shareholders[count].zip_code = e.target.value
+      }
+      else if (e.target.name === 'email' + count) {
+        this.state.shareholders[count].email = e.target.value
+      }
+      else if (e.target.name === 'mobile_no' + count) {
+        this.state.shareholders[count].mobile_no = e.target.value
       }
       formData.session_id = JSON.parse(this.state.userData).session_id;
       formData.owner_id = JSON.parse(this.state.userData).assets_id;
@@ -432,16 +481,16 @@ addDefaultSrc(ev){
                         // this.cityList(shareholder.state)
                         return <div>
                           <div className="form-group row">
-                            <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">Owner {idx + 1}</label>
+                            <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">Owner {idx + 2}</label>
                             <div className="col-lg-10 col-md-9 col-sm-9">
-                              <input type="text" value={this.state.shareholders[idx].owner_name} name={'owner_name' + (idx)} placeholder={`Owner #${idx + 1} owner_name`} className="form-control" onChange={(e) => { this.onChangeHandler(e, idx) }} />
+                              <input type="text" value={this.state.shareholders[idx].owner_name} name={'owner_name' + (idx)} placeholder={`Owner #${idx + 2} owner_name`} className="form-control" onChange={(e) => { this.onChangeHandler(e, idx) }} />
                             </div>
                           </div>
                           {/*add second owner*/}
                           <div className="form-group row">
                             <label className="col-lg-2 col-md-3 col-sm-3 col-form-label">Address1</label>
                             <div className="col-lg-10 col-md-9 col-sm-9">
-                              <input type="text" value={this.state.shareholders[idx].address} name={'address' + (idx)} placeholder={`Owner #${idx + 1} address1`} onChange={(e) => { this.onChangeHandler(e, idx) }} className="form-control" />
+                              <input type="text" value={this.state.shareholders[idx].address} name={'address' + (idx)} placeholder={`Owner #${idx + 2} address1`} onChange={(e) => { this.onChangeHandler(e, idx) }} className="form-control" />
 
 
                             </div>
@@ -449,7 +498,7 @@ addDefaultSrc(ev){
                           <div className="form-group row">
                             <label className="col-lg-2 col-md-3 col-sm-3 col-form-label">Address2</label>
                             <div className="col-lg-10 col-md-9 col-sm-9">
-                              <input type="text" value={this.state.shareholders[idx].address2} name={'address2' + (idx)} placeholder={`Owner #${idx + 1} address2`} onChange={(e) => { this.onChangeHandler(e, idx) }} className="form-control" />
+                              <input type="text" value={this.state.shareholders[idx].address2} name={'address2' + (idx)} placeholder={`Owner #${idx + 2} address2`} onChange={(e) => { this.onChangeHandler(e, idx) }} className="form-control" />
 
                             </div>
                           </div>
@@ -465,23 +514,35 @@ addDefaultSrc(ev){
 
                             <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">State</label>
                             <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl">
-                              <select value={this.state.shareholders[idx].state} className="form-control" name={'state' + (idx)} onChange={(e) => { this.onChangeHandler(e, idx) }} >
-                                <option>Please select a state</option>
-                                {this.state.states ? this.state.states.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>)) : ''}
-                              </select>
+                            <select className="form-control" id={'state' + (idx)} name={'state' + (idx)} onChange={(e) => { this.onChangeHandler(e, idx) }} >
+
+                            <option value={this.state.shareholders[idx].state}>{this.state.shareholders[idx].state}</option>
+                            
+                          </select>
                             </div>
                           </div>
                           <div className="form-group row">
                             <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">City</label>
                             <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl">
-                              <select value={this.state.shareholders[idx].city} className="form-control" name={'city' + (idx)} onChange={(e) => { this.onChangeHandler(e, idx) }} >
-                                <option>Please select a city</option>
-                                {this.state.cities ? this.state.cities.map((option, key) => (<option key={key.id} value={option.name}>{option.name}</option>)) : ''}
-                              </select>
+                            <select value={this.state.shareholders[idx].city} className="form-control" id={'city' + (idx)} name={'city' + (idx)}  onChange={(e) => { this.onChangeHandler(e, idx) }} >
+
+                            <option value={this.state.shareholders[idx].city}>{this.state.shareholders[idx].city}</option>
+                           
+                          </select>
                             </div>
                             <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">ZIP Code</label>
                             <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl">
                               <input value={this.state.shareholders[idx].zip_code} type="text" className="form-control" name={'zip_code' + (idx)} onChange={(e) => { this.onChangeHandler(e, idx) }} />
+                            </div>
+                          </div>
+                          <div className="form-group row">
+                            <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">Mobile Number</label>
+                            <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl">
+                            <input type="text" value={this.state.shareholders[idx].mobile_no} className="form-control" name={'mobile_no' + (idx)} onChange={(e) => { this.onChangeHandler(e, idx) }} />
+                            </div>
+                            <label className="col-lg-2 col-md-3 col-sm-3 col-form-label required">Email</label>
+                            <div className="col-lg-4 col-md-9 col-sm-9 adpro-lbl">
+                              <input type="text" value={this.state.shareholders[idx].email} className="form-control" name={'email' + (idx)} onChange={(e) => { this.onChangeHandler(e, idx) }} />
                             </div>
                           </div>
                           <div className="form-group row">

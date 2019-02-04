@@ -127,7 +127,7 @@ class Property extends React.Component{
 												$("#loaderDiv").hide();
 												$("#actionType").val("Yes");
 											   // $("#hiddenURL").val("my-property");
-											   this.props.push('/my-property')
+											   //this.props.history.push('/my-property')
 											   $(".confirm-body").html(data.msg);
 											   $("#BlockUIConfirm").show();
 										}

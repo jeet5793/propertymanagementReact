@@ -197,7 +197,7 @@ const VExecute=(props)=>{
               <td>{element.dealStatus==="Inprocess"?
               <span>
                   <a title="Edit" href="#executePreview" data-toggle="tab" onClick={() => props.selectedExecutedAgreement(element)} className="table-action-btn view-rqu">
-                    <i className="mdi mdi-eye"></i></a> {(element.sender_id==props.assetsId) && <a href = "#" title="Send" onClick={()=>props.checkPartnerInfo(element)} className="btn btn-primary" >Partner Sign</a>}
+                    <i className="mdi mdi-book-open-page-variant"></i></a> {(element.sender_id==props.assetsId) && <a href = "#" title="Send" onClick={()=>props.checkPartnerInfo(element)} className="btn btn-primary" >Partner Sign</a>}
                         </span>:
                     (element.dealStatus==="Completed" || element.dealStatus==="Terminated" || element.dealStatus==="Rejected")?
                      <span> <a title="view" href="#" onClick={() => props.dealPdfView(element.deal_id)} data-toggle="tab" className="table-action-btn view-rqu">
@@ -341,7 +341,7 @@ export default class container extends React.Component{
 	 }
 	  dealPdfView(deal_id){
 		 let { user } = this.state;
-		  window.open(`${API_URL}assetsapi/deal_agreement_pdf_view/`+deal_id+`/${user.session_id}`, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
+		  window.open(`${API_URL}assetsapi/deal_agreement_pdf_view/${user.assets_id}/`+deal_id+`/${user.session_id}`, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
 	 }
 	 deleteAgreement(id){
 		 // console.log('props'+JSON.stringify(this.props));
@@ -943,7 +943,7 @@ checkPartnerInfo(element){
                     $("#BlockUIConfirm").show();
                     
                    }else{
-                    this.props.history.push({pathname:'/owner-agreement-partner',state:{deal_id:element.deal_id,agreement_title:element.agreement_title,property:element.property,propertyAddress:element.propertyAddress,loc:'/agreement'}});
+                    this.props.history.push({pathname:'/owner-agreement-partner',state:{deal_id:element.deal_id,agreement_title:element.agreement_title,property:element.property,propertyAddress:element.propertyAddress,propertyId:element.property_id, loc:'/agreement'}});
                    }
                   
                    // console.log(data);

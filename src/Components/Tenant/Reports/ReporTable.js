@@ -218,9 +218,9 @@ const FilterCriteria=(props)=>{
 			 <div className="col-md-2">
 			  <select name="trans_for" className="form-control" id="trans_for" onChange={props.change}>
 					  <option>Select Report For</option>
-						  <option value="BGV">BGV</option>
+						 {/*  <option value="BGV">BGV</option> */}
 						  <option value="Plan Subscription">Plan Subscription</option>
-						  <option value="Agreement Purchase">Agreement Purchase</option>
+						 {/*  <option value="Agreement Purchase">Agreement Purchase</option> */}
 					</select>
                 
               </div>

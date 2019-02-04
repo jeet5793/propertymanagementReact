@@ -627,7 +627,7 @@ class Headernav extends React.Component {
                             Cookies.set("profile_data", data.userdata);
 
                             if(result.profile.assets_type==="1"){
-                             this.props.history.push('/user')
+                             	this.props.history.push('/user')
                             }else if(result.profile.assets_type==="2"){
                                 if(data.userdata.agentType==="Broker")
                                 {
