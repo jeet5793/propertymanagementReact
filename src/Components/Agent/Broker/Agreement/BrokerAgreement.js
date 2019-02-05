@@ -31,7 +31,7 @@ const Saved=(props)=>{
             <tr>
               <td>{element.agreement_title}</td>
               <td>{element.created_date}</td>
-              <td><Link to={{"pathname":"/broker-agreement-edit",state:{editAgreement:element,loc: '/broker-agreement'}}} title="Edit"   className="table-action-btn view-rqu"><i className="mdi mdi-border-color"></i></Link><a title="view" href="#" onClick={() => props.pdfViewAgreement(element.agreement_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Delete" href="#" onClick={() => props.deleteAgreement(element.agreement_id)} className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a>
+              <td><Link to={{"pathname":"/broker-agreement-edit",state:{editAgreement:element,templateDescription:element.agreement_doc_content,loc: '/broker-agreement'}}} title="Edit"   className="table-action-btn view-rqu"><i className="mdi mdi-border-color"></i></Link><a title="view" href="#" onClick={() => props.pdfViewAgreement(element.agreement_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a><a title="Delete" href="#" onClick={() => props.deleteAgreement(element.agreement_id)} className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a>
               <Link to={{pathname:'/broker-agreement-send',state:{TemplateId:element.agreement_id,templateDescription:element.agreement_doc_content,agreement_type:'Custom',loc:'/broker-agreement'}}} title="Send" className="table-action-btn view-rqu" ><i className="mdi mdi-redo-variant"></i></Link></td>
             </tr>
           )):<div>No data </div>}        

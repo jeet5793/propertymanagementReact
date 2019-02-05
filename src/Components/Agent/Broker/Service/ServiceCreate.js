@@ -1,9 +1,9 @@
 import React from 'react'
-import img_not_available from '../../../../images/img_not_available.png'
-import Cookies from 'js-cookie';
-import { Link } from 'react-router-dom'
+//import img_not_available from '../../../../images/img_not_available.png'
+//import Cookies from 'js-cookie';
+//import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
-import API_URL from "../../../../app-config";
+//import API_URL from "../../../../app-config";
 import Autosuggest from 'react-autosuggest';
 class ServiceCreate extends React.Component {
     constructor(props) {
@@ -15,6 +15,7 @@ class ServiceCreate extends React.Component {
         
         return (
 			<div className="tab-pane active" id="v-create">
+			<form id="ServiceView">
 									<div className="row">
                                         <div className="col-md-12">
                                             <div className="form-group">
@@ -24,6 +25,19 @@ class ServiceCreate extends React.Component {
                                                     {this.props.propertyList && this.props.propertyList.map((option, key) => (<option key={key.property_id} value={option.property_id}>{option.property_name}</option>))}
 
                                                 </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-md-12">
+                                            <div className="form-group">
+                                                <label for="sendto" className="control-label">Send To<span className="required" /> </label>
+                                                <select className="form-control" name="sendto" onChange={this.props.onChangeHandler}>
+                                                    <option>Please Select</option>
+                                                    <option value="owner">Owner</option>
+                                                    <option value="serviceprovider">Agent - Service Provider</option>
+                                                </select>
+                                                <span style={{color: "red"}}>{this.props.errors["sendto"]}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -65,9 +79,10 @@ class ServiceCreate extends React.Component {
                                         </div>
                                     </div>
 									<div className="">
-										<button type="reset"  className="btn btn-secondary waves-effect" data-dismiss="modal" >Clear</button>
+										<button type="reset"  className="btn btn-secondary waves-effect" data-dismiss="modal" onClick={this.props.onClickClear}>Clear</button>&nbsp;
 										<button type="button" className="btn btn-success waves-effect waves-light" onClick={this.props.sendRequest}>Save changes</button>
 									</div>
+									</form>
                                 </div>
         );
     }

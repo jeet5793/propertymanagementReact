@@ -1030,7 +1030,7 @@ class Headernav extends React.Component {
 									<h5 className="text-overflow"><small>Hi,{localStorage.getItem('firstName').replace(/["']/g, "")}</small> </h5>
 								</div>
 								{/* item*/} 
-								<a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-user" /> <Link to = {{pathname:'/broker-profile'}}> <span>Profile</span></Link> </a> 
+								<a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-user" /> {this.state.profileData.agent_type=='2' && <Link to = {{pathname:'/broker-profile'}}> <span>Profile</span></Link>}{this.state.profileData.agent_type=='1' && <Link to = {{pathname:'/agent-serviceprovider'}}> <span>Profile</span></Link>} </a> 
 								{/* item*/} 
 								<a href="javascript:void(0);" className="dropdown-item notify-item"> <i className="dripicons-gear" /> <Link to = {{pathname:'/broker-settings'}}><span>Settings</span></Link> </a> 
 								{/* item*/} 

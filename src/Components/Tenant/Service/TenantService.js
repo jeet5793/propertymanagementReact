@@ -1,15 +1,15 @@
 import React from 'react'
-import Header from '../Header/TenantHeader'
+//import Header from '../Header/TenantHeader'
 import img_not_available from '../../../images/img_not_available.png'
 import Cookies from 'js-cookie';
-import { Link } from 'react-router-dom'
+//import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import API_URL from "../../../app-config";
-import swal from 'sweetalert';
+//import swal from 'sweetalert';
 import $ from 'jquery';
 
 import ServiceRequested from '../../Owner/Service/ServiceRequested';
-import ServiceCreate from '../../Owner/Service/ServiceCreate';
+import ServiceCreate from '../Service/ServiceCreate';
 import ServiceResolved from '../../Owner/Service/ServiceResolved';
 import ServiceView from '../../Owner/Service/ServiceView';
 class TenantService extends React.Component {
@@ -39,7 +39,8 @@ class TenantService extends React.Component {
 			value: '',
 			 suggestions: [],
 			 searchValue:'',
-			 searchInputData:[],
+             searchInputData:[],
+             errors:false
         }
         this.onChangeHandler = this.onChangeHandler.bind(this)
         this.fileInput = React.createRef();
@@ -101,50 +102,63 @@ class TenantService extends React.Component {
 		});
 	};
 	searchUser() {
-		var searchValue = $('.react-autosuggest__input').val()
-		const session = JSON.parse(this.state.userData).session_id;  
-		// console.log("selVal"+searchValue);
-		const opts ={keyword:searchValue,session_id:session}
-		// console.log("optsssss1111"+JSON.stringify(opts));
-		fetch(`${API_URL}assetsapi/service_provider_search`, {
-			method: 'POST',
-		body: JSON.stringify(opts)
-		})
-		.then(res => res.json())
-		.then(
-			(result) => {
-			// console.log("data22222: "+JSON.stringify(result))
-			if (result.success) {
-			
-				// console.log("ifffff: "+JSON.stringify(result))
-						this.setState({propertyByUser:result.search_userlist},()=>{
-							this.setState({
-								suggestions: this.getSuggestions()
-							});
-						})
-					
-			} else{
-				// console.log("elseee"+JSON.stringify(result))
-				this.setState({propertyByUser:[{"value":"","label":"No Results Found"}]},()=>{
-					this.setState({
-						suggestions: this.getSuggestions()
-					});
-				})
-			}
-			// console.log("autocompleteData"+JSON.stringify(this.state.propertyByUser))
-			},
-		(error) => {
-			console.log('error',error)
-		}
-		) 
-
-	}
+        let sendTo = this.state.sendReq.sendto
+        let errors = {};
+        if(!sendTo){
+            errors['sendto']="Please select atleast one from Send To.!!!";
+            this.setState({errors:errors});
+        }else{
+            this.setState({errors:errors});
+            var searchValue = $('.react-autosuggest__input').val()
+            const session = JSON.parse(this.state.userData).session_id;  
+            const assetsId = JSON.parse(this.state.userData).assets_id;  
+            // console.log("selVal"+searchValue);
+            const opts ={keyword:searchValue,session_id:session,assetsId:assetsId,sendTo:sendTo}
+            // console.log("optsssss1111"+JSON.stringify(opts));
+            fetch(`${API_URL}assetsapi/service_provider_search`, {
+                method: 'POST',
+            body: JSON.stringify(opts)
+            })
+            .then(res => res.json())
+            .then(
+                (result) => {
+                // console.log("data22222: "+JSON.stringify(result))
+                if (result.success) {
+                
+                    // console.log("ifffff: "+JSON.stringify(result))
+                            this.setState({propertyByUser:result.search_userlist},()=>{
+                                this.setState({
+                                    suggestions: this.getSuggestions()
+                                });
+                            })
+                        
+                } else{
+                    // console.log("elseee"+JSON.stringify(result))
+                    this.setState({propertyByUser:[{"value":"","label":"No Results Found"}]},()=>{
+                        this.setState({
+                            suggestions: this.getSuggestions()
+                        });
+                    })
+                }
+                // console.log("autocompleteData"+JSON.stringify(this.state.propertyByUser))
+                },
+            (error) => {
+                console.log('error',error)
+            }
+            ) 
+        }
+		
+}
 	
     onChangeHandler(e) {
         let formData = new FormData();
         const requestForm = this.state.sendReq;
         if (e.target.name == "property_id")
             requestForm.property_id = e.target.value
+        if (e.target.name == "sendto"){
+                requestForm.sendto = e.target.value;
+                
+           }
         if (e.target.name == "service_provider")
             requestForm.service_provider = e.target.value
         if (e.target.name == "service_msg")
@@ -470,7 +484,8 @@ $("#loaderDiv").show();
 														sendRequest={this.sendRequest}
 														onChangeHandler={this.onChangeHandler}
 														 fileInput={ this.fileInput}
-														 onClickClear = {this.onClickClear}
+                                                         onClickClear = {this.onClickClear}
+                                                         errors = {this.state.errors}
 														/>
 													<ServiceRequested requestedList={this.state.requestedList} sendedList={this.state.sendedList} changeTabs2={this.changeTabs2} onClickView = {this.onClickView}/>
 													<ServiceResolved resolvedList={this.state.resolvedList}/>

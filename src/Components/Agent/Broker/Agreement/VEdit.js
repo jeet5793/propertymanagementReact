@@ -31,7 +31,8 @@ export default class VEdit extends React.Component{
 		
       },
 		templateList:[],
-		templateDetails:[]
+		templateDetails:[],
+	
     }
     this.onChangeHandlerEdit=this.onChangeHandlerEdit.bind(this)
 	this.editAgreement=this.editAgreement.bind(this)
@@ -39,31 +40,29 @@ export default class VEdit extends React.Component{
     this.waterMarkImage = React.createRef();
   }
 
-
+	
   componentDidMount() {
 	 
-	  var tinymce=window.tinyMCE;
+	   var tinymce=window.tinyMCE;
 		  const agreementForm=this.state.createForm;
 		  let agreement = this.props.location.state.editAgreement;
 		  this.setState({editAgreementStatus:true,agreement_id:agreement.agreement_id,createForm:{agreement_title:agreement.agreement_title,agreement_doc_content:agreement.agreement_doc_content,header_content:agreement.header_content}})
-		   //console.log(agreement)
-		    // console.log('tinymce ', tinymce)
-		  // console.log(agreement.agreement_doc_content)
+		   //console.log("agreement_doc_content"+JSON.stringify(agreement.agreement_doc_content));
+		    
           $('input[id="agreement_title"]').val(agreement.agreement_title);
-          $('input[id="headerContent"]').val(agreement.header_content);
+         // $('input[id="headerContent"]').val(agreement.header_content);
 			
-			var activeEditor = tinymce.get('tinymce');
+			var activeEditor = tinymce.get('editor2');
 			var content = agreement.agreement_doc_content;
+			//var content = 'HTML or plain text content here...';
+			
 			if(activeEditor!==null){
 				activeEditor.setContent(content);
 			} else {
 
 				$('#editor2').val(content);
-			}
-
-		   // tinymce.get("editor2").setContent(agreement.agreement_doc_content);
-
-		   // $('#editor2').val(agreement.agreement_doc_content);
+			} 
+			
 
       $(document).on('click', '#stepy-navigator',function () {
           this.updatePage();
@@ -146,23 +145,44 @@ export default class VEdit extends React.Component{
 	
   }
 	getTemplatesName(){
-	fetch(`${API_URL}assetsapi/agreement_template_name/${JSON.parse(this.state.userData).session_id}`, {
-        method: 'get'
-      })
-    .then(res => res.json())
-		.then(
-		  (result) => {
-			//console.log("data 2: "+JSON.stringify(result.profile))
-			if (result.success) {
-			  this.setState({templateList:result.template_list})
-			  
-			} 
-			// console.log("templateList"+JSON.stringify(this.state.templateList))
-		  },
-			(error) => {
-			  console.log('error')
-			}
-		)
+		$("#loaderDiv").show();
+		fetch(`${API_URL}assetsapi/checkPermissions/${JSON.parse(this.state.userData).assets_id}/customize_template`, {
+		  method: "GET"
+		})
+		  .then(response => {
+			return response.json();
+		  })
+		  .then((data) => {
+			//debugger;
+			//console.log('dataaaa:  ', data);
+			$("#loaderDiv").hide();
+			if(data.success===1){
+				$("#loaderDiv").show();
+				fetch(`${API_URL}assetsapi/templates_by/${JSON.parse(this.state.userData).assets_id}/${JSON.parse(this.state.userData).session_id}`, {
+							method: 'get'
+						})
+					.then(res => res.json())
+					.then(
+						(result) => {
+						//console.log("data 2: "+JSON.stringify(result.profile))
+						$("#loaderDiv").hide();
+						if (result.success) {
+							this.setState({templateList:result.template_list})
+							
+						} 
+						// console.log("templateList"+JSON.stringify(this.state.templateList))
+						},
+						(error) => {
+							console.log('error')
+						}
+					)
+						   
+				}
+		  
+		  }
+		).catch((error) => {
+			console.log('error: ', error);
+		  });
 	}
   onChangeHandlerEdit(e){
     // debugger;
@@ -250,14 +270,17 @@ editAgreement(){
     alert('Please add title and content to create agreement')
   }
 }
-    demoTemplate2(item)
+    demoTemplate(item)
 	  {
 		  // console.log(templateDescription);
-		  var tinymce=window.tinyMCE,$=window.$
-		 tinymce.get("editor2").setContent(item.templateDescription);
-		 $('input[id="agreement_title"]').val(item.templateTitle)
+			var tinymce=window.tinyMCE,$=window.$
+			
+				tinymce.get("editor2").setContent(item.templateDescription);
+		
+		 
+ 		 $('input[id="agreement_title"]').val(item.templateTitle)
 		  $('input[id="headerContent"]').val(item.header_content);
-		  $('textArea[id="footerContent"]').val(item.footer_content);
+		  $('textArea[id="footerContent"]').val(item.footer_content); 
 		   // $('input[name="headerImage"]').val(item.header_image);
 		  // $('input[name="waterMarkImage"]').val(item.footer_image);
 		  
@@ -519,7 +542,7 @@ editAgreement(){
 														
 														
 														
-														<div className="card">
+														<div className="card m-b-5">
 														  <div className="card-header btn btn-success waves-effect w-md waves-light" role="tab" id="headingFive">
 															<h5 className="mb-0 mt-0"> <a className="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseFive2" aria-expanded="false" aria-controls="collapseFive2"> Insert Components </a> </h5>
 														  </div>
@@ -534,6 +557,22 @@ editAgreement(){
 														  </div>
 														</div>
 														
+														{/*this.state.templateList && <div className="card m-b-5">
+                                      <div className="card-header  btn btn-success waves-effect w-md waves-light" role="tab" id="headingSix">
+                                        <h5 className="mb-0 mt-0"> <a className="font-blk" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix"> Agreement Template </a> </h5>
+                                      </div>
+                                      <div id="collapseSix" className="collapse" role="tabpanel" aria-labelledby="headingSix">
+                                        <div class="card-block">
+																				{this.state.templateList?this.state.templateList.map((item)=>( 
+																					<div className="add-name" style={{textAlign:'left'}}>
+																					
+																					<a href="#" onClick={this.demoTemplate.bind(this,item)} key={item.templateId}>{item.templateTitle}</a>
+																										
+																					</div>)):<div className="add-name">No template available to use.!!!</div>}
+                                        </div>
+                                      </div>
+                                    </div>
+																				*/} 
 														
 														
 													  </div>
