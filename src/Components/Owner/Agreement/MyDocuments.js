@@ -129,6 +129,10 @@ export default class MyDocuments extends React.Component{
 			  });
 		  
 	  }	
+	  onClickDownload =(path)=>{
+		window.open(`${API_URL}assetsapi/download_document/`+btoa(path))
+		
+	  }
 	render(){
 
 		return(
@@ -260,10 +264,10 @@ export default class MyDocuments extends React.Component{
 						{this.state.docInfo.extension==="png" &&
                                     <div className="thumbnail">
 										<img src={this.state.docInfo.extension==="png" && API_URL+this.state.docInfo.doc_path}  width="100%" style={{height:"360px ! important"}} className="img-responsive"/>
-										<br/>
+										<p/>
 										<div className="caption">
 											<p>
-												<a href={API_URL+this.state.docInfo.doc_path}  className="btn btn-primary waves-effect waves-light" role="button">Download</a>
+											<a  onClick={()=>this.onClickDownload(this.state.docInfo.doc_path)}  className="btn btn-primary waves-effect waves-light" role="button">Download</a>
 											</p>
 										</div>
 									</div>
@@ -273,10 +277,10 @@ export default class MyDocuments extends React.Component{
 									<div className="thumbnail">
 										
 										<embed src={this.state.docInfo.extension==="pdf" && API_URL+this.state.docInfo.doc_path} width="100%" style={{height:"360px"}} className="img-responsive"/>
-										<br/>
+										<p/>
 										<div className="caption">
 											<p>
-												<a href={API_URL+this.state.docInfo.doc_path}   className="btn btn-primary waves-effect waves-light" role="button">Download</a>
+											<a  onClick={()=>this.onClickDownload(this.state.docInfo.doc_path)}  className="btn btn-primary waves-effect waves-light" role="button">Download</a>
 											</p>
 										</div>
 									</div>

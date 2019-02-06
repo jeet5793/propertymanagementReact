@@ -80,7 +80,7 @@ export default class Plans extends React.Component{
                                                         <h2>Basic</h2>
                                                         <h3>$ {planData['Basic'].plan_details.per_month}/{planData['Basic'].plan_details.per_annum} <br /><span> {Number(planData['Basic'].plan_details.per_annum) === 0 ? 'Free' : 'per month/Annum'}  </span></h3>
                                                         <ul>
-															{ planData['Basic'].features.manage_properties_upto ? <li className=" first even">{planData['Basic'].features.manage_properties_upto.feature_name} - {planData['Basic'].features.manage_properties_upto.feature_unit=='Limit'?(planData['Basic'].features.manage_properties_upto.limit_upto!=0?planData['Basic'].features.manage_properties_upto.limit_upto:'Free'):planData['Basic'].features.manage_properties_upto.confirmation}</li> : null }
+														{ planData['Basic'].features.manage_properties_upto ? <li className=" first even">{planData['Basic'].features.manage_properties_upto.feature_name} - {planData['Basic'].features.manage_properties_upto.feature_unit=='Limit'?(planData['Basic'].features.manage_properties_upto.limit_upto!=0?planData['Basic'].features.manage_properties_upto.limit_upto:'Free'):planData['Basic'].features.manage_properties_upto.confirmation}</li> : null }
 															
 															{ planData['Basic'].features.upload_image_per_property ? <li className=" first even">{planData['Basic'].features.upload_image_per_property.feature_name} - {planData['Basic'].features.upload_image_per_property.feature_unit=='Limit'?(planData['Basic'].features.upload_image_per_property.limit_upto!=0?planData['Basic'].features.upload_image_per_property.limit_upto:'Free'):planData['Basic'].features.upload_image_per_property.confirmation}</li> : null }
 															
@@ -94,7 +94,18 @@ export default class Plans extends React.Component{
 															
 															{ planData['Basic'].features.reminders_notifications ? <li className=" first even">{planData['Basic'].features.reminders_notifications.feature_name} - {planData['Basic'].features.reminders_notifications.feature_unit=='Limit'?(planData['Basic'].features.reminders_notifications.limit_upto!=0?planData['Basic'].features.reminders_notifications.limit_upto:'Free'):planData['Basic'].features.reminders_notifications.confirmation}</li> : null }
 															
-                                                            
+															{ planData['Basic'].features.in_person_signature ? <li className=" first even">{planData['Basic'].features.in_person_signature.feature_name} - {planData['Basic'].features.in_person_signature.feature_unit=='Limit'?(planData['Basic'].features.in_person_signature.limit_upto!=0?planData['Basic'].features.in_person_signature.limit_upto:'Free'):planData['Basic'].features.in_person_signature.confirmation}</li> : null }
+															
+															{ planData['Basic'].features.branding ? <li className=" first even">{planData['Basic'].features.branding.feature_name} - {planData['Basic'].features.branding.feature_unit=='Limit'?(planData['Basic'].features.branding.limit_upto!=0?planData['Basic'].features.branding.limit_upto:'Free'):planData['Basic'].features.branding.confirmation}</li> : null }
+															
+															{ planData['Basic'].features.collect_payments ? <li className=" first even">{planData['Basic'].features.collect_payments.feature_name} - {planData['Basic'].features.collect_payments.feature_unit=='Limit'?(planData['Basic'].features.collect_payments.limit_upto!=0?planData['Basic'].features.collect_payments.limit_upto:'Free'):planData['Basic'].features.collect_payments.confirmation}</li> : null }
+
+															{ planData['Basic'].features.bgv_screening ? <li className=" first even">{planData['Basic'].features.bgv_screening.feature_name} - {planData['Basic'].features.bgv_screening.feature_unit=='Limit'?(planData['Basic'].features.bgv_screening.limit_upto!=0?planData['Basic'].features.bgv_screening.limit_upto:'Free'):planData['Basic'].features.bgv_screening.confirmation}</li> : null }
+															
+															{ planData['Basic'].features.document_upload ? <li className=" first even">{planData['Basic'].features.document_upload.feature_name} - {planData['Basic'].features.document_upload.feature_unit=='Limit'?(planData['Basic'].features.document_upload.limit_upto!=0?planData['Basic'].features.document_upload.limit_upto:'Free'):planData['Basic'].features.document_upload.confirmation}</li> : null }
+															
+															{ planData['Basic'].features.customize_template ? <li className=" first even">{planData['Basic'].features.customize_template.feature_name} - {planData['Basic'].features.customize_template.feature_unit=='Limit'?(planData['Basic'].features.customize_template.limit_upto!=0?planData['Basic'].features.customize_template.limit_upto:'Free'):planData['Basic'].features.customize_template.confirmation}</li> : null }
+															
                                                         </ul>
 														
                                                         <div className="submit-btn"> <a href="#">Free</a>
@@ -224,7 +235,7 @@ export default class Plans extends React.Component{
                                                         <h2>Silver</h2>
                                                         <h3>$ {planData['Silver'].plan_details.per_month}/{planData['Silver'].plan_details.per_annum} <br /><span> {Number(planData['Silver'].plan_details.per_annum) === 0 ? 'Free' : 'per month/Annum'}  </span></h3>
                                                         <ul>
-															{ planData['Silver'].features.manage_properties_upto ? <li className=" first even">{planData['Silver'].features.manage_properties_upto.feature_name} - {planData['Silver'].features.manage_properties_upto.feature_unit=='Limit'?(planData['Silver'].features.manage_properties_upto.limit_upto!=0?planData['Silver'].features.manage_properties_upto.limit_upto:'Free'):planData['Silver'].features.manage_properties_upto.confirmation}</li> : null }
+														{ planData['Silver'].features.manage_properties_upto ? <li className=" first even">{planData['Silver'].features.manage_properties_upto.feature_name} - {planData['Silver'].features.manage_properties_upto.feature_unit=='Limit'?(planData['Silver'].features.manage_properties_upto.limit_upto!=0?planData['Silver'].features.manage_properties_upto.limit_upto:'Free'):planData['Silver'].features.manage_properties_upto.confirmation}</li> : null }
 															
 															{ planData['Silver'].features.upload_image_per_property ? <li className=" first even">{planData['Silver'].features.upload_image_per_property.feature_name} - {planData['Silver'].features.upload_image_per_property.feature_unit=='Limit'?(planData['Silver'].features.upload_image_per_property.limit_upto!=0?planData['Silver'].features.upload_image_per_property.limit_upto:'Free'):planData['Silver'].features.upload_image_per_property.confirmation}</li> : null }
 															
@@ -240,8 +251,17 @@ export default class Plans extends React.Component{
 															
                                                             { planData['Silver'].features.in_person_signature ? <li className=" first even">{planData['Silver'].features.in_person_signature.feature_name} - {planData['Silver'].features.in_person_signature.feature_unit=='Limit'?(planData['Silver'].features.in_person_signature.limit_upto!=0?planData['Silver'].features.in_person_signature.limit_upto:'Free'):planData['Silver'].features.in_person_signature.confirmation}</li> : null }
                                                             
+															{ planData['Silver'].features.branding ? <li className=" first even">{planData['Silver'].features.branding.feature_name} - {planData['Silver'].features.branding.feature_unit=='Limit'?(planData['Silver'].features.branding.limit_upto!=0?planData['Silver'].features.branding.limit_upto:'Free'):planData['Silver'].features.branding.confirmation}</li> : null }
+                                                          
+															{ planData['Silver'].features.collect_payments ? <li className=" first even">{planData['Silver'].features.collect_payments.feature_name} - {planData['Silver'].features.collect_payments.feature_unit=='Limit'?(planData['Silver'].features.collect_payments.limit_upto!=0?planData['Silver'].features.collect_payments.limit_upto:'Free'):planData['Silver'].features.collect_payments.confirmation}</li> : null }
                                                            
-                                                           
+															{ planData['Silver'].features.bgv_screening ? <li className=" first even">{planData['Silver'].features.bgv_screening.feature_name} - {planData['Silver'].features.bgv_screening.feature_unit=='Limit'?(planData['Silver'].features.bgv_screening.limit_upto!=0?planData['Silver'].features.bgv_screening.limit_upto:'Free'):planData['Silver'].features.bgv_screening.confirmation}</li> : null }
+                                                            
+															{ planData['Silver'].features.document_upload ? <li className=" first even">{planData['Silver'].features.document_upload.feature_name} - {planData['Silver'].features.document_upload.feature_unit=='Limit'?(planData['Silver'].features.document_upload.limit_upto!=0?planData['Silver'].features.document_upload.limit_upto:'Free'):planData['Silver'].features.document_upload.confirmation}</li> : null }
+                                                            
+															{ planData['Silver'].features.customize_template ? <li className=" first even">{planData['Silver'].features.customize_template.feature_name} - {planData['Silver'].features.customize_template.feature_unit=='Limit'?(planData['Silver'].features.customize_template.limit_upto!=0?planData['Silver'].features.customize_template.limit_upto:'Free'):planData['Silver'].features.customize_template.confirmation}</li> : null }
+                                                            
+                                                            
                                                             
                                                         </ul>
                                                         <div className="submit-btn"> <a href="#">Buy Now</a> {/* onClick={() => {
@@ -287,7 +307,7 @@ export default class Plans extends React.Component{
                                                         <h2>Gold</h2>
                                                         <h3>$ {planData['Gold'].plan_details.per_month}/{planData['Gold'].plan_details.per_annum} <br /><span> {Number(planData['Gold'].plan_details.per_annum) === 0 ? 'Free' : 'per month/Annum'}  </span></h3>
                                                         <ul>
-															{ planData['Gold'].features.manage_properties_upto ? <li className=" first even">{planData['Gold'].features.manage_properties_upto.feature_name} - {planData['Gold'].features.manage_properties_upto.feature_unit=='Limit'?(planData['Gold'].features.manage_properties_upto.limit_upto!=0?planData['Gold'].features.manage_properties_upto.limit_upto:'Free'):planData['Gold'].features.manage_properties_upto.confirmation}</li> : null }
+														{ planData['Gold'].features.manage_properties_upto ? <li className=" first even">{planData['Gold'].features.manage_properties_upto.feature_name} - {planData['Gold'].features.manage_properties_upto.feature_unit=='Limit'?(planData['Gold'].features.manage_properties_upto.limit_upto!=0?planData['Gold'].features.manage_properties_upto.limit_upto:'Free'):planData['Gold'].features.manage_properties_upto.confirmation}</li> : null }
 															
 															{ planData['Gold'].features.upload_image_per_property ? <li className=" first even">{planData['Gold'].features.upload_image_per_property.feature_name} - {planData['Gold'].features.upload_image_per_property.feature_unit=='Limit'?(planData['Gold'].features.upload_image_per_property.limit_upto!=0?planData['Gold'].features.upload_image_per_property.limit_upto:'Free'):planData['Gold'].features.upload_image_per_property.confirmation}</li> : null }
 															
@@ -307,8 +327,12 @@ export default class Plans extends React.Component{
 															
                                                             { planData['Gold'].features.collect_payments ? <li className=" first even">{planData['Gold'].features.collect_payments.feature_name} - {planData['Gold'].features.collect_payments.feature_unit=='Limit'?(planData['Gold'].features.collect_payments.limit_upto!=0?planData['Gold'].features.collect_payments.limit_upto:'Free'):planData['Gold'].features.collect_payments.confirmation}</li> : null }
 															
-                                                            { planData['Gold'].features.tenant_screening ? <li className=" first even">{planData['Gold'].features.tenant_screening.feature_name} - {planData['Gold'].features.tenant_screening.feature_unit=='Limit'?(planData['Gold'].features.tenant_screening.limit_upto!=0?planData['Gold'].features.tenant_screening.limit_upto:'Free'):planData['Gold'].features.tenant_screening.confirmation}</li> : null }
-                                                            
+                                                            { planData['Gold'].features.bgv_screening ? <li className=" first even">{planData['Gold'].features.bgv_screening.feature_name} - {planData['Gold'].features.bgv_screening.feature_unit=='Limit'?(planData['Gold'].features.bgv_screening.limit_upto!=0?planData['Gold'].features.bgv_screening.limit_upto:'Free'):planData['Gold'].features.bgv_screening.confirmation}</li> : null }
+															
+															{ planData['Gold'].features.document_upload ? <li className=" first even">{planData['Gold'].features.document_upload.feature_name} - {planData['Gold'].features.document_upload.feature_unit=='Limit'?(planData['Gold'].features.document_upload.limit_upto!=0?planData['Gold'].features.document_upload.limit_upto:'Free'):planData['Gold'].features.document_upload.confirmation}</li> : null }
+
+															{ planData['Gold'].features.customize_template ? <li className=" first even">{planData['Gold'].features.customize_template.feature_name} - {planData['Gold'].features.customize_template.feature_unit=='Limit'?(planData['Gold'].features.customize_template.limit_upto!=0?planData['Gold'].features.document_upload.limit_upto:'Free'):planData['Gold'].features.customize_template.confirmation}</li> : null }
+															
                                                         </ul>
                                                         <div className="submit-btn"> <a href="#">Buy Now</a> {/* onClick={() => {
                                                           let setPlanID = planData['Gold'].plan_details.plan_id
@@ -352,7 +376,7 @@ export default class Plans extends React.Component{
                                                         <h2>Platinum</h2>
                                                         <h3>$ {planData['Platinum'].plan_details.per_month}/{planData['Platinum'].plan_details.per_annum} <br /><span> {Number(planData['Platinum'].plan_details.per_annum) === 0 ? 'Free' : 'per month/Annum'}  </span></h3>
                                                         <ul>
-                                                            { planData['Platinum'].features.manage_properties_upto ? <li className=" first even">{planData['Platinum'].features.manage_properties_upto.feature_name} - {planData['Platinum'].features.manage_properties_upto.feature_unit=='Limit'?(planData['Platinum'].features.manage_properties_upto.limit_upto!=0?planData['Platinum'].features.manage_properties_upto.limit_upto:'Free'):planData['Platinum'].features.manage_properties_upto.confirmation}</li> : null }
+														{ planData['Platinum'].features.manage_properties_upto ? <li className=" first even">{planData['Platinum'].features.manage_properties_upto.feature_name} - {planData['Platinum'].features.manage_properties_upto.feature_unit=='Limit'?(planData['Platinum'].features.manage_properties_upto.limit_upto!=0?planData['Platinum'].features.manage_properties_upto.limit_upto:'Free'):planData['Platinum'].features.manage_properties_upto.confirmation}</li> : null }
 															
 															{ planData['Platinum'].features.upload_image_per_property ? <li className=" first even">{planData['Platinum'].features.upload_image_per_property.feature_name} - {planData['Platinum'].features.upload_image_per_property.feature_unit=='Limit'?(planData['Platinum'].features.upload_image_per_property.limit_upto!=0?planData['Platinum'].features.upload_image_per_property.limit_upto:'Free'):planData['Platinum'].features.upload_image_per_property.confirmation}</li> : null }
 															
@@ -372,8 +396,12 @@ export default class Plans extends React.Component{
 															
                                                             { planData['Platinum'].features.collect_payments ? <li className=" first even">{planData['Platinum'].features.collect_payments.feature_name} - {planData['Platinum'].features.collect_payments.feature_unit=='Limit'?(planData['Platinum'].features.collect_payments.limit_upto!=0?planData['Platinum'].features.collect_payments.limit_upto:'Free'):planData['Platinum'].features.collect_payments.confirmation}</li> : null }
 															
-                                                            { planData['Platinum'].features.tenant_screening ? <li className=" first even">{planData['Platinum'].features.tenant_screening.feature_name} - {planData['Platinum'].features.tenant_screening.feature_unit=='Limit'?(planData['Platinum'].features.tenant_screening.limit_upto!=0?planData['Platinum'].features.tenant_screening.limit_upto:'Free'):planData['Platinum'].features.tenant_screening.confirmation}</li> : null }
-                                                        </ul>
+                                                            { planData['Platinum'].features.bgv_screening ? <li className=" first even">{planData['Platinum'].features.bgv_screening.feature_name} - {planData['Platinum'].features.bgv_screening.feature_unit=='Limit'?(planData['Platinum'].features.bgv_screening.limit_upto!=0?planData['Platinum'].features.bgv_screening.limit_upto:'Free'):planData['Platinum'].features.bgv_screening.confirmation}</li> : null }
+															
+															{ planData['Platinum'].features.document_upload ? <li className=" first even">{planData['Platinum'].features.document_upload.feature_name} - {planData['Platinum'].features.document_upload.feature_unit=='Limit'?(planData['Platinum'].features.document_upload.limit_upto!=0?planData['Platinum'].features.document_upload.limit_upto:'Free'):planData['Platinum'].features.document_upload.confirmation}</li> : null }
+													    
+															{ planData['Platinum'].features.customize_template ? <li className=" first even">{planData['Platinum'].features.customize_template.feature_name} - {planData['Platinum'].features.customize_template.feature_unit=='Limit'?(planData['Platinum'].features.customize_template.limit_upto!=0?planData['Platinum'].features.customize_template.limit_upto:'Free'):planData['Platinum'].features.customize_template.confirmation}</li> : null }
+													  </ul>
                                                         <div className="submit-btn"> <a href="#" >Buy Now</a> {/*onClick={() => {
                                                           let setPlanID = planData['Platinum'].plan_details.plan_id
                                                           let getPlanId = setPlanID.toString()

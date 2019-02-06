@@ -38,8 +38,8 @@ export default class Testimonial extends React.Component{
                       <div className="row">
                         <div className="row">
                           <div className="col-md-6 col-md-offset-3">
-                            <div className="col-sm-4"> <img onError={this.addDefaultSrc} src={(item.img_path && item.img_path.length>0)?API_URL+'assetsadmin/'+item.img_path:img_not_available}  alt="img1" id="testimonial1" className="img-responsive" style={{width:'80px'}} /> </div>
-                            <div className="col-sm-8 no-padding">
+                            <div className="col-sm-4 col-xs-4"> <img onError={this.addDefaultSrc} src={(item.img_path && item.img_path.length>0)?API_URL+'assetsadmin/'+item.img_path:img_not_available}  alt="img1" id="testimonial1" className="img-responsive img-circle" style={{width:'80px'}} /> </div>
+                            <div className="col-sm-8 col-xs-8 no-padding">
                               <h4 className="no-margin">{item.name}</h4>
                               <p className="testimonial_subtitle"><span>{item.designation}</span> </p>
                             </div>

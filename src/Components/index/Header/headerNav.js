@@ -57,7 +57,9 @@ class Headernav extends React.Component {
            this.setState({[e.target.name]:e.target.value})
       }
 	  gotoRegistrationPage(){
-        $(".login-open").hide();
+				$(".login-open").hide();
+				this.props.history.push('/register');
+				
      }
     Login(type,e) {
 		 e.preventDefault();
@@ -982,7 +984,8 @@ class Headernav extends React.Component {
 					
 					{/*  <a onClick={this.Login.bind(this, this.state.assetsType)} className="button"> <span>Login</span> </a> <span>-or-</span> */}
 					{/*need to add router link*/}
-					<Link to={{pathname:'/register'}} className="button button-grey"> <span onClick={this.gotoRegistrationPage.bind(this)}>Register</span> </Link>
+					<input onClick={this.gotoRegistrationPage.bind(this)} type="button" className="button btn-login" name="register" value="Register" />
+			
 					
 				</div>
 				

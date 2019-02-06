@@ -97,6 +97,18 @@ $("#loaderDiv").show();
 																				
 																				{planData[userPlan]['Basic'].features.reminders_notifications ? <li className=" first even">{planData[userPlan]['Basic'].features.reminders_notifications.feature_name} - {planData[userPlan]['Basic'].features.reminders_notifications.feature_unit=='Limit'?(planData[userPlan]['Basic'].features.reminders_notifications.limit_upto!=0?planData[userPlan]['Basic'].features.reminders_notifications.limit_upto:'Free'):planData[userPlan]['Basic'].features.reminders_notifications.confirmation}</li> : null}
 																				
+																				{planData[userPlan]['Basic'].features.in_person_signature ? <li className=" first even">{planData[userPlan]['Basic'].features.in_person_signature.feature_name} - {planData[userPlan]['Basic'].features.in_person_signature.feature_unit=='Limit'?(planData[userPlan]['Basic'].features.in_person_signature.limit_upto!=0?planData[userPlan]['Basic'].features.in_person_signature.limit_upto:'Free'):planData[userPlan]['Basic'].features.in_person_signature.confirmation}</li> : null}
+																			
+																				{planData[userPlan]['Basic'].features.branding ? <li className=" first even">{planData[userPlan]['Basic'].features.branding.feature_name} - {planData[userPlan]['Basic'].features.branding.feature_unit=='Limit'?(planData[userPlan]['Basic'].features.branding.limit_upto!=0?planData[userPlan]['Basic'].features.branding.limit_upto:'Free'):planData[userPlan]['Basic'].features.branding.confirmation}</li> : null}
+																				
+																				{planData[userPlan]['Basic'].features.collect_payments ? <li className=" first even">{planData[userPlan]['Basic'].features.collect_payments.feature_name} - {planData[userPlan]['Basic'].features.collect_payments.feature_unit=='Limit'?(planData[userPlan]['Basic'].features.collect_payments.limit_upto!=0?planData[userPlan]['Basic'].features.collect_payments.limit_upto:'Free'):planData[userPlan]['Basic'].features.collect_payments.confirmation}</li> : null}
+																				
+																				{planData[userPlan]['Basic'].features.bgv_screening ? <li className=" first even">{planData[userPlan]['Basic'].features.bgv_screening.feature_name} - {planData[userPlan]['Basic'].features.bgv_screening.feature_unit=='Limit'?(planData[userPlan]['Basic'].features.bgv_screening.limit_upto!=0?planData[userPlan]['Basic'].features.bgv_screening.limit_upto:'Free'):planData[userPlan]['Basic'].features.bgv_screening.confirmation}</li> : null}
+																				
+																				{planData[userPlan]['Basic'].features.document_upload ? <li className=" first even">{planData[userPlan]['Basic'].features.document_upload.feature_name} - {planData[userPlan]['Basic'].features.document_upload.feature_unit=='Limit'?(planData[userPlan]['Basic'].features.document_upload.limit_upto!=0?planData[userPlan]['Basic'].features.document_upload.limit_upto:'Free'):planData[userPlan]['Basic'].features.document_upload.confirmation}</li> : null}
+																				
+																				{planData[userPlan]['Basic'].features.customize_template ? <li className=" first even">{planData[userPlan]['Basic'].features.customize_template.feature_name} - {planData[userPlan]['Basic'].features.customize_template.feature_unit=='Limit'?(planData[userPlan]['Basic'].features.customize_template.limit_upto!=0?planData[userPlan]['Basic'].features.customize_template.limit_upto:'Free'):planData[userPlan]['Basic'].features.customize_template.confirmation}</li> : null}
+																				
 																			</ul>
 																			{/*<div className="submit-btn"> <a href="#">Buy Now</a> </div>*/}
 																		</li>
@@ -128,6 +140,15 @@ $("#loaderDiv").show();
 																				
 																				{planData[userPlan]['Silver'].features.in_person_signature ? <li className=" first even">{planData[userPlan]['Silver'].features.in_person_signature.feature_name} - {planData[userPlan]['Silver'].features.in_person_signature.feature_unit=='Limit'?planData[userPlan]['Silver'].features.in_person_signature.limit_upto:planData[userPlan]['Silver'].features.in_person_signature.confirmation}</li> : null}
 																				
+																				{planData[userPlan]['Silver'].features.branding ? <li className=" first even">{planData[userPlan]['Silver'].features.branding.feature_name} - {planData[userPlan]['Silver'].features.branding.feature_unit=='Limit'?planData[userPlan]['Silver'].features.branding.limit_upto:planData[userPlan]['Silver'].features.branding.confirmation}</li> : null}
+																				
+																				{planData[userPlan]['Silver'].features.collect_payments ? <li className=" first even">{planData[userPlan]['Silver'].features.collect_payments.feature_name} - {planData[userPlan]['Silver'].features.collect_payments.feature_unit=='Limit'?planData[userPlan]['Silver'].features.collect_payments.limit_upto:planData[userPlan]['Silver'].features.collect_payments.confirmation}</li> : null}
+																				
+																				{planData[userPlan]['Silver'].features.bgv_screening ? <li className=" first even">{planData[userPlan]['Silver'].features.bgv_screening.feature_name} - {planData[userPlan]['Silver'].features.bgv_screening.feature_unit=='Limit'?planData[userPlan]['Silver'].features.bgv_screening.limit_upto:planData[userPlan]['Silver'].features.bgv_screening.confirmation}</li> : null}
+																				
+																				{planData[userPlan]['Silver'].features.document_upload ? <li className=" first even">{planData[userPlan]['Silver'].features.document_upload.feature_name} - {planData[userPlan]['Silver'].features.document_upload.feature_unit=='Limit'?planData[userPlan]['Silver'].features.document_upload.limit_upto:planData[userPlan]['Silver'].features.document_upload.confirmation}</li> : null}
+																				
+																				{planData[userPlan]['Silver'].features.customize_template ? <li className=" first even">{planData[userPlan]['Silver'].features.customize_template.feature_name} - {planData[userPlan]['Silver'].features.customize_template.feature_unit=='Limit'?planData[userPlan]['Silver'].features.customize_template.limit_upto:planData[userPlan]['Silver'].features.customize_template.confirmation}</li> : null}
 																				
 																			</ul>
 																			{/*<div className="submit-btn"> <a href="#">Buy Now</a> </div>*/}
@@ -138,39 +159,44 @@ $("#loaderDiv").show();
 														}
 														{
 															planData[userPlan]['Gold'] ? (
-																	<div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+																<div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
 																	<ul id="price-t-5" className="">
 																		<li>
 																			<h2>Gold</h2>
 																			<h3>$ {planData[userPlan]['Gold'].plan_details.per_month}/{planData[userPlan]['Gold'].plan_details.per_annum} <br /><span> {Number(planData[userPlan]['Silver'].plan_details.per_annum) === 0 ? 'Free' : 'per month/Annum'}  </span></h3>
-																			<ul>
-																				{planData[userPlan]['Gold'].features.manage_properties_upto ? <li className=" first even">{planData[userPlan]['Gold'].features.manage_properties_upto.feature_name} - {planData[userPlan]['Gold'].features.manage_properties_upto.feature_unit=='Limit'?planData[userPlan]['Gold'].features.manage_properties_upto.limit_upto:planData[userPlan]['Gold'].features.manage_properties_upto.confirmation}</li> : null}
+																				<ul>
+																					{planData[userPlan]['Gold'].features.manage_properties_upto ? <li className=" first even">{planData[userPlan]['Gold'].features.manage_properties_upto.feature_name} - {planData[userPlan]['Gold'].features.manage_properties_upto.feature_unit=='Limit'?planData[userPlan]['Gold'].features.manage_properties_upto.limit_upto:planData[userPlan]['Gold'].features.manage_properties_upto.confirmation}</li> : null}
 																				
-																				{planData[userPlan]['Gold'].features.upload_image_per_property ? <li className=" first even">{planData[userPlan]['Gold'].features.upload_image_per_property.feature_name} - {planData[userPlan]['Gold'].features.upload_image_per_property.feature_unit=='Limit'?planData[userPlan]['Gold'].features.upload_image_per_property.limit_upto:planData[userPlan]['Gold'].features.upload_image_per_property.confirmation}</li> : null}
+																					{planData[userPlan]['Gold'].features.upload_image_per_property ? <li className=" first even">{planData[userPlan]['Gold'].features.upload_image_per_property.feature_name} - {planData[userPlan]['Gold'].features.upload_image_per_property.feature_unit=='Limit'?planData[userPlan]['Gold'].features.upload_image_per_property.limit_upto:planData[userPlan]['Gold'].features.upload_image_per_property.confirmation}</li> : null}
 																				
-																				{planData[userPlan]['Gold'].features.create_agreement ? <li className=" first even">{planData[userPlan]['Gold'].features.create_agreement.feature_name} - {planData[userPlan]['Gold'].features.create_agreement.feature_unit=='Limit'?planData[userPlan]['Gold'].features.create_agreement.limit_upto:planData[userPlan]['Gold'].features.create_agreement.confirmation}</li> : null}
+																					{planData[userPlan]['Gold'].features.create_agreement ? <li className=" first even">{planData[userPlan]['Gold'].features.create_agreement.feature_name} - {planData[userPlan]['Gold'].features.create_agreement.feature_unit=='Limit'?planData[userPlan]['Gold'].features.create_agreement.limit_upto:planData[userPlan]['Gold'].features.create_agreement.confirmation}</li> : null}
 																				
-																				{planData[userPlan]['Gold'].features.send_agreement_for_signature ? <li className=" first even">{planData[userPlan]['Gold'].features.send_agreement_for_signature.feature_name} - {planData[userPlan]['Gold'].features.send_agreement_for_signature.feature_unit=='Limit'?planData[userPlan]['Gold'].features.send_agreement_for_signature.limit_upto:planData[userPlan]['Gold'].features.send_agreement_for_signature.confirmation}</li> : null}
+																					{planData[userPlan]['Gold'].features.send_agreement_for_signature ? <li className=" first even">{planData[userPlan]['Gold'].features.send_agreement_for_signature.feature_name} - {planData[userPlan]['Gold'].features.send_agreement_for_signature.feature_unit=='Limit'?planData[userPlan]['Gold'].features.send_agreement_for_signature.limit_upto:planData[userPlan]['Gold'].features.send_agreement_for_signature.confirmation}</li> : null}
 																				
-																				{planData[userPlan]['Gold'].features.basic_fields ? <li className=" first even">{planData[userPlan]['Gold'].features.basic_fields.feature_name} - {planData[userPlan]['Gold'].features.basic_fields.feature_unit=='Limit'?(planData[userPlan]['Gold'].features.basic_fields.limit_upto!=0?planData[userPlan]['Gold'].features.basic_fields.limit_upto:'Free'):planData[userPlan]['Gold'].features.basic_fields.confirmation}</li> : null}
+																					{planData[userPlan]['Gold'].features.basic_fields ? <li className=" first even">{planData[userPlan]['Gold'].features.basic_fields.feature_name} - {planData[userPlan]['Gold'].features.basic_fields.feature_unit=='Limit'?(planData[userPlan]['Gold'].features.basic_fields.limit_upto!=0?planData[userPlan]['Gold'].features.basic_fields.limit_upto:'Free'):planData[userPlan]['Gold'].features.basic_fields.confirmation}</li> : null}
 																				
-																				{planData[userPlan]['Gold'].features.mobile_app ? <li className=" first even">{planData[userPlan]['Gold'].features.mobile_app.feature_name} - {planData[userPlan]['Gold'].features.mobile_app.feature_unit=='Limit'?(planData[userPlan]['Gold'].features.mobile_app.limit_upto!=0?planData[userPlan]['Gold'].features.mobile_app.limit_upto:'Free'):planData[userPlan]['Gold'].features.mobile_app.confirmation}</li> : null}
+																					{planData[userPlan]['Gold'].features.mobile_app ? <li className=" first even">{planData[userPlan]['Gold'].features.mobile_app.feature_name} - {planData[userPlan]['Gold'].features.mobile_app.feature_unit=='Limit'?(planData[userPlan]['Gold'].features.mobile_app.limit_upto!=0?planData[userPlan]['Gold'].features.mobile_app.limit_upto:'Free'):planData[userPlan]['Gold'].features.mobile_app.confirmation}</li> : null}
+
+																					{planData[userPlan]['Gold'].features.reminders_notifications ? <li className=" first even">{planData[userPlan]['Gold'].features.reminders_notifications.feature_name} - {planData[userPlan]['Gold'].features.reminders_notifications.feature_unit=='Limit'?(planData[userPlan]['Gold'].features.reminders_notifications.limit_upto!=0?planData[userPlan]['Gold'].features.reminders_notifications.limit_upto:'Free'):planData[userPlan]['Gold'].features.reminders_notifications.confirmation}</li> : null}
 																				
-																				{planData[userPlan]['Gold'].features.reminders_notifications ? <li className=" first even">{planData[userPlan]['Gold'].features.reminders_notifications.feature_name} - {planData[userPlan]['Gold'].features.reminders_notifications.feature_unit=='Limit'?(planData[userPlan]['Gold'].features.reminders_notifications.limit_upto!=0?planData[userPlan]['Gold'].features.reminders_notifications.limit_upto:'Free'):planData[userPlan]['Gold'].features.reminders_notifications.confirmation}</li> : null}
+																					{planData[userPlan]['Gold'].features.in_person_signature ? <li className=" first even">{planData[userPlan]['Gold'].features.in_person_signature.feature_name} - {planData[userPlan]['Gold'].features.in_person_signature.feature_unit=='Limit'?planData[userPlan]['Gold'].features.in_person_signature.limit_upto:planData[userPlan]['Gold'].features.in_person_signature.confirmation}</li> : null}
 																				
-																				{planData[userPlan]['Gold'].features.in_person_signature ? <li className=" first even">{planData[userPlan]['Gold'].features.in_person_signature.feature_name} - {planData[userPlan]['Gold'].features.in_person_signature.feature_unit=='Limit'?planData[userPlan]['Gold'].features.in_person_signature.limit_upto:planData[userPlan]['Gold'].features.in_person_signature.confirmation}</li> : null}
+																					{planData[userPlan]['Gold'].features.branding ? <li className=" first even">{planData[userPlan]['Gold'].features.branding.feature_name} - {planData[userPlan]['Gold'].features.branding.feature_unit=='Limit'?planData[userPlan]['Gold'].features.branding.limit_upto:planData[userPlan]['Gold'].features.branding.confirmation}</li> : null}
 																				
-																				{planData[userPlan]['Gold'].features.branding ? <li className=" first even">{planData[userPlan]['Gold'].features.branding.feature_name} - {planData[userPlan]['Gold'].features.branding.feature_unit=='Limit'?planData[userPlan]['Gold'].features.branding.limit_upto:planData[userPlan]['Gold'].features.branding.confirmation}</li> : null}
+																					{planData[userPlan]['Gold'].features.collect_payments ? <li className=" first even">{planData[userPlan]['Gold'].features.collect_payments.feature_name} - {planData[userPlan]['Gold'].features.collect_payments.feature_unit=='Limit'?planData[userPlan]['Gold'].features.collect_payments.limit_upto:planData[userPlan]['Gold'].features.collect_payments.confirmation}</li> : null}
 																				
-																				{planData[userPlan]['Gold'].features.collect_payments ? <li className=" first even">{planData[userPlan]['Gold'].features.collect_payments.feature_name} - {planData[userPlan]['Gold'].features.collect_payments.feature_unit=='Limit'?planData[userPlan]['Gold'].features.collect_payments.limit_upto:planData[userPlan]['Gold'].features.collect_payments.confirmation}</li> : null}
+																					{planData[userPlan]['Gold'].features.bgv_screening ? <li className=" first even">{planData[userPlan]['Gold'].features.bgv_screening.feature_name} - {planData[userPlan]['Gold'].features.bgv_screening.feature_unit=='Limit'?planData[userPlan]['Gold'].features.bgv_screening.limit_upto:planData[userPlan]['Gold'].features.bgv_screening.confirmation}</li> : null}
+
+																					{planData[userPlan]['Gold'].features.document_upload ? <li className=" first even">{planData[userPlan]['Gold'].features.document_upload.feature_name} - {planData[userPlan]['Gold'].features.document_upload.feature_unit=='Limit'?planData[userPlan]['Gold'].features.document_upload.limit_upto:planData[userPlan]['Gold'].features.document_upload.confirmation}</li> : null}
 																				
-																				{planData[userPlan]['Gold'].features.tenant_screening ? <li className=" first even">{planData[userPlan]['Gold'].features.tenant_screening.feature_name} - {planData[userPlan]['Gold'].features.tenant_screening.feature_unit=='Limit'?planData[userPlan]['Gold'].features.tenant_screening.limit_upto:planData[userPlan]['Gold'].features.tenant_screening.confirmation}</li> : null}
-																			</ul>
-																			{/*<div className="submit-btn"> <a href="#">Buy Now</a> </div>*/}
+																					{planData[userPlan]['Gold'].features.customize_template ? <li className=" first even">{planData[userPlan]['Gold'].features.customize_template.feature_name} - {planData[userPlan]['Gold'].features.customize_template.feature_unit=='Limit'?planData[userPlan]['Gold'].features.customize_template.limit_upto:planData[userPlan]['Gold'].features.customize_template.confirmation}</li> : null}
+																				
+																				
+																				</ul>
 																		</li>
 																	</ul>
 																</div>
-															) : null
+																):null
 														}
 														{
 															planData[userPlan]['Platinum'] ? (
@@ -199,7 +225,14 @@ $("#loaderDiv").show();
 																				{planData[userPlan]['Platinum'].features.branding ? <li className=" first even">{planData[userPlan]['Platinum'].features.branding.feature_name} - {planData[userPlan]['Platinum'].features.branding.feature_unit=='Limit'?planData[userPlan]['Platinum'].features.branding.limit_upto:planData[userPlan]['Platinum'].features.branding.confirmation}</li> : null}
 																				
 																				{planData[userPlan]['Platinum'].features.collect_payments ? <li className=" first even">{planData[userPlan]['Platinum'].features.collect_payments.feature_name} - {planData[userPlan]['Platinum'].features.collect_payments.feature_unit=='Limit'?planData[userPlan]['Platinum'].features.collect_payments.limit_upto:planData[userPlan]['Platinum'].features.collect_payments.confirmation}</li> : null}
-																				{planData[userPlan]['Platinum'].features.tenant_screening ? <li className=" first even">{planData[userPlan]['Platinum'].features.tenant_screening.feature_name} - {planData[userPlan]['Platinum'].features.tenant_screening.feature_unit=='Limit'?planData[userPlan]['Platinum'].features.tenant_screening.limit_upto:planData[userPlan]['Platinum'].features.tenant_screening.confirmation}</li> : null}
+																				
+																				{planData[userPlan]['Platinum'].features.bgv_screening ? <li className=" first even">{planData[userPlan]['Platinum'].features.bgv_screening.feature_name} - {planData[userPlan]['Platinum'].features.bgv_screening.feature_unit=='Limit'?planData[userPlan]['Platinum'].features.bgv_screening.limit_upto:planData[userPlan]['Platinum'].features.bgv_screening.confirmation}</li> : null}
+
+																				{planData[userPlan]['Platinum'].features.document_upload ? <li className=" first even">{planData[userPlan]['Platinum'].features.document_upload.feature_name} - {planData[userPlan]['Platinum'].features.document_upload.feature_unit=='Limit'?planData[userPlan]['Platinum'].features.document_upload.limit_upto:planData[userPlan]['Platinum'].features.document_upload.confirmation}</li> : null}
+																		
+																				{planData[userPlan]['Platinum'].features.customize_template ? <li className=" first even">{planData[userPlan]['Platinum'].features.customize_template.feature_name} - {planData[userPlan]['Platinum'].features.customize_template.feature_unit=='Limit'?planData[userPlan]['Platinum'].features.customize_template.limit_upto:planData[userPlan]['Platinum'].features.customize_template.confirmation}</li> : null}
+																		
+
 																			</ul>
 																			{/*<div className="submit-btn"> <a href="#">Buy Now</a> </div>*/}
 																		</li>
