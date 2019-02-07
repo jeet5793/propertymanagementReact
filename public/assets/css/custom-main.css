@@ -821,6 +821,28 @@ body ul#price-t-5:hover ul li, body ul.price-t-5:hover ul li {
     padding: 8px 10px;
 }
 
+.propertyDialogContent{
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 81%;
+    opacity: 1;
+    background-color: white;
+    border-radius: 4px;
+    height: 92%;
+}
+
+.propertyDialogContent > div:not(.confirm-body) {
+    padding: 8px 10px;
+}
+
+.propertyDialogBody
+{
+	overflow-y:scroll;
+	height: 92%;
+}
+
 .confirm-header {
     width: 100%;
     border-radius: 4px 4px 0 0;

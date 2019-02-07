@@ -48,7 +48,8 @@ class Home extends React.Component{
 		this.state={
     		properties:[],
 			testimonialDetail:[],
-			showPopup: false
+			showPopup: false,
+			showPropDetail:false
 		}
 		this.onClickClose=this.onClickClose.bind(this)
 		this.onClickImagePreview = this.onClickImagePreview.bind(this)
@@ -245,10 +246,42 @@ onClickClose() {
 		// $("#proImageConfirm").hide();
 		this.setState({showPopup: false});
 	}
+	onClickClosePropDetail=()=>{
+	    
+		// $("#proImageConfirm").hide();
+		this.setState({showPropDetail: false});
+	}
 	addDefaultSrc(ev){
 	  ev.target.src = img_not_available;
 	}
+	onClickPropertyDetail = (id)=>{
+		//e.stopPropagation();
+	 //console.log('detailProp' + JSON.stringify(id));
+	
+	 //this.setState({detailProp:detailProp,showPopup: true});
+	 this.getPropertyDetails(id);
+	}
+	getPropertyDetails(id){
+		$("#loaderDiv").show();
+		fetch(`${API_URL}assetsapi/property_details/`+id)
+		.then((response)=> {        
+			response.json().then((data)=>{
+			$("#loaderDiv").hide();
+				// this.setState({proppertydetails:data.property})
+				// debugger;
+				var owners=[];
+				for(var i=0;i<data.property.length;i++) {
+					for(var j=0;j<data.property[i].owner_details.length;j++) {
+						owners.push(data.property[i].owner_details[j]);
+					}
+				}
+				//this.setState({showPopup: true})
+				this.setState({owners:owners,proppertydetails:data.property[0],showPropDetail:true})
+			})
+		});
+	}
 	render(){
+		const proppertydetails= this.state.proppertydetails;
 		// debugger;
 		return(
 			<div className="mg-top-129">
@@ -357,7 +390,7 @@ onClickClose() {
 																
 																<div className="cbp-l-caption-body"> 
 																	
-																	<Link to={{'pathname':"property-detail",state:property}} className = "cbp-l-caption-buttonLeft" rel="nofollow"><i className="icon-link"></i> </Link> 
+																	<a onClick = {()=>this.onClickPropertyDetail(property.id)} className = "cbp-l-caption-buttonLeft" rel="nofollow"><i className="icon-link"></i> </a> 
 																   <a  className="cbp-l-caption-buttonRight"  onClick={this.onClickImagePreview.bind(this,property.id)} > <i className="icon-plus-circle" ></i> </a> 
 																</div>
 															</div>
@@ -365,7 +398,7 @@ onClickClose() {
 													</div>
 														
 														<div className="tz-property-des">
-															<h5><Link to={{'pathname':"property-detail",state:property}}>{property.title}</Link></h5>
+															<h5><a onClick = {()=>this.onClickPropertyDetail(property.id)}>{property.title}</a></h5>
 															<div className="tz-property-price"> ${property.property_status=='Rent'?property.rent:property.total_amount}&nbsp;<span>/ Month</span> </div>
 															<div className="tz-property-excerpt"> {property.description} </div>
 														</div>
@@ -396,7 +429,111 @@ onClickClose() {
 													</div>
 												</div>
 											</div>  
-										: ''}						
+										: ''}					
+										 {(this.state.showPropDetail) ?
+											<div  id="proImageConfirm" className="BlockUIConfirm product-img-popup" >
+												<div className="blockui-mask"></div>
+												
+                        
+                        	<div className="propertyDialogContent">
+														<div className="confirm-header row-dialog-hdr-success" style={{backgroundColor: "#5cb85c",
+    color: "#fff"}}>
+														  	Property Detail
+													  	<button type="button" className="close" onClick={()=>this.onClickClosePropDetail()}>×</button>
+													  </div>
+                            <div className="confirm-body propertyDialogBody" >
+                              <div className="tz-post tz-property-single" style={{padding: "1px 0 50px"}}>
+                            
+                                    <div className="tz-property-top">
+                                      <h1 className="cbp-l-project-title tz-property-title" > {proppertydetails.title} </h1>
+                                      <div className="tz-property-price">${proppertydetails.property_status=='Rent'?proppertydetails.rent:proppertydetails.total_amount}</div>
+                                      <div className="tz-property-address"> <i className="icon-map-marker"></i>{proppertydetails.address}, {proppertydetails.city}, {proppertydetails.country} </div>
+                                    </div>
+                                    
+                                    <div className="tz-property-content">
+                                    <Carousel showArrows={true} showThumbs={true}>
+                                    {proppertydetails?proppertydetails.img_path.map((imgs,index)=>(
+                                      <div>
+                                        <img onError={this.addDefaultSrc} src={`${API_URL}`+imgs.img_path} alt="" />
+                                      </div>
+                                    )):''}
+                                   
+                                    </Carousel>
+                                {/*  <div className="tz-property-box tz-property-slider">
+                                        <div id="tz-img-single"  className="flexslider">
+                                          <ul className="slides">
+                                          {proppertydetails.img_path.map((imgs,index)=>(
+                                            <li className="tz-slider-for-item" key={index}> <img onError={this.addDefaultSrc} src={`${API_URL}`+imgs.img_path} alt="" /> </li>
+                                            ))}
+                                          </ul>
+                                        </div>
+                                        <div id="tz-img-thumbnail"  className="flexslider">
+                                          <ul className="slides">
+                                          {proppertydetails.img_path.map((imgs,index)=>(
+                                              <li className="tz-slider-item" key={index}>
+                                              <div className="border"></div>
+                                              <img onError={this.addDefaultSrc} src={`${API_URL}`+imgs.img_path} alt="" /> </li>
+                                            ))}   
+                                          </ul>
+                                        </div>
+                                      </div> */}
+                                     {/*  <!-- Nav tabs --> */}
+                                      <ul className="nav nav-tabs" role="tablist">
+                                      <li role="presentation" className="active"><a href="#description" aria-controls="description" role="tab" data-toggle="tab">Description</a></li>
+                                      {/* <li role="presentation"><a href="#features" aria-controls="features" role="tab" data-toggle="tab">Features</a></li> */}
+                                      <li role="presentation"><a href="#details" aria-controls="details" role="tab" data-toggle="tab">Details</a></li>
+                                      <li role="presentation"><a href="#location" aria-controls="location" role="tab" data-toggle="tab">Location</a></li>
+                                    </ul>
+                                      
+                                      {/* <!-- Tab panes content --> */}
+                                      <div className="tab-content"> 
+                                       {/*  <!-- Tab description --> */}
+                                        <div role="tabpanel" className="tab-pane fade in active" id="description">
+                                        <p>{proppertydetails.description}</p>   
+                                      </div>
+                                        
+                                       
+                                        
+                                       {/*<!-- Tab details -->*/}
+                                      <div role="tabpanel" className="tab-pane fade" id="details">
+                                        <div className="col-md-12">
+                                        <div className="row">
+                                          <div className="col-md-4 col-sm-4 cbp-l-project-details-list">
+                                                      <p className="tz-property-detail"> Price:&nbsp; <strong> ${proppertydetails.property_status=='Rent'?proppertydetails.rent:proppertydetails.total_amount} </strong> </p>
+                                                      
+                                                    </div>
+                                            <div className="col-md-4 col-sm-4 cbp-l-project-details-list">
+                                            <p className="tz-property-detail"> Area:&nbsp; <strong> {proppertydetails.square_feet}&nbsp; </strong> </p>
+                                            </div>
+                                            <div className="col-md-4 col-sm-4 cbp-l-project-details-list">
+                                            <p className="tz-property-detail"> Type:&nbsp; <strong> {proppertydetails.property_type} </strong> </p>
+                                                    </div>
+                                            <div className="col-md-4 col-sm-4 cbp-l-project-details-list"><p className="tz-property-detail"> Bedrooms:&nbsp; <strong>  {proppertydetails.bedroom} </strong> </p></div>
+                                            <div className="col-md-4 col-sm-4 cbp-l-project-details-list"><p className="tz-property-detail"> Bathrooms:&nbsp; <strong>  {proppertydetails.bathroom} </strong> </p></div>
+                                            <div className="col-md-4 col-sm-4 cbp-l-project-details-list"><p className="tz-property-detail"> Status:&nbsp; <strong>  {proppertydetails.property_status} </strong> </p></div>
+                                            
+                                          </div>
+                                        </div>
+                                      </div>
+                                        
+                                      {/*   <!-- Tab location --> */}
+                                        <div role="tabpanel" className="tab-pane fade" id="location">
+                                          <div className="cbp-2-project-desc">
+                                            <div className="cbp-l-project-desc-text">
+                                            <iframe style={{width:'100%',height:'auto'}} src={proppertydetails.geo_location} allowFullScreen></iframe>
+                    
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                 
+                            </div>
+
+                            </div>
+                          </div>
+                        </div>
+										: ''}	
 									</div>
 				                   
 									</div>

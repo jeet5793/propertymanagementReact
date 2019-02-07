@@ -48,7 +48,12 @@ import FooterOwner from './Components/Owner/Footer/Footer'
 import NoMatch from './Components/Owner/NoMatch'
 
 import { loadFile, removejscssfile } from './Components/js/external'
+import Cookies from 'js-cookie';
 
+const MINUTES_UNITL_AUTO_LOGOUT = 1 // in mins
+const CHECK_INTERVAL = 15000 // in ms
+const STORE_KEY =  'lastAction';
+ 
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -58,14 +63,61 @@ export default class App extends Component {
       user: {
         isLoggedIn: true
       },
-      loading: false
+      loading: false,
+      userData:Cookies.get('profile_data')
     };
     this.homePaths = ["/", "/Home", "/index", "/AboutUs", "/aboutus", "about", "/property", "/properties", "/blog", "/blog-detail", "/plans", "/contact", "/contactus", "/registration", "/register", "/property-detail", "/register-plans",  "/privacy-policy", "/terms-condition","/social","password-reset"]
     this.FtrCheck = this.FtrCheck.bind(this)
     this.LoggedIn = this.LoggedIn.bind(this)
     this.updateProfileInfo = this.updateProfileInfo.bind(this)
     this.logOut = this.logOut.bind(this)
+    this.check();
+    this.initListener();
+    this.initInterval();
   }
+  getLastAction() {
+    return parseInt(localStorage.getItem(STORE_KEY));
+  }
+  setLastAction(value) {
+    localStorage.setItem(STORE_KEY, value.toString());
+  }
+ 
+  initListener() {
+    document.body.addEventListener('click', () => this.reset());
+    document.body.addEventListener('mouseover',()=> this.reset());
+    document.body.addEventListener('mouseout',() => this.reset());
+    document.body.addEventListener('keydown',() => this.reset());
+    document.body.addEventListener('keyup',() => this.reset());
+    document.body.addEventListener('keypress',() => this.reset());
+  }
+ 
+  reset() {
+    this.setLastAction(Date.now());
+  }
+ 
+  initInterval() {
+    setInterval(() => {
+    this.check();
+    }, CHECK_INTERVAL);
+  }
+ 
+  check() {
+    //alert("isLoggedIn"+JSON.stringify(this.state));
+   if(this.state.couter=='1'){
+    const now = Date.now();
+    const timeleft = this.getLastAction() + MINUTES_UNITL_AUTO_LOGOUT * 60 * 1000;
+    const diff = timeleft - now;
+    const isTimeout = diff < 0;
+    if (isTimeout) {
+      alert('logout'); // Call here logout function, expire session
+      localStorage.clear();
+      Cookies.set('profile_data', '', -1);
+      //this.props.history.push('/');
+      window.location.href="/";
+    }
+   }
+   
+}
   logOut() {
     this.setState({ user: { isLoggedIn: false } })
   }
@@ -86,6 +138,7 @@ export default class App extends Component {
       // this.removeMain();
       this.setState({ couter: 1 })
     } else {
+  
       this.addIndexHeaderFiles();
     }
   }
@@ -124,6 +177,7 @@ export default class App extends Component {
   }
 
   LoggedIn(userId) {
+   
     fetch(`API_URL+assetsapi/profile/` + userId)
       .then(res => res.json())
       .then(

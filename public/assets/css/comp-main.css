@@ -2097,7 +2097,7 @@ a img.aligncenter {
 
 .tz-header .tz-header-bottom .tz-menu .tz-button-icon {
     width: 5%;
-    float: left;
+   
     display: inline-block;
     position: relative;
     z-index: 2
@@ -8646,7 +8646,11 @@ body .tz-post.tz-property-all .wp-pagenavi {
     border-bottom: 1px dotted #ccc;
     position: relative;
     display: block;
-    padding-bottom: 15px
+    padding-bottom: 15px;
+    
+    /* Added on 07/02/2019 */
+    text-align: left;
+    margin-left: 10px;
 }
 
 .tz-property-single .tz-property-top:before,
@@ -41392,4 +41396,60 @@ body .wpb_gallery_slides ul li {
 .blog-detl-pra p{
 	    padding: 5px 0 !important;
     text-align: justify;
+}
+.tz-header-type-1 .navbar-inverse {
+    background-color: #fff;
+    border-color: inherit;
+    border: 0;
+	    border-top: 1px solid #f5f5f5;
+}
+.tz-header-type-1 .navbar {
+    position: relative;
+    min-height: 50px;
+    margin-bottom: 0;
+    border-radius: 0 !important;
+}
+.tz-header-type-1 .navbar-inverse .navbar-nav>li>a {
+    color: #404040;
+    font-weight: 600;
+    line-height: 49px;
+    text-transform: uppercase;
+    padding: 0 30px;
+    -webkit-transition: all 0.3s linear 0s;
+    -moz-transition: all 0.3s linear 0s;
+    -ms-transition: all 0.3s linear 0s;
+    -o-transition: all 0.3s linear 0s;
+    transition: all 0.3s linear 0s;
+    letter-spacing: 0.1px;
+    background: transparent;
+	 cursor: pointer;
+}
+.tz-header-type-1 .navbar-inverse .navbar-nav>li>a:focus, .tz-header-type-1 .navbar-inverse .navbar-nav>li>a:hover{
+	color: #57bb57;
+}
+.tz-header-type-1 .navbar-collapse {
+	 margin: 0 auto;
+}
+.tz-header-type-1 .navbar-nav {
+    float: none;
+    margin: 0 auto;
+    display: table;
+}
+.tz-header-type-1 .navbar-inverse .navbar-toggle:focus, .navbar-inverse .navbar-toggle:hover {
+    background-color: initial;
+}
+.tz-header-type-1 .navbar-inverse .navbar-toggle {
+    background-color: initial;
+    border-radius: 0;
+    border: 0;
+    margin-right: 0;
+	 cursor: pointer;
+}
+.tz-header-type-1 .navbar-inverse .navbar-toggle .icon-bar {
+    background-color: #07272c;
+	 cursor: pointer;
+}
+.tz-header-type-1 .navbar-toggle .icon-bar {
+    display: block;
+    width: 27px;
 }

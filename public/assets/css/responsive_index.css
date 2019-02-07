@@ -68,9 +68,33 @@
 	left: 288px;
 }
 }
- @media (max-width:991px) {
-
-}
+@media (max-width:991px) {
+    .tz-header-type-1 .navbar-nav {
+        float: none;
+        margin: 0;
+        width: 100%;
+    }
+    .collapse.in {
+        display: block !important;
+            background: #07272c;
+        color: #fff;
+            border: 0;
+        padding: 0;
+    }
+    .collapse {
+            background: #07272c;
+        color: #fff;
+            border: 0;
+        padding: 0;
+    }
+    .tz-header-type-1 .navbar-inverse .navbar-nav>li>a {
+            padding: 0 20px;
+        color: #aaa;
+        margin: 0;
+        text-align: left;
+        line-height: 39px;
+    }
+    }
 /* end 991px */
  @media (min-width:768px) {
 }

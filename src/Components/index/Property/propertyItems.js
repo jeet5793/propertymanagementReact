@@ -22,7 +22,7 @@ export default class PropertyItems extends React.Component{
         return(
             
             <div style={{width:"30%",marginRight:30}}    className={"tz-property-content filterDiv cbp-item "+classs}>
-            <Link to={{'pathname':"property-detail",state:this.props.property}}>
+            <a onClick = {()=>this.props.onClickPropertyDetail(this.props.id)}>
             <span className="tz-property-thum cbp-caption" rel="nofollow">
               <div className="cbp-caption-defaultWrap">
                 <figure>
@@ -38,9 +38,9 @@ export default class PropertyItems extends React.Component{
                 </div>
               </div>
             </span>
-            </Link>
+            </a>
             <div className="tz-property-des">
-              <h5><Link to={{'pathname':"property-detail",state:this.props.property}}>{this.props.Title}</Link></h5>
+              <h5><a onClick = {()=>this.props.onClickPropertyDetail(this.props.id)}>{this.props.Title}</a></h5>
               <div className="tz-property-price"> $ {this.props.PropertyStatus=='Rent'?this.props.rent:this.props.total_amount}&nbsp; </div>
               <div className="tz-property-info">
                 <div className="pull-left"> 
@@ -68,7 +68,7 @@ export default class PropertyItems extends React.Component{
                   <a data-toggle="tooltip" data-placement="bottom" title="Add to Favorites"  > 
                   <i className="icon-heart"></i> </a> </span> </div>*/}
                 <span rel="nofollow">
-                <Link to={{'pathname':"property-detail",state:this.props.property}} className="pull-right tz-view" rel="nofollow">VIEW DETAILS</Link></span> </div>
+                <a onClick = {()=>this.props.onClickPropertyDetail(this.props.id)} className="btn pull-right tz-view" rel="nofollow">VIEW DETAILS</a></span> </div>
                 
             </div>
           </div>
