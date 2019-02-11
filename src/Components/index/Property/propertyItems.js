@@ -10,6 +10,7 @@ export default class PropertyItems extends React.Component{
 	  ev.target.src = img_not_available;
 	}
     render(){
+      //console.log('this.props.PropertyStatus'+JSON.stringify(this.props.PropertyStatus));
       var classs=""
       if(this.props.PropertyStatus!=="Rent"){
         classs="for-sale"
@@ -18,11 +19,11 @@ export default class PropertyItems extends React.Component{
       {
        classs="for-rent" 
       }
-	  // console.log('chal pagal'+JSON.stringify(this.props));
+	  
         return(
             
             <div style={{width:"30%",marginRight:30}}    className={"tz-property-content filterDiv cbp-item "+classs}>
-            <a onClick = {()=>this.props.onClickPropertyDetail(this.props.id)}>
+            <a onClick = {()=>this.props.onClickPropertyDetail(this.props.id)} style={{cursor:'pointer'}}>
             <span className="tz-property-thum cbp-caption" rel="nofollow">
               <div className="cbp-caption-defaultWrap">
                 <figure>
@@ -40,7 +41,7 @@ export default class PropertyItems extends React.Component{
             </span>
             </a>
             <div className="tz-property-des">
-              <h5><a onClick = {()=>this.props.onClickPropertyDetail(this.props.id)}>{this.props.Title}</a></h5>
+              <h5><a onClick = {()=>this.props.onClickPropertyDetail(this.props.id)} style={{cursor:'pointer'}}>{this.props.Title}</a></h5>
               <div className="tz-property-price"> $ {this.props.PropertyStatus=='Rent'?this.props.rent:this.props.total_amount}&nbsp; </div>
               <div className="tz-property-info">
                 <div className="pull-left"> 

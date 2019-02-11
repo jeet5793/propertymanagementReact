@@ -1268,3 +1268,18 @@ position: fixed;
     color: #4390a0 ! important;
     height: 34px;
 }
+
+.helpHeading{
+	color: rgb(255, 255, 255);
+    background-color: #0f2d32;
+    border-radius: 5px;
+    padding: 0px 6px;
+    font-size: 16px;
+}
+
+.helpImg
+{
+	width: 80%;
+    height: 360px;
+    margin-left: 103px;
+}

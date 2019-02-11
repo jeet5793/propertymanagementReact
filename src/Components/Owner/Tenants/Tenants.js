@@ -677,7 +677,7 @@ class Tenants extends React.Component{
 					  {/* item.reportId>0?<li className="bgv-download"><a className="bgv-icon bgv-bg" title="Download" href="#" onClick = {this.BgvDownload.bind(this,item.reportId)}><i className="icon-cloud-download"></i></a> </li>:'' */}
 					  <li className="list-inline-item"> <a className="bgv-icon"  title="background Verification" href="#" onClick={this.onClickProfile.bind(this,item.profile_id)}><i className="icon-magnifier"></i></a> </li>
 					   <li className="list-inline-item"> <a className="mesg-icon" data-toggle="modal" data-target="#send-msg" title="Message" href="#" onClick={this.messagerec.bind(this,item.profile_id,item.name)}><i className="icon-bubble" /></a> </li>
-                        <li className="list-inline-item"> <Link to={{"pathname":"/profile-details",state:{profileid:item.profile_id,session:JSON.parse(this.state.userData).session_id,loc: this.props.location}}} className="view-icon"><i className="icon-eye"></i></Link></li>
+                        <li className="list-inline-item"> <Link to={{"pathname":"/owner-tenant-profile",state:{profileid:item.profile_id,session:JSON.parse(this.state.userData).session_id,loc: this.props.location}}} className="view-icon"><i className="icon-eye"></i></Link></li>
 						<li className="list-inline-item"><a style={{cursor:'pointer'}} title="Terminate" onClick = {this.TerminateUser.bind(this,item.profile_id)} className="bgv-icon"><i className="mdi mdi-close"></i></a></li>
                       </ul>
                     </div>

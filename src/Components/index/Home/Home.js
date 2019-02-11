@@ -1,7 +1,7 @@
 import React from 'react'
-import revoslider from '../../../images/revoslider.jpg'
-import night_dark_hotel_luxury from '../../../images/night-dark-hotel-luxury.jpg'
-import img1 from '../../../images/11619641833_5a64c42cce_k-e1464016780977.jpg';
+import SmartPaymentSlider from '../../../images/smart-payment.jpg'
+import agreementSlider from '../../../images/agreement.jpg'
+import bgvSlider from '../../../images/bgv.jpg';
 import img2 from '../../../images/3888165079_ccda0ebacb_o.jpg'
 import img3 from '../../../images/properties-9-2-1024x373.jpg'
 import img4 from '../../../images/properties-9-2-1024x373.jpg'
@@ -292,14 +292,14 @@ onClickClose() {
 				          <div className="wpb_wrapper">
 				            <div className="tz-homeslide-image">
 				              <div className="tz-slider-images">
-				                <div className="tz-slider-item"> <img src={revoslider} alt="revoslider" /> </div>
-				                <div className="tz-slider-item"> <img src={night_dark_hotel_luxury} alt="night-dark-hotel-luxury" /> </div>
-				                <div className="tz-slider-item"> <img src={img1} alt="11619641833_5a64c42cce_k"/> </div>
-				                <div className="tz-slider-item"> <img src={img2} alt="3888165079_ccda0ebacb_o"/> </div>
+				                <div className="tz-slider-item"> <img src={SmartPaymentSlider} alt="smart-payment-slider" /> </div>
+				                <div className="tz-slider-item"> <img src={agreementSlider} alt="agreement-slider" /> </div>
+				                <div className="tz-slider-item"> <img src={bgvSlider} alt="bgv-slider"/> </div>
+				                {/* <div className="tz-slider-item"> <img src={img2} alt="3888165079_ccda0ebacb_o"/> </div> */}
 				              </div>
 				              <div className="tz-center-content">
 				                <div className="tz-overlay"><img src={overlay} width="1920px" height="171px" alt="Assets Watch" /></div>
-				                <h2>FIND YOUR PERFECT HOME TODAY</h2>
+				                {/* <h2>FIND YOUR PERFECT HOME TODAY</h2> */}
 				                {/*<p>WE HAVE 200.000 FOR YOU TO CHOOSE FROM</p>*/}
 				              </div>
 				            </div>

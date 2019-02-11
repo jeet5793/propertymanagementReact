@@ -55,6 +55,7 @@ e.preventDefault();
 				$("#hiddenURL").val("/");
 				$(".confirm-body").html(data.msg);
 				$("#SBlockUIConfirm").show();
+				this.setState({email:''})
 			})
 		})
 	   }
@@ -155,7 +156,7 @@ e.preventDefault();
                     <input type='hidden' name='nl[]' value='0' />
                     <div className="tnp-field tnp-field-email">
                       <label>Email</label>
-                      <input className="tnp-email" type="email" onChange={this.onChangeNewsLetter} name="email" />
+                      <input className="tnp-email" type="email" value={this.state.email} onChange={this.onChangeNewsLetter} name="email" />
 					   <span style={{color: "red"}}>{this.state.errors["email"]}</span>
                     </div>
                     <div className="tnp-field tnp-field-button">

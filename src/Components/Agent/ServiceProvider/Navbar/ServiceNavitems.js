@@ -18,11 +18,11 @@ export default class ServiceNavitems extends Component{
                     <i className="fi-paper"></i>Service
                 </Link>
             </li>
-            <li>
+            {/* <li>
                 <Link to={{pathname:'/agentprovider-users'}}>
                     <i className="fi-box"></i>Users
                 </Link>
-            </li>
+            </li> */}
             <li>
                 <Link to={{pathname:'/agentprovider-settings'}}>
                     <i className="fi-cog "></i>Settings
@@ -45,11 +45,11 @@ export default class ServiceNavitems extends Component{
                     <i className="fi-paper"></i>Service
                 </Link>
             </li>
-            <li>
+            {/* <li>
                 <Link to={{pathname:'/agentprovider-users'}}>
                     <i className="fi-box"></i>Users
                 </Link>
-            </li>
+            </li> */}
             <li>
                 <Link to={{pathname:'/agentprovider-settings'}}>
                     <i className="fi-cog "></i>Settings
@@ -73,11 +73,11 @@ export default class ServiceNavitems extends Component{
                         <i className="fi-paper"></i>Service
                     </Link>
                 </li>
-                <li className="has-submenu active">
+                {/* <li className="has-submenu active">
                     <Link to={{pathname:'/agentprovider-users'}}>
                         <i className="fi-box"></i>Users
                     </Link>
-                </li>
+                </li> */}
                 <li>
                     <Link to={{pathname:'/agentprovider-settings'}}>
                         <i className="fi-cog "></i>Settings
@@ -101,11 +101,11 @@ export default class ServiceNavitems extends Component{
                         <i className="fi-paper"></i>Service
                     </Link>
                 </li>
-                <li>
+               {/*  <li>
                     <Link to={{pathname:'/agentprovider-users'}}>
                         <i className="fi-box"></i>Users
                     </Link>
-                </li>
+                </li> */}
                 <li  className="has-submenu active">
                     <Link to={{pathname:'/agentprovider-settings'}}>
                         <i className="fi-cog "></i>Settings
@@ -129,11 +129,11 @@ export default class ServiceNavitems extends Component{
                         <i className="fi-paper"></i>Service
                     </Link>
                 </li>
-                <li>
+                {/* <li>
                     <Link to={{pathname:'/agentprovider-users'}}>
                         <i className="fi-box"></i>Users
                     </Link>
-                </li>
+                </li> */}
                 <li>
                     <Link to={{pathname:'/agentprovider-settings'}}>
                         <i className="fi-cog "></i>Settings
@@ -157,11 +157,11 @@ export default class ServiceNavitems extends Component{
                         <i className="fi-paper"></i>Service
                     </Link>
                 </li>
-                <li>
+              {/*   <li>
                     <Link to={{pathname:'/agentprovider-users'}}>
                         <i className="fi-box"></i>Users
                     </Link>
-                </li>
+                </li> */}
                 <li>
                     <Link to={{pathname:'/agentprovider-settings'}}>
                         <i className="fi-cog "></i>Settings
@@ -185,11 +185,11 @@ export default class ServiceNavitems extends Component{
                         <i className="fi-paper"></i>Service
                     </Link>
                 </li>
-                <li>
+              {/*   <li>
                     <Link to={{pathname:'/agentprovider-users'}}>
                         <i className="fi-box"></i>Users
                     </Link>
-                </li>
+                </li> */}
                 <li>
                     <Link to={{pathname:'/agentprovider-settings'}}>
                         <i className="fi-cog "></i>Settings

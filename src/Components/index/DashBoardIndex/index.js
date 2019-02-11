@@ -23,6 +23,7 @@ import TermsCondition from '../TermsAndCondotion/TermsCondition';
 import ResetPassword from '../ResetPassword/ResetPassword'
 import SocialLogin from '../SocialLogin/SocialLogin'
 import SocailExternal from '../SocialLogin/externalSocialLogin'
+import HowItWork from '../HowItWork/HowItWork';
 
 
 class DashBoardIndex extends React.Component {
@@ -45,6 +46,7 @@ class DashBoardIndex extends React.Component {
         <Switch>
           <Route exact path='/' component={Home} />
           <Route exact path='/aboutus' component={Aboutus} />
+          <Route exact path='/howitworks' component={HowItWork} />
           <Route exact path='/contactus' component={ContactUs} />
           <Route exact path='/plans' component={Plans} />
           <Route exact path='/blog' component={Blog} />

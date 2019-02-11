@@ -60,8 +60,8 @@ export default class FindYourProperty extends React.Component{
           <h5 className="search-header">Find your property</h5>
         </div>
         <div className="col-md-3 col-sm-3 col-xs-12">
-		  <label style={{border:'none'}}>KEY WORD</label>
-          <input type="text" onChange={this.onChangeHandler}  id="keyword1" name="keyword" placeholder="Enter your keyword..."   />
+		  <label style={{border:'none'}}>Property Name</label>
+          <input type="text" onChange={this.onChangeHandler}  id="keyword1" name="keyword" placeholder="Enter property..."   />
         </div>
         <div className="col-md-3 col-sm-3 col-xs-12 location">
           <label style={{border:'none'}}>LOCATION</label>

@@ -133,7 +133,7 @@ class UserDashboard extends React.Component {
             <Route exact path='/owner-agent' component={Agent} />
             <Route exact path='/owner-tenant' component={Tenant} />
 				{/* <Route exact path='/tenant-profile' component={TenantProfile} /> */}
-			<Route exact path='/profile-details' component={ProfileDetails} />
+			<Route exact path='/owner-tenant-profile' component={ProfileDetails} />
 			<Route exact path='/owner-agent-profile' component={AgentProfileDetails} />
 			<Route exact path='/owner-notifications' component={Notifications} />
 			<Route exact path='/owner-plan' component={OwnerPlan} />

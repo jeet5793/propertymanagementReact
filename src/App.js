@@ -15,6 +15,7 @@ import Home from './Components/index/Home/Home'
 import Footer from './Components/index/footer/footer'
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import Aboutus from './Components/index/AboutUs/aboutus'
+import HowItWork from './Components/index/HowItWork/HowItWork';
 import Property from './Components/index/Property/property'
 import Blog from './Components/index/Blogs/Blogs'
 import BlogDetails from './Components/index/Blogs/BlogsDetails'
@@ -50,7 +51,8 @@ import NoMatch from './Components/Owner/NoMatch'
 import { loadFile, removejscssfile } from './Components/js/external'
 import Cookies from 'js-cookie';
 
-const MINUTES_UNITL_AUTO_LOGOUT = 1 // in mins
+
+const MINUTES_UNITL_AUTO_LOGOUT = 15 // in mins
 const CHECK_INTERVAL = 15000 // in ms
 const STORE_KEY =  'lastAction';
  
@@ -66,7 +68,7 @@ export default class App extends Component {
       loading: false,
       userData:Cookies.get('profile_data')
     };
-    this.homePaths = ["/", "/Home", "/index", "/AboutUs", "/aboutus", "about", "/property", "/properties", "/blog", "/blog-detail", "/plans", "/contact", "/contactus", "/registration", "/register", "/property-detail", "/register-plans",  "/privacy-policy", "/terms-condition","/social","password-reset"]
+    this.homePaths = ["/", "/Home", "/index", "/AboutUs","/howitworks", "/aboutus", "about", "/property", "/properties", "/blog", "/blog-detail", "/plans", "/contact", "/contactus", "/registration", "/register", "/property-detail", "/register-plans",  "/privacy-policy", "/terms-condition","/social","password-reset"]
     this.FtrCheck = this.FtrCheck.bind(this)
     this.LoggedIn = this.LoggedIn.bind(this)
     this.updateProfileInfo = this.updateProfileInfo.bind(this)
@@ -235,6 +237,7 @@ export default class App extends Component {
             <Route path='/owner-agent' component={UserDashboard} />
             <Route path='/owner-tenant' component={UserDashboard} />
             <Route path='/owner-agent-profile' component={UserDashboard} />
+            <Route path='/owner-tenant-profile' component={UserDashboard} />
             <Route exact path='/owner-notifications' component={UserDashboard} />
             <Route exact path='/owner-plan' component={UserDashboard} />
             <Route exact path='/owner-upgrade' component={UserDashboard} />
@@ -321,6 +324,7 @@ export default class App extends Component {
             <Route exact path='/index' render={props => <Home {...props} login={this.LoggedIn} />} />
             {/* <Route exact path='/AboutUs' render={props=><Aboutus {...props} login={this.LoggedIn} />} /> */}
             <Route exact path='/aboutus' render={props => <Aboutus {...props} login={this.LoggedIn} />} />
+            <Route exact path='/howitworks' render={props => <HowItWork {...props} login={this.LoggedIn} />} />
             <Route exact path='/property' render={props => <Property {...props} login={this.LoggedIn} />} />
             {/* <Route exact path='/blog' render={props=><Blog {...props} login={this.LoggedIn} />} /> */}
             <Route exact path='/blog-detail' render={props => <BlogDetails {...props} login={this.LoggedIn} />} />

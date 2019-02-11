@@ -413,7 +413,7 @@ export default class Navitems extends Component{
                 </ul>
                 );
             }
-        else if(this.props.name==="owner-tenant"  || this.props.name==="owner-tenant-bgvpayment")
+        else if(this.props.name==="owner-tenant" || this.props.name==="owner-tenant-profile" || this.props.name==="owner-tenant-bgvpayment")
             {
             return( 
                 <ul className="navigation-menu">
