@@ -356,7 +356,7 @@ updateProps(props){
       
         this.setState({activePage: pageNum, pagedList: propData })
 		// this.setState({activePage: pageNum })
-		 // console.log('activePage'+pageNum+'::pagedList'+JSON.stringify(propData))
+		  //console.log('activePage '+pageNum+'::pagedList '+JSON.stringify(propData))
 		 // alert(pageNum)
   }
   

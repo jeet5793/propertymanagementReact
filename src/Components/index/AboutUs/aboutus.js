@@ -104,6 +104,11 @@ export default class Aaboutus extends React.Component {
   // }
   componentDidMount() {
     var jQuery = window.$
+    setTimeout(function () {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+      $('#tzloadding').remove();
+    }, 800);
     // our agent
     jQuery('.agent-slider').cubeportfolio({
       layoutMode: 'slider',
@@ -582,14 +587,14 @@ addDefaultSrc(ev){
                 <div className="wpb_wrapper">
                   <div className="tz-home-title vc_custom_1468224223219 title tz-responsive-title text-center">
                     <div className="tz-content ">
-                      <h3 className="text-center about-ouser" >Our Agents</h3>
+                     {/*  <h3 className="text-center about-ouser" >Our Agents</h3> */}
                       <div className="tz-title-content">
 
                       </div>
                     </div>
                   </div>
 
-                  <div className="tz-property-home col-md-12 about-ouragents">
+                  {/* <div className="tz-property-home col-md-12 about-ouragents">
                     <div>
                       {this.state.agentList && this.state.agentList.length > 0 ? this.state.agentList.map((agent) => {
                         return (<div className="tz-author-item cbp-item col-md-3" key={agent.agent_id}>
@@ -601,7 +606,7 @@ addDefaultSrc(ev){
                         </div>)
                       }) : ""}
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

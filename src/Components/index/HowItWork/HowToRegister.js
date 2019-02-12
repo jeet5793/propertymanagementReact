@@ -1,21 +1,24 @@
 import React from 'react'
+import {
+    Accordion,
+    AccordionItem,
+    AccordionItemTitle,
+    AccordionItemBody,
+} from 'react-accessible-accordion';
 import registerOwner from '../../../images/helpImage/registration-owner.png';
 import registerAgent from '../../../images/helpImage/registration-agent.png'
 import registerTenant from '../../../images/helpImage/registration-tenant.png'
 
 const HowToRegister = ()=>(
-                <div className="panel panel-default">
-                            <div className="panel-heading">
-                                <h4 className="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">How to register</a>
-                                </h4>
-                            </div>
-                            <div id="collapse1" className="panel-collapse collapse in">
-                                <div className="panel-body">
-                                
-                                                
-                                            
-                                            <div className="row row-margin-bottom">
+                                    <AccordionItem>
+                                        <AccordionItemTitle className="accordianHead">
+                                            <h3 className="u-position-relative">
+                                            How to register?
+                                                <div className="accordion__arrow" role="presentation" />
+                                            </h3>
+                                        </AccordionItemTitle>
+                                        <AccordionItemBody>
+                                        <div className="row row-margin-bottom">
                                                 
                                                 
                                                 <div className="col-md-12 no-padding lib-item" data-category="view">
@@ -42,13 +45,8 @@ const HowToRegister = ()=>(
                                                                 <div className="lib-row lib-desc">
                                                                     <ul>
                                                                         
-                                                                        <li>Fill the basic details as per our registration form.</li>
+                                                                        <li></li>
                                                                         
-                                                                        <li>Select the suitable plan which will reliable for you.</li>
-                                                                        
-                                                                        <li>If you choose the paid service then do the payment and successfully register as a Owner.</li>
-                                                                        
-                                                                        <li>If you choose the free service then directly your account will initiate and you have successfully register as a Owner.</li>
                                                                         
                                                                     </ul>
                                                                     
@@ -80,13 +78,8 @@ const HowToRegister = ()=>(
                                                                 <div className="lib-row lib-desc">
                                                                     <ul>
                                                                         
-                                                                        <li>Fill the basic details as per our registration form.</li>
+                                                                        <li></li>
                                                                         
-                                                                        <li>Select the suitable plan which will reliable for you.</li>
-                                                                        
-                                                                        <li>If you choose the paid service then do the payment and successfully register as a Owner.</li>
-                                                                        
-                                                                        <li>If you choose the free service then directly your account will initiate and you have successfully register as a Owner.</li>
                                                                         
                                                                     </ul>
                                                                     
@@ -117,11 +110,8 @@ const HowToRegister = ()=>(
                                                                 <div className="lib-row lib-desc">
                                                                     <ul>
                                                                         
-                                                                        <li>Fill the basic details as per our registration form.</li>
+                                                                        <li></li>
                                                                         
-                                                                        <li>Select the suitable plan which will reliable for you.</li>
-                                                                        
-                                                                        <li>If you choose the free service then directly your account will initiate and you have successfully register as a Owner.</li>
                                                                         
                                                                     </ul>
                                                                     
@@ -131,23 +121,12 @@ const HowToRegister = ()=>(
                                                             
                                                         </div>
 
-
-
-                                                        
-
-
-
-
                                                     </div>
                                                 </div>
                                                 
                                             </div>
-                                
-                                
-                                
-                                
-                                </div>
-                            </div>
-                            </div>
+                                        </AccordionItemBody>
+                                    </AccordionItem>
+                
    );
    export default HowToRegister;

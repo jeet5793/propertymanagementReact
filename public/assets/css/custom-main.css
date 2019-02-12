@@ -1283,3 +1283,37 @@ position: fixed;
     height: 360px;
     margin-left: 103px;
 }
+
+/* .accordion__title
+{
+	background-color: #f4f4f4;
+    color: #57bb57;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 4px 7px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    background: #fff;
+} */
+
+.accordianHead
+{
+	background-color: #f4f4f4;
+    color: #57bb57;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 4px 7px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    background: #fff;
+}
+
+.u-position-relative
+{
+	position: relative;
+    font-size: 15px;
+	margin: 5px;
+	color:#57bb57;
+}
