@@ -71,7 +71,7 @@ const TableReprt=(props)=>{
 							<th>Sl.No</th>
 							<th>User Type</th>
 							<th>User Name</th>
-							<th>BGV date</th>
+							<th>Background screening date</th>
 							<th>Report type</th>
 							<th>Amount</th>
 							<th>Status</th>
@@ -216,7 +216,7 @@ const FilterCriteria=(props)=>{
 			 <div className="col-md-2">
 			  <select name="trans_for" className="form-control" id="trans_for" onChange={props.change}>
 					  <option>Select Report For</option>
-						  <option value="BGV">BGV</option>
+						  <option value="BGV">Background screening</option>
 						 <option value="Plan Subscription">Plan Subscription</option>
 						  <option value="Agreement Purchase">Agreement Purchase</option>
 					</select>

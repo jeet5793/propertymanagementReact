@@ -228,7 +228,7 @@ const OwnerFeature = ()=>(
                                     
                                     <div className="col-md-12">
                                         <div className="lib-row lib-header">
-                                            <h4 className="helpHeading">Check BGV for Agent & Tenant</h4>
+                                            <h4 className="helpHeading">Check Background screening for Agent & Tenant</h4>
                                             <div className="lib-header-seperator"></div>
                                         </div>
                                     </div>	

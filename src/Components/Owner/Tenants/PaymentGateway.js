@@ -409,7 +409,7 @@ changeNameHandler(e)
 												<div className="row">
 													<div className="col-md-7">
 														<h5>Pay Now</h5>
-														<p>BGV Payment</p>
+														<p>Background screening Payment</p>
 													</div>
 													<div className="col-md-5 text-right">
 													<h5> Amount</h5>
@@ -527,7 +527,7 @@ changeNameHandler(e)
 												<div className="row">
 													<div className="col-md-7">
 														<h5>Pay Now</h5>
-														<p>BGV Payment</p>
+														<p>Background screening Payment</p>
 													</div>
 													<div className="col-md-5 text-right">
 													<h5>Amount</h5>

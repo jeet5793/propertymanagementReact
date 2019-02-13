@@ -196,7 +196,7 @@ BgvDownload(reportId){
                             <hr />
 							<ul className="nav nav-tabs tabs-bordered">
 								<li className="nav-item"> <a href="#about" data-toggle="tab" onClick={this.changeTabs.bind(this, "about")} id="aboutTab" aria-expanded="true" className="nav-link font-16 active">About  </a> </li>
-								<li className="nav-item"> <a href="#bgv" data-toggle="tab" onClick={this.changeTabs.bind(this, "bgv")} id="bgvTab" aria-expanded="false" className="nav-link font-16">BGV  </a> </li>
+								<li className="nav-item"> <a href="#bgv" data-toggle="tab" onClick={this.changeTabs.bind(this, "bgv")} id="bgvTab" aria-expanded="false" className="nav-link font-16">Background screening  </a> </li>
 								
                             </ul>
                                <div className="tab-content">
