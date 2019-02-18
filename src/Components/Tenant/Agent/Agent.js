@@ -601,7 +601,7 @@ constructor(props) {
               <ul className="nav nav-tabs tabs-bordered">
                 <li className="nav-item"> <a href="#joined-agent" data-toggle="tab" onClick={this.changeTabs.bind(this, "joined-agent")} id="joined" aria-expanded="true" className="nav-link font-16 active">Joined Agents <span className="badge badge-success m-l-10">{joinedUserList.length}</span> </a> </li>
                         <li className="nav-item"> <a href="#agent-request" onClick={this.changeTabs.bind(this, "agent-request")} id="request" data-toggle="tab" aria-expanded="false" className="nav-link font-16">Agent Requested <span className="badge badge-danger m-l-10">{requestedUserList.length}</span> </a> </li>
-						<li className="nav-item"> <a href="#invite-status" onClick={this.changeTabs.bind(this, "invite-status")} id="invitestatusTab"  data-toggle="tab" aria-expanded="false" className="nav-link font-16">Invited Agent </a> </li>
+							{/* <li className="nav-item"> <a href="#invite-status" onClick={this.changeTabs.bind(this, "invite-status")} id="invitestatusTab"  data-toggle="tab" aria-expanded="false" className="nav-link font-16">Invited Agent </a> </li> */}
 						<li className="nav-item"> <a href="#connection-history" onClick={this.changeTabs.bind(this, "connection-history")} id="connTab"  data-toggle="tab" aria-expanded="false" className="nav-link font-16">Connection History </a> </li>
               </ul>
               <div className="tab-content">

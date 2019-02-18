@@ -585,7 +585,7 @@ class TenantOwner extends React.Component {
             <ul className="nav nav-tabs tabs-bordered">
             <li className="nav-item"> <a href="#joined-owner" data-toggle="tab" onClick={this.changeTabs.bind(this, "joined-owner")} id="joined" aria-expanded="true" className="nav-link active font-16">Joined Owners <span className="badge badge-success m-l-10">{joinedUserList.length}</span> </a> </li>
             <li className="nav-item"> <a href="#owner-request" data-toggle="tab" onClick={this.changeTabs.bind(this, "owner-request")} id="request" aria-expanded="false" className="nav-link font-16">Owner Requested <span className="badge badge-danger m-l-10">{requestedUserList.length}</span> </a> </li>
-			<li className="nav-item"> <a href="#invite-status" onClick={this.changeTabs.bind(this, "invite-status")} id="invitestatusTab"  data-toggle="tab" aria-expanded="false" className="nav-link font-16">Invited Owner </a> </li>
+				{/* <li className="nav-item"> <a href="#invite-status" onClick={this.changeTabs.bind(this, "invite-status")} id="invitestatusTab"  data-toggle="tab" aria-expanded="false" className="nav-link font-16">Invited Owner </a> </li> */}
 			<li className="nav-item"> <a href="#connection-history" onClick={this.changeTabs.bind(this, "connection-history")} id="connTab"  data-toggle="tab" aria-expanded="false" className="nav-link font-16">Connection History </a> </li>
             </ul>
             <div className="tab-content">

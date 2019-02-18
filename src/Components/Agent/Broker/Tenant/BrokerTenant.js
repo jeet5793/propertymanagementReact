@@ -653,7 +653,7 @@ TerminateUser(id){
               <ul className="nav nav-tabs tabs-bordered">
                 <li className="nav-item"> <a href="#joined-tenant" data-toggle="tab" aria-expanded="true" onClick={this.changeTabs.bind(this, "joined-tenant")} id="joined" className="nav-link active font-16">Joined Tenants <span className="badge badge-success m-l-10">{joinedUserList.length}</span> </a> </li>
                 <li className="nav-item"> <a href="#tenant-request" data-toggle="tab" onClick={this.changeTabs.bind(this, "tenant-request")} id="request" aria-expanded="false" className="nav-link font-16">Tenant Requested <span className="badge badge-danger m-l-10">{requestedUserList.length}</span> </a> </li>
-				<li className="nav-item"> <a href="#invite-status" onClick={this.changeTabs.bind(this, "invite-status")} id="invitestatusTab"  data-toggle="tab" aria-expanded="false" className="nav-link font-16">Invited Tenant </a> </li>
+					{/* <li className="nav-item"> <a href="#invite-status" onClick={this.changeTabs.bind(this, "invite-status")} id="invitestatusTab"  data-toggle="tab" aria-expanded="false" className="nav-link font-16">Invited Tenant </a> </li> */}
 				<li className="nav-item"> <a href="#connection-history" onClick={this.changeTabs.bind(this, "connection-history")} id="connTab"  data-toggle="tab" aria-expanded="false" className="nav-link font-16">Connection History </a> </li>
               </ul>
               <div className="tab-content">

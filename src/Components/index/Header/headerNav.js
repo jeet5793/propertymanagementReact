@@ -973,10 +973,10 @@ class Headernav extends React.Component {
                 <label>Password</label>
                 <input type="password" className="form-control" onChange={this.onChangeHandler} name="password" id="password" placeholder="Password"/>
                 </div>
-                <div className="remember-checkbox">
+                {/* <div className="remember-checkbox">
                 <input type="checkbox" name="one" id="one" />
                 <label className="remember" htmlFor="one">Remember me</label>
-                </div>
+	</div> */}
 				
 
 				<div className="form-group">

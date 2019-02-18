@@ -32,10 +32,12 @@ export default class Property extends React.Component{
 	 activePage: 1,
      itemsCountPerPage: 3,
      //isShowing: false
-     showPopup:false
+     showPopup:false,
+     pagedList:[]
     }    
     this.updateProps=this.updateProps.bind(this)
     this.onClickPropertyDetail =this.onClickPropertyDetail.bind(this);
+    this.handlePageChange = this.handlePageChange.bind(this);
   }
   updatePropertyGrid(property){
     // debugger;
@@ -62,7 +64,7 @@ export default class Property extends React.Component{
             if(property[i].id==this.state.properties[i].id)
             arr.push(this.state.properties[i])
           }
-          // this.setState({properties:arr})
+           this.setState({properties:arr})
           // this.updateProps(arr)  /property-details
           // if(arr.length>0)
           // this.props.history.push({'pathname':"property-details",state:arr})
@@ -342,22 +344,23 @@ updateProps(props){
  
   handlePageChange = (pageNum) => {
 
-	let number = pageNum - 1;
+  let number = pageNum - 1;
+  
 		 // console.log('pageNum'+pageNum+'::propData'+JSON.stringify(this.state.properties))
         const { properties, itemsCountPerPage } = this.state;
-		 var propData = '';
+		 //var propData = '';
 		 if (this.props.location && this.props.location.state){
-			
+		
 			   var propData =  this.props.location.state.state.properties.slice((itemsCountPerPage * number), (itemsCountPerPage * pageNum));
-		 }else{
-			   var propData = properties.slice((itemsCountPerPage * number), (itemsCountPerPage * pageNum));
-		 }
-				
+         this.setState({activePage: pageNum})
+         this.setState({pagedList: propData})
+        }else{
       
-        this.setState({activePage: pageNum, pagedList: propData })
-		// this.setState({activePage: pageNum })
-		  //console.log('activePage '+pageNum+'::pagedList '+JSON.stringify(propData))
-		 // alert(pageNum)
+         var propData = properties.slice((itemsCountPerPage * number), (itemsCountPerPage * pageNum));
+          
+     }
+     this.setState({pagedList: propData,activePage: pageNum})
+	
   }
   
   TopAgentList(){
@@ -487,6 +490,14 @@ updateProps(props){
         var $=window.$;
         $('html, body').animate({scrollTop: 0}, 500); 
   }
+
+/*   shouldComponentUpdate(nextProps, nextState) {
+     if (this.props === nextProps) {
+      return false;
+    } else {
+      return true;
+    } 
+  } */
   /* openModalHandler = () => {
     this.setState({
         isShowing: true
@@ -568,11 +579,11 @@ getPropertyDetails(id){
                     </div>
                   </div>
               </div>
-
+    
               <div id="js-grid-meet-the-team" className="cbp cbp-l-grid-team grid" >
-              {pagePropertyList.map(property=>(
-                <PropertItem  updatePropertyGrid={this.updatePropertyGrid} ownerDetails={this.state.owners} property={property} total_amount={property.total_amount}  rent={property.rent}  Title={property.title} description={property.description} square_feet={property.square_feet} src={(property.img_path!=undefined&&property.img_path.length>0&&property.img_path[0].img_path!=undefined)?API_URL+property.img_path[0].img_path:''} PropertyStatus={property.property_status} onClickPropertyDetail={this.onClickPropertyDetail} id={property.id} />
-              ))}            
+              {pagePropertyList && pagePropertyList.map(property=>(
+                <PropertItem key={property.title} updatePropertyGrid={this.updatePropertyGrid} ownerDetails={this.state.owners} property={property} total_amount={property.total_amount}  rent={property.rent}  Title={property.title} description={property.description} square_feet={property.square_feet} src={(property.img_path!=undefined&&property.img_path.length>0&&property.img_path[0].img_path!=undefined)?API_URL+property.img_path[0].img_path:''} PropertyStatus={property.property_status} onClickPropertyDetail={this.onClickPropertyDetail} id={property.id} />
+              ))}       
                   
               </div>
 			    <div className='wp-pagenavi'> 
