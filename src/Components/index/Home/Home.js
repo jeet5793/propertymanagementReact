@@ -292,9 +292,9 @@ onClickClose() {
 				          <div className="wpb_wrapper">
 				            <div className="tz-homeslide-image">
 				              <div className="tz-slider-images">
-				                <div className="tz-slider-item"> <img src={SmartPaymentSlider} alt="smart-payment-slider" /> </div>
-				                <div className="tz-slider-item"> <img src={agreementSlider} alt="agreement-slider" /> </div>
-				                <div className="tz-slider-item"> <img src={bgvSlider} alt="bgv-slider"/> </div>
+				                <div className="tz-slider-item"> <img src={SmartPaymentSlider} className="img-responsive slider-img" alt="smart-payment-slider" /> </div>
+				                <div className="tz-slider-item"> <img src={agreementSlider} className="img-responsive slider-img" alt="agreement-slider" /> </div>
+				                <div className="tz-slider-item"> <img src={bgvSlider} className="img-responsive slider-img" alt="bgv-slider"/> </div>
 				                {/* <div className="tz-slider-item"> <img src={img2} alt="3888165079_ccda0ebacb_o"/> </div> */}
 				              </div>
 				              <div className="tz-center-content">

@@ -444,7 +444,7 @@ unsubscribe()
 																	onClick={() => {
 																			let setPlanID = planData['Platinum'].plan_details.plan_id
 																			let getPlanId = setPlanID.toString();
-																			let amount = planData['Gold'].plan_details.per_month;
+																			let amount = planData['Platinum'].plan_details.per_month;
 																			this.props.history.push({pathname: '/broker-upgrade',
 																			state: { PlanId: getPlanId,Pay:'per_month',userId:profileDetail.assets_id,Amount:amount }})
 																		}} />
@@ -457,7 +457,7 @@ unsubscribe()
 																	onClick={() => {
 																			let setPlanID = planData['Platinum'].plan_details.plan_id
 																			let getPlanId = setPlanID.toString();
-																			let amount = planData['Gold'].plan_details.per_annum;
+																			let amount = planData['Platinum'].plan_details.per_annum;
 																			this.props.history.push({pathname: '/broker-upgrade',
 																			state: { PlanId: getPlanId,Pay:'per_annum',userId:profileDetail.assets_id,Amount:amount }})
 																		}}/>

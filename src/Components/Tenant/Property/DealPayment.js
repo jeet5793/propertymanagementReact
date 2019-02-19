@@ -611,7 +611,7 @@ changeNameHandler(e)
 										<div className="col-sm-4">
 									   <div className="form-group">
 										 <label data-toggle="tooltip" title data-original-title="3 digits code on back side of the card">CVV<span className="required"/> <i className="fa fa-question-circle" /></label>
-										 <input className="form-control" ref="cvv" name="cvv" onChange={this.changecvvHandler}  type="text" />
+										 <input className="form-control" ref="cvv" name="cvv" onChange={this.changecvvHandler}  type="password" />
 									   </div> {/* form-group.// */}
 									 </div>
 									</div>{/* <!-- row.// -->*/}

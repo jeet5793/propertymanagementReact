@@ -82,7 +82,7 @@ export default class BrokerOnlinePayment extends React.Component{
                             <div className="col-sm-4">
                               <div className="form-group">
                                 <label data-toggle="tooltip" title data-original-title="3 digits code on back side of the card">CVV <i className="fa fa-question-circle" /></label>
-                                <input className="form-control" required type="text" />
+                                <input className="form-control" required type="password" />
                               </div> {/* form-group.// */}
                             </div>
                           </div> {/* row.// */}

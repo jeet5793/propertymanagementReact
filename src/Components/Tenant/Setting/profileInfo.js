@@ -307,7 +307,7 @@ Countries() {
 								<label htmlFor="SSN_EIN">SSN/EIN</label>
 							  </div>
 							  <div className="col-lg-5 col-md-4 col-sm-4 snv">
-								<input type="text" className="form-control" name="SSN_EIN"  id="SSN_EIN" value={this.state.profileSetting.SSN_EIN || this.state.profile.SSN_EIN || ''} onChange={this.onChangeHandler} placeholder="" required />
+								<input type="password" className="form-control" name="SSN_EIN"  id="SSN_EIN" value={this.state.profileSetting.SSN_EIN || this.state.profile.SSN_EIN || ''} onChange={this.onChangeHandler} placeholder="" required />
 							  </div>
 							</div>
 						  </div>

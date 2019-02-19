@@ -342,7 +342,7 @@ onChangeACH(e){
 									<div className="card-box">
                             <ul className="nav nav-tabs tabs-bordered nav-justified">
                                 <li className="nav-item"> <a href="#credit-card" data-toggle="tab" onClick={this.changeTabs.bind(this, "credit-card")} id="CCTab" aria-expanded="true" className="nav-link font-16 active">Credit Card  </a> </li>
-									<li className="nav-item"> <a href="#ach" data-toggle="tab" onClick={this.changeTabs.bind(this, "ach")} id="ACHTab" aria-expanded="false" className="nav-link font-16">ACH  </a> </li>
+									{/* <li className="nav-item"> <a href="#ach" data-toggle="tab" onClick={this.changeTabs.bind(this, "ach")} id="ACHTab" aria-expanded="false" className="nav-link font-16">ACH  </a> </li> */}
                             </ul>
                             <div className="tab-content ">
                                 <div className="tab-pane fade show active" id="credit-card">
@@ -443,7 +443,7 @@ onChangeACH(e){
 										<div className="col-sm-4">
 									   <div className="form-group">
 										 <label data-toggle="tooltip" title data-original-title="3 digits code on back side of the card">CVV<span className="required"/> <i className="fa fa-question-circle" /></label>
-										 <input className="form-control" ref="cvv" name="cvv" onChange={this.changecvvHandler}  type="text" />
+										 <input className="form-control" ref="cvv" name="cvv" onChange={this.changecvvHandler}  type="password" />
 									   </div> {/* form-group.// */}
 									 </div>
 									</div>{/* <!-- row.// -->*/}

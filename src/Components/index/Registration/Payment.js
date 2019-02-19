@@ -506,9 +506,9 @@ var user_detail = this.state.userDetails;
 							<li className="active">
 								<a href="#credit-card" data-toggle="pill" onClick={this.changeTabs.bind(this, "credit-card")} id="CCTab" aria-expanded="true" className="nav-link font-16 active">Credit Card  </a>
 							</li>
-							<li>
+							{/* <li>
 							<a href="#ach" data-toggle="pill" onClick={this.changeTabs.bind(this, "ach")} id="ACHTab" aria-expanded="false" className="nav-link font-16">ACH  </a>
-							</li>
+	</li> */}
 						</ul>
 						<div className="tab-content tab-cnt">
 							<div id="credit-card" className="tab-pane fade in active">
@@ -616,7 +616,7 @@ var user_detail = this.state.userDetails;
 																		<div className="col-sm-4">
 																	   <div className="form-group">
 																		 <label data-toggle="tooltip" title data-original-title="3 digits code on back side of the card">CVV<span className="required"/> <i className="fa fa-question-circle" /></label>
-																		 <input className="form-control" ref="cvv" name="cvv" onChange={this.changecvvHandler}  type="text" />
+																		 <input className="form-control" ref="cvv" name="cvv" onChange={this.changecvvHandler}  type="password" />
 																	   </div> {/* form-group.// */}
 																	 </div>
 																	</div>{/* <!-- row.// -->*/}
