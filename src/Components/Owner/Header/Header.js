@@ -215,7 +215,18 @@ onHoverNoti()
 	}
 	onClickSwitch(assetstype)
 	{
-		const opts = {email:JSON.parse(this.state.userData).email,assets_type:assetstype,password:this.state.userTypeList[0].password}
+		
+		var crypto = require('crypto');
+		var passText =this.state.userTypeList[0].password;
+		if(passText!=undefined){
+			var key = "315a5504d921f8327f73a356d2bbcbf1";
+			var iv = new Buffer(passText.substring(0,32), 'hex');
+			var dec = crypto.createDecipheriv('aes-256-cbc',key,iv);
+			var decryptedPass = Buffer.concat([dec.update(new Buffer(passText.substring(32),'base64')), dec.final()]);
+			var decryptedPassText = decryptedPass.toString();
+			//console.log('DECRYPTED TEXT: '+decrypted.toString());
+		}
+		const opts = {email:JSON.parse(this.state.userData).email,assets_type:assetstype,password:decryptedPassText}
 		 // console.log('swl'+JSON.stringify(opts))
 		fetch(`${API_URL}assetsapi/login`, {
 			  method: 'POST',

@@ -28,8 +28,8 @@ export default class Agent extends React.Component{
 				user_id:'',
 				login_user_id:''
 			},
-			redirect:false
-				
+			redirect:false,
+		bgvPkgInfo:[]		
 		};
 		 this.onChangeBGVHandler=this.onChangeBGVHandler.bind(this);
 	   this.onClickBGVFormSubmit = this.onClickBGVFormSubmit.bind(this);
@@ -78,7 +78,7 @@ export default class Agent extends React.Component{
 			 bgFields.SSN_EIN=e.target.value;
 		 if(e.target.name=='packageid'){
 			  bgFields.packageid=e.target.value;
-			  this.bgvChargeInfo(bgFields.packageid);
+			  this.bgvChargeInfo(e.target.value);
 		 }
 			
 		 
@@ -112,7 +112,7 @@ export default class Agent extends React.Component{
 	 onClickBGVFormSubmit(){
 		 // console.log('opts'+JSON.stringify(this.state.bgForm))
 		 var opts = Object.assign(this.props.profileData,this.state.bgForm);
-		opts.bgvAmt = this.state.bgvPkgInfo.amount;
+		
 		 // this.props.history.push('/')
 		 // console.log('opts'+JSON.stringify(opts))
 		 if(!opts.first_name)
@@ -172,6 +172,21 @@ export default class Agent extends React.Component{
 			 alert('Package must be selected');
 			 return;
 		 }
+		if(this.state.bgForm.SSN_EIN==undefined){
+			
+			var crypto = require('crypto');
+			var ssnText = this.props.profileData.SSN_EIN;
+			var key = "315a5504d921f8327f73a356d2bbcbf1";
+			var iv = new Buffer(ssnText.substring(0,32), 'hex');
+			var dec = crypto.createDecipheriv('aes-256-cbc',key,iv);
+			var decrypted = Buffer.concat([dec.update(new Buffer(ssnText.substring(32),'base64')), dec.final()]);
+			
+			opts.SSN_EIN = decrypted.toString();
+		}
+		
+			opts.bgvAmt = this.state.bgvPkgInfo.amount;
+		
+		
 		 localStorage.setItem("opts", JSON.stringify(opts));
 		 this.setState({redirect: true})
 		// this.props.history.push('/bgvpayment');
@@ -224,6 +239,17 @@ if (this.state.redirect){
                 
             }} />)
 		}
+		var crypto = require('crypto');
+		var ssnText = this.props.profileData.SSN_EIN;
+		if(ssnText!=undefined){
+			var key = "315a5504d921f8327f73a356d2bbcbf1";
+			var iv = new Buffer(ssnText.substring(0,32), 'hex');
+			var dec = crypto.createDecipheriv('aes-256-cbc',key,iv);
+			var decrypted = Buffer.concat([dec.update(new Buffer(ssnText.substring(32),'base64')), dec.final()]);
+			var decryptedText = decrypted.toString();
+			//console.log('DECRYPTED TEXT: '+decryptedText);
+		}
+		//console.log('ssnText'+decrypted)
 	return(
 			
 			<div>
@@ -333,7 +359,7 @@ if (this.state.redirect){
 							  <label className="control-label">SSN</label>
 							</div>
 							<div className="col-md-4">
-							  <input type="text" className="form-control" name="SSN_EIN"  id="SSN_EIN" value={this.state.bgForm.SSN_EIN || this.props.profileData.SSN_EIN || ''} onChange={this.onChangeBGVHandler} placeholder="" />
+							  <input type="password" className="form-control" name="SSN_EIN"  id="SSN_EIN" value={this.state.bgForm.SSN_EIN || decryptedText || ''} onChange={this.onChangeBGVHandler} placeholder="" />
 							</div>
 						  </div>
 						</div>

@@ -207,7 +207,17 @@ var user_detail = this.state.userDetails;
 			   if(result.msg.indexOf("Registered Successfully")!=-1)
 			   {	
 		   // console.log(JSON.stringify(this.state.userDetails));
-				var opts = {"email":this.state.userDetails.email,"password":this.state.userDetails.password,"assets_type":this.state.userDetails.assets_type};
+			   var crypto = require('crypto');
+				var passText = this.state.userDetails.password;
+				if(passText!=undefined){
+					var key = "315a5504d921f8327f73a356d2bbcbf1";
+					var iv = new Buffer(passText.substring(0,32), 'hex');
+					var dec = crypto.createDecipheriv('aes-256-cbc',key,iv);
+					var decrypted = Buffer.concat([dec.update(new Buffer(passText.substring(32),'base64')), dec.final()]);
+					var decryptedPass = decrypted.toString();
+					//console.log('DECRYPTED TEXT: '+decrypted.toString());
+				}
+				var opts = {"email":this.state.userDetails.email,"password":decryptedPass,"assets_type":this.state.userDetails.assets_type};
 				// console.log(JSON.stringify(this.state.opts));
 				   fetch(`${API_URL}assetsapi/login/`, {
 							method: 'post',
@@ -363,7 +373,17 @@ var user_detail = this.state.userDetails;
 			   if(result.msg.indexOf("Registered Successfully")!=-1)
 			   {	
 		   // console.log(JSON.stringify(this.state.userDetails));
-				var opts = {"email":this.state.userDetails.email,"password":this.state.userDetails.password,"assets_type":this.state.userDetails.assets_type};
+		    var crypto = require('crypto');
+				var passText = this.state.userDetails.password;
+				if(passText!=undefined){
+					var key = "315a5504d921f8327f73a356d2bbcbf1";
+					var iv = new Buffer(passText.substring(0,32), 'hex');
+					var dec = crypto.createDecipheriv('aes-256-cbc',key,iv);
+					var decrypted = Buffer.concat([dec.update(new Buffer(passText.substring(32),'base64')), dec.final()]);
+					var decryptedPass = decrypted.toString();
+					//console.log('DECRYPTED TEXT: '+decrypted.toString());
+				}
+				var opts = {"email":this.state.userDetails.email,"password":decryptedPass,"assets_type":this.state.userDetails.assets_type};
 				// console.log(JSON.stringify(this.state.opts));
 				   fetch(`${API_URL}assetsapi/login/`, {
 							method: 'post',

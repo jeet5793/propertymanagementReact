@@ -154,6 +154,17 @@ import $ from 'jquery';
 		// console.log(this.state.profileSetting)
 		// console.log(this.state.profile)
 		var settingOpts= Object.assign(this.state.profile, this.state.profileSetting);
+		if(this.state.profileSetting.SSN_EIN==undefined){
+			
+			var crypto = require('crypto');
+			var ssnText = this.state.profile.SSN_EIN;
+			var key = "315a5504d921f8327f73a356d2bbcbf1";
+			var iv = new Buffer(ssnText.substring(0,32), 'hex');
+			var dec = crypto.createDecipheriv('aes-256-cbc',key,iv);
+			var decrypted = Buffer.concat([dec.update(new Buffer(ssnText.substring(32),'base64')), dec.final()]);
+			
+			settingOpts.SSN_EIN = decrypted.toString();
+		}
 		settingOpts.session_id = JSON.parse(this.state.userData).session_id
 	  $("#loaderDiv").show();
       fetch(`${API_URL}assetsapi/setting_profile/`, {
@@ -232,6 +243,16 @@ Countries() {
   }
     render(){
 		//console.log(this.state.profile);
+		var crypto = require('crypto');
+		var ssnText = this.state.profile.SSN_EIN;
+		if(ssnText!=undefined){
+			var key = "315a5504d921f8327f73a356d2bbcbf1";
+			var iv = new Buffer(ssnText.substring(0,32), 'hex');
+			var dec = crypto.createDecipheriv('aes-256-cbc',key,iv);
+			var decrypted = Buffer.concat([dec.update(new Buffer(ssnText.substring(32),'base64')), dec.final()]);
+			var decryptedText = decrypted.toString();
+			//console.log('DECRYPTED TEXT: '+decrypted.toString());
+		}
         return(
 			<div>
 					
@@ -307,7 +328,7 @@ Countries() {
 								<label htmlFor="SSN_EIN">SSN/EIN</label>
 							  </div>
 							  <div className="col-lg-5 col-md-4 col-sm-4 snv">
-								<input type="password" className="form-control" name="SSN_EIN"  id="SSN_EIN" value={this.state.profileSetting.SSN_EIN || this.state.profile.SSN_EIN || ''} onChange={this.onChangeHandler} placeholder="" required />
+								<input type="password" className="form-control" name="SSN_EIN"  id="SSN_EIN" value={this.state.profileSetting.SSN_EIN || decryptedText || ''} onChange={this.onChangeHandler} placeholder="" required />
 							  </div>
 							</div>
 						  </div>
