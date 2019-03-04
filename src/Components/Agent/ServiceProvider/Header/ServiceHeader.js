@@ -54,7 +54,7 @@ logout(id){
 }
  componentDidMount(){
 		this.getNotification();
-		const opts = {email:JSON.parse(this.state.userData).email,assets_type:JSON.parse(this.state.userData).assetsTypeId}
+		const opts = {email:JSON.parse(this.state.userData).email,assets_type:JSON.parse(this.state.userData).assetsTypeId,agent_type:JSON.parse(this.state.userData).agentType}
 		 // console.log('sw'+JSON.stringify(opts))
 		fetch(`${API_URL}assetsapi/switch_usertype`, {
 			  method: 'POST',
@@ -145,9 +145,21 @@ this.profile();
 		  ) 
 	  
 	}
-	onClickSwitch(assetstype)
+	onClickSwitch(assetstype,agent_type)
 	{
-		const opts = {email:JSON.parse(this.state.userData).email,assets_type:assetstype,password:this.state.userTypeList[0].password}
+		var crypto = require('crypto');
+		var passText =this.state.userTypeList[0].password;
+		if(passText!=undefined){
+			var key = "315a5504d921f8327f73a356d2bbcbf1";
+			var iv = new Buffer(passText.substring(0,32), 'hex');
+			var dec = crypto.createDecipheriv('aes-256-cbc',key,iv);
+			var decryptedPass = Buffer.concat([dec.update(new Buffer(passText.substring(32),'base64')), dec.final()]);
+			var decryptedPassText = decryptedPass.toString();
+			//console.log('DECRYPTED TEXT: '+decrypted.toString());
+		}
+		const opts = {email:JSON.parse(this.state.userData).email,assets_type:assetstype,password:decryptedPassText,agent_type:agent_type}
+		 // console.log('swl'+JSON.stringify(opts))
+
 		 // console.log('swl'+JSON.stringify(opts))
 		fetch(`${API_URL}assetsapi/login`, {
 			  method: 'POST',
@@ -185,7 +197,7 @@ this.profile();
 										{
 											window.location.href = '/agent-broker';
 										}
-										else{
+										else if(data.userdata.agentType==="Service Provider"){
 											window.location.href = '/agent-serviceprovider';
 										}
 									   
@@ -280,8 +292,8 @@ this.profile();
 							
 							{(this.state.userTypeList).length>0?<span className="dropdown-item notify-item">Switch To</span>:''}
 						{this.state.userTypeList?this.state.userTypeList.map((item)=>( 
-							<a href="javascript:void(0);" className="dropdown-item notify-item" onClick = {this.onClickSwitch.bind(this,item.assets_type)}> <i className="dripicons-user" />{item.assets_type=='2'?'Agent':item.assets_type=='3'?'Tenant':item.assets_type=='1'?'Owner':''}</a> )):''}
-							{(this.state.userTypeList).length>0?<hr/>:''}
+							<a href="javascript:void(0);" className="dropdown-item notify-item" onClick = {this.onClickSwitch.bind(this,item.assets_type,item.agent_type)}> <i className="dripicons-user" />{(item.assets_type=='2' && item.agent_type=='2')?'Agent':item.assets_type=='3'?'Tenant':item.assets_type=='1'?'Owner':(item.assets_type=='2' && item.agent_type=='1')?'Service Provider':''}</a> )):''}
+								{(this.state.userTypeList).length>0?<hr/>:''}
                             {/* item*/} 
                            <a href="javascript:void(0);" className="dropdown-item notify-item" onClick={this.logout.bind(this,JSON.parse(this.state.userData).assets_id)}> <i className="dripicons-power" /> <span >Logout</span> </a> </div>
                         </li>

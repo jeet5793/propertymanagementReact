@@ -142,6 +142,7 @@ export default class RegistrationForm extends React.Component {
 				  return response.json();
 				})
 				.then((data) => {
+					 $("#loaderDiv").hide();
 				  // console.log('dataaaa:  ', data);
 				  if(data){
 					var userid = data.user.assets_id

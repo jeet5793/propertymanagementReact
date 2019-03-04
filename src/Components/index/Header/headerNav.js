@@ -30,6 +30,7 @@ class Headernav extends React.Component {
 		  social_links:'',
 		 fgtemail:'',
 		 auth:'',
+		 agent_type:'',
 		 profileData:[]
 
         }
@@ -76,6 +77,7 @@ class Headernav extends React.Component {
             body: JSON.stringify(opts)
         }).then((response)=> {
             response.json().then(data=>{
+				// alert('fdsf');
          // console.log("data 1st: "+JSON.stringify(data))
                 if(data.msg==="Invalid Email or Password") {
                   //  console.log(data.msg)
@@ -965,14 +967,51 @@ class Headernav extends React.Component {
         <a className= "typeli login" id="owner"   onMouseEnter={()=>this.activeSignIn("owner")} onMouseLeave={this.leaveButton}>Owners<span></span></a>
             <div ref={this.loginDiv} id="loginDiv" className="login-1 text-left  login-open">
             <form className="form-signin" onSubmit={this.Login.bind(this, this.state.assetsType)}>
-                <div className="form-group">
-                <label>Username</label>
+                
+				{this.state.assetsType=='2' &&
+				<div className="form-group" id ="agenttypeselect">
+					<div className = "col-md-12">
+						<div clssName="col-md-6 col-sm-6">
+							<div className="radio radio-custom">
+							  <input
+								type="radio"
+								name="agent_type"
+								onChange={this.onChangeHandler}
+								id="broker"
+								value="2"
+								checked
+							  />
+							  <label htmlFor="broker"> Broker </label>
+							</div>
+						</div>
+						
+						<div clssName="col-md-6 col-sm-6">
+							<div className="radio radio-custom">
+							  <input
+								type="radio"
+								name="agent_type"
+								onChange={this.onChangeHandler}
+								id="sp"
+								value="1"
+							  />
+							  <label htmlFor="sp"> Service Provider </label>
+							</div>
+						</div>
+					</div>
+				</div>
+				}
+				
+				<div className="form-group">
+                
+				
+				<label>Username</label>
                 <input type="text" className="form-control" onChange={this.onChangeHandler} name="email" id="email" placeholder="Email Address"/>
                 </div>
                 <div className="form-group">
                 <label>Password</label>
                 <input type="password" className="form-control" onChange={this.onChangeHandler} name="password" id="password" placeholder="Password"/>
                 </div>
+				
                 {/* <div className="remember-checkbox">
                 <input type="checkbox" name="one" id="one" />
                 <label className="remember" htmlFor="one">Remember me</label>
