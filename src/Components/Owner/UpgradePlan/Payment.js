@@ -8,6 +8,8 @@ import { connect } from 'react-redux';
 import $ from 'jquery';
 import swal from 'sweetalert';
 import NumberFormat from 'react-number-format';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 class Payment extends React.Component {
   constructor(props){
     super(props)
@@ -210,11 +212,24 @@ onChangeACH(e){
 					 
 						$("#loaderDiv").hide();
 							   
-							   $("#actionType").val("No");
-							   $("#hiddenURL").val("owner-plan");
-							   $(".confirm-body").html(result.msg);
-							   $("#BlockUIConfirm").show();
-					  this.props.history.push('/owner-plan');
+							   // $("#actionType").val("No");
+							   // $("#hiddenURL").val("owner-plan");
+							   // $(".confirm-body").html(result.msg);
+							   // $("#BlockUIConfirm").show();
+					  // this.props.history.push('/owner-plan');
+					  confirmAlert({
+						  customUI: ({ onClose }) => {
+							return (
+							  <div className='custom-ui'>
+								<h4>Notification</h4>
+								<p>{result.msg}</p>
+								<button onClick={()=>{
+											this.props.history.push('/owner-plan');
+								onClose()}}>Ok</button>
+							  </div>
+							)
+						  }
+						})
 					  //this.props.updateInfo(result.profile);
 					},
 					
@@ -296,11 +311,24 @@ onChangeACH(e){
 				 
 					$("#loaderDiv").hide();
 						   
-						   $("#actionType").val("No");
-						   $("#hiddenURL").val("owner-plan");
-						   $(".confirm-body").html(result.msg);
-						   $("#BlockUIConfirm").show();
-				  this.props.history.push('/owner-plan');
+						   // $("#actionType").val("No");
+						   // $("#hiddenURL").val("owner-plan");
+						   // $(".confirm-body").html(result.msg);
+						   // $("#BlockUIConfirm").show();
+				  
+				  confirmAlert({
+				  customUI: ({ onClose }) => {
+					return (
+					  <div className='custom-ui'>
+						<h4>Notification</h4>
+						<p>{result.msg}</p>
+						<button onClick={()=>{
+									this.props.history.push('/owner-plan');
+						onClose()}}>Ok</button>
+					  </div>
+					)
+				  }
+				})
 				  //this.props.updateInfo(result.profile);
 				},
 				

@@ -6,6 +6,8 @@ import DatePicker from 'react-date-picker';
 import swal from 'sweetalert';
 import $ from 'jquery'
 import { Redirect } from 'react-router';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 export default class Agent extends React.Component{
 	constructor(props){
 		super(props);

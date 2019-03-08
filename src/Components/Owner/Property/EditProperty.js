@@ -8,6 +8,8 @@ import swal from 'sweetalert';
 import Dropzone from 'react-dropzone'
 import $ from 'jquery'
 import img_not_available from '../../../images/img_not_available.png'
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 class EditProperty extends React.Component {
   constructor(props) {
     super(props)
@@ -323,13 +325,26 @@ class EditProperty extends React.Component {
       if (data) {
         $("#loaderDiv").hide();
 
-        $("#actionType").val("Yes");
+        /* $("#actionType").val("Yes");
         $("#hiddenURL").val("my-property");
         $(".confirm-body").html(data.msg);
         $("#BlockUIConfirm").show();
 		if(data.sucess===1){
 			this.props.history.push('/my-property');
-		}
+		} */
+		confirmAlert({
+				  customUI: ({ onClose }) => {
+					return (
+					  <div className='custom-ui'>
+						<h4>Notification</h4>
+						<p>{data.msg}</p>
+						<button onClick={()=>{
+									this.props.history.push('/my-property')
+						onClose()}}>Ok</button>
+					  </div>
+					)
+				  }
+				})
       }
     }).catch((error) => {
       console.log('error: ', error);
@@ -376,10 +391,23 @@ class EditProperty extends React.Component {
 				  images.splice(index, 1);
 				}
 				this.setState({ images });
-			$("#actionType").val("Yes");
-			$("#hiddenURL").val("my-property");
-			$(".confirm-body").html(data.msg);
-			$("#BlockUIConfirm").show();
+			// $("#actionType").val("Yes");
+			// $("#hiddenURL").val("my-property");
+			// $(".confirm-body").html(data.msg);
+			// $("#BlockUIConfirm").show();
+			confirmAlert({
+				  customUI: ({ onClose }) => {
+					return (
+					  <div className='custom-ui'>
+						<h4>Notification</h4>
+						<p>{data.msg}</p>
+						<button onClick={()=>{
+									this.componentDidMount();
+						onClose()}}>Ok</button>
+					  </div>
+					)
+				  }
+				})
 			
 		  }
 		}).catch((error) => {

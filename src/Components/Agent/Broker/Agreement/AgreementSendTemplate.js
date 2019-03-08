@@ -1,5 +1,6 @@
 import React from 'react'
-
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import API_URL from '../../../../app-config'
 import {Link} from 'react-router-dom'
 // import { Redirect } from 'react-router';
@@ -271,11 +272,25 @@ export default class AgreementSendTemplate extends React.Component{
                         $("#loaderDiv").hide();
 						this.setState({userProperty: data.property_list_broker_agreement});
 					   if(!this.state.userProperty){
-						   document.getElementById("FormCancel").click();
-						    $("#actionType").val("No");
+						   //document.getElementById("FormCancel").click();
+						   /*  $("#actionType").val("No");
 						   $("#hiddenURL").val("broker-agreement");
 						   $(".confirm-body").html("You don't have property to send agreement.");
-						   $("#BlockUIConfirm").show();
+						   $("#BlockUIConfirm").show(); */
+						   confirmAlert({
+							  customUI: ({ onClose }) => {
+								return (
+								  <div className='custom-ui'>
+									<h4>Notification</h4>
+									<p>You don't have property to send agreement.</p>
+									<button onClick={()=>{
+										this.componentDidMount();
+									onClose()}}>Ok</button>
+								  </div>
+								)
+							  }
+							})
+				
 					   }
 					  
                     }

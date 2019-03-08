@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import Cookies from 'js-cookie';
 import $ from 'jquery';
 import {Link} from 'react-router-dom'
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 class ProfileDetails extends React.Component{
 	constructor(props){
     super(props);
@@ -56,10 +58,23 @@ class ProfileDetails extends React.Component{
 					// m.style.display='none';
 						$("#loaderDiv").hide();
 					   
-					   $("#actionType").val("Yes");
-					   $("#hiddenURL").val("profile-details");
-					   $(".confirm-body").html(result.msg);
-					   $("#BlockUIConfirm").show();
+					   // $("#actionType").val("Yes");
+					   // $("#hiddenURL").val("profile-details");
+					   // $(".confirm-body").html(result.msg);
+					   // $("#BlockUIConfirm").show();
+					   confirmAlert({
+						  customUI: ({ onClose }) => {
+							return (
+							  <div className='custom-ui'>
+								<h4>Notification</h4>
+								<p>{result.msg}</p>
+								<button onClick={()=>{
+											this.componentDidMount();
+								onClose()}}>Ok</button>
+							  </div>
+							)
+						  }
+						})
 				  
 				} 
 				// console.log("notification"+JSON.stringify(this.state.sendForm))
@@ -157,8 +172,9 @@ class ProfileDetails extends React.Component{
         // window.location.href='http://'+window.location.host
 	//console.log(this.props)
         return(
+			(this.state.profileData) &&
             <div>
-               
+		
                 <div className="wrapper">
                 <div className="container"> 
                     
@@ -299,8 +315,9 @@ class ProfileDetails extends React.Component{
                     </div>
                     </div>
                 </div>
-                </div>
+			</div>
             </div>
+		
         );        
     }
 }

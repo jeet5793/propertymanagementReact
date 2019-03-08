@@ -2,7 +2,8 @@ import React from 'react'
 
 import { connect } from 'react-redux';
 import API_URL from "../../../../app-config";
-
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import Cookies from 'js-cookie';
 import moment from 'moment';
 import 'react-date-picker/dist/DatePicker.css';
@@ -176,11 +177,24 @@ class ProfileInfo extends React.Component{
         }).then((data) => {
           //console.log('dataaaa:  ', data);
 						$("#loaderDiv").hide();
-						$("#actionType").val("No");
+						/* $("#actionType").val("No");
 					   $("#hiddenURL").val("broker-profile");
 					   $(".confirm-body").html(data.msg);
 					   $("#BlockUIConfirm").show();
-					   this.props.history.push('/broker-profile');
+					   this.props.history.push('/broker-profile'); */
+					   confirmAlert({
+						  customUI: ({ onClose }) => {
+							return (
+							  <div className='custom-ui'>
+								<h4>Notification</h4>
+								<p>{data.msg}</p>
+								<button onClick={()=>{
+											this.props.history.push('/broker-profile')
+								onClose()}}>Ok</button>
+							  </div>
+							)
+						  }
+						})
         }).catch((error) => {
           console.log('error: ', error);
         });

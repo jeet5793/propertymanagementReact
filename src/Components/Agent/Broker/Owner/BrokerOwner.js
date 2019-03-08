@@ -11,14 +11,14 @@ import swal from 'sweetalert';
 import {Link} from 'react-router-dom'
 //import Autosuggest from 'react-autosuggest';
 import Autocomplete from 'react-autocomplete';
-
 import { connect } from 'react-redux';
 import API_URL from "../../../../app-config";
 import Cookies from 'js-cookie';
 import Pagination from 'react-js-pagination';
  import Select from 'react-select';
  import SendEmail from './SendEmail';
-
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
   import Autosuggest from 'react-autosuggest';
 	import $ from "jquery";
 const loadScript=function(url, callback){
@@ -364,10 +364,23 @@ class BrokerOwner extends React.Component{
         }).then((data) => {
           // console.log('dataaaa:  ', data);
 		  $("#loaderDiv").hide();
-			 $("#actionType").val("No");
+			/*  $("#actionType").val("No");
 			 $("#hiddenURL").val("broker-owner");
 			 $(".confirm-body").html(data.msg);
-			 $("#BlockUIConfirm").show();
+			 $("#BlockUIConfirm").show(); */
+			 confirmAlert({
+				  customUI: ({ onClose }) => {
+					return (
+					  <div className='custom-ui'>
+						<h4>Notification</h4>
+						<p>{data.msg}</p>
+						<button onClick={()=>{
+							this.componentDidMount();
+						onClose()}}>Ok</button>
+					  </div>
+					)
+				  }
+				})
           /* if(data.msg.indexOf("Invitation send successfully")!=-1 || data.msg.indexOf("Now you both are connected")!=-1)
           {
 			 
@@ -399,10 +412,23 @@ class BrokerOwner extends React.Component{
         }).then((data) => {
           // console.log('dataaaa:  ', data);
           $("#loaderDiv").hide();
-			 $("#actionType").val("Yes");
+			/*  $("#actionType").val("Yes");
 			 $("#hiddenURL").val("broker-owner");
 			 $(".confirm-body").html(data.msg);
-			 $("#BlockUIConfirm").show();
+			 $("#BlockUIConfirm").show(); */
+			 confirmAlert({
+				  customUI: ({ onClose }) => {
+					return (
+					  <div className='custom-ui'>
+						<h4>Notification</h4>
+						<p>{data.msg}</p>
+						<button onClick={()=>{
+									this.componentDidMount();
+						onClose()}}>Ok</button>
+					  </div>
+					)
+				  }
+				})
         }).catch((error) => {
           console.log('error: ', error);
         });
@@ -466,10 +492,23 @@ class BrokerOwner extends React.Component{
 					// m.style.display='none';
 					$("#loaderDiv").hide();
 					   
-					   $("#actionType").val("Yes");
+					   /* $("#actionType").val("Yes");
 					   $("#hiddenURL").val("broker-owner");
 					   $(".confirm-body").html(result.msg);
-					   $("#BlockUIConfirm").show();
+					   $("#BlockUIConfirm").show(); */
+					   confirmAlert({
+						  customUI: ({ onClose }) => {
+							return (
+							  <div className='custom-ui'>
+								<h4>Notification</h4>
+								<p>{result.msg}</p>
+								<button onClick={()=>{
+											this.componentDidMount();
+								onClose()}}>Ok</button>
+							  </div>
+							)
+						  }
+						})
 				  
 				} 
 				// console.log("notification"+JSON.stringify(this.state.sendForm))
@@ -570,10 +609,23 @@ class BrokerOwner extends React.Component{
 			  (result) => {
 				  $("#loaderDiv").hide();
 				if (result.success) {
-				    $("#actionType").val("Yes");
+				    /* $("#actionType").val("Yes");
 					 $("#hiddenURL").val("broker-owner");
 					 $(".confirm-body").html(result.msg);
-					 $("#BlockUIConfirm").show();
+					 $("#BlockUIConfirm").show(); */
+					 confirmAlert({
+						  customUI: ({ onClose }) => {
+							return (
+							  <div className='custom-ui'>
+								<h4>Notification</h4>
+								<p>{result.msg}</p>
+								<button onClick={()=>{
+											this.componentDidMount();
+								onClose()}}>Ok</button>
+							  </div>
+							)
+						  }
+						})
 				  
 				} 
 				

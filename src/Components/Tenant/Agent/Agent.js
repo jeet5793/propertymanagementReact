@@ -9,7 +9,8 @@ import avatar_5 from '../../../images/Owner/users/avatar-5.jpg'
 import img_not_available from '../../../images/img_not_available.png'
 import swal from 'sweetalert';
 import {Link} from 'react-router-dom'
-
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import { connect } from 'react-redux';
 import API_URL from "../../../app-config";
 import Cookies from 'js-cookie';
@@ -350,10 +351,23 @@ constructor(props) {
         }).then((data) => {
           // console.log('dataaaa:  ', data);
 		  $("#loaderDiv").hide();
-			 $("#actionType").val("No");
-			 $("#hiddenURL").val("tenant-agent");
-			 $(".confirm-body").html(data.msg);
-			 $("#BlockUIConfirm").show();
+			 // $("#actionType").val("No");
+			 // $("#hiddenURL").val("tenant-agent");
+			 // $(".confirm-body").html(data.msg);
+			 // $("#BlockUIConfirm").show();
+			 confirmAlert({
+				  customUI: ({ onClose }) => {
+					return (
+					  <div className='custom-ui'>
+						<h4>Notification</h4>
+						<p>{data.msg}</p>
+						<button onClick={()=>{
+							this.componentDidMount();
+						onClose()}}>Ok</button>
+					  </div>
+					)
+				  }
+				})
           /* if(data.msg.indexOf("Invitation send successfully")!=-1 || data.msg.indexOf("Now you both are connected")!=-1)
           {
 			 
@@ -384,10 +398,23 @@ constructor(props) {
         }).then((data) => {
           // console.log('dataaaa:  ', data);
           $("#loaderDiv").hide();
-			 $("#actionType").val("Yes");
-			 $("#hiddenURL").val("tenant-agent");
-			 $(".confirm-body").html(data.msg);
-			 $("#BlockUIConfirm").show();
+			 // $("#actionType").val("Yes");
+			 // $("#hiddenURL").val("tenant-agent");
+			 // $(".confirm-body").html(data.msg);
+			 // $("#BlockUIConfirm").show();
+			 confirmAlert({
+				  customUI: ({ onClose }) => {
+					return (
+					  <div className='custom-ui'>
+						<h4>Notification</h4>
+						<p>{data.msg}</p>
+						<button onClick={()=>{
+									this.componentDidMount();
+						onClose()}}>Ok</button>
+					  </div>
+					)
+				  }
+				})
         }).catch((error) => {
           console.log('error: ', error);
         });
@@ -454,10 +481,23 @@ constructor(props) {
 					// m.style.display='none';
 					$("#loaderDiv").hide();
 					   
-					   $("#actionType").val("Yes");
-					   $("#hiddenURL").val("tenant-agent");
-					   $(".confirm-body").html(result.msg);
-					   $("#BlockUIConfirm").show();
+					   // $("#actionType").val("Yes");
+					   // $("#hiddenURL").val("tenant-agent");
+					   // $(".confirm-body").html(result.msg);
+					   // $("#BlockUIConfirm").show();
+					   confirmAlert({
+						  customUI: ({ onClose }) => {
+							return (
+							  <div className='custom-ui'>
+								<h4>Notification</h4>
+								<p>{result.msg}</p>
+								<button onClick={()=>{
+											this.componentDidMount();
+								onClose()}}>Ok</button>
+							  </div>
+							)
+						  }
+						})
 				  
 				} 
 				// console.log("notification"+JSON.stringify(this.state.sendForm))
@@ -549,10 +589,23 @@ constructor(props) {
 			  (result) => {
 				  $("#loaderDiv").hide();
 				if (result.success) {
-				    $("#actionType").val("Yes");
-					 $("#hiddenURL").val("tenant-agent");
-					 $(".confirm-body").html(result.msg);
-					 $("#BlockUIConfirm").show();
+				    // $("#actionType").val("Yes");
+					 // $("#hiddenURL").val("tenant-agent");
+					 // $(".confirm-body").html(result.msg);
+					 // $("#BlockUIConfirm").show();
+					 confirmAlert({
+				  customUI: ({ onClose }) => {
+					return (
+					  <div className='custom-ui'>
+						<h4>Notification</h4>
+						<p>{result.msg}</p>
+						<button onClick={()=>{
+									this.componentDidMount();
+						onClose()}}>Ok</button>
+					  </div>
+					)
+				  }
+				})
 				  
 				} 
 				

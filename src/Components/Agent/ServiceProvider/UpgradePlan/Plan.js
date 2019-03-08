@@ -8,7 +8,8 @@ import { connect } from 'react-redux';
 //import '../../../../css/plans.css'
 import $ from 'jquery';
 import swal from 'sweetalert';
-
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 class Plan extends React.Component{
     constructor(props) {
         super(props);
@@ -79,10 +80,23 @@ unsubscribe()
 				// swal("Assets Watch", result.msg);
 				// window.location.reload();
 				$("#loaderDiv").hide();
-				$("#actionType").val("Yes");
+				/* $("#actionType").val("Yes");
 				$("#hiddenURL").val("broker-plan");
 				$(".confirm-body").html(result.msg);
-				$("#BlockUIConfirm").show();
+				$("#BlockUIConfirm").show(); */
+				confirmAlert({
+				  customUI: ({ onClose }) => {
+					return (
+					  <div className='custom-ui'>
+						<h4>Notification</h4>
+						<p>{result.msg}</p>
+						<button onClick={()=>{
+									this.props.history.push('/broker-plan')
+						onClose()}}>Ok</button>
+					  </div>
+					)
+				  }
+				})
 			  }
 			  //console.log("set user data"+JSON.stringify(this.state.profileData))
 			},

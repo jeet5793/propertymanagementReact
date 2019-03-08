@@ -1,5 +1,6 @@
 import React from 'react'
-
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import API_URL from '../../../app-config'
 import {Link} from 'react-router-dom'
 // import { Redirect } from 'react-router';
@@ -53,17 +54,42 @@ export default class TenantPartnerSign extends React.Component{
 			(data) => {
 				$("#loaderDiv").hide();
 				if (data.success) {
-					$("#actionType").val("No");
+					/* $("#actionType").val("No");
 					//$("#hiddenURL").val("owner-agent");
 					$(".confirm-body").html(data.msg);
-					$("#BlockUIConfirm").show();
+					$("#BlockUIConfirm").show(); */
 					//this.setState({previewAgreement:data.replacedTemplate});
-					this.props.history.push({pathname:this.props.location.state.loc});
+					// this.props.history.push({pathname:this.props.location.state.loc});
+					confirmAlert({
+						  customUI: ({ onClose }) => {
+							return (
+							  <div className='custom-ui'>
+								<h4>Notification</h4>
+								<p>{data.msg}</p>
+								<button onClick={()=>{
+											 this.props.history.push({pathname:this.props.location.state.loc});
+								onClose()}}>Ok</button>
+							  </div>
+							)
+						  }
+						})
 				}else{
-					$("#actionType").val("No");
+					/* $("#actionType").val("No");
 					//$("#hiddenURL").val("owner-agent");
 					$(".confirm-body").html(data.msg);
-					$("#BlockUIConfirm").show();
+					$("#BlockUIConfirm").show() */;
+					confirmAlert({
+						  customUI: ({ onClose }) => {
+							return (
+							  <div className='custom-ui'>
+								<h4>Notification</h4>
+								<p>{data.msg}</p>
+								<button onClick={()=>
+								onClose()}>Ok</button>
+							  </div>
+							)
+						  }
+						})
 				}
 			},
 			(error) => {

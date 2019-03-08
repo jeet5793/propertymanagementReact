@@ -1,5 +1,6 @@
 import React from 'react'
-
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import API_URL from '../../../app-config'
 import {Link} from 'react-router-dom'
 // import { Redirect } from 'react-router';
@@ -106,10 +107,22 @@ TenantList(){
             //console.log("data 2: "+JSON.stringify(result.profile))
             if (result.success) {
               //this.setState({tenantList:result.tenantList})
-              $("#actionType").val("No");
+              /* $("#actionType").val("No");
 				 //$("#hiddenURL").val("/");
 				 $(".confirm-body").html(result.msg);
-                 $("#BlockUIConfirm").show();
+                 $("#BlockUIConfirm").show(); */
+				confirmAlert({
+				  customUI: ({ onClose }) => {
+					return (
+					  <div className='custom-ui'>
+						<h4>Notification</h4>
+						<p>{result.msg}</p>
+						<button onClick={()=>{
+						onClose()}}>Ok</button>
+					  </div>
+					)
+				  }
+				})
                  this.setState({selectedOptionTenant:null,selectedOption:null})
                  
             } 

@@ -117,6 +117,7 @@ render(){
     return (
 	 
       <div>
+	  {profileInfo &&
         <div className="wrapper">
           <div className="container"> 
 		   <div className="page-title-box">
@@ -297,7 +298,7 @@ render(){
             {/* end row */} 
           </div>
           {/* end container */} 
-        </div>
+	  </div>}
       </div>
       
     )

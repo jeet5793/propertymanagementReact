@@ -2,6 +2,8 @@ import React from 'react'
 import API_URL from "../../../../app-config";
 import swal from 'sweetalert';
 import $ from 'jquery';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 export default class SendEmail extends React.Component{
 	constructor(props){
 		super(props);
@@ -38,11 +40,23 @@ export default class SendEmail extends React.Component{
 			  (result) => {
 				  $("#loaderDiv").hide(); 
 				if (result) {
-					$("#actionType").val("Yes");
-				    $("#hiddenURL").val("broker-owner");
-					   $(".confirm-body").html(result.msg);
-					   $("#BlockUIConfirm").show();
-					  
+					// $("#actionType").val("Yes");
+				    // $("#hiddenURL").val("broker-owner");
+					   // $(".confirm-body").html(result.msg);
+					   // $("#BlockUIConfirm").show();
+					  confirmAlert({
+						  customUI: ({ onClose }) => {
+							return (
+							  <div className='custom-ui'>
+								<h4>Notification</h4>
+								<p>{result.msg}</p>
+								<button onClick={()=>{
+											this.componentDidMount();
+								onClose()}}>Ok</button>
+							  </div>
+							)
+						  }
+						})
 				} 
 			  },
 			(error) => {

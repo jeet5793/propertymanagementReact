@@ -10,6 +10,8 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 import NumberFormat from 'react-number-format';
 import PropertyHistory from '../../Owner/Property/PropertyHistory'
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 class TenantMyProperty extends React.Component {
 	constructor(props){
     super(props)
@@ -161,10 +163,22 @@ this.imgServer=API_URL,
 								}else{
 									var msg = ('You already paid');
 								}
-								$("#actionType").val("No");
-							   $("#hiddenURL").val("tenant-myproperty");
-							   $(".confirm-body").html(msg);
-							   $("#BlockUIConfirm").show()
+								// $("#actionType").val("No");
+							   // $("#hiddenURL").val("tenant-myproperty");
+							   // $(".confirm-body").html(msg);
+							   // $("#BlockUIConfirm").show()
+							   confirmAlert({
+								  customUI: ({ onClose }) => {
+									return (
+									  <div className='custom-ui'>
+										<h4>Notification</h4>
+										<p>{msg}</p>
+										<button onClick={()=>{
+										onClose()}}>Ok</button>
+									  </div>
+									)
+								  }
+								})
 							}
 						   
 						  
@@ -185,17 +199,110 @@ this.imgServer=API_URL,
             }else if(result.success==0){
 				
 				// console.log('prop inside1 '+JSON.stringify(this.props));
-					$("#actionType").val("No");
+				confirmAlert({
+					  customUI: ({ onClose }) => {
+						return (
+						  <div className='custom-ui'>
+							<h4>Notification</h4>
+							<p>{result.msg}</p>
+							<button onClick={()=>{
+								confirmAlert({
+									  customUI: ({ onClose }) => {
+										return (
+										  <div className='custom-ui'>
+											<h4>Notification</h4>
+											<p>Do you want pay by cheque?</p>
+											<button onClick={onClose}>No</button>
+											<button onClick={() => {
+												alert('dfsfg');
+												if(element.property_status=='Sale'|| element.property_status=='Sold')
+													{
+														var amt = element.total_amount;
+														var payFor = element.property_status;
+													}else if(element.property_status=='Rent'||element.property_status=='Rented'){
+														var amt = element.rent;
+														var payFor = element.property_status;
+														$("#paidMonth").show();
+														
+													}
+												$('#TtlAmt').html('$'+amt);
+												$('#chequeBtn').val(element.deal_id);
+												$('#property_id').val(element.property_id);
+												$('#payFor').val(payFor);
+								
+								fetch(`${API_URL}assetsapi/getTransaction/`+element.deal_id+`/`+payFor, {
+									  method: 'get'
+									})
+									.then(res => res.json())
+									.then(
+									  (result) => {
+										if (result.success==1) {
+										
+										 var pendingAmt = amt - result.paidAmt;
+										 $('#pendingAmt').html('$'+pendingAmt);
+										}else{
+											 var pendingAmt = amt ;
+										 $('#pendingAmt').html('$'+pendingAmt);
+										} 
+										
+										if(pendingAmt<0){
+											//$("#ChequeBlockUIConfirm").hide();
+											if(element.property_status=='Rent' || element.property_status=='Rented'){
+												var msg = ('You already paid for this month');
+											}else{
+												var msg = ('You already paid');
+											}
+											
+											// $("#actionType").val("No");
+											   // $("#hiddenURL").val("tenant-myproperty");
+											   // $(".confirm-body").html(msg);
+											   // $("#BlockUIConfirm").show();
+											    // $(".btn").click(function(){
+													// $("#TBlockUIConfirm").hide();
+												// $("#ChequeBlockUIConfirm").hide();
+												// });
+											confirmAlert({
+											  customUI: ({ onClose }) => {
+												return (
+												  <div className='custom-ui'>
+													<h4>Notification</h4>
+													<p>{msg}</p>
+													<button onClick={()=>{
+													onClose()}}>Ok</button>
+												  </div>
+												)
+											  }
+											})
+										}
+										  // console.log("trans_detail"+JSON.stringify(this.state.trans_detail))
+									  },
+									(error) => {
+									  console.log('error')
+									}
+								  )
+											}}>Yes</button>
+										  </div>
+										)
+									  }
+									}) 
+		
+							}}>Ok</button>
+						  </div>
+						)
+					  }
+					}) 
+		
+					/* $("#actionType").val("No");
 					   $("#hiddenURL").val("tenant-myproperty");
 					   $(".confirm-body").html(result.msg);
 					   $("#BlockUIConfirm").show();
 					   $(".btn").click(function(){
 							$(".confirm-body").html("Do you want pay by cheque?");
 							$("#TBlockUIConfirm").show();
-					   });
+					   }); */
 					  
 					   
-					   $(".pay-btn").click(function(){
+					  /*  $(".pay-btn").click(function(){
 							let pay = this.value
 							//alert(pay)
 							if(pay==='Yes')
@@ -243,14 +350,26 @@ this.imgServer=API_URL,
 												var msg = ('You already paid');
 											}
 											
-											$("#actionType").val("No");
-											   $("#hiddenURL").val("tenant-myproperty");
-											   $(".confirm-body").html(msg);
-											   $("#BlockUIConfirm").show();
-											    $(".btn").click(function(){
-													$("#TBlockUIConfirm").hide();
-												$("#ChequeBlockUIConfirm").hide();
-												});
+											// $("#actionType").val("No");
+											   // $("#hiddenURL").val("tenant-myproperty");
+											   // $(".confirm-body").html(msg);
+											   // $("#BlockUIConfirm").show();
+											    // $(".btn").click(function(){
+													// $("#TBlockUIConfirm").hide();
+												// $("#ChequeBlockUIConfirm").hide();
+												// });
+											confirmAlert({
+											  customUI: ({ onClose }) => {
+												return (
+												  <div className='custom-ui'>
+													<h4>Notification</h4>
+													<p>{msg}</p>
+													<button onClick={()=>{
+													onClose()}}>Ok</button>
+												  </div>
+												)
+											  }
+											})
 										}
 										  // console.log("trans_detail"+JSON.stringify(this.state.trans_detail))
 									  },
@@ -264,7 +383,7 @@ this.imgServer=API_URL,
 							{
 								$("#TBlockUIConfirm").hide();
 							}
-					   });
+					   }); */
 			}
               // console.log("property##"+JSON.stringify(result.property[0].img_path))
           },
@@ -325,16 +444,28 @@ this.imgServer=API_URL,
 					    
 						$("#loaderDiv").hide();
 							 
-							   $("#actionType").val("No");
-							   $("#hiddenURL").val("tenant-myproperty");
-							   $(".confirm-body").html(result.msg);
+							   // $("#actionType").val("No");
+							   // $("#hiddenURL").val("tenant-myproperty");
+							   // $(".confirm-body").html(result.msg);
 							   
-							    $("#BlockUIConfirm").show();
+							    // $("#BlockUIConfirm").show();
 								
-						$(".btn").click(function(){
+						// $(".btn").click(function(){
 							
-							$("#TBlockUIConfirm").hide();
-					   });
+							// $("#TBlockUIConfirm").hide();
+					   // });
+					   confirmAlert({
+							  customUI: ({ onClose }) => {
+								return (
+								  <div className='custom-ui'>
+									<h4>Notification</h4>
+									<p>{result.msg}</p>
+									<button onClick={()=>{
+									onClose()}}>Ok</button>
+								  </div>
+								)
+							  }
+							})
 								
 					},
 					

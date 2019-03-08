@@ -18,6 +18,8 @@ import Pagination from 'react-js-pagination';
   import BackgroundVerification from './BackgroundVerification';
  import $ from "jquery";
    import Autosuggest from 'react-autosuggest';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 const loadScript=function(url, callback){
 
   var script = document.createElement("script")
@@ -279,10 +281,23 @@ class BrokerTenant extends React.Component{
 								$("#loaderDiv").hide();
 								 $("#background-verifi").hide();
 								 $(".modal-backdrop").hide();
-								 	$("#actionType").val("No");
+								 	/* $("#actionType").val("No");
 									   $("#hiddenURL").val("owner-agent");
 									   $(".confirm-body").html(data.msg);
-									   $("#BlockUIConfirm").show();
+									   $("#BlockUIConfirm").show(); */
+									   confirmAlert({
+										  customUI: ({ onClose }) => {
+											return (
+											  <div className='custom-ui'>
+												<h4>Notification</h4>
+												<p>{data.msg}</p>
+												<button onClick={()=>{
+													this.componentDidMount();		
+												onClose()}}>Ok</button>
+											  </div>
+											)
+										  }
+										})
 									 
 									   
 									 
@@ -426,10 +441,23 @@ class BrokerTenant extends React.Component{
         }).then((data) => {
           // console.log('dataaaa:  ', data); 
 		  $("#loaderDiv").hide();
-			 $("#actionType").val("No");
+			 /* $("#actionType").val("No");
 			 $("#hiddenURL").val("broker-tenant");
 			 $(".confirm-body").html(data.msg);
-			 $("#BlockUIConfirm").show();
+			 $("#BlockUIConfirm").show(); */
+			 confirmAlert({
+				  customUI: ({ onClose }) => {
+					return (
+					  <div className='custom-ui'>
+						<h4>Notification</h4>
+						<p>{data.msg}</p>
+						<button onClick={()=>{
+							this.componentDidMount();
+						onClose()}}>Ok</button>
+					  </div>
+					)
+				  }
+				})
           
         }).catch((error) => {
           console.log('error: ', error);
@@ -447,12 +475,25 @@ class BrokerTenant extends React.Component{
         }).then((response) => {
           return response.json();
         }).then((data) => {
-          console.log('dataaaa:  ', data);
+         // console.log('dataaaa:  ', data);
          $("#loaderDiv").hide();
-			 $("#actionType").val("Yes");
+			 /* $("#actionType").val("Yes");
 			 $("#hiddenURL").val("broker-tenant");
 			 $(".confirm-body").html(data.msg);
-			 $("#BlockUIConfirm").show();
+			 $("#BlockUIConfirm").show(); */
+			 confirmAlert({
+				  customUI: ({ onClose }) => {
+					return (
+					  <div className='custom-ui'>
+						<h4>Notification</h4>
+						<p>{data.msg}</p>
+						<button onClick={()=>{
+									this.componentDidMount();
+						onClose()}}>Ok</button>
+					  </div>
+					)
+				  }
+				})
         }).catch((error) => {
           console.log('error: ', error);
         });
@@ -511,10 +552,23 @@ class BrokerTenant extends React.Component{
 				//console.log("data 2: "+JSON.stringify(result.profile))
 						$("#loaderDiv").hide();
 							   
-							   $("#actionType").val("Yes");
+							   $/* ("#actionType").val("Yes");
 							   $("#hiddenURL").val("broker-tenant");
 							   $(".confirm-body").html(result.msg);
-							   $("#BlockUIConfirm").show();
+							   $("#BlockUIConfirm").show(); */
+							   confirmAlert({
+								  customUI: ({ onClose }) => {
+									return (
+									  <div className='custom-ui'>
+										<h4>Notification</h4>
+										<p>{result.msg}</p>
+										<button onClick={()=>{
+													this.componentDidMount();
+										onClose()}}>Ok</button>
+									  </div>
+									)
+								  }
+								})
 			  },
 				(error) => {
 				  console.log('error')
@@ -603,10 +657,23 @@ TerminateUser(id){
 			  (result) => {
 				  $("#loaderDiv").hide();
 				if (result.success) {
-				    $("#actionType").val("Yes");
+				   /*  $("#actionType").val("Yes");
 					 $("#hiddenURL").val("broker-tenant");
 					 $(".confirm-body").html(result.msg);
-					 $("#BlockUIConfirm").show();
+					 $("#BlockUIConfirm").show(); */
+					 confirmAlert({
+								  customUI: ({ onClose }) => {
+									return (
+									  <div className='custom-ui'>
+										<h4>Notification</h4>
+										<p>{result.msg}</p>
+										<button onClick={()=>{
+													this.componentDidMount();
+										onClose()}}>Ok</button>
+									  </div>
+									)
+								  }
+								})
 				  
 				} 
 				

@@ -17,6 +17,8 @@ import swal from 'sweetalert';
  import BackgroundVerification from './BackgroundVerification';
 import SendEmail from './SendEmail';
  import Autosuggest from 'react-autosuggest';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
  	import $ from "jquery";
 const loadScript=function(url, callback){
 
@@ -285,12 +287,24 @@ class Tenants extends React.Component{
 								$("#loaderDiv").hide();
 								 $("#background-verifi").hide();
 								 $(".modal-backdrop").hide();
-								 	$("#actionType").val("No");
-									   $("#hiddenURL").val("owner-agent");
-									   $(".confirm-body").html(data.msg);
-									   $("#BlockUIConfirm").show();
+								 	// $("#actionType").val("No");
+									   // $("#hiddenURL").val("owner-agent");
+									   // $(".confirm-body").html(data.msg);
+									   // $("#BlockUIConfirm").show();
 									 
-									   
+									 confirmAlert({
+									  customUI: ({ onClose }) => {
+										return (
+										  <div className='custom-ui'>
+											<h4>Notification</h4>
+											<p>{data.msg}</p>
+											<button onClick={()=>{
+														this.componentDidMount();
+											onClose()}}>Ok</button>
+										  </div>
+										)
+									  }
+									})  
 									 
 							}
 					  }
@@ -418,10 +432,23 @@ class Tenants extends React.Component{
         }).then((data) => {
           // console.log('dataaaa:  ', data); 
 		  $("#loaderDiv").hide();
-			 $("#actionType").val("Yes");
-			 $("#hiddenURL").val("owner-tenant");
-			 $(".confirm-body").html(data.msg);
-			 $("#BlockUIConfirm").show();
+			 // $("#actionType").val("Yes");
+			 // $("#hiddenURL").val("owner-tenant");
+			 // $(".confirm-body").html(data.msg);
+			 // $("#BlockUIConfirm").show();
+			 confirmAlert({
+					  customUI: ({ onClose }) => {
+						return (
+						  <div className='custom-ui'>
+							<h4>Notification</h4>
+							<p>{data.msg}</p>
+							<button onClick={()=>{
+										this.componentDidMount();
+							onClose()}}>Ok</button>
+						  </div>
+						)
+					  }
+					})
           
         }).catch((error) => {
           console.log('error: ', error);
@@ -441,10 +468,23 @@ class Tenants extends React.Component{
         }).then((data) => {
           // console.log('dataaaa:  ', data);
          $("#loaderDiv").hide();
-			 $("#actionType").val("Yes");
-			 $("#hiddenURL").val("owner-tenant");
-			 $(".confirm-body").html(data.msg);
-			 $("#BlockUIConfirm").show();
+			 // $("#actionType").val("Yes");
+			 // $("#hiddenURL").val("owner-tenant");
+			 // $(".confirm-body").html(data.msg);
+			 // $("#BlockUIConfirm").show();
+			 confirmAlert({
+					  customUI: ({ onClose }) => {
+						return (
+						  <div className='custom-ui'>
+							<h4>Notification</h4>
+							<p>{data.msg}</p>
+							<button onClick={()=>{
+										this.componentDidMount();
+							onClose()}}>Ok</button>
+						  </div>
+						)
+					  }
+					})
         }).catch((error) => {
           console.log('error: ', error);
         });
@@ -505,10 +545,23 @@ class Tenants extends React.Component{
 				//console.log("data 2: "+JSON.stringify(result.profile))
 						$("#loaderDiv").hide();
 							   
-							   $("#actionType").val("Yes");
-							   $("#hiddenURL").val("owner-tenant");
-							   $(".confirm-body").html(result.msg);
-							   $("#BlockUIConfirm").show();
+							   // $("#actionType").val("Yes");
+							   // $("#hiddenURL").val("owner-tenant");
+							   // $(".confirm-body").html(result.msg);
+							   // $("#BlockUIConfirm").show();
+							   confirmAlert({
+								  customUI: ({ onClose }) => {
+									return (
+									  <div className='custom-ui'>
+										<h4>Notification</h4>
+										<p>{result.msg}</p>
+										<button onClick={()=>{
+													this.componentDidMount();
+										onClose()}}>Ok</button>
+									  </div>
+									)
+								  }
+								})
 			  },
 				(error) => {
 				  console.log('error')
@@ -601,11 +654,23 @@ class Tenants extends React.Component{
 			  (result) => {
 				  $("#loaderDiv").hide();
 				if (result.success) {
-				    $("#actionType").val("Yes");
-					 $("#hiddenURL").val("owner-tenant");
-					 $(".confirm-body").html(result.msg);
-					 $("#BlockUIConfirm").show();
-				  
+				    // $("#actionType").val("Yes");
+					 // $("#hiddenURL").val("owner-tenant");
+					 // $(".confirm-body").html(result.msg);
+					 // $("#BlockUIConfirm").show();
+				  confirmAlert({
+					  customUI: ({ onClose }) => {
+						return (
+						  <div className='custom-ui'>
+							<h4>Notification</h4>
+							<p>{result.msg}</p>
+							<button onClick={()=>{
+										this.componentDidMount();
+							onClose()}}>Ok</button>
+						  </div>
+						)
+					  }
+					})
 				} 
 				
 			  },

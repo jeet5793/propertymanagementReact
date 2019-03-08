@@ -8,6 +8,8 @@ import { connect } from 'react-redux';
 import $ from 'jquery';
 import swal from 'sweetalert';
 import NumberFormat from 'react-number-format';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 class Payment extends React.Component {
   constructor(props){
     super(props)
@@ -263,11 +265,24 @@ changeNameHandler(e)
 					 
 						$("#loaderDiv").hide();
 							   
-							   $("#actionType").val("No");
+							   /* $("#actionType").val("No");
 							   // $("#hiddenURL").val("tenant-myproperty");
 							   $(".confirm-body").html(result.msg);
 							   $("#BlockUIConfirm").show();
-					  this.props.history.push('/tenant-myproperty');
+					  this.props.history.push('/tenant-myproperty'); */
+					  confirmAlert({
+				  customUI: ({ onClose }) => {
+					return (
+					  <div className='custom-ui'>
+						<h4>Notification</h4>
+						<p>{result.msg}</p>
+						<button onClick={()=>{
+									 this.props.history.push('/tenant-myproperty');
+						onClose()}}>Ok</button>
+					  </div>
+					)
+				  }
+				})
 					  //this.props.updateInfo(result.profile);
 					},
 					
@@ -345,11 +360,24 @@ changeNameHandler(e)
 				 
 					$("#loaderDiv").hide();
 						   
-						   $("#actionType").val("No");
+						 /*   $("#actionType").val("No");
 						   // $("#hiddenURL").val("tenant-myproperty");
 						   $(".confirm-body").html(result.msg);
 						   $("#BlockUIConfirm").show();
-				 this.props.history.push('/tenant-myproperty');
+				 this.props.history.push('/tenant-myproperty'); */
+				 confirmAlert({
+				  customUI: ({ onClose }) => {
+					return (
+					  <div className='custom-ui'>
+						<h4>Notification</h4>
+						<p>{result.msg}</p>
+						<button onClick={()=>{
+									 this.props.history.push('/tenant-myproperty');
+						onClose()}}>Ok</button>
+					  </div>
+					)
+				  }
+				})
 				  //this.props.updateInfo(result.profile);
 				},
 				

@@ -3,7 +3,8 @@ import { Route } from 'react-router';
 // import jQuery from 'jquery'
 import API_URL from '../../../app-config';
 import $ from 'jquery';
-
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 export default class FindYourProperty extends React.Component{
   constructor(props){
     super(props)
@@ -24,8 +25,19 @@ export default class FindYourProperty extends React.Component{
       this.setState({[e.target.name]:e.target.value})
   }
   searchPropertys(e){
-	$("#loaderDiv").show(); 
+	
     var opts=this.state
+	if(opts.min_price){
+		 if(!opts.property_status){
+				return alert('Property status must be selected.');
+	  }
+	}	  
+	if(opts.max_price){	  
+		  if(!opts.property_status){
+				return alert('Property status must be selected.');
+		}
+	  }
+	  $("#loaderDiv").show(); 
     fetch(`${API_URL}assetsapi/property_search`, {
     method: 'post',    
     body: JSON.stringify(opts)
@@ -43,10 +55,22 @@ export default class FindYourProperty extends React.Component{
 	  this.props.onUpdateHandler(data);
     }else{
 		$("#loaderDiv").hide();
-					$("#actionType").val("No");
+					/* $("#actionType").val("No");
 				    // $("#hiddenURL").val("owner-agent");
 					   $(".confirm-body").html(data.msg);
-					   $("#SBlockUIConfirm").show();
+					   $("#SBlockUIConfirm").show(); */
+					   confirmAlert({
+						  customUI: ({ onClose }) => {
+							return (
+							  <div className='custom-ui'>
+								<h4>Notification</h4>
+								<p>{data.msg}</p>
+								<button onClick={()=>{
+								onClose()}}>Ok</button>
+							  </div>
+							)
+						  }
+						})
 	}
     
   }.bind(this));

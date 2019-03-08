@@ -1,6 +1,7 @@
 import React from 'react'
 import avatar_1 from '../../../images/Owner/users/avatar-1.jpg'
-
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import { connect } from 'react-redux';
 import API_URL from '../../../app-config'
 import Cookies from 'js-cookie';
@@ -86,10 +87,23 @@ class TenantNotification extends React.Component {
 			  {
 					$("#loaderDiv").hide();
 					   
-					   $("#actionType").val("Yes");
+					  /*  $("#actionType").val("Yes");
 					   $("#hiddenURL").val("tenant-notifications");
 					   $(".confirm-body").html(data.msg);
-					   $("#BlockUIConfirm").show();
+					   $("#BlockUIConfirm").show(); */
+					    confirmAlert({
+						  customUI: ({ onClose }) => {
+							return (
+							  <div className='custom-ui'>
+								<h4>Notification</h4>
+								<p>{data.msg}</p>
+								<button onClick={()=>{
+											 this.componentDidMount();
+								onClose()}}>Ok</button>
+							  </div>
+							)
+						  }
+						})
 					   
 				/* swal("Assets Watch", data.msg);
 					
@@ -150,29 +164,57 @@ class TenantNotification extends React.Component {
 		  // )       
 	// }
 	functDelete(notify_id){
-		$("#loaderDiv").show();
-		fetch(`${API_URL}assetsapi/delete_notification/`+notify_id+`/${JSON.parse(this.state.userData).session_id}/`, {
-			  method: 'get',
-			})
-			.then(res => res.json())
-			.then(
-			  (result) => {
-				   $("#loaderDiv").hide();
-				 if(result){
-				   
-				  
-				   
-				   $("#actionType").val("Yes");
-				   $("#hiddenURL").val("tenant-notifications");
-				   $(".confirm-body").html(result.msg);
-				   $("#BlockUIConfirm").show();
-				   
-				} 
-			  },
-			(error) => {
-			  console.log('error')
-			}
-		  )           
+
+		confirmAlert({
+		  customUI: ({ onClose }) => {
+			return (
+			  <div className='custom-ui'>
+				<h4>Are you sure?</h4>
+				<p>You want to delete this notification?</p>
+				<button onClick={onClose}>No</button>
+				<button onClick={() => {
+					// this.handleClickDelete()
+					// onClose()
+					$("#loaderDiv").show();
+							 fetch(`${API_URL}assetsapi/delete_notification/`+notify_id+`/${JSON.parse(this.state.userData).session_id}/`, {
+									  method: 'get',
+									})
+									.then(res => res.json())
+									.then(
+									  (result) => {
+										   $("#loaderDiv").hide();
+										 if(result){
+										  /* $("#actionType").val("Yes");
+										   $("#hiddenURL").val("tenant-notifications");
+										   $(".confirm-body").html(result.msg);
+										   $("#BlockUIConfirm").show(); */
+											confirmAlert({
+												  customUI: ({ onClose }) => {
+													return (
+													  <div className='custom-ui'>
+														<h4>Notification</h4>
+														<p>{result.msg}</p>
+														<button onClick={()=>{
+																	 this.componentDidMount();
+														onClose()}}>Ok</button>
+													  </div>
+													)
+												  }
+												})
+										   
+										} 
+									  },
+									(error) => {
+									  console.log('error')
+									}
+								  )           
+				}}>Yes, Delete it!</button>
+			  </div>
+			)
+		  }
+		}) 
+		
+		
 	}
 	
     render(){
@@ -287,7 +329,7 @@ class TenantNotification extends React.Component {
 							</div>
 						  </div>
 						  <div className="modal-footer">
-							<button type="button" className="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+							<button type="button" id="notifyFormCancel" className="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
 							<button type="button" className="btn btn-success waves-effect waves-light"onClick = {this.onClickHandle} >Save changes</button>
 						  </div>
 						</div>

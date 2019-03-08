@@ -9,6 +9,8 @@ import $ from 'jquery';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 import PropertyHistory from './PropertyHistory'
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 class Property extends React.Component{
     constructor(props){
         super(props)
@@ -93,7 +95,82 @@ class Property extends React.Component{
     deleteProperty=(id)=>(e)=>{
         var session_id=JSON.parse(this.state.userData).session_id;
 		const properties=this.state.property;
-		 $(".confirm-body").html("Do you want to delete property..?");
+				confirmAlert({
+				  customUI: ({ onClose }) => {
+					return (
+					  <div className='custom-ui'>
+						<h4>Are you sure?</h4>
+						<p>You want to delete this property?</p>
+						<button onClick={onClose}>No</button>
+						<button onClick={() => {
+							// this.handleClickDelete()
+							// onClose()
+							$("#loaderDiv").show();
+								
+								var tempProperty=[]
+								var opts={'property_id':id,'session_id':session_id}
+								fetch(`${API_URL}assetsapi/delete_property`,{
+									method: 'POST',          
+									body: JSON.stringify(opts)
+									})
+									.then(res => res.json())
+									.then(data =>{ 
+									if(data.msg==="Property deleted successfully !!!")  
+										{
+												$("#loaderDiv").hide();
+												// properties.forEach(propr=>{
+												// if(propr.id!==id)
+													// tempProperty.push(propr)                    
+												// })
+												// this.setState({property:tempProperty})
+												/* $("#actionType").val("Yes");
+											   // $("#hiddenURL").val("my-property");
+											   $(".confirm-body").html(data.msg);
+											   $("#BlockUIConfirm").show();
+											   $("#DelBlockUIConfirm").hide(); */
+											   confirmAlert({
+															  customUI: ({ onClose }) => {
+																return (
+																  <div className='custom-ui'>
+																	<p>{data.msg}</p>
+																	<button onClick={()=>{
+																	this.componentDidMount();
+																	onClose()}}>Ok</button>
+																  </div>
+																)
+															  }
+															})
+														
+												
+										}else{
+												$("#loaderDiv").hide();
+												/* $("#actionType").val("Yes");
+											   // $("#hiddenURL").val("my-property");
+											   //this.props.history.push('/my-property')
+											   $(".confirm-body").html(data.msg);
+											   $("#BlockUIConfirm").show(); */
+											 confirmAlert({
+															  customUI: ({ onClose }) => {
+																return (
+																  <div className='custom-ui'>
+																	<p>{data.msg}</p>
+																	<button onClick={()=>{
+																	this.componentDidMount();
+																	onClose()}}>Ok</button>
+																  </div>
+																)
+															  }
+															})
+														
+										}
+									})
+							;
+						}}>Yes, Delete it!</button>
+					  </div>
+					)
+				  }
+				}) 
+		 /* $(".confirm-body").html("Do you want to delete property..?");
 		$("#DelBlockUIConfirm").show();
 		$(".row-dialog-btn").click(function(){
 						const action = this.value;
@@ -132,36 +209,11 @@ class Property extends React.Component{
 											   $("#BlockUIConfirm").show();
 										}
 									})
-								/* fetch(`${API_URL}assetsapi/delete_property`,{
-									method: 'POST',          
-									body: JSON.stringify(opts)
-									})
-									.then(res => res.json())
-									.then(data =>{ 
-									$("#loaderDiv").hide();
-									
-										if(data.msg==="Property deleted successfully !!!")  
-										{
-											// swal("Assets Watch", data.msg);
 								
-											// properties.forEach(propr=>{
-												// if(propr.id!==id)
-												// tempProperty.push(propr)                    
-											// })
-											// this.setState({property:tempProperty})
-											 $("#actionType").val("Yes");
-											   $("#hiddenURL").val("my-property");
-											   $(".confirm-body").html(data.msg);
-											   $("#BlockUIConfirm").show();
-										}
-											   
-											  
-										
-									 }) */
 						}else if(action==="Cancel"){
 							$("#DelBlockUIConfirm").hide();
 						}
-		})
+		}) */
         // if(window.confirm('Do you want to delete property..?'))
         // {
 			
@@ -221,10 +273,23 @@ class Property extends React.Component{
 					  // var userid = data.user.assets_id
 					  // localStorage.setItem('userid',userid)
 								$("#loaderDiv").hide();
-								$("#actionType").val("No");
-								   $("#hiddenURL").val("my-property");
-								   $(".confirm-body").html(data.msg);
-								   $("#BlockUIConfirm").show();
+								// $("#actionType").val("No");
+								   // $("#hiddenURL").val("my-property");
+								   // $(".confirm-body").html(data.msg);
+								   // $("#BlockUIConfirm").show();
+								  confirmAlert({
+									  customUI: ({ onClose }) => {
+										return (
+										  <div className='custom-ui'>
+											<h4>Notification</h4>
+											<p>{data.msg}</p>
+											<button onClick={()=>{
+														
+											onClose()}}>Ok</button>
+										  </div>
+										)
+									  }
+									})
 								   
 						}else if(data.success===0){
 							$("#loaderDiv").hide();

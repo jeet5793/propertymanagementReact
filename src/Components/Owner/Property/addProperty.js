@@ -7,7 +7,8 @@ import { withRouter } from 'react-router'
 import swal from 'sweetalert';
 import Dropzone from 'react-dropzone'
 import $ from 'jquery'
-
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 class AddProperty extends React.Component {
   constructor(props) {
     super(props)
@@ -301,9 +302,21 @@ class AddProperty extends React.Component {
 						   {
 							   $("#actionType").val("No");
 							   var msg = "You can upload maximum "+data.limit+ " images.";
-							   $("#hiddenURL").val("");
-							   $(".confirm-body").html(msg);
-							   $("#BlockUIConfirm").show();
+							   // $("#hiddenURL").val("");
+							   // $(".confirm-body").html(msg);
+							   // $("#BlockUIConfirm").show();
+							   confirmAlert({
+								  customUI: ({ onClose }) => {
+									return (
+									  <div className='custom-ui'>
+										<h4>Notification</h4>
+										<p>{msg}</p>
+										<button onClick={()=>{
+										onClose()}}>Ok</button>
+									  </div>
+									)
+								  }
+								})
 						   }else{
 							    $("#loaderDiv").show();
 							// console.log("imgpathhh" + JSON.stringify(this.state.images))
@@ -319,11 +332,24 @@ class AddProperty extends React.Component {
 								// window.location.href = '/my-property'
 											$("#loaderDiv").hide();
 											   
-											   $("#actionType").val("Yes");
+											   /* $("#actionType").val("Yes");
 											   // $("#hiddenURL").val("my-property");
 											   $(".confirm-body").html(data.msg);
 											   $("#BlockUIConfirm").show();
-											   this.props.history.push('my-property');
+											   this.props.history.push('my-property'); */
+											   confirmAlert({
+												  customUI: ({ onClose }) => {
+													return (
+													  <div className='custom-ui'>
+														<h4>Notification</h4>
+														<p>{msg}</p>
+														<button onClick={()=>{
+															 this.props.history.push('my-property');
+														onClose()}}>Ok</button>
+													  </div>
+													)
+												  }
+												})
 											   
 							  }
 							}).catch((error) => {

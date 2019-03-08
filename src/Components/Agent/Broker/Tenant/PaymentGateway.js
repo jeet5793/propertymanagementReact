@@ -5,7 +5,8 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 import swal from 'sweetalert';
-
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import $ from 'jquery';
 import NumberFormat from 'react-number-format';
 export default class PaymentGateway extends React.Component {
@@ -219,10 +220,23 @@ changeNameHandler(e)
 					   // console.log(JSON.stringify(data));
 					    var removeOpts = localStorage.removeItem("opts");
 					    // console.log(JSON.stringify(check));
-					    $("#actionType").val("Yes");
+					   /*  $("#actionType").val("Yes");
 					    $("#hiddenURL").val("broker-tenant");
 					    $(".confirm-body").html(data.msg);
-					    $("#BlockUIConfirm").show();
+					    $("#BlockUIConfirm").show(); */
+						confirmAlert({
+								  customUI: ({ onClose }) => {
+									return (
+									  <div className='custom-ui'>
+										<h4>Notification</h4>
+										<p>{data.msg}</p>
+										<button onClick={()=>{
+													this.props.history.push('/broker-tenant')
+										onClose()}}>Ok</button>
+									  </div>
+									)
+								  }
+								})
 						// swal("Assets Watch", data.msg);
 						 // window.location.reload();
 							// window.location.href="/bgvpayment"
@@ -319,10 +333,23 @@ changeNameHandler(e)
 					   // console.log(JSON.stringify(data));
 					    var removeOpts = localStorage.removeItem("opts");
 					    // console.log(JSON.stringify(check));
-					    $("#actionType").val("Yes");
-					    $("#hiddenURL").val("broker-tenant");
-					    $(".confirm-body").html(data.msg);
-					    $("#BlockUIConfirm").show();
+					    // $("#actionType").val("Yes");
+					    // $("#hiddenURL").val("broker-tenant");
+					    // $(".confirm-body").html(data.msg);
+					    // $("#BlockUIConfirm").show();
+						confirmAlert({
+								  customUI: ({ onClose }) => {
+									return (
+									  <div className='custom-ui'>
+										<h4>Notification</h4>
+										<p>{data.msg}</p>
+										<button onClick={()=>{
+													this.props.history.push('/broker-tenant')
+										onClose()}}>Ok</button>
+									  </div>
+									)
+								  }
+								})
 						// swal("Assets Watch", data.msg);
 						 // window.location.reload();
 							// window.location.href="/bgvpayment"

@@ -8,6 +8,8 @@ import Pagination from 'react-js-pagination';
 import SendEmail from './SendEmail';
 import swal from 'sweetalert';
  import Select from 'react-select';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
   import Autosuggest from 'react-autosuggest';
 	import $ from "jquery";
 	
@@ -343,10 +345,23 @@ class TenantOwner extends React.Component {
         }).then((data) => {
           // console.log('dataaaa:  ', data);
 		  $("#loaderDiv").hide();
-			 $("#actionType").val("No");
-			 $("#hiddenURL").val("tenant-owner");
-			 $(".confirm-body").html(data.msg);
-			 $("#BlockUIConfirm").show();
+			 // $("#actionType").val("No");
+			 // $("#hiddenURL").val("tenant-owner");
+			 // $(".confirm-body").html(data.msg);
+			 // $("#BlockUIConfirm").show();
+			 confirmAlert({
+				  customUI: ({ onClose }) => {
+					return (
+					  <div className='custom-ui'>
+						<h4>Notification</h4>
+						<p>{data.msg}</p>
+						<button onClick={()=>{
+							this.componentDidMount();
+						onClose()}}>Ok</button>
+					  </div>
+					)
+				  }
+				})
           /* if(data.msg.indexOf("Invitation send successfully")!=-1 || data.msg.indexOf("Now you both are connected")!=-1)
           {
 			 
@@ -380,14 +395,27 @@ class TenantOwner extends React.Component {
           // console.log('dataaaa:  ', data);
           if(data.msg.indexOf("Invitation Accepted successfully")!=-1)
           {
-           swal("Assets Watch", data.msg);
+           /* swal("Assets Watch", data.msg);
 			 window.location.reload();
             //document.getElementsById("hidemodal").style.display = "none";
 			// const m = document.getElementById('hidemodal');
 			// m.style.display='none';
 			//alert(m);
 			// <Redirect to={{pathname:'/tenant-owner'}} />
-			this.props.history.replace('/tenant-owner');
+			this.props.history.replace('/tenant-owner'); */
+			confirmAlert({
+						  customUI: ({ onClose }) => {
+							return (
+							  <div className='custom-ui'>
+								<h4>Notification</h4>
+								<p>{data.msg}</p>
+								<button onClick={()=>{
+											 this.componentDidMount();
+								onClose()}}>Ok</button>
+							  </div>
+							)
+						  }
+						})
           }
         else alert(data.msg)
         }).catch((error) => {
@@ -432,29 +460,55 @@ class TenantOwner extends React.Component {
 		this.setState({sendForm:sendFrm})
 		// console.log(this.state.sendForm);
 	}
-	sendMessage(){
+		sendMessage(){
 		const opts = this.state.sendForm
-		fetch(`${API_URL}assetsapi/send_message`, {
+		if(!opts.receiver && !opts.message){
+			return;
+		}else{
+			document.getElementById("msgFormCancel").click();
+			$("#loaderDiv").show();
+			fetch(`${API_URL}assetsapi/send_message`, {
         method: 'post',
 		body:JSON.stringify(opts)
-      })
-    .then(res => res.json())
-    .then(
-      (result) => {
-        //console.log("data 2: "+JSON.stringify(result.profile))
-        if (result.success) {
-          //this.setState({sendForm:result.notification})
-			alert(result.msg)
-			const m = document.getElementById('hidemodal2');
-			m.style.display='none';
-          
-        } 
-        // console.log("notification"+JSON.stringify(this.state.sendForm))
-      },
-		(error) => {
-		  console.log('error')
+			  })
+			.then(res => res.json())
+			.then(
+			  (result) => {
+				//console.log("data 2: "+JSON.stringify(result.profile))
+				if (result) {
+				  //this.setState({sendForm:result.notification})
+				  // $("#loaderDiv").hide();
+					// alert(result.msg)
+					// const m = document.getElementById('hidemodal2');
+					// m.style.display='none';
+					$("#loaderDiv").hide();
+					   
+					   // $("#actionType").val("Yes");
+					   // $("#hiddenURL").val("tenant-agent");
+					   // $(".confirm-body").html(result.msg);
+					   // $("#BlockUIConfirm").show();
+					   confirmAlert({
+						  customUI: ({ onClose }) => {
+							return (
+							  <div className='custom-ui'>
+								<h4>Notification</h4>
+								<p>{result.msg}</p>
+								<button onClick={()=>{
+											this.componentDidMount();
+								onClose()}}>Ok</button>
+							  </div>
+							)
+						  }
+						})
+				  
+				} 
+				// console.log("notification"+JSON.stringify(this.state.sendForm))
+			  },
+				(error) => {
+				  console.log('error')
+				}
+			)
 		}
-	)
 	}
 	changeTabs(id) {
 		if(id == "owner-request") {
@@ -537,10 +591,23 @@ class TenantOwner extends React.Component {
 			  (result) => {
 				  $("#loaderDiv").hide();
 				if (result.success) {
-				    $("#actionType").val("Yes");
-					 $("#hiddenURL").val("tenant-owner");
-					 $(".confirm-body").html(result.msg);
-					 $("#BlockUIConfirm").show();
+				    // $("#actionType").val("Yes");
+					 // $("#hiddenURL").val("tenant-owner");
+					 // $(".confirm-body").html(result.msg);
+					 // $("#BlockUIConfirm").show();
+					 confirmAlert({
+						  customUI: ({ onClose }) => {
+							return (
+							  <div className='custom-ui'>
+								<h4>Notification</h4>
+								<p>{result.msg}</p>
+								<button onClick={()=>{
+											 this.componentDidMount();
+								onClose()}}>Ok</button>
+							  </div>
+							)
+						  }
+						})
 				  
 				} 
 				

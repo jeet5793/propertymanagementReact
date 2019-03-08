@@ -1,5 +1,6 @@
 import React from 'react'
-
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import API_URL from "../../../../app-config";
 import { connect } from 'react-redux';
 import Cookies from 'js-cookie';
@@ -154,12 +155,25 @@ import img_not_available from '../../../../images/img_not_available.png'
 				
 			$("#loaderDiv").hide();
 					   
-					   $("#actionType").val("No");
+					  /*  $("#actionType").val("No");
 					   // $("#hiddenURL").val("settings");
 					   $(".confirm-body").html(data.msg);
-					   $("#BlockUIConfirm").show();
+					   $("#BlockUIConfirm").show(); */
 					   
-					  this.componentDidMount;
+					  
+					  confirmAlert({
+						  customUI: ({ onClose }) => {
+							return (
+							  <div className='custom-ui'>
+								<h4>Notification</h4>
+								<p>{data.msg}</p>
+								<button onClick={()=>{
+											this.componentDidMount();
+								onClose()}}>Ok</button>
+							  </div>
+							)
+						  }
+						})
           }
        
         }).catch((error) => {

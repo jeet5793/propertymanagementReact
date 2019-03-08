@@ -7,6 +7,8 @@ import Cookies from 'js-cookie';
 import swal from 'sweetalert';
 import DatePicker from 'react-date-picker';
 import moment from 'moment';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 export default class Payment extends React.Component{
 
   constructor(props) {
@@ -387,10 +389,23 @@ export default class Payment extends React.Component{
         })
         .then((data) => {
 			$("#loaderDiv").hide();
-			 $(".confirm-body").html(data.msg);
-			 $("#actionType").val("No");
-			$("#hiddenURL").val("owner-payment");
-		   $("#BlockUIConfirm").show();
+			 // $(".confirm-body").html(data.msg);
+			 // $("#actionType").val("No");
+			// $("#hiddenURL").val("owner-payment");
+		   // $("#BlockUIConfirm").show();
+		   confirmAlert({
+				  customUI: ({ onClose }) => {
+					return (
+					  <div className='custom-ui'>
+						<h4>Notification</h4>
+						<p>{data.msg}</p>
+						<button onClick={()=>{
+									this.props.history.push('/owner-payment')
+						onClose()}}>Ok</button>
+					  </div>
+					)
+				  }
+				})
           /* if(data.success)
           {
 			// swal("Assets Watch", data.msg);
@@ -469,10 +484,23 @@ ActiveDeactive(id,status){
 			//console.log(result);
 			// this.setState({enrollInfo:result.enroll_info});
 				$("#loaderDiv").hide();
-			 $(".confirm-body").html(result.msg);
-			 $("#actionType").val("Yes");
-			$("#hiddenURL").val("owner-payment");
-			 $("#BlockUIConfirm").show();
+			 // $(".confirm-body").html(result.msg);
+			 // $("#actionType").val("Yes");
+			// $("#hiddenURL").val("owner-payment");
+			 // $("#BlockUIConfirm").show();
+			 confirmAlert({
+				  customUI: ({ onClose }) => {
+					return (
+					  <div className='custom-ui'>
+						<h4>Notification</h4>
+						<p>{result.msg}</p>
+						<button onClick={()=>{
+									this.props.history.push('/owner-payment')
+						onClose()}}>Ok</button>
+					  </div>
+					)
+				  }
+				})
 		   
           },
           (error) => {

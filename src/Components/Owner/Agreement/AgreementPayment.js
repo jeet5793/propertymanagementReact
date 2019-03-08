@@ -1,5 +1,4 @@
 import React from 'react'
-
 import {Link} from 'react-router-dom'
 import API_URL from '../../../app-config';
 import Cookies from 'js-cookie';
@@ -9,6 +8,8 @@ import { connect } from 'react-redux';
 import $ from 'jquery';
 import swal from 'sweetalert';
 import NumberFormat from 'react-number-format';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 class AgreementPayment extends React.Component {
   constructor(props){
     super(props)
@@ -216,12 +217,25 @@ onChangeACH(e){
 					 
 						$("#loaderDiv").hide();
 							   
-							   $("#actionType").val("No");
+							   /* $("#actionType").val("No");
 							   $("#hiddenURL").val("/owner-agreement-create");
 							   $(".confirm-body").html(result.msg);
-							   $("#BlockUIConfirm").show();
-					      let path = this.props.history.location.state.loc;
-				 this.props.history.push(path);
+							   $("#BlockUIConfirm").show(); */
+							   confirmAlert({
+								  customUI: ({ onClose }) => {
+									return (
+									  <div className='custom-ui'>
+										<h4>Notification</h4>
+										<p>{result.msg}</p>
+										<button onClick={()=>{
+											 let path = this.props.history.location.state.loc;
+													this.props.history.push(path);
+										onClose()}}>Ok</button>
+									  </div>
+									)
+								  }
+								})
+					     
 					  //this.props.updateInfo(result.profile);
 					},
 					
@@ -307,12 +321,26 @@ onChangeACH(e){
 				 
 					$("#loaderDiv").hide();
 						   
-						   $("#actionType").val("No");
+						   $/* ("#actionType").val("No");
 						   // $("#hiddenURL").val("/owner-agreement-create");
 						   $(".confirm-body").html(result.msg);
-						   $("#BlockUIConfirm").show();
-						    let path = this.props.history.location.state.loc;
-				 this.props.history.push(path);
+						   $("#BlockUIConfirm").show(); */
+						    
+				 
+				 confirmAlert({
+					  customUI: ({ onClose }) => {
+						return (
+						  <div className='custom-ui'>
+							<h4>Notification</h4>
+							<p>{result.msg}</p>
+							<button onClick={()=>{
+								let path = this.props.history.location.state.loc;
+										this.props.history.push(path);
+							onClose()}}>Ok</button>
+						  </div>
+						)
+					  }
+					})
 				  //this.props.updateInfo(result.profile);
 				},
 				

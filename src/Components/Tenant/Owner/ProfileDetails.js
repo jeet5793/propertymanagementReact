@@ -1,5 +1,6 @@
 import React from 'react'
-
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import avatar_1 from '../../../images/Owner/users/avatar-1.jpg'
 import API_URL from "../../../app-config";
 import img_not_available from '../../../images/img_not_available.png'
@@ -56,10 +57,23 @@ class ProfileDetails extends React.Component{
 					// m.style.display='none';
 						$("#loaderDiv").hide();
 					   
-					   $("#actionType").val("Yes");
+					  /*  $("#actionType").val("Yes");
 					   $("#hiddenURL").val("tenant-owner-profile");
 					   $(".confirm-body").html(result.msg);
-					   $("#BlockUIConfirm").show();
+					   $("#BlockUIConfirm").show(); */
+					   confirmAlert({
+						  customUI: ({ onClose }) => {
+							return (
+							  <div className='custom-ui'>
+								<h4>Notification</h4>
+								<p>{result.msg}</p>
+								<button onClick={()=>{
+											 this.componentDidMount();
+								onClose()}}>Ok</button>
+							  </div>
+							)
+						  }
+						})
 				  
 				} 
 				// console.log("notification"+JSON.stringify(this.state.sendForm))
@@ -225,7 +239,7 @@ class ProfileDetails extends React.Component{
                         </div>
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                        <button type="button" id = "msgFormCancel" className="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
                         <button type="button" className="btn btn-success waves-effect waves-light" onClick={this.sendMessage}>Send</button>
                     </div>
                     </div>

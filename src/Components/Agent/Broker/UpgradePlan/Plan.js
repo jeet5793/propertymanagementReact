@@ -1,5 +1,6 @@
 import React from 'react'
-
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import {Link,Redirect} from 'react-router-dom';
 import API_URL from '../../../../app-config';
 import Cookies from 'js-cookie';
@@ -80,10 +81,23 @@ unsubscribe()
 				// swal("Assets Watch", result.msg);
 				// window.location.reload();
 				$("#loaderDiv").hide();
-				$("#actionType").val("Yes");
+				/* $("#actionType").val("Yes");
 				$("#hiddenURL").val("broker-plan");
 				$(".confirm-body").html(result.msg);
-				$("#BlockUIConfirm").show();
+				$("#BlockUIConfirm").show(); */
+				confirmAlert({
+						  customUI: ({ onClose }) => {
+							return (
+							  <div className='custom-ui'>
+								<h4>Notification</h4>
+								<p>{result.msg}</p>
+								<button onClick={()=>{
+											this.props.history.push('/broker-plan')
+								onClose()}}>Ok</button>
+							  </div>
+							)
+						  }
+						})
 			  }
 			  //console.log("set user data"+JSON.stringify(this.state.profileData))
 			},

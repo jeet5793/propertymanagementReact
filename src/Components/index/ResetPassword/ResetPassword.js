@@ -4,6 +4,8 @@ import $ from 'jquery'
 import { Link } from 'react-router-dom'
 import API_URL from '../../../app-config';
 import swal from 'sweetalert';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 export default class ResetPassword extends React.Component{
   constructor(props){
 	  super(props)
@@ -34,10 +36,23 @@ export default class ResetPassword extends React.Component{
 					if (result.success==0) {
 					   $("#loaderDiv").hide();
 					   
-					   $("#actionType").val("Yes");
-					   $("#hiddenURL").val("/");
-					   $(".confirm-body").html(result.msg);
-					   $("#SBlockUIConfirm").show();
+					   // $("#actionType").val("Yes");
+					   // $("#hiddenURL").val("/");
+					   // $(".confirm-body").html(result.msg);
+					   // $("#SBlockUIConfirm").show();
+					   confirmAlert({
+						  customUI: ({ onClose }) => {
+							return (
+							  <div className='custom-ui'>
+								<h4>Notification</h4>
+								<p>{result.msg}</p>
+								<button onClick={()=>{
+											this.props.history.push('/')
+								onClose()}}>Ok</button>
+							  </div>
+							)
+						  }
+						})
 							
 					}else if (result.success==1) {	
 					  $("#loaderDiv").hide();
@@ -91,10 +106,23 @@ export default class ResetPassword extends React.Component{
 							// this.props.history.replace(`/`);
 						$("#loaderDiv").hide();
 					   
-					   $("#actionType").val("Yes");
-					   $("#hiddenURL").val("/");
-					   $(".confirm-body").html(result.msg);
-					   $("#SBlockUIConfirm").show();
+					   // $("#actionType").val("Yes");
+					   // $("#hiddenURL").val("/");
+					   // $(".confirm-body").html(result.msg);
+					   // $("#SBlockUIConfirm").show();
+					   confirmAlert({
+						  customUI: ({ onClose }) => {
+							return (
+							  <div className='custom-ui'>
+								<h4>Notification</h4>
+								<p>{result.msg}</p>
+								<button onClick={()=>{
+											this.props.history.push('/')
+								onClose()}}>Ok</button>
+							  </div>
+							)
+						  }
+						})
 							
 					}				
 					

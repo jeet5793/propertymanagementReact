@@ -1,5 +1,6 @@
 import React from 'react'
-
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 // import img2 from '../../../images/properties-4.jpg'
 // import img3 from '../../../images/properties-3.jpg'
 // import img4 from '../../../images/properties-2.jpg'
@@ -43,6 +44,29 @@ export default class Property extends React.Component{
     // debugger;
     if (property.success === 0) {
         this.setState({isPropertySearchEmpty: true, propertySearchMsg: property.msg})
+		this.setState({properties:[]})
+		if (this.state.properties) {
+							this.handlePageChange(this.state.activePage);
+						}
+
+		
+					/* $("#actionType").val("No");
+				    // $("#hiddenURL").val("owner-agent");
+					   $(".confirm-body").html(data.msg);
+					   $("#SBlockUIConfirm").show(); */
+					   confirmAlert({
+						  customUI: ({ onClose }) => {
+							return (
+							  <div className='custom-ui'>
+								<h4>Notification</h4>
+								<p>{property.msg}</p>
+								<button onClick={()=>{
+								onClose()}}>Ok</button>
+							  </div>
+							)
+						  }
+						})
+	
     } else {
         property = property.property_search;
         var owners = [];
@@ -51,148 +75,43 @@ export default class Property extends React.Component{
         //         owners.push(property[i].owner_details[j])
         // this.setState({owners: owners, properties: property, isPropertySearchEmpty: false})
         if(property.length===0)
-        for(var i=0;i<this.state.properties.length;i++){
-          if(this.state.properties[i].id==property[0].id){
-            this.props.history.push({'pathname':"property-detail",state:this.state.properties[i]})
-          }
+		{
+			this.setState({properties:null})
+			// if (this.state.properties) {
+							// this.handlePageChange(this.state.activePage);
+						// }
+        // for(var i=0;i<this.state.properties.length;i++){
+          // if(this.state.properties[i].id==property[0].id){
+            // this.props.history.push({'pathname':"property-detail",state:this.state.properties[i]})
+          // }
         }
         else
         {
-          var arr=[];
-          for(var i=0;i<this.state.properties;i++)
-          if(property[i]!=undefined){
-            if(property[i].id==this.state.properties[i].id)
-            arr.push(this.state.properties[i])
-          }
-           this.setState({properties:arr})
+          // var arr=[];
+          // for(var i=0;i<this.state.properties;i++)
+          // if(property[i]!=undefined){
+            // if(property[i].id==this.state.properties[i].id)
+            // arr.push(this.state.properties[i])
+          // }
+           this.setState({properties:property})
+		    //console.log('state'+JSON.stringify(property))
+		   if (this.state.properties) {
+							this.handlePageChange(this.state.activePage);
+						}
           // this.updateProps(arr)  /property-details
           // if(arr.length>0)
           // this.props.history.push({'pathname':"property-details",state:arr})
         }
     }
 }
+
 updateProps(props){
   this.setState({properties:props})
 }
   componentDidMount(){
     if (this.props.location && this.props.location.state){
       // this.setState(this.props.location.state.state);
-	  this.setState(this.props.location.state.state,function(){
-        var $=window.$;
-        setTimeout(function(){       
-          var jQuery=window.$;       
-          var tz_realestate_ResizeImage=function(obj){
-              'use strict';
-              var widthStage;
-              var heightStage;
-              var widthImage;
-              var heightImage;
-              var resizeImage=function(widthImage,heightImage,widthStage,heightStage){
-              var escImageX=widthStage/widthImage;
-              var escImageY=heightStage/heightImage;
-              var escalaImage=(escImageX>escImageY)?escImageX:escImageY;
-              var widthV=widthImage*escalaImage;
-              var heightV=heightImage*escalaImage;
-              var posImageY=0;
-              var posImageX=0;
-              if(heightV>heightStage){
-                  posImageY=(heightStage-heightV)/2;
-              }
-              if(widthV>widthStage){
-                  posImageX=(widthStage-widthV)/2;
-              }
-              return{top:posImageY,left:posImageX,width:widthV,height:heightV};
-              };
-                  obj.each(function(i,el){
-                  heightStage=jQuery(this).height();
-                  widthStage=jQuery(this).width();
-                  var img_url=jQuery(this).find('img').attr('src');
-                  var image=new Image();
-                  image.src=img_url;
-                  widthImage=image.naturalWidth;
-                  heightImage=image.naturalHeight;
-                  var tzimg=new resizeImage(widthImage,heightImage,widthStage,heightStage);
-                  jQuery(this).find('img').css({top:tzimg.top,left:tzimg.left,width:tzimg.width,height:tzimg.height});
-                  });
-              } 
-            
-            $('#tzloadding').remove();
-          var gapHorizontal,gapVertical;
-          if(jQuery(window).width() > 993 ){
-            gapHorizontal = 0;
-            gapVertical = 26;
-          }else{
-            gapHorizontal = 0;
-            gapVertical = 20;
-          }
-            
-          try{
-            if( jQuery('#js-grid-meet-the-team').length){
-              if(jQuery('#js-grid-meet-the-team').cubeportfolio!=undefined)
-              jQuery('#js-grid-meet-the-team').cubeportfolio({
-                defaultFilter: '*',
-                filters: '#js-filters-meet-the-team',
-                layoutMode: 'grid',
-                animationType: 'rotateRoom',
-                gapHorizontal: gapHorizontal,
-                gapVertical: gapVertical,
-                gridAdjustment: 'responsive',
-                mediaQueries: [{
-                  width: 1500,
-                  cols: 5
-                }, {
-                  width: 993,
-                  cols: 3       }, {
-                  width: 768,
-                  cols: 3       }, {
-                  width: 460,
-                  cols: 2
-                }, {
-                  width: 0,
-                  cols: 1
-                }],
-                caption: 'fadeIn',
-                displayType: 'lazyLoading',
-                displayTypeSpeed: 100
-              });
-              tz_realestate_ResizeImage(jQuery('.tz-property-thum'));
-            }
-          }   
-          catch(error){
-            if( jQuery('#js-grid-meet-the-team').length){
-              if(jQuery('#js-grid-meet-the-team').cubeportfolio!=undefined)
-              jQuery('#js-grid-meet-the-team').cubeportfolio('destroy')
-              jQuery('#js-grid-meet-the-team').cubeportfolio({
-                defaultFilter: '*',
-                filters: '#js-filters-meet-the-team',
-                layoutMode: 'grid',
-                animationType: 'rotateRoom',
-                gapHorizontal: gapHorizontal,
-                gapVertical: gapVertical,
-                gridAdjustment: 'responsive',
-                mediaQueries: [{
-                  width: 1500,
-                  cols: 5
-                }, {
-                  width: 993,
-                  cols: 3       }, {
-                  width: 768,
-                  cols: 3       }, {
-                  width: 460,
-                  cols: 2
-                }, {
-                  width: 0,
-                  cols: 1
-                }],
-                caption: 'fadeIn',
-                displayType: 'lazyLoading',
-                displayTypeSpeed: 100
-              });
-              tz_realestate_ResizeImage(jQuery('.tz-property-thum'));
-            }
-          }
-           }, 500);
-        })
+	  this.setState(this.props.location.state.state,this.handleScriptLoad)
 		if (this.state.properties) {
 					this.handlePageChange(this.state.activePage);
 				}
@@ -209,7 +128,30 @@ updateProps(props){
           owners.push(data.property[i].owner_details[j])
         }
       }
-      this.setState({owners:owners,properties:data.property},function(){
+      this.setState({owners:owners,properties:data.property},this.handleScriptLoad)
+		if (this.state.properties) {
+					this.handlePageChange(this.state.activePage);
+				}
+	}
+      })      
+	});
+
+	}   
+this.handleScriptLoad;
+  this.handleSript 
+	this.TopAgentList();
+  setTimeout(function(){ 
+    var scrpt=document.createElement('script');
+    scrpt.src="js/propr.js";
+    document.body.appendChild(scrpt)
+    $('#tzloadding').remove(); }, 2000)
+	
+		
+		
+		
+  }
+ handleScriptLoad(){
+	
         var $=window.$;
         setTimeout(function(){       
           var jQuery=window.$;       
@@ -324,26 +266,9 @@ updateProps(props){
             }
           }
            }, 500);
-        })
-		if (this.state.properties) {
-					this.handlePageChange(this.state.activePage);
-				}
-	}
-      })      
-	});
-
-  this.handleSript 
-	}  
-	this.TopAgentList();
-  setTimeout(function(){ 
-    var scrpt=document.createElement('script');
-    scrpt.src="js/propr.js";
-    document.body.appendChild(scrpt)
-    $('#tzloadding').remove(); }, 2000)
-  }
- 
+        
+ }
   handlePageChange = (pageNum) => {
-
   let number = pageNum - 1;
   
 		 // console.log('pageNum'+pageNum+'::propData'+JSON.stringify(this.state.properties))
@@ -352,15 +277,16 @@ updateProps(props){
 		 if (this.props.location && this.props.location.state){
 		
 			   var propData =  this.props.location.state.state.properties.slice((itemsCountPerPage * number), (itemsCountPerPage * pageNum));
-         this.setState({activePage: pageNum})
-         this.setState({pagedList: propData})
+
+         this.setState({pagedList: propData,activePage: pageNum},this.handleScriptLoad)
         }else{
       
          var propData = properties.slice((itemsCountPerPage * number), (itemsCountPerPage * pageNum));
           
      }
-     this.setState({pagedList: propData,activePage: pageNum})
-	
+	 
+     this.setState({pagedList: propData,activePage: pageNum},this.handleScriptLoad);
+		
   }
   
   TopAgentList(){
@@ -371,7 +297,7 @@ updateProps(props){
 			})
 		});
   }
-  componentWillReceiveProps(nextProps){
+   /* componentWillReceiveProps(nextProps){
     var $=window.$;
     setTimeout(function(){       
       var jQuery=window.$;       
@@ -485,7 +411,7 @@ updateProps(props){
         }
       }
        }, 500);
-  }
+  }  */
   handleSript(){
         var $=window.$;
         $('html, body').animate({scrollTop: 0}, 500); 
@@ -540,11 +466,54 @@ getPropertyDetails(id){
     })
   });
 }
+onClickFilter(propStatus,e){
+	//alert(propStatus);
+	// $('.portfolioFilter .current').removeClass('current');
+        // $(this).addClass('current');
+ 
+        var selector = propStatus;
+		let opts = {property_status:selector}
+		 $("#loaderDiv").show();
+		  fetch(`${API_URL}assetsapi/property_status/`, {
+        method: 'post',          
+        body: JSON.stringify(opts)
+        }).then((response) => {
+          return response.json();
+        }).then((data) => {
+		  $("#loaderDiv").hide();
+		  var owners=[];
+			  if(data.property_status){
+				for(var i=0;i<data.property_status.length;i++) {
+				for(var j=0;j<data.property_status[i].owner_details.length;j++) {
+				  owners.push(data.property_status[i].owner_details[j])
+				}
+			  }
+			  this.setState({owners:owners,properties:data.property_status},this.handleScriptLoad)
+				if (this.state.properties) {
+							this.handlePageChange(this.state.activePage);
+						}
+			  }
+        }).catch((error) => {
+          console.log('error: ', error);
+        });
+		 /* if(selector == "all")
+        {
+            //$('.filter').removeClass('hidden');
+            $('.filterDiv').show('1000');
+        }
+        else
+        {
+			$(".filterDiv").not('.'+selector).hide('3000');
+			$('.filterDiv').filter('.'+selector).show('3000');
+		} */
+		
+         
+}
 	render(){ 
-   //console.log('state'+JSON.stringify(this.props))
+  
    const propertieDetails= this.state.properties;
 	 const proppertydetails= this.state.proppertydetails;
-	 const pagePropertyList= this.state.pagedList || this.state.properties;
+	 const pagePropertyList= this.state.pagedList;
 		return(
 			<div className="mg-top-129">
       {/* <Header actChild="Properties" loggedIn={this.props.login} />       */}
@@ -570,22 +539,33 @@ getPropertyDetails(id){
              
               <div className="tz-property-head clearfix">
                   <div id="js-filters-meet-the-team" className="cbp-l-filters-button cbp-l-filters-left" >
-                    <div data-filter="*" className="cbp-filter-item"> Show All </div>
-                    <div data-filter=".for-rent" className="cbp-filter-item"> For Rent
+                    <div data-filter="*" className="cbp-filter-item" onClick={this.onClickFilter.bind(this,'All')}> Show All </div>
+                    <div data-filter=".for-rent" className="cbp-filter-item" onClick={this.onClickFilter.bind(this,'Rent')}> For Rent
                       <div className="cbp-filter-counter"></div>
                     </div>
-                    <div data-filter=".for-sale" className="cbp-filter-item"> For Sale
+                    <div data-filter=".for-sale" className="cbp-filter-item" onClick={this.onClickFilter.bind(this,'Sale')}> For Sale
                       <div className="cbp-filter-counter"></div>
                     </div>
                   </div>
               </div>
-    
-              <div id="js-grid-meet-the-team" className="cbp cbp-l-grid-team grid" >
-              {pagePropertyList && pagePropertyList.map(property=>(
-                <PropertItem key={property.title} updatePropertyGrid={this.updatePropertyGrid} ownerDetails={this.state.owners} property={property} total_amount={property.total_amount}  rent={property.rent}  Title={property.title} description={property.description} square_feet={property.square_feet} src={(property.img_path!=undefined&&property.img_path.length>0&&property.img_path[0].img_path!=undefined)?API_URL+property.img_path[0].img_path:''} PropertyStatus={property.property_status} onClickPropertyDetail={this.onClickPropertyDetail} id={property.id} />
-              ))}       
+			  {/*  {pagePropertyList && pagePropertyList.map(property=>(
+				
+					<PropertItem key={property.title} updatePropertyGrid={this.updatePropertyGrid} ownerDetails={this.state.owners} property={property} total_amount={property.total_amount}  rent={property.rent}  Title={property.title} description={property.description} square_feet={property.square_feet} src={(property.img_path!=undefined&&property.img_path.length>0&&property.img_path[0].img_path!=undefined)?API_URL+property.img_path[0].img_path:''} PropertyStatus={property.property_status} onClickPropertyDetail={this.onClickPropertyDetail} id={property.id} />
                   
+	))} */}  
+	
+              <div id="" className="cbp cbp-l-grid-team grid cbp-caption-active cbp-caption-fadeIn cbp-ready" >
+				<div className="cbp-wrapper-outer">
+					<div className="cbp-wrapper">
+					 {pagePropertyList && pagePropertyList.map((property,index)=>(
+						<PropertItem index={index} key={property.title} updatePropertyGrid={this.updatePropertyGrid} ownerDetails={this.state.owners} property={property} total_amount={property.total_amount}  rent={property.rent}  Title={property.title} description={property.description} square_feet={property.square_feet} src={(property.img_path!=undefined&&property.img_path.length>0&&property.img_path[0].img_path!=undefined)?API_URL+property.img_path[0].img_path:''} PropertyStatus={property.property_status} onClickPropertyDetail={this.onClickPropertyDetail} id={property.id} />
+                  
+					 ))}
+					</div>
+				</div>
+		
               </div>
+			   
 			    <div className='wp-pagenavi'> 
 					{(propertieDetails.length>0)?
                           <Pagination

@@ -6,6 +6,8 @@ import Autosuggest from 'react-autosuggest';
 	import $ from "jquery";
 	//import moment from 'moment';
 import DatePicker from 'react-date-picker';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 export default class SendMSG extends React.Component{
   constructor(props){
     super(props);
@@ -135,10 +137,23 @@ userlist(assets_type){
 				  // var userid = data.user.assets_id
 				  // localStorage.setItem('userid',userid)
 							$("#loaderDiv").hide();
-							$("#actionType").val("No");
-							   $("#hiddenURL").val("agreement");
-							   $(".confirm-body").html(data.msg);
-							   $("#BlockUIConfirm").show();
+							// $("#actionType").val("No");
+							   // $("#hiddenURL").val("agreement");
+							   // $(".confirm-body").html(data.msg);
+							   // $("#BlockUIConfirm").show();
+							 confirmAlert({
+								  customUI: ({ onClose }) => {
+									return (
+									  <div className='custom-ui'>
+										<h4>Notification</h4>
+										<p>{data.msg}</p>
+										<button onClick={()=>{
+													this.props.history.push('/agreement')
+										onClose()}}>Ok</button>
+									  </div>
+									)
+								  }
+								})
 							   
 					}else if(data.success===0){
 
@@ -153,10 +168,23 @@ userlist(assets_type){
 											if (data) {
 												$("#loaderDiv").hide();
 											   
-											   $("#actionType").val("Yes");
-											   $("#hiddenURL").val("agreement");
-											   $(".confirm-body").html(data.msg);
-											   $("#BlockUIConfirm").show();
+											   // $("#actionType").val("Yes");
+											   // $("#hiddenURL").val("agreement");
+											   // $(".confirm-body").html(data.msg);
+											   // $("#BlockUIConfirm").show();
+											    confirmAlert({
+													  customUI: ({ onClose }) => {
+														return (
+														  <div className='custom-ui'>
+															<h4>Notification</h4>
+															<p>{data.msg}</p>
+															<button onClick={()=>{
+																		this.props.history.push('/agreement')
+															onClose()}}>Ok</button>
+														  </div>
+														)
+													  }
+													})
 												// swal("Assets Watch", data.msg);
 												
 												// console.log(this.state.propertyByUser);
@@ -214,10 +242,23 @@ userlist(assets_type){
 						window.location.reload(); */
 						$("#loaderDiv").hide();
 					   
-					   $("#actionType").val("Yes");
-					   $("#hiddenURL").val("agreement");
-					   $(".confirm-body").html(data.msg);
-					   $("#BlockUIConfirm").show();
+					   // $("#actionType").val("Yes");
+					   // $("#hiddenURL").val("agreement");
+					   // $(".confirm-body").html(data.msg);
+					   // $("#BlockUIConfirm").show();
+					  confirmAlert({
+						  customUI: ({ onClose }) => {
+							return (
+							  <div className='custom-ui'>
+								<h4>Notification</h4>
+								<p>{data.msg}</p>
+								<button onClick={()=>{
+											this.props.history.push('/agreement')
+								onClose()}}>Ok</button>
+							  </div>
+							)
+						  }
+						})
                     }
                     //console.log("set user data"+JSON.stringify(this.state.profileData))
                 },

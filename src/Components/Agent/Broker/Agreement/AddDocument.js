@@ -6,6 +6,8 @@ import Cookies from 'js-cookie';
 import DatePicker from 'react-date-picker';
 // import Select from 'react-select';
 import $ from "jquery";
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 export default class AddDocument extends React.Component{
 	constructor(props) {
     super(props);
@@ -94,11 +96,25 @@ export default class AddDocument extends React.Component{
 			}).then((data) => {
 			  // console.log('dataaaa:  ', data);
 			  $("#loaderDiv").hide();
-				 $("#actionType").val("Yes");
-				 $("#hiddenURL").val("broker-document-add");
-				 $(".confirm-body").html(data.msg);
-				 $("#BlockUIConfirm").show();
-				 this.componentDidMount();
+				 // $("#actionType").val("No");
+				 // $("#hiddenURL").val("broker-document-add");
+				 // $(".confirm-body").html(data.msg);
+				 // $("#BlockUIConfirm").show();
+				 let msg = data.msg;
+				confirmAlert({
+				  customUI: ({ onClose }) => {
+					return (
+					  <div className='custom-ui'>
+						<h4>Notification</h4>
+						<p>{msg}</p>
+						<button onClick={()=>{
+									this.props.history.push('/broker-documents')
+						onClose()}}>Ok</button>
+					  </div>
+					)
+				  }
+				})
+				
 				 
 			}).catch((error) => {
 			  console.log('error: ', error);

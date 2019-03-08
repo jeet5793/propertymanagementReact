@@ -3,9 +3,11 @@ import API_URL from '../../../../app-config';
 import Cookies from 'js-cookie';
 import swal from 'sweetalert';
 import Autosuggest from 'react-autosuggest';
-	import $ from "jquery";
-		import moment from 'moment';
+import $ from "jquery";
+import moment from 'moment';
 import DatePicker from 'react-date-picker';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 export default class SendMSG extends React.Component{
   constructor(props){
     super(props);
@@ -109,7 +111,7 @@ export default class SendMSG extends React.Component{
 		  return alert("Choose atleast one from deal or from connected owners's.!!!");
 	  }
       if(!this.state.property_id){
-		  return alert('Property must be selected.!!!');
+		  return alert("Property must be selected. May be you don't have properties available to select or you have not selected any property!!!");
 	  }
       let { property_id, sender_id, receive_user_id, description } = this.state;
       if (!property_id || !sender_id || !receive_user_id || !description) {
@@ -141,10 +143,22 @@ document.getElementById("FormCancel").click();
 				  // var userid = data.user.assets_id
 				  // localStorage.setItem('userid',userid)
 							$("#loaderDiv").hide();
-							$("#actionType").val("No");
+							/* $("#actionType").val("No");
 							   $("#hiddenURL").val("agreement");
 							   $(".confirm-body").html(data.msg);
-							   $("#BlockUIConfirm").show();
+							   $("#BlockUIConfirm").show(); */
+							   confirmAlert({
+								  customUI: ({ onClose }) => {
+									return (
+									  <div className='custom-ui'>
+										<h4>Notification</h4>
+										<p>{data.msg}</p>
+										<button onClick={()=>{
+										onClose()}}>Ok</button>
+									  </div>
+									)
+								  }
+								})
 							   
 					}else if(data.success===0){
 
@@ -159,10 +173,23 @@ document.getElementById("FormCancel").click();
 											if (data) {
 												$("#loaderDiv").hide();
 											   
-											   $("#actionType").val("Yes");
+											   /* $("#actionType").val("Yes");
 											   $("#hiddenURL").val("broker-agreement");
 											   $(".confirm-body").html(data.msg);
-											   $("#BlockUIConfirm").show();
+											   $("#BlockUIConfirm").show(); */
+											   confirmAlert({
+												  customUI: ({ onClose }) => {
+													return (
+													  <div className='custom-ui'>
+														<h4>Notification</h4>
+														<p>{data.msg}</p>
+														<button onClick={()=>{
+																	this.props.history.push('/broker-agreement')
+														onClose()}}>Ok</button>
+													  </div>
+													)
+												  }
+												})
 												// swal("Assets Watch", data.msg);
 												
 												// console.log(this.state.propertyByUser);
@@ -215,10 +242,23 @@ document.getElementById("FormCancel").click();
                     if (data) {
                         $("#loaderDiv").hide();
 					   
-					   $("#actionType").val("Yes");
-					   $("#hiddenURL").val("broker-agreement");
-					   $(".confirm-body").html(data.msg);
-					   $("#BlockUIConfirm").show();
+					   // $("#actionType").val("Yes");
+					   // $("#hiddenURL").val("broker-agreement");
+					   // $(".confirm-body").html(data.msg);
+					   // $("#BlockUIConfirm").show();
+					   confirmAlert({
+									  customUI: ({ onClose }) => {
+										return (
+										  <div className='custom-ui'>
+											<h4>Notification</h4>
+											<p>{data.msg}</p>
+											<button onClick={()=>{
+														this.props.history.push('/broker-agreement')
+											onClose()}}>Ok</button>
+										  </div>
+										)
+									  }
+									})
                     }
                     //console.log("set user data"+JSON.stringify(this.state.profileData))
                 },
@@ -340,10 +380,22 @@ document.getElementById("FormCancel").click();
 						this.setState({userProperty: data.property_list_broker_agreement});
 					   if(!this.state.userProperty){
 						   document.getElementById("FormCancel").click();
-						    $("#actionType").val("No");
+						    /* $("#actionType").val("No");
 						   $("#hiddenURL").val("broker-agreement");
 						   $(".confirm-body").html("You don't have property to send agreement.");
-						   $("#BlockUIConfirm").show();
+						   $("#BlockUIConfirm").show(); */
+						   confirmAlert({
+									  customUI: ({ onClose }) => {
+										return (
+										  <div className='custom-ui'>
+											<h4>Notification</h4>
+											<p>You don't have property to send agreement</p>
+											<button onClick={()=>{
+											onClose()}}>Ok</button>
+										  </div>
+										)
+									  }
+									})
 					   }
 					  
                     }

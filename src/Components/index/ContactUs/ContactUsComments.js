@@ -1,6 +1,8 @@
 import React from 'react'
 import API_URL from '../../../app-config';
 import $ from 'jquery';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 export default class ContactForm extends React.Component {
   constructor(props) {
     super(props)
@@ -57,17 +59,31 @@ export default class ContactForm extends React.Component {
 				return response.json();
 			  }).then((data) => {
 				   $("#loaderDiv").hide();
-					$("#actionType").val("Yes");
-					$("#hiddenURL").val("/contactus");
-					$(".confirm-body").html(data.msg);
-					$("#SBlockUIConfirm").show();
-				this.setState({
-				  name: '',
-				  email: '',
-				  phone: '',
-				  subject: '',
-				  message: ''
-				})
+				   confirmAlert({
+					  customUI: ({ onClose }) => {
+						return (
+						  <div className='custom-ui'>
+							<h4>Notification</h4>
+							<p>{data.msg}</p>
+							<button onClick={()=>{
+										this.props.history.push('/contactus');
+										this.setState({
+										  name: '',
+										  email: '',
+										  phone: '',
+										  subject: '',
+										  message: ''
+										});
+							onClose()}}>Ok</button>
+						  </div>
+						)
+					  }
+					})
+					// $("#actionType").val("Yes");
+					// $("#hiddenURL").val("/contactus");
+					// $(".confirm-body").html(data.msg);
+					// $("#SBlockUIConfirm").show();
+				
 			  });
 			}
         }else{

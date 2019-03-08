@@ -9,6 +9,8 @@ import VEdit from './VEdit'
 import {loadFile} from '../../../js/external'
 import SendMsg from './SendMSG'
 import swal from 'sweetalert';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 	import {Link} from 'react-router-dom'
 //import '../../../Owner/Agreement/style.css'
 //import './icons.css'
@@ -150,14 +152,21 @@ const VExecute=(props)=>{
              <td>
              {element.dealStatus==="Inprocess"?
                 <span>
-                  <a title="Edit" href="#executePreview" data-toggle="tab" onClick={() => props.selectedExecutedAgreement(element)} className="table-action-btn view-rqu"><i className="mdi mdi-book-open-page-variant"></i></a>
+                  <a title="Edit" href="#executePreview" data-toggle="tab" onClick={() => props.selectedExecutedAgreement(element)} className="table-action-btn view-rqu">
+				  <i className="mdi mdi-book-open-page-variant"></i></a>
                   {(element.sender_id==props.assetsId) && <a href = "#" title="Send" onClick={()=>props.checkPartnerInfo(element)} className="btn btn-primary" >Partner Sign</a>}
                 </span>
             :(element.dealStatus==="Completed" || element.dealStatus==="Terminated" || element.dealStatus==="Rejected")?
 					    	<span> 
-                    <a title="view" href="#" onClick={() => props.dealPdfView(element.deal_id)} data-toggle="tab" className="table-action-btn view-rqu"><i className="mdi mdi-eye"></i></a>
+                    <a title="view" href="#" onClick={() => props.dealPdfView(element.deal_id)} data-toggle="tab" className="table-action-btn view-rqu">
+					<i className="mdi mdi-eye"></i></a>
                      {(element.sender_id==props.assetsId && element.dealStatus==="Completed") && <a href = "#" title="Send" onClick={()=>props.checkPartnerInfo(element)} className="btn btn-primary" >Partner Sign</a>}
-                        </span>:''}<a title="Download"  href="#" className="table-action-btn view-rqu"><i className="mdi mdi-download" onClick={() => props.onClickDownload(element.deal_id)}></i></a><a title="Send"  className="table-action-btn view-rqu"  onClick={() => props.forwardAgreement(element)} ><i className="mdi mdi-redo-variant"></i></a>{(element.sender_id==props.assetsId)?<a title="Terminate" href="#" onClick={() => props.terminateAgreement(element.deal_id)} className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a>:''}</td> 
+                        </span>:''}
+						<a title="Download"  href="#" className="table-action-btn view-rqu">
+							<i className="mdi mdi-download" onClick={() => props.onClickDownload(element.deal_id)}></i></a>
+						<a title="Send"  className="table-action-btn view-rqu"  onClick={() => props.forwardAgreement(element)} >
+							<i className="mdi mdi-redo-variant"></i></a>
+					{(element.dealStatus!="Terminated" && (element.sender_id==props.assetsId)) && <a title="Terminate" href="#" onClick={() => props.terminateAgreement(element.deal_id)} className="table-action-btn view-rqu"><i className="mdi mdi-close"></i></a>}</td> 
               </tr>
           )):<div>No data </div>}
       </tbody>
@@ -298,7 +307,69 @@ export default class container extends React.Component{
 	 deleteAgreement(id){
         var session_id=JSON.parse(this.state.userData).session_id;
 		
-		 $(".confirm-body").html("Do you want to delete agreement..?");
+		confirmAlert({
+		  customUI: ({ onClose }) => {
+			return (
+			  <div className='custom-ui'>
+				<h4>Are you sure?</h4>
+				<p>You want to delete this agreement?</p>
+				<button onClick={onClose}>No</button>
+				<button onClick={() => {
+					$("#loaderDiv").show();
+								fetch(`${API_URL}assetsapi/delete_agreement/`+id+`/`+session_id,{
+									method: 'GET'
+									})
+									.then(res => res.json())
+									.then(data =>{ 
+									if(data.msg==="Agreement deleted successfully. !!!")  
+										{
+												$("#loaderDiv").hide();
+												
+												/* $("#actionType").val("Yes");
+											   $("#hiddenURL").val("broker-agreement");
+											   $(".confirm-body").html(data.msg);
+											   $("#BlockUIConfirm").show(); */
+											   confirmAlert({
+												  customUI: ({ onClose }) => {
+													return (
+													  <div className='custom-ui'>
+														<h4>Notification</h4>
+														<p>{data.msg}</p>
+														<button onClick={()=>{
+																	this.componentDidMount();
+														onClose()}}>Ok</button>
+													  </div>
+													)
+												  }
+												})
+										}else{
+												$("#loaderDiv").hide();
+												/* $("#actionType").val("Yes");
+											   $("#hiddenURL").val("broker-agreement");
+											   $(".confirm-body").html(data.msg);
+											   $("#BlockUIConfirm").show(); */
+											   confirmAlert({
+													  customUI: ({ onClose }) => {
+														return (
+														  <div className='custom-ui'>
+															<h4>Notification</h4>
+															<p>{data.msg}</p>
+															<button onClick={()=>{
+																		this.componentDidMount();
+															onClose()}}>Ok</button>
+														  </div>
+														)
+													  }
+													})
+										}
+									})
+				}}>Yes, Delete it!</button>
+			  </div>
+			)
+		  }
+		}) 
+		
+		 /* $(".confirm-body").html("Do you want to delete agreement..?");
 		$("#DelBlockUIConfirm").show();
 		$(".row-dialog-btn").click(function(){
 						const action = this.value;
@@ -330,7 +401,7 @@ export default class container extends React.Component{
 						}else if(action==="Cancel"){
 							$("#DelBlockUIConfirm").hide();
 						}
-		})
+		}) */
     }
     selectedExecutedAgreement(agreement) {
         let data = {id: agreement.deal_id};
@@ -512,10 +583,23 @@ getSendedAgreement(){
                     //console.log("data 2: "+JSON.stringify(result.profile))
                     if (data) {
 						$("#loaderDiv").hide();
-						 $("#actionType").val("Yes");
+						/*  $("#actionType").val("Yes");
 						 $("#hiddenURL").val("broker-agreement");
 						 $(".confirm-body").html(data.msg);
-						 $("#BlockUIConfirm").show();
+						 $("#BlockUIConfirm").show(); */
+						 confirmAlert({
+												  customUI: ({ onClose }) => {
+													return (
+													  <div className='custom-ui'>
+														<h4>Notification</h4>
+														<p>{data.msg}</p>
+														<button onClick={()=>{
+																	this.componentDidMount();
+														onClose()}}>Ok</button>
+													  </div>
+													)
+												  }
+												})
                         // console.log(data);
                     }
                     //console.log("set user data"+JSON.stringify(this.state.profileData))
@@ -570,10 +654,24 @@ getSendedAgreement(){
                     //console.log("data 2: "+JSON.stringify(result.profile))
                     if (data) {
 						$("#loaderDiv").hide();
-						 $("#actionType").val("Yes");
+						 /* $("#actionType").val("Yes");
 						 $("#hiddenURL").val("broker-agreement");
 						 $(".confirm-body").html(data.msg);
-						 $("#BlockUIConfirm").show();
+						 $("#BlockUIConfirm").show() */;
+						 
+						 confirmAlert({
+												  customUI: ({ onClose }) => {
+													return (
+													  <div className='custom-ui'>
+														<h4>Notification</h4>
+														<p>{data.msg}</p>
+														<button onClick={()=>{
+																	this.componentDidMount();
+														onClose()}}>Ok</button>
+													  </div>
+													)
+												  }
+												})
                         // console.log(data);
                     }
                     //console.log("set user data"+JSON.stringify(this.state.profileData))
@@ -628,10 +726,23 @@ getPropertyList() {
                     //console.log("data 2: "+JSON.stringify(result.profile))
                     if (data) {
 						$("#loaderDiv").hide();
-						 $("#actionType").val("Yes");
+						/*  $("#actionType").val("Yes");
 						 $("#hiddenURL").val("agreement");
 						 $(".confirm-body").html(data.msg);
-						 $("#BlockUIConfirm").show();
+						 $("#BlockUIConfirm").show(); */
+						 confirmAlert({
+								  customUI: ({ onClose }) => {
+									return (
+									  <div className='custom-ui'>
+										<h4>Notification</h4>
+										<p>{data.msg}</p>
+										<button onClick={()=>{
+													this.componentDidMount();
+										onClose()}}>Ok</button>
+									  </div>
+									)
+								  }
+								})
                         // console.log(data);
                     }
                     //console.log("set user data"+JSON.stringify(this.state.profileData))
@@ -804,11 +915,23 @@ onClickCheckPermission(){
 					  // var userid = data.user.assets_id
 					  // localStorage.setItem('userid',userid)
 								$("#loaderDiv").hide();
-								$("#actionType").val("Yes");
+								/* $("#actionType").val("Yes");
 								   $("#hiddenURL").val("broker-agreement");
 								   $(".confirm-body").html(data.msg);
-								   $("#BlockUIConfirm").show();
-								  
+								   $("#BlockUIConfirm").show(); */
+								  confirmAlert({
+								  customUI: ({ onClose }) => {
+									return (
+									  <div className='custom-ui'>
+										<h4>Notification</h4>
+										<p>{data.msg}</p>
+										<button onClick={()=>{
+													this.componentDidMount();
+										onClose()}}>Ok</button>
+									  </div>
+									)
+								  }
+								})
 								  // $(".row-dialog-btn").click(function(){
 										// $('#vcreatepermission').show()
 								   // })
@@ -836,11 +959,23 @@ onClickCheckPermission(){
                  if (data) {
                      $("#loaderDiv").hide();
                      if(data.success=='1'){
-                      $("#actionType").val("No");
+                      /* $("#actionType").val("No");
                       $("#hiddenURL").val("broker-agreement");
                       $(".confirm-body").html(data.msg);
-                      $("#BlockUIConfirm").show();
-                      
+                      $("#BlockUIConfirm").show(); */
+                      confirmAlert({
+						  customUI: ({ onClose }) => {
+							return (
+							  <div className='custom-ui'>
+								<h4>Notification</h4>
+								<p>{data.msg}</p>
+								<button onClick={()=>{
+									this.componentDidMount();
+								onClose()}}>Ok</button>
+							  </div>
+							)
+						  }
+						})
                      }else{
                       this.props.history.push({pathname:'/broker-agreement-partner',state:{deal_id:element.deal_id,agreement_title:element.agreement_title,property:element.property,propertyAddress:element.propertyAddress,propertyId:element.property_id,loc:'/broker-agreement'}});
                      }

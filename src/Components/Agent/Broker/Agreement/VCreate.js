@@ -1,5 +1,6 @@
 import React from 'react'
-
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import API_URL from '../../../../app-config'
 import {loadFile} from '../../../js/external'
 import {Link} from 'react-router-dom'
@@ -263,10 +264,22 @@ createAgreement(){
 			  // var userid = data.user.assets_id
 			  // localStorage.setItem('userid',userid)
 						$("#loaderDiv").hide();
-						$("#actionType").val("No");
+						/* $("#actionType").val("No");
 						   $("#hiddenURL").val("/broker-agreement");
 						   $(".confirm-body").html(data.msg);
-						   $("#BlockUIConfirm").show();
+						   $("#BlockUIConfirm").show(); */
+						   confirmAlert({
+									  customUI: ({ onClose }) => {
+										return (
+										  <div className='custom-ui'>
+											<h4>Notification</h4>
+											<p>{data.msg}</p>
+											<button onClick={()=>{
+											onClose()}}>Ok</button>
+										  </div>
+										)
+									  }
+									})
 						   
 				}else if(data.success===0){
 					$("#loaderDiv").show();
@@ -284,12 +297,25 @@ createAgreement(){
 							  // var userid = data.user.assets_id
 							  // localStorage.setItem('userid',userid)
 							  $("#loaderDiv").hide();
-								$("#actionType").val("No");
+								/* $("#actionType").val("No");
 										   //$("#hiddenURL").val("agreement");
 										   $(".confirm-body").html(data.msg);
 										   $("#BlockUIConfirm").show();
 										   // console.log(JSON.stringify(this.props));
-										   this.props.history.push('/broker-agreement');
+										   this.props.history.push('/broker-agreement'); */
+										   confirmAlert({
+											  customUI: ({ onClose }) => {
+												return (
+												  <div className='custom-ui'>
+													<h4>Notification</h4>
+													<p>{data.msg}</p>
+													<button onClick={()=>{
+														this.props.history.push('/broker-agreement');
+													onClose()}}>Ok</button>
+												  </div>
+												)
+											  }
+											})
 							}
 						  
 						  }

@@ -20,6 +20,8 @@ import Pagination from 'react-js-pagination';
   import SendEmail from './SendEmail';
   import Autosuggest from 'react-autosuggest';
 	import $ from "jquery";
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
  // const colourOptions = [
   // { value: '1', label: 'Ocean', color: '#00B8D9', isFixed: true },
   // { value: '2', label: 'Blue', color: '#0052CC', disabled: true },
@@ -333,16 +335,28 @@ class Agent extends React.Component{
 									
 									   
 							}else if(data.success===0){
-								$("#bgvbackground").hide();
+								/* $("#bgvbackground").hide(); */
 								$("#loaderDiv").hide();
-								 $("#background-verifi").hide();
+								/*  $("#background-verifi").hide();
 								 $(".modal-backdrop").hide();
 								 	$("#actionType").val("No");
 									   $("#hiddenURL").val("owner-agent");
 									   $(".confirm-body").html(data.msg);
-									   $("#BlockUIConfirm").show();
+									   $("#BlockUIConfirm").show(); */
 									 
-									   
+								confirmAlert({
+								  customUI: ({ onClose }) => {
+									return (
+									  <div className='custom-ui'>
+										<h4>Notification</h4>
+										<p>{data.msg}</p>
+										<button onClick={()=>{
+													this.props.history.push('/owner-agent')
+										onClose()}}>Ok</button>
+									  </div>
+									)
+								  }
+								})	   
 									 
 							}
 					  }
@@ -445,10 +459,23 @@ class Agent extends React.Component{
         }).then((data) => {
           // console.log('dataaaa:  ', data);
 		  $("#loaderDiv").hide();
-			 $("#actionType").val("Yes");
+			 /* $("#actionType").val("Yes");
 			 $("#hiddenURL").val("owner-agent");
 			 $(".confirm-body").html(data.msg);
-			 $("#BlockUIConfirm").show();
+			 $("#BlockUIConfirm").show() */;
+			 confirmAlert({
+				  customUI: ({ onClose }) => {
+					return (
+					  <div className='custom-ui'>
+						<h4>Notification</h4>
+						<p>{data.msg}</p>
+						<button onClick={()=>{
+									this.componentDidMount();
+						onClose()}}>Ok</button>
+					  </div>
+					)
+				  }
+				})
           /* if(data.msg.indexOf("Invitation send successfully")!=-1 || data.msg.indexOf("Now you both are connected")!=-1)
           {
 			 
@@ -480,10 +507,23 @@ class Agent extends React.Component{
         }).then((data) => {
          // console.log('dataaaa:  ', data);
           $("#loaderDiv").hide();
-			 $("#actionType").val("Yes");
-			 $("#hiddenURL").val("owner-agent");
-			 $(".confirm-body").html(data.msg);
-			 $("#BlockUIConfirm").show();
+			 // $("#actionType").val("Yes");
+			 // $("#hiddenURL").val("owner-agent");
+			 // $(".confirm-body").html(data.msg);
+			 // $("#BlockUIConfirm").show();
+			 confirmAlert({
+				  customUI: ({ onClose }) => {
+					return (
+					  <div className='custom-ui'>
+						<h4>Notification</h4>
+						<p>{data.msg}</p>
+						<button onClick={()=>{
+									this.componentDidMount();
+						onClose()}}>Ok</button>
+					  </div>
+					)
+				  }
+				})
         }).catch((error) => {
           console.log('error: ', error);
         });
@@ -536,7 +576,8 @@ class Agent extends React.Component{
 		this.setState({sendForm:sendFrm})
 		//console.log(this.state.sendForm);
 	}
-	sendMessage(){
+	sendMessage(e){
+		e.preventDefault();
 		// $("#loaderDiv").show();
 		const opts = this.state.sendForm
 		if(!opts.receiver && !opts.message){
@@ -560,10 +601,23 @@ class Agent extends React.Component{
 					// m.style.display='none';
 					$("#loaderDiv").hide();
 					   
-					   $("#actionType").val("Yes");
+					  /*  $("#actionType").val("Yes");
 					   $("#hiddenURL").val("owner-agent");
 					   $(".confirm-body").html(result.msg);
-					   $("#BlockUIConfirm").show();
+					   $("#BlockUIConfirm").show(); */
+					   confirmAlert({
+						  customUI: ({ onClose }) => {
+							return (
+							  <div className='custom-ui'>
+								<h4>Notification</h4>
+								<p>{result.msg}</p>
+								<button onClick={()=>{
+										this.joinedList();	
+								onClose()}}>Ok</button>
+							  </div>
+							)
+						  }
+						})
 				  
 				} 
 				// console.log("notification"+JSON.stringify(this.state.sendForm))
@@ -680,11 +734,23 @@ class Agent extends React.Component{
 			  (result) => {
 				  $("#loaderDiv").hide();
 				if (result.success) {
-				    $("#actionType").val("Yes");
-					 $("#hiddenURL").val("owner-agent");
-					 $(".confirm-body").html(result.msg);
-					 $("#BlockUIConfirm").show();
-				  
+				    // $("#actionType").val("Yes");
+					 // $("#hiddenURL").val("owner-agent");
+					 // $(".confirm-body").html(result.msg);
+					 // $("#BlockUIConfirm").show();
+				  confirmAlert({
+				  customUI: ({ onClose }) => {
+						return (
+						  <div className='custom-ui'>
+							<h4>Notification</h4>
+							<p>{result.msg}</p>
+							<button onClick={()=>{
+										this.componentDidMount();
+							onClose()}}>Ok</button>
+						  </div>
+						)
+					  }
+					})
 				} 
 				
 			  },
@@ -758,7 +824,7 @@ class Agent extends React.Component{
 									  <ul className="list-inline m-t-10 m-b-0 text-right">
 									   {/* item.reportId>0?<li className="bgv-download"><a className="bgv-icon bgv-bg" title="Download" href="#" onClick = {this.BgvDownload.bind(this,item.reportId)}><i className="icon-cloud-download"></i></a> </li>:'' */} 
 									   <li className="list-inline-item"> <a className="bgv-icon"  title="background Verification" href="#" onClick={this.onClickProfile.bind(this,item.profile_id)}><i className="icon-magnifier"></i></a> </li>
-										<li className="list-inline-item"> <a className="mesg-icon" data-toggle="modal" data-target="#send-msg" title="Message" href="#" onClick={this.messagerec.bind(this,item.profile_id,item.name)}><i className="icon-bubble" /></a> </li>
+										<li className="list-inline-item"> <a className="mesg-icon" data-toggle="modal" data-target="#send-msg" title="Message" href="" onClick={this.messagerec.bind(this,item.profile_id,item.name)}><i className="icon-bubble" /></a> </li>
 										<li className="list-inline-item"> <Link to={{"pathname":"/owner-agent-profile",state:{profileid:item.profile_id,session:JSON.parse(this.state.userData).session_id,loc: this.props.location}}} className="view-icon"><i className="icon-eye"></i></Link></li>
 										<li className="list-inline-item"><a style={{cursor:'pointer'}} title="Terminate" onClick = {this.TerminateUser.bind(this,item.profile_id)} className="bgv-icon"><i className="mdi mdi-close"></i></a></li>
 									  </ul>

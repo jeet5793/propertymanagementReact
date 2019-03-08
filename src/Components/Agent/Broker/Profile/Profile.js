@@ -119,6 +119,7 @@ class BrokerProfie extends React.Component{
 		return(
 
 			<div>
+			{profileInfo &&
       <div className="wrapper">
           <div className="container"> 
 		  	   <div className="page-title-box">
@@ -297,7 +298,7 @@ class BrokerProfie extends React.Component{
             {/* end row */} 
           </div>
           {/* end container */} 
-        </div>
+			</div>}
         {/* end wrapper */} 
         {/* Footer */}
         

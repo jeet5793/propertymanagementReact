@@ -28,7 +28,18 @@ export default class PropertySearch extends React.Component{
   }
   searchPropertys(){
     // console.log('nnooo', this.state);
+	
     var opts=this.state
+	 if(opts.min_price){
+		 if(!opts.property_status){
+				return alert('Property status must be selected.');
+	  }
+	}	  
+	if(opts.max_price){	  
+		  if(!opts.property_status){
+				return alert('Property status must be selected.');
+		}
+	  }
        // if(this.state.property_status!=='')
     fetch(`${API_URL}assetsapi/property_search`, {
       method: 'POST',    
@@ -70,7 +81,7 @@ export default class PropertySearch extends React.Component{
               </div>
               <div className="form">
                 <div>
-                  <input onChange={this.onChangeHandler} type="text" className="cbp-search-input" id="keyword" name="keyword"  placeholder="Enter your keyword..." />
+                  <input onChange={this.onChangeHandler} type="text" className="cbp-search-input" id="keyword" name="keyword"  placeholder="Enter property..." />
                 </div>
                 <div>
                   <input onChange={this.onChangeHandler} type="text" className="cbp-search-input " id="city" name="city"  placeholder="City or State" />
@@ -80,20 +91,20 @@ export default class PropertySearch extends React.Component{
                 <div>
                   <label>
                     <select name="property_type" onChange={this.onChangeHandler} className="cbp-search-select">
-                      <option>Type</option>
-                      <option  value="house" >House</option>
-                      <option  value="flat" >Flat</option>
+						<option selected="" value="">Type</option>
+						<option value="priApartment">Private Apartment</option>
+						<option value="Apartment">Apartment</option>
+						<option value="house">House</option>
+						<option value="Flat">Flat</option>
                     </select>
                    </label> 
                 </div>
                 <div>
                   <label>
                     <select name="property_status" onChange={this.onChangeHandler} className="cbp-search-select">
-                      <option  value="">Status</option>
-                      <option  value="Rent">Rent</option>
-                      <option  value="Sale">Sale</option>
-                      <option  value="Sold">Sold</option>
-                      <option  value="Rented">Rented</option>
+						<option value="">Status</option>
+						<option value="Rent">For Rent</option>
+						<option value="Sale">For Sale</option>
                     </select>
                   </label>
                 </div>

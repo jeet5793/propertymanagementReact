@@ -1,5 +1,6 @@
 import React from 'react'
-
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import API_URL from '../../../app-config'
 //import {loadFile} from '../../js/external'
 // import './style.css'
@@ -256,10 +257,23 @@ editAgreement(){
 		  // swal("Assets Watch", data.msg);
          // window.location.reload()
 		 $("#loaderDiv").hide();
-			$("#actionType").val("Yes");
-					   $("#hiddenURL").val("agreement");
-					   $(".confirm-body").html(data.msg);
-					   $("#BlockUIConfirm").show();
+			// $("#actionType").val("Yes");
+					   // $("#hiddenURL").val("agreement");
+					   // $(".confirm-body").html(data.msg);
+					   // $("#BlockUIConfirm").show();
+			confirmAlert({
+				  customUI: ({ onClose }) => {
+					return (
+					  <div className='custom-ui'>
+						<h4>Notification</h4>
+						<p>{data.msg}</p>
+						<button onClick={()=>{
+									this.props.history.push('/agreement')
+						onClose()}}>Ok</button>
+					  </div>
+					)
+				  }
+				})
         }
       }
     ).catch((error) => {

@@ -9,7 +9,8 @@ import {Link} from 'react-router-dom'
 // import DatePicker from 'react-datetime-picker';
 import 'react-date-picker/dist/DatePicker.css';
 import DatePicker from 'react-date-picker';
-
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
 import $ from 'jquery';
  class ProfileInfo extends React.Component{
@@ -184,10 +185,23 @@ import $ from 'jquery';
         }).then((data) => {
           //console.log('dataaaa:  ', data);
 						$("#loaderDiv").hide();
-						$("#actionType").val("No");
-					   $("#hiddenURL").val("settings");
-					   $(".confirm-body").html(data.msg);
-					   $("#BlockUIConfirm").show();
+						// $("#actionType").val("No");
+					   // $("#hiddenURL").val("settings");
+					   // $(".confirm-body").html(data.msg);
+					   // $("#BlockUIConfirm").show();
+					   confirmAlert({
+						  customUI: ({ onClose }) => {
+							return (
+							  <div className='custom-ui'>
+								<h4>Notification</h4>
+								<p>{data.msg}</p>
+								<button onClick={()=>{
+											this.componentDidMount();
+								onClose()}}>Ok</button>
+							  </div>
+							)
+						  }
+						})
 					   //this.setState({profile:this.state.profile})
 					   this.props.history.push('/profile');
 					   

@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import Cookies from 'js-cookie';
 import swal from 'sweetalert';
 import $ from 'jquery';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
  class PasswordSettings extends React.Component{
 	constructor(props){
     super(props)
@@ -84,10 +86,23 @@ import $ from 'jquery';
 			// window.location.reload();
 			$("#loaderDiv").hide();
 					   
-					   $("#actionType").val("Yes");
-					   $("#hiddenURL").val("agentprovider-settings");
-					   $(".confirm-body").html(data.msg);
-					   $("#BlockUIConfirm").show();
+					   // $("#actionType").val("Yes");
+					   // $("#hiddenURL").val("agentprovider-settings");
+					   // $(".confirm-body").html(data.msg);
+					   // $("#BlockUIConfirm").show();
+					   confirmAlert({
+						  customUI: ({ onClose }) => {
+							return (
+							  <div className='custom-ui'>
+								<h4>Notification</h4>
+								<p>{data.msg}</p>
+								<button onClick={()=>{
+											this.props.history.push('/agentprovider-settings')
+								onClose()}}>Ok</button>
+							  </div>
+							)
+						  }
+						})
           }
        
         }).catch((error) => {

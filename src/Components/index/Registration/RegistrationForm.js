@@ -5,6 +5,8 @@ import RadiBtns from "react-radio-button-group";
 import API_URL from "../../../app-config";
 import Cookies from 'js-cookie';
 import { setUser } from '../../../actions';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 export default class RegistrationForm extends React.Component {
   constructor(props) {
     super(props);
@@ -159,10 +161,23 @@ export default class RegistrationForm extends React.Component {
 					}
 					if(data.user.agentType!='' && data.user.agentType=='Service Provider')
 					{
-						$("#actionType").val("No");
-						  $(".confirm-body").html("Registered Successfully");
-						$("#SBlockUIConfirm").show();
-						this.props.history.replace(`/`);
+						// $("#actionType").val("No");
+						  // $(".confirm-body").html("Registered Successfully");
+						// $("#SBlockUIConfirm").show();
+						// this.props.history.replace(`/`);
+						confirmAlert({
+						  customUI: ({ onClose }) => {
+							return (
+							  <div className='custom-ui'>
+								<h4>Notification</h4>
+								<p>Registered Successfully</p>
+								<button onClick={()=>{
+											this.props.history.push('/')
+								onClose()}}>Ok</button>
+							  </div>
+							)
+						  }
+						})
 					}else{
 						 this.props.history.replace(`/register-plans?Datatype=${userType}`);
 					}
@@ -198,34 +213,86 @@ export default class RegistrationForm extends React.Component {
 
 													if(result.profile.assets_type==="1"){
 													 // this.props.history.push('/user')
-																$("#actionType").val("Yes");
+																/* $("#actionType").val("Yes");
 																	$("#hiddenURL").val("/user");
 																   $(".confirm-body").html("Registered Successfully");
-																   $("#SBlockUIConfirm").show();
+																   $("#SBlockUIConfirm").show(); */
+																   confirmAlert({
+																	  customUI: ({ onClose }) => {
+																		return (
+																		  <div className='custom-ui'>
+																			<h4>Notification</h4>
+																			<p>Registered Successfully</p>
+																			<button onClick={()=>{
+																						this.props.history.push('/user')
+																			onClose()}}>Ok</button>
+																		  </div>
+																		)
+																	  }
+																   });
 													}else if(result.profile.assets_type==="2"){
 														if(response.userdata.agentType==="Broker")
 														{
 															// this.props.history.push('/agent-broker')
-															$("#actionType").val("Yes");
+															/* $("#actionType").val("Yes");
 																	$("#hiddenURL").val("/agent-broker");
 																   $(".confirm-body").html("Registered Successfully");
-																   $("#SBlockUIConfirm").show();
+																   $("#SBlockUIConfirm").show(); */
+																   confirmAlert({
+																	  customUI: ({ onClose }) => {
+																		return (
+																		  <div className='custom-ui'>
+																			<h4>Notification</h4>
+																			<p>Registered Successfully</p>
+																			<button onClick={()=>{
+																						this.props.history.push('/agent-broker')
+																			onClose()}}>Ok</button>
+																		  </div>
+																		)
+																	  }
+																	});
 														}
 														else{
 															// this.props.history.push('/agent-serviceprovider')
-															$("#actionType").val("Yes");
+															/* $("#actionType").val("Yes");
 																	$("#hiddenURL").val("/agent-serviceprovider");
 																   $(".confirm-body").html("Registered Successfully");
-																   $("#SBlockUIConfirm").show();
+																   $("#SBlockUIConfirm").show(); */
+																  confirmAlert({
+																	  customUI: ({ onClose }) => {
+																		return (
+																		  <div className='custom-ui'>
+																			<h4>Notification</h4>
+																			<p>Registered Successfully</p>
+																			<button onClick={()=>{
+																						this.props.history.push('/agent-serviceprovider')
+																			onClose()}}>Ok</button>
+																		  </div>
+																		)
+																	  }
+																 });
 														}
 													   
 													}else{
 														
 														// this.props.history.push('/tenant')
-														$("#actionType").val("Yes");
+														/* $("#actionType").val("Yes");
 																	$("#hiddenURL").val("/tenant");
 																   $(".confirm-body").html("Registered Successfully");
-																   $("#SBlockUIConfirm").show();
+																   $("#SBlockUIConfirm").show(); */
+														confirmAlert({
+																	  customUI: ({ onClose }) => {
+																		return (
+																		  <div className='custom-ui'>
+																			<h4>Notification</h4>
+																			<p>Registered Successfully</p>
+																			<button onClick={()=>{
+																						this.props.history.push('/tenant')
+																			onClose()}}>Ok</button>
+																		  </div>
+																		)
+																	  }
+															 });
 													}
 												} else {
 													this.props.setUser(response.userdata, result.profile);

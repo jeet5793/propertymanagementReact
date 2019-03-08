@@ -4,6 +4,8 @@ import $ from 'jquery'
 import API_URL from "../../../../app-config";
 import Cookies from 'js-cookie';
 import swal from 'sweetalert';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 export default class BrokerPayment extends React.Component{
 	constructor(props) {
     super(props);
@@ -351,10 +353,23 @@ export default class BrokerPayment extends React.Component{
         })
         .then((data) => {
 			$("#loaderDiv").hide();
-			 $(".confirm-body").html(data.msg);
+			 /* $(".confirm-body").html(data.msg);
 			 $("#actionType").val("Yes");
 			$("#hiddenURL").val("broker-payment");
-		   $("#BlockUIConfirm").show();
+		   $("#BlockUIConfirm").show() */;
+		   confirmAlert({
+						  customUI: ({ onClose }) => {
+							return (
+							  <div className='custom-ui'>
+								<h4>Notification</h4>
+								<p>{data.msg}</p>
+								<button onClick={()=>{
+											this.props.history.push('/broker-payment')
+								onClose()}}>Ok</button>
+							  </div>
+							)
+						  }
+						})
           /* if(data.success)
           {
 			// swal("Assets Watch", data.msg);
@@ -429,10 +444,23 @@ ActiveDeactive(id,status){
 			//console.log(result);
 			// this.setState({enrollInfo:result.enroll_info});
 				$("#loaderDiv").hide();
-			 $(".confirm-body").html(result.msg);
+			/*  $(".confirm-body").html(result.msg);
 			 $("#actionType").val("Yes");
 			$("#hiddenURL").val("owner-payment");
-			 $("#BlockUIConfirm").show();
+			 $("#BlockUIConfirm").show(); */
+			 confirmAlert({
+						  customUI: ({ onClose }) => {
+							return (
+							  <div className='custom-ui'>
+								<h4>Notification</h4>
+								<p>{result.msg}</p>
+								<button onClick={()=>{
+											this.props.history.push('/broker-payment')
+								onClose()}}>Ok</button>
+							  </div>
+							)
+						  }
+						})
 		   
           },
           (error) => {

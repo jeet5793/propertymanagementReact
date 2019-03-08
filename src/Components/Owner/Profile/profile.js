@@ -161,6 +161,7 @@ class Profile extends React.Component {
 
         <div>
           {/* <link rel='stylesheet' href='../../../css/style.css' type='text/css' media='all' /> */}
+			  {profileInfo &&
           <div  className="wrapper">
             <div className="container"> 
               <div className="page-title-box">
@@ -352,7 +353,7 @@ class Profile extends React.Component {
               
             </div>
             {/*<!-- end container --> */}
-          </div>
+			  </div>}
         </div>
       );
     }

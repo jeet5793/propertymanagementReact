@@ -7,7 +7,8 @@ import { connect } from 'react-redux';
 import API_URL from "../../../app-config";
 import swal from 'sweetalert';
 import $ from 'jquery';
-
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import ServiceRequested from './ServiceRequested';
 import ServiceCreate from './ServiceCreate';
 import ServiceResolved from './ServiceResolved';
@@ -227,14 +228,30 @@ class Service extends React.Component {
                  m.style.display='none';
                  window.location.reload(); */
                 $("#loaderDiv").hide();
-                $("#actionType").val("No");
+				confirmAlert({
+				  customUI: ({ onClose }) => {
+					return (
+					  <div className='custom-ui'>
+						<h4>Notification</h4>
+						<p>{data.msg}</p>
+						<button onClick={()=>{
+									document.getElementById('ServiceView').reset();
+									this.setState({
+										value: ''
+									});
+						onClose()}}>Ok</button>
+					  </div>
+					)
+				  }
+				})
+                /* $("#actionType").val("No");
                 $("#hiddenURL").val("service");
                 $(".confirm-body").html(data.msg);
                 $("#BlockUIConfirm").show();
 				document.getElementById('ServiceView').reset();
 				this.setState({
 						value: ''
-					});
+					}); */
                 //alert(m);
             }
 

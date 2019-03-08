@@ -5,7 +5,8 @@ import Cookies from 'js-cookie';
 //import img_not_available from '../../../images/img_not_available.png'
 import $ from 'jquery';
 
-
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
 export default class MyDocuments extends React.Component{
 	constructor(props) {
@@ -61,7 +62,48 @@ export default class MyDocuments extends React.Component{
 	onClickDelete(id){
 		 var assets_id=JSON.parse(this.state.userData).assets_id;
 		 var session_id=JSON.parse(this.state.userData).session_id;
-		 $(".confirm-body").html("Do you want to delete socument..?");
+		 confirmAlert({
+		  customUI: ({ onClose }) => {
+			return (
+			  <div className='custom-ui'>
+				<h4>Are you sure?</h4>
+				<p>You want to delete this document?</p>
+				<button onClick={onClose}>No</button>
+				<button onClick={() => {
+					// this.handleClickDelete()
+					// onClose()
+					$("#loaderDiv").show();
+									  fetch(`${API_URL}assetsapi/delete_document/`+assets_id+`/`+id+`/`+session_id, {
+										method: 'GET',          
+										}).then((response) => {
+										  return response.json();
+										}).then((data) => {
+										  $("#loaderDiv").hide();
+											 if(data){
+												let message =  data.msg
+												 confirmAlert({
+													  customUI: ({ onClose }) => {
+														return (
+														  <div className='custom-ui'>
+															<p>{message}</p>
+															<button onClick={()=>{
+															this.setState({ListofDoc:data.documentList});
+															onClose()}}>Ok</button>
+														  </div>
+														)
+													  }
+													})
+												
+											 }
+										}).catch((error) => {
+										  console.log('error: ', error);
+										});
+				}}>Yes, Delete it!</button>
+			  </div>
+			)
+		  }
+		}) 
+		 /* $(".confirm-body").html("Do you want to delete socument..?");
 		$("#DelBlockUIConfirm").show();
 		$(".row-dialog-btn").click(function(){
 						const action = this.value;
@@ -90,7 +132,7 @@ export default class MyDocuments extends React.Component{
 						}else{
 							$("#DelBlockUIConfirm").hide();
 						}
-		});
+		}); */
 		
 	}
 	back(){
@@ -113,10 +155,22 @@ export default class MyDocuments extends React.Component{
 				//console.log('dataaaa:  ', data);
 				if(data.success===1){
 							$("#loaderDiv").hide();
-							  $("#actionType").val("No");
+							  /* $("#actionType").val("No");
 							    //$("#hiddenURL").val("saved");
 								  $(".confirm-body").html(data.msg);
-								  $("#BlockUIConfirm").show();
+								  $("#BlockUIConfirm").show(); */
+							confirmAlert({
+								  customUI: ({ onClose }) => {
+									return (
+									  <div className='custom-ui'>
+										<h4>Notification</h4>
+										<p>{data.msg}</p>
+										<button onClick={()=>{
+										onClose()}}>Ok</button>
+									  </div>
+									)
+								  }
+								})
 							   
 							   
 					}else{
