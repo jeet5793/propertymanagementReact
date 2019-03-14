@@ -10,7 +10,7 @@ import $ from 'jquery';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
  import Select from 'react-select';
-
+import Pagination from 'react-js-pagination';
  
 export default class ConnectedOwnerProperty extends React.Component{
 	constructor(props){
@@ -26,12 +26,15 @@ this.imgServer=API_URL,
 		   propertyDetail:[],
 		    reportStatus:false,
 			selectedOption: null,
-			propertyOwnerList:[]
+			propertyOwnerList:[],
+			activePage:1,
+			itemsCountPerPage: 10,
 			
 		}
 		this.onClickDownload = this.onClickDownload.bind(this);
 		this.viewProperty = this.viewProperty.bind(this);
 		this.userList =this.userList.bind(this);
+		 this.handlePageChange = this.handlePageChange.bind(this);
 	}
 	componentDidMount(){
 		const profile=JSON.parse(this.state.userData)
@@ -47,6 +50,9 @@ this.imgServer=API_URL,
             //console.log("data 2: "+JSON.stringify(result.profile))
             if (result.success) {
               this.setState({property:result.connected_owner_properties,propertiesLoading:true})
+			  if(this.state.property){
+				  this.handlePageChange(this.state.activePage);
+			  }
               
             } 
              // console.log("set user data"+JSON.stringify(this.state.property))
@@ -57,6 +63,16 @@ this.imgServer=API_URL,
       )
 	  this.userList();
 	}
+	handlePageChange = (pageNum) => {
+	  let number = pageNum - 1;
+	  
+			 // console.log('pageNum'+pageNum+'::propData'+JSON.stringify(this.state.properties))
+			const { property, itemsCountPerPage } = this.state;
+			var propData = property.slice((itemsCountPerPage * number), (itemsCountPerPage * pageNum));
+			
+			this.setState({pagedList: propData,activePage: pageNum});
+		
+  }
 	userList(){
 		
 		$("#loaderDiv").show();
@@ -72,7 +88,7 @@ this.imgServer=API_URL,
               this.setState({propertyOwnerList:result.propertyOwnerList})
               
             } 
-              console.log("set user data"+JSON.stringify(this.state.propertyOwnerList))
+              //console.log("set user data"+JSON.stringify(this.state.propertyOwnerList))
           },
         (error) => {
           console.log('error')
@@ -156,11 +172,12 @@ this.imgServer=API_URL,
 				//console.log("data 2: "+JSON.stringify(result.profile))
 				if (result.success=='1') {
 				  this.setState({property:result.filterowner_property})
+				   this.handlePageChange(this.state.activePage);
 				  
 				}else{
 					 this.setState({property:[]})
 				} 
-				  console.log("set user data"+JSON.stringify(this.state.property))
+				  //console.log("set user data"+JSON.stringify(this.state.property))
 			  },
 			(error) => {
 			  console.log('error')
@@ -178,7 +195,7 @@ this.imgServer=API_URL,
 	render(){
 const imgSer=this.imgServer
 
-
+const pagePropertyList= this.state.pagedList;
 		return(
 			<div>
         {/* Navigation Bar*/}
@@ -211,7 +228,7 @@ const imgSer=this.imgServer
 					
 					</div> }
 
-			   {this.state.property && this.state.property.length>0?
+			   {pagePropertyList && pagePropertyList.length>0?
                     
 					
 					<div>
@@ -235,7 +252,7 @@ const imgSer=this.imgServer
                                 </tr>
                             </thead>
                             <tbody>
-                           { this.state.property.map(element=>(
+                           { pagePropertyList.map(element=>(
                                     <tr>
                                         <td>
                                             <img onError={this.addDefaultSrc} src={(element.img_path && element.img_path.length>0)?imgSer+element.img_path:img_not_available} alt="contact-img" title="contact-img" className="rounded-circle property-img" />
@@ -266,6 +283,17 @@ const imgSer=this.imgServer
                         </div>
                     </div>
                     </div>
+					 <div className='wp-pagenavi'> 
+					{(this.state.property.length>0)?
+                          <Pagination
+                              activePage={this.state.activePage}
+                              itemsCountPerPage={this.state.itemsCountPerPage}
+                              totalItemsCount={this.state.property.length}
+                              pageRangeDisplayed={5}
+                              activeLinkClass={'btn-success'}
+                              onChange={this.handlePageChange}
+                          />:''}
+				</div>
 					</div>
                     :<div className="container"><div style={{textAlign:'center'}} colSpan={7}>No Property Added</div></div>
                 }

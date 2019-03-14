@@ -197,13 +197,14 @@ import $ from 'jquery';
 								<p>{data.msg}</p>
 								<button onClick={()=>{
 											this.componentDidMount();
+											this.props.history.push('/profile');
 								onClose()}}>Ok</button>
 							  </div>
 							)
 						  }
 						})
 					   //this.setState({profile:this.state.profile})
-					   this.props.history.push('/profile');
+					  // this.props.history.push('/profile');
 					   
         }).catch((error) => {
           console.log('error: ', error);

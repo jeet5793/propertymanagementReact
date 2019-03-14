@@ -11,6 +11,8 @@ import ServiceProviderNotifications from '../Notifications/ServiceProviderNotifi
 import Plan from '../UpgradePlan/Plan';
 import Upgrade from '../UpgradePlan/Payment';
 import Cookies from 'js-cookie';
+import ProfileEdit from '../Settings/profileInfo';
+import ChangePassword from '../Settings/passwordSetting';
 //import API_URL from '../../../app-config';
 
 import { Switch, Route } from 'react-router';
@@ -73,6 +75,8 @@ class AgentBrokerDashboard extends React.Component {
 			<Route exact path='/agentprovider-notifications' component={ServiceProviderNotifications} />
 			<Route exact path='/agentprovider-plan' component={Plan} />
 			<Route exact path='/agentprovider-upgrade' component={Upgrade} />
+			<Route exact path='/agentprovider-profile-edit' component={ProfileEdit} />
+			<Route exact path='/agentprovider-change-password' component={ChangePassword} />
           </Switch>
 
           <Footer />

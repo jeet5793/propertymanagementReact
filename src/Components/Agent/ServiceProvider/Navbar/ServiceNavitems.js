@@ -4,7 +4,7 @@ import Link from 'react-router-dom/Link';
 
 export default class ServiceNavitems extends Component{
     GetItems(){
-        if(this.props.name==="agent-serviceprovider")
+        if(this.props.name==="agent-serviceprovider" || this.props.name==="agentprovider-profile-edit")
             {
             return( <ul className="navigation-menu">            
                 
@@ -86,7 +86,7 @@ export default class ServiceNavitems extends Component{
                 </ul>
             );
             }
-        else if(this.props.name==="agentprovider-settings")
+        else if(this.props.name==="agentprovider-settings" || this.props.name==="agentprovider-change-password")
             {
             return( 
                 <ul className="navigation-menu">            

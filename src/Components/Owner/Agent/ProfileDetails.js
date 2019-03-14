@@ -276,8 +276,9 @@ class ProfileDetails extends React.Component{
 	// }
 	// ))
         return(
+		(this.state.profileData) &&
             <div>
-                
+			
                 <div className="wrapper">
                 <div className="container"> 
                     
@@ -630,8 +631,8 @@ class ProfileDetails extends React.Component{
 				  </div>
 				</div>
 				
-				
-            </div>
+			
+		</div>
         );        
     }
 }

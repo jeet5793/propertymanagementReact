@@ -97,9 +97,14 @@ class ServiceProfie extends React.Component{
 		return(
 
 			 <div>
-       
-       <div  style={{marginTop:'3%',marginBottom:'5%'}} className="wrapper">
+			 {profileInfo &&
+       <div className="wrapper">
           <div className="container"> 
+		   <div className="page-title-box">
+					<h4 className="page-title">Profile <Link to={{ pathname: '/agentprovider-profile-edit' }} className="btn btn-custom waves-light waves-effect w-md btn-group pull-right"><i className="fa fa-edit"></i>&nbsp;&nbsp;Edit Profile</Link></h4>
+					
+			
+				</div>
             {/* end page title end breadcrumb */}
             <div className="row">
               <div className="col-sm-12">
@@ -212,7 +217,7 @@ class ServiceProfie extends React.Component{
             {/* end row */} 
           </div>
           {/* end container */} 
-        </div>
+			 </div>}
         {/* end wrapper */} 
         {/* Footer */}
        

@@ -1,7 +1,8 @@
 import React from 'react';
 import './ServiceProviderSettings.css';
-import ProfileInfo from './profileInfo'
-import PasswordSettings from './passwordSetting'
+//import ProfileInfo from './profileInfo'
+import EmailSMSSettings from './EmailSMSSettings'
+// import PasswordSettings from './passwordSetting'
 import { connect } from 'react-redux';
 import $ from 'jquery'
 class ServiceProviderSettings extends React.Component{
@@ -12,13 +13,13 @@ class ServiceProviderSettings extends React.Component{
       }
  
 	}
-	changeTabs(id){
+	/* changeTabs(id){
     if(id=="profile-info"){
       $("#passwordTab").removeClass("active")
     }else{
       $("#profileTab").removeClass("active")
-    }
-  }
+    } 
+  }*/
 	render(){
 		return(
 			  <div>
@@ -37,13 +38,15 @@ class ServiceProviderSettings extends React.Component{
                         <div className="card-box" enctype="multipart/form-data">
                           <form id="default-wizard" encType="multipart/form-data">
                           <ul className="nav nav-pills navtab-bg "> {/*nav-justified */}
-                              <li className="nav-item"> <a id="profileTab" onClick={this.changeTabs.bind(this,"profile-info")} href="#profile-info" data-toggle="tab" aria-expanded="false" className="nav-link active"> Profile Information </a> </li>
+                                 {/*  <li className="nav-item"> <a id="profileTab" onClick={this.changeTabs.bind(this,"profile-info")} href="#profile-info" data-toggle="tab" aria-expanded="false" className="nav-link active"> Profile Information </a> </li>
                               
-                              <li className="nav-item" id="passNavItem"> <a id="passwordTab" onClick={this.changeTabs.bind(this,"password-settings")} href="#password-settings" data-toggle="tab" aria-expanded="false" className="nav-link"> Password Setting </a> </li>
-                            </ul>
+                          <li className="nav-item" id="passNavItem"> <a id="passwordTab" onClick={this.changeTabs.bind(this,"password-settings")} href="#password-settings" data-toggle="tab" aria-expanded="false" className="nav-link"> Password Setting </a> </li>
+							  */ }     </ul>
                             <div className="tab-content set-form">
-                              <ProfileInfo />
-                              <PasswordSettings />
+                              {/*<ProfileInfo />
+							   
+                              <PasswordSettings />*/}
+							  <EmailSMSSettings /> 
                             </div>                            
                           </form>
                         </div>

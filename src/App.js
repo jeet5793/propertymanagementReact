@@ -296,6 +296,8 @@ export default class App extends Component {
 			<Route path='/agentprovider-notifications' component={AgentServiceProviderDashboard} />
 			<Route path='/agentprovider-plan' component={AgentServiceProviderDashboard} />
 			<Route path='/agentprovider-upgrade' component={AgentServiceProviderDashboard} />
+			<Route path='/agentprovider-profile-edit' component={AgentServiceProviderDashboard} />
+			<Route path='/agentprovider-change-password' component={AgentServiceProviderDashboard} />
 
             {/* Tenant Dashboard */}
             <Route path='/tenant-profile' component={TenantDashboard} />

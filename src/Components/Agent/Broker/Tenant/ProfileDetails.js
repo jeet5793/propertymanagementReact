@@ -151,6 +151,7 @@ BgvDownload(reportId){
         // window.location.href='http://'+window.location.host
 	//console.log(this.props.location.state)
         return(
+		(this.state.profileData) &&
             <div>
                
                 <div className="wrapper">

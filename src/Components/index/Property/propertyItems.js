@@ -73,7 +73,9 @@ export default class PropertyItems extends React.Component{
 							<a onClick = {()=>this.props.onClickPropertyDetail(this.props.id)} className="btn pull-right tz-view" rel="nofollow">VIEW DETAILS</a></span> </div>
 							
 						</div>
+						
 							</div>
+							
 						</div>
         );
     }
