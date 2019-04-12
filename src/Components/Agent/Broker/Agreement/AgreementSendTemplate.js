@@ -209,10 +209,36 @@ export default class AgreementSendTemplate extends React.Component{
 		e.preventDefault();
 		const profile=JSON.parse(this.state.userData)
 		if(!this.state.property_option){
-		  return alert("Choose atleast one Property from deal or Property from connected owners's.!!!");
+			 confirmAlert({
+							  customUI: ({ onClose }) => {
+								return (
+								  <div className='custom-ui'>
+									<h4>Notification</h4>
+									<p>Property must be selected. May be you don't have properties available to select or you have not selected any property!!!</p>
+									<button onClick={()=>{
+										this.componentDidMount();
+									onClose()}}>Ok</button>
+								  </div>
+								)
+							  }
+							})
+
 	  }
       if(!this.state.property_id){
-		  return alert('Property must be selected.!!!');
+		   confirmAlert({
+							  customUI: ({ onClose }) => {
+								return (
+								  <div className='custom-ui'>
+									<h4>Notification</h4>
+									<p>Choose atleast one from deal or from connected owners's.!!!</p>
+									<button onClick={()=>{
+										this.componentDidMount();
+									onClose()}}>Ok</button>
+								  </div>
+								)
+							  }
+							})
+		  
 	  }
     //  console.log("user id"+JSON.stringify(profile))
       let { property_id, sender_id, receive_user_id, description,paid_to } = this.state;

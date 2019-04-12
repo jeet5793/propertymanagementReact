@@ -50,7 +50,7 @@ import NoMatch from './Components/Owner/NoMatch'
 
 import { loadFile, removejscssfile } from './Components/js/external'
 import Cookies from 'js-cookie';
-
+import API_URL from "./app-config";
 
 const MINUTES_UNITL_AUTO_LOGOUT = 15 // in mins
 const CHECK_INTERVAL = 15000 // in ms
@@ -111,7 +111,20 @@ export default class App extends Component {
     const diff = timeleft - now;
     const isTimeout = diff < 0;
     if (isTimeout) {
-      alert('logout'); // Call here logout function, expire session
+      //alert('logout'); // Call here logout function, expire session
+	  let userId = JSON.parse(this.state.userData).assets_id;
+	  fetch(`${API_URL}assetsapi/signout/`+userId, {
+			method: 'get'
+		  })
+		  .then(res => res.json())
+		  .then(
+			(result) => {
+			// console.log(JSON.stringify(result));
+			},
+		  (error) => {
+			console.log('error')
+			}
+			)
       localStorage.clear();
       Cookies.set('profile_data', '', -1);
       //this.props.history.push('/');
