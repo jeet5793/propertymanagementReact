@@ -97,7 +97,7 @@ export default class ContactForm extends React.Component {
         let formIsValid = true;
 
         //Name
-        if(!fields["name"]){
+        if(!fields["name"] || (fields["name"]).trim() == ""){
            formIsValid = false;
            errors["name"] = "Cannot be empty";
         }
@@ -110,7 +110,7 @@ export default class ContactForm extends React.Component {
         // }
 
         //Email
-        if(!fields["email"]){
+        if(!fields["email"] || (fields["email"]).trim() == ""){
            formIsValid = false;
            errors["email"] = "Cannot be empty";
         }
@@ -124,7 +124,7 @@ export default class ContactForm extends React.Component {
               errors["email"] = "Email is not valid";
             }
        } 
-		if(!fields["phone"]){
+		if(!fields["phone"] || (fields["phone"]).trim() == ""){
            formIsValid = false;
            errors["phone"] = "Cannot be empty";
         }else if (typeof fields["phone"] !== "undefined") {
@@ -135,15 +135,15 @@ export default class ContactForm extends React.Component {
           
         }
       }
-		if(!fields["contactfor"]){
+		if(!fields["contactfor"] || (fields["contactfor"]).trim() == ""){
            formIsValid = false;
            errors["contactfor"] = "Cannot be empty";
         }
-		if(!fields["subject"]){
+		if(!fields["subject"] || (fields["subject"]).trim() == ""){
            formIsValid = false;
            errors["subject"] = "Cannot be empty";
         }
-		if(!fields["message"]){
+		if(!fields["message"] || (fields["message"]).trim() == ""){
            formIsValid = false;
            errors["message"] = "Cannot be empty";
         }
